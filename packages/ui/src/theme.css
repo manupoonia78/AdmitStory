@@ -1,0 +1,176 @@
+/*
+ * Tailwind v4 theme for AdmitStory. Import AFTER tailwindcss in apps/web:
+ *
+ *   @import "tailwindcss";
+ *   @import "@admitstory/ui/theme.css";
+ *
+ * The default palette, fonts, type scale, radii and shadows are cleared so only
+ * design tokens produce utilities (bg-paper, text-slate, rounded-panel, shadow-overlay…).
+ */
+
+@import "./tokens.css";
+
+/* Scan this package's components so their class names are generated in the app build. */
+@source "./";
+@source not "./**/*.test.{ts,tsx}";
+
+/* Explicit choice wins; with no choice, follow the system (spec §6.9). */
+@custom-variant dark {
+  &:where([data-theme="dark"], [data-theme="dark"] *) {
+    @slot;
+  }
+  @media (prefers-color-scheme: dark) {
+    &:where(:root:not([data-theme="light"]), :root:not([data-theme="light"]) *) {
+      @slot;
+    }
+  }
+}
+
+/* Breakpoints (spec §6.9): mobile < 640, tablet 640–1023, laptop 1024–1279, desktop 1280+. */
+@theme {
+  --breakpoint-*: initial;
+  --breakpoint-sm: 40rem;
+  --breakpoint-lg: 64rem;
+  --breakpoint-xl: 80rem;
+
+  --animate-drawer-in: drawer-in var(--duration-drawer) var(--ease-calm);
+  --animate-drawer-out: drawer-out var(--duration-drawer) var(--ease-calm);
+  --animate-scrim-in: scrim-in var(--duration-drawer) var(--ease-calm);
+  --animate-scrim-out: scrim-out var(--duration-drawer) var(--ease-calm);
+
+  @keyframes drawer-in {
+    from {
+      transform: translateX(100%);
+    }
+  }
+  @keyframes drawer-out {
+    to {
+      transform: translateX(100%);
+    }
+  }
+  @keyframes scrim-in {
+    from {
+      opacity: 0;
+    }
+  }
+  @keyframes scrim-out {
+    to {
+      opacity: 0;
+    }
+  }
+}
+
+/*
+ * Runtime tokens. `inline` makes utilities reference the token directly;
+ * `reference` stops Tailwind re-declaring same-named variables (e.g. --font-ui),
+ * which would otherwise shadow tokens.css with a self-reference.
+ */
+@theme inline reference {
+  --color-*: initial;
+  --color-paper: var(--paper);
+  --color-mist: var(--mist);
+  --color-line: var(--line);
+  --color-graphite: var(--graphite);
+  --color-slate: var(--slate);
+  --color-ink: var(--ink);
+  --color-ink-soft: var(--ink-soft);
+  --color-highlighter: var(--highlighter);
+  --color-record: var(--record);
+  --color-verified: var(--verified);
+  --color-needs: var(--needs);
+  --color-risk: var(--risk);
+  --color-scrim: var(--scrim);
+
+  --font-*: initial;
+  --font-ui: var(--font-ui);
+  --font-reading: var(--font-reading);
+
+  --text-*: initial;
+  --text-sm: var(--type-small);
+  --text-sm--line-height: var(--type-small-leading);
+  --text-base: var(--type-body);
+  --text-base--line-height: var(--type-body-leading);
+  --text-lg: var(--type-lead);
+  --text-lg--line-height: var(--type-lead-leading);
+  --text-xl: var(--type-title);
+  --text-xl--line-height: var(--type-title-leading);
+  --text-2xl: var(--type-heading);
+  --text-2xl--line-height: var(--type-heading-leading);
+  --text-3xl: var(--type-display);
+  --text-3xl--line-height: var(--type-display-leading);
+  --text-4xl: var(--type-hero);
+  --text-4xl--line-height: var(--type-hero-leading);
+  --text-essay: var(--type-essay);
+  --text-essay--line-height: var(--type-essay-leading);
+  --text-essay-wide: var(--type-essay-wide);
+  --text-essay-wide--line-height: var(--type-essay-wide-leading);
+
+  --radius-*: initial;
+  --radius-control: var(--radius-control);
+  --radius-panel: var(--radius-panel);
+  --radius-full: var(--radius-round);
+
+  --shadow-*: initial;
+  --shadow-overlay: var(--shadow-overlay);
+  --inset-shadow-*: initial;
+  --drop-shadow-*: initial;
+  --text-shadow-*: initial;
+
+  --ease-calm: var(--ease-calm);
+}
+
+@layer base {
+  html {
+    background-color: var(--mist);
+    color: var(--graphite);
+    font-family: var(--font-ui);
+  }
+
+  body {
+    min-height: 100dvh;
+    background-color: var(--mist);
+    color: var(--graphite);
+    font-family: var(--font-ui);
+    font-size: var(--type-body);
+    line-height: var(--type-body-leading);
+    /* Sentence case everywhere (spec §6.3): nothing in the system uppercases text. */
+    text-transform: none;
+  }
+
+  :focus-visible {
+    outline: var(--focus-ring-width) solid var(--focus-ring-color);
+    outline-offset: var(--focus-ring-offset);
+  }
+
+  /* The applicant's own words (spec §6.1). Only graphite text sits on the highlighter. */
+  mark,
+  .highlighter {
+    background-color: var(--highlighter);
+    color: var(--graphite);
+    border-radius: 2px;
+    box-decoration-break: clone;
+    -webkit-box-decoration-break: clone;
+  }
+
+  /* Colour alone is not enough when the user asks for more contrast (spec §6.2). */
+  @media (prefers-contrast: more), (forced-colors: active) {
+    mark,
+    .highlighter {
+      text-decoration-line: underline;
+      text-decoration-style: dotted;
+      text-decoration-thickness: 1px;
+      text-underline-offset: 0.2em;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    ::before,
+    ::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+}

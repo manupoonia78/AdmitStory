@@ -1,0 +1,148 @@
+/*
+ * Design tokens (spec §6.2–6.4, §6.6). Plain custom properties so they work with or
+ * without Tailwind; theme.css maps them into Tailwind utilities.
+ *
+ * Contrast rules these values were chosen under (asserted in contrast.test.ts):
+ *  - --record is non-text only (3.9:1 on white in light mode).
+ *  - Text on --ink (primary buttons) is --paper in both modes.
+ *  - --line is decorative; form-control borders use --slate (WCAG 1.4.11).
+ *  - Status-coloured text never sits on --ink-soft.
+ *  - Only --graphite text sits on --highlighter.
+ *
+ * The dark palette appears twice (system preference and explicit override) because
+ * plain CSS cannot share a declaration block between a media query and a selector.
+ * contrast.test.ts fails if the two copies drift apart.
+ */
+
+:root {
+  color-scheme: light;
+
+  /* Colour, light (spec §6.2) */
+  --paper: #ffffff;
+  --mist: #f2f4f8;
+  --line: #dde2ea;
+  --graphite: #1a1f2e;
+  --slate: #586178;
+  --ink: #1e2b6f;
+  --ink-soft: #e6e9f7;
+  --highlighter: rgba(255, 224, 102, 0.6);
+  --record: #e5484d;
+  --verified: #1e7f55;
+  --needs: #b4540a;
+  --risk: #c42b2b;
+
+  /* Overlay surfaces: the one soft shadow (spec §6.4) and the modal scrim */
+  --shadow-overlay: 0 16px 40px -12px rgb(26 31 46 / 0.22), 0 2px 8px rgb(26 31 46 / 0.08);
+  --scrim: rgb(14 19 34 / 0.36);
+
+  /* Focus (spec §6.9: --ink 2px ring, 2px offset) */
+  --focus-ring-color: var(--ink);
+  --focus-ring-width: 2px;
+  --focus-ring-offset: 2px;
+
+  /* Type families. apps/web sets --font-schibsted / --font-newsreader via next/font. */
+  --font-ui: var(
+    --font-schibsted,
+    "Helvetica Neue",
+    Helvetica,
+    Arial,
+    ui-sans-serif,
+    system-ui,
+    sans-serif
+  );
+  --font-reading: var(
+    --font-newsreader,
+    "Iowan Old Style",
+    "Palatino Linotype",
+    Palatino,
+    Georgia,
+    ui-serif,
+    serif
+  );
+
+  /*
+   * Type scale, major third on 16px (spec §6.3). The smallest step is 13px, not 12.8,
+   * because §6.3 also sets 13px as the minimum. Small keeps its specified 18px leading;
+   * every other leading sits on the 4px grid.
+   */
+  --type-small: 0.8125rem; /* 13px */
+  --type-small-leading: 1.125rem; /* 18px */
+  --type-body: 1rem; /* 16px */
+  --type-body-leading: 1.5rem; /* 24px */
+  --type-lead: 1.25rem; /* 20px */
+  --type-lead-leading: 1.75rem; /* 28px */
+  --type-title: 1.5625rem; /* 25px */
+  --type-title-leading: 2rem; /* 32px */
+  --type-heading: 1.953125rem; /* 31.25px */
+  --type-heading-leading: 2.5rem; /* 40px */
+  --type-display: 2.4375rem; /* 39px */
+  --type-display-leading: 3rem; /* 48px */
+  --type-hero: 3.05rem; /* 48.8px */
+  --type-hero-leading: 3.5rem; /* 56px */
+
+  /* Reading text: essays 18/30 on mobile, 19/32 from laptop up (spec §6.3) */
+  --type-essay: 1.125rem;
+  --type-essay-leading: 1.875rem;
+  --type-essay-wide: 1.1875rem;
+  --type-essay-wide-leading: 2rem;
+  --measure-essay: 66ch;
+
+  /* Radius hierarchy (spec §6.4) */
+  --radius-control: 6px;
+  --radius-panel: 10px;
+  --radius-round: 9999px;
+
+  /* Motion (spec §6.6) */
+  --duration-quick: 120ms;
+  --duration-highlight: 200ms;
+  --duration-drawer: 240ms;
+  --duration-lift: 320ms;
+  --ease-calm: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    color-scheme: dark;
+
+    --paper: #161c30;
+    --mist: #0e1322;
+    --line: #263049;
+    --graphite: #e7eaf3;
+    --slate: #9aa3b8;
+    --ink: #8ea2ff;
+    --ink-soft: #222b52;
+    --highlighter: rgba(232, 197, 71, 0.28);
+    --record: #ff6b6f;
+    --verified: #4cc38a;
+    --needs: #f0a04b;
+    --risk: #ff7a7a;
+
+    --shadow-overlay: 0 16px 40px -12px rgb(0 0 0 / 0.6), 0 2px 8px rgb(0 0 0 / 0.4);
+    --scrim: rgb(5 8 16 / 0.6);
+  }
+}
+
+:root[data-theme="dark"] {
+  color-scheme: dark;
+
+  --paper: #161c30;
+  --mist: #0e1322;
+  --line: #263049;
+  --graphite: #e7eaf3;
+  --slate: #9aa3b8;
+  --ink: #8ea2ff;
+  --ink-soft: #222b52;
+  --highlighter: rgba(232, 197, 71, 0.28);
+  --record: #ff6b6f;
+  --verified: #4cc38a;
+  --needs: #f0a04b;
+  --risk: #ff7a7a;
+
+  --shadow-overlay: 0 16px 40px -12px rgb(0 0 0 / 0.6), 0 2px 8px rgb(0 0 0 / 0.4);
+  --scrim: rgb(5 8 16 / 0.6);
+}
+
+/* Counts and table figures line up (spec §6.3). Tailwind's `tabular-nums` does the same. */
+.tabular {
+  font-variant-numeric: tabular-nums;
+}

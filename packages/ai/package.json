@@ -1,0 +1,23 @@
+{
+  "name": "@admitstory/ai",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "scripts": {
+    "typecheck": "tsc -p tsconfig.json",
+    "record:util-title": "tsx scripts/record-util-title.ts"
+  },
+  "dependencies": {
+    "@admitstory/shared": "workspace:*",
+    "@anthropic-ai/sdk": "1.3.0",
+    "@langfuse/otel": "6.0.2",
+    "@langfuse/tracing": "6.0.2",
+    "@opentelemetry/api": "1.10.0",
+    "@opentelemetry/sdk-trace-node": "2.12.0",
+    "zod": "4.6.7"
+  },
+  "devDependencies": {}
+}

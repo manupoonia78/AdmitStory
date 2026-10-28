@@ -1,0 +1,42 @@
+{
+  "name": "@admitstory/web",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "next dev --port 3000",
+    "build": "next build",
+    "start": "next start --port 3000",
+    "typecheck": "tsc -p tsconfig.json",
+    "test:e2e": "playwright test",
+    "lighthouse": "tsx scripts/lighthouse.ts",
+    "bundle:check": "tsx scripts/bundle-size.ts"
+  },
+  "dependencies": {
+    "@admitstory/ai": "workspace:*",
+    "@admitstory/db": "workspace:*",
+    "@admitstory/emails": "workspace:*",
+    "@admitstory/shared": "workspace:*",
+    "@admitstory/ui": "workspace:*",
+    "@better-auth/passkey": "1.7.14",
+    "@marsidev/react-turnstile": "1.6.3",
+    "@phosphor-icons/react": "2.1.10",
+    "@sentry/nextjs": "11.9.0",
+    "better-auth": "1.7.14",
+    "inngest": "4.26.0",
+    "next": "16.4.3",
+    "posthog-js": "1.439.1",
+    "posthog-node": "5.57.2",
+    "react": "19.3.1",
+    "react-dom": "19.3.1",
+    "resend": "6.34.1",
+    "zod": "4.6.7"
+  },
+  "devDependencies": {
+    "@tailwindcss/postcss": "4.3.3",
+    "@types/react": "19.3.0",
+    "@types/react-dom": "19.3.0",
+    "lighthouse": "13.5.0",
+    "tailwindcss": "4.3.3"
+  }
+}
