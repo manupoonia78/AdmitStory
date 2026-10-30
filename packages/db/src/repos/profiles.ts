@@ -49,6 +49,21 @@ export const ProfilePatch = z
     toneSetting: shortText(64).nullable(),
     keepAudio: z.boolean(),
     improveProductOptIn: z.boolean(),
+    // Phase 1 additions (spec §10, §6.2, §5.1).
+    voiceprint: z
+      .strictObject({
+        version: z.literal(1),
+        avgPitchHz: z.number().positive().max(1000),
+        paceWpm: z.number().min(0).max(400),
+        pitchRangeSemitones: z.number().min(0).max(48),
+        pauseRhythm: z.number().min(0).max(1),
+        source: z.enum(["voice", "text", "default"]),
+      })
+      .nullable(),
+    voiceprintHue: z.int().min(0).max(11).nullable(),
+    theme: z.enum(["system", "night", "day"]),
+    uiSounds: z.boolean(),
+    targetRounds: z.array(z.enum(["R1", "R2", "R3", "R4", "rolling", "unsure"])).max(4),
   })
   .partial()
   .refine((p) => p.gpa == null || p.gpaScale == null || p.gpa <= p.gpaScale, {
@@ -104,6 +119,22 @@ export async function confirmAgeAndTerms(
       termsAcceptedAt: sql`now()`,
     })
     .where(eq(profiles.userId, ownerId))
+    .returning();
+  return row ?? null;
+}
+
+/**
+ * Records that first run is done (spec §5.1). Not part of ProfilePatch: it is a fact about the
+ * account's progress, not a preference the user sets, and re-running first run must not move it.
+ */
+export async function markFirstRunComplete(
+  db: DbExecutor,
+  userId: string,
+): Promise<Profile | null> {
+  const [row] = await db
+    .update(profiles)
+    .set({ firstRunCompletedAt: sql`coalesce(${profiles.firstRunCompletedAt}, now())` })
+    .where(eq(profiles.userId, assertId(userId, "userId")))
     .returning();
   return row ?? null;
 }

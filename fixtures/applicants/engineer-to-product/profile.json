@@ -1,0 +1,16 @@
+{
+  "slug": "engineer-to-product",
+  "summary": "A backend engineer at a hospital-software company in Bengaluru, moving into product management in health data.",
+  "persona": "switcher",
+  "style": "terse",
+  "country": "IN",
+  "timezone": "Asia/Kolkata",
+  "programType": "full_time_mba",
+  "targetIntake": 2027,
+  "studioMode": "standard",
+  "yearsExperience": 5.5,
+  "test": { "type": "GMAT", "score": 705 },
+  "gpa": { "value": 8.4, "scale": 10 },
+  "isReapplicant": false,
+  "difficulty": "Answers in two or three sentences and buries the number. Talks about the system, not himself, and says 'we' when he means 'I', so ownership has to be dug for."
+}

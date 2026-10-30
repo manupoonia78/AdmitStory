@@ -1,21 +1,10 @@
 // The Voiceprint contract (spec §6.2). These names and shapes are shared by every screen that
 // shows a Voiceprint; implementations behind them may change, the types may only grow.
 
-/**
- * Identity parameters, computed once from the first 3 minutes of Studio speech (or from written
- * answers) and stored on the profile as `voiceprint jsonb`. Only these derived numbers are kept:
- * no audio is needed to render a Voiceprint.
- */
-export interface VoiceprintIdentity {
-  version: 1;
-  avgPitchHz: number;
-  paceWpm: number;
-  pitchRangeSemitones: number;
-  /** How regularly the speaker pauses, 0 (even) to 1 (irregular). */
-  pauseRhythm: number;
-  /** "text": seeded from written answers, sentence-length rhythm standing in for pace and pitch. */
-  source: "voice" | "text" | "default";
-}
+// The identity parameters live in packages/shared (the server computes them too); re-exported here
+// so the Voiceprint contract still reads as one type set.
+export type { VoiceprintIdentity } from "@admitstory/shared";
+import type { VoiceprintIdentity } from "@admitstory/shared";
 
 /** What the renderer draws, derived from an identity by paramsFromIdentity(). */
 export interface VoiceprintParams {

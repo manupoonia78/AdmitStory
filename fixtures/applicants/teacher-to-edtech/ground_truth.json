@@ -1,0 +1,396 @@
+{
+  "facts": [
+    {
+      "key": "employer_current",
+      "value": "Escola Municipal Professora Dalva Ribeiro",
+      "note": "a municipal primary school in the Jardim Serra Azul district of São Paulo; 14 classes, about 430 pupils"
+    },
+    {
+      "key": "title_current",
+      "value": "Professora Coordenadora de Tecnologia Educacional",
+      "note": "since February 2025; teaches half the week and covers technology for a cluster of 4 schools the rest of it"
+    },
+    {
+      "key": "title_previous",
+      "value": "Professora de Ensino Fundamental I, Years 1 to 5",
+      "note": "February 2021 to January 2025, same school"
+    },
+    {
+      "key": "title_first",
+      "value": "Literacy tutor at Instituto Caminho Aberto, a small education charity in São Paulo",
+      "note": "March 2020 to January 2021"
+    },
+    {
+      "key": "team_size",
+      "value": "No formal reports. Runs training for the 14 class teachers at her school and for the technology link teacher at each of the 4 schools in her cluster."
+    },
+    {
+      "key": "salary_current",
+      "value": "R$ 5,480 a month gross on the municipal teaching scale, plus R$ 900 for the coordination post",
+      "note": "the charity before it paid R$ 2,900; the whole six years have been on charity and public-sector scales"
+    },
+    { "key": "location_current", "value": "São Paulo, Brazil" },
+    {
+      "key": "degree",
+      "value": "Licenciatura em Pedagogia, Faculdade Santo Aurélio, São Paulo, 2019",
+      "note": "evening course, worked days as a receptionist to pay for it; first in her family to finish university"
+    },
+    { "key": "gpa", "value": "8.1 out of 10" },
+    {
+      "key": "gmat_total",
+      "value": "650",
+      "note": "Q42 V38, taken August 2026; second sitting, the first was 590 and she cancelled it"
+    },
+    {
+      "key": "quant_background",
+      "value": "No mathematics beyond secondary school. Finished a 40-hour online course in spreadsheets and basic statistics in July 2026, and has done the maths teaching for Years 4 and 5 for four years."
+    },
+    {
+      "key": "business_exposure",
+      "value": "Has never held a budget, priced anything or read a commercial contract. The largest sum she has decided on is the R$ 3,200 the parents' council raised for a charging trolley."
+    },
+    {
+      "key": "languages",
+      "value": "Portuguese native, English working (free evening course at a state language centre, 2022 to 2024), Spanish reads but does not speak"
+    },
+    {
+      "key": "pupils_taught",
+      "value": "Roughly 160 children have been in her own classes since 2021"
+    },
+    {
+      "key": "teacher_network",
+      "value": "Founded Roda de Sábado, a Saturday teachers' circle, in 2023; 140 teachers across 11 schools"
+    },
+    {
+      "key": "manager_name",
+      "value": "Eliete Sampaio",
+      "note": "the school's diretora since 2019"
+    },
+    {
+      "key": "international_exposure",
+      "value": "Has never lived or worked outside Brazil. One week in Montevideo for a teachers' conference in 2024, self-funded."
+    }
+  ],
+  "stories": [
+    {
+      "ref": "reading_minutes",
+      "nickname": "The twenty minutes on the door",
+      "era": "2022 to 2023",
+      "context": "professional",
+      "situation": "Luana had a class of 32 eight-year-olds, and no one in the school could say how well any of them read. The state literacy test came round every other year and the results arrived long after the children had moved up a year. She started a reading slot of 20 minutes at the beginning of every day and, because nothing existed to measure it with, began timing each child reading aloud every fortnight and writing the count in a school exercise book.",
+      "stakes": "Her diretora thought the slot was 20 minutes taken off maths, and said so at a staff meeting. If the reading figures had not moved, the slot would have been the first thing cut when the timetable was redone, and Luana would have had nothing to argue with but her own impression of the children.",
+      "actions": [
+        "Timed every child reading aloud for one minute every fortnight and wrote the words-per-minute count next to their name, 24 rounds of it in the end, filling 2 exercise books",
+        "Grouped the children by where they actually were rather than by age, and changed the groups every month from the counts rather than from how the lessons felt",
+        "Sat with the four slowest readers herself during the slot and gave the rest to pairs, so the slot did not need a second adult",
+        "Took the exercise books to the staff meeting and read out the March and December averages rather than defending the idea",
+        "Wrote the timing method on one side of paper so another teacher could run it without being trained"
+      ],
+      "result": "The class average went from 41 words read aloud per minute in March to 78 in December. The slot was adopted by all 14 classes the following year. The district's pedagogical team asked for her one-page method and now sends it out to new teachers.",
+      "reflection": "She had kept the counts for herself, not to prove anything, and it was only when the slot was about to be cut that she understood she was holding the only evidence in the building. She writes things down now expecting to have to show them, which is a colder reason than the one she started with.",
+      "numbers": [
+        { "label": "children in her class", "value": "32" },
+        { "label": "age of the children", "value": "8" },
+        { "label": "length of the daily reading slot", "value": "20 minutes" },
+        { "label": "fortnightly timing rounds she recorded", "value": "24" },
+        { "label": "exercise books filled", "value": "2" },
+        { "label": "slowest readers she took herself", "value": "4" },
+        { "label": "class average words read aloud per minute, March", "value": "41" },
+        { "label": "class average words read aloud per minute, December", "value": "78" },
+        { "label": "classes that adopted the slot", "value": "14" }
+      ],
+      "people": [
+        {
+          "name": "Eliete Sampaio",
+          "role": "the school's diretora, who thought the slot was maths time lost",
+          "mayName": true
+        }
+      ],
+      "traits": ["originates_ideas", "measurable_impact", "analytical", "acts_unasked"],
+      "slots": [
+        "impact.biggest",
+        "numbers.impact",
+        "leadership.originated_idea",
+        "academics.quant_evidence",
+        "work.scope"
+      ],
+      "sensitivity": "none"
+    },
+    {
+      "ref": "tablets_in_the_cupboard",
+      "nickname": "The tablets in the cupboard",
+      "era": "2024",
+      "context": "professional",
+      "situation": "Fundação Pedra Lume donated 60 tablets to the school. They stayed locked in a store cupboard for 7 months, because the donation's insurance clause required one named member of staff to be responsible for loss or damage, and nobody would put their name on the form. The staff talked about the tablets as though they were a problem the foundation had given them.",
+      "stakes": "The clause made one teacher personally liable, on a municipal salary, for equipment worth more than a year of it. Luana was asking her colleagues to do training on Wednesdays after a full teaching day, for something most of them thought would be taken away again, and she had to ask the diretora to accept a risk the diretora had already refused once.",
+      "actions": [
+        "Read the donation agreement properly, which nobody had, and found the liability sat with whoever signed rather than with the school",
+        "Asked the foundation's programme manager to move the clause to the school as an institution; was refused, and then put her own name on the form",
+        "Took the parents' council through it first, because she wanted parents in the room when she went back to the diretora, and the council raised R$ 3,200 for a lockable charging trolley",
+        "Ran 6 training sessions of 45 minutes each, built around one lesson each teacher already taught rather than around the devices",
+        "Stopped insisting on the shared booking sheet after the second month, when it was clear the teachers were trading slots between themselves and the sheet was only making her the gatekeeper"
+      ],
+      "result": "9 of the school's 14 teachers were using the tablets by the end of the year, 4 days a week between them. Nothing has been lost or broken. Her name is still on the form. The cluster's other 4 schools copied the trolley and the Wednesday sessions.",
+      "reflection": "She thinks she was slow about the real obstacle. She spent two months making the case for tablets in lessons when the obstacle was a sentence in a contract and the fact that nobody wanted to be blamed. She goes looking for the paperwork first now.",
+      "numbers": [
+        { "label": "tablets donated", "value": "60" },
+        { "label": "months they sat locked in the cupboard", "value": "7" },
+        { "label": "raised by the parents' council for the trolley", "value": "R$ 3,200" },
+        { "label": "training sessions she ran", "value": "6" },
+        { "label": "length of each session", "value": "45 minutes" },
+        { "label": "teachers using the tablets by year end", "value": "9" },
+        { "label": "teachers on the staff", "value": "14" },
+        { "label": "days a week the tablets were in use", "value": "4" },
+        { "label": "other schools in the cluster that copied it", "value": "4" },
+        { "label": "months she spent arguing the wrong case", "value": "2" }
+      ],
+      "people": [
+        {
+          "name": "Eliete Sampaio",
+          "role": "the diretora, who had refused the liability once",
+          "mayName": true
+        },
+        {
+          "name": "Beatriz Lemos",
+          "role": "the foundation's programme manager, who would not move the clause",
+          "mayName": false
+        }
+      ],
+      "traits": [
+        "brings_people_along",
+        "cross_functional_influence",
+        "principled_stands",
+        "steady_in_ambiguity"
+      ],
+      "slots": [
+        "leadership.persuaded_up",
+        "employ.cross_functional",
+        "leadership.changed_course",
+        "employ.trajectory"
+      ],
+      "sensitivity": "none"
+    },
+    {
+      "ref": "maths_app_pilot",
+      "nickname": "The app I talked everyone into",
+      "era": "2025",
+      "context": "professional",
+      "situation": "In her first year as technology coordinator, Luana brought in a maths practice app from Trilho Educação and ran it as a pilot in 7 of the school's 14 classes, 210 children. She had used it with her own class, liked it, and did not ask the families anything before starting. Each child needed a login, and the app expected a working connection at home for the practice set.",
+      "stakes": "She had spent the credit from the tablets to get the teachers to agree, and had told the foundation the pilot would be the evidence for a bigger grant. Four of the seven teachers had only agreed because she asked them to.",
+      "actions": [
+        "Watched the usage fall for 5 months while telling herself it was the start-of-year workload",
+        "Printed a survey and sent it home with every child, got 118 families back, and found 62% had no connection at home they could rely on for homework",
+        "Took the figures to the pilot teachers before she took them to the foundation, and said plainly that she had not asked anyone before she started",
+        "Wrote to the foundation and asked them to stop the pilot rather than let it run out the year, which cost the school the bigger grant",
+        "Rebuilt the practice sets as printed sheets generated from the app's own question bank, which the 7 classes still use"
+      ],
+      "result": "Logins went from 71% of the children in the first week to 9% by the twelfth. The pilot was stopped at her request and the grant went elsewhere. The printed sheets stayed, and the survey is now the first thing the cluster does before any device project.",
+      "reflection": "She had asked the teachers and not the families, because the teachers were the ones she needed to say yes. She had the habit of counting and did not use it until the thing had already failed. The 118 forms took an afternoon; she could have done them in February.",
+      "numbers": [
+        { "label": "classes in the pilot", "value": "7" },
+        { "label": "classes in the school", "value": "14" },
+        { "label": "children in the pilot", "value": "210" },
+        { "label": "months the usage fell before she acted", "value": "5" },
+        { "label": "families who returned the survey", "value": "118" },
+        { "label": "families with no reliable connection at home", "value": "62%" },
+        { "label": "children logging in, first week", "value": "71%" },
+        { "label": "children logging in, twelfth week", "value": "9%" },
+        { "label": "pilot teachers who agreed only because she asked", "value": "4" }
+      ],
+      "people": [
+        {
+          "name": "Marcos Tavares",
+          "role": "the coordenador pedagógico, who had warned her about the logins and was right",
+          "mayName": true
+        },
+        {
+          "name": "Beatriz Lemos",
+          "role": "the foundation's programme manager she had to write to",
+          "mayName": false
+        }
+      ],
+      "traits": ["honest_about_limits", "acts_on_feedback", "self_aware", "analytical"],
+      "slots": ["failure.consequential", "self.feedback", "identity.turning_point"],
+      "sensitivity": "none"
+    },
+    {
+      "ref": "the_sewing_books",
+      "nickname": "My grandmother's exercise books",
+      "era": "childhood and teens",
+      "context": "personal",
+      "situation": "Luana's grandmother, Dona Neusa, ran a sewing workshop out of the garage with 4 seamstresses, making school uniforms for shops in the neighbourhood. She could read but wrote slowly and hated doing it, so from the age of 11 Luana kept the books: who finished what, how many pieces, what was owed on Friday, in school exercise books because that is what was in the house.",
+      "stakes": "The money in the exercise books was the household's money, and three of the four seamstresses were paid out of it by the piece. A column added up wrong meant somebody was short that week, and Luana would be the one who had to tell them.",
+      "actions": [
+        "Kept the piece counts and the Friday payments, 9 exercise books over the years, and checked the total twice because her grandmother would not",
+        "Worked out at 14 that the uniform skirts were being sold at a rate that did not cover the second fitting, and argued the rate up to R$ 2.40 a piece",
+        "Took over the quoting for new shop orders from then on, which her grandmother never asked her to do and never mentioned",
+        "Kept the books going through secondary school and handed them to her cousin when she started university"
+      ],
+      "result": "The workshop ran until her grandmother's hands gave out. Luana can still say what the Friday total was in a given month. She has never since worked anywhere that counted anything as carefully as that garage did.",
+      "reflection": "She did not think of it as anything until an interviewer asked her where she learned to count things. It is also where she learned that the person doing the work usually knows the number and nobody has ever asked them for it.",
+      "numbers": [
+        { "label": "seamstresses in the workshop", "value": "4" },
+        { "label": "seamstresses paid by the piece", "value": "3" },
+        { "label": "age she took over the books", "value": "11" },
+        { "label": "exercise books she filled", "value": "9" },
+        { "label": "age she argued the rate up", "value": "14" },
+        { "label": "rate per finished skirt", "value": "R$ 2.40" }
+      ],
+      "people": [
+        { "name": "Dona Neusa", "role": "her grandmother, who ran the workshop", "mayName": true },
+        {
+          "name": "Vanda",
+          "role": "a seamstress, paid by the piece, who taught her to check the total twice",
+          "mayName": false
+        }
+      ],
+      "traits": ["unusual_path", "analytical", "acts_unasked", "resilient"],
+      "slots": ["identity.root", "identity.early_responsibility", "identity.family_influence"],
+      "sensitivity": "personal"
+    },
+    {
+      "ref": "the_chemotherapy_year",
+      "nickname": "The year of the Tuesday appointments",
+      "era": "2021 to 2022",
+      "context": "personal",
+      "situation": "Luana's mother was diagnosed with breast cancer in her first year of teaching. The treatment ran 14 months and 23 chemotherapy sessions, and Luana took her to every one, which meant two buses each way and a Tuesday that started at half past four in the morning.",
+      "stakes": "She was in her probation year at the school and told nobody for the first weeks, because a teacher on probation who asks for anything can be moved to another school. Her mother would not go to the sessions alone and there was no one else to take her.",
+      "actions": [
+        "Told the diretora eventually, and asked for her Tuesday timetable to be rearranged rather than for time off",
+        "Turned down the coordination post when it came up that year and did not explain why, which she now thinks was a mistake",
+        "Kept the Friday planning for the class ahead by a fortnight, so a supply teacher could walk in on a Tuesday and teach from the folder",
+        "Missed 4 days of teaching across the whole 14 months",
+        "Said yes when two colleagues offered to cover, which she had not done before and found harder than the hospital"
+      ],
+      "result": "Her mother has been clear for four years and goes to the Roda de Sábado meetings now to help with the coffee. Luana got the coordination post when it came round again. The fortnight-ahead planning folder is still how she works.",
+      "reflection": "She had thought asking for help was the same as being found out. It was the two colleagues who covered, not the hospital, that changed how she works, and she is aware that she only learned it because she ran out of room to do otherwise.",
+      "numbers": [
+        { "label": "months of treatment", "value": "14" },
+        { "label": "chemotherapy sessions she went to", "value": "23" },
+        { "label": "buses each way", "value": "2" },
+        { "label": "days of teaching missed", "value": "4" },
+        { "label": "colleagues who offered to cover", "value": "2" },
+        { "label": "years her mother has been clear", "value": "4" }
+      ],
+      "people": [
+        {
+          "name": "her mother",
+          "role": "had the breast cancer; would not go to the sessions alone",
+          "mayName": false
+        },
+        {
+          "name": "Eliete Sampaio",
+          "role": "the diretora, who rearranged the Tuesday timetable",
+          "mayName": true
+        }
+      ],
+      "traits": ["resilient", "empathetic", "honest_about_limits", "self_aware"],
+      "slots": ["support.someone_hard", "support.ongoing", "identity.defining_moment"],
+      "sensitivity": "sensitive"
+    },
+    {
+      "ref": "roda_de_sabado",
+      "nickname": "Roda de Sábado",
+      "era": "2023 onwards",
+      "context": "community",
+      "situation": "Teachers in Luana's district were each making the same worksheets alone on Sunday nights and had nowhere to say so. She asked 6 teachers to a bakery on a Saturday morning, with the rule that everyone brought one thing they had made and one thing that had gone wrong that week.",
+      "stakes": "Nothing was at stake, which is why it survived. Three of the first 6 came because she had asked them personally and would not have come otherwise, and if the second meeting had been four people the thing would have died there.",
+      "actions": [
+        "Kept the format fixed and short, 2 hours on the last Saturday of the month, and never moved it, so people stopped asking whether it was on",
+        "Set up a shared folder so what was brought to the room did not stay in the room; it holds 312 lesson sheets now",
+        "Put the teachers who were quiet in the room in charge of one part of the session, which is how two of the current organisers started",
+        "Handed the running of it to 3 teachers in rotation and took her own name off the group description"
+      ],
+      "result": "140 teachers across 11 schools are in it. She has not led a session for 5 months and has been to the last two as an ordinary attender. Two of the state's other districts have asked how it works.",
+      "reflection": "Her first instinct was to make it bigger, and the thing that made it last was keeping it the same. She also knows she gave it away partly because running it had started to be the part of her week she was proudest of, which is not a good reason to keep hold of something.",
+      "numbers": [
+        { "label": "teachers at the first meeting", "value": "6" },
+        { "label": "of the first six who came only because she asked", "value": "3" },
+        { "label": "length of each session", "value": "2 hours" },
+        { "label": "lesson sheets in the shared folder", "value": "312" },
+        { "label": "teachers now", "value": "140" },
+        { "label": "schools they come from", "value": "11" },
+        { "label": "teachers who now run it in rotation", "value": "3" },
+        { "label": "months since she last led a session", "value": "5" }
+      ],
+      "people": [
+        {
+          "name": "Priscila Amaral",
+          "role": "one of the three who run it now; was the quiet one in the room for the first year",
+          "mayName": true
+        }
+      ],
+      "traits": ["community_builder", "develops_people", "creative", "acts_unasked"],
+      "slots": [
+        "community.built",
+        "leadership.developed_others",
+        "community.interests",
+        "identity.practice"
+      ],
+      "sensitivity": "none"
+    },
+    {
+      "ref": "ten_minutes_in_the_office",
+      "nickname": "Ten minutes in a room with no teachers in it",
+      "era": "2025",
+      "context": "professional",
+      "situation": "After the pilot was stopped, Trilho Educação invited Luana to their office to talk about what had happened. She sat in on the planning meeting afterwards, and watched 3 people decide in about 10 minutes to drop the offline mode from the next release, for a product that was in 1,400 schools. Nobody in the room had taught. Nobody asked what share of those schools looked like hers.",
+      "stakes": "She had the survey in her bag and did not say anything, because she had been invited as a guest and did not know whether she was allowed to. The decision went out to every school on the platform.",
+      "actions": [
+        "Asked afterwards, in the corridor, how they decided, and was told honestly that offline was 4% of sessions",
+        "Worked out that 4% of sessions was not 4% of schools, and wrote it up with her 118 survey forms as the only evidence she had",
+        "Sent it to the two people from the meeting; one replied, and the offline mode stayed in the release that followed",
+        "Started asking, at every supplier meeting since, who in the room has been in a classroom this year"
+      ],
+      "result": "The offline mode stayed. She was asked to sit on the company's teacher panel, unpaid, and has been in 4 of their product sessions since. It is the first time anything she wrote changed something outside her own district.",
+      "reflection": "The decision was not careless, it was made on the only number they had. She wants to be the person in that room who has the other number, and she does not want to be the teacher they invite as a guest to be nice. That is the whole reason she is applying.",
+      "numbers": [
+        { "label": "people who made the decision", "value": "3" },
+        { "label": "minutes the decision took", "value": "10" },
+        { "label": "schools using the product", "value": "1,400" },
+        { "label": "share of sessions that were offline", "value": "4%" },
+        { "label": "survey forms she had as evidence", "value": "118" },
+        { "label": "product sessions she has sat in since", "value": "4" }
+      ],
+      "people": [
+        {
+          "name": "Rafael Quintas",
+          "role": "the product manager who replied to her note",
+          "mayName": false
+        }
+      ],
+      "traits": ["commercial_judgment", "curious_learner", "principled_stands", "acts_unasked"],
+      "slots": ["goals.origin", "work.motivation", "work.arc", "goals.research"],
+      "sensitivity": "none"
+    }
+  ],
+  "goals": {
+    "shortTerm": "Product or implementation at an education technology company selling to public school systems in Brazil, owning the part that meets teachers: what a classroom can actually run, how a rollout is trained, what gets measured. Not a teacher-relations job that sits outside the product decisions.",
+    "longTerm": "To run the schools-facing side of a company that sells to Brazilian state education secretariats, with the authority to stop a release that will not work in a school without a reliable connection. Later, the other side of that table, inside a secretariat.",
+    "planB": "Back into the municipal system as a district technology coordinator, or onto the education programme team at a foundation like the one that donated the tablets, where she would at least be near the money decisions.",
+    "whyMba": "She can read a classroom and she can count things nobody has thought to count. She has never held a budget, priced anything or read a contract, and she cannot explain how a company that sells to a state secretariat makes money, which means she cannot tell a good product decision from a cheap one.",
+    "whyNow": "Six years in, the coordination post is as far as the municipal scale goes without leaving teaching for administration. Her mother is well. Roda de Sábado runs without her. The teacher panel got her into the rooms where decisions are made and showed her she cannot follow the conversation."
+  },
+  "redFlags": [
+    "GMAT 650 with Q42 is below the median at her target schools",
+    "No business experience at all: no budget, no P&L, no commercial contract, no private-sector employer",
+    "Six years entirely on charity and municipal salary scales, which makes her post-MBA salary expectations hard to read",
+    "Quantitative readiness: no mathematics beyond secondary school, and a 40-hour online course as the only formal preparation",
+    "Employer and university will be unrecognisable to an admissions reader, with no external ranking to anchor them",
+    "No international experience beyond one self-funded week in Montevideo, and English is a working language she learned at evening class"
+  ],
+  "neverSays": [
+    "passionate",
+    "journey",
+    "impactful",
+    "disruptive",
+    "scalable",
+    "stakeholders",
+    "empowered",
+    "transformational",
+    "a natural leader",
+    "I inspired them",
+    "my kids are my why",
+    "best practice"
+  ]
+}

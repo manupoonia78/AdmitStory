@@ -34,9 +34,10 @@ function onDelete(tableName: string, columnName: string): string | undefined {
 }
 
 describe("schema conventions (spec §10)", () => {
-  it("defines the Phase 0 tables", () => {
+  it("defines the tables of the phases built so far", () => {
     expect([...byName.keys()].sort()).toEqual(
       [
+        // Phase 0: identity, profile and the usage ledger.
         "accounts",
         "passkeys",
         "profiles",
@@ -45,6 +46,19 @@ describe("schema conventions (spec §10)", () => {
         "usage_ledger",
         "users",
         "verifications",
+        // Phase 1: Story Studio and the Dossier.
+        "brand",
+        "dossier_snapshots",
+        "facts",
+        "goals",
+        "golden_lines",
+        "people",
+        "slots_state",
+        "sources",
+        "stories",
+        "studio_sessions",
+        "studio_turns",
+        "voice_profiles",
       ].sort(),
     );
   });

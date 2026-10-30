@@ -1,0 +1,16 @@
+{
+  "slug": "reapplicant",
+  "summary": "A supply-chain manager at an auto-components firm in Pune, reapplying after four denials last cycle.",
+  "persona": "reapplicant",
+  "style": "terse",
+  "country": "IN",
+  "timezone": "Asia/Kolkata",
+  "programType": "full_time_mba",
+  "targetIntake": 2027,
+  "studioMode": "express",
+  "yearsExperience": 7,
+  "test": { "type": "GMAT", "score": 730 },
+  "gpa": { "value": 7.6, "scale": 10 },
+  "isReapplicant": true,
+  "difficulty": "Wounded by last cycle and slightly defensive; answers short to avoid saying something he will regret. Has genuinely new material from the year but describes it as if it were a list of corrections rather than a year of his life."
+}

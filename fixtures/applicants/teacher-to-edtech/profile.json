@@ -1,0 +1,16 @@
+{
+  "slug": "teacher-to-edtech",
+  "summary": "A primary-school teacher and technology coordinator in a municipal school in São Paulo, moving into product or operations at an education technology company.",
+  "persona": "switcher",
+  "style": "rambling",
+  "country": "BR",
+  "timezone": "America/Sao_Paulo",
+  "programType": "full_time_mba",
+  "targetIntake": 2027,
+  "studioMode": "deep",
+  "yearsExperience": 6,
+  "test": { "type": "GMAT", "score": 650 },
+  "gpa": { "value": 8.1, "scale": 10 },
+  "isReapplicant": false,
+  "difficulty": "Starts somewhere unrelated — her grandmother's garage, a bus route — and arrives at the point several turns later, so she has to be let run and then pulled back. Almost nothing in her work was ever measured, so the numbers sit in notebooks and ledgers rather than in any report."
+}

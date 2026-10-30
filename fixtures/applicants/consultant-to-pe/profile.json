@@ -1,0 +1,16 @@
+{
+  "slug": "consultant-to-pe",
+  "summary": "A strategy consultant at a mid-tier firm in Frankfurt, targeting private equity in the German-speaking industrial mid-market.",
+  "persona": "perfectionist",
+  "style": "formal",
+  "country": "DE",
+  "timezone": "Europe/Berlin",
+  "programType": "full_time_mba",
+  "targetIntake": 2027,
+  "studioMode": "deep",
+  "yearsExperience": 4,
+  "test": { "type": "GMAT", "score": 745 },
+  "gpa": { "value": 1.4, "scale": 5 },
+  "isReapplicant": false,
+  "difficulty": "Every answer arrives as a rehearsed framework with three numbered points and no loose end to pull, so the feeling has to be dug out. He oversells one three-week due diligence as deal experience and does not hear himself doing it."
+}

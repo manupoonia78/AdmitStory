@@ -61,7 +61,44 @@ export const profiles = pgTable("profiles", {
   ageConfirmedAt: timestamptz("age_confirmed_at"),
   termsVersion: text("terms_version"),
   termsAcceptedAt: timestamptz("terms_accepted_at"),
+
+  // The rest of §10's profile columns, added in Phase 1 because they were not needed before.
+  /** Voiceprint identity parameters (§6.2). Derived numbers only; no audio is stored. */
+  voiceprint: jsonb("voiceprint").$type<VoiceprintIdentity>(),
+  /** One of the 12 tuned hues; the applicant may swap it in Settings (§6.3). */
+  voiceprintHue: integer("voiceprint_hue"),
+  /** `night` | `day` | `system`. The theme cookie stays as the no-flash fast path. */
+  theme: text("theme").notNull().default("system"),
+  uiSounds: boolean("ui_sounds").notNull().default(false),
+
+  /**
+   * First-run additions (§5.1). `targetRounds` is a hint from "rounds if known" — the real
+   * per-school round lives on `user_schools` in Phase 3. The applicant's one-line current role
+   * is not here: it becomes a Fact Sheet fact, so it is never asked twice (§2, "tell it once").
+   */
+  targetRounds: text("target_rounds")
+    .array()
+    .notNull()
+    .default(sql`'{}'::text[]`),
+  firstRunCompletedAt: timestamptz("first_run_completed_at"),
 });
+
+/**
+ * Identity parameters computed once from the applicant's speech, or seeded from their writing when
+ * they never speak (spec §6.2). These few numbers are all that is needed to render a Voiceprint;
+ * the audio they came from is not kept. The shape is `VoiceprintIdentity` from packages/ui, which
+ * owns the contract — kept structurally here so packages/db does not depend on the UI.
+ */
+export interface VoiceprintIdentity {
+  version: 1;
+  avgPitchHz: number;
+  paceWpm: number;
+  pitchRangeSemitones: number;
+  /** How regularly the speaker pauses, 0 (even) to 1 (irregular). */
+  pauseRhythm: number;
+  /** `text` when seeded from writing, `default` before there is anything to go on. */
+  source: "voice" | "text" | "default";
+}
 
 export const roles = pgTable(
   "roles",

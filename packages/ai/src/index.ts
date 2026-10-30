@@ -60,14 +60,10 @@ export {
   type UsageEntry,
 } from "./ledger";
 export { BUDGET_CAPS, checkBudget, type BudgetCaps, type BudgetDecision } from "./budget";
-export {
-  TASKS,
-  UtilTitleInput,
-  UtilTitleOutput,
-  type TaskInput,
-  type TaskName,
-  type TaskOutput,
-} from "./tasks";
+export { TASKS, type TaskInput, type TaskName, type TaskOutput } from "./tasks";
+// Task input and output schemas, so feature code can type the values it hands to and gets from
+// ai.run() without importing from src/schemas directly.
+export * from "./schemas";
 export {
   createFilePromptSource,
   loadPrompt,
@@ -80,3 +76,5 @@ export { REPLAY_DIR, requestHash } from "./replay";
 export { findRepoRoot, resolveDataDirs, type DataDirs } from "./paths";
 export type { TracingConfig } from "./tracing";
 export * from "./canon";
+// The evaluation harness (spec §8.11). Node-only: it reads fixtures from disk.
+export * from "./fixtures";

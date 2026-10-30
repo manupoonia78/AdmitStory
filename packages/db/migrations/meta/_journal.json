@@ -8,6 +8,20 @@
       "when": 1793111030282,
       "tag": "0000_init",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1793369649426,
+      "tag": "0001_studio_and_dossier",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1793369870013,
+      "tag": "0002_story_people_codes",
+      "breakpoints": true
     }
   ]
 }

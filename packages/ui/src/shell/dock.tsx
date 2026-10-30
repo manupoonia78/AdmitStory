@@ -56,7 +56,7 @@ const DOCK = cx(
 // side dock above it. The current page is marked by weight, colour and the gliding veil behind
 // it, not colour alone. No hover lift (spec §6.6).
 const NAV_LINK = cx(
-  "relative flex min-h-14 flex-1 flex-col items-center justify-center gap-1 rounded-control px-0.5",
+  "relative flex min-h-12 flex-1 flex-col items-center justify-center gap-1 rounded-control px-0.5",
   "text-sm font-medium text-text-soft hover:text-text",
   "aria-[current=page]:font-semibold aria-[current=page]:text-signal",
   "sm:min-h-11 sm:w-full sm:flex-none sm:flex-row sm:justify-start sm:gap-0 sm:px-0 sm:hover:bg-veil",
@@ -209,7 +209,8 @@ export function Dock({
                   <span aria-hidden className={DOCK_ICON}>
                     {icons.nav[item.id]}
                   </span>
-                  <span className={cx("max-w-full truncate sm:max-w-none", DOCK_LABEL)}>
+                  {/* Icons only in the bottom dock; the label stays the accessible name. */}
+                  <span className={cx("sr-only sm:not-sr-only sm:max-w-none", DOCK_LABEL)}>
                     {item.label}
                   </span>
                 </Link>

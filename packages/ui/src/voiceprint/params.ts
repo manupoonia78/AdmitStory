@@ -5,14 +5,7 @@ import { VOICE_HUES } from "../voice-hues";
 import type { VoiceprintIdentity, VoiceprintParams } from "./types";
 
 /** Used before any speech or writing exists (and for previews). */
-export const DEFAULT_IDENTITY: VoiceprintIdentity = {
-  version: 1,
-  avgPitchHz: 165,
-  paceWpm: 145,
-  pitchRangeSemitones: 9,
-  pauseRhythm: 0.4,
-  source: "default",
-};
+export { DEFAULT_IDENTITY } from "@admitstory/shared";
 
 const clamp01 = (value: number) => (Number.isFinite(value) ? Math.min(1, Math.max(0, value)) : 0);
 

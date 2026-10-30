@@ -1,5 +1,5 @@
 import { randomUUID } from "node:crypto";
-import type { MessageCreateParamsBase, TextBlockParam } from "@anthropic-ai/sdk/resources/messages";
+import type { MessageCreateParamsBase } from "@anthropic-ai/sdk/resources/messages";
 import type { z } from "zod";
 import { checkBudget, type BudgetCaps } from "./budget";
 import { loadCanon, type CanonLibrary } from "./canon";
@@ -97,6 +97,16 @@ export interface RunContext {
   userId?: string;
   kitId?: string;
   schoolPackId?: string;
+  /**
+   * L1 (spec §8.2): a published school pack's `compiled_prompt`, cached for an hour. Compiled once
+   * per pack version, never assembled per request.
+   */
+  schoolPack?: string;
+  /**
+   * L2 (spec §8.2): the applicant's compact dossier snapshot, cached for five minutes. Built by the
+   * Consolidator and stored, so every call in one kit pipeline sends the identical string.
+   */
+  dossier?: string;
   signal?: AbortSignal;
   /** Use the streaming transport. The result is still the validated final output. */
   stream?: boolean;
@@ -121,7 +131,12 @@ interface PreparedTask {
   def: AnyTaskDefinition;
   template: PromptTemplate;
   promptVersion: string;
-  system: TextBlockParam[];
+  /**
+   * The layers that are identical for every request on this prompt version (spec §8.2): the
+   * rendered prompt and its canon subset. The per-user layers — a school pack and the compact
+   * dossier — are added per request, after these, so the long-lived prefix still caches.
+   */
+  stableLayers: { agentPrompt: string; canon: string };
   outputSchema: Record<string, unknown>;
 }
 
@@ -303,10 +318,10 @@ export function createAI(config: AIConfig): AI {
       def,
       template,
       promptVersion: promptVersionLabel(template),
-      system: buildSystem({
+      stableLayers: {
         agentPrompt: renderPrompt(template),
         canon: needsCanon && canon ? canonSubset(canon, template) : "",
-      }),
+      },
       outputSchema: outputJsonSchema(def.output),
     };
     prepared.set(key, task);
@@ -390,7 +405,11 @@ export function createAI(config: AIConfig): AI {
       const params = buildParams({
         choice: plan,
         maxTokens: plan.maxTokens,
-        system: prepared.system,
+        system: buildSystem({
+          ...prepared.stableLayers,
+          ...(ctx.schoolPack ? { schoolPack: ctx.schoolPack } : {}),
+          ...(ctx.dossier ? { dossier: ctx.dossier } : {}),
+        }),
         messages,
         outputSchema: prepared.outputSchema,
         tools: route.tools,

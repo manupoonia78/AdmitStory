@@ -1,15 +1,26 @@
 import type { z } from "zod";
 import { UnknownTaskError } from "../errors";
 import type { TaskDefinition } from "./define";
+import {
+  applicantSimulator,
+  importParse,
+  studioConsolidate,
+  studioExtract,
+  studioInterviewer,
+} from "./studio";
 import { utilTitle } from "./util-title";
 
 /**
  * Registered tasks. A task becomes callable through ai.run() only once it is listed here, has a
- * route in routing.ts, a priced model and a prompt file (spec §17 conventions). Phase 0 ships
- * util.title only.
+ * route in routing.ts, a priced model and a prompt file (spec §17 conventions).
  */
 export const TASKS = {
   "util.title": utilTitle,
+  "studio.interviewer": studioInterviewer,
+  "studio.extract": studioExtract,
+  "studio.consolidate": studioConsolidate,
+  "import.parse": importParse,
+  "eval.applicant_simulator": applicantSimulator,
 } as const;
 
 export type TaskName = keyof typeof TASKS;
@@ -24,4 +35,4 @@ export function getTask(task: string): AnyTaskDefinition {
 }
 
 export { defineTask, type TaskDefinition } from "./define";
-export { UtilTitleInput, UtilTitleOutput, UTIL_TITLE_MAX_WORDS } from "../schemas";
+export * from "../schemas";

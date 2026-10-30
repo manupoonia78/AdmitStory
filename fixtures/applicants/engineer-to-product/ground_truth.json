@@ -1,0 +1,253 @@
+{
+  "facts": [
+    {
+      "key": "employer_current",
+      "value": "Meridian Health Systems",
+      "note": "hospital software; serves 40+ hospitals in India and the US"
+    },
+    { "key": "title_current", "value": "Senior Software Engineer", "note": "since April 2024" },
+    {
+      "key": "title_previous",
+      "value": "Software Engineer",
+      "note": "July 2020 to March 2024, same employer"
+    },
+    { "key": "team_size", "value": "4 engineers he coordinates, no formal reports" },
+    { "key": "location_current", "value": "Bengaluru, India" },
+    {
+      "key": "degree",
+      "value": "B.Tech in Computer Science, Vellore Institute of Technology, 2020"
+    },
+    { "key": "gpa", "value": "8.4 out of 10" },
+    { "key": "gmat_total", "value": "705", "note": "Q50 V34, taken September 2026" },
+    { "key": "languages", "value": "English, Hindi, Tamil" },
+    {
+      "key": "promotion",
+      "value": "Promoted to Senior Software Engineer in April 2024, two years ahead of the usual track"
+    },
+    {
+      "key": "side_project",
+      "value": "Runs a Saturday coding class for 12 government-school students in Bengaluru, since 2023"
+    },
+    { "key": "manager_name", "value": "Ravi Menon", "note": "his engineering manager since 2022" }
+  ],
+  "stories": [
+    {
+      "ref": "night_shift_fix",
+      "nickname": "The night-shift fix",
+      "era": "2024",
+      "context": "professional",
+      "situation": "During the go-live of Meridian's scheduling platform at a 900-bed hospital in Chennai, the feed from the lab system started dropping roughly every fourth message at 2 a.m. Lab results were not reaching the wards, which meant patients waiting on results would not be discharged in the morning.",
+      "stakes": "If the feed was not fixed by the 6 a.m. shift change, the hospital would have rolled back to its old system, and Meridian would have lost a contract it had spent fourteen months winning. The engineering manager was on a flight and unreachable.",
+      "actions": [
+        "Read the logs and found the retry logic was retrying the whole batch rather than the failed message, so each retry dropped the same message again",
+        "Rewrote the retry to operate per message and tested it against a replayed copy of the night's traffic",
+        "Called the lab-system vendor's on-call engineer at 3 a.m. and persuaded him to widen the batch window from 30 to 90 seconds, which the vendor's policy did not allow without a change request",
+        "Wrote a runbook for the hospital's IT staff before the shift change so they could watch the feed themselves",
+        "Stayed on the call until 6 a.m. and confirmed the morning rounds had their results"
+      ],
+      "result": "The go-live held. No dropped messages in the twenty months since. The runbook became the template Meridian uses for every hospital go-live.",
+      "reflection": "He had spent four hours on it alone before thinking to call the vendor, and the vendor call was what actually fixed it. He now asks for help earlier, and he says so plainly rather than treating it as a lesson learned.",
+      "numbers": [
+        { "label": "hospital size", "value": "900 beds" },
+        { "label": "dropped messages since", "value": "0" },
+        { "label": "batch window", "value": "30 to 90 seconds" },
+        { "label": "hours alone before calling the vendor", "value": "4" }
+      ],
+      "people": [
+        {
+          "name": "Ravi Menon",
+          "role": "his engineering manager, unreachable on a flight that night",
+          "mayName": true
+        },
+        {
+          "name": "Dinesh Kumar",
+          "role": "the lab-system vendor's on-call engineer",
+          "mayName": false
+        }
+      ],
+      "traits": [
+        "delivers_under_pressure",
+        "originates_ideas",
+        "self_aware",
+        "cross_functional_influence"
+      ],
+      "slots": [
+        "impact.biggest",
+        "numbers.impact",
+        "leadership.originated_idea",
+        "employ.cross_functional"
+      ],
+      "sensitivity": "none"
+    },
+    {
+      "ref": "scheduling_rewrite_refused",
+      "nickname": "The rewrite I talked them out of",
+      "era": "2025",
+      "context": "professional",
+      "situation": "Meridian's product director wanted to rebuild the scheduling module from scratch for a large US customer, on a six-month timeline. Arjun had spent two years inside that module and believed the real problem was three specific queries, not the architecture.",
+      "stakes": "A six-month rewrite would have taken the whole backend team off everything else, and the customer's deadline was five months away. Saying so meant contradicting a director in front of his own manager.",
+      "actions": [
+        "Spent a weekend instrumenting the module and found 80% of the slow requests came from three queries",
+        "Built a working fix for two of them in four days to show the gain was real",
+        "Asked for fifteen minutes at the planning meeting and showed the before-and-after numbers rather than arguing the principle",
+        "Offered a compromise: fix the queries now, and revisit the architecture after the customer was live"
+      ],
+      "result": "The rewrite was shelved. Page loads went from 4.2 seconds to 900 milliseconds, and the customer went live a month early. The architecture was never rebuilt and has not needed to be.",
+      "reflection": "He learned that a director arguing for a rewrite was not being irrational — she had been burned by this module before, and he had not asked why she wanted it until after he had already built his counter-argument. He would ask first now.",
+      "numbers": [
+        { "label": "share of slow requests from three queries", "value": "80%" },
+        { "label": "page load before", "value": "4.2 seconds" },
+        { "label": "page load after", "value": "900 milliseconds" },
+        { "label": "rewrite timeline avoided", "value": "6 months" }
+      ],
+      "people": [
+        {
+          "name": "Shalini Rao",
+          "role": "the product director who wanted the rewrite",
+          "mayName": false
+        }
+      ],
+      "traits": ["brings_people_along", "analytical", "commercial_judgment", "principled_stands"],
+      "slots": ["leadership.persuaded_up", "academics.quant_evidence", "leadership.changed_course"],
+      "sensitivity": "none"
+    },
+    {
+      "ref": "saturday_class",
+      "nickname": "Twelve kids on a Saturday",
+      "era": "2023 onwards",
+      "context": "community",
+      "situation": "A government school near his flat in Bengaluru had computers donated but nobody who could teach with them. Arjun offered to run a Saturday class and started with four students in a room with three working machines.",
+      "stakes": "Nothing was at stake for him, which is why it kept going when it was inconvenient. Two of the first four students had never used a keyboard.",
+      "actions": [
+        "Taught the first year himself, every Saturday except three",
+        "Rewrote the curriculum after the first term because he had started with programming and the students needed typing and file management first",
+        "Recruited three colleagues to take alternate Saturdays so the class did not depend on him",
+        "Set up a WhatsApp group with the students' parents so attendance stopped being his problem to chase"
+      ],
+      "result": "Twelve students now, four of whom have moved on to a paid coding bootcamp. The class has run for two and a half years and has not needed him for the last six months.",
+      "reflection": "He had assumed the barrier was access to computers. It was confidence: the students who did best were the ones whose parents came to the first session. He builds things to run without him now, which he did not used to do.",
+      "numbers": [
+        { "label": "students now", "value": "12" },
+        { "label": "students who went on to a bootcamp", "value": "4" },
+        { "label": "colleagues teaching alternate Saturdays", "value": "3" },
+        { "label": "years running", "value": "2.5" }
+      ],
+      "people": [
+        {
+          "name": "Lakshmi",
+          "role": "the school's headmistress, who gave him the room",
+          "mayName": true
+        }
+      ],
+      "traits": ["community_builder", "develops_people", "acts_unasked", "curious_learner"],
+      "slots": [
+        "community.built",
+        "leadership.developed_others",
+        "support.ongoing",
+        "community.interests"
+      ],
+      "sensitivity": "none"
+    },
+    {
+      "ref": "missed_migration",
+      "nickname": "The migration I got wrong",
+      "era": "2022",
+      "context": "professional",
+      "situation": "Arjun owned a database migration for a mid-sized hospital customer. He tested it against a copy of their data that was three months old, and the live data had a column the copy did not. The migration ran on a Friday evening and corrupted appointment records for about 1,100 patients.",
+      "stakes": "The hospital spent Saturday phoning patients to re-confirm appointments. Meridian had to tell the customer what had happened, and Arjun had to be in that call.",
+      "actions": [
+        "Found the problem within two hours and restored from the backup that night",
+        "Wrote the incident note himself rather than letting his manager write it, and did not soften his part in it",
+        "Added a pre-migration check that compares the live schema against the test copy and refuses to run on a mismatch",
+        "Asked to be the one on the customer call on Monday"
+      ],
+      "result": "No appointments were permanently lost. The schema check he added has blocked four migrations since, two of which would have been worse than his. He was promoted eighteen months later and his manager cited how he handled this.",
+      "reflection": "The mistake was not the stale copy, it was that he had not asked anyone to check his plan because he did not want to look slow. That is the thing that changed.",
+      "numbers": [
+        { "label": "patient records affected", "value": "about 1,100" },
+        { "label": "time to restore", "value": "2 hours" },
+        { "label": "migrations the new check has blocked since", "value": "4" }
+      ],
+      "people": [
+        {
+          "name": "Ravi Menon",
+          "role": "his manager, who let him write the incident note",
+          "mayName": true
+        }
+      ],
+      "traits": ["honest_about_limits", "acts_on_feedback", "resilient", "self_aware"],
+      "slots": ["failure.consequential", "self.feedback", "identity.turning_point"],
+      "sensitivity": "none"
+    },
+    {
+      "ref": "father_illness",
+      "nickname": "The year I worked from the hospital",
+      "era": "2021",
+      "context": "personal",
+      "situation": "His father had a stroke in early 2021 and needed eight months of rehabilitation. Arjun was the only child in the city and worked from the hospital corridor for much of it.",
+      "stakes": "He did not tell his employer for the first two months, and his work slipped enough that it showed in his mid-year review.",
+      "actions": [
+        "Eventually told his manager and asked for his hours to be moved rather than reduced",
+        "Learned to hand work over properly, because he could be called away at any moment",
+        "Kept the Saturday class going by asking a colleague to cover"
+      ],
+      "result": "His father recovered most of his speech. Arjun's review the following year was his best. He has never worked the way he did before 2021 again.",
+      "reflection": "He had thought asking for help was the same as admitting he could not do the work. It took a year to learn otherwise, and that is the same lesson the night-shift call taught him from the other direction.",
+      "numbers": [{ "label": "months of rehabilitation", "value": "8" }],
+      "people": [{ "name": "his father", "role": "had the stroke", "mayName": false }],
+      "traits": ["resilient", "self_aware", "honest_about_limits"],
+      "slots": ["identity.early_responsibility", "support.someone_hard"],
+      "sensitivity": "sensitive"
+    },
+    {
+      "ref": "why_product",
+      "nickname": "Watching the ward use what I built",
+      "era": "2024",
+      "context": "professional",
+      "situation": "After the Chennai go-live Arjun spent three days on the ward watching nurses use the scheduling system. They had invented a paper workaround for a screen he had built, because it asked for information they did not have at that point in their shift.",
+      "stakes": "Nothing broke. The system was working exactly as specified, and it was still wrong.",
+      "actions": [
+        "Sat with four nurses through a full shift and wrote down every workaround",
+        "Took the list to the product team rather than fixing the code himself",
+        "Argued for changing the screen's order of fields, which took two months to get prioritised"
+      ],
+      "result": "The screen was changed. The paper workaround stopped. He asked to join product reviews after that and has sat in them since.",
+      "reflection": "He realised he had been optimising something nobody had asked for, and that the decision about what to build was more interesting to him than the building. That is why he wants to move into product rather than deeper into engineering.",
+      "numbers": [
+        { "label": "days on the ward", "value": "3" },
+        { "label": "nurses shadowed", "value": "4" },
+        { "label": "months to get the change prioritised", "value": "2" }
+      ],
+      "people": [
+        { "name": "Sister Mary Joseph", "role": "the ward's charge nurse", "mayName": true }
+      ],
+      "traits": ["curious_learner", "commercial_judgment", "acts_unasked"],
+      "slots": ["work.motivation", "goals.origin", "goals.research", "work.arc"],
+      "sensitivity": "none"
+    }
+  ],
+  "goals": {
+    "shortTerm": "A product manager on a health-data team at a large technology company or a health-system software company, in the US or India, owning a clinical workflow rather than an internal tool.",
+    "longTerm": "To build shared health records across Indian hospitals, so a patient moving between a government hospital and a private one does not arrive with nothing. He wants to run the product organisation that does it, not found a company.",
+    "planB": "Health-tech strategy consulting for two or three years, which would get him closer to the decision-makers in hospital systems, then product.",
+    "whyMba": "He can build the thing and he can read the data, but he has never owned a budget, priced anything, or carried a plan to a hospital's board. He has watched three good products fail commercially inside Meridian and could not explain why.",
+    "whyNow": "He has just been promoted and has run the module he knows best for two years; there is nothing more to learn there. His father has recovered. Meridian is being acquired next year, which will make the decision for him if he does not make it himself."
+  },
+  "redFlags": [
+    "Deeply technical background with no commercial or P&L exposure",
+    "Verbal 34 is below the median at his target schools",
+    "Non-feeder employer that admissions readers will not recognise",
+    "No formal management experience; coordinates four engineers but has no reports",
+    "Limited international exposure: has worked with US customers remotely but never lived abroad"
+  ],
+  "neverSays": [
+    "passionate",
+    "journey",
+    "leverage",
+    "synergy",
+    "rockstar",
+    "I led",
+    "impactful",
+    "game-changing"
+  ]
+}

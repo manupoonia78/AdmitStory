@@ -28,7 +28,7 @@ const user = { name: "Asha Verma", email: "asha@example.test" };
 // 5 s budget, so it is loaded once up front; the shell's own lazy import then resolves at once.
 const LAZY = { timeout: 3000 };
 
-const DESTINATIONS = ["Home", "Story", "Schools", "Interview", "Connect", "Tracker"];
+const DESTINATIONS = ["Home", "Story", "Dossier", "Schools", "Interview", "Connect", "Tracker"];
 
 function renderShell(onAction = vi.fn()) {
   return render(
@@ -65,7 +65,7 @@ describe("AppShell", () => {
     pathname = "/studio/session-1";
   });
 
-  it("lists the six destinations by their labels and marks the current one", () => {
+  it("lists every destination by its label and marks the current one", () => {
     renderShell();
     const nav = screen.getByRole("navigation", { name: "Main" });
     const links = within(nav).getAllByRole("link");
@@ -105,7 +105,7 @@ describe("AppShell", () => {
     const { unmount } = renderShell();
     const track = screen.getByRole("navigation", { name: "Main" }).firstElementChild as HTMLElement;
     expect(track.style.getPropertyValue("--dock-index")).toBe("1");
-    expect(track.style.getPropertyValue("--dock-count")).toBe("6");
+    expect(track.style.getPropertyValue("--dock-count")).toBe(String(DESTINATIONS.length));
     const veil = track.querySelector('[aria-hidden="true"]');
     expect(veil?.hasAttribute("data-idle")).toBe(false);
     unmount();
@@ -147,7 +147,7 @@ describe("AppShell", () => {
       (el) => el.getAttribute("aria-label") ?? el.textContent,
     );
     expect(focusable[0]).toBe("Search or jump to…");
-    expect(focusable.slice(1, 7)).toEqual(DESTINATIONS);
+    expect(focusable.slice(1, 1 + DESTINATIONS.length)).toEqual(DESTINATIONS);
     expect(focusable.at(-1)).toContain("Account");
   });
 
@@ -196,7 +196,9 @@ describe("AppShell", () => {
       "Match system theme",
     ]);
     expect(document.activeElement).toBe(within(dialog).getByRole("combobox"));
-    expect(within(dialog).getByRole("status").textContent).toBe("10 results");
+    expect(within(dialog).getByRole("status").textContent).toBe(
+      `${DESTINATIONS.length + 4} results`,
+    );
   });
 
   it("narrows results live as you type and says how many are left", async () => {

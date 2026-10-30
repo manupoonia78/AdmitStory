@@ -4,17 +4,22 @@
 
 export interface NavItem {
   id: NavId;
-  /** Short label: beside the icon in the open dock, under it in the bottom dock. */
+  /**
+   * Short label: beside the icon in the open side dock, and the accessible name everywhere. The
+   * bottom dock shows icons only — seven labels do not fit a 375px screen at the 13px minimum —
+   * so this is what a screen reader reads there.
+   */
   label: string;
   href: string;
 }
 
-export type NavId = "home" | "studio" | "schools" | "interview" | "connect" | "tracker";
+export type NavId = "home" | "studio" | "dossier" | "schools" | "interview" | "connect" | "tracker";
 
-/** The six destinations of the dock (spec §6.5). */
+/** The destinations of the dock (spec §6.5), in the order of §4's journey. */
 export const NAV_ITEMS: readonly NavItem[] = [
   { id: "home", label: "Home", href: "/home" },
   { id: "studio", label: "Story", href: "/studio" },
+  { id: "dossier", label: "Dossier", href: "/dossier" },
   { id: "schools", label: "Schools", href: "/schools" },
   { id: "interview", label: "Interview", href: "/interview" },
   { id: "connect", label: "Connect", href: "/connect" },

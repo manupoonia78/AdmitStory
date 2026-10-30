@@ -8,10 +8,15 @@
   },
   "scripts": {
     "typecheck": "tsc -p tsconfig.json",
-    "record:util-title": "tsx scripts/record-util-title.ts"
+    "record:util-title": "tsx scripts/record-util-title.ts",
+    "simulate": "tsx scripts/simulate-studio.ts",
+    "fixtures:resumes": "tsx scripts/fixture-resumes.ts",
+    "check:tasks": "tsx scripts/check-tasks.ts",
+    "check:fixtures": "tsx scripts/check-fixtures.ts"
   },
   "dependencies": {
     "@admitstory/shared": "workspace:*",
+    "@admitstory/slots": "workspace:*",
     "@anthropic-ai/sdk": "1.3.0",
     "@langfuse/otel": "6.0.2",
     "@langfuse/tracing": "6.0.2",

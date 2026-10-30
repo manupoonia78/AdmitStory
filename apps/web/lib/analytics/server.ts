@@ -7,7 +7,15 @@ import { serverEnv } from "../env";
 // essay or transcript text (spec §14.4). Without POSTHOG_KEY every call is a no-op.
 
 /** Spec §15 product events; add names here as features ship. */
-export type ProductEvent = "signup_completed";
+export type ProductEvent =
+  | "signup_completed"
+  // Phase 1 (Story Studio and the Dossier).
+  | "first_run_completed"
+  | "studio_started"
+  | "studio_turn"
+  | "story_detected"
+  | "studio_session_ended"
+  | "document_imported";
 
 export type EventProperties = Record<string, string | number | boolean | null>;
 

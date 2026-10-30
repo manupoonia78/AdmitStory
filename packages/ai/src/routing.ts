@@ -315,6 +315,15 @@ export const ROUTES = {
     visibleBudget: 1_000,
     note: "Short summaries; thinking off.",
   }),
+  // Not in §8.3's table: the spec names the applicant simulator (§8.11, §16 Phase 1) but gives it
+  // no route. Haiku, as §8.11 specifies. Test harness only; no product path reaches it.
+  "eval.applicant_simulator": route({
+    model: "haiku",
+    effort: "low",
+    thinking: "off",
+    visibleBudget: 1_200,
+    note: "Fixture applicant answering Studio questions in evals; thinking off.",
+  }),
 } as const satisfies Record<string, Route>;
 
 export type RouteTask = keyof typeof ROUTES;

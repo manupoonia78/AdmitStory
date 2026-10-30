@@ -1,0 +1,423 @@
+{
+  "facts": [
+    { "key": "full_name", "value": "Nguyễn Hoài Trâm", "note": "goes by Trâm" },
+    {
+      "key": "employer_current",
+      "value": "An Khang General Hospital",
+      "note": "private 620-bed hospital in Ho Chi Minh City, part of a four-hospital group"
+    },
+    {
+      "key": "title_current",
+      "value": "Charge Nurse, Adult Intensive Care",
+      "note": "since February 2023"
+    },
+    {
+      "key": "title_previous",
+      "value": "ICU Staff Nurse",
+      "note": "July 2018 to January 2023, same hospital and same unit"
+    },
+    {
+      "key": "unit_scope",
+      "value": "A 22-bed adult ICU with 34 nurses on the roster; she runs the day shift of 11"
+    },
+    {
+      "key": "authority",
+      "value": "No line-management authority, no budget line, no hiring or dismissal say; the roster office and the medical director hold both"
+    },
+    { "key": "location_current", "value": "Ho Chi Minh City, Vietnam" },
+    { "key": "hometown", "value": "Vĩnh Long province, in the Mekong Delta" },
+    {
+      "key": "degree",
+      "value": "BSc Nursing, Phú Mỹ University of Health Sciences, Ho Chi Minh City, 2018"
+    },
+    { "key": "gpa", "value": "8.1 out of 10" },
+    {
+      "key": "executive_assessment",
+      "value": "155",
+      "note": "taken March 2026; she has never sat the GMAT or GRE and does not intend to"
+    },
+    {
+      "key": "languages",
+      "value": "Vietnamese and Khmer from childhood, English third",
+      "note": "her mother is Khmer Krom; Trâm learned English from eighteen onwards"
+    },
+    { "key": "english_level", "value": "IELTS 7.0, speaking 6.5", "note": "taken January 2026" },
+    {
+      "key": "certification",
+      "value": "Critical care nursing certificate, Southern Critical Care Nursing Association, 2021"
+    },
+    {
+      "key": "management_training",
+      "value": "None of any kind. No course, no budget, no project she has been formally accountable for"
+    },
+    {
+      "key": "international_exposure",
+      "value": "A three-week clinical attachment at a provincial hospital in Takéo, Cambodia, in 2024; otherwise has not worked outside Vietnam"
+    },
+    {
+      "key": "medical_director",
+      "value": "Dr. Phạm Quốc Đạt",
+      "note": "ICU medical director since 2019; decides who holds the charge-nurse role"
+    },
+    {
+      "key": "deputy_director",
+      "value": "Dr. Lê Minh Khoa",
+      "note": "hospital deputy director, the most senior person who takes her proposals"
+    },
+    {
+      "key": "side_commitment",
+      "value": "Runs a Sunday group for new ICU nurses across the district, started 2023"
+    },
+    {
+      "key": "family",
+      "value": "Mother in Vĩnh Long, a younger sister in Ho Chi Minh City, a brother who is an electrician; father died in 2012"
+    }
+  ],
+  "stories": [
+    {
+      "ref": "eye_clinic_overflow",
+      "nickname": "The eye clinic",
+      "era": "the dengue surge, 2022",
+      "context": "professional",
+      "situation": "A dengue surge filled the 22-bed adult ICU at An Khang and kept it full for 12 days. Patients who needed ventilating were held in the emergency department on trolleys, and the hospital had no step-down unit, so stable patients could not be moved out to free a bed. Trâm was the charge nurse on days. The outpatient eye clinic on the floor below had been emptied for refurbishment and was standing unused.",
+      "stakes": "On the worst morning 9 patients were waiting for an ICU bed, 3 of them being ventilated by hand in the emergency department. The medical director was on leave and nobody below him would decide about the eye clinic, because the refurbishment contract had already been paid.",
+      "actions": [
+        "Measured the eye clinic herself after her shift - power points, oxygen outlets, door widths, where a trolley could turn - and wrote a single page saying what it could take and what it could not",
+        "Took the page to the hospital deputy director before his morning round and asked for 36 hours and no money",
+        "Borrowed 8 nurses from the surgical wards by going to each ward's charge nurse in person rather than through the roster office",
+        "Wrote an admission rule for the step-down beds - who could go there, who could not - and made herself the only person allowed to override it",
+        "Ran the day shift and took the first 3 nights herself, so the borrowed nurses were never alone with patients they did not know"
+      ],
+      "result": "The step-down unit took 14 patients across the 12 days. After the second day no patient waited more than 4 hours for an ICU bed. The unit was closed again when the refurbishment resumed, and the admission rule she wrote is still what the hospital uses whenever it opens an overflow ward.",
+      "reflection": "She did not ask permission, she asked for a decision, and she only did that because the medical director was away. She thinks she should have been able to make the same case with him in the building, and that she could not because she had no figure for what a held ICU bed costs the hospital. She still does not have one.",
+      "numbers": [
+        { "label": "ICU beds", "value": "22" },
+        { "label": "days the ICU stayed full", "value": "12" },
+        { "label": "patients waiting on the worst morning", "value": "9" },
+        { "label": "being ventilated by hand", "value": "3" },
+        { "label": "time she asked for", "value": "36 hours" },
+        { "label": "nurses borrowed from surgical wards", "value": "8" },
+        { "label": "nights she covered herself", "value": "3" },
+        { "label": "patients the step-down unit took", "value": "14" },
+        { "label": "longest wait for an ICU bed after day two", "value": "4 hours" }
+      ],
+      "people": [
+        {
+          "name": "Dr. Lê Minh Khoa",
+          "role": "hospital deputy director, who gave her the 36 hours",
+          "mayName": true
+        },
+        {
+          "name": "Nguyễn Thị Bích Hằng",
+          "role": "surgical ward charge nurse, the first to lend her nurses",
+          "mayName": true
+        }
+      ],
+      "traits": [
+        "originates_ideas",
+        "delivers_under_pressure",
+        "measurable_impact",
+        "steady_in_ambiguity"
+      ],
+      "slots": [
+        "impact.biggest",
+        "numbers.impact",
+        "leadership.originated_idea",
+        "leadership.initiative_risky",
+        "employ.cross_functional"
+      ],
+      "sensitivity": "none"
+    },
+    {
+      "ref": "handover_rule",
+      "nickname": "The handover sheet",
+      "era": "2024",
+      "context": "professional",
+      "situation": "Handover between shifts in the ICU was spoken, and took about 40 minutes for 22 patients. Trâm had kept a notebook for 2 years of every time something was dropped at handover - a drug, a line, a number that had been moving - and had 61 entries in it.",
+      "stakes": "The medical director had designed the spoken handover himself and defended it as the thing that kept nurses talking to each other. Proposing a written sheet meant telling him, in front of the nursing director, that his system dropped things. He is the person who decides whether she keeps the charge-nurse role.",
+      "actions": [
+        "Sorted the 61 entries into 4 kinds, and found 38 of them were a trend rather than a single fact - something that had been changing for hours and that nobody had said out loud",
+        "Drafted a single-page sheet with a line for each patient and a compulsory box for anything that had changed direction in the last 12 hours",
+        "Asked the medical director to let her run it on her own shift for 1 month before she showed it to anyone else, so that he was not being overruled",
+        "Showed him the month's figures privately before the nursing meeting, and let him present them",
+        "Kept the spoken handover as well, because the thing he was defending was true"
+      ],
+      "result": "Handover came down from about 40 minutes to 25, and the sheet is now compulsory on every shift in the unit. Recorded misses fell to 7 in the year after it started. The medical director presented it at the hospital's quality meeting as his unit's work, which is how Trâm had arranged it.",
+      "reflection": "She had the notebook for 2 years before she did anything with it, because she had decided a charge nurse does not redesign a doctor's system. What changed was not courage, it was working out that she could make it his idea. She is not sure that is a good thing about her, and says so.",
+      "numbers": [
+        { "label": "handover time before", "value": "about 40 minutes" },
+        { "label": "patients handed over", "value": "22" },
+        { "label": "years she kept the notebook", "value": "2" },
+        { "label": "dropped items recorded", "value": "61" },
+        { "label": "kinds she sorted them into", "value": "4" },
+        { "label": "entries that were a trend, not a fact", "value": "38" },
+        { "label": "look-back window on the sheet", "value": "12 hours" },
+        { "label": "trial length", "value": "1 month" },
+        { "label": "handover time after", "value": "25 minutes" },
+        { "label": "dropped items in the year after", "value": "7" }
+      ],
+      "people": [
+        {
+          "name": "Dr. Phạm Quốc Đạt",
+          "role": "ICU medical director, who had designed the spoken handover",
+          "mayName": true
+        }
+      ],
+      "traits": ["brings_people_along", "analytical", "measurable_impact", "acts_unasked"],
+      "slots": [
+        "leadership.persuaded_up",
+        "academics.quant_evidence",
+        "employ.trajectory",
+        "numbers.impact"
+      ],
+      "sensitivity": "none"
+    },
+    {
+      "ref": "handover_i_missed",
+      "nickname": "The handover I did badly",
+      "era": "2021",
+      "context": "professional",
+      "situation": "An older man, 3 days after bowel surgery, was Trâm's patient on a day shift. His urine output fell from 40 millilitres an hour to 20 across the afternoon and his heart rate climbed with it. She wrote every figure on the chart and handed over at the end of the shift without saying that the direction mattered.",
+      "stakes": "The nurse taking over had been on the unit less than a month. Nobody read the chart against itself until the morning round.",
+      "actions": [
+        "Told the medical director what she had not said at handover, before the case review and before anyone asked her",
+        "Sat with the man's wife and daughter alongside the ward sister and answered what they asked, including whether it would have changed anything",
+        "Asked for the case to go to the hospital's mortality review rather than be closed as an expected death after surgery",
+        "Started the notebook that night and wrote in it for 2 years",
+        "Stopped leaving the unit at the end of a shift until the nurse taking over had repeated back anything that was moving in one direction"
+      ],
+      "result": "He went into kidney failure overnight, was dialysed, and died 2 days later. The mortality review found the handover, not the surgery. Trâm was not disciplined; she was asked to help write the unit's handover standard, and she brought nothing forward for 2 years.",
+      "reflection": "She states the cause plainly: the figures were on the chart and she did not say the word falling. She had treated handover as a report rather than a decision. What she will only say if asked twice is that she had been in a hurry for a bus, and that she has never left a unit in a hurry since.",
+      "numbers": [
+        { "label": "days after surgery", "value": "3" },
+        {
+          "label": "urine output at the start of the afternoon",
+          "value": "40 millilitres an hour"
+        },
+        { "label": "urine output by the end of it", "value": "20 millilitres an hour" },
+        { "label": "time the night nurse had been on the unit", "value": "less than a month" },
+        { "label": "days until he died", "value": "2" },
+        { "label": "years she kept the notebook before acting on it", "value": "2" }
+      ],
+      "people": [
+        {
+          "name": "the man's wife",
+          "role": "sat with Trâm after the mortality review",
+          "mayName": false
+        },
+        {
+          "name": "Dr. Phạm Quốc Đạt",
+          "role": "ICU medical director, who took the case to mortality review",
+          "mayName": true
+        }
+      ],
+      "traits": ["honest_about_limits", "acts_on_feedback", "self_aware", "resilient"],
+      "slots": ["failure.consequential", "self.feedback", "identity.turning_point"],
+      "sensitivity": "sensitive"
+    },
+    {
+      "ref": "fathers_dialysis",
+      "nickname": "The dialysis money",
+      "era": "her teens, in Vĩnh Long",
+      "context": "personal",
+      "situation": "Her father ran a boat taxi in Vĩnh Long and went into kidney failure when Trâm was 14. He needed dialysis 3 times a week in Cần Thơ, 2 hours each way. Her mother is Khmer Krom and reads Vietnamese slowly, so the hospital's paperwork became Trâm's.",
+      "stakes": "The family had no health insurance for the first year and sold the boat to pay for the treatment. Trâm was the eldest of 3 and her brother was 6.",
+      "actions": [
+        "Learned the state insurance scheme well enough to get her father enrolled, which took most of a school holiday and a letter from the commune office",
+        "Went with him to dialysis on Saturdays and watched the nurses work, which is how she decided what she would do",
+        "Worked in a bakery from the age of 15 and gave the money to her mother without being asked",
+        "Chose nursing over medicine because nursing was 4 years and she could work while she studied"
+      ],
+      "result": "Her father lived 5 years on dialysis and died at home. Her brother finished his training as an electrician. Her mother is still in Vĩnh Long and Trâm sends money every month.",
+      "reflection": "She does not call this hardship and corrects anyone who does, because it was ordinary in her commune. What she takes from it is narrower than a lesson: the dialysis existed and her father nearly did not get it, because nobody in the family could read the system. That is the part she works on.",
+      "numbers": [
+        { "label": "her age when he fell ill", "value": "14" },
+        { "label": "dialysis sessions a week", "value": "3" },
+        { "label": "travel each way to Cần Thơ", "value": "2 hours" },
+        { "label": "years with no health insurance", "value": "1" },
+        { "label": "children in the family", "value": "3" },
+        { "label": "her brother's age then", "value": "6" },
+        { "label": "her age when she started work", "value": "15" },
+        { "label": "length of the nursing degree", "value": "4 years" },
+        { "label": "years her father lived on dialysis", "value": "5" }
+      ],
+      "people": [
+        {
+          "name": "her father",
+          "role": "boat taxi driver, on dialysis until he died at home",
+          "mayName": false
+        },
+        {
+          "name": "her mother",
+          "role": "Khmer Krom, reads Vietnamese slowly, still in Vĩnh Long",
+          "mayName": false
+        },
+        { "name": "Hậu", "role": "her younger brother, now an electrician", "mayName": true }
+      ],
+      "traits": ["resilient", "empathetic", "honest_about_limits", "global_outlook"],
+      "slots": [
+        "identity.root",
+        "identity.early_responsibility",
+        "support.someone_hard",
+        "work.motivation",
+        "perspective.cross_cultural"
+      ],
+      "sensitivity": "sensitive"
+    },
+    {
+      "ref": "sunday_group",
+      "nickname": "The Sunday group",
+      "era": "2023 onwards",
+      "context": "community",
+      "situation": "2 nurses left Trâm's unit in the same month, both with less than a year in post, and both said at their exit interview that nobody had told them a patient dying was not their fault. Trâm started meeting new ICU nurses on Sunday mornings in a coffee shop near the hospital, not to teach clinical skills, which the hospital does, but to go through the deaths.",
+      "stakes": "She had no mandate for it and did not tell the nursing director for 6 months, because an unofficial group about patient deaths could have been read as a complaint about the unit.",
+      "actions": [
+        "Kept it to coffee and 90 minutes and never wrote anything down",
+        "Made a rule that nobody discusses a case that is still open, so it could not become a back channel around the hospital's own review",
+        "Brought in a psychiatric nurse from another hospital every few months, and paid her out of her own money the first 3 times",
+        "Handed the group to 2 nurses from the second intake once they had been through it themselves, so that it did not depend on her",
+        "Opened it to nurses from 4 other hospitals in the district when they asked to come"
+      ],
+      "result": "It has run for 3 years and 34 nurses have been through it. Nobody has left Trâm's unit inside their first year since it started. The hospital now pays for the psychiatric nurse. Trâm has not run a session herself for 8 months.",
+      "reflection": "She had assumed the problem was that new nurses were not tough enough, because that is what she had been told about herself. It was that nobody had ever said out loud that the death was going to happen. She also knows the group works because it is not the hospital's, and she cannot see how to build that officially. That is one of the things she wants to learn.",
+      "numbers": [
+        { "label": "nurses who left that month", "value": "2" },
+        { "label": "their time in post", "value": "less than a year" },
+        { "label": "months before she told the nursing director", "value": "6" },
+        { "label": "session length", "value": "90 minutes" },
+        { "label": "visits she paid for herself", "value": "3" },
+        { "label": "nurses she handed it to", "value": "2" },
+        { "label": "other hospitals in the district included", "value": "4" },
+        { "label": "years it has run", "value": "3" },
+        { "label": "nurses through it", "value": "34" },
+        { "label": "months since she last ran a session", "value": "8" }
+      ],
+      "people": [
+        {
+          "name": "Trần Thị Mỹ Duyên",
+          "role": "psychiatric nurse from another hospital who comes to sessions",
+          "mayName": true
+        },
+        {
+          "name": "Võ Ngọc Linh",
+          "role": "one of the two nurses who run the group now",
+          "mayName": true
+        }
+      ],
+      "traits": ["community_builder", "develops_people", "empathetic", "acts_unasked"],
+      "slots": [
+        "community.built",
+        "support.ongoing",
+        "leadership.developed_others",
+        "community.interests"
+      ],
+      "sensitivity": "personal"
+    },
+    {
+      "ref": "bed_day_count",
+      "nickname": "Counting the days nobody owned",
+      "era": "2025",
+      "context": "professional",
+      "situation": "Trâm started counting, for every patient leaving her ICU, how many days they had stayed after the point they no longer needed intensive care. She did it on paper, for 6 months, across 212 discharges.",
+      "stakes": "The answer was that the average patient stayed 2.4 days longer than they needed to, and that almost none of that was clinical. It was waiting for a general-ward bed, waiting for a family to be spoken to, waiting for a form. Saying it meant telling the hospital that its ICU shortage was not an ICU problem, at the point when the group was costing a new ICU.",
+      "actions": [
+        "Grouped the 2.4 days by cause, and found 61% of it was waiting for a ward bed and 18% was waiting for a discharge conversation that no role owned",
+        "Converted the days into beds, because days meant nothing to the directors: the delay across 212 discharges was about 1.4 ICU beds standing unavailable all year",
+        "Took it to the deputy director with that single figure and no recommendation, and asked who owned the problem",
+        "Was told, correctly, that nobody did, and that it could not be handed to her because she had no training in anything but nursing"
+      ],
+      "result": "The hospital added a discharge coordinator post to the ICU. Trâm wrote the job description and was not eligible for the job. The new ICU was built anyway. She has kept counting.",
+      "reflection": "This is where she decided. She could see the thing and she could count it, and the reason it could not be handed to her was not politics, it was true: she has never run a budget, a contract or a project, and she had no answer when she was asked what the coordinator post would cost. She wants to be the person it gets handed to.",
+      "numbers": [
+        { "label": "months she counted", "value": "6" },
+        { "label": "discharges counted", "value": "212" },
+        { "label": "average days held past need", "value": "2.4" },
+        { "label": "share waiting for a ward bed", "value": "61%" },
+        { "label": "share waiting for a discharge conversation", "value": "18%" },
+        { "label": "ICU beds lost across the year", "value": "about 1.4" }
+      ],
+      "people": [
+        {
+          "name": "Dr. Lê Minh Khoa",
+          "role": "deputy director, who told her nobody owned it",
+          "mayName": true
+        }
+      ],
+      "traits": [
+        "analytical",
+        "measurable_impact",
+        "commercial_judgment",
+        "curious_learner",
+        "acts_unasked"
+      ],
+      "slots": ["goals.origin", "work.arc", "work.scope", "why.gap"],
+      "sensitivity": "none"
+    },
+    {
+      "ref": "diagnosis_the_family_hid",
+      "nickname": "What the family would not let me say",
+      "era": "2023",
+      "context": "professional",
+      "situation": "A woman who had been in Trâm's ICU for several days was stable, awake, and asking what was wrong with her. Her diagnosis was a cancer that had already spread. Her 2 sons had asked the medical team not to tell her, which is common here and which the hospital allowed. She asked Trâm directly, 3 times.",
+      "stakes": "Lying to her was permitted and refusing to lie was not Trâm's decision to take. If she answered, she went round the family and the doctor. If she did not, she was the one in the room not answering, every shift.",
+      "actions": [
+        "Did not answer the question and did not pretend there was nothing to answer; told the woman she had asked something Trâm could not answer, and that she would get her an answer from someone who could",
+        "Went to the medical director and the sons together, which the sons had been avoiding, and repeated what their mother had asked and the words she had used",
+        "Offered to be in the room when they told her, and was",
+        "Wrote the exchange in the notes, including her own refusal to answer, which nobody had asked her to do"
+      ],
+      "result": "The sons told their mother 2 days after that meeting, with Trâm and the medical director present. The woman died in the hospital some weeks later. One of the sons found Trâm afterwards and told her his mother had known the whole time.",
+      "reflection": "She does not think she did the right thing. She thinks she did the only thing available that did not take a decision belonging to someone else. She will not say the family were wrong. What she says is that the system left the question with the nurse at the bedside, which is where it always ends up, and nobody had ever told her what to do with it.",
+      "numbers": [
+        { "label": "sons", "value": "2" },
+        { "label": "times the woman asked her directly", "value": "3" },
+        { "label": "days between the meeting and them telling her", "value": "2" }
+      ],
+      "people": [
+        {
+          "name": "the elder son",
+          "role": "asked the team not to tell his mother",
+          "mayName": false
+        },
+        {
+          "name": "Dr. Phạm Quốc Đạt",
+          "role": "ICU medical director, in the room when she was told",
+          "mayName": true
+        }
+      ],
+      "traits": ["principled_stands", "empathetic", "self_aware", "steady_in_ambiguity"],
+      "slots": ["values.dilemma", "values.line", "perspective.difference"],
+      "sensitivity": "sensitive"
+    }
+  ],
+  "goals": {
+    "shortTerm": "A hospital operations or provider-strategy role at group level in Southeast Asia - someone who decides how a unit runs rather than running a shift inside one. Either operations for a hospital group or provider strategy at a health insurer.",
+    "longTerm": "To run operations for a hospital network across Vietnam, Cambodia and Laos, and to make the step-down and discharge layer work, so intensive-care beds are not held by patients who no longer need them. She wants to be inside the system, not advising it.",
+    "planB": "Health-system consulting in Singapore or Ho Chi Minh City for three or four years and then back into a provider; or the quality and operations post at An Khang, which has been mentioned to her informally twice.",
+    "whyMba": "She can run a unit and she can see where the hospital wastes a bed, but she cannot read a balance sheet, has never held a budget, and has no language for any of it. Twice she has taken a proposal upwards and been asked what it would cost, and had no answer either time.",
+    "whyNow": "She has been charge nurse for three years and the clinical ceiling is a nursing-director post she does not want. The group opens two new ICUs next year and is choosing now who sets them up; if she is still purely clinical through that, she will be clinical for good. Her brother has finished his training and can look after their mother."
+  },
+  "redFlags": [
+    "Clinical background with no management training at all: no budget, no P&L, no formal reports, no project she has been accountable for",
+    "Took the Executive Assessment and scored 155 rather than sitting the GMAT or GRE, which some readers will treat as avoiding the harder test",
+    "English is her third language; speaking band 6.5 and visible hesitation under pressure",
+    "Non-feeder employer: a single private hospital that no admissions reader will recognise",
+    "Almost no international exposure - eight years in Vietnam and a three-week attachment in Cambodia",
+    "Narrow functional scope: eight years in one 22-bed unit of one hospital",
+    "Her stated goal sector recruits very few MBAs in her region, so the post-MBA path is unproven"
+  ],
+  "neverSays": [
+    "passionate",
+    "journey",
+    "impactful",
+    "life-saving",
+    "I saved him",
+    "hero",
+    "angel in white",
+    "calling",
+    "inspiring",
+    "leverage",
+    "sacrifice",
+    "I led"
+  ]
+}

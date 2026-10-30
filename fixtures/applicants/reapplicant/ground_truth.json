@@ -1,0 +1,248 @@
+{
+  "facts": [
+    {
+      "key": "employer_current",
+      "value": "Kalyan Autoparts Limited",
+      "note": "tier-two automotive components supplier, Pune"
+    },
+    { "key": "title_current", "value": "Senior Manager, Supply Chain", "note": "since April 2026" },
+    { "key": "title_previous", "value": "Manager, Supply Chain", "note": "2023 to April 2026" },
+    {
+      "key": "title_first",
+      "value": "Graduate Engineer Trainee, then Assistant Manager",
+      "note": "2019 to 2023, same employer"
+    },
+    { "key": "team_size", "value": "14 people, up from 6 before the April 2026 promotion" },
+    { "key": "location_current", "value": "Pune, Maharashtra, India" },
+    {
+      "key": "degree",
+      "value": "B.E. in Production Engineering, College of Engineering Pune, 2019"
+    },
+    { "key": "gpa", "value": "7.6 out of 10" },
+    { "key": "gmat_total", "value": "730", "note": "retaken October 2026; previously 700 in 2025" },
+    { "key": "languages", "value": "English, Hindi, Marathi" },
+    {
+      "key": "spend_responsibility",
+      "value": "Annual purchasing spend of about 190 crore rupees, up from 70 crore"
+    },
+    {
+      "key": "last_cycle",
+      "value": "Applied to four schools in Round 2 of the 2026 cycle; four denials, one interview"
+    },
+    {
+      "key": "new_coursework",
+      "value": "MITx Probability and Statistics, completed July 2026, graded 94%"
+    },
+    {
+      "key": "conversations_this_year",
+      "value": "Spoke to 11 current students and 3 alumni between March and September 2026"
+    }
+  ],
+  "stories": [
+    {
+      "ref": "the_supplier_rescue",
+      "nickname": "The supplier I kept alive",
+      "era": "2026",
+      "context": "professional",
+      "situation": "A forging supplier that made 3 of Kalyan's 11 critical parts was three weeks from shutting down: the owner had died, his son wanted to sell, and the bank had frozen the working-capital line. There was no alternate source approved for two of the three parts, and re-approval takes nine months.",
+      "stakes": "A stop at Kalyan stops two assembly lines at its customer, with a contractual penalty of about 40 lakh rupees a day. This is the first thing he owned after the April promotion.",
+      "actions": [
+        "Flew to Rajkot the day he heard and spent two days in the plant with the son and the bank, rather than sending the commercial team",
+        "Proposed that Kalyan pay for the raw material directly and consign it, which took the working capital out of the problem without lending money",
+        "Got his own finance director to agree to 6 crore of exposure in four days, which required him to present to the board",
+        "Qualified a second source for the one part that could be moved, in parallel, so the plan did not depend on the rescue working",
+        "Kept the son running the plant rather than taking over the management, which the commercial team wanted"
+      ],
+      "result": "The supplier is still trading and has since taken on two more parts. No line stopped. The consignment model has been used twice more at Kalyan since. The second source he qualified in parallel is now 30% of that part's volume, which was not the plan and is better.",
+      "reflection": "A year ago he would have run the dual-sourcing track only, because it is the defensible answer and nobody is blamed for it. The rescue was the better answer and he could only make that case because he had sat in the plant. He has stopped sending other people to the thing he is deciding about.",
+      "numbers": [
+        { "label": "critical parts at risk", "value": "3 of 11" },
+        { "label": "weeks to shutdown", "value": "3" },
+        { "label": "penalty for a line stop", "value": "about 40 lakh rupees a day" },
+        { "label": "re-approval time for a new source", "value": "9 months" },
+        { "label": "exposure approved", "value": "6 crore rupees" },
+        { "label": "days to get it approved", "value": "4" },
+        { "label": "share now from the parallel second source", "value": "30%" }
+      ],
+      "people": [
+        {
+          "name": "Jignesh Patel",
+          "role": "the son who inherited the forging plant",
+          "mayName": true
+        },
+        {
+          "name": "Mrs Deshpande",
+          "role": "Kalyan's finance director, who approved the exposure",
+          "mayName": true
+        }
+      ],
+      "traits": [
+        "steady_in_ambiguity",
+        "commercial_judgment",
+        "brings_people_along",
+        "delivers_under_pressure"
+      ],
+      "slots": [
+        "impact.biggest",
+        "numbers.impact",
+        "leadership.persuaded_up",
+        "leadership.initiative_risky",
+        "work.scope"
+      ],
+      "sensitivity": "none"
+    },
+    {
+      "ref": "the_denials",
+      "nickname": "Four letters in one month",
+      "era": "2026",
+      "context": "personal",
+      "situation": "Nikhil applied to four schools in Round 2 of the 2026 cycle, got one interview, and was denied by all four between February and March. He had told his team, his parents and his wife he was going.",
+      "stakes": "He had to keep managing fourteen people who knew he had applied. His wife asked him in January whether he would try again and he did not have an answer for two weeks.",
+      "actions": [
+        "Asked for feedback from the one school that offers it, which said his goals were generic and his file read as a strong list of responsibilities rather than a person",
+        "Did not accept that at first, and spent a month deciding it was mostly right",
+        "Took the statistics course because the feedback did not mention quant and he thought it was being polite",
+        "Asked his skip-level manager directly for a role with more scope rather than waiting to be given one, which produced the April promotion",
+        "Spoke to eleven current students, having spoken to two the first time"
+      ],
+      "result": "730 on the retake, a promotion with 14 reports and 190 crore of spend, a statistics course at 94%, and eleven conversations. He is applying to five schools, three of them new.",
+      "reflection": "The feedback was that his file described a job and not a person, and he thinks that is because he genuinely did not know which parts of his own work mattered. He also thinks — and is careful about saying this — that part of last year was that he applied because it was the next thing, and this year it is not that.",
+      "numbers": [
+        { "label": "schools applied to", "value": "4" },
+        { "label": "denials", "value": "4" },
+        { "label": "interviews", "value": "1" },
+        { "label": "GMAT before and after", "value": "700 then 730" },
+        { "label": "students he spoke to last cycle", "value": "2" },
+        { "label": "students he spoke to this cycle", "value": "11" },
+        { "label": "statistics course grade", "value": "94%" },
+        { "label": "weeks before he could answer his wife", "value": "2" }
+      ],
+      "people": [
+        {
+          "name": "Shruti",
+          "role": "his wife, who asked whether he would try again",
+          "mayName": true
+        }
+      ],
+      "traits": ["resilient", "acts_on_feedback", "self_aware", "honest_about_limits"],
+      "slots": [
+        "reapp.changes",
+        "self.feedback",
+        "identity.turning_point",
+        "fit.conversations",
+        "why.now"
+      ],
+      "sensitivity": "none"
+    },
+    {
+      "ref": "the_inventory_i_got_wrong",
+      "nickname": "The 11 crore sitting in a warehouse",
+      "era": "2024",
+      "context": "professional",
+      "situation": "Nikhil pushed a forecast-based ordering model for fast-moving parts, replacing the min-max system. The forecast came from the customer's own schedule, which he trusted. The customer changed a model mid-year and Kalyan was left holding about 11 crore rupees of parts for a variant that was discontinued.",
+      "stakes": "It was his model, argued for over four months, and the write-down was about 2% of that year's profit.",
+      "actions": [
+        "Reported it himself in the monthly review before the finance team found it",
+        "Found that about 40% of the stock could be reworked for a different variant, and organised that rather than writing it all off",
+        "Rebuilt the model with a customer-commitment horizon instead of a forecast horizon, which halved its reach and made it defensible",
+        "Kept the model rather than reverting to min-max, which he had to argue for again from a much worse position"
+      ],
+      "result": "The write-down came to about 6.5 crore rather than 11. The rebuilt model is still in use and has taken about 18 days out of average inventory. His manager's review that year called the handling of it the reason he was being kept on the model.",
+      "reflection": "He had treated a forecast as a commitment because the customer's planner said it was reliable, and he had never asked what happened historically when it was not. He asks for the history of a number now, not the number.",
+      "numbers": [
+        { "label": "stock held for a discontinued variant", "value": "about 11 crore rupees" },
+        { "label": "share reworkable", "value": "about 40%" },
+        { "label": "final write-down", "value": "about 6.5 crore rupees" },
+        { "label": "share of that year's profit", "value": "about 2%" },
+        { "label": "days taken out of average inventory", "value": "about 18" },
+        { "label": "months he argued for the model", "value": "4" }
+      ],
+      "people": [{ "name": "Anil Kulkarni", "role": "his manager at the time", "mayName": true }],
+      "traits": ["honest_about_limits", "acts_on_feedback", "analytical", "measurable_impact"],
+      "slots": ["failure.consequential", "academics.quant_evidence", "leadership.originated_idea"],
+      "sensitivity": "none"
+    },
+    {
+      "ref": "the_pandemic_shift",
+      "nickname": "The year the plant ran with forty people",
+      "era": "2020 to 2021",
+      "context": "professional",
+      "situation": "As a trainee in his second year, Nikhil was one of about forty people who stayed on site at the Pune plant through two lockdowns, living in a dormitory the company set up, while the rest of the workforce could not travel.",
+      "stakes": "He was 23, had been there a year, and was given the whole inbound material flow because the people above him were not on site.",
+      "actions": [
+        "Ran inbound for 11 weeks, which was four levels above his actual job",
+        "Learned to negotiate with transporters directly because the commercial team was not reachable",
+        "Set up the daily call with the three biggest suppliers that the company still runs",
+        "Went home to Nashik for the first time in four months in August 2020"
+      ],
+      "result": "The plant did not stop. The daily supplier call is now standard. He was made Assistant Manager early, in 2021, which is the promotion that put him two years ahead.",
+      "reflection": "Everything he is good at he learned in those eleven weeks because there was nobody to ask, and everything he is bad at — stepping back, letting someone else decide — he learned in the same eleven weeks. He is aware that the thing that made him is also the habit he most needs to break.",
+      "numbers": [
+        { "label": "people on site", "value": "about 40" },
+        { "label": "weeks running inbound", "value": "11" },
+        { "label": "levels above his job", "value": "4" },
+        { "label": "months before he went home", "value": "4" }
+      ],
+      "people": [
+        {
+          "name": "Sachin Pawar",
+          "role": "the transporter who kept running through the lockdown",
+          "mayName": true
+        }
+      ],
+      "traits": ["delivers_under_pressure", "steady_in_ambiguity", "resilient", "self_aware"],
+      "slots": ["employ.trajectory", "work.motivation", "work.arc", "self.others_view"],
+      "sensitivity": "none"
+    },
+    {
+      "ref": "fathers_shop",
+      "nickname": "The shop I closed for my father",
+      "era": "2017",
+      "context": "personal",
+      "situation": "His father ran a small hardware shop in Nashik that had been losing money for three years. In Nikhil's third year of engineering he went through the books over a vacation and told his father it should close.",
+      "stakes": "It was his father's own business and his grandfather's before that. His father had been borrowing from relatives to keep it open and had not told the family.",
+      "actions": [
+        "Reconstructed four years of accounts from receipts in a steel trunk, because there were no books as such",
+        "Showed his father that the shop's losses were almost exactly the interest on what he had borrowed to cover the losses",
+        "Did not tell his mother first, which his father asked him not to do and which he now thinks was wrong",
+        "Found his father a job as a storekeeper at a building-materials dealer, which he kept for six years"
+      ],
+      "result": "The shop closed in 2017. The debt was repaid by 2021. His father retired in 2023 and the two of them are fine, which was not certain at the time.",
+      "reflection": "He is good at looking at a business and seeing whether it should exist, and he learned it on his own family, at nineteen, from a trunk of receipts. He had never connected that to why supply chain interests him until this year.",
+      "numbers": [
+        { "label": "years the shop had been losing money", "value": "3" },
+        { "label": "years of accounts he reconstructed", "value": "4" },
+        { "label": "years until the debt was repaid", "value": "4" },
+        { "label": "years his father kept the storekeeper job", "value": "6" }
+      ],
+      "people": [{ "name": "his father", "role": "ran the shop; the debt", "mayName": false }],
+      "traits": ["analytical", "commercial_judgment", "resilient", "empathetic"],
+      "slots": ["identity.root", "identity.early_responsibility", "goals.origin", "values.dilemma"],
+      "sensitivity": "sensitive"
+    }
+  ],
+  "goals": {
+    "shortTerm": "A supply-chain or operations strategy role at a global manufacturer or a consultancy's operations practice, outside automotive, where the question is which plants and which suppliers rather than which part.",
+    "longTerm": "To run the supply chain of a large Indian manufacturer, and specifically to build the tier-two supplier base that Indian manufacturing does not have — the thing the Rajkot rescue showed him is one death away from failing.",
+    "planB": "Stay in automotive and take a general manager role at Kalyan or a competitor, which is available and which he thinks would narrow him.",
+    "whyMba": "Seven years at one employer in one industry in one city. He is good at the problem in front of him and has never chosen which problem to work on. He also cannot read a company he does not work at.",
+    "whyNow": "This is the second time of asking and he is clearer than last year about why. The promotion gives him something to show; waiting another year would make him a nine-year applicant without a new reason."
+  },
+  "redFlags": [
+    "Denied at four schools last cycle, which the file has to address without sounding aggrieved",
+    "One employer for his entire career, in one city",
+    "Must show genuinely new material rather than a better-written version of last year",
+    "Automotive supply chain is a well-represented profile from India",
+    "Feedback that his previous file read as a list of responsibilities rather than a person"
+  ],
+  "neverSays": [
+    "passionate",
+    "journey",
+    "dream school",
+    "impactful",
+    "give back",
+    "leverage",
+    "ninja",
+    "rockstar"
+  ]
+}

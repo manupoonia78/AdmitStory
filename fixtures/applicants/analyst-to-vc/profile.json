@@ -1,0 +1,16 @@
+{
+  "slug": "analyst-to-vc",
+  "summary": "An investment-banking analyst in the industrials group of a mid-market New York bank, trying to move into early-stage venture capital.",
+  "persona": "sprinter",
+  "style": "humorous",
+  "country": "US",
+  "timezone": "America/New_York",
+  "programType": "full_time_mba",
+  "targetIntake": 2027,
+  "studioMode": "express",
+  "yearsExperience": 3,
+  "test": { "type": "GMAT", "score": 760 },
+  "gpa": { "value": 3.78, "scale": 4 },
+  "isReapplicant": false,
+  "difficulty": "Three weeks from an R2 deadline and answering accordingly: a sentence, a punchline, then 'is that enough?'. The joke arrives exactly where the personal answer was going, so anything about himself has to be asked for twice. Almost nothing outside work."
+}

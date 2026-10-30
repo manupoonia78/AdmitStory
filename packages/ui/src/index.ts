@@ -122,3 +122,4 @@ export * from "./studio";
 export * from "./interview";
 export * from "./kit";
 export * from "./workspace";
+export * from "./dossier";

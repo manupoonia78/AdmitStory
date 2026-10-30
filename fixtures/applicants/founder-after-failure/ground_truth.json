@@ -1,0 +1,255 @@
+{
+  "facts": [
+    {
+      "key": "employer_current",
+      "value": "Independent consultant",
+      "note": "since September 2026; two logistics clients"
+    },
+    {
+      "key": "employer_previous",
+      "value": "Rundweg GmbH",
+      "note": "delivery-logistics startup he co-founded; ceased trading June 2026"
+    },
+    {
+      "key": "title_previous",
+      "value": "Co-founder and Managing Director",
+      "note": "January 2023 to June 2026"
+    },
+    {
+      "key": "employer_first",
+      "value": "Nordlicht Spedition",
+      "note": "freight forwarder, Hamburg"
+    },
+    { "key": "title_first", "value": "Operations Analyst, then Team Lead", "note": "2020 to 2022" },
+    { "key": "team_size", "value": "11 at the peak, including 3 founders" },
+    { "key": "location_current", "value": "Berlin, Germany" },
+    { "key": "degree", "value": "MSc in Logistics, Technische Universität Dortmund, 2020" },
+    { "key": "gpa", "value": "2.1 on the German 1 to 5 scale, where 1 is best" },
+    { "key": "gmat_total", "value": "700", "note": "Q49 V35, taken May 2026" },
+    { "key": "languages", "value": "German, English, Polish" },
+    { "key": "capital_raised", "value": "1.4 million euros across a pre-seed and a bridge" },
+    {
+      "key": "revenue_peak",
+      "value": "About 62,000 euros of monthly recurring revenue, March 2025"
+    },
+    { "key": "employment_gap", "value": "Five months between June 2026 and September 2026" }
+  ],
+  "stories": [
+    {
+      "ref": "the_shutdown",
+      "nickname": "The afternoon I did eleven conversations",
+      "era": "2026",
+      "context": "professional",
+      "situation": "Rundweg had seven weeks of runway, a bridge round that had verbally committed and then did not sign, and eleven people. Jonas was the co-founder who ran operations and payroll and was the one who could see the cash position daily.",
+      "stakes": "Eight of the eleven had been there more than two years. Two had moved cities for the job. German insolvency law meant that if he kept trading past the point of knowing, he would be personally liable.",
+      "actions": [
+        "Told his two co-founders the number three weeks before either of them wanted to accept it, and made them look at the weekly cash sheet with him",
+        "Filed for insolvency on the day it became legally required rather than the week after, which cost them the small chance the bridge would revive",
+        "Did all eleven conversations himself in one afternoon, which he now thinks was wrong",
+        "Wrote references for all eleven and made calls for nine of them",
+        "Paid the two who had relocated an extra month from his own savings, about 7,000 euros, which the administrator later queried"
+      ],
+      "result": "The company ceased trading in June 2026. Nine of the eleven were in new jobs within three months. Creditors were paid at about 40 cents in the euro. He has not been pursued personally.",
+      "reflection": "He should have taken two days over the conversations rather than one afternoon; doing them in a block was for him, not for them, and he knows that because three people told him so afterwards. He also should have shown the cash sheet to his co-founders monthly from the start instead of carrying it alone.",
+      "numbers": [
+        { "label": "weeks of runway when he raised it", "value": "7" },
+        { "label": "people", "value": "11" },
+        { "label": "who had been there over two years", "value": "8" },
+        { "label": "weeks before his co-founders accepted it", "value": "3" },
+        { "label": "in new jobs within three months", "value": "9" },
+        { "label": "creditors paid", "value": "about 40 cents in the euro" },
+        { "label": "paid from his own savings", "value": "about 7,000 euros" }
+      ],
+      "people": [
+        { "name": "Mareike Vogt", "role": "co-founder, commercial", "mayName": true },
+        { "name": "Tobias Reinhardt", "role": "co-founder, engineering", "mayName": true }
+      ],
+      "traits": [
+        "honest_about_limits",
+        "resilient",
+        "principled_stands",
+        "delivers_under_pressure"
+      ],
+      "slots": [
+        "failure.consequential",
+        "self.feedback",
+        "identity.turning_point",
+        "values.dilemma"
+      ],
+      "sensitivity": "none"
+    },
+    {
+      "ref": "the_pricing_mistake",
+      "nickname": "The per-drop price I set too low",
+      "era": "2024",
+      "context": "professional",
+      "situation": "Rundweg charged per drop. Jonas set the price in 2023 from the cost of a Berlin drop, and the model worked there. Through 2024 the company grew into Leipzig and Dresden, where drop density was about a third of Berlin's, and the same price lost money on every delivery.",
+      "stakes": "The two new cities were 44% of volume by the end of 2024 and the blended margin had gone from positive to about minus 11% without anyone changing a number.",
+      "actions": [
+        "Built a per-city unit model in a weekend once he suspected it, which the company had never had",
+        "Took it to the board with the conclusion that two-thirds of their growth was destroying value",
+        "Argued for raising prices in the two cities and losing volume, against his co-founder who wanted to keep growth for the next round",
+        "Raised prices in Leipzig in February 2025 as a test and lost 38% of the volume there"
+      ],
+      "result": "The Leipzig test showed the price could not rise enough to work at that density. They exited Dresden in April 2025 and the blended margin returned to about plus 4%. The exit also halved the growth rate, which is a significant part of why the bridge round did not sign.",
+      "reflection": "The model should have existed from the first month; he built the business on a single city's economics and called it a unit model when it was an average. He also notes, without resolving it, that being right about the price is what killed the round.",
+      "numbers": [
+        { "label": "drop density outside Berlin", "value": "about a third of Berlin's" },
+        { "label": "share of volume from the two new cities", "value": "44%" },
+        { "label": "blended margin before the fix", "value": "about minus 11%" },
+        { "label": "volume lost in the Leipzig price test", "value": "38%" },
+        { "label": "blended margin after exiting Dresden", "value": "about plus 4%" }
+      ],
+      "people": [
+        {
+          "name": "Mareike Vogt",
+          "role": "co-founder who argued for keeping growth",
+          "mayName": true
+        }
+      ],
+      "traits": ["analytical", "commercial_judgment", "honest_about_limits"],
+      "slots": [
+        "impact.biggest",
+        "numbers.impact",
+        "academics.quant_evidence",
+        "leadership.changed_course"
+      ],
+      "sensitivity": "none"
+    },
+    {
+      "ref": "the_riders_union",
+      "nickname": "The riders who asked for a contract",
+      "era": "2025",
+      "context": "professional",
+      "situation": "Rundweg's 34 riders were freelancers, as every competitor's were. Six of them asked for employment contracts, and under German law they had a reasonable case that they were employees in all but name.",
+      "stakes": "Converting them would raise the cost per drop by about 22% and the company was nine months from needing a round. Fighting it was the standard play in the sector and would probably have worked for two years.",
+      "actions": [
+        "Got a legal opinion that said the riders were likely right, and showed it to the board rather than burying it",
+        "Converted all 34 rather than the six who asked, over four months",
+        "Rebuilt the route planning to absorb some of the cost, which recovered about 9 of the 22 percentage points",
+        "Told investors before they asked, in the quarterly update rather than in a meeting"
+      ],
+      "result": "All 34 were employed by October 2025. Cost per drop rose about 13% net of the route changes. Rider attrition fell from 61% a year to 19%, which he had not predicted and which made the service more reliable. Two investors called it a mistake.",
+      "reflection": "He is still certain it was right and still aware it shortened the runway that ran out. He does not have a version of this story where both things are not true.",
+      "numbers": [
+        { "label": "riders", "value": "34" },
+        { "label": "who asked for contracts", "value": "6" },
+        { "label": "cost per drop increase before route changes", "value": "about 22%" },
+        { "label": "cost per drop increase after", "value": "about 13%" },
+        { "label": "rider attrition before", "value": "61% a year" },
+        { "label": "rider attrition after", "value": "19%" },
+        { "label": "months to convert everyone", "value": "4" }
+      ],
+      "people": [
+        { "name": "Kamil Zielinski", "role": "the rider who raised it first", "mayName": true }
+      ],
+      "traits": [
+        "principled_stands",
+        "brings_people_along",
+        "commercial_judgment",
+        "steady_in_ambiguity"
+      ],
+      "slots": [
+        "values.dilemma",
+        "values.line",
+        "leadership.initiative_risky",
+        "leadership.persuaded_up"
+      ],
+      "sensitivity": "none"
+    },
+    {
+      "ref": "the_five_months",
+      "nickname": "The five months I did not work",
+      "era": "2026",
+      "context": "personal",
+      "situation": "After the shutdown Jonas did not work for five months. He had savings for three and borrowed from his brother for the other two. He was not interviewing; he was sleeping badly and had stopped answering messages from two of the eleven.",
+      "stakes": "It is the gap on his record, and the thing he has least worked out how to describe.",
+      "actions": [
+        "Saw a therapist from the second month, which his brother arranged",
+        "Wrote up what happened at Rundweg as a forty-page document for himself, which is where the unit model post-mortem came from",
+        "Answered the two messages in month four",
+        "Took the first consulting client in September because a former customer asked, not because he had been looking"
+      ],
+      "result": "He has two clients and bills enough. The forty pages are the reason he can describe the pricing mistake precisely. He is in touch with nine of the eleven.",
+      "reflection": "He thought the five months were wasted and now does not. He is clear that he would not have been useful in a job in July, and equally clear that 'I needed time' is not a thing he can say to a recruiter, which is the part he is still working out.",
+      "numbers": [
+        { "label": "months not working", "value": "5" },
+        { "label": "months his savings covered", "value": "3" },
+        { "label": "pages he wrote", "value": "40" },
+        { "label": "of the eleven he is in touch with", "value": "9" }
+      ],
+      "people": [
+        {
+          "name": "his brother",
+          "role": "lent him money and arranged the therapist",
+          "mayName": false
+        }
+      ],
+      "traits": ["self_aware", "resilient", "honest_about_limits"],
+      "slots": ["identity.early_responsibility", "support.someone_hard", "self.others_view"],
+      "sensitivity": "sensitive"
+    },
+    {
+      "ref": "the_warehouse_shift",
+      "nickname": "The night shift I worked for a month",
+      "era": "2021",
+      "context": "professional",
+      "situation": "At Nordlicht, Jonas was the analyst whose model said the night shift was 18% less productive. The night supervisor said the model was wrong. Jonas asked to work the shift for a month to find out.",
+      "stakes": "Nothing, except that his manager thought it was a waste of an analyst's time and said so.",
+      "actions": [
+        "Worked nineteen night shifts as a picker",
+        "Found the model counted a trailer as available when it was on site, not when it was unloaded, and nights waited an average of 40 minutes a trailer",
+        "Rewrote the measure rather than the shift's targets",
+        "Gave the finding to the night supervisor to present, not himself"
+      ],
+      "result": "The productivity gap closed to 3% once measured properly. The night supervisor presented it and was promoted the following year. Jonas was made team lead four months later.",
+      "reflection": "He learned that the data was describing a measurement, not the world, which is a mistake he then made again at Rundweg with the unit model. He is aware of the symmetry and does not like it.",
+      "numbers": [
+        { "label": "apparent productivity gap", "value": "18%" },
+        { "label": "actual gap once measured properly", "value": "3%" },
+        { "label": "night shifts he worked", "value": "19" },
+        { "label": "average trailer wait on nights", "value": "40 minutes" }
+      ],
+      "people": [
+        {
+          "name": "Bernd Hoffmann",
+          "role": "the night supervisor who said the model was wrong",
+          "mayName": true
+        }
+      ],
+      "traits": ["curious_learner", "develops_people", "analytical", "acts_unasked"],
+      "slots": [
+        "leadership.originated_idea",
+        "leadership.developed_others",
+        "employ.trajectory",
+        "work.motivation",
+        "goals.origin"
+      ],
+      "sensitivity": "none"
+    }
+  ],
+  "goals": {
+    "shortTerm": "An operating role at a logistics or commerce company with real scale — a regional general manager or a head of operations for a business unit — in Germany or the Netherlands, where the unit economics are someone's actual job.",
+    "longTerm": "To run a logistics business he did not found, at a size where the decisions are about capital allocation rather than survival. He is specific that he does not intend to found another company in the next ten years.",
+    "planB": "Continue consulting and take a general manager role at a smaller operator, which is available to him now and which he thinks would teach him less.",
+    "whyMba": "He has run a company and still cannot read a balance sheet the way his investors could. He never had a mentor, never worked under anyone who had done it before, and every lesson cost eleven people their jobs. He wants the next set of lessons to be cheaper.",
+    "whyNow": "The shutdown is recent enough to be the thing he has learned the most from and far enough behind him that he can describe it. Waiting two years would turn it into an anecdote."
+  },
+  "redFlags": [
+    "A failed company, with creditors paid at 40 cents",
+    "Five-month employment gap he has not settled on a way to describe",
+    "Currently self-employed, so no manager can be asked about him",
+    "German grade of 2.1 that readers will not benchmark easily",
+    "Risk of reading as either self-flagellating or evasive about the shutdown"
+  ],
+  "neverSays": [
+    "passionate",
+    "journey",
+    "pivot",
+    "failing forward",
+    "learnings",
+    "my baby",
+    "crushed it",
+    "impactful"
+  ]
+}

@@ -1,0 +1,22 @@
+{
+  "slug": "founder-after-failure",
+  "summary": "Co-founded a Berlin delivery-logistics startup that shut down after three years; now consulting while he applies.",
+  "persona": "switcher",
+  "style": "rambling",
+  "country": "DE",
+  "timezone": "Europe/Berlin",
+  "programType": "full_time_mba",
+  "targetIntake": 2027,
+  "studioMode": "standard",
+  "yearsExperience": 6,
+  "test": {
+    "type": "GMAT",
+    "score": 700
+  },
+  "gpa": {
+    "value": 2.1,
+    "scale": 5
+  },
+  "isReapplicant": false,
+  "difficulty": "Raw about the shutdown and oscillates between over-sharing and defensiveness in the same answer. Remembers the cash-flow numbers exactly. There is a five-month employment gap he has not decided how to describe."
+}

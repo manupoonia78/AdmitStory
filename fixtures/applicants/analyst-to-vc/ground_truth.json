@@ -1,0 +1,360 @@
+{
+  "facts": [
+    {
+      "key": "employer_current",
+      "value": "Halverstead & Co.",
+      "note": "mid-market investment bank, roughly 300 staff, one New York office"
+    },
+    {
+      "key": "title_current",
+      "value": "Analyst, Industrials and Logistics group",
+      "note": "third-year analyst; the programme ends next summer"
+    },
+    {
+      "key": "work_scope",
+      "value": "Eleven sell-side and carve-out processes, nine of which closed; no direct reports, ever",
+      "note": "he has staffed junior analysts but managed nobody"
+    },
+    { "key": "location_current", "value": "New York, United States" },
+    { "key": "hometown", "value": "Caldwell Bay, Florida" },
+    {
+      "key": "degree",
+      "value": "BSc in Economics, Weatherill College, Pennsylvania",
+      "note": "graduated at twenty-one, a year early"
+    },
+    { "key": "gpa", "value": "3.78 out of 4.0" },
+    { "key": "gmat_total", "value": "760", "note": "Q50 V42, taken August 2026, first sitting" },
+    { "key": "age", "value": "Twenty-four; would be twenty-five at matriculation" },
+    {
+      "key": "family",
+      "value": "Mother a dental hygienist, father a plumbing contractor, one younger sister at university; first in the family to work in finance"
+    },
+    {
+      "key": "languages",
+      "value": "English, and enough Spanish to argue with an insurance company"
+    },
+    { "key": "promotion", "value": "Offered early promotion to associate; has not accepted it" },
+    {
+      "key": "manager_name",
+      "value": "Royce Tamblyn",
+      "note": "the vice-president he has worked under since his second year"
+    },
+    {
+      "key": "outside_work",
+      "value": "A group chat for finance students at colleges banks do not visit, about two hours a month; no other sustained commitment",
+      "note": "he volunteers that this is thin before anyone else says it"
+    },
+    {
+      "key": "college_activity",
+      "value": "Treasurer of the Weatherill investment club for one year; nothing else"
+    }
+  ],
+  "stories": [
+    {
+      "ref": "redhill_carve_out",
+      "nickname": "The carve-out nobody would open",
+      "era": "2025",
+      "context": "professional",
+      "situation": "Halverstead ran the sale of the software unit inside Redhill Freight Systems. The unit's numbers had never been separated from the parent's, so there were no standalone financials for anyone to look at. Two buyers had already walked because they could not see what they were buying. Nate was the only analyst on the deal.",
+      "stakes": "The parent's board had said it would shut the unit down if it was not sold by the end of the quarter, and sixty people worked in it. Nobody above him had an answer to the problem; the problem was that the work was tedious.",
+      "actions": [
+        "Pulled four years of the parent's general ledger apart line by line to work out which costs actually belonged to the unit",
+        "Built the standalone model himself over nine days and wrote a six-page note on every allocation he had made, so a buyer could argue with the assumption rather than with the model",
+        "Sat with the unit's own finance lead for two afternoons instead of guessing at the allocations, which the deal team had not thought to do",
+        "Walked the three remaining buyers through the assumption note himself, which an analyst does not normally do"
+      ],
+      "result": "The unit sold for thirty-eight million dollars, against the thirty million the parent had been told to expect. The sixty jobs stayed. The assumption note is now the format the industrials group uses on every carve-out.",
+      "reflection": "He is clear that the model was not the clever part. Sitting with the finance lead was, and he only did it because he had run out of ways to guess. He had been treating the deal as a spreadsheet problem until he could not.",
+      "numbers": [
+        { "label": "buyers who walked before the model existed", "value": "2" },
+        { "label": "analysts on the deal", "value": "1" },
+        { "label": "people working in the unit", "value": "60" },
+        { "label": "years of general ledger reviewed", "value": "4" },
+        { "label": "days to build the standalone model", "value": "9" },
+        { "label": "pages in the assumption note", "value": "6" },
+        { "label": "afternoons with the unit's finance lead", "value": "2" },
+        { "label": "remaining buyers he walked through it", "value": "3" },
+        { "label": "sale price", "value": "38 million dollars" },
+        { "label": "price the parent had been told to expect", "value": "30 million dollars" }
+      ],
+      "people": [
+        { "name": "Royce Tamblyn", "role": "the vice-president on the deal", "mayName": true },
+        {
+          "name": "Marguerite Soto",
+          "role": "the unit's finance lead, who did the allocations with him",
+          "mayName": true
+        }
+      ],
+      "traits": ["measurable_impact", "analytical", "acts_unasked", "delivers_under_pressure"],
+      "slots": ["impact.biggest", "numbers.impact", "employ.trajectory"],
+      "sensitivity": "none"
+    },
+    {
+      "ref": "brightwater_growth",
+      "nickname": "The growth number I took apart",
+      "era": "2026",
+      "context": "professional",
+      "situation": "Halverstead was two weeks from signing the sale of Brightwater Dental Partners, a chain of forty-one dental practices, when Nate noticed that just under half of the previous year's revenue growth had come from practices the chain had bought rather than from patients. The marketing materials treated the growth as one figure.",
+      "stakes": "The managing director had sponsored the deal internally for eight months and the fee was the largest the group had that year. Nate had been at the firm for under two years and was the most junior person in the room.",
+      "actions": [
+        "Rebuilt the growth figures practice by practice, separating acquired revenue from existing patients",
+        "Checked the three largest practices against the appointment data rather than the finance pack, and found two of them had lost patients",
+        "Took it to the vice-president before the managing director, because he wanted to be told he was wrong before he said it out loud",
+        "Put it in a short note with the finding at the top rather than at the end, and said in the meeting that he might have the allocation wrong"
+      ],
+      "result": "The managing director re-priced rather than dropped it. The buyer came back nineteen million dollars lower and the sale still happened. Nate was put on the next two deals in the group.",
+      "reflection": "He got the number right and the delivery mostly wrong. He had rehearsed it as a case to win rather than a question to ask, and the vice-president had to soften it for him in the room. The part he would change is that he sat on it for six days because he wanted the analysis to be unarguable before he opened his mouth.",
+      "numbers": [
+        { "label": "practices in the chain", "value": "41" },
+        {
+          "label": "share of the previous year's growth from acquired practices",
+          "value": "just under half"
+        },
+        { "label": "months the managing director had sponsored the deal", "value": "8" },
+        { "label": "his time at the firm then", "value": "under 2 years" },
+        { "label": "weeks from signing when he found it", "value": "2" },
+        { "label": "practices checked against appointment data", "value": "3" },
+        { "label": "of those, practices losing patients", "value": "2" },
+        { "label": "days he waited before saying anything", "value": "6" },
+        { "label": "the re-pricing", "value": "19 million dollars lower" },
+        { "label": "deals he was put on afterwards", "value": "2" }
+      ],
+      "people": [
+        {
+          "name": "Dana Przybylski",
+          "role": "the managing director who had sponsored the deal",
+          "mayName": false
+        },
+        {
+          "name": "Royce Tamblyn",
+          "role": "the vice-president he took it to first",
+          "mayName": true
+        }
+      ],
+      "traits": ["principled_stands", "brings_people_along", "commercial_judgment", "analytical"],
+      "slots": ["leadership.persuaded_up", "leadership.initiative_risky", "values.dilemma"],
+      "sensitivity": "none"
+    },
+    {
+      "ref": "analyst_handbook",
+      "nickname": "The handbook the firm pretends it always had",
+      "era": "2026",
+      "context": "professional",
+      "situation": "Nate's intake of analysts was given a shared drive, a seating chart and not much else. Three of the fourteen in his class left inside the first year, and two of them told him on the way out that nobody had ever described what good work looked like, only when theirs was not it.",
+      "stakes": "Nobody asked him to do anything about it and nobody would have noticed if he had not. Writing it down meant putting into words things the senior bankers had never said out loud, in a document that would have his name on it.",
+      "actions": [
+        "Wrote down the ten things he had been corrected on most often, and what each correction had actually meant",
+        "Asked four vice-presidents to mark the draft rather than approve it, so the content was theirs and only the writing was his",
+        "Ran an hour with each new intake on the Friday before they started, which he has now done for two intakes",
+        "Handed it to two second-year analysts to keep, so it would stop being his"
+      ],
+      "result": "It runs to thirty-one pages and the industrials group gives it to every incoming analyst. Nobody in the intake after his has left. He is not the author of record; the group is.",
+      "reflection": "He wrote it because he was annoyed, not because he was generous, and he will say so without being asked. What surprised him was that the vice-presidents wanted to be asked. He had assumed the silence was deliberate, and it was mostly that nobody had the time.",
+      "numbers": [
+        { "label": "analysts in his intake", "value": "14" },
+        { "label": "who left inside the first year", "value": "3" },
+        { "label": "who told him why on the way out", "value": "2" },
+        { "label": "corrections he wrote down", "value": "10" },
+        { "label": "vice-presidents who marked the draft", "value": "4" },
+        { "label": "length of the induction session", "value": "1 hour" },
+        { "label": "intakes he has run it for", "value": "2" },
+        { "label": "second-years he handed it to", "value": "2" },
+        { "label": "pages", "value": "31" },
+        { "label": "departures in the intake after his", "value": "0" }
+      ],
+      "people": [
+        {
+          "name": "Imani Osei-Brandt",
+          "role": "a second-year analyst who now keeps the handbook",
+          "mayName": true
+        },
+        {
+          "name": "Royce Tamblyn",
+          "role": "one of the vice-presidents who marked the draft",
+          "mayName": true
+        }
+      ],
+      "traits": ["develops_people", "originates_ideas", "acts_unasked", "empathetic"],
+      "slots": ["leadership.developed_others", "leadership.originated_idea", "self.others_view"],
+      "sensitivity": "none"
+    },
+    {
+      "ref": "group_chat",
+      "nickname": "The group chat",
+      "era": "2024 onwards",
+      "context": "community",
+      "situation": "Nate was the first person in his family to work in finance and did not know that banking recruiting opens in the second year of university until it had nearly closed. A cousin asked him how it worked, then a friend of the cousin, and it became a group chat for finance students at colleges that banks do not visit.",
+      "stakes": "It is the only thing he does outside work and he knows it is thin. It runs on his phone between other things rather than being anything he has built.",
+      "actions": [
+        "Answers questions on Sunday evenings, because that is the only time he reliably has",
+        "Wrote a short calendar of when each stage of recruiting actually opens, since that was the question everyone asked first",
+        "Stopped reviewing CVs line by line once it no longer fitted into a Sunday, and does one call a month instead with whoever asks first",
+        "Has turned down two offers to make it a proper programme, because he would not have the time and would rather it stayed honest"
+      ],
+      "result": "Sixty-one students are in it. Nine have taken finance internships, four of those at firms that had never recruited at their college. It costs him about two hours a month and has run for two years.",
+      "reflection": "He is honest that this is a group chat and not community work, and that a reader will see the difference. What he takes from it is narrower: nobody told him the calendar, the only reason he found out was luck, and he would rather luck were not the mechanism.",
+      "numbers": [
+        { "label": "year of university when banking recruiting opens", "value": "second" },
+        { "label": "students in the chat", "value": "61" },
+        { "label": "who have taken finance internships", "value": "9" },
+        { "label": "of those, at firms new to their college", "value": "4" },
+        { "label": "hours a month it costs him", "value": "about 2" },
+        { "label": "years it has run", "value": "2" },
+        { "label": "calls a month", "value": "1" },
+        { "label": "offers to formalise it that he turned down", "value": "2" }
+      ],
+      "people": [
+        {
+          "name": "Marisol Ferraro",
+          "role": "his cousin, the first person who asked him",
+          "mayName": false
+        }
+      ],
+      "traits": ["community_builder", "acts_unasked", "honest_about_limits"],
+      "slots": ["support.ongoing", "identity.root", "community.interests", "identity.practice"],
+      "sensitivity": "none"
+    },
+    {
+      "ref": "wrong_multiple",
+      "nickname": "The number I put in front of a client",
+      "era": "2025",
+      "context": "professional",
+      "situation": "He built the comparable-companies page for a pitch to the board of a family-owned packaging business. He took one company's enterprise value from a stale screen without checking it against the filings, so the multiple he showed was wrong by about two turns, and it was the comparable the whole page leaned on.",
+      "stakes": "The managing director presented it to the family's board. The chairman's son worked in private equity, recognised the company and said the figure was wrong in the room. Halverstead was pitching against two other banks.",
+      "actions": [
+        "Said it was his in the debrief, before anyone asked which analyst had built the page",
+        "Went back through the other nine comparables that night and found one more he could not source",
+        "Wrote the check he had not done into a rule the group still uses: every multiple on a client page is tied to a filing, with the page reference in the footnote",
+        "Asked the vice-president to review his pages for a month and to tell him what he was still missing, which was worse to sit through than the mistake"
+      ],
+      "result": "Halverstead lost the pitch, and the managing director's view is that the figure was not the reason. Nate stayed on the group's client work. The footnote rule is still in the template.",
+      "reflection": "What he got wrong was not the stale screen, it was that he had checked the arithmetic and not the sources, because the arithmetic was the part he enjoyed. The feedback from the vice-president was that he was fast and did not leave himself room to be wrong, and he has stopped treating speed as the thing he is good at.",
+      "numbers": [
+        { "label": "error in the multiple", "value": "about 2 turns" },
+        { "label": "other comparables he re-checked that night", "value": "9" },
+        { "label": "further comparables he could not source", "value": "1" },
+        { "label": "banks pitching against Halverstead", "value": "2" },
+        { "label": "length of the review he asked for", "value": "1 month" }
+      ],
+      "people": [
+        {
+          "name": "Dana Przybylski",
+          "role": "the managing director who presented the page",
+          "mayName": false
+        },
+        {
+          "name": "Royce Tamblyn",
+          "role": "the vice-president who reviewed his pages afterwards",
+          "mayName": true
+        }
+      ],
+      "traits": ["honest_about_limits", "acts_on_feedback", "resilient", "self_aware"],
+      "slots": ["failure.consequential", "self.feedback", "identity.turning_point"],
+      "sensitivity": "none"
+    },
+    {
+      "ref": "mothers_treatment",
+      "nickname": "The spring my mother was ill",
+      "era": "2024",
+      "context": "personal",
+      "situation": "His mother was diagnosed with breast cancer in his second year at the firm. Treatment ran seven months in Caldwell Bay, and he is the older of two, with his sister still at university, so the phone calls and the insurance arguments were his.",
+      "stakes": "He told one person at work, the group's staffer, and asked her not to pass it on, because he did not want to be taken off deals. He flew down most other weekends and worked on the plane. His review that year was his worst.",
+      "actions": [
+        "Took the insurance appeals himself, because his mother would not have argued and the first two claims were refused",
+        "Flew to Florida fourteen weekends over the seven months and kept working through them, which he now thinks was partly avoidance",
+        "Told the staffer rather than the managing director, and asked for weekend coverage without saying why",
+        "Learned to hand a live model over properly, because he could be called away at any point"
+      ],
+      "result": "His mother finished treatment and has been clear since. His review the following year was the strongest in his intake. He has still never told the managing director.",
+      "reflection": "He makes a joke before he gets to the end of this, every time, and he knows that he does it. The part he has not resolved is that the thing he is proudest of — that nobody at work noticed — is also the thing he would not recommend to anybody.",
+      "numbers": [
+        { "label": "his year at the firm when she was diagnosed", "value": "second" },
+        { "label": "months of treatment", "value": "7" },
+        { "label": "siblings", "value": "2, he is the older" },
+        { "label": "weekends he flew to Florida", "value": "14" },
+        { "label": "insurance claims refused before the appeals", "value": "2" },
+        { "label": "people at work he told", "value": "1" }
+      ],
+      "people": [
+        { "name": "Rosalind Ferraro", "role": "his mother", "mayName": false },
+        {
+          "name": "Caitlin Ferraro",
+          "role": "his younger sister, at university then",
+          "mayName": false
+        },
+        {
+          "name": "Teodora Vance",
+          "role": "the group's staffer, the one person at work he told",
+          "mayName": true
+        }
+      ],
+      "traits": ["resilient", "self_aware", "honest_about_limits"],
+      "slots": ["identity.early_responsibility", "support.someone_hard", "values.line"],
+      "sensitivity": "sensitive"
+    },
+    {
+      "ref": "founder_too_late",
+      "nickname": "The founder who came in too late",
+      "era": "2026",
+      "context": "professional",
+      "situation": "A founder came to Halverstead wanting to sell a small invoicing company she had built over six years for freight brokers. By the time she arrived she had eleven months of cash, one customer that was a third of revenue, and no board. Nate ran the process. It sold cheaply to a buyer that shut the product down in under a year.",
+      "stakes": "It was a small deal for the firm and it was all of hers. She had borrowed against her house to make payroll the year before.",
+      "actions": [
+        "Spent two days with her working out what the product actually did before touching the model, which the mandate did not pay for",
+        "Told her plainly that the customer concentration was the problem and that it was too late to fix it for this sale",
+        "Found four buyers rather than the two the mandate expected, by calling the brokers who used the product and asking who else wanted it",
+        "Stayed in touch after the sale and has introduced her to two people since"
+      ],
+      "result": "She got four and a half million dollars, which cleared what she had borrowed against the house and not much beyond it. She has started something else. The product is gone.",
+      "reflection": "What he cannot get out of his head is that every problem she had was fixable three years earlier by somebody who had seen it before, and nobody in her life had. He would rather be that person early than sell what is left of it late, and that is the whole of why he wants venture rather than another year of this. He also knows that is a tidy story and that he has never done the job.",
+      "numbers": [
+        { "label": "years she had been building it", "value": "6" },
+        { "label": "months of cash when she arrived", "value": "11" },
+        { "label": "share of revenue from her largest customer", "value": "a third" },
+        { "label": "time until the buyer shut the product down", "value": "under a year" },
+        { "label": "days he spent on the product before the model", "value": "2" },
+        { "label": "buyers he found", "value": "4" },
+        { "label": "buyers the mandate expected", "value": "2" },
+        { "label": "sale price", "value": "4.5 million dollars" },
+        { "label": "people he has introduced her to since", "value": "2" },
+        { "label": "how much earlier her problems were fixable", "value": "3 years" }
+      ],
+      "people": [
+        { "name": "Soledad Marin", "role": "the founder, who still speaks to him", "mayName": true }
+      ],
+      "traits": ["commercial_judgment", "curious_learner", "empathetic", "acts_unasked"],
+      "slots": ["goals.origin", "work.motivation", "work.arc"],
+      "sensitivity": "none"
+    }
+  ],
+  "goals": {
+    "shortTerm": "An investment-associate seat at an early-stage fund writing first cheques into software for freight, logistics and the back office of physical businesses, in New York or the Bay Area.",
+    "longTerm": "To be the partner at a small fund who takes the first meeting with founders in unglamorous industries, at a fund he has some say in rather than one he joined. He is specific that he does not want to run a company himself.",
+    "planB": "Corporate development or strategy inside a logistics software company, which would give him the operating experience he has none of and keep him in the sector. Failing that, back to the bank as an associate, which he would find hard to explain to himself.",
+    "whyMba": "He can take a company apart and price it. He has never built anything, sold anything, hired anybody, or been wrong in public with his own money at stake. Early-stage funds do not hire off a banking desk, and everyone he knows buys companies rather than starts them.",
+    "whyNow": "His analyst programme ends next summer, which is the only clean exit banking offers. His mother has been clear for over a year. If he takes the associate promotion he will be thirty before he leaves, and he has watched exactly that happen to the two people directly above him."
+  },
+  "redFlags": [
+    "Would be the youngest in the cohort: twenty-four now, twenty-five at matriculation, three years of work and all of it at one firm",
+    "The most over-represented application there is — banking analyst to venture capital — and nothing in his file yet distinguishes him from it",
+    "Thin outside involvement: a group chat for about two hours a month, and one year as a college club treasurer",
+    "Goals read as a brand rather than a plan: no cheque size, stage, fund type or thesis he could defend for ten minutes",
+    "Has never managed anybody, and will be compared with applicants who have run teams",
+    "Narrow exposure: one bank, one group, one sector, no time outside the United States",
+    "Venture capital is the hardest post-MBA role to recruit into, and his Plan B is largely the job he already has"
+  ],
+  "neverSays": [
+    "passionate",
+    "journey",
+    "impactful",
+    "humbled",
+    "authentic",
+    "visionary",
+    "thought leader",
+    "servant leader",
+    "my north star",
+    "driven",
+    "world-class",
+    "rockstar"
+  ]
+}

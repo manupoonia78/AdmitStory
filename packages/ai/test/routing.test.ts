@@ -43,6 +43,8 @@ const SPEC: Record<RouteTask, [RoutableModelKey, Effort, number]> = {
   "util.title": ["haiku", "low", 300],
   "util.classify": ["haiku", "low", 300],
   "util.summarize": ["haiku", "low", 1_000],
+  // Added in Phase 1: the simulator §8.11 names but §8.3 has no row for.
+  "eval.applicant_simulator": ["haiku", "low", 1_200],
 };
 
 const allChoices = (): [string, ModelChoice][] =>

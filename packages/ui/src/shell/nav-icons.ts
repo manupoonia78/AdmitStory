@@ -3,6 +3,7 @@ import type { Icon } from "@phosphor-icons/react";
 // creates a React context) cannot load.
 import {
   BookOpenTextIcon,
+  CardsThreeIcon,
   ChatsCircleIcon,
   GraduationCapIcon,
   HouseIcon,
@@ -18,6 +19,7 @@ import type { NavId } from "./nav-items";
 export const NAV_ICONS: Readonly<Record<NavId, Icon>> = {
   home: HouseIcon,
   studio: BookOpenTextIcon,
+  dossier: CardsThreeIcon,
   schools: GraduationCapIcon,
   interview: ChatsCircleIcon,
   connect: UsersThreeIcon,

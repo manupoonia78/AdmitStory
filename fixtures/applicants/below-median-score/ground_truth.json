@@ -1,0 +1,371 @@
+{
+  "facts": [
+    {
+      "key": "employer_current",
+      "value": "Electrodomésticos Nava",
+      "note": "appliance manufacturer; the Monterrey plant makes washing machines"
+    },
+    {
+      "key": "title_current",
+      "value": "Floor Superintendent",
+      "note": "since 2024; three shifts"
+    },
+    {
+      "key": "title_previous",
+      "value": "Line Supervisor",
+      "note": "2021 to 2024"
+    },
+    {
+      "key": "title_first",
+      "value": "Quality Technician",
+      "note": "2020 to 2021"
+    },
+    {
+      "key": "team_size",
+      "value": "180 people across three shifts, with 6 supervisors reporting to him"
+    },
+    {
+      "key": "location_current",
+      "value": "Monterrey, Nuevo León, Mexico"
+    },
+    {
+      "key": "degree",
+      "value": "Ingeniería Industrial, Universidad Autónoma de Nuevo León, 2020"
+    },
+    {
+      "key": "gpa",
+      "value": "7.9 out of 10"
+    },
+    {
+      "key": "gmat_total",
+      "value": "610",
+      "note": "Q44 V27; three attempts, 560 then 590 then 610"
+    },
+    {
+      "key": "languages",
+      "value": "Spanish, English"
+    },
+    {
+      "key": "plant_output",
+      "value": "About 1,900 units a day"
+    },
+    {
+      "key": "defect_change",
+      "value": "First-pass defect rate fell from 6.1% to 4.0% over nine months in 2025"
+    },
+    {
+      "key": "promotion",
+      "value": "Promoted to Floor Superintendent in 2024, the youngest at the plant"
+    },
+    {
+      "key": "certification",
+      "value": "Green Belt in Six Sigma, 2023, company programme"
+    }
+  ],
+  "stories": [
+    {
+      "ref": "the_defect_hunt",
+      "nickname": "The station nobody looked at",
+      "era": "2025",
+      "context": "professional",
+      "situation": "The plant's first-pass defect rate had sat at about 6% for four years and was treated as the line's natural rate. Rodrigo did not believe a rate could be natural, so he started writing down which station each defect came from, by hand, every shift for six weeks.",
+      "stakes": "Two previous quality projects run by engineers from Mexico City had failed and the floor had stopped cooperating with them. If his failed too, the supervisors would stop giving him anything.",
+      "actions": [
+        "Logged 2,400 defects by station and shift himself over six weeks, because the system recorded them only by line",
+        "Found 41% of them came from one drum-seating station on two of the three shifts",
+        "Watched that station for a full shift and saw the fixture had 4 millimetres of play that the day shift's operator compensated for by habit and the other two did not",
+        "Had the fixture shimmed for about 2,000 pesos rather than requesting the 400,000-peso replacement the engineers had proposed",
+        "Wrote the compensating habit into the station's one-page instruction so it did not depend on one person"
+      ],
+      "result": "Defects fell from 6.1% to 4.0% over nine months, worth about 11 million pesos a year in rework and warranty. The hand-logging method was adopted at the company's two other plants. He was promoted the following year.",
+      "reflection": "The answer had been visible on the floor for four years and nobody had stood at the station for a whole shift. He also learned that the cheap fix is easier to get approved than the right one, and that this is sometimes a trap — he still thinks the fixture should be replaced.",
+      "numbers": [
+        {
+          "label": "defects logged by hand",
+          "value": "2,400"
+        },
+        {
+          "label": "weeks of logging",
+          "value": "6"
+        },
+        {
+          "label": "share from one station",
+          "value": "41%"
+        },
+        {
+          "label": "play in the fixture",
+          "value": "4 millimetres"
+        },
+        {
+          "label": "cost of the shim",
+          "value": "about 2,000 pesos"
+        },
+        {
+          "label": "cost of the replacement proposed instead",
+          "value": "400,000 pesos"
+        },
+        {
+          "label": "defect rate before",
+          "value": "6.1%"
+        },
+        {
+          "label": "defect rate after",
+          "value": "4.0%"
+        },
+        {
+          "label": "annual saving",
+          "value": "about 11 million pesos"
+        }
+      ],
+      "people": [
+        {
+          "name": "Don Chuy Herrera",
+          "role": "the day-shift operator whose habit was compensating for the fault",
+          "mayName": true
+        }
+      ],
+      "traits": ["analytical", "measurable_impact", "originates_ideas", "curious_learner"],
+      "slots": [
+        "impact.biggest",
+        "numbers.impact",
+        "leadership.originated_idea",
+        "academics.quant_evidence",
+        "work.scope"
+      ],
+      "sensitivity": "none"
+    },
+    {
+      "ref": "the_shift_i_stopped",
+      "nickname": "The night I stopped the line",
+      "era": "2024",
+      "context": "professional",
+      "situation": "Three weeks into being superintendent, Rodrigo stopped the night line for four hours because a batch of drums had arrived with the wrong steel gauge and he could not reach anyone with authority to confirm it. Stopping cost about 600 units.",
+      "stakes": "A new superintendent stopping a line on his own authority, at night, with no confirmation. If the gauge had been fine he would have cost the plant 600 units for nothing, in his first month.",
+      "actions": [
+        "Measured twelve drums himself with a micrometre rather than trusting the certificate",
+        "Called the plant manager at 1 a.m., got no answer, and stopped the line anyway",
+        "Wrote the decision and his reasoning on the shift log before the plant manager arrived, so it could not be rewritten afterwards",
+        "Quarantined the whole pallet rather than sorting it, which cost more and was the right call"
+      ],
+      "result": "The gauge was wrong by 0.3 millimetres across the batch. The supplier replaced 4,100 drums. Had they been built, the warranty exposure would have been several times the cost of the stop. The plant manager now has a standing instruction that any superintendent may stop the line on a material doubt.",
+      "reflection": "He was right, and he is honest that he would have been in serious trouble if he had not been, and that the certificate said the steel was correct. The standing instruction is the part that mattered, and he asked for it precisely because he does not want the next person to need luck.",
+      "numbers": [
+        {
+          "label": "hours stopped",
+          "value": "4"
+        },
+        {
+          "label": "units lost",
+          "value": "about 600"
+        },
+        {
+          "label": "drums he measured himself",
+          "value": "12"
+        },
+        {
+          "label": "gauge error",
+          "value": "0.3 millimetres"
+        },
+        {
+          "label": "drums replaced by the supplier",
+          "value": "4,100"
+        },
+        {
+          "label": "weeks into the job",
+          "value": "3"
+        }
+      ],
+      "people": [
+        {
+          "name": "Ing. Patricia Salas",
+          "role": "the plant manager he could not reach that night",
+          "mayName": true
+        }
+      ],
+      "traits": [
+        "principled_stands",
+        "delivers_under_pressure",
+        "steady_in_ambiguity",
+        "commercial_judgment"
+      ],
+      "slots": [
+        "leadership.initiative_risky",
+        "values.dilemma",
+        "leadership.persuaded_up",
+        "values.line"
+      ],
+      "sensitivity": "none"
+    },
+    {
+      "ref": "the_three_attempts",
+      "nickname": "The test I took three times",
+      "era": "2025 to 2026",
+      "context": "personal",
+      "situation": "Rodrigo took the GMAT three times: 560, then 590, then 610. He studied for fourteen months, mostly between 5 a.m. and 7 a.m. before the first shift. The verbal section is where he loses; he reads English technically and well and reads English arguments slowly.",
+      "stakes": "He had told his wife and his supervisors he was applying. After the second attempt he told them he had stopped.",
+      "actions": [
+        "Took a diagnostic after the second attempt and found his verbal timing, not his comprehension, was the problem — he was finishing 8 questions short",
+        "Changed to reading one English long-form article a day out loud, which his wife suggested and which he found humiliating and effective",
+        "Booked the third attempt before he felt ready, because he had learned from the second that waiting to feel ready meant not going",
+        "Decided after the third attempt that 610 was his number and that he would apply with it rather than take a fourth"
+      ],
+      "result": "610, with Q44. He is applying with it. The decision to stop at three and apply anyway is the one he is least sure about and most at peace with.",
+      "reflection": "He believed for a year that the score was a measure of whether he was capable of the thing. He now thinks it is a measure of how fast he reads English arguments under time pressure, which is a real limitation and not the same thing. He says the first version out loud more often than the second, and knows it.",
+      "numbers": [
+        {
+          "label": "attempts",
+          "value": "3"
+        },
+        {
+          "label": "scores",
+          "value": "560, 590, 610"
+        },
+        {
+          "label": "months studying",
+          "value": "14"
+        },
+        {
+          "label": "verbal questions he was finishing short",
+          "value": "8"
+        }
+      ],
+      "people": [
+        {
+          "name": "Daniela",
+          "role": "his wife, who suggested reading aloud",
+          "mayName": true
+        }
+      ],
+      "traits": ["resilient", "self_aware", "acts_on_feedback", "honest_about_limits"],
+      "slots": [
+        "academics.anomaly",
+        "self.feedback",
+        "identity.turning_point",
+        "why.now",
+        "failure.consequential"
+      ],
+      "sensitivity": "none"
+    },
+    {
+      "ref": "fathers_accident",
+      "nickname": "The year I was eighteen",
+      "era": "2016",
+      "context": "personal",
+      "situation": "His father, a welder, lost the use of his right hand in an accident at work the year Rodrigo started university. The compensation was disputed for two years. Rodrigo worked nights in a tortilleria through his first two years of engineering school and sent money home.",
+      "stakes": "He nearly left the degree in the second year. His 7.9 average is the average of two bad years and two good ones.",
+      "actions": [
+        "Moved to night classes for one semester so he could work days, then moved back",
+        "Did the compensation paperwork for his father, including two appeals, because his father could not write easily afterwards",
+        "Did not tell the university, which had a hardship fund he found out about in his final year"
+      ],
+      "result": "His father received compensation in 2018. Rodrigo finished the degree in four years with a 7.9. His younger sister is now at the same university and he pays her fees.",
+      "reflection": "He understands the floor because his father worked one, and the operator who compensated for the broken fixture out of habit is his father, in his head, which is why he went and stood at that station. He has never put those two things next to each other out loud before.",
+      "numbers": [
+        {
+          "label": "years the compensation was disputed",
+          "value": "2"
+        },
+        {
+          "label": "years he worked nights while studying",
+          "value": "2"
+        },
+        {
+          "label": "appeals he wrote",
+          "value": "2"
+        }
+      ],
+      "people": [
+        {
+          "name": "his father",
+          "role": "the accident and the lost use of his hand",
+          "mayName": false
+        }
+      ],
+      "traits": ["resilient", "empathetic", "honest_about_limits"],
+      "slots": [
+        "identity.root",
+        "identity.early_responsibility",
+        "support.ongoing",
+        "goals.origin"
+      ],
+      "sensitivity": "sensitive"
+    },
+    {
+      "ref": "the_supervisors_i_grew",
+      "nickname": "Six supervisors who did not want the job",
+      "era": "2024 onwards",
+      "context": "professional",
+      "situation": "Rodrigo inherited six supervisors, four of whom were older than him and two of whom had applied for his job. None of them would bring him a problem in his first three months.",
+      "stakes": "He could not run three shifts through people who would not tell him things.",
+      "actions": [
+        "Worked one full shift a week on each shift's hours for two months, including the 10 p.m. start, so he saw what they saw",
+        "Gave the hand-logging defect project to the two who had applied for his job, and let them present the result to the plant manager",
+        "Stopped holding the daily meeting and started walking the line with each supervisor once a week instead",
+        "Backed one of them publicly when a Mexico City engineer blamed his shift for a fault that was the fixture's"
+      ],
+      "result": "Both supervisors who had applied for his job are still there and one has since been promoted to a sister plant. Shift handover disputes, which used to come to him three or four times a week, now come to him about once a month.",
+      "reflection": "He had expected to earn it with results and it was the 10 p.m. starts that did it. He is aware that is a slow method and does not have a faster one.",
+      "numbers": [
+        {
+          "label": "supervisors reporting to him",
+          "value": "6"
+        },
+        {
+          "label": "who were older than him",
+          "value": "4"
+        },
+        {
+          "label": "who had applied for his job",
+          "value": "2"
+        },
+        {
+          "label": "months of working each shift weekly",
+          "value": "2"
+        },
+        {
+          "label": "handover disputes a week before",
+          "value": "3 or 4"
+        }
+      ],
+      "people": [
+        {
+          "name": "Mauricio Tovar",
+          "role": "one of the two who had applied for his job; since promoted",
+          "mayName": true
+        }
+      ],
+      "traits": ["develops_people", "brings_people_along", "empathetic", "self_aware"],
+      "slots": [
+        "leadership.developed_others",
+        "employ.trajectory",
+        "self.others_view",
+        "employ.cross_functional",
+        "work.arc"
+      ],
+      "sensitivity": "none"
+    }
+  ],
+  "goals": {
+    "shortTerm": "A plant manager or operations manager role at a larger manufacturer in Mexico or the southern United States, running a site rather than a floor, with responsibility for the site's cost rather than its output.",
+    "longTerm": "To run manufacturing operations across several plants for a company that makes physical things in Mexico, and to be the person who decides where a plant goes and how it is staffed.",
+    "planB": "Stay at Electrodomésticos Nava, where the plant manager role is likely in three or four years, and take the company's internal management programme instead.",
+    "whyMba": "He runs a floor well and has never seen a balance sheet for the plant he runs. He does not know what the site costs, what the product sells for, or how either number is decided, and he has never worked with anyone outside manufacturing. He also wants to be in a room where he is not the only person who came from the floor.",
+    "whyNow": "He has run three shifts for two years and the next thing at this plant is waiting for someone to retire. His sister finishes university next year, so the household no longer needs his salary every month."
+  },
+  "redFlags": [
+    "GMAT 610 after three attempts, well below the median at his target schools, with a verbal 27",
+    "No quantitative coursework since 2020 and a 7.9 average that includes two weak years",
+    "English as a second language, with slow reading under time pressure he is candid about",
+    "Non-feeder employer that admissions readers will not recognise",
+    "No international or cross-functional experience outside the plant"
+  ],
+  "neverSays": [
+    "passionate",
+    "impactful",
+    "world-class",
+    "journey",
+    "synergy",
+    "best-in-class",
+    "transformational"
+  ]
+}

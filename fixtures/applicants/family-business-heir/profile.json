@@ -1,0 +1,16 @@
+{
+  "slug": "family-business-heir",
+  "summary": "Works in his family's textile mill in Coimbatore, India, and wants to professionalise it.",
+  "persona": "perfectionist",
+  "style": "formal",
+  "country": "IN",
+  "timezone": "Asia/Kolkata",
+  "programType": "full_time_mba",
+  "targetIntake": 2027,
+  "studioMode": "deep",
+  "yearsExperience": 5,
+  "test": { "type": "GMAT", "score": 715 },
+  "gpa": { "value": 8.1, "scale": 10 },
+  "isReapplicant": false,
+  "difficulty": "Knows every achievement is open to the doubt that it was handed to him, so he over-qualifies everything and pre-empts the objection before it is made. The real question — whether the MBA is his idea or his father's — he will not answer directly the first time."
+}

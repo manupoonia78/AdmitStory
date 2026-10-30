@@ -1,0 +1,320 @@
+{
+  "facts": [
+    {
+      "key": "employer_current",
+      "value": "Dada Asilia Trust",
+      "note": "girls' secondary education nonprofit, 11 staff"
+    },
+    {
+      "key": "title_current",
+      "value": "Programme Manager",
+      "note": "since 2023"
+    },
+    {
+      "key": "title_previous",
+      "value": "Programme Officer",
+      "note": "2019 to 2023, same organisation"
+    },
+    {
+      "key": "team_size",
+      "value": "5 field officers and 23 volunteer mentors"
+    },
+    {
+      "key": "location_current",
+      "value": "Nairobi, Kenya"
+    },
+    {
+      "key": "degree",
+      "value": "BA in Sociology, Kenyatta University, 2018"
+    },
+    {
+      "key": "gpa",
+      "value": "Second Class Upper, equivalent to 3.6 of 4"
+    },
+    {
+      "key": "gmat_total",
+      "value": "690",
+      "note": "Q44 V40, taken July 2026"
+    },
+    {
+      "key": "languages",
+      "value": "English, Swahili, Kikuyu"
+    },
+    {
+      "key": "programme_scale",
+      "value": "340 girls across 11 schools in Kiambu and Machakos counties"
+    },
+    {
+      "key": "budget_responsibility",
+      "value": "Annual programme budget of 28 million shillings"
+    },
+    {
+      "key": "funders",
+      "value": "Three institutional funders; the largest provides 61% of the budget"
+    }
+  ],
+  "stories": [
+    {
+      "ref": "stopped_paying_fees",
+      "nickname": "The year we stopped paying fees",
+      "era": "2024",
+      "context": "professional",
+      "situation": "The Trust paid school fees for 340 girls. Retention to the final year was 58%, and the girls who left were leaving in form three, after two years of fees had been spent. Wanjiru believed the fees were the wrong intervention and that the money should go to the thing actually causing the dropouts, which her own data said was unpaid care work at home.",
+      "stakes": "Fees were what the Trust was known for and what the largest funder had funded for nine years. Arguing to stop them meant arguing against the founder's original idea, and risking 61% of the budget.",
+      "actions": [
+        "Pulled four years of attendance records against household survey notes and found the dropouts clustered in households where a grandparent had become ill",
+        "Designed a smaller intervention — a paid stipend for a household helper for six months — and argued for running it alongside fees in two schools rather than replacing them everywhere",
+        "Presented it to the board over seven months and three meetings, and was turned down twice",
+        "Took the largest funder's programme officer to one of the households herself, which is what changed the conversation",
+        "Ran the pilot in two schools and reported the result including the part that did not work"
+      ],
+      "result": "Retention in the two pilot schools went from 58% to 81% over two years. The Trust now runs both interventions and has shifted about a third of the fee budget. Eleven girls still left, and she tracked each of the eleven and reported why.",
+      "reflection": "She had thought the board was being sentimental about fees, and some of them were; but the finance trustee's objection was that a stipend is harder to audit, which was a real objection she had not prepared for. She prepares for the finance objection first now.",
+      "numbers": [
+        {
+          "label": "girls in the programme",
+          "value": "340"
+        },
+        {
+          "label": "retention before",
+          "value": "58%"
+        },
+        {
+          "label": "retention in the pilot schools",
+          "value": "81%"
+        },
+        {
+          "label": "months she argued for it",
+          "value": "7"
+        },
+        {
+          "label": "share of budget from the largest funder",
+          "value": "61%"
+        },
+        {
+          "label": "girls who left anyway",
+          "value": "11"
+        },
+        {
+          "label": "share of the fee budget shifted",
+          "value": "about a third"
+        }
+      ],
+      "people": [
+        {
+          "name": "Grace Odhiambo",
+          "role": "the colleague who wrote the mentoring curriculum",
+          "mayName": true
+        },
+        {
+          "name": "Mr Kariuki",
+          "role": "the Trust's finance trustee, who objected on audit grounds",
+          "mayName": false
+        }
+      ],
+      "traits": ["analytical", "brings_people_along", "principled_stands", "measurable_impact"],
+      "slots": [
+        "impact.biggest",
+        "numbers.impact",
+        "leadership.persuaded_up",
+        "leadership.originated_idea",
+        "academics.quant_evidence"
+      ],
+      "sensitivity": "none"
+    },
+    {
+      "ref": "mentor_i_removed",
+      "nickname": "The mentor I had to remove",
+      "era": "2023",
+      "context": "professional",
+      "situation": "A volunteer mentor who had been with the Trust for five years and was much loved was taking the girls' airtime money for herself in small amounts. Two girls told Wanjiru separately and neither wanted to be named.",
+      "stakes": "The mentor was the only one in that school, and removing her meant the school's eighteen girls had nobody for a term. She was also the sister of a board member.",
+      "actions": [
+        "Checked the airtime records herself rather than asking the field officer, so the two girls could not be identified by who had been asked",
+        "Told the mentor directly and alone, with the figures, and gave her the chance to resign",
+        "Told the board member before the board meeting rather than letting her hear it there",
+        "Covered the school herself for the term, driving out on Saturdays, rather than leaving the eighteen girls without anyone"
+      ],
+      "result": "The mentor resigned. The board member did not speak to Wanjiru for four months and then did. Airtime is now disbursed directly to the girls' numbers, which removed the opportunity entirely. The two girls who reported it both finished school.",
+      "reflection": "She had been proud of handling it quietly and she now thinks the quietness protected the Trust more than the girls. The system change — paying the girls directly — is the only part that actually mattered, and she did that last rather than first.",
+      "numbers": [
+        {
+          "label": "girls in the affected school",
+          "value": "18"
+        },
+        {
+          "label": "years the mentor had been with the Trust",
+          "value": "5"
+        },
+        {
+          "label": "months the board member stopped speaking to her",
+          "value": "4"
+        }
+      ],
+      "people": [
+        {
+          "name": "Mrs Mutiso",
+          "role": "the board member whose sister was the mentor",
+          "mayName": false
+        }
+      ],
+      "traits": ["principled_stands", "empathetic", "self_aware", "steady_in_ambiguity"],
+      "slots": [
+        "values.dilemma",
+        "leadership.initiative_risky",
+        "values.line",
+        "support.someone_hard",
+        "failure.consequential"
+      ],
+      "sensitivity": "none"
+    },
+    {
+      "ref": "mother_illness",
+      "nickname": "The two years I was the one at home",
+      "era": "2019 to 2021",
+      "context": "personal",
+      "situation": "Her mother had a long illness through Wanjiru's first two years at the Trust. As the eldest daughter she did the nights and the hospital arrangements, and her two brothers in Mombasa sent money instead.",
+      "stakes": "She was a new programme officer on a probationary contract and did not tell her employer for most of the first year.",
+      "actions": [
+        "Negotiated her field days into three long days rather than five short ones, without explaining why",
+        "Eventually told her director, and asked for the arrangement to be made formal so it was not a favour",
+        "Kept working because the salary was the household's"
+      ],
+      "result": "Her mother died in 2021. Wanjiru was promoted two years later. The three-long-days arrangement is now offered to every field officer, which she asked for after she no longer needed it.",
+      "reflection": "The household survey finding — that girls drop out when a grandparent falls ill — is the thing she already knew in her own body and had not connected to her work for three years. That is what made her trust the data when the board did not.",
+      "numbers": [
+        {
+          "label": "years of her mother's illness",
+          "value": "2"
+        },
+        {
+          "label": "brothers who sent money instead",
+          "value": "2"
+        }
+      ],
+      "people": [
+        {
+          "name": "her mother",
+          "role": "the illness and death",
+          "mayName": false
+        }
+      ],
+      "traits": ["resilient", "self_aware", "empathetic"],
+      "slots": ["identity.early_responsibility", "identity.turning_point", "goals.origin"],
+      "sensitivity": "sensitive"
+    },
+    {
+      "ref": "saturday_market",
+      "nickname": "The soap the girls sell",
+      "era": "2022 onwards",
+      "context": "community",
+      "situation": "Six of the older girls asked Wanjiru how to make money, and she had no answer, because the Trust was a grant-funded organisation that had never sold anything. She started a Saturday group making and selling liquid soap.",
+      "stakes": "Nothing institutional. It was outside her job and she did not ask permission.",
+      "actions": [
+        "Learned the costing herself from a YouTube channel and got it wrong twice before the margin worked",
+        "Made the girls do the pricing rather than setting it for them",
+        "Refused to let the Trust fund it, so the group had to borrow its first 4,000 shillings and repay it",
+        "Handed it to two of the girls once it was profitable"
+      ],
+      "result": "The group has run for three years with nineteen girls through it, and clears about 12,000 shillings a month. Two of the first six now run it. Wanjiru has not attended since 2024.",
+      "reflection": "It is the only thing she has built where the money came from a customer rather than a funder, and it is the reason she wants to move to social enterprise rather than stay in nonprofits. She also learned she is a worse teacher when she knows the answer.",
+      "numbers": [
+        {
+          "label": "girls through the group",
+          "value": "19"
+        },
+        {
+          "label": "monthly profit",
+          "value": "about 12,000 shillings"
+        },
+        {
+          "label": "starting loan",
+          "value": "4,000 shillings"
+        },
+        {
+          "label": "years running",
+          "value": "3"
+        }
+      ],
+      "people": [
+        {
+          "name": "Faith Wambui",
+          "role": "one of the first six, who now runs the group",
+          "mayName": true
+        }
+      ],
+      "traits": ["community_builder", "commercial_judgment", "develops_people", "acts_unasked"],
+      "slots": [
+        "community.built",
+        "leadership.developed_others",
+        "goals.research",
+        "community.interests",
+        "support.ongoing"
+      ],
+      "sensitivity": "none"
+    },
+    {
+      "ref": "funder_renewal",
+      "nickname": "The renewal I nearly lost",
+      "era": "2025",
+      "context": "professional",
+      "situation": "The largest funder's renewal required a cost-per-girl figure. Wanjiru's number was higher than the sector benchmark because the Trust counted staff time that others did not, and she would not restate it the comparable way.",
+      "stakes": "61% of the budget, and eleven jobs including hers.",
+      "actions": [
+        "Showed both numbers, hers and the comparable one, with the difference explained in one paragraph",
+        "Asked the funder's officer directly whether an honest higher number would cost them the grant",
+        "Prepared a reduced programme design in case the answer was yes, and showed the board that too"
+      ],
+      "result": "The grant was renewed at the same level and the funder asked her to write a note on cost comparability for its other grantees. She has done two of those notes since.",
+      "reflection": "She had assumed being honest about the number would cost her, and had got as far as drafting the smaller programme. Asking the question out loud took fifteen seconds and settled three weeks of worry; she asks earlier now.",
+      "numbers": [
+        {
+          "label": "share of budget at risk",
+          "value": "61%"
+        },
+        {
+          "label": "jobs at risk",
+          "value": "11"
+        },
+        {
+          "label": "notes she has written for the funder since",
+          "value": "2"
+        }
+      ],
+      "people": [
+        {
+          "name": "Peter Akello",
+          "role": "the funder's programme officer",
+          "mayName": true
+        }
+      ],
+      "traits": ["honest_about_limits", "commercial_judgment", "principled_stands"],
+      "slots": ["work.scope", "self.feedback", "employ.cross_functional", "work.arc"],
+      "sensitivity": "none"
+    }
+  ],
+  "goals": {
+    "shortTerm": "An operations or commercial role at a social enterprise selling to low-income customers in East Africa — a school group, a health provider or an off-grid energy company — where the revenue comes from the customer rather than a grant.",
+    "longTerm": "To run a business whose customers are girls' families, at a scale where the unit economics work without subsidy. She is specific that she does not want to run a nonprofit again.",
+    "planB": "A commercial role at a larger East African consumer company for three or four years to learn pricing and distribution properly, then social enterprise.",
+    "whyMba": "She can design and measure a programme and she can argue with a board. She has never set a price, never read a P&L she was responsible for, and never had a customer who could simply not buy. Nine years of grant funding has taught her the wrong instincts about money.",
+    "whyNow": "The Trust has just renewed for three years, so she can leave without the programme collapsing. She is 28, and the soap group has made her certain rather than curious."
+  },
+  "redFlags": [
+    "Small-organisation experience: eleven staff and a 28 million shilling budget will look modest",
+    "No commercial or P&L experience at all",
+    "Sector and salary change that admissions readers will question the realism of",
+    "Quant 44 is the weaker half of her GMAT and her degree is non-quantitative",
+    "No international experience outside East Africa"
+  ],
+  "neverSays": [
+    "passionate",
+    "empowerment",
+    "impactful",
+    "beneficiaries",
+    "journey",
+    "give back",
+    "voiceless",
+    "change-maker"
+  ]
+}
