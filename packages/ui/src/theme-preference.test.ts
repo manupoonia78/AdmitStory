@@ -1,6 +1,7 @@
 import { describe, expect, it } from "vitest";
 import {
   THEME_COLORS,
+  immersiveTheme,
   parseThemePreference,
   readThemeCookie,
   serializeThemeCookie,
@@ -16,30 +17,55 @@ describe("theme preference", () => {
   });
 
   it("reads the theme from a Cookie header", () => {
-    expect(readThemeCookie("session=abc; theme=light")).toBe("light");
+    expect(readThemeCookie("session=abc; theme=day")).toBe("day");
+    expect(readThemeCookie("theme=night")).toBe("night");
+  });
+
+  it("reads Phase 0 light and dark cookies as Day and Night", () => {
+    expect(parseThemePreference("light")).toBe("day");
+    expect(parseThemePreference("dark")).toBe("night");
+    expect(readThemeCookie("theme=dark; session=abc")).toBe("night");
   });
 
   it("maps system to no data-theme attribute", () => {
     expect(themeAttribute("system")).toBeUndefined();
-    expect(themeAttribute("dark")).toBe("dark");
+    expect(themeAttribute("night")).toBe("night");
+    expect(themeAttribute("day")).toBe("day");
+  });
+
+  it("shows immersive screens in Night unless Day was chosen", () => {
+    expect(immersiveTheme("system")).toBe("night");
+    expect(immersiveTheme("night")).toBe("night");
+    expect(immersiveTheme("day")).toBe("day");
   });
 
   it("writes a one-year, site-wide, Lax cookie", () => {
-    expect(serializeThemeCookie("dark", true)).toBe(
-      "theme=dark; Path=/; Max-Age=31536000; SameSite=Lax; Secure",
+    expect(serializeThemeCookie("night", true)).toBe(
+      "theme=night; Path=/; Max-Age=31536000; SameSite=Lax; Secure",
     );
-    expect(serializeThemeCookie("light", false)).not.toContain("Secure");
+    expect(serializeThemeCookie("day", false)).not.toContain("Secure");
   });
 
   it("gives the theme-color pair for each preference", () => {
     expect(themeColors("system")).toEqual([
-      { media: "(prefers-color-scheme: light)", color: THEME_COLORS.light },
-      { media: "(prefers-color-scheme: dark)", color: THEME_COLORS.dark },
+      { media: "(prefers-color-scheme: light)", color: THEME_COLORS.day },
+      { media: "(prefers-color-scheme: dark)", color: THEME_COLORS.night },
     ]);
-    expect(themeColors("dark").map((t) => t.color)).toEqual([THEME_COLORS.dark, THEME_COLORS.dark]);
-    expect(themeColors("light").map((t) => t.color)).toEqual([
-      THEME_COLORS.light,
-      THEME_COLORS.light,
+    expect(themeColors("night").map((t) => t.color)).toEqual([
+      THEME_COLORS.night,
+      THEME_COLORS.night,
+    ]);
+    expect(themeColors("day").map((t) => t.color)).toEqual([THEME_COLORS.day, THEME_COLORS.day]);
+  });
+
+  it("gives immersive screens Night chrome unless Day was chosen", () => {
+    expect(themeColors("system", { immersive: true }).map((t) => t.color)).toEqual([
+      THEME_COLORS.night,
+      THEME_COLORS.night,
+    ]);
+    expect(themeColors("day", { immersive: true }).map((t) => t.color)).toEqual([
+      THEME_COLORS.day,
+      THEME_COLORS.day,
     ]);
   });
 });

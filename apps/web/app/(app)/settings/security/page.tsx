@@ -1,9 +1,10 @@
+import { FingerprintIcon, PencilSimpleIcon, PlusIcon, TrashIcon } from "@phosphor-icons/react/ssr";
 import type { Metadata } from "next";
 import { headers } from "next/headers";
 import { Page } from "@/components/page-header";
 import { getAuth } from "@/lib/auth";
 import { requireOnboardedUser } from "@/lib/app-user";
-import { PasskeyManager, type PasskeyRow } from "./passkey-manager";
+import { PasskeyManager, type PasskeyIcons, type PasskeyRow } from "./passkey-manager";
 
 export const metadata: Metadata = { title: "Passkeys" };
 
@@ -14,6 +15,15 @@ const ADDED_ON = new Intl.DateTimeFormat("en-GB", {
   year: "numeric",
   timeZone: "UTC",
 });
+
+// Rendered here, on the server, and handed to the client manager as elements: the four icons
+// were about 7 KB gz of the route's first-load JS (spec §6.11: 160 KB per route).
+const ICONS: PasskeyIcons = {
+  add: <PlusIcon size={20} />,
+  rename: <PencilSimpleIcon size={16} />,
+  remove: <TrashIcon size={16} />,
+  passkey: <FingerprintIcon size={20} />,
+};
 
 export default async function SecurityPage() {
   await requireOnboardedUser();
@@ -29,11 +39,11 @@ export default async function SecurityPage() {
 
   return (
     <Page title="Passkeys">
-      <p className="max-w-prose text-slate">
+      <p className="max-w-prose text-text-soft">
         A passkey lets you sign in with your fingerprint, face or device PIN instead of an email
         link. It stays on your device or in your password manager.
       </p>
-      <PasskeyManager passkeys={rows} />
+      <PasskeyManager passkeys={rows} icons={ICONS} />
     </Page>
   );
 }

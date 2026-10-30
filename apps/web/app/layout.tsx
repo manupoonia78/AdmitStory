@@ -7,18 +7,14 @@ import {
   themeColors,
 } from "@admitstory/ui";
 import type { Metadata, Viewport } from "next";
-import { Newsreader, Schibsted_Grotesk } from "next/font/google";
+import { GeistSans } from "geist/font/sans";
+import { Newsreader } from "next/font/google";
 import { cookies } from "next/headers";
 import type { ReactNode } from "react";
 import "./globals.css";
 
-// Interface face (spec §6.3): 400/500/700.
-const schibsted = Schibsted_Grotesk({
-  subsets: ["latin"],
-  weight: ["400", "500", "700"],
-  display: "swap",
-  variable: "--font-schibsted",
-});
+// Interface and display face (spec §6.4): Geist, one variable file (100–900) from the `geist`
+// package. GeistSans sets --font-geist-sans, which tokens.css reads into --font-ui.
 
 // Reading face: a variable font with the optical-size axis (400 and 500 are used), roman and
 // italic. Not preloaded: the shell has no reading text yet, so it loads only where it is used.
@@ -43,8 +39,8 @@ async function themePreference() {
   return parseThemePreference((await cookies()).get(THEME_COOKIE)?.value);
 }
 
-// The theme-color pair follows the theme cookie: "system" gives each media query its own mode's
-// colour, a manual choice gives both the chosen one. ThemeToggle and the account menu update these
+// The theme-color pair follows the theme cookie: "system" gives each media query its own theme's
+// colour (Day or Night), a manual choice gives both the chosen one. ThemeToggle and the account menu update these
 // tags on the client when the choice changes (applyThemeColor in @admitstory/ui).
 export async function generateViewport(): Promise<Viewport> {
   return {
@@ -56,13 +52,13 @@ export async function generateViewport(): Promise<Viewport> {
 }
 
 export default async function RootLayout({ children }: { children: ReactNode }) {
-  // The theme cookie is rendered on the server, so the first paint is already in the right mode.
+  // The theme cookie is rendered on the server, so the first paint is already in the right theme.
   const theme = await themePreference();
   return (
     <html
       lang="en"
       data-theme={themeAttribute(theme)}
-      className={`${schibsted.variable} ${newsreader.variable}`}
+      className={`${GeistSans.variable} ${newsreader.variable}`}
       // ThemeToggle updates data-theme on the client without a reload.
       suppressHydrationWarning
     >

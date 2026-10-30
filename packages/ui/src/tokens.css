@@ -1,55 +1,140 @@
 /*
- * Design tokens (spec §6.2–6.4, §6.6). Plain custom properties so they work with or
- * without Tailwind; theme.css maps them into Tailwind utilities.
+ * Design tokens (spec §6.3–6.6). Plain custom properties so they work with or without
+ * Tailwind; theme.css maps them into Tailwind utilities.
+ *
+ * Two themes: Day (the :root default) and Night. Night applies when the system prefers dark
+ * (unless the user chose Day), when the user chose Night, and inside <ImmersiveScope>, which
+ * sets data-theme="night" on its subtree. Any element can carry data-theme, so a Day sheet can
+ * sit inside a Night screen.
  *
  * Contrast rules these values were chosen under (asserted in contrast.test.ts):
- *  - --record is non-text only (3.9:1 on white in light mode).
- *  - Text on --ink (primary buttons) is --paper in both modes.
- *  - --line is decorative; form-control borders use --slate (WCAG 1.4.11).
- *  - Status-coloured text never sits on --ink-soft.
- *  - Only --graphite text sits on --highlighter.
+ *  - --record is non-text only: Day --record on --space is 4.4:1.
+ *  - Status colours (--verified, --needs, --risk) never sit on --veil: Day reaches only 4.2:1.
+ *  - Text on --signal and --risk fills (primary and danger buttons) is --on-signal.
+ *  - --edge is decorative (1.3:1). Form-control borders use --control-edge (WCAG 1.4.11).
  *
- * The dark palette appears twice (system preference and explicit override) because
- * plain CSS cannot share a declaration block between a media query and a selector.
- * contrast.test.ts fails if the two copies drift apart.
+ * The Night palette appears twice (system preference and explicit data-theme) because plain
+ * CSS cannot share a declaration block between a media query and a selector, and the Day
+ * palette serves both :root and [data-theme="day"]. contrast.test.ts fails if the copies drift.
  */
 
-:root {
+:root,
+[data-theme="day"] {
   color-scheme: light;
 
-  /* Colour, light (spec §6.2) */
-  --paper: #ffffff;
-  --mist: #f2f4f8;
-  --line: #dde2ea;
-  --graphite: #1a1f2e;
-  --slate: #586178;
-  --ink: #1e2b6f;
-  --ink-soft: #e6e9f7;
-  --highlighter: rgba(255, 224, 102, 0.6);
-  --record: #e5484d;
-  --verified: #1e7f55;
-  --needs: #b4540a;
-  --risk: #c42b2b;
+  /* Colour, Day (spec §6.3) */
+  --space: #f4f5fb;
+  --depth: #ffffff;
+  --veil: rgba(20, 30, 90, 0.05);
+  --edge: #dce0ee;
+  --text: #141833;
+  --text-soft: #5b6285;
+  --signal: #2e3fd1;
+  --record: #d92d45;
+  --verified: #13804f;
+  --needs: #a65a00;
+  --risk: #c42b3a;
 
-  /* Overlay surfaces: the one soft shadow (spec §6.4) and the modal scrim */
-  --shadow-overlay: 0 16px 40px -12px rgb(26 31 46 / 0.22), 0 2px 8px rgb(26 31 46 / 0.08);
-  --scrim: rgb(14 19 34 / 0.36);
+  /* Additions, each because a spec token can't do the job: */
+  /* text on --signal and --risk fills; white on Night --signal would be 1.8:1 */
+  --on-signal: #ffffff;
+  /* form-control borders, 3:1 on --space and --depth (--edge is 1.3:1) */
+  --control-edge: #787faa;
+  /* the interviewer's colour in live mocks (spec §6.2 "neutral silver"); captions use it */
+  --silver: #5f6478;
+  /* modal scrim and the one soft shadow overlays may keep (spec §6.3: none on static planes) */
+  --scrim: rgba(20, 24, 51, 0.36);
+  --shadow-overlay: 0 24px 48px -16px rgb(20 24 51 / 0.24), 0 2px 8px rgb(20 24 51 / 0.08);
+  /* Night raised planes catch a 1px inner edge light; Day planes rely on --edge alone */
+  --plane-light: none;
+  /* film grain: Night only */
+  --grain: none;
+}
 
-  /* Focus (spec §6.9: --ink 2px ring, 2px offset) */
-  --focus-ring-color: var(--ink);
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="day"]) {
+    color-scheme: dark;
+
+    --space: #070a1f;
+    --depth: #0e1433;
+    --veil: rgba(140, 160, 255, 0.08);
+    --edge: rgba(170, 185, 255, 0.14);
+    --text: #eef0ff;
+    --text-soft: #9aa2cc;
+    --signal: #9db1ff;
+    --record: #ff5a6e;
+    --verified: #5be3a1;
+    --needs: #ffc46b;
+    --risk: #ff7a85;
+
+    --on-signal: #070a1f;
+    --control-edge: #646c99;
+    --silver: #c8ccdc;
+    --scrim: rgba(3, 5, 15, 0.72);
+    --shadow-overlay: 0 24px 64px -16px rgb(0 0 0 / 0.6), 0 2px 8px rgb(0 0 0 / 0.4);
+    --plane-light: inset 0 1px 0 0 rgb(200 210 255 / 0.08);
+    --grain: var(--grain-image);
+  }
+}
+
+[data-theme="night"] {
+  color-scheme: dark;
+
+  --space: #070a1f;
+  --depth: #0e1433;
+  --veil: rgba(140, 160, 255, 0.08);
+  --edge: rgba(170, 185, 255, 0.14);
+  --text: #eef0ff;
+  --text-soft: #9aa2cc;
+  --signal: #9db1ff;
+  --record: #ff5a6e;
+  --verified: #5be3a1;
+  --needs: #ffc46b;
+  --risk: #ff7a85;
+
+  --on-signal: #070a1f;
+  --control-edge: #646c99;
+  --silver: #c8ccdc;
+  --scrim: rgba(3, 5, 15, 0.72);
+  --shadow-overlay: 0 24px 64px -16px rgb(0 0 0 / 0.6), 0 2px 8px rgb(0 0 0 / 0.4);
+  --plane-light: inset 0 1px 0 0 rgb(200 210 255 / 0.08);
+  --grain: var(--grain-image);
+}
+
+/*
+ * The applicant's hue (spec §6.2). voiceHueStyle() sets --voice-night / --voice-day on an
+ * element; these defaults are the first of the 12 hues. --voice is declared on every element
+ * so it picks up the nearest hue, and light-dark() resolves it for the element's own theme
+ * (each theme block sets color-scheme). --voice-glow is the translucent form behind the
+ * applicant's own words; contrast.test.ts checks --text on it for all 12 hues.
+ */
+:root {
+  --voice-night: #7cf5e6;
+  --voice-day: #0a6b64;
+}
+
+:where(*, ::before, ::after) {
+  --voice: light-dark(var(--voice-day), var(--voice-night));
+  --voice-glow: light-dark(
+    color-mix(in srgb, var(--voice-day) 16%, transparent),
+    color-mix(in srgb, var(--voice-night) 22%, transparent)
+  );
+}
+
+:root {
+  /*
+   * Film grain (spec §6.3): very fine static noise at 2% opacity, painted as a background
+   * layer so it never takes pointer events or space. Night themes switch it on via --grain.
+   */
+  --grain-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)' opacity='0.02'/%3E%3C/svg%3E");
+
+  /* Focus (spec §6.12): a 2px --signal ring with an offset */
+  --focus-ring-color: var(--signal);
   --focus-ring-width: 2px;
   --focus-ring-offset: 2px;
 
-  /* Type families. apps/web sets --font-schibsted / --font-newsreader via next/font. */
-  --font-ui: var(
-    --font-schibsted,
-    "Helvetica Neue",
-    Helvetica,
-    Arial,
-    ui-sans-serif,
-    system-ui,
-    sans-serif
-  );
+  /* Type families (spec §6.4). apps/web sets --font-geist-sans / --font-newsreader via next/font. */
+  --font-ui: var(--font-geist-sans, "Geist", ui-sans-serif, system-ui, sans-serif);
   --font-reading: var(
     --font-newsreader,
     "Iowan Old Style",
@@ -60,89 +145,73 @@
     serif
   );
 
-  /*
-   * Type scale, major third on 16px (spec §6.3). The smallest step is 13px, not 12.8,
-   * because §6.3 also sets 13px as the minimum. Small keeps its specified 18px leading;
-   * every other leading sits on the 4px grid.
-   */
-  --type-small: 0.8125rem; /* 13px */
-  --type-small-leading: 1.125rem; /* 18px */
-  --type-body: 1rem; /* 16px */
-  --type-body-leading: 1.5rem; /* 24px */
-  --type-lead: 1.25rem; /* 20px */
-  --type-lead-leading: 1.75rem; /* 28px */
-  --type-title: 1.5625rem; /* 25px */
-  --type-title-leading: 2rem; /* 32px */
-  --type-heading: 1.953125rem; /* 31.25px */
-  --type-heading-leading: 2.5rem; /* 40px */
-  --type-display: 2.4375rem; /* 39px */
-  --type-display-leading: 3rem; /* 48px */
-  --type-hero: 3.05rem; /* 48.8px */
-  --type-hero-leading: 3.5rem; /* 56px */
+  /* Type scale (spec §6.4). UI 13 / 15 / 17; leadings sit on the 4px grid where they can. */
+  --type-ui-sm: 0.8125rem; /* 13px, the minimum */
+  --type-ui-sm-leading: 1.125rem;
+  --type-ui: 0.9375rem; /* 15px, interface body */
+  --type-ui-leading: 1.375rem;
+  --type-ui-lg: 1.0625rem; /* 17px */
+  --type-ui-lg-leading: 1.5rem;
 
-  /* Reading text: essays 18/30 on mobile, 19/32 from laptop up (spec §6.3) */
-  --type-essay: 1.125rem;
-  --type-essay-leading: 1.875rem;
-  --type-essay-wide: 1.1875rem;
-  --type-essay-wide-leading: 2rem;
+  /* Reading 19 / 21: essays are Newsreader 19/32 with a 62–70 character measure */
+  --type-read: 1.1875rem;
+  --type-read-leading: 2rem;
+  --type-read-lg: 1.3125rem;
+  --type-read-lg-leading: 2rem;
   --measure-essay: 66ch;
 
-  /* Radius hierarchy (spec §6.4) */
-  --radius-control: 6px;
-  --radius-panel: 10px;
+  /*
+   * Display 40 / 64 / 96 / 144, fluid between the 640 and 1280 breakpoints with clamp().
+   * Display type is Geist 500–600, letter-spacing -0.04em, line-height 0.95.
+   */
+  --type-display-sm: clamp(2rem, 1.5rem + 1.25vw, 2.5rem); /* 32 → 40 */
+  --type-display: clamp(2.5rem, 1rem + 3.75vw, 4rem); /* 40 → 64 */
+  --type-display-lg: clamp(3rem, 0rem + 7.5vw, 6rem); /* 48 → 96 */
+  --type-display-xl: clamp(4rem, -1rem + 12.5vw, 9rem); /* 64 → 144 */
+  --type-display-leading: 0.95;
+  --type-display-tracking: -0.04em;
+  --type-display-weight: 600;
+
+  /* Radius hierarchy (spec §6.5): controls, planes, full-screen sheets, circles. Nothing else. */
+  --radius-control: 8px;
+  --radius-plane: 16px;
+  --radius-sheet: 28px;
   --radius-round: 9999px;
 
-  /* Motion (spec §6.6) */
-  --duration-quick: 120ms;
-  --duration-highlight: 200ms;
-  --duration-drawer: 240ms;
-  --duration-lift: 320ms;
-  --ease-calm: cubic-bezier(0.22, 1, 0.36, 1);
+  /*
+   * Springs as CSS (spec §6.6), generated from packages/ui/src/motion.ts by cssSpring() and
+   * checked by motion.test.ts. Use as `transition: transform var(--spring-glide-duration)
+   * var(--spring-glide)`. Reduced motion turns them into 120 ms linear fades (below).
+   */
+  /* prettier-ignore */
+  --spring-snap: linear(0, 0.024, 0.087, 0.17, 0.264, 0.368, 0.465, 0.557, 0.646, 0.721, 0.789, 0.844, 0.89, 0.929, 0.958, 0.98, 0.998, 1.009, 1.017, 1.022, 1.025, 1.025, 1.025, 1.023, 1.021, 1.019, 1.016, 1.014, 1.011, 1.009, 1.007, 1.005, 1.004, 1.003, 1.002, 1.001, 1, 1, 1, 1, 1);
+  --spring-snap-duration: 350ms;
+  /* prettier-ignore */
+  --spring-glide: linear(0, 0.025, 0.085, 0.17, 0.262, 0.356, 0.447, 0.533, 0.61, 0.682, 0.742, 0.793, 0.836, 0.872, 0.902, 0.927, 0.946, 0.961, 0.973, 0.982, 0.989, 0.994, 0.997, 1, 1.001, 1.003, 1.003, 1.003, 1.003, 1.003, 1.003, 1.003, 1.002, 1.002, 1.002, 1.001, 1.001, 1.001, 1.001, 1.001, 1);
+  --spring-glide-duration: 480ms;
+  /* prettier-ignore */
+  --spring-drift: linear(0, 0.018, 0.061, 0.12, 0.19, 0.265, 0.34, 0.413, 0.482, 0.545, 0.605, 0.658, 0.707, 0.749, 0.787, 0.819, 0.848, 0.872, 0.893, 0.911, 0.927, 0.939, 0.95, 0.959, 0.967, 0.973, 0.979, 0.983, 0.986, 0.989, 0.992, 0.993, 0.995, 0.996, 0.997, 0.998, 0.998, 0.999, 0.999, 1, 1);
+  --spring-drift-duration: 680ms;
+  /* prettier-ignore */
+  --spring-settle: linear(0, 0.03, 0.099, 0.187, 0.281, 0.374, 0.46, 0.538, 0.608, 0.668, 0.721, 0.766, 0.804, 0.836, 0.864, 0.886, 0.906, 0.922, 0.935, 0.946, 0.955, 0.963, 0.969, 0.975, 0.979, 0.983, 0.986, 0.988, 0.99, 0.992, 0.993, 0.994, 0.995, 0.996, 0.997, 0.997, 0.998, 0.998, 0.999, 0.999, 1);
+  --spring-settle-duration: 1120ms;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) {
-    color-scheme: dark;
-
-    --paper: #161c30;
-    --mist: #0e1322;
-    --line: #263049;
-    --graphite: #e7eaf3;
-    --slate: #9aa3b8;
-    --ink: #8ea2ff;
-    --ink-soft: #222b52;
-    --highlighter: rgba(232, 197, 71, 0.28);
-    --record: #ff6b6f;
-    --verified: #4cc38a;
-    --needs: #f0a04b;
-    --risk: #ff7a7a;
-
-    --shadow-overlay: 0 16px 40px -12px rgb(0 0 0 / 0.6), 0 2px 8px rgb(0 0 0 / 0.4);
-    --scrim: rgb(5 8 16 / 0.6);
+/* Reduced motion (spec §6.6): every spring becomes a 120 ms opacity fade. */
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --spring-snap: linear;
+    --spring-snap-duration: 120ms;
+    --spring-glide: linear;
+    --spring-glide-duration: 120ms;
+    --spring-drift: linear;
+    --spring-drift-duration: 120ms;
+    --spring-settle: linear;
+    --spring-settle-duration: 120ms;
   }
 }
 
-:root[data-theme="dark"] {
-  color-scheme: dark;
-
-  --paper: #161c30;
-  --mist: #0e1322;
-  --line: #263049;
-  --graphite: #e7eaf3;
-  --slate: #9aa3b8;
-  --ink: #8ea2ff;
-  --ink-soft: #222b52;
-  --highlighter: rgba(232, 197, 71, 0.28);
-  --record: #ff6b6f;
-  --verified: #4cc38a;
-  --needs: #f0a04b;
-  --risk: #ff7a7a;
-
-  --shadow-overlay: 0 16px 40px -12px rgb(0 0 0 / 0.6), 0 2px 8px rgb(0 0 0 / 0.4);
-  --scrim: rgb(5 8 16 / 0.6);
-}
-
-/* Counts and table figures line up (spec §6.3). Tailwind's `tabular-nums` does the same. */
+/* Counts and table figures line up (spec §6.4). Tailwind's `tabular-nums` does the same. */
 .tabular {
   font-variant-numeric: tabular-nums;
 }

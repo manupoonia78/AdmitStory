@@ -1,18 +1,24 @@
 "use client";
 
 // The theme preference store, without any UI. Kept apart from theme-toggle.tsx so the account
-// menu can use it without pulling Radix RadioGroup into every signed-in route (spec §6.9 budget).
+// menu can read and write the preference without pulling the toggle's markup and icons into
+// every signed-in route (spec §6.11 budget).
 
 import { useSyncExternalStore } from "react";
 import {
   DARK_SCHEME_MEDIA,
   THEME_COLORS,
+  immersiveTheme,
   readThemeCookie,
   serializeThemeCookie,
   themeAttribute,
   themeColors,
+  type ThemeName,
   type ThemePreference,
 } from "../theme-preference";
+
+/** Marks an <ImmersiveScope>; while one is on the page, the browser chrome follows it. */
+export const IMMERSIVE_ATTRIBUTE = "data-immersive";
 
 const listeners = new Set<() => void>();
 
@@ -24,14 +30,16 @@ function subscribe(listener: () => void) {
 }
 
 /**
- * Points the `<meta name="theme-color">` tags at the chosen mode, so the browser chrome (the
+ * Points the `<meta name="theme-color">` tags at the chosen theme, so the browser chrome (the
  * mobile address bar, the installed-app title bar) matches the page. apps/web renders the initial
  * pair with `themeColors()`; this keeps them in step after a manual change. A media-qualified tag
  * gets that query's colour from `themeColors()`, which is the media-based pair again for "system".
- * A tag without `media` gets the colour of the mode now showing. With no tags it adds the pair.
+ * A tag without `media` gets the colour of the theme now showing. With no tags it adds the pair.
+ * On a page with an immersive scope the pair is Night unless Day was chosen.
  */
 export function applyThemeColor(preference: ThemePreference) {
-  const tags = themeColors(preference);
+  const immersive = document.querySelector(`[${IMMERSIVE_ATTRIBUTE}]`) !== null;
+  const tags = themeColors(preference, { immersive });
   const metas = document.head.querySelectorAll<HTMLMetaElement>('meta[name="theme-color"]');
   if (metas.length === 0) {
     for (const { media, color } of tags) {
@@ -47,16 +55,19 @@ export function applyThemeColor(preference: ThemePreference) {
     const media = meta.getAttribute("media");
     const tag = media ? tags.find((t) => t.media === media) : undefined;
     if (tag) meta.setAttribute("content", tag.color);
-    else if (!media) meta.setAttribute("content", THEME_COLORS[resolvedMode(preference)]);
+    else if (!media) {
+      const theme = immersive ? immersiveTheme(preference) : resolvedTheme(preference);
+      meta.setAttribute("content", THEME_COLORS[theme]);
+    }
   }
 }
 
-function resolvedMode(preference: ThemePreference): "light" | "dark" {
+function resolvedTheme(preference: ThemePreference): ThemeName {
   const attribute = themeAttribute(preference);
   if (attribute) return attribute;
   return typeof window.matchMedia === "function" && window.matchMedia(DARK_SCHEME_MEDIA).matches
-    ? "dark"
-    : "light";
+    ? "night"
+    : "day";
 }
 
 /**

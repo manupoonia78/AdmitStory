@@ -41,6 +41,8 @@ export default defineConfig({
     // Builds only when there is no build yet (CI builds in an earlier step).
     command: `sh -c '[ -f .next/BUILD_ID ] || pnpm exec next build; exec pnpm exec next start --port ${PORT}'`,
     url: `${APP_URL}/sign-in`,
+    // The Phase 0.5 prototypes are off in production builds unless this is set (app/prototype).
+    env: { ...(process.env as Record<string, string>), PROTOTYPES_ENABLED: "1" },
     reuseExistingServer: !CI,
     timeout: 240_000,
     stdout: "pipe",

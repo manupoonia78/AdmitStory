@@ -14,8 +14,8 @@ export default async function WelcomePage() {
   return (
     <AuthFrame>
       <div className="flex flex-col gap-2">
-        <h1 className="text-2xl font-bold">Before you start</h1>
-        <p className="text-slate">
+        <h1 className="text-display-sm text-text">Before you start</h1>
+        <p className="text-text-soft">
           {APP_NAME} helps you tell your own story. Two things first, so you know how it works.
         </p>
       </div>

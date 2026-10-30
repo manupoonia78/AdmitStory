@@ -7,20 +7,21 @@ type ButtonShape = "label" | "icon";
 
 const BASE =
   "relative inline-flex shrink-0 select-none items-center justify-center gap-2 whitespace-nowrap rounded-control font-medium " +
-  "transition-colors duration-(--duration-quick) " +
+  // translate carries the magnetic pull (lib/magnetic): it eases on the snap spring too.
+  "transition-[color,background-color,border-color,translate] duration-(--spring-snap-duration) ease-snap " +
   "disabled:cursor-not-allowed disabled:opacity-60 aria-disabled:cursor-not-allowed aria-disabled:opacity-60";
 
-// Text on --ink and --risk fills is --paper in both modes; secondary borders use
-// --slate so the control edge meets 3:1 (WCAG 1.4.11). Status colours never sit on
-// --ink-soft, so danger hovers by deepening its own fill.
+// Text on --signal and --risk fills is --on-signal in both themes; secondary borders use
+// --control-edge so the control edge meets 3:1 (WCAG 1.4.11). Status colours never sit on
+// --veil, so danger hovers by deepening its own fill.
 const VARIANTS: Record<ButtonVariant, string> = {
-  primary: "bg-ink text-paper hover:bg-ink/90",
-  secondary: "border border-slate bg-paper text-ink hover:bg-ink-soft",
-  quiet: "bg-transparent text-ink hover:bg-ink-soft",
-  danger: "bg-risk text-paper hover:bg-risk/90",
+  primary: "bg-signal text-on-signal hover:bg-signal/90",
+  secondary: "border border-control bg-depth text-signal hover:bg-veil",
+  quiet: "bg-transparent text-signal hover:bg-veil",
+  danger: "bg-risk text-on-signal hover:bg-risk/90",
 };
 
-// Small controls stay 36px visually but get a 44px hit area (spec §6.9).
+// Small controls stay 36px visually but get a 44px hit area (spec §6.12).
 const HIT_AREA =
   "before:absolute before:inset-x-0 before:top-1/2 before:h-11 before:-translate-y-1/2";
 

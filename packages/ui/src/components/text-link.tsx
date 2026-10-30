@@ -8,8 +8,7 @@ export type TextLinkProps = ComponentProps<typeof Link> & {
 };
 
 // Links are always underlined: colour alone never marks a link (WCAG 1.4.1).
-const STYLES =
-  "rounded-[2px] text-ink underline decoration-1 underline-offset-[0.2em] hover:decoration-2";
+const STYLES = "text-signal underline decoration-1 underline-offset-[0.2em] hover:decoration-2";
 
 export function TextLink({ external = false, className, children, ...rest }: TextLinkProps) {
   const externalProps = external ? { target: "_blank", rel: "noopener noreferrer" } : {};

@@ -8,7 +8,7 @@ const CASES: [StatusTone, string, string][] = [
   ["verified", "Confirmed", "text-verified"],
   ["needs", "Needs you", "text-needs"],
   ["risk", "Must fix", "text-risk"],
-  ["neutral", "Draft", "text-slate"],
+  ["neutral", "Draft", "text-text-soft"],
 ];
 
 describe("StatusLabel", () => {

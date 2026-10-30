@@ -32,7 +32,7 @@ function Checkbox({
           defaultChecked={defaultChecked}
           aria-invalid={error ? true : undefined}
           aria-describedby={error ? errorId : undefined}
-          className="mt-0.5 size-5 shrink-0 cursor-pointer accent-ink"
+          className="mt-0.5 size-5 shrink-0 cursor-pointer accent-signal"
         />
         <span>{children}</span>
       </label>
@@ -55,15 +55,15 @@ export function WelcomeForm() {
   return (
     <form ref={formRef} action={action} className="flex flex-col gap-6" noValidate>
       <fieldset className="flex flex-col gap-3">
-        <legend className="mb-2 text-lg font-bold">Your age</legend>
+        <legend className="mb-2 text-lg font-semibold">Your age</legend>
         <Checkbox name="age" error={errors.age} defaultChecked={values.age}>
           I&apos;m 18 or older.
         </Checkbox>
       </fieldset>
 
       <fieldset className="flex flex-col gap-3">
-        <legend className="mb-2 text-lg font-bold">How we work together</legend>
-        <ul className="flex list-disc flex-col gap-2 pl-5 text-graphite">
+        <legend className="mb-2 text-lg font-semibold">How we work together</legend>
+        <ul className="flex list-disc flex-col gap-2 pl-5 text-text">
           <li>I&apos;ll describe my own experiences, truthfully.</li>
           <li>
             I&apos;m responsible for following each school&apos;s rules, including its rules on AI.

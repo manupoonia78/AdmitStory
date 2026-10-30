@@ -1,7 +1,7 @@
 "use client";
 
 // The account menu itself (Radix DropdownMenu + floating-ui, ~30 KB gz). Only account-menu.tsx
-// imports it, lazily, so it stays out of every route's first load (spec §6.9).
+// imports it, lazily, so it stays out of every route's first load (spec §6.11).
 
 import { CheckIcon, GearIcon, SignOutIcon } from "@phosphor-icons/react";
 import Link from "next/link";
@@ -21,10 +21,10 @@ export interface AccountMenuDropdownProps extends AccountMenuProps {
 }
 
 const ITEM =
-  "flex min-h-11 cursor-pointer select-none items-center gap-3 rounded-control px-3 text-graphite " +
-  "focus-visible:-outline-offset-2 data-[highlighted]:bg-ink-soft data-[highlighted]:text-ink";
+  "flex min-h-11 cursor-pointer select-none items-center gap-3 rounded-control px-3 text-text " +
+  "focus-visible:-outline-offset-2 data-[highlighted]:bg-veil data-[highlighted]:text-signal";
 
-const SEPARATOR = "my-1 h-px bg-line";
+const SEPARATOR = "my-1 h-px bg-edge";
 
 export function AccountMenuDropdown({
   user,
@@ -53,11 +53,11 @@ export function AccountMenuDropdown({
           align="end"
           sideOffset={8}
           collisionPadding={8}
-          className="z-50 min-w-64 max-w-[calc(100vw-1rem)] rounded-panel border border-line bg-paper p-1 text-graphite shadow-overlay"
+          className="z-50 min-w-64 max-w-[calc(100vw-1rem)] rounded-plane border border-edge bg-depth p-1 text-text shadow-overlay"
         >
           <div className="px-3 py-2">
             <p className="truncate font-medium">{user.name}</p>
-            <p className="truncate text-sm text-slate">{user.email}</p>
+            <p className="truncate text-sm text-text-soft">{user.email}</p>
           </div>
           <DropdownMenu.Separator className={SEPARATOR} />
           <DropdownMenu.Item asChild className={ITEM}>
@@ -67,7 +67,7 @@ export function AccountMenuDropdown({
             </Link>
           </DropdownMenu.Item>
           <DropdownMenu.Separator className={SEPARATOR} />
-          <DropdownMenu.Label className="px-3 pb-1 pt-2 text-sm font-medium text-slate">
+          <DropdownMenu.Label className="px-3 pb-1 pt-2 text-sm font-medium text-text-soft">
             Theme
           </DropdownMenu.Label>
           <DropdownMenu.RadioGroup

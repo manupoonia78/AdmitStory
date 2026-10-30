@@ -32,7 +32,9 @@ export function Tooltip({
             sideOffset={6}
             collisionPadding={8}
             className={cx(
-              "z-50 max-w-64 rounded-control bg-graphite px-2 py-1 text-sm text-paper shadow-overlay",
+              "z-50 max-w-64 rounded-control bg-text px-2 py-1 text-sm text-on-signal shadow-overlay",
+              // Fades in and out on the snap curve: no movement, so nothing differs when reduced.
+              "transition-opacity duration-(--spring-snap-duration) ease-snap starting:opacity-0 data-[state=closed]:animate-fade-out",
               className,
             )}
           >

@@ -48,6 +48,9 @@ interface CaptchaProps {
   onFailure: () => void;
 }
 
+// Turnstile names its themes light and dark.
+const TURNSTILE_THEMES = { system: "auto", night: "dark", day: "light" } as const;
+
 /** Cloudflare Turnstile (spec §5.1, §12.4). Its height is reserved so nothing shifts as it loads. */
 function Captcha({ siteKey, theme, widgetRef, onToken, onFailure }: CaptchaProps) {
   return (
@@ -56,7 +59,7 @@ function Captcha({ siteKey, theme, widgetRef, onToken, onFailure }: CaptchaProps
         ref={widgetRef}
         siteKey={siteKey}
         options={{
-          theme: theme === "system" ? "auto" : theme,
+          theme: TURNSTILE_THEMES[theme],
           size: "flexible",
           language: "en",
           action: TURNSTILE_ACTION,
@@ -74,10 +77,10 @@ function Captcha({ siteKey, theme, widgetRef, onToken, onFailure }: CaptchaProps
 
 function Divider() {
   return (
-    <div className="flex items-center gap-3 text-sm text-slate" role="presentation">
-      <span className="h-px flex-1 bg-line" />
+    <div className="flex items-center gap-3 text-sm text-text-soft" role="presentation">
+      <span className="h-px flex-1 bg-edge" />
       <span>{SIGN_IN_COPY.divider}</span>
-      <span className="h-px flex-1 bg-line" />
+      <span className="h-px flex-1 bg-edge" />
     </div>
   );
 }
@@ -228,14 +231,14 @@ export function SignInForm({ turnstileSiteKey, googleEnabled, notice, theme }: S
             id="sent-heading"
             ref={sentHeadingRef}
             tabIndex={-1}
-            className="text-xl font-bold text-graphite outline-none"
+            className="text-lg font-semibold text-text outline-none"
           >
             {SIGN_IN_COPY.sentTitle}
           </h2>
           <p>
             We sent a sign-in link to <span className="font-medium break-all">{sentTo}</span>.
           </p>
-          <p className="text-slate">{SIGN_IN_COPY.sentHint}</p>
+          <p className="text-text-soft">{SIGN_IN_COPY.sentHint}</p>
         </div>
         {captcha}
         <div className="flex flex-col">
@@ -268,11 +271,11 @@ export function SignInForm({ turnstileSiteKey, googleEnabled, notice, theme }: S
   return (
     <div className="flex flex-col gap-6">
       {notice ? (
-        <div className="flex gap-3 rounded-panel border border-slate bg-mist p-4">
-          <InfoIcon size={20} aria-hidden className="mt-0.5 shrink-0 text-ink" />
+        <div className="flex gap-3 rounded-plane border border-control bg-space p-4">
+          <InfoIcon size={20} aria-hidden className="mt-0.5 shrink-0 text-signal" />
           <div className="flex flex-col gap-1">
-            <p className="font-bold text-graphite">{notice.title}</p>
-            <p className="text-graphite">{notice.body}</p>
+            <p className="font-semibold text-text">{notice.title}</p>
+            <p className="text-text">{notice.body}</p>
           </div>
         </div>
       ) : null}

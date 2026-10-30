@@ -7,8 +7,8 @@ import { applyThemeColor, setThemePreference } from "./theme-store";
 // What apps/web's root layout renders from Viewport.themeColor.
 function renderInitialTags() {
   document.head.innerHTML =
-    `<meta name="theme-color" media="${LIGHT_SCHEME_MEDIA}" content="${THEME_COLORS.light}">` +
-    `<meta name="theme-color" media="${DARK_SCHEME_MEDIA}" content="${THEME_COLORS.dark}">`;
+    `<meta name="theme-color" media="${LIGHT_SCHEME_MEDIA}" content="${THEME_COLORS.day}">` +
+    `<meta name="theme-color" media="${DARK_SCHEME_MEDIA}" content="${THEME_COLORS.night}">`;
 }
 
 function contents(): Record<string, string> {
@@ -26,40 +26,56 @@ afterEach(() => {
 describe("theme-color meta tags", () => {
   it("follow a manual choice whatever the system is set to", () => {
     renderInitialTags();
-    setThemePreference("dark");
+    setThemePreference("night");
     expect(contents()).toEqual({
-      [LIGHT_SCHEME_MEDIA]: THEME_COLORS.dark,
-      [DARK_SCHEME_MEDIA]: THEME_COLORS.dark,
+      [LIGHT_SCHEME_MEDIA]: THEME_COLORS.night,
+      [DARK_SCHEME_MEDIA]: THEME_COLORS.night,
     });
 
-    setThemePreference("light");
+    setThemePreference("day");
     expect(contents()).toEqual({
-      [LIGHT_SCHEME_MEDIA]: THEME_COLORS.light,
-      [DARK_SCHEME_MEDIA]: THEME_COLORS.light,
+      [LIGHT_SCHEME_MEDIA]: THEME_COLORS.day,
+      [DARK_SCHEME_MEDIA]: THEME_COLORS.day,
     });
   });
 
   it("go back to the media-based pair for Match system", () => {
     renderInitialTags();
-    setThemePreference("dark");
+    setThemePreference("night");
     setThemePreference("system");
     expect(contents()).toEqual({
-      [LIGHT_SCHEME_MEDIA]: THEME_COLORS.light,
-      [DARK_SCHEME_MEDIA]: THEME_COLORS.dark,
+      [LIGHT_SCHEME_MEDIA]: THEME_COLORS.day,
+      [DARK_SCHEME_MEDIA]: THEME_COLORS.night,
     });
   });
 
   it("adds the pair when the page has none", () => {
-    applyThemeColor("dark");
+    applyThemeColor("night");
     expect(contents()).toEqual({
-      [LIGHT_SCHEME_MEDIA]: THEME_COLORS.dark,
-      [DARK_SCHEME_MEDIA]: THEME_COLORS.dark,
+      [LIGHT_SCHEME_MEDIA]: THEME_COLORS.night,
+      [DARK_SCHEME_MEDIA]: THEME_COLORS.night,
     });
   });
 
   it("sets a tag without media to the mode now showing", () => {
-    document.head.innerHTML = `<meta name="theme-color" content="${THEME_COLORS.light}">`;
-    applyThemeColor("dark");
-    expect(contents()).toEqual({ "": THEME_COLORS.dark });
+    document.head.innerHTML = `<meta name="theme-color" content="${THEME_COLORS.day}">`;
+    applyThemeColor("night");
+    expect(contents()).toEqual({ "": THEME_COLORS.night });
+  });
+
+  it("stay Night on a page with an immersive scope, unless Day was chosen", () => {
+    renderInitialTags();
+    document.body.innerHTML = '<div data-immersive data-theme="night"></div>';
+    setThemePreference("system");
+    expect(contents()).toEqual({
+      [LIGHT_SCHEME_MEDIA]: THEME_COLORS.night,
+      [DARK_SCHEME_MEDIA]: THEME_COLORS.night,
+    });
+    setThemePreference("day");
+    expect(contents()).toEqual({
+      [LIGHT_SCHEME_MEDIA]: THEME_COLORS.day,
+      [DARK_SCHEME_MEDIA]: THEME_COLORS.day,
+    });
+    document.body.innerHTML = "";
   });
 });

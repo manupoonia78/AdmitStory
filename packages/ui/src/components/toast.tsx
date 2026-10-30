@@ -1,13 +1,21 @@
 "use client";
 
-import { XIcon } from "@phosphor-icons/react";
-import { Toast as ToastPrimitive } from "radix-ui";
-import { createContext, useCallback, useContext, useMemo, useState, type ReactNode } from "react";
-import { buttonStyles } from "./button-styles";
+import {
+  Suspense,
+  createContext,
+  lazy,
+  useCallback,
+  useContext,
+  useEffect,
+  useMemo,
+  useState,
+  type ReactNode,
+} from "react";
+import { whenIdle } from "../shell/when-idle";
 
 export interface ToastOptions {
   /**
-   * Name the action that happened, repeating the button's verb (spec §6.7):
+   * Name the action that happened, repeating the button's verb (spec §6.9):
    * "Draft updated", "Saved to your Fact Sheet". No exclamation marks.
    */
   title: string;
@@ -20,7 +28,7 @@ export interface ToastOptions {
   };
 }
 
-interface ToastEntry extends ToastOptions {
+export interface ToastEntry extends ToastOptions {
   id: number;
   open: boolean;
 }
@@ -37,6 +45,12 @@ export function useToast(): ToastContextValue {
   return value;
 }
 
+// The Radix toast stack is ~14 KB gz and the provider sits in the root layout, so it would weigh
+// on every route's first load (spec §6.11). It loads when the page is idle instead, or at once
+// if a toast is asked for before then; toasts queue here in the meantime.
+const loadStack = () => import("../shell/toast-stack");
+const ToastStack = lazy(() => loadStack().then((m) => ({ default: m.ToastStack })));
+
 let nextId = 0;
 
 export function ToastProvider({
@@ -47,6 +61,9 @@ export function ToastProvider({
   duration?: number;
 }) {
   const [toasts, setToasts] = useState<ToastEntry[]>([]);
+  const [idle, setIdle] = useState(false);
+
+  useEffect(() => whenIdle(() => setIdle(true)), []);
 
   const toast = useCallback((options: ToastOptions) => {
     nextId += 1;
@@ -67,49 +84,12 @@ export function ToastProvider({
 
   return (
     <ToastContext.Provider value={value}>
-      <ToastPrimitive.Provider duration={duration} swipeDirection="right" label="Notification">
-        {children}
-        {toasts.map((t) => (
-          <ToastPrimitive.Root
-            key={t.id}
-            open={t.open}
-            // Toasts with an action stay longer so there is time to reach the button.
-            duration={t.action ? duration * 2 : duration}
-            onOpenChange={(open) => {
-              if (!open) close(t.id);
-            }}
-            onAnimationEnd={() => {
-              if (!t.open) remove(t.id);
-            }}
-            className="flex items-start gap-3 rounded-panel border border-line bg-paper p-4 text-graphite shadow-overlay data-[state=closed]:animate-scrim-out data-[swipe=move]:translate-x-(--radix-toast-swipe-move-x)"
-          >
-            <div className="flex flex-1 flex-col gap-1">
-              <ToastPrimitive.Title className="font-medium">{t.title}</ToastPrimitive.Title>
-              {t.description ? (
-                <ToastPrimitive.Description className="text-sm text-slate">
-                  {t.description}
-                </ToastPrimitive.Description>
-              ) : null}
-            </div>
-            {t.action ? (
-              <ToastPrimitive.Action
-                altText={t.action.altText}
-                onClick={t.action.onAction}
-                className={buttonStyles({ variant: "secondary", size: "sm" })}
-              >
-                {t.action.label}
-              </ToastPrimitive.Action>
-            ) : null}
-            <ToastPrimitive.Close
-              aria-label="Dismiss"
-              className={buttonStyles({ variant: "quiet", size: "sm", shape: "icon" })}
-            >
-              <XIcon size={20} aria-hidden />
-            </ToastPrimitive.Close>
-          </ToastPrimitive.Root>
-        ))}
-        <ToastPrimitive.Viewport className="fixed bottom-20 right-4 left-4 z-50 flex flex-col gap-2 outline-none sm:bottom-4 sm:left-auto sm:w-96" />
-      </ToastPrimitive.Provider>
+      {children}
+      {idle || toasts.length > 0 ? (
+        <Suspense fallback={null}>
+          <ToastStack toasts={toasts} duration={duration} onClose={close} onRemove={remove} />
+        </Suspense>
+      ) : null}
     </ToastContext.Provider>
   );
 }

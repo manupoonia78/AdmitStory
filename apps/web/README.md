@@ -28,9 +28,16 @@ the owner) and are inlined at build time through `next.config.ts` `env`: `TURNST
 | Command                                      | What it does                                                                                  |
 | -------------------------------------------- | --------------------------------------------------------------------------------------------- |
 | `pnpm build`                                 | `next build` (Turbopack).                                                                     |
-| `pnpm --filter @admitstory/web bundle:check` | First-load JS per route, gzipped, against the 180 KB budget (spec §6.9). Run after a build.   |
+| `pnpm --filter @admitstory/web bundle:check` | First-load JS per route, gzipped, against the 160 KB budget (spec §6.11). Run after a build.  |
 | `pnpm test:e2e`                              | Playwright (Chromium). Starts `next start` on `APP_URL`, building first if there is no build. |
 | `pnpm lighthouse`                            | Lighthouse, mobile preset, on `/sign-in` and the signed-in `/home`; fails below 90.           |
+
+React and the Next App Router client take 140.5 KB gz of the 160 KB budget before a route has
+rendered anything, so a route has roughly 19 KB for its own code. Anything heavier is split and
+loaded on demand (spec §6.11): the command palette on first open, the account menu when the page
+is idle, and each Phase 0.5 prototype's demo — Motion, the Voiceprint and its fake-data script —
+behind the `*-host.tsx` beside its page. A split demo is still server-rendered, so the screen
+arrives whole; only its behaviour starts once its chunk has landed.
 
 Unit tests (`*.test.ts`) and integration tests (`*.int.test.ts`, need the database) run from the
 repo root with `pnpm test` and `pnpm test:integration`.
@@ -155,6 +162,7 @@ sources for Turnstile, PostHog, Sentry, Paddle and Cal.com) is a Phase 9 item.
 | `app/(expert)/`    | Placeholder (Phase 8).                                                                                                                          |
 | `app/(admin)/`     | Placeholder (Phase 3 onwards).                                                                                                                  |
 | `app/r/[token]/`   | Placeholder (Phase 6).                                                                                                                          |
+| `app/prototype/`   | Phase 0.5 look and feel prototypes (spec §6.13, §16). Off unless `PROTOTYPES_ENABLED=1`. Each page renders its demo through a `*-host.tsx`.     |
 | `app/api/`         | Better Auth and Inngest route handlers, and the localhost-only `dev/ai-smoke`.                                                                  |
 | `inngest/`         | Inngest client, events and functions.                                                                                                           |
 | `lib/`             | Server and shared modules. `ai.ts`, `auth.ts`, `session.ts` are server-only.                                                                    |

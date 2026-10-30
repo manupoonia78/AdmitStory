@@ -43,8 +43,8 @@ export default async function SignInPage({
       {/* Signed out: forget any identity from before sign-out (no-op without POSTHOG_KEY). */}
       <PostHogIdentity userId={null} />
       <div className="flex flex-col gap-2">
-        <h1 className="text-2xl font-bold text-graphite">{SIGN_IN_COPY.headline}</h1>
-        <p className="text-slate">{SIGN_IN_COPY.intro}</p>
+        <h1 className="text-display-sm text-text">{SIGN_IN_COPY.headline}</h1>
+        <p className="text-text-soft">{SIGN_IN_COPY.intro}</p>
       </div>
       <SignInForm
         // The widget is shown exactly when the server enforces the check (lib/auth.ts).

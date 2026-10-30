@@ -1,4 +1,4 @@
-// First-load JavaScript per route, gzipped (spec §6.9: ≤ 180 KB gz per route).
+// First-load JavaScript per route, gzipped (spec §6.11: initial JS ≤ 160 KB gz per app route).
 // Next 16 no longer prints sizes after `next build`; it writes the chunk list per route to
 // .next/diagnostics/route-bundle-stats.json, and this script gzips and adds them up.
 //
@@ -11,7 +11,7 @@ import { gzipSync } from "node:zlib";
 import { z } from "zod";
 
 const WEB_ROOT = fileURLToPath(new URL("..", import.meta.url));
-const BUDGET_KB = 180;
+const BUDGET_KB = 160;
 
 const RouteStats = z.array(
   z.object({

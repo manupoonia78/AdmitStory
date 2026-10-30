@@ -11,7 +11,7 @@ export interface PlaceholderPageProps {
 export function PlaceholderPage({ title, emptyTitle, emptyDescription }: PlaceholderPageProps) {
   return (
     <Page title={title}>
-      <section className="rounded-panel border border-line bg-paper">
+      <section className="plane">
         {/* Left-aligned (EmptyState's default): the line can wrap on narrow screens (spec §6.4). */}
         <EmptyState title={emptyTitle} description={emptyDescription} align="start" />
       </section>

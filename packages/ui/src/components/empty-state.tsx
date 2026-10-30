@@ -3,7 +3,7 @@ import { cx } from "../lib/cx";
 
 /**
  * "start" (the default) left-aligns the empty state like all other text. "center" is only for a
- * description that fits on one line: spec §6.4 allows no centred paragraphs except single-line
+ * description that fits on one line: spec §6.5 allows no centred paragraphs except single-line
  * empty states.
  */
 export type EmptyStateAlign = "start" | "center";
@@ -11,7 +11,7 @@ export type EmptyStateAlign = "start" | "center";
 export interface EmptyStateProps {
   /** Short headline, e.g. "No stories yet". */
   title: string;
-  /** What to do next (spec §6.7). Keep it to one line if you centre it. */
+  /** What to do next (spec §6.9). Keep it to one line if you centre it. */
   description: string;
   /** A single action, usually a <Button>. */
   action?: ReactNode;
@@ -40,8 +40,8 @@ export function EmptyState({
       data-align={align}
       className={cx("flex flex-col gap-2 px-4 py-12", ALIGN[align], className)}
     >
-      <Heading className="text-lg font-bold text-graphite">{title}</Heading>
-      <p className="text-slate">{description}</p>
+      <Heading className="text-lg font-semibold text-text">{title}</Heading>
+      <p className="text-text-soft">{description}</p>
       {action ? <div className="mt-4">{action}</div> : null}
     </div>
   );

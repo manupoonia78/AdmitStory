@@ -12,22 +12,19 @@ export default async function SettingsPage() {
 
   return (
     <Page title="Settings">
-      <section
-        aria-labelledby="appearance"
-        className="flex flex-col gap-3 rounded-panel border border-line bg-paper p-6"
-      >
-        <h2 id="appearance" className="text-lg font-bold">
+      <section aria-labelledby="appearance" className="flex flex-col gap-3 plane p-6">
+        <h2 id="appearance" className="text-lg font-semibold">
           Appearance
         </h2>
-        <p className="text-slate">Match system follows your device&apos;s light or dark setting.</p>
+        <p className="text-text-soft">
+          Match system follows your device&apos;s light or dark setting. Story Studio and live mocks
+          open in Night unless you choose Day.
+        </p>
         <ThemeToggle serverValue={theme} className="self-start" />
       </section>
 
-      <section
-        aria-labelledby="account"
-        className="flex flex-col gap-3 rounded-panel border border-line bg-paper p-6"
-      >
-        <h2 id="account" className="text-lg font-bold">
+      <section aria-labelledby="account" className="flex flex-col gap-3 plane p-6">
+        <h2 id="account" className="text-lg font-semibold">
           Account
         </h2>
         <p>

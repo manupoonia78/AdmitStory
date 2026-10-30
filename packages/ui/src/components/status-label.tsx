@@ -5,13 +5,13 @@ import { cx } from "../lib/cx";
 
 export type StatusTone = "verified" | "needs" | "risk" | "neutral";
 
-// Every status carries an icon and text; colour is never the only signal (spec §6.2).
-// Status colours sit on --paper or --mist only, never on --ink-soft.
+// Every status carries an icon and text; colour is never the only signal (spec §6.3).
+// Status colours sit on --space or --depth only, never on --veil.
 const TONES: Record<StatusTone, { icon: Icon; className: string }> = {
   verified: { icon: CheckCircleIcon, className: "text-verified" },
   needs: { icon: QuestionIcon, className: "text-needs" },
   risk: { icon: WarningIcon, className: "text-risk" },
-  neutral: { icon: CircleIcon, className: "text-slate" },
+  neutral: { icon: CircleIcon, className: "text-text-soft" },
 };
 
 export interface StatusLabelProps {

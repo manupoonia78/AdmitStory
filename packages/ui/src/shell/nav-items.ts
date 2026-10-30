@@ -1,31 +1,24 @@
-import type { Icon } from "@phosphor-icons/react";
-// SSR-safe icons: this data module is also evaluated by server components that import the
-// package barrel, where the client icon build (which creates a React context) cannot load.
-import {
-  BookOpenTextIcon,
-  ChatsCircleIcon,
-  GraduationCapIcon,
-  HouseIcon,
-  ListChecksIcon,
-  UsersThreeIcon,
-} from "@phosphor-icons/react/ssr";
+// No icons here: the client dock imports this module, and every Phosphor icon carries all six of
+// its weights (about 0.8 KB gz each). The icons live in nav-icons.ts, which only the server-side
+// AppShell and the lazy palette import (spec §6.11: 160 KB per route).
 
 export interface NavItem {
-  id: string;
-  /** Short label shown under the icon in the rail and the tab bar. */
+  id: NavId;
+  /** Short label: beside the icon in the open dock, under it in the bottom dock. */
   label: string;
   href: string;
-  icon: Icon;
 }
 
-/** The six destinations of the left rail and mobile tab bar (spec §6.4). */
+export type NavId = "home" | "studio" | "schools" | "interview" | "connect" | "tracker";
+
+/** The six destinations of the dock (spec §6.5). */
 export const NAV_ITEMS: readonly NavItem[] = [
-  { id: "home", label: "Home", href: "/home", icon: HouseIcon },
-  { id: "studio", label: "Story", href: "/studio", icon: BookOpenTextIcon },
-  { id: "schools", label: "Schools", href: "/schools", icon: GraduationCapIcon },
-  { id: "interview", label: "Interview", href: "/interview", icon: ChatsCircleIcon },
-  { id: "connect", label: "Connect", href: "/connect", icon: UsersThreeIcon },
-  { id: "tracker", label: "Tracker", href: "/tracker", icon: ListChecksIcon },
+  { id: "home", label: "Home", href: "/home" },
+  { id: "studio", label: "Story", href: "/studio" },
+  { id: "schools", label: "Schools", href: "/schools" },
+  { id: "interview", label: "Interview", href: "/interview" },
+  { id: "connect", label: "Connect", href: "/connect" },
+  { id: "tracker", label: "Tracker", href: "/tracker" },
 ];
 
 export function isActivePath(pathname: string, href: string): boolean {

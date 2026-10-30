@@ -5,6 +5,7 @@ import { cx } from "../lib/cx";
 import type { ThemePreference } from "../theme-preference";
 import type { AccountMenuDropdownProps } from "./account-menu-dropdown";
 import { ACCOUNT_TRIGGER_CLASSES, AccountTriggerContent } from "./account-trigger";
+import { whenIdle } from "./when-idle";
 
 export interface AccountUser {
   name: string;
@@ -19,15 +20,6 @@ export interface AccountMenuProps {
 }
 
 const loadDropdown = () => import("./account-menu-dropdown").then((m) => m.AccountMenuDropdown);
-
-function whenIdle(callback: () => void): () => void {
-  if (typeof window.requestIdleCallback === "function") {
-    const id = window.requestIdleCallback(callback, { timeout: 5000 });
-    return () => window.cancelIdleCallback(id);
-  }
-  const id = window.setTimeout(callback, 2000);
-  return () => window.clearTimeout(id);
-}
 
 /**
  * Account menu (name, email, Settings, theme, sign out). The Radix menu is ~30 KB gz, so until

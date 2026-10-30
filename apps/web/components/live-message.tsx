@@ -22,7 +22,7 @@ export function AlertMessage({ message, className }: LiveMessageProps) {
 export function StatusMessage({ message, className }: LiveMessageProps) {
   return (
     <div role="status" aria-live="polite" aria-atomic="true" className={className}>
-      {message ? <p className="text-sm text-slate">{message}</p> : null}
+      {message ? <p className="text-sm text-text-soft">{message}</p> : null}
     </div>
   );
 }

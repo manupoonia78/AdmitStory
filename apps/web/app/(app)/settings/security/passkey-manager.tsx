@@ -1,10 +1,9 @@
 "use client";
 
 import { Button, useToast } from "@admitstory/ui";
-import { FingerprintIcon, PencilSimpleIcon, PlusIcon, TrashIcon } from "@phosphor-icons/react";
 import dynamic from "next/dynamic";
 import { useRouter } from "next/navigation";
-import { useState, type MouseEvent } from "react";
+import { useState, type MouseEvent, type ReactElement } from "react";
 import { AlertMessage, StatusMessage } from "@/components/live-message";
 import { useWebAuthnSupport } from "@/lib/webauthn-support";
 import { PASSKEY_COPY } from "./passkey-copy";
@@ -17,6 +16,17 @@ export interface PasskeyRow {
   id: string;
   name: string;
   addedOn: string;
+}
+
+/**
+ * The page's icons, rendered by the server component (page.tsx) and passed in as elements, so no
+ * icon code ships in this route's JavaScript (spec §6.11 budget). All are decorative.
+ */
+export interface PasskeyIcons {
+  add: ReactElement;
+  rename: ReactElement;
+  remove: ReactElement;
+  passkey: ReactElement;
 }
 
 type ErrorLike = { code?: string; message?: string; status?: number } | null | undefined;
@@ -55,7 +65,13 @@ function defaultPasskeyName(): string {
   return `Passkey on ${platform}`;
 }
 
-export function PasskeyManager({ passkeys }: { passkeys: PasskeyRow[] }) {
+export function PasskeyManager({
+  passkeys,
+  icons,
+}: {
+  passkeys: PasskeyRow[];
+  icons: PasskeyIcons;
+}) {
   const supported = useWebAuthnSupport();
   const [dialog, setDialog] = useState<{
     kind: PasskeyDialogKind;
@@ -96,21 +112,18 @@ export function PasskeyManager({ passkeys }: { passkeys: PasskeyRow[] }) {
   }
 
   return (
-    <section
-      aria-labelledby="your-passkeys"
-      className="flex flex-col gap-4 rounded-panel border border-line bg-paper p-6"
-    >
+    <section aria-labelledby="your-passkeys" className="flex flex-col gap-4 plane p-6">
       <div className="flex flex-wrap items-center justify-between gap-3">
-        <h2 id="your-passkeys" tabIndex={-1} className="text-lg font-bold outline-none">
+        <h2 id="your-passkeys" tabIndex={-1} className="text-lg font-semibold outline-none">
           Your passkeys
         </h2>
-        <Button icon={PlusIcon} onClick={add} loading={adding} disabled={!supported}>
+        <Button icon={icons.add} onClick={add} loading={adding} disabled={!supported}>
           {adding ? PASSKEY_COPY.add.pending : PASSKEY_COPY.add.button}
         </Button>
       </div>
 
       {!supported ? (
-        <p className="text-slate">
+        <p className="text-text-soft">
           This browser doesn&apos;t support passkeys. You can keep signing in with an email link.
         </p>
       ) : null}
@@ -118,28 +131,30 @@ export function PasskeyManager({ passkeys }: { passkeys: PasskeyRow[] }) {
       {/* The live regions stay in the DOM while empty, so what they say is always announced. */}
       <div className="flex flex-col">
         {passkeys.length === 0 ? (
-          <p className="text-slate">
+          <p className="text-text-soft">
             No passkeys yet. Add one to sign in without waiting for an email.
           </p>
         ) : (
-          <ul className="flex flex-col divide-y divide-line" aria-label="Passkeys on your account">
+          <ul className="flex flex-col divide-y divide-edge" aria-label="Passkeys on your account">
             {passkeys.map((passkey) => (
               <li
                 key={passkey.id}
                 className="flex flex-wrap items-center justify-between gap-3 py-3"
               >
                 <div className="flex items-center gap-3">
-                  <FingerprintIcon size={20} aria-hidden className="shrink-0 text-slate" />
+                  <span aria-hidden className="inline-flex shrink-0 text-text-soft">
+                    {icons.passkey}
+                  </span>
                   <div>
                     <p className="font-medium">{passkey.name}</p>
-                    <p className="text-sm text-slate">Added {passkey.addedOn}</p>
+                    <p className="text-sm text-text-soft">Added {passkey.addedOn}</p>
                   </div>
                 </div>
                 <div className="flex gap-1">
                   <Button
                     variant="quiet"
                     size="sm"
-                    icon={PencilSimpleIcon}
+                    icon={icons.rename}
                     aria-haspopup="dialog"
                     onPointerEnter={() => void loadDialogs()}
                     onFocus={() => void loadDialogs()}
@@ -152,7 +167,7 @@ export function PasskeyManager({ passkeys }: { passkeys: PasskeyRow[] }) {
                   <Button
                     variant="quiet"
                     size="sm"
-                    icon={TrashIcon}
+                    icon={icons.remove}
                     aria-haspopup="dialog"
                     onPointerEnter={() => void loadDialogs()}
                     onFocus={() => void loadDialogs()}

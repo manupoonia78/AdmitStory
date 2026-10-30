@@ -1,6 +1,6 @@
-# Folio — Build Specification v1.0
+# Admitstory — Build Specification v1.0
 
-> Working name: **Folio** (rename later; the name lives in one constant, `APP_NAME`, in `packages/shared/src/brand.ts`).
+> Working name: **Admitstory** (rename later; the name lives in one constant, `APP_NAME`, in `packages/shared/src/brand.ts`).
 > Author: Manu (product owner). Written 24 October 2026 for Claude Opus 5.5 in VS Code.
 > Status: complete v1 spec. Build it phase by phase (Section 16).
 
@@ -18,7 +18,7 @@ You are building a production web application from an empty repository. This doc
 **How to work through it**
 
 1. Read Sections 1–5 fully before writing code, so you understand the product's logic, not just its screens.
-2. Read Section 6 (design) before writing any UI. The UI is a core feature, not decoration.
+2. Read Section 6 (design) before writing any UI. The UI is a core feature, not decoration: the bar is award-winning, fluid and futuristic (6.1), and Phase 0.5 must be signed off before feature work.
 3. Read Sections 8 and 12 before writing any model call. Token efficiency is a business requirement: every model call goes through one wrapper that routes, caches and meters.
 4. Build in the phases in Section 16. Finish each phase's acceptance criteria and tests before starting the next.
 5. The Appendices are content, not suggestions. Appendix A becomes files in `knowledge/canon/`. Appendices B–J become seed data, config, schemas and fixtures. Appendix K lists the documentation to re-verify (pricing, API parameters, policies) before you rely on it.
@@ -36,13 +36,13 @@ You are building a production web application from an empty repository. This doc
 
 **What this product is not**
 
-It does not copy, imitate or borrow flows, information architecture or UI from any existing admissions platform. Existing tools in this space make applicants fill in dozens of disconnected boxes across a long module tree, read walls of advice, and then write everything themselves. Folio starts from the opposite premise: the applicant talks, the product listens, organises, decides with them, and drafts — and shows its reasoning.
+It does not copy, imitate or borrow flows, information architecture or UI from any existing admissions platform. Existing tools in this space make applicants fill in dozens of disconnected boxes across a long module tree, read walls of advice, and then write everything themselves. Admitstory starts from the opposite premise: the applicant talks, the product listens, organises, decides with them, and drafts — and shows its reasoning.
 
 ---
 
 ## 1. The product on one page
 
-**One sentence:** Tell your story once — out loud or in writing — and Folio turns it into a complete, school-by-school MBA application in your own voice: positioning, essays with reasoned alternatives, short answers, form entries, recommender briefs and live interview practice.
+**One sentence:** Tell your story once — out loud or in writing — and Admitstory turns it into a complete, school-by-school MBA application in your own voice: positioning, essays with reasoned alternatives, short answers, form entries, recommender briefs and live interview practice.
 
 **Who it is for:** People applying to full-time MBA programs (and later: EMBA, MiM, other master's), worldwide. Many are international, most are time-poor professionals aged 25–33, many are career switchers or reapplicants. A meaningful share are applying within weeks of a deadline.
 
@@ -87,7 +87,7 @@ These decide every ambiguous call. When in doubt, re-read these.
 
 ---
 
-## 3. Users and the jobs they hire Folio for
+## 3. Users and the jobs they hire Admitstory for
 
 | Persona | Situation | Job to be done | What they need most |
 |---|---|---|---|
@@ -144,7 +144,7 @@ Every stage is reachable from the left rail at any time. The Home screen always 
 
 ## 5. Features, module by module
 
-Each module lists: purpose, screens, behaviour, states, and acceptance criteria (AC). Screen layouts are in Section 6.8.
+Each module lists: purpose, screens, behaviour, states, and acceptance criteria (AC). Hero moments are in Section 6.7; screen structure is in Section 6.10.
 
 ### 5.1 Accounts and onboarding shell
 
@@ -223,7 +223,7 @@ This selection is deterministic TypeScript (cheap, testable). The model only *ph
 
 **The Story Shelf (right side, live):**
 
-- As the extractor finds stories (Section 8.5), cards appear on the shelf with a short, applicant-flavoured nickname ("The night-shift fix"), era, and 2–3 trait tags. The transcript phrase that triggered it is briefly highlighted, then the card lifts into the shelf (the product's one signature animation — Section 6.6).
+- As the extractor finds stories (Section 8.5), cards appear on the shelf with a short, applicant-flavoured nickname ("The night-shift fix"), era, and 2–3 trait tags. The transcript phrase that triggered it is briefly highlighted, then the card condenses and flies into the shelf (Story Studio's hero moment — Section 6.7).
 - A **coverage meter** shows the four admissions lenses (Academics, Self-awareness, Employability, Leadership) plus Goals and School fit, each as a short bar. It's the user's progress indicator — not a percent-complete bar.
 - Facts counter ("54 facts captured") opens the Fact Sheet.
 
@@ -324,7 +324,7 @@ Actions: edit, merge two stories, split, mark confirmed, add detail by voice, de
 
 ### 5.7 The School Kit pipeline
 
-When a kit is unlocked, a durable multi-step workflow (Inngest) runs. The user watches it progress in a calm, streamed view (Section 6.8, screen F) — each stage's output appears as soon as it's ready, so they can start reading positioning while essays are still drafting.
+When a kit is unlocked, a durable multi-step workflow (Inngest) runs. The user watches it progress in a calm, streamed view (Section 6.7 "Kit generation"; structure in 6.10, screen F) — each stage's output appears as soon as it's ready, so they can start reading positioning while essays are still drafting.
 
 | Stage | What happens | Model (Section 8.3) | Output |
 |---|---|---|---|
@@ -349,15 +349,15 @@ Typical wall time: 2–4 minutes. Stages 5–9 run in parallel where they don't 
 
 ### 5.8 The Workspace (where drafts live)
 
-The applicant spends most of their paid time here. Three panes: **Files** (left), **Document** (centre), **Coach** (right). Layout in Section 6.8, screen G.
+The applicant spends most of their paid time here. Three panes: **Files** (left), **Document** (centre), **Coach** (right). Layout in Section 6.10, screen G; hero moment in 6.7.
 
 **Files pane:** the school's deliverables grouped as Essays, Short answers, Video essay, Application form, Resume, Recommenders, Interview. Each shows status (`drafting`, `draft ready`, `needs you` with a count of open questions, `final`) and limit progress (e.g., 187/200 words).
 
 **Document pane:**
 
 - Prompt shown verbatim above the draft, with the limit and a live count that matches how that school's portal counts (words, or characters with/without spaces — set per prompt in the pack).
-- Draft in the reading face (Section 6.3), measure ≤ 70 characters.
-- **Your-words view** (toggle, keyboard `Y`): sentences built from the applicant's own words are marked with a soft highlighter; composed sentences stay plain; hover/tap any sentence to see the transcript excerpt or fact it came from. A small legend explains it. This is the product's signature trust feature.
+- Draft in the reading face (Section 6.4), measure ≤ 70 characters.
+- **Your-words view** (toggle, keyboard `Y`): sentences built from the applicant's own words glow softly in the applicant's Voiceprint hue (6.2); composed sentences stay plain; hover/tap any sentence to see the transcript excerpt or fact it came from. A small legend explains it. This is the product's signature trust feature.
 - **[NEED] chips** inline where a real detail is missing: "What did your manager actually say? (~20 words)". Clicking opens a mini-composer (voice or text). On answer, only that paragraph regenerates and the answer is saved to the dossier.
 - Direct editing (TipTap). Edits are the user's; the AI never overwrites a user-edited sentence without showing a diff and asking. Paragraph lock (`L`) protects a paragraph from AI changes.
 - Version timeline at the bottom: every AI generation and every user save is a version; compare any two (inline diff); restore.
@@ -410,7 +410,7 @@ The applicant spends most of their paid time here. Three panes: **Files** (left)
 
 ### 5.11 Recommender Kit
 
-**Stance (non-negotiable):** Folio never produces a letter for the applicant to hand to a recommender. Many schools prohibit applicant-written letters and compare writing styles; it is the single easiest way to sink an application. Instead, Folio produces the most complete *briefing pack* possible, and offers the recommender their own private workspace.
+**Stance (non-negotiable):** Admitstory never produces a letter for the applicant to hand to a recommender. Many schools prohibit applicant-written letters and compare writing styles; it is the single easiest way to sink an application. Instead, Admitstory produces the most complete *briefing pack* possible, and offers the recommender their own private workspace.
 
 **Applicant side:**
 
@@ -476,10 +476,10 @@ answered the question asked; structure (brief context, clear action, result, ref
 The goal: help applicants have real conversations with students and alumni — which strengthen both their understanding and their essays — without scraping anyone or spamming anyone.
 
 - **School Guides network (opt-in):** current students and alumni sign up as Guides (verified by school email domain or a manual check), choose free or paid chats, set availability. Applicants request a chat; the Guide accepts or declines. Initially seeded by Manu's network.
-- **Outreach assistant:** applicants find people themselves (LinkedIn, school ambassador programs, club officers). Folio drafts the message: subject line, one-line why-me, 2–3 concrete proof points, a brief ask for a 15-minute call — short, specific, human. The applicant sends it themselves. Folio never sends messages on their behalf.
-- **Conversation log:** after a chat, the applicant records a 2-minute voice note ("what did you learn?"). Folio extracts insights (clubs, courses, culture, recruiting reality) into the dossier as *school engagement evidence*, with the person's name and whether they're comfortable being named.
+- **Outreach assistant:** applicants find people themselves (LinkedIn, school ambassador programs, club officers). Admitstory drafts the message: subject line, one-line why-me, 2–3 concrete proof points, a brief ask for a 15-minute call — short, specific, human. The applicant sends it themselves. Admitstory never sends messages on their behalf.
+- **Conversation log:** after a chat, the applicant records a 2-minute voice note ("what did you learn?"). Admitstory extracts insights (clubs, courses, culture, recruiting reality) into the dossier as *school engagement evidence*, with the person's name and whether they're comfortable being named.
 - **How conversations enter essays (canon rule):** woven in as natural story flow showing what the person taught the applicant — never as a listed achievement, and never framed as the person choosing the applicant's goal (they can test or sharpen it).
-- **Official channels:** each school's info sessions, ambassador programs, admissions events and official contact routes (from the pack, with links and dates), with add-to-calendar. Folio does not facilitate contacting admissions staff outside official channels.
+- **Official channels:** each school's info sessions, ambassador programs, admissions events and official contact routes (from the pack, with links and dates), with add-to-calendar. Admitstory does not facilitate contacting admissions staff outside official channels.
 
 ---
 
@@ -524,96 +524,167 @@ Email (Resend) and in-app: kit ready; questions waiting (`[NEED]` count); recomm
 
 ## 6. Design system and UI
 
-### 6.1 Direction
+### 6.1 Direction and quality bar
+
+**The bar:** every screen should be good enough to be featured on Awwwards or the FWA, and the app should feel as fluid as the best native software (Linear, Arc, Raycast, Apple's own apps). "Fluid" here means a specific engineering standard, not a mood:
+
+- 60 fps minimum and 120 fps on high-refresh displays for every animation and scroll.
+- Every transition is interruptible. Nothing ever makes the user wait for an animation to finish.
+- No spinners and no grey skeleton boxes. Content streams in place, and placeholders hold the exact shape of what's coming, so the layout never jumps.
+- Navigation feels instant: routes are prefetched, and the view changes within 100 ms.
+- One physics vocabulary. All motion uses the same small set of springs (6.6), so the whole product moves as one piece.
 
 **Subject:** a person's life, spoken out loud, becoming a written application.
 **Audience:** ambitious, anxious, time-poor professionals across many countries, who judge quality in seconds.
-**Primary job of the interface:** keep them calm and moving, and make it obvious that the words on the page are *theirs*.
+**Primary job of the interface:** make talking feel effortless, make it obvious that the words on the page are *theirs*, and keep them calm and moving under deadline pressure.
 
-**Concept — "Ink and highlighter."** The applicant speaks; their words are captured in ink; the product's job is to find the lines worth keeping and mark them. The one memorable visual idea is the **highlighter**: wherever a draft uses the applicant's own words, a soft highlighter sits behind them. Everything around it is quiet, cool and disciplined so that this one idea carries the brand.
+**Concept: "Your voice becomes light."** Admitstory listens to you, and your voice is the brand. Every applicant gets a living **Voiceprint** (6.2), a luminous form generated from the way they actually speak. It breathes while they talk, it glows behind every sentence that came from their own words, and it becomes their personal mark across the app and on every export. Futuristic, but personal, never generic sci-fi.
 
-**Deliberately avoided** (common generated-UI defaults that would make Folio look like everything else): warm cream backgrounds with a terracotta accent; near-black screens with a single acid accent; newspaper-style hairline layouts; identical rounded cards with the same grey shadow and gradient washes; all-caps eyebrow labels above headings; meta strings joined with middle dots; arrows appended to button text; monospace micro-labels; teal/green "edtech" palettes; scroll-triggered fade-ins on every section.
+**Cinematic where it matters, frictionless everywhere else.** Each screen gets exactly one hero moment (6.7), designed and choreographed like an award site. Everything around that moment stays quiet, precise and fast. Inside the essay editor, the effects step back: nobody wants particles while cutting 14 words at 1 a.m. Restraint around the hero moment is what makes it land, and it's what award juries reward.
 
-### 6.2 Colour tokens
+**Deliberately avoided** (the looks that make AI products interchangeable): a stock aurora or blob gradient used as wallpaper; purple-to-pink "AI" gradients on buttons; near-black screens with one acid-green accent; warm cream with terracotta; glassmorphism cards stacked everywhere; identical rounded cards with the same grey shadow; all-caps eyebrow labels; arrows appended to button text; sparkle icons as the symbol for AI; scroll-triggered fade-ins on every section; robot or brain illustrations.
 
-Defined as CSS custom properties in `packages/ui/src/tokens.css`, mapped into Tailwind v4 `@theme`.
+### 6.2 The signature: your Voiceprint
 
-| Token | Light | Dark | Use |
+**What it is:** a real-time WebGL form, made of flowing light filaments and particles inside a soft spherical volume, whose shape and colour are derived from the applicant's own speech.
+
+**How it's generated** (`packages/ui/src/voiceprint/`):
+- **Live parameters**, updated per frame while someone speaks: amplitude drives scale and particle energy; spectral centroid drives filament sharpness; pitch movement drives swirl direction.
+- **Identity parameters**, computed once from the first 3 minutes of Story Studio speech and stored on the profile (`voiceprint jsonb`): average pitch, pace (words per minute), pitch range and pause rhythm. These map to the base hue (one of 12 tuned hues), the filament count, the swirl speed and the shape's asymmetry. Two people never get the same Voiceprint, and yours stays recognisably yours.
+- Only these derived numbers are stored. No audio is needed to render it.
+- Users who never speak get a Voiceprint seeded from their written answers: sentence-length rhythm stands in for pace and pitch.
+
+**Where it appears:**
+
+| Place | Behaviour |
+|---|---|
+| Story Studio | Full-size, centre stage, breathing with your voice. While the interviewer's question is read aloud, it shifts into a calmer, cooler listening state |
+| Your own words | The "your-words" highlight in drafts is a soft glow in your Voiceprint hue, not a flat highlighter |
+| Kit generation | Threads of light leave your Voiceprint and travel to each essay as it's drafted |
+| Live mock interview | Two forms face each other: yours, and the interviewer's (neutral silver). Each responds to whoever is speaking |
+| Avatar, school kit covers, PDF/DOCX exports | A still render of your Voiceprint as your personal mark |
+| Landing page | The hero (6.7) |
+
+**Fallbacks:** with no WebGL, low GPU tier, `prefers-reduced-motion` or Save-Data, it becomes a still SVG render of the same Voiceprint with a slow CSS opacity pulse. With reduced motion it is completely still.
+
+### 6.3 Colour
+
+Two themes. **Night** is the default for immersive screens (Story Studio, kit generation, live mocks, landing); **Day** is available everywhere. The user can choose, and the Workspace document canvas can stay as a paper sheet in either theme.
+
+| Token | Night | Day | Use |
 |---|---|---|---|
-| `--paper` | `#FFFFFF` | `#161C30` | Document canvas, panels |
-| `--mist` | `#F2F4F8` | `#0E1322` | App background (cool, never cream) |
-| `--line` | `#DDE2EA` | `#263049` | Borders, dividers |
-| `--graphite` | `#1A1F2E` | `#E7EAF3` | Primary text |
-| `--slate` | `#586178` | `#9AA3B8` | Secondary text |
-| `--ink` | `#1E2B6F` | `#8EA2FF` | Primary actions, links, focus ring, selected states |
-| `--ink-soft` | `#E6E9F7` | `#222B52` | Hover/selected backgrounds |
-| `--highlighter` | `rgba(255,224,102,0.60)` | `rgba(232,197,71,0.28)` | The applicant's own words; golden lines |
-| `--record` | `#E5484D` | `#FF6B6F` | Recording state only |
-| `--verified` | `#1E7F55` | `#4CC38A` | Confirmed facts, passed checks |
-| `--needs` | `#B4540A` | `#F0A04B` | Needs the applicant (questions, partial stories) |
-| `--risk` | `#C42B2B` | `#FF7A7A` | Must-fix issues |
+| `--space` | `#070A1F` | `#F4F5FB` | App background. Night is a deep indigo, never neutral black |
+| `--depth` | `#0E1433` | `#FFFFFF` | Raised planes: panels, the document sheet |
+| `--veil` | `rgba(140,160,255,0.08)` | `rgba(20,30,90,0.05)` | Hover and selected planes |
+| `--edge` | `rgba(170,185,255,0.14)` | `#DCE0EE` | 1px borders and dividers |
+| `--text` | `#EEF0FF` | `#141833` | Primary text |
+| `--text-soft` | `#9AA2CC` | `#5B6285` | Secondary text |
+| `--signal` | `#9DB1FF` | `#2E3FD1` | Interactive: links, focus ring, primary action fill |
+| `--voice` | per user (12 tuned hues, e.g. `#7CF5E6`, `#FFB86B`, `#C59BFF`) | darker variant of the same hue | The applicant's Voiceprint and own-word glow only |
+| `--record` | `#FF5A6E` | `#D92D45` | Recording state only |
+| `--verified` | `#5BE3A1` | `#13804F` | Confirmed facts, passed checks |
+| `--needs` | `#FFC46B` | `#A65A00` | Questions waiting for the applicant |
+| `--risk` | `#FF7A85` | `#C42B3A` | Must-fix issues |
 
-Rules: colour never carries meaning alone — statuses always have a text label or icon; highlighter regions also get a 1px dotted underline in high-contrast mode; all text pairs meet WCAG AA (verify with a contrast test in CI).
+Rules:
+- `--voice` is the only expressive colour, and it belongs to the applicant. UI chrome never borrows it.
+- Night uses light, not shadow, for depth: raised planes get a 1px inner edge light and a faint backdrop blur only where content scrolls beneath them. No drop shadows on static elements.
+- A very fine film grain (2% opacity, static SVG noise) sits over Night backgrounds, so large dark areas look rich instead of flat.
+- Every text pair meets WCAG AA in both themes (a contrast test runs in CI). Status colour always comes with a text label or icon.
+- The 12 Voiceprint hues are pre-tuned for contrast against both themes. Users can swap their hue in Settings.
 
-### 6.3 Typography
+### 6.4 Typography
 
 | Role | Typeface | Notes |
 |---|---|---|
-| Interface (nav, controls, tables, labels, body UI) | **Schibsted Grotesk** (Google Fonts), 400/500/700 | Sturdy, editorial grotesk; tabular numerals on for counts and tables |
-| Reading and voice (essays, Story Studio questions, briefs, reports) | **Newsreader** (Google Fonts, optical sizes), 400/500, italic | The interviewer's questions and the applicant's drafts are set in the same face — the product "speaks" and "writes" in one voice |
+| Interface and display | **Geist** (variable, 100–900; `geist` npm package, SIL OFL) | Precise and contemporary. Huge and tight for display; calm at UI sizes. Tabular numerals for counts and tables |
+| Reading and the interviewer's voice | **Newsreader** (Google Fonts, optical sizes) | Essays, questions, briefs and reports. The product speaks and writes in one human voice, set against Geist's machine precision |
 
-Scale (major third, base 16px): 12.8 / 16 / 20 / 25 / 31.25 / 39 / 48.8.
+**Scale:** UI 13 / 15 / 17; reading 19 / 21; display 40 / 64 / 96 / 144 (clamped fluidly with `clamp()` between breakpoints).
 
-- UI body 16/24; small 13/18 (min).
-- Essay text: Newsreader 19/32 on desktop, 18/30 on mobile; measure 62–70 characters.
-- Story Studio question: Newsreader 31.25/40 (39/48 on wide screens), weight 400, left-aligned, max ~28 characters per line is fine for the question block.
-- Headings use weight and size, not colour. Sentence case everywhere. No all-caps. No letter-spaced labels.
-- Headline type is used actively: on Home, the next step is the headline itself ("Answer 3 questions to finish your Darden draft"), not a label above it.
+**Type as an active element:**
+- **Display headlines** use Geist at 64–144 px, weight 500–600, letter-spacing −0.04em, line-height 0.95. On page entry, lines rise into place with a per-line mask reveal (not per-letter confetti).
+- **Story Studio questions** are Newsreader at 40–56 px. While the question is read aloud, the words brighten one at a time in sync with the TTS word timestamps, like karaoke subtitles done with restraint.
+- **Live transcript:** as you speak, interim words appear at 40% opacity and settle to full opacity, weight 500→400, once final. Words never jitter character by character.
+- **Variable weight responds to voice:** on the landing hero and in Story Studio, the active line's Geist weight shifts subtly (±60) with speech amplitude.
+- **Sentence case everywhere.** No all-caps, no letter-spaced labels, no label above every heading. On Home, the next step is the headline itself.
+- **Essays** are set in Newsreader 19/32, with a measure of 62–70 characters.
 
-### 6.4 Layout
+### 6.5 Layout and spatial system
 
-- **App shell:** a slim left rail (icons + short labels): Home, Story, Schools, Interview, Connect, Tracker; account at the bottom. Collapses to a bottom tab bar on mobile.
-- **Command palette** (`⌘K` / `Ctrl K`): jump to any school, deliverable, story or action ("Record a new story", "Start a Darden drill").
-- **Workspace grid:** Files 248px | Document fluid (text column max 720px, centred within its pane) | Coach 380px. Coach becomes a slide-over drawer below 1280px; on mobile the three panes become tabs: Draft / Coach / Files.
-- **Alignment:** text is left-aligned throughout; numbers right-aligned in tables; no centred paragraphs except single-line empty states.
-- **Spacing:** 4px base grid; section spacing 32/48px; dense areas (tables, file list) at 8/12px.
-- **Radius hierarchy:** 6px controls and inputs, 10px panels and story cards, full circle for the record button only. No shadows on static surfaces; one soft shadow for overlays (palette, drawers, popovers).
-- **Icons:** Phosphor (regular weight), 20px in UI, 16px inline.
+- **Planes, not cards.** The interface is a few large layered planes floating over `--space`: a navigation plane, a work plane and a context plane. Hierarchy comes from depth, scale and light, not from boxes inside boxes.
+- **Navigation:** a slim floating dock on the left, icons with labels on hover. It collapses to a floating bottom dock on mobile. The command palette (`⌘K` / `Ctrl K`) opens as a centred plane with live results and keyboard-first actions.
+- **Grid:** 12 columns, 24 px gutters, 4 px base unit. Generous negative space on hero screens; denser, but never cramped, in the Workspace, tables and admin.
+- **Radius hierarchy:** 8 px for controls, 16 px for planes, 28 px for full-screen sheets, a circle for the record button and the Voiceprint. Nothing else.
+- **Workspace:** Files plane 248 px | Document sheet (text column max 720 px) | Coach plane 400 px. Below 1280 px the Coach becomes a sheet that slides over from the right; on mobile the three become swipeable views.
+- **Text alignment:** left everywhere; numbers right-aligned in tables; centred text only for single-line hero statements.
 
-### 6.5 Core components (in `packages/ui`)
+### 6.6 Motion system
 
-Built on Radix primitives (accessible behaviour) with Folio's own styling — not an off-the-shelf theme.
+Implement as tokens in `packages/ui/src/motion.ts` and use nothing else.
 
-- `RecordButton` — idle / listening (live level meter ring) / processing / error; Space-to-talk; aria-live status text.
-- `LiveTranscript` — interim text in `--slate`, final text in `--graphite`; words appear in phrases, not character jitter.
-- `StoryCard` — nickname, era, context, up to 3 trait tags, status label; draggable on the File Map; compact and expanded variants.
-- `CoverageMeter` — four lens bars + Goals + Fit; text values ("Leadership: partial — no originated idea yet").
-- `FactRow` — value, approved phrasing, status, source link, conflict resolver.
-- `DocCanvas` — TipTap editor with custom marks: `yourWords` (highlighter), `needChip` (inline node), `lockedParagraph`, `diffInsert` / `diffDelete`.
-- `LimitCounter` — counts per the school's rule; turns `--risk` over the limit with the exact overage ("12 words over").
-- `CoachTabs` — Why this, Options, Refine, Checks, Verify.
-- `OptionCompare` — side-by-side A/B/C with synced scroll and differences emphasised.
-- `CheckItem` — severity, explanation, location jump, one-click fix where safe.
-- `VersionTimeline` — scrubbable, compare any two, restore.
-- `MatrixTable` — schools × components (tracker), deliverables × stories (file map).
-- `InterviewerPresence` — for live mocks: a calm ring that responds to the interviewer's voice amplitude; captions beneath; no avatar faces.
-- `RubricBar` — 1–5 per criterion with the quote that justifies it.
-- `Toast` — action-named confirmations ("Draft updated", "Saved to your Fact Sheet").
+| Token | Spring (stiffness / damping / mass) | Used for |
+|---|---|---|
+| `snap` | 700 / 40 / 1 | Toggles, checkboxes, small state changes |
+| `glide` | 380 / 34 / 1 | Panels, sheets, the dock, layout reflow |
+| `drift` | 160 / 26 / 1.2 | Hero entrances, shared-element flights, Voiceprint threads |
+| `settle` | 90 / 20 / 1 | Ambient breathing and slow ambient motion |
 
-### 6.6 Motion
+**Rules:**
+- **Shared elements, not page swaps.** When something moves from one place to another, the same element travels there: a story card from the shelf into the Dossier, a school from the list into its kit, a question from the map into a drill. Use the View Transitions API for route changes, with Motion `layoutId` inside a page.
+- **Everything is interruptible.** Every animation can be reversed mid-flight by the next input. Never use `await animation` before accepting input.
+- **Streaming text** arrives sentence by sentence, with each sentence fading up from 0 to 100% over 180 ms. The layout reserves the space ahead, so text below never jumps.
+- **Diffs morph.** Accepting a revision blends the changed words in place (old words fade and blur out, new words sharpen in, 240 ms). The version scrubber crossfades between versions the same way.
+- **Scroll:** native scrolling inside the app (no scroll hijacking near the editor). Lenis smooth scroll and pinned scroll sequences on marketing pages only.
+- **Cursor and hover:** magnetic pull on primary actions on pointer devices (max 6 px); planes catch a soft edge light where the cursor is. No hover lift on lists.
+- **Sound (optional, off by default):** a small set of quiet UI sounds (record start/stop, story captured, kit ready), designed as one family.
+- **Reduced motion:** springs become 120 ms opacity fades; the Voiceprint is still; no parallax, no pinned sequences, no morphing. The full experience is still usable and still beautiful.
 
-- **One signature moment:** when a story is detected in Story Studio, the transcript phrase that triggered it gains the highlighter (200 ms), then a card lifts from it into the Shelf (320 ms, ease-out, slight scale 0.98→1). It happens once per new story. With `prefers-reduced-motion`, the card simply appears and the shelf count updates.
-- **Responsive motion only otherwise:** drawers slide, diffs fade in on accept, version scrubbing crossfades. No entrance animations on page load, no hover lifts on cards, no parallax.
-- **Streaming text:** drafts stream by sentence (buffer tokens until a sentence boundary) to avoid jittery reflow.
+### 6.7 One hero moment per screen
 
-### 6.7 Voice and microcopy
+| Screen | The hero moment | Everything else |
+|---|---|---|
+| **Landing** | The Voiceprint fills the screen. "Say one thing about yourself." The visitor taps and speaks one sentence (15-second limit, Turnstile-protected, nothing stored), or plays a sample voice. Their words turn into light, and the light settles into a highlighted line inside an essay. A pinned scroll sequence then follows one spoken sentence through the product: transcript → story → essay line → interview question | Short sections with real screens of the app, not illustrations; pricing; FAQ |
+| **Sign-up / first run** | The Voiceprint is born: a faint seed that grows brighter as you answer the four first-run questions | Minimal forms, one question per screen |
+| **Story Studio** | Speaking to your Voiceprint. When a story is detected, its phrase in the transcript ignites in your hue, condenses into a story card and flies along a curved path into the shelf (`drift`) | Shelf and coverage meter stay still and quiet |
+| **Dossier** | **Constellation view:** stories as glowing nodes, positioned by era (left to right) and grouped by the lenses they prove; lines connect stories that share traits. Drag, zoom, and click a node to open it in place. A list view sits one keystroke away | Fact Sheet is a clean, dense table |
+| **Profile Read** | A four-lens instrument: four arcs fill to their level as you scroll, each arc made of the stories behind it; hover an arc to see them | Plain, readable findings |
+| **School Strategy** | Schools sit on a horizon timeline of deadlines. Selecting two or more morphs them into a side-by-side comparison | Honest flags in plain text |
+| **Kit generation** | **The assembly:** your Voiceprint on the left, the school's deliverables on the right. As the file map is decided, threads of light connect stories to essays; each essay's first lines stream in as it drafts. It's the most cinematic moment in the product and it also shows the reasoning (which story went where) | Gap questions sit in a calm side plane |
+| **Workspace** | **Your words, lit:** toggling the your-words view makes your own sentences glow softly in your hue, and hovering one reveals the moment you said it, with the original transcript line | Everything else in the Workspace is quiet, typographic and fast |
+| **Options compare** | Two drafts side by side with a draggable split; the differences softly glow as the divider passes over them | |
+| **Interview Studio** | The question map as a cluster of questions, each glowing by readiness | Plain lists for talking points |
+| **Live mock** | Two Voiceprints facing each other in a dim room. Captions are set in Newsreader, the interviewer's in silver and yours in your hue | Nothing else on screen except controls |
+| **Interview report** | A scrubbable timeline of the whole mock: waveform, rubric markers and highlighted strong and weak moments. Click any moment to jump into the transcript | Clear scores with quotes |
+| **Tracker** | Deadlines as a horizon you can scrub through time; components fill as they're done | A dense matrix view one tab away |
+| **Recommender portal** | A calm, elegant single page for a busy senior person: the brief, a record button, their notes | No hero motion; maximum clarity |
+| **Admin** | None | Fast, dense and functional |
+
+### 6.8 Core components (`packages/ui`)
+
+Built on Radix primitives for accessible behaviour, styled entirely with the Admitstory tokens.
+
+- `Voiceprint` (R3F/OGL shader, SVG fallback), `VoiceprintStill` (for avatars and exports).
+- `RecordButton`: idle / listening (ring reacts to amplitude) / processing / error. Built in Rive as a state machine; Space to talk.
+- `LiveTranscript`: interim and final word states; word-level timing.
+- `SpokenQuestion`: Newsreader display text with word-by-word brightening synced to TTS timestamps.
+- `StoryCard` with `layoutId` flights; compact, expanded and constellation-node variants.
+- `Constellation`: WebGL or canvas graph, with keyboard navigation and an accessible list equivalent.
+- `CoverageMeter`, `LensInstrument`.
+- `DocCanvas` (TipTap) with custom marks: `yourWords` (glow), `needChip`, `lockedParagraph`, `diffMorph`.
+- `LimitCounter`, `CoachSheet`, `OptionSplit`, `CheckItem`, `VersionScrubber`.
+- `HorizonTimeline` (Strategy, Tracker), `MatrixTable`.
+- `DuetStage` (live mock), `SessionTimeline` (report), `RubricBar`.
+- `Dock`, `CommandPalette`, `Sheet`, `Toast` (action-named, and slides from the dock).
+
+### 6.9 Voice and microcopy
 
 Plain, warm, direct. Sentence case. Buttons name the exact action; the toast repeats the same verb.
 
 | Context | Copy |
 |---|---|
 | Studio first question | "Let's start before your first job. Where did you grow up, and what was home like?" |
-| Mic permission | "Folio needs your microphone to hear your answers. Audio is turned into text and not kept unless you choose to." Buttons: "Allow microphone" / "Write instead" |
+| Mic permission | "Admitstory needs your microphone to hear your answers. Audio is turned into text and not kept unless you choose to." Buttons: "Allow microphone" / "Write instead" |
 | Mic denied | "Microphone is blocked in your browser settings. You can keep going by typing." |
 | Skip | "Skip for now" (never "Skip" alone) |
 | Story detected (screen reader) | "New story added to your shelf: The night-shift fix." |
@@ -629,7 +700,9 @@ Plain, warm, direct. Sentence case. Buttons name the exact action; the toast rep
 
 Never: "Oops", "Something went wrong", "Unleash", "Supercharge", "Journey", exclamation marks in system messages, or praise of the user's answers.
 
-### 6.8 Screen layouts
+### 6.10 Screen structure (wireframes)
+
+These define structure and content, not visual style; the visual treatment comes from 6.1–6.7.
 
 **A. Home**
 
@@ -756,12 +829,52 @@ Never: "Oops", "Something went wrong", "Unleash", "Supercharge", "Journey", excl
 
 **M. Admin: pack review** — source on the left (scrollable, with highlights), proposed pack fields on the right with accept/reject per field, conflict badges, "Publish version 7".
 
-### 6.9 Responsive, accessibility, performance
+### 6.11 Rendering technology and performance tiers
 
-- Breakpoints: 0–639 (mobile), 640–1023 (tablet), 1024–1279 (laptop), 1280+ (desktop). Story Studio and drills are fully usable on mobile (talking on a phone is a primary use case). Workspace is fully functional on tablet and readable/editable on mobile.
-- WCAG 2.2 AA: keyboard paths for everything (record with Space, navigate deliverables with `J/K`, toggle your-words with `Y`, accept/reject diffs with `A/R`); visible focus (`--ink` 2px ring + 2px offset); captions for all synthesized speech; streaming regions use `aria-live="polite"`; touch targets ≥ 44px.
-- Performance budgets: LCP ≤ 1.8 s on mid-tier mobile over 4G; route transitions ≤ 150 ms (prefetch); interaction latency ≤ 100 ms; JS per route ≤ 180 KB gz (editor and voice code split and lazy-loaded).
-- Dark mode follows the system by default with a manual override.
+| Need | Library |
+|---|---|
+| Component and layout motion, shared elements | Motion (`motion` package, the successor to Framer Motion) |
+| Route transitions | View Transitions API (Next.js experimental support), with Motion as fallback |
+| Marketing scroll choreography | GSAP with ScrollTrigger and SplitText (free since 2025; verify the licence at build time) |
+| Marketing smooth scroll | Lenis (marketing routes only) |
+| Voiceprint and constellation | React Three Fiber with custom GLSL shaders, or OGL if bundle size matters more; lazy-loaded |
+| Interactive vector animation (record button, small state illustrations) | Rive |
+| GPU capability detection | `detect-gpu`, plus a live frame-time monitor |
+
+**Performance tiers**, chosen at runtime and re-checked if frames drop:
+
+| Tier | When | What renders |
+|---|---|---|
+| 3 (full) | Good GPU, no reduced motion, not Save-Data | Full shaders, particles, morphs, 120 fps where available |
+| 2 (lite) | Mid GPU or frame time > 12 ms sustained | Fewer particles, no post-processing, same choreography |
+| 1 (still) | Low GPU, reduced motion, Save-Data, battery saver, WebGL unavailable | SVG Voiceprint, opacity-only transitions |
+
+**Budgets:**
+- Landing LCP ≤ 2.0 s on a mid-range phone over 4G (the hero headline is HTML text and renders first; WebGL fades in afterwards).
+- App routes: LCP ≤ 1.5 s; interaction latency ≤ 50 ms; route change ≤ 100 ms.
+- Initial JS ≤ 160 KB gzipped per app route. Three.js/OGL, Rive, the editor and voice code are split and lazy-loaded.
+- Zero layout shift (CLS < 0.02).
+- The Voiceprint render loop pauses when the tab is hidden or the element is off-screen.
+
+### 6.12 Responsive and accessible
+
+- **Breakpoints:** 0–639, 640–1023, 1024–1279, 1280+. Story Studio, drills and live mocks are designed phone-first, because talking into a phone is a primary use case. The Workspace is fully functional on tablet and usable on a phone.
+- **WCAG 2.2 AA:**
+  - Keyboard paths for everything: Space to record, `J`/`K` for deliverables, `Y` for the your-words view, `A`/`R` to accept or reject.
+  - Visible focus: a 2 px `--signal` ring with an offset.
+  - Captions for all synthesised speech.
+  - `aria-live="polite"` on streaming regions; accessible list equivalents for the Constellation, the Lens instrument and the Horizon timeline.
+  - Touch targets ≥ 44 px.
+- **Night and Day themes** both pass contrast. The theme follows the system by default and can be overridden per user.
+
+### 6.13 How to actually reach award quality
+
+1. **Motion prototype first (Phase 0.5).** Before building features, build the four signature moments as standalone routes with fake data: Voiceprint in Story Studio, story capture flight, kit assembly, and the your-words glow. Get Manu's sign-off on those, and only then build features on top.
+2. **Reference board.** Manu collects 10–15 current Awwwards Site of the Day / FWA winners and app-motion references he loves into `docs/design/references.md`, each with a note on what to take (an idea, a transition, a type treatment). This is direction for feel and quality, not designs to copy.
+3. **Screen-recording reviews.** Each phase ends with a 60-second screen recording of its main flow at 1x speed, reviewed for jank, layout jumps, waiting and inconsistency with the motion tokens.
+4. **Craft checklist per screen:** one hero moment, everything else quiet; every transition uses a motion token; no layout shift; works at tier 1; keyboard path; empty and error states designed; copy reviewed against 6.9.
+5. **A human designer for brand and landing (recommended).** An AI coding agent can implement this system very well, but award-level brand identity, art direction of the Voiceprint and the landing page benefit from a motion/brand designer for a short engagement (logo, Voiceprint art direction, landing storyboard). Feed their output back in as tokens and references.
+6. **Submit the landing page to Awwwards** once launched. The jury scores design, usability, creativity and content, and the Voiceprint concept is built to score on creativity.
 
 ---
 
@@ -774,7 +887,8 @@ Never: "Oops", "Something went wrong", "Unleash", "Supercharge", "Journey", excl
 | Language | TypeScript everywhere (strict) | One language across web, workers and voice agent |
 | Monorepo | pnpm workspaces + Turborepo | Shared packages for AI, DB, UI, linters |
 | Web app | Next.js (latest stable, App Router, React Server Components), React 19 | Streaming UI, server actions, edge-friendly |
-| Styling | Tailwind CSS v4 with Folio tokens; Radix UI primitives | Accessible behaviour, fully custom look |
+| Styling | Tailwind CSS v4 with Admitstory tokens; Radix UI primitives | Accessible behaviour, fully custom look |
+| Motion and graphics | Motion (`motion`), View Transitions API, React Three Fiber + GLSL (or OGL), Rive, `detect-gpu`; GSAP + ScrollTrigger + Lenis on marketing routes only | The fluid, award-grade layer (Section 6.6, 6.11) |
 | Editor | TipTap (ProseMirror) | Custom marks for provenance, NEED chips, diffs, locks |
 | Client state | TanStack Query (server state), Zustand (local UI state) | Simple, predictable |
 | Database | Postgres (Neon) + `pgvector` + Postgres full-text search | Relational core + hybrid retrieval in one store |
@@ -896,7 +1010,7 @@ Never: "Oops", "Something went wrong", "Unleash", "Supercharge", "Journey", excl
 
 ### 8.1 The shape of the brain
 
-Folio's quality comes from three things working together, not from one giant prompt:
+Admitstory's quality comes from three things working together, not from one giant prompt:
 
 1. **A written methodology (the Canon)** — how admissions readers think, how great application stories are built, what to never do. Versioned files (Appendix A). Shared by every applicant.
 2. **A curated School Pack per school per cycle** — prompts, limits, values, culture, programs, interview format, AI policy, outcomes, insider notes. Versioned, sourced (Section 9). Shared by every applicant to that school.
@@ -1016,7 +1130,7 @@ Responsibilities, in order:
 5. Call the API (streaming if `ctx.stream`), with retries and fallback.
 6. Validate with Zod. On failure: one repair attempt with the validation errors; then fail.
 7. Write a `usage_ledger` row: task, model, input/cached-read/cache-write/output tokens, cost (computed from `pricing.ts`), latency, prompt version, trace ID.
-8. Emit a Langfuse trace (inputs redacted of sensitive fields by default; content logging off in production unless the user opted into "help improve Folio").
+8. Emit a Langfuse trace (inputs redacted of sensitive fields by default; content logging off in production unless the user opted into "help improve Admitstory").
 
 `pricing.ts` holds per-model token prices and cache multipliers as config (update when pricing changes). Current published prices (USD per million tokens, Oct 2026): Opus 5.5 $4 input / $20 output, cache hits $0.20; Sonnet 5.5 $2 / $10, cache hits $0.10; Haiku 5.5 (≤100K prompt) $0.10 / $0.50, cache hits $0.01; 5-minute cache writes 1.25× input, 1-hour writes 2×; Batch API −50%. Verify at build time.
 
@@ -1029,7 +1143,7 @@ Each agent has: a canon subset, a prompt template (`packages/ai/src/prompts/<age
 Canon subset: `story-craft` (sections on what makes material usable), `truth-discipline`, `studio-interviewing`.
 
 ```
-You are Folio's interviewer. You help an MBA applicant tell their life and work story out loud so it can later become their application. You are warm, curious and brief.
+You are Admitstory's interviewer. You help an MBA applicant tell their life and work story out loud so it can later become their application. You are warm, curious and brief.
 
 Each turn you receive: the current chapter, the target evidence slot chosen by the system, the applicant's last answer, the last few turns, and what is already known (compact dossier).
 
@@ -1174,7 +1288,7 @@ See Section 9.3.
 ### 8.7 Truth and provenance system
 
 - IDs: `F##` facts, `S##` stories, `L###` golden lines, `P#` people, `C#` conversations, `K##` school-pack items.
-- Every draft sentence carries `kind` and `sources`. The renderer turns `verbatim`/`adapted` into highlighter spans (your-words view).
+- Every draft sentence carries `kind` and `sources`. The renderer turns `verbatim`/`adapted` into glowing your-words spans (6.2).
 - **Unsupported-claim detector (code):** for sentences with `kind="composed"`, detect concrete claims (numbers, proper nouns, quotes, dates, school terms) via regex + a Haiku classifier when ambiguous; if no source → add a Verify item and a *Must fix* check.
 - **Fact consistency:** every number/title/date in a draft is matched against the Fact Sheet's approved phrasing; mismatch → *Must fix*.
 - **School specifics:** a sentence citing a course, professor, club, centre, trek, statistic or event must cite a `K` item whose `verified_at` is within the current cycle; otherwise *Must fix* ("Unverified school detail").
@@ -1271,7 +1385,7 @@ SchoolPack = {
     test_policy: Item[], fees_waivers: Item[]
   },
   values: { stated: Item[] /* what the school says it looks for */,
-            trait_map: [{ school_value: string, folio_traits: TraitId[], note?: Item }] },
+            trait_map: [{ school_value: string, admitstory_traits: TraitId[], note?: Item }] },
   culture_and_location: Item[],
   academics: { courses: CitedThing[], centers: CitedThing[], experiential: CitedThing[], structure: Item[] },
   community: { clubs: CitedThing[], traditions: Item[], treks_events: CitedThing[] },
@@ -1323,7 +1437,7 @@ Add source ──► extract text (PDF text / OCR / audio→STT / URL fetch)
 ### 9.6 Content rights (read carefully)
 
 - School-published facts (prompts, deadlines, statistics) can be used freely with attribution.
-- Paid third-party material (coaching platforms, guides, courses) is **reference for Manu's own thinking only**. Do not ingest it into packs verbatim, do not display it to users, and do not quote more than a short phrase. Packs and canon are written as Folio's own notes in Folio's own words. The `third_party_reference` source type exists so the admin can keep private notes with attribution; the compiler excludes its raw text from the compiled pack and only uses admin-approved, rewritten items.
+- Paid third-party material (coaching platforms, guides, courses) is **reference for Manu's own thinking only**. Do not ingest it into packs verbatim, do not display it to users, and do not quote more than a short phrase. Packs and canon are written as Admitstory's own notes in Admitstory's own words. The `third_party_reference` source type exists so the admin can keep private notes with attribution; the compiler excludes its raw text from the compiled pack and only uses admin-approved, rewritten items.
 - Conversations with admissions staff, students and alumni are used only with their permission; names appear only if they agreed.
 
 ---
@@ -1334,7 +1448,7 @@ Postgres, Drizzle. All tables have `id uuid pk default gen_random_uuid()`, `crea
 
 **Identity and profile**
 - `users` (Better Auth managed) + `sessions`, `accounts`, `verifications`, `passkeys`
-- `profiles`: user_id, display_name, country, timezone, program_type, target_intake, years_experience, test_type, test_score, test_breakdown jsonb, gpa, gpa_scale, languages text[], studio_mode (express/standard/deep), read_aloud bool, tone_setting, keep_audio bool, improve_folio_opt_in bool
+- `profiles`: user_id, display_name, country, timezone, program_type, target_intake, years_experience, test_type, test_score, test_breakdown jsonb, gpa, gpa_scale, languages text[], studio_mode (express/standard/deep), read_aloud bool, tone_setting, keep_audio bool, improve_admitstory_opt_in bool, voiceprint jsonb (identity parameters, 6.2), voiceprint_hue, theme (`night`|`day`|`system`), ui_sounds bool
 - `roles`: user_id, role (`applicant`|`expert`|`guide`|`admin`)
 
 **Story Studio and Dossier**
@@ -1520,11 +1634,11 @@ Assumptions: canon subset ≈ 10K tokens, compiled pack ≈ 8K, compact dossier 
 
 ### 14.1 Integrity principles
 
-1. Folio helps applicants tell *their own* story well. Every draft is built from their own material, and every factual claim traces back to them.
-2. Folio follows each school's rules on AI use, automatically.
-3. Recommenders write their own letters. Folio prepares them; it never ghost-writes them for the applicant.
-4. Folio never invents experiences, numbers, quotes or school details.
-5. Folio never promises admission or shows admission odds.
+1. Admitstory helps applicants tell *their own* story well. Every draft is built from their own material, and every factual claim traces back to them.
+2. Admitstory follows each school's rules on AI use, automatically.
+3. Recommenders write their own letters. Admitstory prepares them; it never ghost-writes them for the applicant.
+4. Admitstory never invents experiences, numbers, quotes or school details.
+5. Admitstory never promises admission or shows admission odds.
 
 ### 14.2 AI policy registry and authorship modes
 
@@ -1533,7 +1647,7 @@ Each `school_cycle` has an `ai_policy` (Section 9.2) maintained in admin with so
 | Stance | Essays and short answers | Video / interview | Disclosure |
 |---|---|---|---|
 | `permitted` / `unknown` | Draft mode | Talking points only | — |
-| `permitted_with_disclosure` | Draft mode | Talking points only | Folio pre-fills an honest disclosure describing how it was used, for the applicant to edit |
+| `permitted_with_disclosure` | Draft mode | Talking points only | Admitstory pre-fills an honest disclosure describing how it was used, for the applicant to edit |
 | `limited` (e.g., ideation and editing allowed, complete AI responses not) | Coach mode by default; light line-editing of the applicant's own text allowed | Talking points only | As required |
 | `prohibited` | Coach mode, no generated prose, no rewriting of the applicant's sentences — questions, structure, and critique only | Talking points only | — |
 
@@ -1545,7 +1659,7 @@ Admin can override defaults per school; the user can always choose a *stricter* 
 
 - The Extractor flags sensitive disclosures (health, bereavement, identity, family hardship, abuse, legal, finances). Such stories are private by default (`consent_to_use = false`) and excluded from the dossier snapshot used for drafting until the applicant opts in, story by story.
 - People named by the applicant appear in drafts only if `may_name = true`.
-- Recommender portal content is never visible to the applicant or to Folio staff without break-glass access.
+- Recommender portal content is never visible to the applicant or to Admitstory staff without break-glass access.
 - Expert briefs are shared per booking only with explicit consent.
 
 ### 14.4 Data protection
@@ -1603,13 +1717,20 @@ Build in order. Each phase ends with its acceptance criteria met, tests green, a
 
 ### Phase 0 — Foundation (target: 3–4 days)
 - Monorepo (pnpm, Turborepo), TypeScript strict, ESLint, Prettier, Vitest, Playwright, GitHub Actions CI.
-- `packages/ui` tokens (6.2–6.4), fonts, base components, light/dark, the app shell and left rail.
+- `packages/ui` colour and type tokens (6.3–6.4), fonts, base components, Night/Day themes, the app shell and dock.
 - Neon + Drizzle schema for identity, profiles, usage ledger; migrations.
 - Better Auth (magic link, Google, passkeys), Turnstile, email verification.
 - `packages/ai`: `run()`, routing, pricing, prompt registry loader, Zod→JSON Schema, caching layout, ledger, Langfuse tracing, `AI_MODE=replay|live`.
 - `knowledge/canon/` files from Appendix A; canon loader with rule IDs.
 - Sentry, PostHog (masked), Inngest wired.
-- **AC:** sign-in works end to end; a sample `util.title` call records tokens and cost in the ledger; CI runs unit + e2e smoke; Lighthouse ≥ 90 on the empty shell.
+- **AC:** sign-in works end to end; a sample `util.title` call records tokens and cost in the ledger; CI runs unit + e2e smoke; Lighthouse ≥ 90 on the empty shell; Phase 0.5 follows immediately.
+
+### Phase 0.5 — Look and feel prototype (target: 1 week)
+- `packages/ui/src/motion.ts` spring tokens, Night and Day themes, Geist + Newsreader, film grain, the dock and the command palette.
+- The `Voiceprint` (shader, performance tiers, SVG fallback) driven by live microphone input, with identity parameters computed from a 3-minute sample.
+- Four standalone prototype routes with fake data: Story Studio speaking + story-capture flight; Kit assembly; Workspace your-words glow + diff morph; Live mock duet stage.
+- Route transitions (View Transitions) and shared-element flights between two sample pages.
+- **AC:** Manu signs off on all four prototypes from screen recordings; 60 fps on a mid-range Android phone at tier 2 and 120 fps on a recent MacBook at tier 3; reduced-motion versions are reviewed too. No feature work starts until this sign-off.
 
 ### Phase 1 — Story Studio (text) and Dossier (target: 1–1.5 weeks)
 - Evidence slot model (Appendix C) and selector (`packages/slots`) with tests.
@@ -1668,7 +1789,8 @@ Build in order. Each phase ends with its acceptance criteria met, tests green, a
 ### Phase 9 — Hardening and launch (target: 1–1.5 weeks)
 - Eval suite gates in CI; cost guard and kill switches; rate limits verified.
 - Accessibility audit (keyboard, screen reader on Studio and Workspace), performance budgets, security review (headers, webhooks, ownership tests, prompt-injection tests with hostile uploads).
-- Marketing site (landing, pricing, how it works, privacy, terms) in the same design system.
+- Marketing site (landing with the Voiceprint hero and pinned scroll story, pricing, how it works, privacy, terms) built to the 6.7 and 6.13 bar; Lighthouse ≥ 90 on mobile despite WebGL (hero text renders first).
+- Full craft review of every screen against the 6.13 checklist, at all three performance tiers.
 - Beta with 20 applicants; weekly quality review with Manu.
 - **AC:** all must-pass gates green; Manu signs off on 3 complete kits for real schools.
 
@@ -1677,7 +1799,7 @@ Build in order. Each phase ends with its acceptance criteria met, tests green, a
 ## 17. Repository layout and configuration
 
 ```
-folio/
+admitstory/
 ├─ apps/
 │  ├─ web/                      Next.js app
 │  │  ├─ app/(marketing)/       landing, pricing, how it works, legal
@@ -1697,7 +1819,7 @@ folio/
 │  ├─ slots/                    evidence slot model + selector
 │  ├─ voice/                    STT/TTS interfaces, Deepgram/Cartesia/ElevenLabs adapters, delivery metrics
 │  ├─ payments/                 provider interface + Paddle
-│  ├─ ui/                       tokens.css, components, icons
+│  ├─ ui/                       tokens.css, motion.ts, voiceprint/ (shaders, SVG fallback), components, icons
 │  ├─ shared/                   brand.ts (APP_NAME), traits, archetypes, lenses, zod types
 │  └─ emails/                   React Email templates
 ├─ knowledge/
@@ -1780,7 +1902,7 @@ CONTENT_ENCRYPTION_KEYS=   # JSON map of key id → base64 key, from the secret 
 
 ## Appendix A — The Canon (v1)
 
-Create each section below as its own file in `knowledge/canon/`. Rule IDs are stable; never renumber, only add or deprecate. This is Folio's own methodology, distilled from a full cycle of real application work. Examples are synthetic.
+Create each section below as its own file in `knowledge/canon/`. Rule IDs are stable; never renumber, only add or deprecate. This is Admitstory's own methodology, distilled from a full cycle of real application work. Examples are synthetic.
 
 ### A1. `admissions-lens.md` — how admissions readers think
 
@@ -2126,7 +2248,7 @@ A slot is **filled** when it is linked to at least one `confirmed` story (or con
 
 ## Appendix D — Trait taxonomy (v1)
 
-`packages/shared/src/traits.ts`. Folio's own taxonomy, used for brand, mapping, critic and analytics. Each trait maps to the lenses it evidences.
+`packages/shared/src/traits.ts`. Admitstory's own taxonomy, used for brand, mapping, critic and analytics. Each trait maps to the lenses it evidences.
 
 | Group | Trait ID | Plain label | Lenses |
 |---|---|---|---|

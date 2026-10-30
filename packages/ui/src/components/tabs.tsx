@@ -9,20 +9,20 @@ export const Tabs = TabsPrimitive.Root;
 export function TabsList({ className, ...rest }: ComponentProps<typeof TabsPrimitive.List>) {
   return (
     <TabsPrimitive.List
-      className={cx("flex gap-1 overflow-x-auto border-b border-line", className)}
+      className={cx("flex gap-1 overflow-x-auto border-b border-edge", className)}
       {...rest}
     />
   );
 }
 
-// The selected tab gets an ink underline as well as ink text, so selection is not colour alone.
+// The selected tab gets a signal underline as well as signal text, so selection is not colour alone.
 export function TabsTrigger({ className, ...rest }: ComponentProps<typeof TabsPrimitive.Trigger>) {
   return (
     <TabsPrimitive.Trigger
       className={cx(
-        "relative min-h-11 shrink-0 rounded-t-control px-3 font-medium text-slate hover:text-graphite",
+        "relative min-h-11 shrink-0 rounded-t-control px-3 font-medium text-text-soft hover:text-text",
         "after:absolute after:inset-x-2 after:-bottom-px after:h-0.5 after:rounded-full",
-        "data-[state=active]:text-ink data-[state=active]:after:bg-ink",
+        "data-[state=active]:text-signal data-[state=active]:after:bg-signal",
         "disabled:cursor-not-allowed disabled:opacity-60",
         className,
       )}

@@ -26,6 +26,13 @@ export {
   type DialogContentProps,
 } from "./components/dialog";
 export {
+  Sheet,
+  SheetTrigger,
+  SheetClose,
+  SheetContent,
+  type SheetContentProps,
+} from "./components/sheet";
+export {
   Drawer,
   DrawerTrigger,
   DrawerClose,
@@ -46,6 +53,7 @@ export {
   type ThemeToggleProps,
 } from "./components/theme-toggle";
 export { applyThemeColor } from "./components/theme-store";
+export { ImmersiveScope, type ImmersiveScopeProps } from "./components/immersive-scope";
 export {
   DARK_SCHEME_MEDIA,
   LIGHT_SCHEME_MEDIA,
@@ -53,17 +61,64 @@ export {
   THEME_COOKIE,
   THEME_LABELS,
   THEME_PREFERENCES,
+  immersiveTheme,
   parseThemePreference,
   readThemeCookie,
   serializeThemeCookie,
   themeAttribute,
   themeColors,
   type ThemeColorTag,
+  type ThemeName,
   type ThemePreference,
 } from "./theme-preference";
 
+// Motion vocabulary and the applicant's hue (spec §6.6, §6.2–6.3).
+export {
+  MOTION_TOKENS,
+  REDUCED_FADE,
+  SPRINGS,
+  cssSpring,
+  spring,
+  useMotionToken,
+  type CssSpring,
+  type MotionToken,
+} from "./motion";
+export { VOICE_HUES, voiceHueAt, voiceHueStyle, type VoiceHue } from "./voice-hues";
+export {
+  createFrameMonitor,
+  type FrameMonitor,
+  type FrameMonitorOptions,
+  type FrameSnapshot,
+} from "./lib/frame-monitor";
+
+// AppShell renders the dock icons on the server; import it from server components only.
 export { AppShell, type AppShellProps } from "./shell/app-shell";
 export { AccountMenu, type AccountMenuProps, type AccountUser } from "./shell/account-menu";
-export { NAV_ITEMS, isActivePath, type NavItem } from "./shell/nav-items";
+export { NAV_ITEMS, isActivePath, type NavId, type NavItem } from "./shell/nav-items";
+export { NAV_ICONS } from "./shell/nav-icons";
 export { PALETTE_LABEL, type CommandAction } from "./shell/types";
 export { preloadCommandPalette } from "./shell/command-palette-host";
+export {
+  ROUTE_TRANSITION_TYPE,
+  RouteTransition,
+  viewTransitionsSupported,
+  type RouteTransitionProps,
+} from "./shell/route-transition";
+export {
+  SharedElement,
+  flipFrom,
+  type Flip,
+  type SharedElementProps,
+} from "./shell/shared-element";
+export { VIEW_TRANSITION_CSS, ViewTransitionStyles } from "./shell/view-transition-styles";
+
+// Cursor craft (spec §6.6): magnetic primary actions and the edge light on planes.
+export { MAGNETIC_MAX_PX, magneticOffset, mergeRefs, useMagnetic } from "./lib/magnetic";
+export { EdgeLight, edgeLightPoint, useEdgeLight } from "./lib/edge-light";
+
+// Phase 0.5 areas, each owned by one agent (see the comment in each barrel).
+export * from "./voiceprint";
+export * from "./studio";
+export * from "./interview";
+export * from "./kit";
+export * from "./workspace";
