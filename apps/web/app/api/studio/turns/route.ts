@@ -13,6 +13,8 @@ import { inngest } from "@/inngest";
 import { captureServerEvent } from "@/lib/analytics/server";
 import { RATE_LIMITS, checkRateLimit, handle, notFound, readJson, requireUser } from "@/lib/api";
 import { ai } from "@/lib/ai";
+import { LanguageTag, MAX_VOICE_SECONDS_PER_ANSWER } from "@/lib/voice/schemas";
+import { meterDictation, voiceSettingsOf } from "@/lib/voice/server";
 import { extractFromAnswer } from "@/lib/studio/extract";
 import { loadKnowledge } from "@/lib/studio/state";
 import {
@@ -57,11 +59,33 @@ const Body = z.object({
   hurry: z.boolean().default(false),
   /** How many DIG turns the current story has had, tracked by the client across the exchange. */
   digsUsedOnStory: z.number().int().min(0).max(10).default(0),
+  /** Phase 2 (VoiceTurnFields): a dictated answer, its seconds of audio and its language. */
+  inputMode: z.enum(["voice", "text"]).default("text"),
+  voiceSeconds: z
+    .number()
+    .finite()
+    .min(0)
+    .transform((seconds) => Math.min(seconds, MAX_VOICE_SECONDS_PER_ANSWER))
+    .optional(),
+  language: LanguageTag.optional(),
 });
+
+/**
+ * The language a dictated answer was in (§7.5): what Deepgram reported, else the language the
+ * applicant speaks in when they chose a single one, else English. Text answers record none.
+ */
+function answerLanguage(
+  body: { inputMode: "voice" | "text"; language?: string | undefined },
+  speechLanguage: string,
+): string | null {
+  if (body.inputMode !== "voice") return null;
+  if (body.language) return body.language;
+  return speechLanguage === "multi" ? "en" : speechLanguage;
+}
 
 export async function POST(request: Request): Promise<Response> {
   return handle(async () => {
-    const { session: auth } = await requireUser();
+    const { session: auth, profile } = await requireUser();
     const userId = auth.user.id;
     const body = await readJson(request, Body);
     checkRateLimit("studioTurns", userId, RATE_LIMITS.studioTurns);
@@ -87,7 +111,13 @@ export async function POST(request: Request): Promise<Response> {
     }
 
     // The answer is stored before anything else can fail, so it is never lost (§5.2).
-    const source = await createSource(db, userId, { kind: "text_turn", text: answer });
+    const voice = body.inputMode === "voice";
+    const language = answerLanguage(body, voiceSettingsOf(profile).speechLanguage);
+    const source = await createSource(db, userId, {
+      kind: voice ? "voice_turn" : "text_turn",
+      text: answer,
+      language,
+    });
     const { turn, created } = await appendStudioTurn(db, userId, {
       sessionId: session.id,
       role: "user",
@@ -99,9 +129,12 @@ export async function POST(request: Request): Promise<Response> {
     // A retry of a turn already recorded must not ask a second question or extract twice.
     if (!created) return Response.json({ recorded: true, duplicate: true, question: null });
 
+    // Dictation is metered once per recorded turn (a retry returned above), alongside the reads
+    // the next question needs, so it adds no latency.
     const [knowledge, conflicts] = await Promise.all([
       loadKnowledge(userId),
       possibleConflicts(userId, answer),
+      voice && body.voiceSeconds ? meterDictation(userId, session.id, body.voiceSeconds) : null,
     ]);
 
     const chapter = body.chapter ?? session.currentChapter;
@@ -122,6 +155,7 @@ export async function POST(request: Request): Promise<Response> {
           targetSlot: body.slot ?? null,
           chapter,
           sourceId: source.id,
+          language,
         });
         for (const story of result.storiesCreated)
           await captureServerEvent({
@@ -146,7 +180,12 @@ export async function POST(request: Request): Promise<Response> {
     await captureServerEvent({
       distinctId: userId,
       event: "studio_turn",
-      properties: { mode: session.mode, chapter, latency_ms: next?.latencyMs ?? 0 },
+      properties: {
+        mode: session.mode,
+        chapter,
+        latency_ms: next?.latencyMs ?? 0,
+        input_mode: body.inputMode,
+      },
     });
 
     return Response.json({

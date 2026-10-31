@@ -41,6 +41,8 @@ export function microphoneSupported(): boolean {
 }
 
 interface Session {
+  readonly context: AudioContext;
+  readonly stream: MediaStream;
   close(): void;
 }
 
@@ -75,6 +77,8 @@ function openSession(
   for (const track of tracks) track.addEventListener("ended", onEnded);
 
   return {
+    context,
+    stream,
     close() {
       cancelAnimationFrame(frame);
       for (const track of tracks) {
@@ -158,5 +162,14 @@ export function useMicrophone(options: MicrophoneOptions = {}): MicrophoneState 
 
   useEffect(() => release, [release]);
 
-  return useMemo(() => ({ status, start, stop, signal }), [status, start, stop, signal]);
+  // Dictation taps the same stream on the same context: one getUserMedia, one prompt (§7.5).
+  const audio = useCallback(() => {
+    const live = session.current;
+    return live ? { context: live.context, stream: live.stream } : null;
+  }, []);
+
+  return useMemo(
+    () => ({ status, start, stop, signal, audio }),
+    [status, start, stop, signal, audio],
+  );
 }

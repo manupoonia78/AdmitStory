@@ -150,6 +150,11 @@ export const StudioExtractInput = z.object({
   chapter: z.string().trim().max(40),
   /** The slot the question was asked for, as a hint about what the answer is likely to hold. */
   targetSlot: z.string().trim().max(80).nullable().default(null),
+  /**
+   * BCP 47 tag of the answer when it was spoken in another language (§7.5); null for English.
+   * Dossier fields are then written in English and golden lines kept in the original.
+   */
+  language: z.string().trim().max(35).nullable().default(null),
   knownFacts: z.array(KnownFact).max(200).default([]),
   /** Nicknames already on the shelf, so the same story is not proposed twice. */
   knownStories: z

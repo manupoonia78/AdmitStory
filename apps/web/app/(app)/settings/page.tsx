@@ -3,11 +3,13 @@ import type { Metadata } from "next";
 import { cookies } from "next/headers";
 import { Page } from "@/components/page-header";
 import { requireOnboardedUser } from "@/lib/app-user";
+import { voiceSettingsOf } from "@/lib/voice/server";
+import { VoiceSettingsForm } from "./voice-settings";
 
 export const metadata: Metadata = { title: "Settings" };
 
 export default async function SettingsPage() {
-  const { session } = await requireOnboardedUser();
+  const { session, profile } = await requireOnboardedUser();
   const theme = parseThemePreference((await cookies()).get(THEME_COOKIE)?.value);
 
   return (
@@ -22,6 +24,11 @@ export default async function SettingsPage() {
         </p>
         <ThemeToggle serverValue={theme} className="self-start" />
       </section>
+
+      <VoiceSettingsForm
+        initial={voiceSettingsOf(profile)}
+        emailVerified={session.user.emailVerified === true}
+      />
 
       <section aria-labelledby="account" className="flex flex-col gap-3 plane p-6">
         <h2 id="account" className="text-lg font-semibold">

@@ -19,6 +19,7 @@
     "@admitstory/shared": "workspace:*",
     "@admitstory/slots": "workspace:*",
     "@admitstory/ui": "workspace:*",
+    "@admitstory/voice": "workspace:*",
     "@better-auth/passkey": "1.7.14",
     "@marsidev/react-turnstile": "1.6.3",
     "@phosphor-icons/react": "2.1.10",

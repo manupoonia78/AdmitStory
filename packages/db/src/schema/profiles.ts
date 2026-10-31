@@ -81,6 +81,14 @@ export const profiles = pgTable("profiles", {
     .notNull()
     .default(sql`'{}'::text[]`),
   firstRunCompletedAt: timestamptz("first_run_completed_at"),
+
+  /**
+   * Voice settings (§5.1, Phase 2). Text rather than enums: the ids are owned by
+   * packages/voice's contract, which can add a language or a voice without a migration.
+   */
+  speechLanguage: text("speech_language").notNull().default("en"),
+  ttsVoice: text("tts_voice").notNull().default("warm"),
+  ttsSpeed: numeric("tts_speed", { precision: 3, scale: 2, mode: "number" }).notNull().default(1),
 });
 
 /**

@@ -65,6 +65,16 @@ export const ServerEnv = z
     LANGFUSE_PUBLIC_KEY: optional,
     LANGFUSE_SECRET_KEY: optional,
     LANGFUSE_HOST: optionalUrl,
+    // Voice (Phase 2, §7.5). Each provider is optional: without its key the fake one runs, which
+    // only a local APP_URL may use (lib/voice/providers.ts).
+    DEEPGRAM_API_KEY: optional,
+    TTS_PROVIDER: z.preprocess(
+      (value) => (typeof value === "string" && value.trim() !== "" ? value.trim() : undefined),
+      z.enum(["cartesia", "elevenlabs"]).default("cartesia"),
+    ),
+    CARTESIA_API_KEY: optional,
+    ELEVENLABS_API_KEY: optional,
+    FAKE_STT_URL: optional.pipe(z.url({ protocol: /^wss?$/ }).optional()),
     AI_MODE: z.preprocess(
       (value) => (typeof value === "string" && value.trim() !== "" ? value.trim() : undefined),
       z.enum(["replay", "live"]).default("replay"),

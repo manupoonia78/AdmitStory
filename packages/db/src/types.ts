@@ -38,3 +38,19 @@ export interface LedgerSink {
   /** USD */
   spentByKit(kitId: string): Promise<number>;
 }
+
+/**
+ * A voice usage_ledger row (Phase 2): dictation seconds or read-aloud characters, priced by
+ * packages/voice. `model` is the provider; voice rows have no tokens, effort or prompt.
+ */
+export interface VoiceUsageEntry {
+  runId: string;
+  userId: string;
+  task: "voice.stt" | "voice.tts";
+  model: string;
+  sttSeconds: number;
+  ttsChars: number;
+  costUsd: number;
+  latencyMs: number;
+  aiMode: "live" | "replay";
+}

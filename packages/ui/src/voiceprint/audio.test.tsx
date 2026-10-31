@@ -133,6 +133,18 @@ describe("useMicrophone", () => {
     expect(frames.size).toBe(0);
   });
 
+  it("shares its stream and context for dictation while live, and only then", async () => {
+    const { result } = renderHook(() => useMicrophone());
+    expect(result.current.audio()).toBeNull();
+    await act(() => result.current.start());
+    const audio = result.current.audio();
+    expect(audio?.context).toBe(contexts[0]);
+    expect(audio?.stream.getAudioTracks()).toEqual([track]);
+    expect(getUserMedia).toHaveBeenCalledTimes(1);
+    act(() => result.current.stop());
+    expect(result.current.audio()).toBeNull();
+  });
+
   it("cleans up on unmount", async () => {
     const { result, unmount } = renderHook(() => useMicrophone());
     await act(() => result.current.start());

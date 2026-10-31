@@ -24,7 +24,7 @@ export {
   safeEqual,
   type ContentKeyring,
 } from "./crypto/content";
-export type { LedgerSink, UsageEntry } from "./types";
+export type { LedgerSink, UsageEntry, VoiceUsageEntry } from "./types";
 // The migrator is deliberately not exported: it resolves the migrations folder
 // from import.meta.url, which app bundlers would treat as an asset reference.
 // Run it with `pnpm db:migrate`.

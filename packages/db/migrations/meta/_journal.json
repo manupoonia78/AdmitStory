@@ -22,6 +22,13 @@
       "when": 1793369870013,
       "tag": "0002_story_people_codes",
       "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "7",
+      "when": 1793389426462,
+      "tag": "0003_voice_settings",
+      "breakpoints": true
     }
   ]
 }

@@ -8,10 +8,9 @@ import {
   saveBrand,
   saveDossierSnapshot,
   saveVoiceProfile,
+  saveVoiceprint,
   updateFact,
-  updateProfile,
   updateStory,
-  getProfile,
 } from "@admitstory/db";
 import { identityFromText, isTraitId } from "@admitstory/shared";
 import { ai } from "../../lib/ai";
@@ -156,12 +155,10 @@ export const dossierConsolidateFn = inngest.createFunction(
       });
 
       // Spec §6.2: someone who has only written gets a Voiceprint seeded from their writing. Once
-      // Phase 2 computes one from speech, that one stands and this never overwrites it.
-      const profile = await getProfile(db, userId);
-      if (material.answerTexts.length > 0 && profile?.voiceprint?.source !== "voice") {
-        const identity = identityFromText(material.answerTexts);
-        await updateProfile(db, userId, { voiceprint: identity });
-      }
+      // Phase 2 computes one from speech, that one stands: saveVoiceprint never overwrites a
+      // speech-derived identity, checked in the same statement that writes.
+      if (material.answerTexts.length > 0)
+        await saveVoiceprint(db, userId, identityFromText(material.answerTexts));
     });
 
     const snapshot = await step.run("compile the snapshot", async () => {

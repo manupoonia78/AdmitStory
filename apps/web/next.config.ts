@@ -43,6 +43,7 @@ const nextConfig: NextConfig = {
     "@admitstory/emails",
     "@admitstory/shared",
     "@admitstory/ui",
+    "@admitstory/voice",
   ],
   env: browserEnv,
   outputFileTracingRoot: REPO_ROOT,

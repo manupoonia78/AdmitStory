@@ -57,4 +57,6 @@ export interface MicrophoneState {
   start(): Promise<void>;
   stop(): void;
   signal: VoiceSignalRef;
+  /** The live stream and its context while `live`, for dictation to share; otherwise null. */
+  audio(): { context: AudioContext; stream: MediaStream } | null;
 }

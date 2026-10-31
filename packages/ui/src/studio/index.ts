@@ -31,6 +31,12 @@ export {
 } from "./record-button";
 export { HOLD_TO_TALK_MS, canTalkFrom } from "./space-to-talk";
 export {
+  VoiceNotice,
+  type VoiceNoticeAction,
+  type VoiceNoticeProps,
+  type VoiceNoticeTone,
+} from "./voice-notice";
+export {
   ChapterTabs,
   chapterTabId,
   nextTabIndex,

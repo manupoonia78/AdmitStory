@@ -8,7 +8,24 @@ export {
   type Profile,
 } from "./profiles";
 export { grantRole, hasRole, listRoles } from "./roles";
-export { costForKit, costForUser, createUsageLedgerSink, recordUsage } from "./usage-ledger";
+export {
+  costForKit,
+  costForUser,
+  createUsageLedgerSink,
+  recordUsage,
+  recordVoiceUsage,
+} from "./usage-ledger";
+export {
+  VoiceSettingsPatch,
+  VoiceprintIdentitySchema,
+  addSessionVoiceSeconds,
+  getVoiceSettings,
+  latestStudioSessionId,
+  saveVoiceprint,
+  updateVoiceSettings,
+  voiceSecondsUsed,
+  type VoiceSettingsRow,
+} from "./voice";
 export {
   NewSource,
   createSource,

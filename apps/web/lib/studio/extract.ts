@@ -49,7 +49,16 @@ export interface ExtractOptions {
   targetSlot?: string | null;
   chapter: ChapterId;
   sourceId: string;
+  /**
+   * BCP 47 tag when the answer was spoken in another language (§7.5); null for English. Omitted
+   * when unknown (the upload importer).
+   */
+  language?: string | null;
 }
+
+/** English, or a language we were not told: the Extractor's `english` rendering is not wanted. */
+export const isEnglish = (language: string | null | undefined): boolean =>
+  !language || /^en(-|$)/i.test(language);
 
 /** Only traits in Appendix D survive. */
 function knownTraits(traits: readonly string[]): TraitId[] {
@@ -73,6 +82,7 @@ export async function extractFromAnswer(
       text,
       chapter: options.chapter,
       targetSlot: options.targetSlot ?? null,
+      language: isEnglish(options.language) ? null : (options.language ?? null),
       knownFacts: knownFacts.map((fact) => ({
         code: fact.code,
         key: fact.key,
@@ -193,7 +203,9 @@ export async function persistExtraction(
     output.golden_lines.map((line) => ({
       storyId: storyIdAt(line.story_index),
       text: line.text,
-      english: line.english,
+      // §7.5: an English rendering only for a line said in another language, never a rewrite of
+      // an English one. The upload importer does not know its language, so it is left as given.
+      english: options.language !== undefined && isEnglish(options.language) ? null : line.english,
       sourceId: options.sourceId,
       span: line.span,
     })),

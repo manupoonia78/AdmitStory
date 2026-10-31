@@ -83,6 +83,9 @@ export const studioExtract = defineTask({
     const context = [
       `Chapter: ${input.chapter}`,
       input.targetSlot ? `The question targeted the slot: ${input.targetSlot}` : null,
+      input.language && !/^en(-|$)/i.test(input.language)
+        ? `Language of the answer: ${input.language} (not English: follow the rules for answers in another language)`
+        : null,
       lines(
         "Known facts (for conflicts; do not re-report them as new facts)",
         input.knownFacts.map(

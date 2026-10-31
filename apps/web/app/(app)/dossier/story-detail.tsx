@@ -6,8 +6,16 @@
 
 import { Button, StatusLabel, TextField } from "@admitstory/ui";
 import { TRAITS, traitLabel, type TraitId } from "@admitstory/shared";
+import dynamic from "next/dynamic";
 import { useState } from "react";
+import { appendAnswer } from "../studio/voice-flow";
 import { STORY_STATUS_LABELS, type DossierPersonView, type DossierStoryView } from "./types";
+
+/** Dictation for the missing detail: voice code, loaded only once a story that needs it is open. */
+const DetailDictation = dynamic(
+  () => import("./detail-dictation").then((mod) => mod.DetailDictation),
+  { ssr: false, loading: () => <div className="size-20" /> },
+);
 
 const STATUS_TONES = {
   confirmed: "verified",
@@ -42,6 +50,10 @@ export function StoryDetail({
 }) {
   const [nickname, setNickname] = useState(story.nickname);
   const [detail, setDetail] = useState("");
+  // Seconds and language of whatever part of the detail was dictated (metered like the Studio).
+  const [dictated, setDictated] = useState<{ seconds: number; language: string | null } | null>(
+    null,
+  );
   const [sending, setSending] = useState(false);
   const cast = people.filter((person) => story.peopleCodes.includes(person.code));
 
@@ -52,7 +64,16 @@ export function StoryDetail({
       const response = await fetch(`/api/dossier/stories/${story.id}/add-detail`, {
         method: "POST",
         headers: { "content-type": "application/json" },
-        body: JSON.stringify({ text: detail }),
+        body: JSON.stringify({
+          text: detail,
+          ...(dictated
+            ? {
+                inputMode: "voice",
+                voiceSeconds: dictated.seconds,
+                ...(dictated.language ? { language: dictated.language } : {}),
+              }
+            : {}),
+        }),
       });
       if (!response.ok) {
         const result = (await response.json()) as { error?: string };
@@ -60,6 +81,7 @@ export function StoryDetail({
         return;
       }
       setDetail("");
+      setDictated(null);
       onMessage("Detail added. It'll show up here in a moment.");
       onRefresh();
     } finally {
@@ -199,15 +221,28 @@ export function StoryDetail({
               ) : null}
             </p>
           ))}
-          <label className="mt-1 flex flex-col gap-2 text-sm">
-            <span className="sr-only">Your answer</span>
-            <textarea
-              value={detail}
-              onChange={(event) => setDetail(event.target.value)}
-              rows={3}
-              className="w-full rounded-control border border-control-edge bg-depth p-3 font-reading text-reading text-text"
+          <div className="mt-1 flex flex-col gap-3 sm:flex-row sm:items-start">
+            <label className="flex flex-1 flex-col gap-2 text-sm">
+              <span className="sr-only">Your answer</span>
+              <textarea
+                value={detail}
+                onChange={(event) => setDetail(event.target.value)}
+                rows={3}
+                className="w-full rounded-control border border-control-edge bg-depth p-3 font-reading text-reading text-text"
+              />
+            </label>
+            <DetailDictation
+              disabled={sending}
+              onDictated={(answer) => {
+                if (!answer.text.trim()) return;
+                setDetail((current) => appendAnswer(current, answer.text));
+                setDictated((current) => ({
+                  seconds: (current?.seconds ?? 0) + answer.seconds,
+                  language: answer.language ?? current?.language ?? null,
+                }));
+              }}
             />
-          </label>
+          </div>
           <div>
             <Button onClick={() => void addDetail()} disabled={sending || detail.trim() === ""}>
               Add this detail

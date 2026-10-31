@@ -2,7 +2,7 @@ import { eq, sql, type SQL } from "drizzle-orm";
 import { z } from "zod";
 import type { DbExecutor } from "../client";
 import { aiModes, attemptKinds, usageLedger } from "../schema";
-import type { LedgerSink, UsageEntry } from "../types";
+import type { LedgerSink, UsageEntry, VoiceUsageEntry } from "../types";
 import { assertId } from "./ids";
 
 const count = z.int().nonnegative();
@@ -36,6 +36,29 @@ const UsageEntrySchema = z.strictObject({
 
 export async function recordUsage(db: DbExecutor, entry: UsageEntry): Promise<void> {
   await db.insert(usageLedger).values(UsageEntrySchema.parse(entry));
+}
+
+const VoiceUsageEntrySchema = z.strictObject({
+  runId: z.guid(),
+  userId: z.guid(),
+  task: z.enum(["voice.stt", "voice.tts"]),
+  model: label,
+  sttSeconds: z.number().finite().nonnegative(),
+  ttsChars: count,
+  costUsd: z.number().finite().nonnegative(),
+  latencyMs: count,
+  aiMode: z.enum(aiModes),
+}) satisfies z.ZodType<VoiceUsageEntry>;
+
+/** One voice row: STT seconds or TTS characters. They count toward costForUser like any other. */
+export async function recordVoiceUsage(db: DbExecutor, entry: VoiceUsageEntry): Promise<void> {
+  const value = VoiceUsageEntrySchema.parse(entry);
+  await db.insert(usageLedger).values({
+    ...value,
+    servedModel: value.model,
+    attemptKind: "primary",
+    promptVersion: value.task,
+  });
 }
 
 async function sumCost(db: DbExecutor, where: SQL): Promise<number> {

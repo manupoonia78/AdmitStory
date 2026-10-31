@@ -98,9 +98,12 @@ export interface RateLimit {
   windowMs: number;
 }
 
-/** Spec §12.4's Studio limits. TTS and drills join them in Phase 2 and Phase 7. */
+/** Spec §12.4's Studio limits. Drills join them in Phase 7. */
 export const RATE_LIMITS = {
   studioTurns: { limit: 30, windowMs: 60_000 },
+  tts: { limit: 60, windowMs: 60_000 },
+  /** Not in §12.4: one token per dictated answer, so this only stops a runaway client. */
+  sttToken: { limit: 20, windowMs: 60_000 },
   uploads: { limit: 10, windowMs: 60_000 },
   dossierWrites: { limit: 120, windowMs: 60_000 },
 } as const satisfies Record<string, RateLimit>;
