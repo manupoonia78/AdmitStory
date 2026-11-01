@@ -52,6 +52,7 @@ vi.mock("@/lib/ai", () => ({
 vi.mock("@admitstory/db", async (importOriginal) => ({
   ...(await importOriginal<typeof import("@admitstory/db")>()),
   getDb: () => ({}),
+  listUserSchools: async () => [],
   getStudioSession: vi.fn(async (_db: unknown, userId: string, id: string) => ({
     id,
     userId,

@@ -2,6 +2,7 @@
 
 import { animate, motion, useReducedMotion } from "motion/react";
 import { useEffect, useId, useLayoutEffect, useRef, useState, type ReactNode } from "react";
+import { Button } from "../components/button";
 import { StatusLabel, type StatusTone } from "../components/status-label";
 import { cx } from "../lib/cx";
 import { REDUCED_FADE, spring } from "../motion";
@@ -23,6 +24,8 @@ export interface KitAssemblyProps {
   deliverables: readonly KitDeliverable[];
   stages: readonly KitStage[];
   onStageAction?: (stageId: string) => void;
+  /** "Draft Essay 2 again" on a failed deliverable. */
+  onRetry?: (deliverableKey: string) => void;
   /** Heading over the deliverables, e.g. "What Northfield asks for". */
   deliverablesHeading: string;
   /** Under the stage list: the gap questions plane. */
@@ -37,7 +40,26 @@ const STATUS: Record<KitDeliverableStatus, { tone: StatusTone; word: string }> =
   mapped: { tone: "neutral", word: "Story chosen" },
   drafting: { tone: "neutral", word: "Drafting" },
   ready: { tone: "verified", word: "Draft ready" },
+  failed: { tone: "risk", word: "Didn’t finish" },
 };
+
+/**
+ * A failed deliverable's own line (spec §6.9): "Essay 2 didn't finish drafting. Your other essays
+ * are ready. Try Essay 2 again?" The middle sentence says what is true of the others.
+ */
+export function failedDraftMessage(
+  deliverable: Pick<KitDeliverable, "key" | "title">,
+  all: readonly Pick<KitDeliverable, "key" | "status">[],
+): string {
+  const others = all.filter((d) => d.key !== deliverable.key && d.status !== "failed");
+  const middle =
+    others.length === 0
+      ? ""
+      : others.every((d) => d.status === "ready")
+        ? " Your other essays are ready."
+        : " Your other essays are still drafting.";
+  return `${deliverable.title} didn’t finish drafting.${middle} Try ${deliverable.title} again?`;
+}
 
 /** Centre of an element relative to the container, or its left / right edge at mid-height. */
 function anchor(element: Element, box: DOMRect, at: "center" | "left" | "right") {
@@ -93,6 +115,7 @@ export function KitAssembly({
   deliverables,
   stages,
   onStageAction,
+  onRetry,
   deliverablesHeading,
   aside,
   tier: forcedTier,
@@ -169,7 +192,8 @@ export function KitAssembly({
       </svg>
 
       <div className="relative flex flex-col gap-10 lg:col-start-1">
-        <div className="flex flex-col items-center gap-8 sm:flex-row sm:items-center">
+        {/* Below 1024px the stages lead (design F, mobile); the Voiceprint holds nothing to focus. */}
+        <div className="flex flex-col items-center gap-8 max-lg:order-2 sm:flex-row sm:items-center">
           <div data-thread-origin className="size-[clamp(10rem,15vw,14rem)] shrink-0">
             <Voiceprint
               identity={identity}
@@ -221,11 +245,11 @@ export function KitAssembly({
           </section>
         </div>
 
-        <KitStageList stages={stages} onAction={onStageAction} />
+        <KitStageList stages={stages} onAction={onStageAction} className="max-lg:order-1" />
         <p className="sr-only" aria-live="polite">
           {progress}
         </p>
-        {aside}
+        {aside ? <div className="max-lg:order-3">{aside}</div> : null}
       </div>
 
       <section aria-labelledby={deliverablesHeadingId} className="relative lg:col-start-3">
@@ -270,13 +294,31 @@ export function KitAssembly({
                     <span className="text-text-soft">Choosing a story</span>
                   )}
                 </p>
-                <StreamingText
-                  text={deliverable.text}
-                  done={deliverable.status === "ready"}
-                  reserve={deliverable.reserve ?? 3}
-                  live={false}
-                  className="font-reading text-read text-text"
-                />
+                {deliverable.status === "failed" ? (
+                  <div
+                    className="flex flex-col items-start gap-3"
+                    style={{
+                      minHeight: `${typeof deliverable.reserve === "number" ? deliverable.reserve : 3}lh`,
+                    }}
+                  >
+                    <p className="font-reading text-read text-text">
+                      {failedDraftMessage(deliverable, deliverables)}
+                    </p>
+                    {onRetry ? (
+                      <Button variant="secondary" onClick={() => onRetry(deliverable.key)}>
+                        Draft {deliverable.title} again
+                      </Button>
+                    ) : null}
+                  </div>
+                ) : (
+                  <StreamingText
+                    text={deliverable.text}
+                    done={deliverable.status === "ready"}
+                    reserve={deliverable.reserve ?? 3}
+                    live={false}
+                    className="font-reading text-read text-text"
+                  />
+                )}
               </li>
             );
           })}
@@ -300,8 +342,9 @@ function ThreadOfLight({
   still: boolean;
   reduced: boolean;
 }) {
-  const ready = thread.status === "ready";
-  const lineOpacity = ready ? 0.55 : 0.4;
+  // A failed essay keeps its thread, dimmer and without a pulse.
+  const ready = thread.status === "ready" || thread.status === "failed";
+  const lineOpacity = thread.status === "failed" ? 0.2 : ready ? 0.55 : 0.4;
   return (
     <g data-thread={thread.key} data-story={thread.storyId} data-thread-status={thread.status}>
       <motion.path

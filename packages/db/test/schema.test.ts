@@ -59,6 +59,36 @@ describe("schema conventions (spec §10)", () => {
         "studio_sessions",
         "studio_turns",
         "voice_profiles",
+        // Phase 3: schools, knowledge, registries, the audit log and the applicant's school list.
+        "ai_policies",
+        "audit_log",
+        "canon_docs",
+        "kb_chunks",
+        "kb_proposals",
+        "kb_refresh_snapshots",
+        "kb_sources",
+        "kits",
+        "profile_reads",
+        "prompt_versions",
+        "school_cycles",
+        "school_interest_votes",
+        "school_packs",
+        "schools",
+        "user_schools",
+        // Phase 4: checkout, entitlements, the kit pipeline and the Workspace.
+        "angles",
+        "checkouts",
+        "checks",
+        "deliverables",
+        "drafts",
+        "entitlements",
+        "feedback",
+        "kit_stages",
+        "need_items",
+        "purchases",
+        "revision_requests",
+        "verify_items",
+        "webhook_events",
       ].sort(),
     );
   });
@@ -271,5 +301,118 @@ describe("foreign keys on delete", () => {
       );
       expect(indexed, name).toBe(true);
     }
+  });
+});
+
+describe("Phase 3 tables", () => {
+  const indexedColumns = (name: string) =>
+    table(name).indexes.map((i) =>
+      i.config.columns.map((c) => ("name" in c ? c.name : "")).join(","),
+    );
+  const uniqueColumns = (name: string) =>
+    table(name).uniqueConstraints.map((u) => u.columns.map((c) => c.name).join(","));
+
+  it.each(["user_schools", "school_interest_votes", "profile_reads", "kits"])(
+    "%s is user-owned: user_id → users.id cascades and leads an index or unique key",
+    (name) => {
+      expect(column(name, "user_id").notNull).toBe(true);
+      expect(onDelete(name, "user_id")).toBe("cascade");
+      const leading = [...indexedColumns(name), ...uniqueColumns(name)].some((cols) =>
+        cols.startsWith("user_id"),
+      );
+      expect(leading, name).toBe(true);
+    },
+  );
+
+  it("stores 1024-dimension embeddings with an HNSW cosine index and a GIN full-text index", () => {
+    expect(column("kb_chunks", "embedding").getSQLType()).toBe("vector(1024)");
+    expect(column("kb_chunks", "tsv").getSQLType()).toBe("tsvector");
+    expect(column("kb_chunks", "tsv").generated?.type).toBe("always");
+    const methods = table("kb_chunks").indexes.map((i) => i.config.method);
+    expect(methods).toEqual(expect.arrayContaining(["hnsw", "gin"]));
+  });
+
+  it("encrypts knowledge-source text rather than storing it in the clear", () => {
+    const names = table("kb_sources").columns.map((c) => c.name);
+    expect(names).toContain("text_encrypted");
+    expect(names).not.toContain("text");
+  });
+
+  it("keeps slugs, cycles, pack versions and votes unique", () => {
+    expect(column("schools", "slug").isUnique).toBe(true);
+    expect(uniqueColumns("school_cycles")).toContain("school_id,cycle");
+    expect(uniqueColumns("school_packs")).toContain("cycle_id,version");
+    expect(uniqueColumns("school_interest_votes")).toContain("user_id,school_id");
+    expect(uniqueColumns("user_schools")).toContain("user_id,school_cycle_id");
+    expect(column("ai_policies", "school_cycle_id").isUnique).toBe(true);
+  });
+
+  it("never cascades a cycle delete into applicants' lists", () => {
+    expect(onDelete("user_schools", "school_cycle_id")).toBe("no action");
+  });
+
+  it("defaults AI policies to unverified and unknown", () => {
+    expect(column("ai_policies", "verified_at").notNull).toBe(false);
+    expect(column("ai_policies", "verified_at").hasDefault).toBe(false);
+    expect(column("ai_policies", "stance").default).toBe("unknown");
+  });
+});
+
+describe("Phase 4 tables (§10 applications and kits)", () => {
+  const owned = [
+    "checkouts",
+    "purchases",
+    "entitlements",
+    "kit_stages",
+    "deliverables",
+    "angles",
+    "drafts",
+    "checks",
+    "need_items",
+    "verify_items",
+    "revision_requests",
+    "feedback",
+  ];
+
+  it.each(owned)("%s has an indexed user_id that cascades with the user", (name) => {
+    expect(column(name, "user_id").notNull).toBe(true);
+    expect(onDelete(name, "user_id")).toBe("cascade");
+    const config = table(name);
+    const indexed = [
+      ...config.indexes.map((i) => i.config.columns.map((c) => ("name" in c ? c.name : ""))),
+      ...config.uniqueConstraints.map((u) => u.columns.map((c) => c.name)),
+    ];
+    expect(indexed.some((cols) => cols[0] === "user_id")).toBe(true);
+  });
+
+  it("makes purchases idempotent on the provider transaction and webhooks on the event id", () => {
+    expect(column("purchases", "provider_txn_id").isUnique).toBe(true);
+    expect(column("checkouts", "provider_checkout_id").isUnique).toBe(true);
+    expect(
+      table("webhook_events").uniqueConstraints.map((u) => u.columns.map((c) => c.name)),
+    ).toContainEqual(["provider", "event_id"]);
+    expect(column("entitlements", "purchase_id").isUnique).toBe(true);
+  });
+
+  it("keeps one stage row per kit and numbers draft versions per deliverable", () => {
+    const uniques = (name: string) =>
+      table(name).uniqueConstraints.map((u) => u.columns.map((c) => c.name));
+    expect(uniques("kit_stages")).toContainEqual(["kit_id", "stage"]);
+    expect(uniques("drafts")).toContainEqual(["deliverable_id", "version"]);
+    expect(uniques("deliverables")).toContainEqual(["kit_id", "pack_key"]);
+    const current = table("drafts").indexes.find(
+      (i) => i.config.name === "drafts_one_current_per_deliverable",
+    );
+    expect(current?.config.unique).toBe(true);
+  });
+
+  it("stores the §5.6 fair-use defaults", () => {
+    expect(schema.DEFAULT_KIT_LIMITS).toEqual({
+      revisions: 150,
+      voice_mocks: 5,
+      drills: 150,
+      kit_regenerations: 1,
+    });
+    expect(schema.kitStageKeys).toHaveLength(10);
   });
 });

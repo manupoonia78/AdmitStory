@@ -123,3 +123,6 @@ export * from "./interview";
 export * from "./kit";
 export * from "./workspace";
 export * from "./dossier";
+// Phase 3 areas (docs/design/phase-3-4-direction.md).
+export * from "./profile";
+export * from "./strategy";

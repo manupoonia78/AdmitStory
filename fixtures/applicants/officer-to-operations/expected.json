@@ -1,0 +1,45 @@
+{
+  "slug": "officer-to-operations",
+  "lead_story": {
+    "LEADERSHIP": "fuel_losses",
+    "SETBACK": "night_convoy",
+    "GOALS": "why_operations",
+    "CONTRIBUTION": "literacy_class"
+  },
+  "never_without_consent": ["soldier_i_lost"],
+  "red_flags": [
+    {
+      "flag": "Military-to-business translation: nothing on the record a civilian recruiter will recognise",
+      "address_in": "essay",
+      "how": "Answer it with a specific story from the file rather than a claim."
+    },
+    {
+      "flag": "No corporate experience and no exposure to customers, pricing or revenue",
+      "address_in": "essay",
+      "how": "Answer it with a specific story from the file rather than a claim."
+    },
+    {
+      "flag": "GMAT 680 with a verbal 33, below the median at his target schools",
+      "address_in": "optional",
+      "how": "Point to the quantitative and academic evidence elsewhere in the file in one plain paragraph; no apology and no excuse."
+    },
+    {
+      "flag": "Age 31 at matriculation, slightly above the cohort median",
+      "address_in": "essay",
+      "how": "Answer it with a specific story from the file rather than a claim."
+    },
+    {
+      "flag": "Nigerian degree classification that admissions readers will struggle to benchmark",
+      "address_in": "optional",
+      "how": "Point to the quantitative and academic evidence elsewhere in the file in one plain paragraph; no apology and no excuse."
+    }
+  ],
+  "kit_properties": [
+    "Every number in every draft matches the Fact Sheet or a story's own numbers.",
+    "No draft names a person whose story marks them as not to be named.",
+    "No sentence uses any of these words: passionate, journey, impactful, I led, world-class, synergy, crushed it.",
+    "The goals essay names the short-term goal specifically: An operations or supply-chain manager at a large manufacturer or distributor in Nigeria or elsewhere in West Africa, running a plant's inbound and finished-goods flow rather than a central planning function.",
+    "The leadership essay leads with \"Where the diesel was going\", or the Strategist says why another story is stronger.",
+    "The setback essay leads with \"The move we did at night\", or the Strategist says why another story is stronger."
+  ]
+}

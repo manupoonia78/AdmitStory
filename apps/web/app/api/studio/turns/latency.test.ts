@@ -57,6 +57,7 @@ vi.mock("@admitstory/db", async (importOriginal) => {
   return {
     ...actual,
     getDb: () => ({}),
+    listUserSchools: async () => [],
     getStudioSession: query((_db: unknown, userId: string, id: string) => ({
       id,
       userId,

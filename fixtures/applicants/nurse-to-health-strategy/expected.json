@@ -1,0 +1,53 @@
+{
+  "slug": "nurse-to-health-strategy",
+  "lead_story": {
+    "LEADERSHIP": "eye_clinic_overflow",
+    "GOALS": "bed_day_count",
+    "CONTRIBUTION": "sunday_group"
+  },
+  "never_without_consent": ["handover_i_missed", "fathers_dialysis", "diagnosis_the_family_hid"],
+  "red_flags": [
+    {
+      "flag": "Clinical background with no management training at all: no budget, no P&L, no formal reports, no project she has been accountable for",
+      "address_in": "essay",
+      "how": "Show it through a story where the applicant made a commercial or people decision and carried others with them."
+    },
+    {
+      "flag": "Took the Executive Assessment and scored 155 rather than sitting the GMAT or GRE, which some readers will treat as avoiding the harder test",
+      "address_in": "optional",
+      "how": "Point to the quantitative and academic evidence elsewhere in the file in one plain paragraph; no apology and no excuse."
+    },
+    {
+      "flag": "English is her third language; speaking band 6.5 and visible hesitation under pressure",
+      "address_in": "essay",
+      "how": "Answer it with a specific story from the file rather than a claim."
+    },
+    {
+      "flag": "Non-feeder employer: a single private hospital that no admissions reader will recognise",
+      "address_in": "essay",
+      "how": "Answer it with a specific story from the file rather than a claim."
+    },
+    {
+      "flag": "Almost no international exposure - eight years in Vietnam and a three-week attachment in Cambodia",
+      "address_in": "essay",
+      "how": "Answer it with a specific story from the file rather than a claim."
+    },
+    {
+      "flag": "Narrow functional scope: eight years in one 22-bed unit of one hospital",
+      "address_in": "essay",
+      "how": "Answer it with a specific story from the file rather than a claim."
+    },
+    {
+      "flag": "Her stated goal sector recruits very few MBAs in her region, so the post-MBA path is unproven",
+      "address_in": "essay",
+      "how": "Make the short-term goal specific (role, sector, place) and connect it to a story that shows the motive."
+    }
+  ],
+  "kit_properties": [
+    "Every number in every draft matches the Fact Sheet or a story's own numbers.",
+    "No draft names a person whose story marks them as not to be named.",
+    "No sentence uses any of these words: passionate, journey, impactful, life-saving, I saved him, hero, angel in white, calling, inspiring, leverage.",
+    "The goals essay names the short-term goal specifically: A hospital operations or provider-strategy role at group level in Southeast Asia - someone who decides how a unit runs rather than running a shift inside one.",
+    "The leadership essay leads with \"The eye clinic\", or the Strategist says why another story is stronger."
+  ]
+}

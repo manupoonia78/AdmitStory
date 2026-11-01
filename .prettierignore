@@ -5,3 +5,4 @@ pnpm-lock.yaml
 fixtures/llm-replays
 AdmitStory_Build_Spec.md
 knowledge/canon
+packages/ai/src/prompts/**/*.md

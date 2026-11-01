@@ -1,7 +1,7 @@
 import { describe, expect, it } from "vitest";
 import { BUDGET_CAPS, checkBudget } from "../src/budget";
 import { BudgetExceededError } from "../src/errors";
-import type { LedgerSink } from "../src/ledger";
+import { createMemoryLedger, type LedgerSink } from "../src/ledger";
 import { ROUTES } from "../src/routing";
 
 const ledger = (byUser: number, byKit: number): LedgerSink => ({
@@ -48,5 +48,17 @@ describe("checkBudget (spec §12.4)", () => {
     await expect(
       checkBudget({ ledger: l, userId: "u", route: ROUTES["util.title"] }),
     ).rejects.toMatchObject({ scope: "user", capUsd: 5 });
+  });
+});
+
+describe("paid users (Phase 4, §12.4)", () => {
+  it("exempts a paying user from the free cap but keeps the kit caps", async () => {
+    const ledger = {
+      ...createMemoryLedger([{ userId: "u1", kitId: null, costUsd: 9 } as never]),
+      isPaidUser: async () => true,
+    };
+    await expect(checkBudget({ ledger, userId: "u1", route: {} })).resolves.toBe("ok");
+    const free = { ...ledger, isPaidUser: async () => false };
+    await expect(checkBudget({ ledger: free, userId: "u1", route: {} })).rejects.toThrow();
   });
 });

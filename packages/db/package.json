@@ -10,7 +10,9 @@
     "typecheck": "tsc -p tsconfig.json",
     "generate": "drizzle-kit generate",
     "migrate": "tsx src/migrate.ts",
-    "check": "drizzle-kit check"
+    "check": "drizzle-kit check",
+    "admin:grant": "tsx scripts/grant-admin.ts",
+    "seed:schools": "tsx scripts/seed-schools.ts"
   },
   "dependencies": {
     "@admitstory/shared": "workspace:*",

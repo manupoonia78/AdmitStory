@@ -15,8 +15,12 @@ export { normalizeRuleId } from "./rules";
  */
 export const CANON_DIR: string = canonDirIn(rootAtImport());
 
-function readDoc(dir: string, fileName: string): CanonDoc {
-  const source = readFileSync(join(dir, fileName), "utf8").replace(/\r\n?/g, "\n");
+/**
+ * One canon document from its markdown source. `fileName` is `<slug>.md`, for a file on disk or a
+ * published `canon_docs` row (the registry overlay); the front matter slug must match it.
+ */
+export function parseCanonDoc(rawSource: string, fileName: string): CanonDoc {
+  const source = rawSource.replace(/\r\n?/g, "\n");
   const { meta, content } = parseFrontMatter(source, fileName);
   const expectedSlug = fileName.slice(0, -".md".length);
   if (meta.slug !== expectedSlug) {
@@ -50,8 +54,21 @@ export function loadCanon(dir: string = defaultCanonDir()): CanonLibrary {
     .filter((name) => name.endsWith(".md"))
     .sort();
   if (fileNames.length === 0) throw new Error(`No canon files found in ${dir}`);
+  return buildCanonLibrary(
+    fileNames.map((name) => parseCanonDoc(readFileSync(join(dir, name), "utf8"), name)),
+  );
+}
 
-  const docs = Object.freeze(fileNames.map((name) => readDoc(dir, name)));
+/**
+ * A library from parsed documents, ordered by slug so the compiled subsets are byte-stable
+ * whatever order the documents arrive in. Throws on a duplicate slug or rule ID.
+ */
+export function buildCanonLibrary(input: readonly CanonDoc[]): CanonLibrary {
+  const docs = Object.freeze(
+    [...input].sort((a, b) => (a.slug < b.slug ? -1 : a.slug > b.slug ? 1 : 0)),
+  );
+  if (new Set(docs.map((doc) => doc.slug)).size !== docs.length)
+    throw new Error("Duplicate canon slug");
   const docsBySlug = new Map(docs.map((doc) => [doc.slug, doc]));
   const rulesById = new Map<string, CanonRule>();
   for (const doc of docs) {

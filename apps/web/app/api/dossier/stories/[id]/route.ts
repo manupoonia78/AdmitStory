@@ -1,4 +1,6 @@
 import { StoryPatch, getDb, getStory, listGoldenLines, updateStory } from "@admitstory/db";
+import { queueStaleCheck } from "@/lib/kit/dispatch";
+import { STORY_CONTENT_FIELDS, touchesContent } from "@/lib/kit/stale";
 import { RATE_LIMITS, checkRateLimit, handle, notFound, readJson, requireUser } from "@/lib/api";
 
 // GET/PATCH /api/dossier/stories/:id (spec §11). Every field on a story card is the applicant's to
@@ -31,6 +33,12 @@ export async function PATCH(
     const patch = await readJson(request, StoryPatch);
     const story = await updateStory(getDb(), session.user.id, id, patch);
     if (!story) notFound("That story");
+    if (touchesContent(patch, STORY_CONTENT_FIELDS))
+      await queueStaleCheck({
+        userId: session.user.id,
+        storyCodes: [story.code],
+        reason: `Your story "${story.nickname}" changed`,
+      });
     return Response.json({ story });
   });
 }

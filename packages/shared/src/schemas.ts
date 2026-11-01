@@ -30,3 +30,28 @@ export const TraitId = z.enum(TRAIT_IDS as [TraitIdType, ...TraitIdType[]]);
 export const Cite = z.string().refine((value) => isCode(value), {
   message: "Not a provenance code (F##, S##, L###, P#, C#, K##)",
 });
+
+// Appendix I and the Phase 3 reads (Profile Read, School Fit). Plain types: `@admitstory/shared/kit`.
+export {
+  Angle,
+  CitedText,
+  CoachBeats,
+  CriticReport,
+  Draft,
+  DrillFeedback,
+  FileMap,
+  FileMapItem,
+  Finding,
+  Gap,
+  LorBrief,
+  Paragraph,
+  Patch,
+  Positioning,
+  ProfileRead,
+  RevisionResult,
+  SchoolFit,
+  Sentence,
+  Shortform,
+  ShortformItem,
+  VideoPlan,
+} from "./kit/schemas";

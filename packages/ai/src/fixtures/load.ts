@@ -5,7 +5,7 @@
 import { existsSync, readFileSync, readdirSync } from "node:fs";
 import { join } from "node:path";
 import { findRepoRoot } from "../paths";
-import { FixtureProfile, GroundTruth, type Fixture } from "./types";
+import { FixtureExpected, FixtureProfile, GroundTruth, type Fixture } from "./types";
 
 export function applicantsDir(root?: string): string {
   const base = root ?? findRepoRoot(process.cwd());
@@ -68,4 +68,34 @@ export function loadApplicant(slug: string, dir = applicantsDir()): Fixture {
 
 export function loadApplicants(dir = applicantsDir()): Fixture[] {
   return listApplicantSlugs(dir).map((slug) => loadApplicant(slug, dir));
+}
+
+/**
+ * `expected.json` for one applicant, checked against its ground truth: every story it names must
+ * be one of the fixture's stories, and a story it says needs consent must be marked sensitive.
+ */
+export function loadExpected(slug: string, dir = applicantsDir()): FixtureExpected {
+  const parsed = FixtureExpected.safeParse(
+    readJson(join(dir, slug, "expected.json"), `${slug}/expected.json`),
+  );
+  if (!parsed.success)
+    throw new Error(
+      `${slug}/expected.json is invalid: ${parsed.error.issues
+        .map((issue) => `${issue.path.join(".")}: ${issue.message}`)
+        .join("; ")}`,
+    );
+  const expected = parsed.data;
+  if (expected.slug !== slug) throw new Error(`${slug}/expected.json has slug "${expected.slug}"`);
+  const { groundTruth } = loadApplicant(slug, dir);
+  const stories = new Map(groundTruth.stories.map((story) => [story.ref, story] as const));
+  for (const [archetype, ref] of Object.entries(expected.lead_story)) {
+    const story = stories.get(ref);
+    if (!story) throw new Error(`${slug}/expected.json: ${archetype} names unknown story "${ref}"`);
+    if (story.sensitivity === "sensitive")
+      throw new Error(`${slug}/expected.json: ${archetype} leads with sensitive story "${ref}"`);
+  }
+  for (const ref of expected.never_without_consent)
+    if (stories.get(ref)?.sensitivity !== "sensitive")
+      throw new Error(`${slug}/expected.json: "${ref}" is not a sensitive story`);
+  return expected;
 }

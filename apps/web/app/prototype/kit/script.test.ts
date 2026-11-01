@@ -9,7 +9,15 @@ import {
   revealed,
 } from "./script";
 
-const ORDER = { waiting: 0, active: 1, done: 2, mapped: 1, drafting: 2, ready: 3 } as const;
+const ORDER = {
+  waiting: 0,
+  active: 1,
+  done: 2,
+  mapped: 1,
+  drafting: 2,
+  ready: 3,
+  failed: 3,
+} as const;
 
 describe("kitStateAt", () => {
   it("starts with nothing decided and positioning under way", () => {

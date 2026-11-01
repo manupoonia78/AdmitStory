@@ -27,6 +27,7 @@ import {
   type VoiceSettings,
 } from "@admitstory/voice";
 import { isLocalAppUrl } from "@/lib/env";
+import { studioSchools } from "@/lib/studio/schools";
 import { SpeechLanguageSchema, TtsSpeedSchema, TtsVoiceSchema } from "./schemas";
 
 // The voice plumbing the routes share (spec §7.5, §12.4): which providers run, the applicant's
@@ -88,14 +89,21 @@ export async function remainingVoiceSeconds(userId: string): Promise<number> {
   return Math.max(0, FREE_VOICE_SECONDS - (await voiceSecondsUsed(getDb(), userId)));
 }
 
-/** Keyterms from the dossier: employers and people's names only, then MBA terms and schools. */
+/**
+ * Keyterms from the dossier: employers and people's names only, then MBA terms, then the
+ * applicant's own schools ahead of the Appendix H list (Phase 3: from the schools table).
+ */
 export async function keytermsFor(userId: string): Promise<string[]> {
   const db = getDb();
-  const [facts, people] = await Promise.all([listFacts(db, userId), listPeople(db, userId)]);
+  const [facts, people, schools] = await Promise.all([
+    listFacts(db, userId),
+    listPeople(db, userId),
+    studioSchools(userId),
+  ]);
   return buildKeyterms({
     employers: employersFromFacts(facts),
     people: people.map((person) => person.name),
-    schools: SEED_SCHOOLS.map((school) => school.name),
+    schools: [...schools.schoolNames, ...SEED_SCHOOLS.map((school) => school.name)],
   });
 }
 

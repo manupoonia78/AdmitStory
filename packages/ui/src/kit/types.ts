@@ -24,9 +24,9 @@ export interface KitStory {
 
 /**
  * "waiting": no story chosen yet. "mapped": the file map gave it a story. "drafting": its first
- * lines are streaming. "ready": drafted.
+ * lines are streaming. "ready": drafted. "failed": drafting stopped; the others carry on.
  */
-export type KitDeliverableStatus = "waiting" | "mapped" | "drafting" | "ready";
+export type KitDeliverableStatus = "waiting" | "mapped" | "drafting" | "ready" | "failed";
 
 export interface KitDeliverable {
   key: string;

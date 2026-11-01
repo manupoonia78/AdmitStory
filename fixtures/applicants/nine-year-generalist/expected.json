@@ -1,0 +1,46 @@
+{
+  "slug": "nine-year-generalist",
+  "lead_story": {
+    "LEADERSHIP": "the_strike_that_didnt_happen",
+    "SETBACK": "the_migration_i_rushed",
+    "GOALS": "the_recall",
+    "CONTRIBUTION": "the_night_class",
+    "VALUES": "the_third_site"
+  },
+  "never_without_consent": ["my_mothers_diagnosis"],
+  "red_flags": [
+    {
+      "flag": "Nine years of experience at matriculation, above the cohort median",
+      "address_in": "essay",
+      "how": "Answer it with a specific story from the file rather than a claim."
+    },
+    {
+      "flag": "One employer for his whole career; every promotion decided by people who already knew him",
+      "address_in": "essay",
+      "how": "Show it through a story where the applicant made a commercial or people decision and carried others with them."
+    },
+    {
+      "flag": "Risk of reading as a plateau rather than a trajectory",
+      "address_in": "essay",
+      "how": "Answer it with a specific story from the file rather than a claim."
+    },
+    {
+      "flag": "No formal quantitative or finance training; a history degree and a Q47",
+      "address_in": "optional",
+      "how": "Point to the quantitative and academic evidence elsewhere in the file in one plain paragraph; no apology and no excuse."
+    },
+    {
+      "flag": "The 'why now rather than three years ago' question, which he cannot yet answer without his mother's diagnosis",
+      "address_in": "essay",
+      "how": "Answer it with a specific story from the file rather than a claim."
+    }
+  ],
+  "kit_properties": [
+    "Every number in every draft matches the Fact Sheet or a story's own numbers.",
+    "No draft names a person whose story marks them as not to be named.",
+    "No sentence uses any of these words: passionate, synergy, journey, best-in-class, thought leader, impactful, rockstar, crushing it.",
+    "The goals essay names the short-term goal specifically: A general manager or business unit role at a distribution, logistics or consumer company — a P&L of $100 to $300 million where operations is one of the levers rather than the whole job.",
+    "The leadership essay leads with \"The contract nobody wanted to sign\", or the Strategist says why another story is stronger.",
+    "The setback essay leads with \"The go-live I should have delayed\", or the Strategist says why another story is stronger."
+  ]
+}

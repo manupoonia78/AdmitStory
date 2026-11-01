@@ -18,6 +18,7 @@ vi.mock("@admitstory/db", async (importOriginal) => ({
   voiceSecondsUsed: vi.fn(async () => state.usedSeconds),
   listFacts: vi.fn(async () => [{ key: "current_employer", value: "Meridian Health" }]),
   listPeople: vi.fn(async () => [{ name: "Asha Rao", roleInLife: "manager", mayName: false }]),
+  listUserSchools: vi.fn(async () => []),
 }));
 
 const { POST } = await import("./route");

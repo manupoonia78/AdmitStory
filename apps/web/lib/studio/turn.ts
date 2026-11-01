@@ -21,6 +21,7 @@ import {
   type SlotKey,
 } from "@admitstory/slots";
 import { ai } from "@/lib/ai";
+import { studioSchools } from "./schools";
 import { loadKnowledge, type StudioKnowledge } from "./state";
 
 // One Studio turn (spec §7.3): the slot selector chooses what to ask about, then the Interviewer
@@ -61,8 +62,8 @@ export interface AskOptions {
 
 /**
  * Express mode opens with Appendix B's three wide questions before the selector takes over, and
- * then asks only what a typical application still needs (§5.2 hurry mode). Until School Packs
- * exist, "gap-only" means the highest-weight unfilled slots rather than one school's prompts.
+ * then asks only what the applicant's schools still need (§5.2 hurry mode): the unfilled slots
+ * their published prompts ask for, or a typical application's when no pack is published yet.
  */
 function expressOpener(session: StudioSession) {
   return session.mode === "express" ? EXPRESS_OPENERS[session.openersAsked] : undefined;
@@ -74,7 +75,10 @@ export async function askNextQuestion(
 ): Promise<NextQuestion | null> {
   const db = getDb();
   const { session } = options;
-  const knowledge = options.knowledge ?? (await loadKnowledge(userId));
+  const [knowledge, schools] = await Promise.all([
+    options.knowledge ?? loadKnowledge(userId),
+    studioSchools(userId),
+  ]);
   const now = new Date();
 
   const opener = expressOpener(session);
@@ -93,7 +97,11 @@ export async function askNextQuestion(
       chapter: session.currentChapter,
       states: knowledge.states,
       now,
-      ...(hurried ? { only: gapOnlySlots(knowledge.states) } : {}),
+      need: schools.need,
+      context: schools.context,
+      ...(hurried
+        ? { only: gapOnlySlots(knowledge.states, schools.context, undefined, schools.need) }
+        : {}),
     });
     // Nothing left worth asking: every slot is filled, retired or exhausted.
     if (!picked) return null;

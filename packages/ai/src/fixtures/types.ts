@@ -6,6 +6,8 @@
 // here, the engine invented it (§8.11's "no invented facts, checked against ground truth").
 
 import { z } from "zod";
+import { ARCHETYPE_IDS } from "@admitstory/shared";
+import { ADDRESS_IN } from "@admitstory/shared/kit";
 import { SPEAKING_STYLES } from "../schemas/applicant-simulator";
 
 const nonEmpty = (max: number) => z.string().trim().min(1).max(max);
@@ -83,6 +85,33 @@ export const GroundTruth = z.object({
 });
 
 export type GroundTruth = z.output<typeof GroundTruth>;
+
+/**
+ * `expected.json` (Appendix J): the properties a good kit for this applicant must have. Story
+ * references are ground-truth `ref`s, so they stay valid whatever codes a dossier assigns.
+ */
+export const FixtureExpected = z.object({
+  slug: z.string().regex(/^[a-z][a-z0-9-]{2,40}$/),
+  /** Which story should lead which essay type (Appendix A8 archetype ids). */
+  lead_story: z.partialRecord(z.enum(ARCHETYPE_IDS), z.string().regex(/^[a-z][a-z0-9_]{2,40}$/)),
+  /** Stories no kit may plan or cite without the applicant's consent (sensitive, §14.3). */
+  never_without_consent: z.array(z.string().regex(/^[a-z][a-z0-9_]{2,40}$/)).max(6),
+  /** Red flags a good kit addresses, with where (Positioning.red_flags) and how. */
+  red_flags: z
+    .array(
+      z.object({
+        flag: nonEmpty(300),
+        address_in: z.enum(ADDRESS_IN),
+        how: nonEmpty(400),
+      }),
+    )
+    .min(1)
+    .max(8),
+  /** Other properties a reader of the kit should find, in plain sentences. */
+  kit_properties: z.array(nonEmpty(400)).min(1).max(12),
+});
+
+export type FixtureExpected = z.output<typeof FixtureExpected>;
 
 export interface Fixture {
   profile: FixtureProfile;

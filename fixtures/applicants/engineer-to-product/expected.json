@@ -1,0 +1,45 @@
+{
+  "slug": "engineer-to-product",
+  "lead_story": {
+    "LEADERSHIP": "night_shift_fix",
+    "SETBACK": "missed_migration",
+    "GOALS": "why_product",
+    "CONTRIBUTION": "saturday_class"
+  },
+  "never_without_consent": ["father_illness"],
+  "red_flags": [
+    {
+      "flag": "Deeply technical background with no commercial or P&L exposure",
+      "address_in": "essay",
+      "how": "Show it through a story where the applicant made a commercial or people decision and carried others with them."
+    },
+    {
+      "flag": "Verbal 34 is below the median at his target schools",
+      "address_in": "optional",
+      "how": "Point to the quantitative and academic evidence elsewhere in the file in one plain paragraph; no apology and no excuse."
+    },
+    {
+      "flag": "Non-feeder employer that admissions readers will not recognise",
+      "address_in": "essay",
+      "how": "Answer it with a specific story from the file rather than a claim."
+    },
+    {
+      "flag": "No formal management experience; coordinates four engineers but has no reports",
+      "address_in": "essay",
+      "how": "Show it through a story where the applicant made a commercial or people decision and carried others with them."
+    },
+    {
+      "flag": "Limited international exposure: has worked with US customers remotely but never lived abroad",
+      "address_in": "essay",
+      "how": "Answer it with a specific story from the file rather than a claim."
+    }
+  ],
+  "kit_properties": [
+    "Every number in every draft matches the Fact Sheet or a story's own numbers.",
+    "No draft names a person whose story marks them as not to be named.",
+    "No sentence uses any of these words: passionate, journey, leverage, synergy, rockstar, I led, impactful, game-changing.",
+    "The goals essay names the short-term goal specifically: A product manager on a health-data team at a large technology company or a health-system software company, in the US or India, owning a clinical workflow rather than an internal tool.",
+    "The leadership essay leads with \"The night-shift fix\", or the Strategist says why another story is stronger.",
+    "The setback essay leads with \"The migration I got wrong\", or the Strategist says why another story is stronger."
+  ]
+}

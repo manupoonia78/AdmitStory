@@ -11,7 +11,7 @@ import {
 } from "@admitstory/db";
 import type { Metadata } from "next";
 import { requireOnboardedUser } from "@/lib/app-user";
-import { DossierScreen } from "./dossier-screen";
+import { DossierHost } from "./dossier-host";
 
 export const metadata: Metadata = { title: "Your Dossier" };
 
@@ -37,7 +37,7 @@ export default async function DossierPage() {
   ]);
 
   return (
-    <DossierScreen
+    <DossierHost
       stories={stories
         .filter((story) => story.mergedInto === null)
         .map((story) => ({

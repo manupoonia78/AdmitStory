@@ -12,7 +12,12 @@
 // then DEFAULT_NEED stands in: how often a typical top-20 application asks for the archetypes a
 // slot feeds (packages/shared `ARCHETYPES.prevalence`). It only has to rank slots sensibly.
 
-import { REAPPLICANT_ONLY_ARCHETYPES, archetype, type ChapterId } from "@admitstory/shared";
+import {
+  REAPPLICANT_ONLY_ARCHETYPES,
+  archetype,
+  type ArchetypeId,
+  type ChapterId,
+} from "@admitstory/shared";
 import { SLOTS, type Slot, type SlotKey } from "./slots";
 import { emptiness, emptyRecord, type SlotRecord, type SlotState } from "./state";
 
@@ -139,21 +144,46 @@ export function selectSlot(options: SelectorOptions): SlotScore | undefined {
   return best && best.score > 0 ? best : undefined;
 }
 
+/** A slot no chosen school asks for still counts, at this share of its typical need. */
+const UNASKED_NEED_SHARE = 0.3;
+
 /**
- * Gap-only candidates for hurry mode before School Packs exist (§5.2): the unfilled slots a
- * typical application needs most. Phase 3 replaces this with the chosen school's real prompts.
+ * need() from the applicant's schools (§5.2, Phase 3): a slot that feeds an archetype one of their
+ * schools' published prompts asks for is fully needed; one that only feeds forms, the resume,
+ * recommenders or the interview keeps its floor; anything else drops to a share of its typical
+ * need, so the Studio still gathers it, just later. With no published packs this is DEFAULT_NEED.
+ */
+export function packNeed(asked: Iterable<ArchetypeId>): NeedFn {
+  const set = new Set(asked);
+  if (set.size === 0) return DEFAULT_NEED;
+  return (entry, context) => {
+    const hit = entry.archetypes.some(
+      (id) =>
+        set.has(id) &&
+        (context.isReapplicant === true || !REAPPLICANT_ONLY_ARCHETYPES.includes(id)),
+    );
+    if (hit) return 1;
+    if ((entry.consumers?.length ?? 0) > 0) return 0.9;
+    return DEFAULT_NEED(entry, context) * UNASKED_NEED_SHARE;
+  };
+}
+
+/**
+ * Gap-only candidates for hurry mode (§5.2): the unfilled slots the applicant's schools need most.
+ * Pass packNeed() for the chosen schools' prompts; without packs it ranks by a typical application.
  */
 export function gapOnlySlots(
   states: ReadonlyMap<SlotKey, SlotRecord>,
   context: NeedContext = {},
   limit = 12,
+  need: NeedFn = DEFAULT_NEED,
 ): SlotKey[] {
   return SLOTS.filter((entry) => {
     if (entry.reapplicantOnly && context.isReapplicant !== true) return false;
     const record = states.get(entry.key) ?? emptyRecord(entry.key);
     return record.state !== "filled";
   })
-    .map((entry) => ({ entry, rank: entry.weight * DEFAULT_NEED(entry, context) }))
+    .map((entry) => ({ entry, rank: entry.weight * need(entry, context) }))
     .sort((a, b) => b.rank - a.rank || a.entry.key.localeCompare(b.entry.key))
     .slice(0, limit)
     .map(({ entry }) => entry.key);

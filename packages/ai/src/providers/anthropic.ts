@@ -7,6 +7,11 @@ import Anthropic, {
 } from "@anthropic-ai/sdk";
 import type { BetaMessage } from "@anthropic-ai/sdk/resources/beta/messages";
 import type { Message, MessageCreateParamsBase } from "@anthropic-ai/sdk/resources/messages";
+import type {
+  BatchCreateParams,
+  MessageBatch,
+  MessageBatchIndividualResponse,
+} from "@anthropic-ai/sdk/resources/messages/batches";
 import { ReplayMissingError, UpstreamError } from "../errors";
 import {
   PROMPT_VERSION_HEADER,
@@ -61,6 +66,13 @@ export interface SendOptions {
 
 export interface AnthropicProvider {
   send(params: MessageCreateParamsBase, options: SendOptions): Promise<ApiMessage>;
+  /** Message Batches API (live only; replay mode serves batches from fixtures in batch.ts). */
+  createBatch(requests: BatchCreateParams.Request[], signal?: AbortSignal): Promise<MessageBatch>;
+  retrieveBatch(batchId: string, signal?: AbortSignal): Promise<MessageBatch>;
+  batchResults(
+    batchId: string,
+    signal?: AbortSignal,
+  ): Promise<AsyncIterable<MessageBatchIndividualResponse>>;
 }
 
 export function createAnthropicProvider(config: AnthropicProviderConfig): AnthropicProvider {
@@ -88,7 +100,24 @@ export function createAnthropicProvider(config: AnthropicProviderConfig): Anthro
     openTelemetry: false,
   });
 
+  const liveOnly = (): void => {
+    if (config.replay) throw new Error("The Message Batches API is never called in replay mode");
+  };
+  const signalOption = (signal?: AbortSignal) => (signal ? { signal } : {});
+
   return {
+    async createBatch(requests, signal) {
+      liveOnly();
+      return client.messages.batches.create({ requests }, signalOption(signal));
+    },
+    async retrieveBatch(batchId, signal) {
+      liveOnly();
+      return client.messages.batches.retrieve(batchId, null, signalOption(signal));
+    },
+    async batchResults(batchId, signal) {
+      liveOnly();
+      return client.messages.batches.results(batchId, undefined, signalOption(signal));
+    },
     async send(params, options) {
       const requestOptions = {
         // Read (and stripped) by the replay/record transport; never sent upstream.

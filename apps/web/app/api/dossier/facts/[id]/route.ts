@@ -1,5 +1,7 @@
 import { FactPatch, getDb, getFact, updateFact } from "@admitstory/db";
 import { RATE_LIMITS, checkRateLimit, handle, notFound, readJson, requireUser } from "@/lib/api";
+import { queueStaleCheck } from "@/lib/kit/dispatch";
+import { FACT_CONTENT_FIELDS, touchesContent } from "@/lib/kit/stale";
 
 // GET/PATCH /api/dossier/facts/:id (spec §11). The Fact Sheet is the single source of truth, so
 // every field an applicant can correct is editable here — including the approved phrasing every
@@ -29,6 +31,13 @@ export async function PATCH(
     const patch = await readJson(request, FactPatch);
     const fact = await updateFact(getDb(), session.user.id, id, patch);
     if (!fact) notFound("That fact");
+    // §5.3 AC: drafts that used this fact are marked stale and their checks run again.
+    if (touchesContent(patch, FACT_CONTENT_FIELDS))
+      await queueStaleCheck({
+        userId: session.user.id,
+        factCodes: [fact.code],
+        reason: `${fact.key.replace(/_/g, " ")} changed`,
+      });
     return Response.json({ fact });
   });
 }

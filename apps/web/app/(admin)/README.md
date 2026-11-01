@@ -1,6 +1,13 @@
-# Admin console (`app/(admin)/`)
+# Admin console (`app/(admin)/admin/`)
 
-Route group for the admin console: schools and knowledge-base review, canon and prompt
-publishing, evals, costs and routing overrides, users and experts (spec §5.18, §11 `/admin/*`).
-The knowledge-base screens arrive in **Phase 3** and the rest grows with each later phase; access
-needs the `admin` role. No routes exist here yet.
+Spec §5.18, §9 and screen M. Every page calls `requireAdminPage()` and every `/api/admin/*` route
+is wrapped in `adminRoute()` (`lib/admin/guard.ts`): a non-admin gets a 404 either way. Mutations
+go through the packages/db admin repositories, which write `audit_log`.
+
+- `/admin/schools`, `/admin/schools/[schoolId]`: identity, cycles, rounds and deadlines, status.
+- `/admin/sources`, `/admin/sources/[sourceId]`: add by paste, file or URL; ingestion status.
+- `/admin/review/[cycleId]`: screen M, proposals against the draft, publish, import the
+  knowledge/ draft, edit the draft JSON.
+- `/admin/ai-policies`: the AI policy registry, "Mark verified".
+- `/admin/canon`, `/admin/canon/[slug]`: canon versions; publishing emits `evals/run`.
+- `/admin/prompts`, `/admin/prompts/[agent]`: prompt versions, activation, rollback, A/B split.

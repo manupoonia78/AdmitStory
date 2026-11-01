@@ -1,0 +1,93 @@
+SCHOOL PACK  Kestrel Lake | Kestrel Lake Graduate School of Management | Kestrel Lake, ON, CA | full-time MBA | cycle 2026-27 | v4
+Cite items by K id. [type date] = strongest source type and the date it was verified. Items marked stale were verified before this cycle: background only, never cite them as school specifics.
+
+ROUNDS
+K01 R1 | deadline 2026-10-14 | decision 2026-12-18 [official 2026-08-04]
+K02 R2 | deadline 2027-01-20 | decision 2027-03-26 [official 2026-08-04]
+K03 R3 | deadline 2027-04-14 | decision 2027-05-28 [official 2026-08-04]
+
+ESSAYS
+K04 impact | required | 500 words | LEADERSHIP,CONTRIBUTION
+  prompt: "Describe the impact you have had on an organisation or community. How did you measure it?" [official 2026-08-04]
+  parts: the impact; how you measured it
+  K05 Numbers help, but the committee also wants to know why the impact mattered to the people affected. [adcom 2026-08-04]
+K06 goals | required | 300 words | GOALS
+  prompt: "What are your career goals, and why is an MBA the right next step?" [official 2026-08-04]
+  parts: career goals; why an MBA now
+
+SHORT ANSWERS
+K07 word | required | 150 chars excl. spaces | MICRO,IDENTITY
+  prompt: "Which one word best describes you, and why?" [official 2026-08-04]
+  parts: one word; why
+K08 book | required | 150 chars excl. spaces | MICRO
+  prompt: "What is the last book you read that changed your mind about something?" [official 2026-08-04]
+  parts: the book; what changed
+
+OPTIONAL ESSAY
+K12 optional | optional | 250 words | OPTIONAL,CONTEXT
+  prompt: "Is there anything else the admissions committee should know?" [official 2026-08-04]
+
+REAPPLICANTS
+K11 Reapplicants submit a 250-word update in the optional essay field. [official 2026-08-04]
+
+VIDEO
+K09 live video | no scripting [official 2026-08-04]
+  K10 A live, unscripted conversation with a second-year student about team experiences. [interview_reports 2026-10-02]
+
+FORM
+K13 leadership_roles | "Leadership roles" | max 3 items | 300 chars [official 2026-08-04]
+
+RECOMMENDATIONS
+K14 1 | gmac_common [official 2026-08-04]
+
+RESUME
+K15 1 page max [official 2026-08-04]
+
+TEST POLICY
+K16 Accepts the GMAT Focus Edition, the GRE and the Executive Assessment; waivers considered case by case. [official 2026-08-04]
+
+FEES AND WAIVERS
+K17 The application fee is CAD 150; waived for applicants from partner nonprofit fellowships. [official 2026-08-04]
+
+VALUES
+K18 Kestrel Lake looks for people who measure their impact and stay curious about why it worked. [official 2026-08-04]
+trait map: "measured impact" -> measurable_impact, acts_on_feedback
+
+CULTURE AND LOCATION
+K19 Lakeside campus two hours from a major city; winters are long and the class is close-knit. [insider 2026-10-02]
+
+ACADEMICS
+courses:
+K20 Impact Measurement: A core course on designing metrics for social and commercial outcomes. | for: measurable_impact, social enterprise [official 2026-08-04]
+centres:
+K21 Northern Resources Institute: Research centre on mining, energy and Indigenous partnership models. | for: energy, natural resources [official 2026-08-04]
+structure:
+K22 Two-year program with a twelve-week summer internship. [official 2026-08-04]
+
+COMMUNITY
+clubs:
+K23 Net Impact Kestrel Lake: Student chapter organising pro bono consulting for local nonprofits. | for: social enterprise, community_builder [insider 2026-10-02]
+
+CAREERS
+K24 employment report, class of 2026: Consulting 28% median CAD 120,000; Finance 24% median CAD 115,000; Energy and resources 20% median CAD 118,000; Other 28% | top employers: Granitefall Resources, Northbeam Advisory, Loonwater Bank [official 2026-08-25]
+
+CLASS PROFILE
+K25 class of 2028 | size 88 | GMAT Focus median 615 | GRE median V157 Q156 | GPA median 3.3/4 | work experience median 4 yrs | international 45% [official 2026-08-25]
+
+INTERVIEW
+K26 open | by student | blind | 25 min | campus, virtual [official 2026-10-02]
+  K27 (w4) "Tell me about a team that did not work well." [interview_reports 2026-10-02]
+  K28 Any applicant may book an interview before submitting. [official 2026-08-04]
+
+AI POLICY
+K29 permitted_with_disclosure | applies to essays | disclosure: "Describe any use of AI tools in preparing this application." [official 2026-08-04]
+
+SCHOLARSHIPS
+K30 A separate scholarship essay is due one month after admission. [official 2026-08-04]
+
+AVOID
+K31 Spending the 150-character answers on a quotation. [coach_notes 2026-10-02]
+
+ANGLES THAT WORK
+K32 An impact essay with one number and one person's reaction. [coach_notes 2026-10-02]
+

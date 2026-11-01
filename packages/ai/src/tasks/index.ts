@@ -8,6 +8,11 @@ import {
   studioExtract,
   studioInterviewer,
 } from "./studio";
+import { kbNormalize, kbRefreshCheck } from "./kb";
+import { draftNeedFill, draftRevise, utilClassify } from "./draft";
+import { kitPositioningFilemap } from "./kit";
+import { kitAngles, kitCritic, kitDraft, kitGaps, kitShortform } from "./kit-writing";
+import { profileRead, schoolFit } from "./strategy";
 import { utilTitle } from "./util-title";
 
 /**
@@ -21,6 +26,19 @@ export const TASKS = {
   "studio.consolidate": studioConsolidate,
   "import.parse": importParse,
   "eval.applicant_simulator": applicantSimulator,
+  "profile.read": profileRead,
+  "strategy.school_fit": schoolFit,
+  "kb.normalize": kbNormalize,
+  "kb.refresh_check": kbRefreshCheck,
+  "kit.positioning_filemap": kitPositioningFilemap,
+  "kit.gaps": kitGaps,
+  "kit.angles": kitAngles,
+  "kit.draft": kitDraft,
+  "kit.shortform": kitShortform,
+  "kit.critic": kitCritic,
+  "draft.revise": draftRevise,
+  "draft.need_fill": draftNeedFill,
+  "util.classify": utilClassify,
 } as const;
 
 export type TaskName = keyof typeof TASKS;

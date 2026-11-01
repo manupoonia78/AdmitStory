@@ -32,6 +32,7 @@ export {
   SKIPS_BEFORE_RETIRED,
   fatigue,
   gapOnlySlots,
+  packNeed,
   scoreSlots,
   selectSlot,
   type NeedContext,

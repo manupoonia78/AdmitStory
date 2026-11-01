@@ -1,0 +1,45 @@
+{
+  "slug": "family-business-heir",
+  "lead_story": {
+    "LEADERSHIP": "overruled_my_father",
+    "SETBACK": "the_contract_i_lost",
+    "GOALS": "night_shift_women",
+    "CONTRIBUTION": "cluster_group"
+  },
+  "never_without_consent": ["grandfather_stroke"],
+  "red_flags": [
+    {
+      "flag": "Family business: no promotion anyone outside the family decided, and no external validation of his record",
+      "address_in": "essay",
+      "how": "Answer it with a specific story from the file rather than a claim."
+    },
+    {
+      "flag": "Reader doubt about whether the achievements were his or were handed to him",
+      "address_in": "essay",
+      "how": "Answer it with a specific story from the file rather than a claim."
+    },
+    {
+      "flag": "Unclear whether the MBA is his choice or his father's plan",
+      "address_in": "essay",
+      "how": "Answer it with a specific story from the file rather than a claim."
+    },
+    {
+      "flag": "Narrow experience: one employer, one industry, one city",
+      "address_in": "essay",
+      "how": "Answer it with a specific story from the file rather than a claim."
+    },
+    {
+      "flag": "No international exposure",
+      "address_in": "essay",
+      "how": "Answer it with a specific story from the file rather than a claim."
+    }
+  ],
+  "kit_properties": [
+    "Every number in every draft matches the Fact Sheet or a story's own numbers.",
+    "No draft names a person whose story marks them as not to be named.",
+    "No sentence uses any of these words: passionate, journey, legacy, impactful, self-made, visionary, disrupt.",
+    "The goals essay names the short-term goal specifically: To return to Saravana Mills as Managing Director with a mandate to professionalise it: an outside finance head, a board with two non-family members, and a second product line.",
+    "The leadership essay leads with \"The order I turned down\", or the Strategist says why another story is stronger.",
+    "The setback essay leads with \"The spinning contract I lost us\", or the Strategist says why another story is stronger."
+  ]
+}

@@ -37,6 +37,11 @@ export interface LedgerSink {
   spentByUser(userId: string): Promise<number>;
   /** USD */
   spentByKit(kitId: string): Promise<number>;
+  /**
+   * True when the user holds an active school-kit entitlement (Phase 4): paying users are exempt
+   * from the free-user cap and governed by the per-kit caps instead (§12.4).
+   */
+  isPaidUser?(userId: string): Promise<boolean>;
 }
 
 /**
@@ -53,4 +58,48 @@ export interface VoiceUsageEntry {
   costUsd: number;
   latencyMs: number;
   aiMode: "live" | "replay";
+}
+
+/* Retrieval contract with packages/kb ------------------------------------------------------- */
+// Defined identically in packages/kb, which owns it; structural typing joins the two. Keep both
+// copies in sync (spec §8.9).
+
+export type KbSourceType =
+  | "official"
+  | "adcom"
+  | "insider"
+  | "interview_reports"
+  | "coach_notes"
+  | "third_party_reference"
+  | "press";
+
+export interface ChunkFilters {
+  schoolId?: string;
+  cycle?: string;
+  sourceTypes?: KbSourceType[];
+  minTrust?: number;
+}
+
+export interface ChunkHit {
+  chunkId: string;
+  sourceId: string;
+  schoolId: string | null;
+  cycle: string | null;
+  text: string;
+  sourceType: KbSourceType;
+  trust: number;
+  title: string;
+  url: string | null;
+  /** ISO date. */
+  verifiedAt: string | null;
+  score: number;
+}
+
+export interface ChunkStore {
+  vectorSearch(q: {
+    embedding: number[];
+    filters: ChunkFilters;
+    limit: number;
+  }): Promise<ChunkHit[]>;
+  textSearch(q: { query: string; filters: ChunkFilters; limit: number }): Promise<ChunkHit[]>;
 }

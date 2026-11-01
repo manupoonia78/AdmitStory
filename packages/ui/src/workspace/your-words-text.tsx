@@ -71,11 +71,13 @@ interface OpenSource {
   pinned: boolean;
 }
 
-function kindLabel(sentence: DraftSentence): string {
+function kindLabel(sentence: Pick<DraftSentence, "kind" | "author">): string {
+  if (sentence.author === "user") return "You wrote this in the draft";
   return sentence.kind === "verbatim" ? "Your exact words" : "Adapted from what you said";
 }
 
-function describe(sentence: DraftSentence, sources: SourceExcerpts): string {
+/** A lit sentence's source in one line, for screen readers. */
+export function describeSource(sentence: DraftSentence, sources: SourceExcerpts): string {
   const found = sentence.sources
     .map((id) => sources[id])
     .filter((excerpt): excerpt is SourceExcerpt => Boolean(excerpt));
@@ -241,7 +243,7 @@ export function YourWordsText({
                         </span>
                         {own ? (
                           <span id={descriptionId} hidden>
-                            {describe(sentence, sources)}
+                            {describeSource(sentence, sources)}
                           </span>
                         ) : null}
                         {chips.map((need) => (
@@ -296,14 +298,23 @@ export function YourWordsText({
   );
 }
 
-function SourceBody({ sentence, sources }: { sentence: DraftSentence; sources: SourceExcerpts }) {
+/** What the source plane says: "The moment you said it", the original line, where it was said. */
+export function SourceBody({
+  sentence,
+  sources,
+}: {
+  sentence: DraftSentence;
+  sources: SourceExcerpts;
+}) {
   const found = sentence.sources
     .map((sourceId) => [sourceId, sources[sourceId]] as const)
     .filter((entry): entry is readonly [string, SourceExcerpt] => Boolean(entry[1]));
   return (
     <>
-      <p className="text-sm font-medium text-text">The moment you said it</p>
-      {found.length === 0 ? (
+      <p className="text-sm font-medium text-text">
+        {sentence.author === "user" && found.length === 0 ? "Your edit" : "The moment you said it"}
+      </p>
+      {found.length === 0 && sentence.author === "user" ? null : found.length === 0 ? (
         <p className="text-sm text-text-soft">The source for this sentence isn’t loaded.</p>
       ) : (
         found.map(([sourceId, excerpt]) => (

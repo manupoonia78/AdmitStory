@@ -1,4 +1,4 @@
-import { MODEL_IDS } from "./routing";
+import { EMBEDDING_MODEL_IDS, MODEL_IDS } from "./routing";
 
 /**
  * Token prices as config (spec §8.4, §12). Update these and PRICING_VERIFIED_AT together whenever
@@ -82,6 +82,24 @@ export const MODEL_PRICES: Readonly<Record<string, ModelPrice>> = {
     output: 10,
   }),
 };
+
+/**
+ * Embedding prices, USD per million input tokens. Voyage bills input tokens only; its first 200M
+ * tokens per account are free, which the ledger ignores (it records list price).
+ * Verify at build time: https://docs.voyageai.com/docs/pricing (checked 2026-10-31).
+ */
+export const EMBEDDING_PRICING_SOURCE = "https://docs.voyageai.com/docs/pricing";
+export const EMBEDDING_PRICES_USD_PER_MTOK: Readonly<Record<string, number>> = {
+  [EMBEDDING_MODEL_IDS.voyageLite]: 0.02,
+  [EMBEDDING_MODEL_IDS.fake]: 0,
+};
+
+/** USD cost of embedding `tokens` input tokens. Throws UnknownModelPriceError for an unpriced model. */
+export function computeEmbeddingCost(modelId: string, tokens: number): number {
+  const rate = EMBEDDING_PRICES_USD_PER_MTOK[modelId];
+  if (rate === undefined) throw new UnknownModelPriceError(modelId);
+  return (tokens * rate) / 1_000_000;
+}
 
 /** Batch API discount; stacks with the cache multipliers. Applies to tokens, not tool fees. */
 export const BATCH_DISCOUNT = 0.5;

@@ -2,4 +2,8 @@ export * from "./auth";
 export * from "./profiles";
 export * from "./studio";
 export * from "./usage";
+export * from "./schools";
+export * from "./applications";
+export * from "./commerce";
+export * from "./kits";
 export * from "./relations";

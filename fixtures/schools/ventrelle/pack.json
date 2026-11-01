@@ -1,0 +1,480 @@
+{
+  "school": {
+    "id": "ventrelle",
+    "name": "Ventrelle School of Business",
+    "short_name": "Ventrelle",
+    "country": "FR",
+    "city": "Saint-Aubrac-sur-Loire",
+    "website": "https://www.ventrelle.example",
+    "program": "full_time_mba"
+  },
+  "cycle": "2026-27",
+  "version": 2,
+  "status": "complete",
+  "synthetic": true,
+  "k_high_water": 33,
+  "sources": [
+    {
+      "id": "ventrelle-admissions",
+      "type": "official",
+      "title": "Ventrelle MBA application (synthetic)",
+      "url": "https://www.ventrelle.example/mba/apply",
+      "trust": 5,
+      "retrieved_at": "2026-06-30",
+      "rights_note": null
+    },
+    {
+      "id": "ventrelle-employment",
+      "type": "official",
+      "title": "Ventrelle MBA careers report 2026 (synthetic)",
+      "url": "https://www.ventrelle.example/mba/careers",
+      "trust": 5,
+      "retrieved_at": "2026-07-30",
+      "rights_note": null
+    },
+    {
+      "id": "ventrelle-class-profile",
+      "type": "official",
+      "title": "Ventrelle MBA class profile (synthetic)",
+      "url": "https://www.ventrelle.example/mba/class",
+      "trust": 5,
+      "retrieved_at": "2026-07-30",
+      "rights_note": null
+    },
+    {
+      "id": "ventrelle-webinar",
+      "type": "adcom",
+      "title": "Ventrelle admissions information session (synthetic)",
+      "url": null,
+      "trust": 4,
+      "retrieved_at": "2026-06-30",
+      "rights_note": null
+    },
+    {
+      "id": "ventrelle-students",
+      "type": "insider",
+      "title": "Conversations with Ventrelle students (synthetic)",
+      "url": null,
+      "trust": 3,
+      "retrieved_at": "2026-09-08",
+      "rights_note": null
+    },
+    {
+      "id": "ventrelle-interview-reports",
+      "type": "interview_reports",
+      "title": "Applicant interview reports (synthetic)",
+      "url": null,
+      "trust": 3,
+      "retrieved_at": "2026-09-08",
+      "rights_note": null
+    },
+    {
+      "id": "ventrelle-coach",
+      "type": "coach_notes",
+      "title": "Admitstory coaching notes on Ventrelle (synthetic)",
+      "url": null,
+      "trust": 4,
+      "retrieved_at": "2026-09-08",
+      "rights_note": null
+    }
+  ],
+  "official_urls": [
+    {
+      "kind": "prompts",
+      "url": "https://www.ventrelle.example/mba/apply"
+    },
+    {
+      "kind": "deadlines",
+      "url": "https://www.ventrelle.example/mba/apply/dates"
+    },
+    {
+      "kind": "class_profile",
+      "url": "https://www.ventrelle.example/mba/class"
+    },
+    {
+      "kind": "employment_report",
+      "url": "https://www.ventrelle.example/mba/careers"
+    }
+  ],
+  "rounds": [
+    {
+      "id": "K01",
+      "name": "R1",
+      "deadline": "2026-10-05",
+      "decision_date": "2026-12-07",
+      "notes": [],
+      "source_ids": ["ventrelle-admissions"],
+      "verified_at": "2026-06-30"
+    },
+    {
+      "id": "K02",
+      "name": "R2",
+      "deadline": "2027-01-11",
+      "decision_date": "2027-03-08",
+      "notes": [],
+      "source_ids": ["ventrelle-admissions"],
+      "verified_at": "2026-06-30"
+    },
+    {
+      "id": "K03",
+      "name": "R3",
+      "deadline": "2027-03-29",
+      "decision_date": "2027-05-24",
+      "notes": [],
+      "source_ids": ["ventrelle-admissions"],
+      "verified_at": "2026-06-30"
+    }
+  ],
+  "application": {
+    "essays": [
+      {
+        "id": "K04",
+        "key": "motivation",
+        "prompt_verbatim": "Why do you want to pursue an MBA now, and why at Ventrelle?",
+        "limit": {
+          "kind": "chars_incl_spaces",
+          "value": 2500
+        },
+        "required": true,
+        "archetypes": ["GOALS", "WHY-SCHOOL"],
+        "parts": ["why an MBA", "why now", "why Ventrelle"],
+        "notes": [],
+        "source_ids": ["ventrelle-admissions"],
+        "verified_at": "2026-06-30"
+      },
+      {
+        "id": "K05",
+        "key": "achievement",
+        "prompt_verbatim": "Describe your proudest achievement and the obstacles you overcame.",
+        "limit": {
+          "kind": "chars_incl_spaces",
+          "value": 2000
+        },
+        "required": true,
+        "archetypes": ["LEADERSHIP", "SETBACK"],
+        "parts": ["the achievement", "the obstacles"],
+        "notes": [],
+        "source_ids": ["ventrelle-admissions"],
+        "verified_at": "2026-06-30"
+      },
+      {
+        "id": "K06",
+        "key": "support",
+        "prompt_verbatim": "Tell us about someone who helped you grow and how you have helped others in return.",
+        "limit": {
+          "kind": "chars_incl_spaces",
+          "value": 1500
+        },
+        "required": true,
+        "archetypes": ["SUPPORT"],
+        "parts": ["who helped you", "how you helped others"],
+        "notes": [],
+        "source_ids": ["ventrelle-admissions"],
+        "verified_at": "2026-06-30"
+      }
+    ],
+    "short_answers": [],
+    "goal_fields": [],
+    "video": [
+      {
+        "id": "K07",
+        "format": "none",
+        "think_time_s": null,
+        "answer_time_s": null,
+        "attempts": null,
+        "question_types": [],
+        "scripting_allowed": false,
+        "source_ids": ["ventrelle-admissions"],
+        "verified_at": "2026-06-30"
+      }
+    ],
+    "reapplicant": {
+      "essay": null,
+      "policy": [
+        {
+          "id": "K08",
+          "text": "Reapplicants may reuse test scores but must submit new essays.",
+          "source_ids": ["ventrelle-admissions"],
+          "verified_at": "2026-06-30",
+          "confidence": 0.9
+        }
+      ]
+    },
+    "optional_essay": {
+      "id": "K09",
+      "key": "optional",
+      "prompt_verbatim": "Use this space to explain anything you have not covered elsewhere.",
+      "limit": {
+        "kind": "chars_incl_spaces",
+        "value": 1000
+      },
+      "required": false,
+      "archetypes": ["OPTIONAL"],
+      "parts": [],
+      "notes": [],
+      "source_ids": ["ventrelle-admissions"],
+      "verified_at": "2026-06-30"
+    },
+    "form_sections": [
+      {
+        "id": "K10",
+        "key": "languages",
+        "label": "Languages",
+        "item_count_max": 4,
+        "guidance": [
+          {
+            "id": "K11",
+            "text": "State the level of each language using the European framework (A1 to C2).",
+            "source_ids": ["ventrelle-admissions"],
+            "verified_at": "2026-06-30",
+            "confidence": 0.9
+          }
+        ],
+        "source_ids": ["ventrelle-admissions"],
+        "verified_at": "2026-06-30"
+      }
+    ],
+    "recommendations": {
+      "id": "K12",
+      "count": 2,
+      "format": "gmac_common",
+      "questions": [],
+      "notes": [],
+      "source_ids": ["ventrelle-admissions"],
+      "verified_at": "2026-06-30"
+    },
+    "resume": {
+      "id": "K13",
+      "page_limit": 1,
+      "notes": [],
+      "source_ids": ["ventrelle-admissions"],
+      "verified_at": "2026-06-30"
+    },
+    "test_policy": [
+      {
+        "id": "K14",
+        "text": "Requires the GMAT Focus Edition or the GRE.",
+        "source_ids": ["ventrelle-admissions"],
+        "verified_at": "2026-06-30",
+        "confidence": 0.9
+      },
+      {
+        "id": "K15",
+        "text": "Non-native English speakers without a degree taught in English submit an English test.",
+        "source_ids": ["ventrelle-admissions"],
+        "verified_at": "2026-06-30",
+        "confidence": 0.9
+      }
+    ],
+    "fees_waivers": [
+      {
+        "id": "K16",
+        "text": "The application fee is EUR 180.",
+        "source_ids": ["ventrelle-admissions"],
+        "verified_at": "2026-06-30",
+        "confidence": 0.9
+      }
+    ]
+  },
+  "values": {
+    "stated": [
+      {
+        "id": "K17",
+        "text": "Ventrelle values multilingual candidates who have worked in more than one country.",
+        "source_ids": ["ventrelle-admissions"],
+        "verified_at": "2026-06-30",
+        "confidence": 0.9
+      }
+    ],
+    "trait_map": [
+      {
+        "school_value": "multilingual and mobile",
+        "admitstory_traits": ["global_outlook", "unusual_path"]
+      }
+    ]
+  },
+  "culture_and_location": [
+    {
+      "id": "K18",
+      "text": "Small town campus in the Loire valley; most students rent shared houses in town.",
+      "source_ids": ["ventrelle-students"],
+      "verified_at": "2026-09-08",
+      "confidence": 0.75
+    }
+  ],
+  "academics": {
+    "courses": [
+      {
+        "id": "K19",
+        "name": "Luxury and Craft Management",
+        "what_it_is": "An elective on managing heritage brands and artisanal supply chains.",
+        "why_it_matters_for": ["luxury", "marketing"],
+        "url": "https://www.ventrelle.example/mba/electives",
+        "source_ids": ["ventrelle-admissions"],
+        "verified_at": "2026-06-30"
+      }
+    ],
+    "centers": [],
+    "experiential": [
+      {
+        "id": "K20",
+        "name": "Vineyard Operations Project",
+        "what_it_is": "A spring project with a regional wine cooperative.",
+        "why_it_matters_for": ["operations", "family business"],
+        "url": null,
+        "source_ids": ["ventrelle-admissions"],
+        "verified_at": "2026-06-30"
+      }
+    ],
+    "structure": [
+      {
+        "id": "K21",
+        "text": "Ten-month program taught in English, with optional French classes.",
+        "source_ids": ["ventrelle-admissions"],
+        "verified_at": "2026-06-30",
+        "confidence": 0.9
+      }
+    ]
+  },
+  "community": {
+    "clubs": [],
+    "traditions": [
+      {
+        "id": "K22",
+        "text": "The class runs a harvest weekend at a partner vineyard each October.",
+        "source_ids": ["ventrelle-students"],
+        "verified_at": "2026-09-08",
+        "confidence": 0.7
+      }
+    ],
+    "treks_events": []
+  },
+  "careers": {
+    "employment_report": {
+      "id": "K23",
+      "class_year": 2026,
+      "currency": "EUR",
+      "by_function": [
+        {
+          "function": "Consulting",
+          "share": 0.3,
+          "median_base": 92000
+        },
+        {
+          "function": "Marketing",
+          "share": 0.28,
+          "median_base": 78000
+        },
+        {
+          "function": "Operations",
+          "share": 0.22,
+          "median_base": 75000
+        },
+        {
+          "function": "Other",
+          "share": 0.2,
+          "median_base": null
+        }
+      ],
+      "top_employers": ["Maison Corvalle", "Hartmoor Consulting", "Bellerive Group"],
+      "source_ids": ["ventrelle-employment"],
+      "verified_at": "2026-07-30"
+    },
+    "recruiting_notes": []
+  },
+  "class_profile": {
+    "id": "K24",
+    "class_year": 2027,
+    "class_size": 74,
+    "gmat_focus_median": 615,
+    "gmat_classic_median": null,
+    "gre_median": null,
+    "gpa_median": null,
+    "gpa_scale": null,
+    "work_experience_years_median": 6,
+    "international_share": 0.88,
+    "source_ids": ["ventrelle-class-profile"],
+    "verified_at": "2026-07-30"
+  },
+  "interview": {
+    "id": "K25",
+    "invitation": "guaranteed_if_by_date",
+    "who": ["adcom", "alum"],
+    "blind": false,
+    "length_min": 40,
+    "location": ["campus", "virtual"],
+    "common_questions": [
+      {
+        "id": "K26",
+        "text": "Which languages do you speak, and how did you learn them?",
+        "frequency_weight": 3,
+        "source_ids": ["ventrelle-interview-reports"],
+        "verified_at": "2026-09-08"
+      },
+      {
+        "id": "K27",
+        "text": "Why a ten-month program?",
+        "frequency_weight": 4,
+        "source_ids": ["ventrelle-interview-reports"],
+        "verified_at": "2026-09-08"
+      }
+    ],
+    "format_notes": [
+      {
+        "id": "K28",
+        "text": "Applicants who submit by the R1 deadline are guaranteed an interview.",
+        "source_ids": ["ventrelle-admissions"],
+        "verified_at": "2026-06-30",
+        "confidence": 0.9
+      }
+    ],
+    "source_ids": ["ventrelle-admissions", "ventrelle-interview-reports"],
+    "verified_at": "2026-09-08"
+  },
+  "ai_policy": {
+    "id": "K29",
+    "stance": "unknown",
+    "applies_to": [],
+    "disclosure_text": null,
+    "notes": [
+      {
+        "id": "K30",
+        "text": "The application pages publish no policy on generative AI tools for this cycle.",
+        "source_ids": ["ventrelle-admissions"],
+        "verified_at": "2026-06-30",
+        "confidence": 0.9
+      }
+    ],
+    "source_ids": ["ventrelle-admissions"],
+    "verified_at": "2026-06-30"
+  },
+  "scholarships": [
+    {
+      "id": "K31",
+      "text": "Diversity and merit scholarships are awarded with the admission decision.",
+      "source_ids": ["ventrelle-admissions"],
+      "verified_at": "2026-06-30",
+      "confidence": 0.9
+    }
+  ],
+  "insider_notes": [],
+  "avoid": [
+    {
+      "id": "K32",
+      "text": "Claiming French fluency that the interview will test.",
+      "source_ids": ["ventrelle-coach"],
+      "verified_at": "2026-09-08",
+      "confidence": 0.8
+    }
+  ],
+  "angles_that_work": [
+    {
+      "id": "K33",
+      "text": "A support essay that names what the applicant passed on, not just what they received.",
+      "source_ids": ["ventrelle-coach"],
+      "verified_at": "2026-09-08",
+      "confidence": 0.75
+    }
+  ],
+  "glossary": []
+}

@@ -60,7 +60,8 @@ export default tseslint.config(
     rules: { "no-restricted-syntax": "off" },
   },
   {
-    files: ["**/*.test.ts", "**/*.test.tsx"],
+    // Tests, and the fixed sample inputs the recorders and tests share.
+    files: ["**/*.test.ts", "**/*.test.tsx", "packages/ai/scripts/samples/**"],
     rules: { "@typescript-eslint/no-non-null-assertion": "off" },
   },
   ...next.map((c) => ({

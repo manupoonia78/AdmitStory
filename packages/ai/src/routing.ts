@@ -14,6 +14,23 @@ export const MODEL_IDS = {
   sonnet5: "claude-sonnet-5",
 } as const;
 
+/**
+ * Embedding models (spec §8.9). Separate from MODEL_IDS, which are Messages API models only.
+ * `fake` is the deterministic local embedder (embed.ts): never billed, never in production.
+ */
+export const EMBEDDING_MODEL_IDS = {
+  voyageLite: "voyage-3.5-lite",
+  fake: "fake-hash-embed",
+} as const;
+export type EmbeddingModelKey = keyof typeof EMBEDDING_MODEL_IDS;
+
+/** The embedding route: kb_chunks.embedding is vector(1024) (§10), so the dimension is fixed. */
+export const EMBED_ROUTE = {
+  task: "kb.embed",
+  model: "voyageLite",
+  dimensions: 1024,
+} as const satisfies { task: string; model: EmbeddingModelKey; dimensions: number };
+
 export type ModelKey = keyof typeof MODEL_IDS;
 export type ModelId = (typeof MODEL_IDS)[ModelKey];
 
@@ -47,9 +64,14 @@ export interface Route extends ModelChoice {
   fallback?: ModelChoice;
   /** Used when the kit soft cap or the free-user cap is reached (§12.4). */
   downgrade?: ModelChoice;
+  /**
+   * §8.3 escalation: when the Critic fails a deliverable on structural rules twice, it is
+   * regenerated once on this stronger choice (escalation.ts decides; ai.run with ctx.escalate).
+   */
+  escalation?: ModelChoice;
   /** Opt into the API's server-side refusal fallback (beta path, live Opus/Sonnet routes only). */
   serverFallback: boolean;
-  /** Intended for the Batch API (−50%). Phase 0 has no batch transport yet; see README. */
+  /** May go through the Batch API (−50%) with ai.batch; ai.run() still serves it synchronously. */
   batch: boolean;
   tools: readonly RouteTool[];
   note: string;
@@ -84,6 +106,7 @@ interface RouteSpec extends ModelChoice {
   visibleBudget: number;
   fallback?: ModelChoice;
   downgrade?: ModelChoice;
+  escalation?: ModelChoice;
   serverFallback?: boolean;
   batch?: boolean;
   tools?: readonly RouteTool[];
@@ -100,6 +123,7 @@ function route(spec: RouteSpec): Route {
     maxTokens: maxTokensFor(spec.visibleBudget, spec),
     ...(spec.fallback ? { fallback: spec.fallback } : {}),
     ...(spec.downgrade ? { downgrade: spec.downgrade } : {}),
+    ...(spec.escalation ? { escalation: spec.escalation } : {}),
     // Server-side fallback is a live-path feature: not on Haiku, not on the Batch API.
     serverFallback: spec.serverFallback ?? (spec.model !== "haiku" && !batch),
     batch,
@@ -183,6 +207,8 @@ export const ROUTES = {
     visibleBudget: 6_000,
     fallback: { model: "sonnet", effort: "high", thinking: "adaptive" },
     downgrade: { model: "sonnet", effort: "high", thinking: "adaptive" },
+    // A structurally failing essay gets one more Opus pass with more room to think.
+    escalation: { model: "opus", effort: "high", thinking: "adaptive" },
     note: "One long essay per call; Opus is always adaptive.",
   }),
   "kit.shortform": route({
@@ -190,6 +216,7 @@ export const ROUTES = {
     effort: "medium",
     thinking: "adaptive",
     visibleBudget: 4_000,
+    escalation: { model: "opus", effort: "medium", thinking: "adaptive" },
     note: "All short items in one call; drafting is judgment, so adaptive.",
   }),
   "kit.critic": route({
@@ -211,6 +238,7 @@ export const ROUTES = {
     effort: "low",
     thinking: "adaptive",
     visibleBudget: 1_200,
+    escalation: { model: "sonnet", effort: "high", thinking: "adaptive" },
     note: "Regenerates one paragraph after a NEED answer; adaptive at low effort.",
   }),
   "forms.advise": route({
@@ -360,6 +388,7 @@ export const RouteOverride = z
     maxTokens: z.number().int().min(1).max(128_000).optional(),
     promptVersion: z.number().int().min(1).optional(),
     fallback: ModelChoiceSchema.nullable().optional(),
+    escalation: ModelChoiceSchema.nullable().optional(),
   })
   .strict();
 export type RouteOverride = z.infer<typeof RouteOverride>;
@@ -392,6 +421,13 @@ export function resolveRoute(task: RouteTask, override?: unknown): ResolvedRoute
     );
   }
 
+  const escalation = o.escalation === null ? undefined : (o.escalation ?? base.escalation);
+  if (escalation && !thinkingIsValid(escalation)) {
+    throw new Error(
+      `Invalid override for ${task}: escalation thinking "off" is not available on ${escalation.model}`,
+    );
+  }
+
   const resolved: ResolvedRoute = {
     ...base,
     ...choice,
@@ -401,6 +437,8 @@ export function resolveRoute(task: RouteTask, override?: unknown): ResolvedRoute
   };
   if (fallback) resolved.fallback = fallback;
   else delete resolved.fallback;
+  if (escalation) resolved.escalation = escalation;
+  else delete resolved.escalation;
   if (o.promptVersion !== undefined) resolved.promptVersion = o.promptVersion;
   return resolved;
 }

@@ -9,12 +9,16 @@
   "scripts": {
     "typecheck": "tsc -p tsconfig.json",
     "record:util-title": "tsx scripts/record-util-title.ts",
+    "record:phase3": "tsx scripts/record-phase3.ts",
     "simulate": "tsx scripts/simulate-studio.ts",
     "fixtures:resumes": "tsx scripts/fixture-resumes.ts",
     "check:tasks": "tsx scripts/check-tasks.ts",
-    "check:fixtures": "tsx scripts/check-fixtures.ts"
+    "check:fixtures": "tsx scripts/check-fixtures.ts",
+    "record:phase4": "tsx scripts/record-phase4.ts",
+    "kit:golden": "tsx scripts/kit-golden.ts"
   },
   "dependencies": {
+    "@admitstory/linters": "workspace:*",
     "@admitstory/shared": "workspace:*",
     "@admitstory/slots": "workspace:*",
     "@anthropic-ai/sdk": "1.3.0",

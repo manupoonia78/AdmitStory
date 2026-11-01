@@ -21,7 +21,10 @@ export function stubFetch(respond: Responder): StubFetch {
     const request: CapturedRequest = {
       url,
       headers: new Headers(init?.headers),
-      body: JSON.parse(String(init?.body)) as CapturedRequest["body"],
+      // GET requests (batch status and results) have no body.
+      body: (init?.body === undefined
+        ? {}
+        : JSON.parse(String(init.body))) as CapturedRequest["body"],
     };
     calls.push(request);
     return respond(request, calls.length - 1);

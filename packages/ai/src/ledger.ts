@@ -32,6 +32,8 @@ export interface LedgerSink {
   write(entry: UsageEntry): Promise<void>;
   spentByUser(userId: string): Promise<number>;
   spentByKit(kitId: string): Promise<number>;
+  /** A user with an active paid entitlement is governed by the per-kit caps, not the free cap. */
+  isPaidUser?(userId: string): Promise<boolean>;
 }
 
 export interface MemoryLedger extends LedgerSink {

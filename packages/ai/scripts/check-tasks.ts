@@ -1,4 +1,4 @@
-// Builds each Phase 1 task's request without calling the API: resolves its prompt version, loads
+// Builds each task's request without calling the API: resolves its prompt version, loads
 // its canon subset, compiles its output schema to JSON Schema, and builds its messages from a
 // sample input. Catches a prompt/schema mismatch, a missing canon rule or an unsupported schema
 // construct before any of it costs a request.
@@ -9,6 +9,23 @@ import { buildSystem, canonSubset, outputJsonSchema } from "../src/request";
 import { createFilePromptSource, loadPrompt, renderPrompt } from "../src/prompts/registry";
 import { TASKS } from "../src/tasks";
 import { ROUTES } from "../src/routing";
+import {
+  KB_NORMALIZE_OFFICIAL_INPUT,
+  KB_REFRESH_CHECK_INPUT,
+  KIT_POSITIONING_INPUT,
+  PROFILE_READ_INPUT,
+  SCHOOL_FIT_INPUT,
+} from "./samples/phase3";
+import {
+  DRAFT_NEED_FILL_INPUT,
+  DRAFT_REVISE_INPUT,
+  KIT_ANGLES_INPUT,
+  KIT_CRITIC_INPUT,
+  KIT_DRAFT_INPUT,
+  KIT_GAPS_INPUT,
+  KIT_SHORTFORM_INPUT,
+  UTIL_CLASSIFY_INPUT,
+} from "./samples/phase4";
 
 const root = findRepoRoot(process.cwd());
 if (!root) throw new Error("no repo root");
@@ -76,6 +93,19 @@ const SAMPLES: Record<string, unknown> = {
     alreadySaid: [],
   },
   "util.title": { text: "A passage to title." },
+  "profile.read": PROFILE_READ_INPUT,
+  "strategy.school_fit": SCHOOL_FIT_INPUT,
+  "kit.positioning_filemap": KIT_POSITIONING_INPUT,
+  "kb.normalize": KB_NORMALIZE_OFFICIAL_INPUT,
+  "kit.gaps": KIT_GAPS_INPUT,
+  "kit.angles": KIT_ANGLES_INPUT,
+  "kit.draft": KIT_DRAFT_INPUT,
+  "kit.shortform": KIT_SHORTFORM_INPUT,
+  "kit.critic": KIT_CRITIC_INPUT,
+  "draft.revise": DRAFT_REVISE_INPUT,
+  "draft.need_fill": DRAFT_NEED_FILL_INPUT,
+  "util.classify": UTIL_CLASSIFY_INPUT,
+  "kb.refresh_check": KB_REFRESH_CHECK_INPUT,
 };
 
 let failures = 0;

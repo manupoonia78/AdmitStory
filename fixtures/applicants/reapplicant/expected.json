@@ -1,0 +1,44 @@
+{
+  "slug": "reapplicant",
+  "lead_story": {
+    "LEADERSHIP": "the_supplier_rescue",
+    "SETBACK": "the_denials",
+    "GOALS": "the_pandemic_shift"
+  },
+  "never_without_consent": ["fathers_shop"],
+  "red_flags": [
+    {
+      "flag": "Denied at four schools last cycle, which the file has to address without sounding aggrieved",
+      "address_in": "essay",
+      "how": "Answer it with a specific story from the file rather than a claim."
+    },
+    {
+      "flag": "One employer for his entire career, in one city",
+      "address_in": "essay",
+      "how": "Answer it with a specific story from the file rather than a claim."
+    },
+    {
+      "flag": "Must show genuinely new material rather than a better-written version of last year",
+      "address_in": "essay",
+      "how": "Answer it with a specific story from the file rather than a claim."
+    },
+    {
+      "flag": "Automotive supply chain is a well-represented profile from India",
+      "address_in": "essay",
+      "how": "Answer it with a specific story from the file rather than a claim."
+    },
+    {
+      "flag": "Feedback that his previous file read as a list of responsibilities rather than a person",
+      "address_in": "essay",
+      "how": "Answer it with a specific story from the file rather than a claim."
+    }
+  ],
+  "kit_properties": [
+    "Every number in every draft matches the Fact Sheet or a story's own numbers.",
+    "No draft names a person whose story marks them as not to be named.",
+    "No sentence uses any of these words: passionate, journey, dream school, impactful, give back, leverage, ninja, rockstar.",
+    "The goals essay names the short-term goal specifically: A supply-chain or operations strategy role at a global manufacturer or a consultancy's operations practice, outside automotive, where the question is which plants and which suppliers rather than which part.",
+    "The leadership essay leads with \"The supplier I kept alive\", or the Strategist says why another story is stronger.",
+    "The setback essay leads with \"Four letters in one month\", or the Strategist says why another story is stronger."
+  ]
+}

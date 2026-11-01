@@ -1,0 +1,44 @@
+{
+  "slug": "nonprofit-to-social-enterprise",
+  "lead_story": {
+    "LEADERSHIP": "stopped_paying_fees",
+    "SETBACK": "mentor_i_removed",
+    "GOALS": "saturday_market"
+  },
+  "never_without_consent": ["mother_illness"],
+  "red_flags": [
+    {
+      "flag": "Small-organisation experience: eleven staff and a 28 million shilling budget will look modest",
+      "address_in": "essay",
+      "how": "Answer it with a specific story from the file rather than a claim."
+    },
+    {
+      "flag": "No commercial or P&L experience at all",
+      "address_in": "essay",
+      "how": "Show it through a story where the applicant made a commercial or people decision and carried others with them."
+    },
+    {
+      "flag": "Sector and salary change that admissions readers will question the realism of",
+      "address_in": "essay",
+      "how": "Make the short-term goal specific (role, sector, place) and connect it to a story that shows the motive."
+    },
+    {
+      "flag": "Quant 44 is the weaker half of her GMAT and her degree is non-quantitative",
+      "address_in": "optional",
+      "how": "Point to the quantitative and academic evidence elsewhere in the file in one plain paragraph; no apology and no excuse."
+    },
+    {
+      "flag": "No international experience outside East Africa",
+      "address_in": "essay",
+      "how": "Answer it with a specific story from the file rather than a claim."
+    }
+  ],
+  "kit_properties": [
+    "Every number in every draft matches the Fact Sheet or a story's own numbers.",
+    "No draft names a person whose story marks them as not to be named.",
+    "No sentence uses any of these words: passionate, empowerment, impactful, beneficiaries, journey, give back, voiceless, change-maker.",
+    "The goals essay names the short-term goal specifically: An operations or commercial role at a social enterprise selling to low-income customers in East Africa — a school group, a health provider or an off-grid energy company — where the revenue comes from the customer rather than a grant.",
+    "The leadership essay leads with \"The year we stopped paying fees\", or the Strategist says why another story is stronger.",
+    "The setback essay leads with \"The mentor I had to remove\", or the Strategist says why another story is stronger."
+  ]
+}

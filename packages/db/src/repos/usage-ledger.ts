@@ -3,6 +3,7 @@ import { z } from "zod";
 import type { DbExecutor } from "../client";
 import { aiModes, attemptKinds, usageLedger } from "../schema";
 import type { LedgerSink, UsageEntry, VoiceUsageEntry } from "../types";
+import { isPaidUser } from "./commerce";
 import { assertId } from "./ids";
 
 const count = z.int().nonnegative();
@@ -85,5 +86,6 @@ export function createUsageLedgerSink(db: DbExecutor): LedgerSink {
     write: (entry) => recordUsage(db, entry),
     spentByUser: (userId) => costForUser(db, userId),
     spentByKit: (kitId) => costForKit(db, kitId),
+    isPaidUser: (userId) => isPaidUser(db, userId),
   };
 }

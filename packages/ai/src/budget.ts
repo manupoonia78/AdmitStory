@@ -17,8 +17,8 @@ export type BudgetDecision = "ok" | "downgrade";
  * Decides whether a call may run on its route, must downgrade, or is blocked. Runs before any API
  * call (spec §8.4 step 2).
  *
- * Phase 0 treats every user as a free user: entitlements arrive in Phase 4, which will exempt
- * paying users from the free-user cap and leave them governed by the per-kit caps.
+ * Paying users (an active entitlement, Phase 4) are exempt from the free-user cap and governed by
+ * the per-kit caps; everyone else has the $5 free allowance.
  */
 export async function checkBudget(args: {
   ledger: LedgerSink;
@@ -37,7 +37,7 @@ export async function checkBudget(args: {
     if (spent >= caps.kitSoftUsd && args.route.downgrade) decision = "downgrade";
   }
 
-  if (args.userId) {
+  if (args.userId && !(await args.ledger.isPaidUser?.(args.userId))) {
     const spent = await args.ledger.spentByUser(args.userId);
     if (spent >= caps.freeUserUsd) {
       // e.g. Studio continues with the Haiku interviewer; everything else is blocked.

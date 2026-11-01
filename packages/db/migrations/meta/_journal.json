@@ -29,6 +29,20 @@
       "when": 1793389426462,
       "tag": "0003_voice_settings",
       "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "7",
+      "when": 1793432073371,
+      "tag": "0004_schools_and_knowledge",
+      "breakpoints": true
+    },
+    {
+      "idx": 5,
+      "version": "7",
+      "when": 1793471867320,
+      "tag": "0005_payments_and_kits",
+      "breakpoints": true
     }
   ]
 }

@@ -49,12 +49,12 @@ Nothing is resolved with `new URL(<dir>, import.meta.url)`. Turbopack and webpac
 
 ## What one call does
 
-1. **Route.** `routing.ts` resolves the route, applying any admin override (`RouteOverride`, which names models by key only). It also picks the prompt version: the highest `prompts/<agent>/v<N>.md` unless an override pins one.
+1. **Route.** `routing.ts` resolves the route, applying any admin override (`RouteOverride`, which names models by key only). It also picks the prompt version: a version pinned by an override first; otherwise the overlay's active versions, split by A/B weight with a stable hash of `userId`; otherwise the highest `prompts/<agent>/v<N>.md` (see Registry overlay).
 2. **Budget** (`budget.ts`). Past the kit soft cap ($15), routes that have a `downgrade` (kit.draft → Sonnet high, interview.report → Sonnet) are downgraded. Past the free-user cap, Studio continues with the Haiku interviewer and every other task is blocked. Phase 0 treats every user as free, because entitlements arrive in Phase 4.
-3. **Request** (`request.ts`). The system blocks are `[agent prompt][canon subset]` with a 1h breakpoint, then `[school pack]` with a 1h breakpoint, then `[dossier]` with a 5m breakpoint. Empty layers are left out. Nothing dynamic goes in `system`. Uploaded or pasted text is wrapped with `untrustedBlock()` (spec §14.6).
+3. **Request** (`request.ts`). The input is validated, and a task that `requires` the school pack or the dossier refuses to run without it. The system blocks are `[agent prompt][canon subset]` with a 1h breakpoint, then `[school pack]` with a 1h breakpoint, then `[dossier]` with a 5m breakpoint. Empty layers are left out. Nothing dynamic goes in `system`. Uploaded or pasted text is wrapped with `untrustedBlock()` (spec §14.6). Retrieved school chunks (§8.9) are task input, rendered by `retrievalBlocks()` in the messages, one untrusted block per chunk labelled with its K code; they never enter the cached prefix.
 4. **Structured output.** `output_config.format` gets the JSON Schema from the task's Zod schema, and `output_config.effort` gets the route's effort. Thinking is set per model: adaptive → `{type:"adaptive"}`; off → `{type:"disabled"}` on Haiku and `{type:"between_tools"}` on Sonnet. Opus thinking is never off. Sampling parameters are never sent.
 5. **Call.** The SDK retries 3 times with backoff (`LIVE_MAX_RETRIES`). Spec §8.3 says "retry with backoff (3 tries)", which we read as three retries after the first request, so a model that keeps failing gets 4 requests in total. After that, the route's fallback model is used, but only for 429, 5xx/overloaded and connection errors. Live Opus/Sonnet routes go through the beta path with `fallbacks: "default"`. Requests with `max_tokens` above 21,000, or with `ctx.stream`, use the streaming transport.
-6. **Validate.** The stop reason is checked first. On a validation failure, one repair turn is sent: the model's output plus the Zod issues, ending on a user turn. If the first reply was empty or whitespace, it is not sent back as an assistant turn, because the API rejects empty assistant content. Instead the instruction is appended to the final user turn.
+6. **Validate.** The stop reason is checked first. Then the Zod schema, then the task's own `check` rules that a JSON Schema cannot express (every cited code exists, a story is primary in at most one deliverable, no withheld story is planned, no third-party wording is copied). On a failure of either, one repair turn is sent: the model's output plus the issues, ending on a user turn. If the first reply was empty or whitespace, it is not sent back as an assistant turn, because the API rejects empty assistant content. Instead the instruction is appended to the final user turn.
 7. **Ledger.** One `UsageEntry` is written per billed attempt (`primary`, `repair`, `fallback`). Each entry records the served model, the 5m/1h cache-write split, the cost from `pricing.ts`, latency, `promptVersion` (`util.title@v1`), `runId` and `traceId`. When the API's server-side fallback served the turn, each `usage.iterations` hop is billed at its own model's rates. A hop with no `model` is billed at the requested model if it is a `message` hop, and at the served model if it is a `fallback_message` hop.
 8. **Trace.** One Langfuse generation is created per attempt (see Tracing).
 
@@ -79,6 +79,39 @@ pnpm --filter @admitstory/ai record:util-title --synthetic   # hand-authored res
 The script reads `.env.local` when live. It sends the request through `ai.run()`, so the fixture is keyed by exactly the request the app sends.
 
 > The util.title fixture in the repo is **synthetic** (`meta.synthetic: true`). It was written before an API key was available. Re-record it live before Phase 1.
+
+To record the Phase 3 tasks (`profile.read`, `strategy.school_fit`, `kit.positioning_filemap`, `kb.normalize`, `kb.refresh_check`) from the fixed samples in `scripts/samples/phase3.ts` (the fictional engineer-to-product applicant and the fictional Halvorsen pack):
+
+```sh
+AI_MODE=live ANTHROPIC_API_KEY=... pnpm --filter @admitstory/ai record:phase3
+pnpm --filter @admitstory/ai record:phase3 --synthetic   # hand-authored replies, no network
+```
+
+The committed Phase 3 fixtures are synthetic. Two of them include a repair turn on purpose.
+
+## Registry overlay
+
+`createAI({ overlay })` takes a `RegistryOverlay` (`prompts/overlay.ts`): prompt versions published from the admin console with `active` and `abWeight`, task route overrides, and canon documents. `createRegistryOverlay({ promptVersions, canonDocs, routeOverrides })` builds one from plain async functions and caches each answer for a minute (`ttlMs`). apps/web implements those functions over `prompt_versions` and `canon_docs`; this package never imports the database.
+
+- A published template has the same front matter as a file and replaces the file of the same version number.
+- Active versions share traffic by weight. A user lands in the same bucket every time (`abBucket`, sha256 of agent and user id); a call without a user takes the heaviest version. With nothing active, the newest file serves.
+- A version's own `routeOverride` applies on top of the task's.
+- Published canon replaces the file of the same slug (the highest version wins). Canon is ordered by slug and prepared layers are keyed by content, so identical content always produces the identical cached prefix.
+
+## Embeddings
+
+`ai.embed(texts, { inputType, userId, ... })` returns one 1024-dimension unit vector per text (`voyage-3.5-lite`, model ID in `routing.ts`). Requests go in groups of 128, and each is one `usage_ledger` row with task `kb.embed`, priced from `EMBEDDING_PRICES_USD_PER_MTOK`. `createAIFromEnv` uses Voyage when `VOYAGE_API_KEY` is set and otherwise the deterministic fake (`fakeEmbedding`), which refuses to run unless `APP_URL` is localhost and is recorded as `aiMode: "replay"` at no cost.
+
+## Batch API
+
+Routes with `batch: true` (`kb.normalize`, `kb.refresh_check`) can go through the Message Batches API at half the token price:
+
+```ts
+const submission = await ai.batch.submit("kb.normalize", inputs, ctx); // plain JSON: store it
+const result = await ai.batch.collect(submission, { inputs, ctx }); // "in_progress" or "ended"
+```
+
+Each item is built exactly as `ai.run()` builds it, without the server-side fallback. `collect` checks each result like `ai.run()` (with the task's rules when the inputs are passed back) but never repairs: a failed item comes back as an error to retry through `ai.run()`. One ledger row per billed result, at the batch discount, written by `collect` once the batch has ended, so call it once per ended batch. In replay mode a batch item is served from the same fixture as the equivalent `ai.run()` call.
 
 ## Tracing
 

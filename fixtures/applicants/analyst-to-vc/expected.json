@@ -1,0 +1,55 @@
+{
+  "slug": "analyst-to-vc",
+  "lead_story": {
+    "LEADERSHIP": "brightwater_growth",
+    "SETBACK": "analyst_handbook",
+    "GOALS": "redhill_carve_out",
+    "IDENTITY": "group_chat"
+  },
+  "never_without_consent": ["mothers_treatment"],
+  "red_flags": [
+    {
+      "flag": "Would be the youngest in the cohort: twenty-four now, twenty-five at matriculation, three years of work and all of it at one firm",
+      "address_in": "essay",
+      "how": "Answer it with a specific story from the file rather than a claim."
+    },
+    {
+      "flag": "The most over-represented application there is — banking analyst to venture capital — and nothing in his file yet distinguishes him from it",
+      "address_in": "essay",
+      "how": "Answer it with a specific story from the file rather than a claim."
+    },
+    {
+      "flag": "Thin outside involvement: a group chat for about two hours a month, and one year as a college club treasurer",
+      "address_in": "essay",
+      "how": "Answer it with a specific story from the file rather than a claim."
+    },
+    {
+      "flag": "Goals read as a brand rather than a plan: no cheque size, stage, fund type or thesis he could defend for ten minutes",
+      "address_in": "essay",
+      "how": "Make the short-term goal specific (role, sector, place) and connect it to a story that shows the motive."
+    },
+    {
+      "flag": "Has never managed anybody, and will be compared with applicants who have run teams",
+      "address_in": "essay",
+      "how": "Show it through a story where the applicant made a commercial or people decision and carried others with them."
+    },
+    {
+      "flag": "Narrow exposure: one bank, one group, one sector, no time outside the United States",
+      "address_in": "essay",
+      "how": "Answer it with a specific story from the file rather than a claim."
+    },
+    {
+      "flag": "Venture capital is the hardest post-MBA role to recruit into, and his Plan B is largely the job he already has",
+      "address_in": "essay",
+      "how": "Answer it with a specific story from the file rather than a claim."
+    }
+  ],
+  "kit_properties": [
+    "Every number in every draft matches the Fact Sheet or a story's own numbers.",
+    "No draft names a person whose story marks them as not to be named.",
+    "No sentence uses any of these words: passionate, journey, impactful, humbled, authentic, visionary, thought leader, servant leader, my north star, driven.",
+    "The goals essay names the short-term goal specifically: An investment-associate seat at an early-stage fund writing first cheques into software for freight, logistics and the back office of physical businesses, in New York or the Bay Area.",
+    "The leadership essay leads with \"The growth number I took apart\", or the Strategist says why another story is stronger.",
+    "The setback essay leads with \"The handbook the firm pretends it always had\", or the Strategist says why another story is stronger."
+  ]
+}
