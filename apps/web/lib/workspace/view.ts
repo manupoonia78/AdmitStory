@@ -4,6 +4,7 @@ import {
   getCurrentDraft,
   getDb,
   getDraft,
+  latestResumeReview,
   listAngles,
   listChecks,
   listDeliverables,
@@ -17,7 +18,7 @@ import {
   type DraftRow,
   type KitContext,
 } from "@admitstory/db";
-import { countAfterNormalize } from "@admitstory/linters";
+import { countAfterNormalize, type ConsistencyFinding } from "@admitstory/linters";
 import type {
   CheckFinding,
   CountRule,
@@ -31,6 +32,7 @@ import type {
   VerifyEntry,
 } from "@admitstory/ui";
 import type { CoachBeats, FileMap, VideoPlan } from "@admitstory/shared/kit";
+import { consistencyReport, findingsFor } from "@/lib/forms/consistency";
 import { deliverableContext, policyFor } from "./server";
 
 // Everything screen G shows for one deliverable (spec §5.8, §6.10 G), as plain JSON for the page
@@ -63,6 +65,8 @@ function fileStatus(d: Deliverable, failed: boolean): FileStatus {
 
 export interface WorkspaceView {
   kitId: string;
+  /** Résumé, form and essay mismatches touching this deliverable (§5.10), for the Checks tab. */
+  consistency: ConsistencyFinding[];
   school: string;
   heading: string;
   files: FileEntry[];
@@ -133,6 +137,72 @@ async function versionsOf(userId: string, deliverableId: string): Promise<DraftV
   );
 }
 
+/** The Files pane entry for the Résumé Pass, which lives at /resume (per applicant, not per kit). */
+export const RESUME_FILE_KEY = "resume";
+
+/**
+ * The Files pane for one kit (spec §5.8): every deliverable with its status, open questions and
+ * limit progress, plus the Résumé Pass. Shared by the document view and the form view.
+ */
+export async function kitFiles(
+  userId: string,
+  kitId: string,
+  loaded: {
+    all?: Deliverable[];
+    needs?: Awaited<ReturnType<typeof listNeedItems>>;
+    verify?: Awaited<ReturnType<typeof listVerifyItems>>;
+    current?: DraftRow | null;
+  } = {},
+): Promise<FileEntry[]> {
+  const db = getDb();
+  const [all, needs, verify, review] = await Promise.all([
+    loaded.all ?? listDeliverables(db, userId, kitId).then((rows) => rows ?? []),
+    loaded.needs ?? listNeedItems(db, userId, { kitId }),
+    loaded.verify ?? listVerifyItems(db, userId, kitId),
+    latestResumeReview(db, userId),
+  ]);
+  const openNeeds = needs.filter((n) => n.status === "open");
+  const files: FileEntry[] = await Promise.all(
+    all.map(async (d) => {
+      const rule = countRuleOf(d);
+      const current =
+        loaded.current && loaded.current.deliverableId === d.id
+          ? loaded.current
+          : await getCurrentDraft(db, userId, d.id);
+      const open =
+        openNeeds.filter((n) => n.deliverableId === d.id).length +
+        verify.filter((v) => v.deliverableId === d.id && v.status === "open").length;
+      return {
+        key: d.id,
+        title: d.title ?? d.packKey,
+        group: GROUP_OF[d.type] ?? "essays",
+        // Form sections are advised, not drafted: ready once the kit is.
+        status:
+          d.type === "form_section" && d.status === "pending"
+            ? "draft_ready"
+            : fileStatus(d, false),
+        ...(open > 0 ? { openQuestions: open } : {}),
+        ...(rule && current
+          ? {
+              progress: {
+                count: countAfterNormalize(current.plainText, d.limitKind ?? "words"),
+                limit: rule.limit,
+                unit: rule.unit,
+              },
+            }
+          : {}),
+      };
+    }),
+  );
+  files.push({
+    key: RESUME_FILE_KEY,
+    title: "Resume pass",
+    group: "resume",
+    status: review ? "draft_ready" : "waiting",
+  });
+  return files;
+}
+
 export async function loadWorkspaceView(
   userId: string,
   deliverableId: string,
@@ -152,35 +222,18 @@ export async function loadWorkspaceView(
       policyFor(kit),
       versionsOf(userId, deliverable.id),
     ]);
-  const checks = draft ? await listChecks(db, userId, draft.id) : [];
+  const [checks, report] = await Promise.all([
+    draft ? listChecks(db, userId, draft.id) : [],
+    consistencyReport(db, userId, { kitId: kit.kit.id }),
+  ]);
   const allVersions = await listDraftVersions(db, userId, deliverable.id);
 
-  const openNeeds = needs.filter((n) => n.status === "open");
-  const files: FileEntry[] = await Promise.all(
-    (all ?? []).map(async (d) => {
-      const rule = countRuleOf(d);
-      const current = d.id === deliverable.id ? draft : await getCurrentDraft(db, userId, d.id);
-      const open =
-        openNeeds.filter((n) => n.deliverableId === d.id).length +
-        verify.filter((v) => v.deliverableId === d.id && v.status === "open").length;
-      return {
-        key: d.id,
-        title: d.title ?? d.packKey,
-        group: GROUP_OF[d.type] ?? "essays",
-        status: fileStatus(d, false),
-        ...(open > 0 ? { openQuestions: open } : {}),
-        ...(rule && current
-          ? {
-              progress: {
-                count: countAfterNormalize(current.plainText, d.limitKind ?? "words"),
-                limit: rule.limit,
-                unit: rule.unit,
-              },
-            }
-          : {}),
-      };
-    }),
-  );
+  const files = await kitFiles(userId, kit.kit.id, {
+    all: all ?? [],
+    needs,
+    verify,
+    current: draft,
+  });
 
   const sources: Record<string, { label: string; quote: string }> = {};
   for (const line of lines) sources[line.code] = { label: "Your words", quote: line.text };
@@ -215,6 +268,7 @@ export async function loadWorkspaceView(
 
   return {
     kitId: kit.kit.id,
+    consistency: findingsFor(report, new Set([deliverable.id])),
     school: kit.school.shortName || kit.school.name,
     heading: `${kit.school.shortName || kit.school.name} ${kit.cycle}`,
     files,
@@ -243,8 +297,13 @@ export async function loadWorkspaceView(
           text: draft.plainText,
         }
       : null,
-    needs: openNeeds
-      .filter((n) => n.deliverableId === deliverable.id && (!n.draftId || n.draftId === draft?.id))
+    needs: needs
+      .filter(
+        (n) =>
+          n.status === "open" &&
+          n.deliverableId === deliverable.id &&
+          (!n.draftId || n.draftId === draft?.id),
+      )
       .map((n) => ({
         id: n.id,
         paragraphId: n.paragraphId,

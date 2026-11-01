@@ -263,7 +263,11 @@ importers:
         specifier: 4.6.7
         version: 4.6.7
 
-  packages/linters: {}
+  packages/linters:
+    devDependencies:
+      '@admitstory/shared':
+        specifier: workspace:*
+        version: link:../shared
 
   packages/payments:
     dependencies:
@@ -288,6 +292,9 @@ importers:
 
   packages/ui:
     dependencies:
+      '@admitstory/linters':
+        specifier: workspace:*
+        version: link:../linters
       '@admitstory/shared':
         specifier: workspace:*
         version: link:../shared

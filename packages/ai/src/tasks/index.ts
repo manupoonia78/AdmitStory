@@ -10,6 +10,7 @@ import {
 } from "./studio";
 import { kbNormalize, kbRefreshCheck } from "./kb";
 import { draftNeedFill, draftRevise, utilClassify } from "./draft";
+import { formsAdvise, resumeReview } from "./forms";
 import { kitPositioningFilemap } from "./kit";
 import { kitAngles, kitCritic, kitDraft, kitGaps, kitShortform } from "./kit-writing";
 import { profileRead, schoolFit } from "./strategy";
@@ -39,6 +40,8 @@ export const TASKS = {
   "draft.revise": draftRevise,
   "draft.need_fill": draftNeedFill,
   "util.classify": utilClassify,
+  "forms.advise": formsAdvise,
+  "resume.review": resumeReview,
 } as const;
 
 export type TaskName = keyof typeof TASKS;

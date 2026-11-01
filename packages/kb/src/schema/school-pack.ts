@@ -100,6 +100,11 @@ export const FormSection = z.object({
   label: NonEmpty,
   item_count_max: z.number().int().positive().optional(),
   char_limit: z.number().int().positive().optional(),
+  /**
+   * How the portal counts `char_limit` (Phase 5 addition: §9.2 gives forms a character limit but no
+   * counting rule). Absent means characters including spaces, how most portals count a field.
+   */
+  limit_kind: LimitKind.optional(),
   guidance: z.array(PackItem),
 });
 

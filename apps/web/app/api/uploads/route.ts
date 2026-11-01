@@ -60,7 +60,9 @@ export async function POST(request: Request): Promise<Response> {
         "That file has almost no text in it. If it's a scan, a text-based PDF works better.",
       );
 
-    const documentKind = guessDocumentKind(file.name, text);
+    // The Résumé page says what it sends; elsewhere the kind is guessed from the file.
+    const documentKind =
+      form.get("kind") === "resume" ? "resume" : guessDocumentKind(file.name, text);
     const source = await createSource(getDb(), userId, {
       kind: "upload",
       text,

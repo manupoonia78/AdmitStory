@@ -89,6 +89,10 @@ describe("schema conventions (spec §10)", () => {
         "revision_requests",
         "verify_items",
         "webhook_events",
+        // Phase 5: the Form Advisor, the Résumé Pass and the consistency check.
+        "consistency_dismissals",
+        "form_advice",
+        "resume_reviews",
       ].sort(),
     );
   });
@@ -414,5 +418,32 @@ describe("Phase 4 tables (§10 applications and kits)", () => {
       kit_regenerations: 1,
     });
     expect(schema.kitStageKeys).toHaveLength(10);
+  });
+});
+
+describe("Phase 5 tables (§5.10 forms, résumé, consistency)", () => {
+  const uniques = (name: string) =>
+    table(name).uniqueConstraints.map((u) => u.columns.map((c) => c.name));
+
+  it.each(["form_advice", "resume_reviews", "consistency_dismissals"])(
+    "%s has an indexed user_id that cascades with the user",
+    (name) => {
+      expect(column(name, "user_id").notNull).toBe(true);
+      expect(onDelete(name, "user_id")).toBe("cascade");
+      const config = table(name);
+      const indexed = [
+        ...config.indexes.map((i) => i.config.columns.map((c) => ("name" in c ? c.name : ""))),
+        ...config.uniqueConstraints.map((u) => u.columns.map((c) => c.name)),
+      ];
+      expect(indexed.some((cols) => cols[0] === "user_id")).toBe(true);
+    },
+  );
+
+  it("keeps one advice per kit, one review per résumé and one dismissal per finding", () => {
+    expect(uniques("form_advice")).toContainEqual(["kit_id"]);
+    expect(onDelete("form_advice", "kit_id")).toBe("cascade");
+    expect(uniques("resume_reviews")).toContainEqual(["source_id"]);
+    expect(onDelete("resume_reviews", "source_id")).toBe("cascade");
+    expect(uniques("consistency_dismissals")).toContainEqual(["user_id", "finding_id"]);
   });
 });

@@ -51,6 +51,8 @@ import type {
   ShortformItem,
 } from "@admitstory/shared/kit";
 import { authorshipFor, DELIVERABLE_TYPE_OF, type AiStance } from "./authorship";
+import { adviseForms } from "@/lib/forms/advise";
+import { reviewLatestResume } from "@/lib/forms/resume";
 import { packDeliverables, type PackDeliverable } from "@/lib/strategy/deliverables";
 import { ensureSnapshot, retrieveForSchool } from "@/lib/strategy/jobs";
 import { asPack } from "@/lib/strategy/pack";
@@ -59,8 +61,8 @@ import { latestPack } from "@/lib/strategy/server";
 // The kit pipeline (spec §5.7): ten stages, each persisted to kit_stages before the next starts, so
 // a crashed or retried run resumes where it stopped and never pays twice for a finished stage. The
 // Inngest function runs each stage in its own step; without Inngest (local development) the same
-// stages run in order after the webhook's response. Stage 9 (forms, résumé, recommenders,
-// interview plan) is Phases 5–7: a typed hook, recorded as skipped.
+// stages run in order after the webhook's response. Stage 9 runs the Form Advisor and the Résumé
+// Pass (Phase 5); recommender briefs and the interview plan join it in Phases 6 and 7.
 
 export type KitAI = Pick<AI, "run">;
 
@@ -820,6 +822,45 @@ async function verifyStage(deps: KitDeps, ref: KitRef, l: Loaded) {
   return { verify: items.length };
 }
 
+export interface FormsStageOutput {
+  /** `failed` keeps the kit going; the form view asks again when it's opened. */
+  forms: { sections: number; mode: "draft" | "coach" } | "failed";
+  /** "reviewed" now, "kept" an earlier review, "none" without a résumé, "failed" (kit continues). */
+  resume: "reviewed" | "kept" | "none" | "failed";
+  /** Phases 6 and 7 add recommender briefs and the interview plan here. */
+  later: ["recommenders", "interview_plan"];
+}
+
+/**
+ * Stage 9 (§5.7): the Form Advisor for this school, and the Résumé Pass when a résumé has been
+ * uploaded and not reviewed yet. Neither failing fails the kit, whose essays are ready by now: the
+ * form view and the Résumé page each ask again when opened.
+ */
+async function formsStage(deps: KitDeps, ref: KitRef, l: Loaded): Promise<FormsStageOutput> {
+  let forms: FormsStageOutput["forms"];
+  try {
+    const advised = await adviseForms(deps, ref, l);
+    forms = { sections: advised.sections, mode: advised.mode };
+  } catch (error) {
+    if (error instanceof KitNotFoundError) throw error;
+    console.error("[kit] form advisor failed", error);
+    forms = "failed";
+  }
+  let resume: FormsStageOutput["resume"];
+  try {
+    const result = await reviewLatestResume(deps.ai, ref.userId, { db: deps.db });
+    resume = !result ? "none" : result.fresh ? "reviewed" : "kept";
+  } catch (error) {
+    console.error("[kit] résumé pass failed", error);
+    resume = "failed";
+  }
+  return {
+    forms,
+    resume,
+    later: ["recommenders", "interview_plan"],
+  };
+}
+
 /* Driver ---------------------------------------------------------------------------------------- */
 
 /** Runs one stage by key. The Inngest function calls this once per step. */
@@ -847,16 +888,8 @@ export async function runStage(deps: KitDeps, ref: KitRef, key: KitStageKey): Pr
       return stage(deps, ref, key, () => shortFormStage(deps, ref, l), { rerun });
     case "checks":
       return stage(deps, ref, key, () => checksStage(deps, ref, l), { rerun });
-    case "forms": {
-      // Phases 5–7 fill this (forms, résumé, recommenders, interview plan).
-      const existing = await getKitStage(deps.db, ref.userId, ref.kitId, key);
-      if (existing?.status !== "skipped")
-        await upsertKitStage(deps.db, ref.userId, ref.kitId, key, {
-          status: "skipped",
-          output: { hook: "phases-5-7" },
-        });
-      return { hook: "phases-5-7" };
-    }
+    case "forms":
+      return stage(deps, ref, key, () => formsStage(deps, ref, l));
     case "verify":
       return stage(deps, ref, key, () => verifyStage(deps, ref, l), { rerun });
   }

@@ -6,4 +6,5 @@ export * from "./schools";
 export * from "./applications";
 export * from "./commerce";
 export * from "./kits";
+export * from "./forms";
 export * from "./relations";

@@ -1,0 +1,262 @@
+{
+  "applicant": "consultant-to-pe",
+  "facts": [
+    {
+      "code": "F01",
+      "key": "employer_current",
+      "value": "Halderbach Partners",
+      "approvedPhrasing": null
+    },
+    {
+      "code": "F02",
+      "key": "title_current",
+      "value": "Project Leader",
+      "approvedPhrasing": null
+    },
+    {
+      "code": "F03",
+      "key": "title_previous",
+      "value": "Senior Consultant",
+      "approvedPhrasing": null
+    },
+    {
+      "code": "F04",
+      "key": "location_current",
+      "value": "Frankfurt am Main, Germany",
+      "approvedPhrasing": null
+    },
+    {
+      "code": "F05",
+      "key": "team_size",
+      "value": "Leads three consultants and two client analysts on his current mandate; no permanent reports",
+      "approvedPhrasing": null
+    },
+    {
+      "code": "F06",
+      "key": "degree",
+      "value": "BSc Business Administration, Universität Oberrhein, 2022",
+      "approvedPhrasing": null
+    },
+    {
+      "code": "F07",
+      "key": "gpa",
+      "value": "1.4 on the German scale, where 1.0 is the best mark and 4.0 the pass mark",
+      "approvedPhrasing": null
+    },
+    {
+      "code": "F08",
+      "key": "gmat_total",
+      "value": "745",
+      "approvedPhrasing": null
+    },
+    {
+      "code": "F09",
+      "key": "languages",
+      "value": "German, English, French (working)",
+      "approvedPhrasing": null
+    },
+    {
+      "code": "F10",
+      "key": "sector_focus",
+      "value": "Industrials and automotive suppliers in the German-speaking mid-market",
+      "approvedPhrasing": null
+    },
+    {
+      "code": "F11",
+      "key": "clients_served",
+      "value": "Nine clients in four years, six of them family-owned industrial businesses",
+      "approvedPhrasing": null
+    },
+    {
+      "code": "F12",
+      "key": "deal_experience",
+      "value": "One buy-side commercial due diligence, three weeks, on a facilities-management target for a mid-market fund",
+      "approvedPhrasing": null
+    },
+    {
+      "code": "F13",
+      "key": "review_rating",
+      "value": "3 of 5 at his 2024 mid-year review, 4 of 5 in the two reviews since",
+      "approvedPhrasing": null
+    },
+    {
+      "code": "F14",
+      "key": "travel",
+      "value": "Three or four nights a week at client sites, mostly Baden-Württemberg and Austria",
+      "approvedPhrasing": null
+    },
+    {
+      "code": "F15",
+      "key": "partner_sponsor",
+      "value": "Dr. Annette Koerber",
+      "approvedPhrasing": null
+    },
+    {
+      "code": "F16",
+      "key": "family",
+      "value": "Father was an owner-driver with a four-lorry haulage business that was wound up; mother is a dental assistant; one younger sister, now a qualified mechatronics technician",
+      "approvedPhrasing": null
+    },
+    {
+      "code": "F17",
+      "key": "side_commitment",
+      "value": "Runs Saturday money workshops for apprentices at the Berufsschule am Mainbogen in Offenbach, since 2023",
+      "approvedPhrasing": null
+    },
+    {
+      "code": "F18",
+      "key": "international_exposure",
+      "value": "No work or study outside German-speaking Europe; one Austrian mandate and one week in Lyon with a client's plant",
+      "approvedPhrasing": null
+    }
+  ],
+  "roles": [
+    {
+      "ref": "r1",
+      "organisation": "Halderbach Partners",
+      "title": "Project Leader",
+      "dates": "Jul 2026 – Present"
+    },
+    {
+      "ref": "r2",
+      "organisation": "Halderbach Partners",
+      "title": "Senior Consultant",
+      "dates": "Oct 2024 – Jun 2026"
+    }
+  ],
+  "clean": [
+    {
+      "id": "resume",
+      "kind": "resume",
+      "label": "Resume",
+      "segments": [
+        {
+          "ref": "b1",
+          "text": "Lead three consultants and two client analysts on a cost mandate for a family-owned automotive supplier."
+        },
+        {
+          "ref": "b2",
+          "text": "Brauer cost programme: identified €18.4 million of annual cost across 4 plants and 1,400 employees; the owner signed €11.2 million, and margin recovered 2.6 percentage points the following year."
+        },
+        {
+          "ref": "b3",
+          "text": "Served nine clients in four years, six of them family-owned industrial businesses."
+        },
+        {
+          "ref": "b4",
+          "text": "Commercial due diligence over three weeks: showed the evidence supported 3.1 per cent growth, not the 6 per cent the fund wanted."
+        },
+        {
+          "ref": "extra.line1",
+          "text": "Since 2023, run Saturday money workshops for apprentices at the Berufsschule am Mainbogen in Offenbach; 31 apprentices so far."
+        }
+      ]
+    },
+    {
+      "id": "form:employment",
+      "kind": "form",
+      "label": "Form: Employment history",
+      "segments": [
+        {
+          "ref": "employment/i1",
+          "text": "Project Leader, Halderbach Partners, Frankfurt (since July 2026). I lead three consultants and two client analysts on my current mandate. Senior Consultant from October 2024 to June 2026."
+        }
+      ]
+    },
+    {
+      "id": "essay-1",
+      "kind": "essay",
+      "label": "Essay 1",
+      "segments": [
+        {
+          "ref": "p1",
+          "text": "In 2025, as a Senior Consultant at Halderbach Partners, I ran 38 interviews across four plants for the Brauer cost programme. We identified €18.4 million of annual cost; the owner signed €11.2 million."
+        },
+        {
+          "ref": "p2",
+          "text": "I became Project Leader in July 2026, one review cycle early. On my current mandate I lead three consultants and two client analysts, and I still check every figure four times before it goes in a pack."
+        }
+      ]
+    },
+    {
+      "id": "brief:koerber",
+      "kind": "brief",
+      "label": "Brief for Dr. Annette Koerber",
+      "segments": [
+        {
+          "ref": "t1",
+          "text": "Matthias has led three consultants and two client analysts as Project Leader since July 2026."
+        },
+        {
+          "ref": "t2",
+          "text": "On the Brauer programme he identified €18.4 million of annual cost; please mention the apprentice measures he argued to keep."
+        }
+      ]
+    }
+  ],
+  "seeded": [
+    {
+      "id": "consultant-to-pe-01",
+      "subject": "employer",
+      "doc_id": "essay-1",
+      "ref": "p1",
+      "from": "at Halderbach Partners",
+      "to": "at Halderbach Consulting",
+      "note": "firm name changed in an essay"
+    },
+    {
+      "id": "consultant-to-pe-02",
+      "subject": "title",
+      "doc_id": "brief:koerber",
+      "ref": "t1",
+      "from": "as Project Leader since",
+      "to": "as Project Manager since",
+      "note": "title reworded in a brief"
+    },
+    {
+      "id": "consultant-to-pe-03",
+      "subject": "date",
+      "doc_id": "resume",
+      "ref": "r1.dates",
+      "from": "Jul 2026",
+      "to": "Jul 2025",
+      "note": "résumé start date a year early"
+    },
+    {
+      "id": "consultant-to-pe-04",
+      "subject": "team_size",
+      "doc_id": "brief:koerber",
+      "ref": "t1",
+      "from": "led three consultants",
+      "to": "led four consultants",
+      "note": "team size in a brief"
+    },
+    {
+      "id": "consultant-to-pe-05",
+      "subject": "number",
+      "doc_id": "resume",
+      "ref": "b2",
+      "from": "signed €11.2 million",
+      "to": "signed €12.1 million",
+      "note": "digits swapped on the résumé"
+    },
+    {
+      "id": "consultant-to-pe-06",
+      "subject": "date",
+      "doc_id": "essay-1",
+      "ref": "p2",
+      "from": "Project Leader in July 2026",
+      "to": "Project Leader in June 2026",
+      "note": "promotion month in an essay"
+    },
+    {
+      "id": "consultant-to-pe-07",
+      "subject": "employer",
+      "doc_id": "form:employment",
+      "ref": "employment/i1",
+      "from": "Halderbach Partners, Frankfurt",
+      "to": "Halderbach & Partners, Frankfurt",
+      "note": "ampersand added to the firm name"
+    }
+  ]
+}

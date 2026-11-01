@@ -1,5 +1,6 @@
-// Deterministic draft checks, provenance and the AI-tell index (spec §8.7, §8.8). Pure functions,
-// no dependencies, safe to import in the browser.
+// Deterministic draft checks, provenance, the AI-tell index (spec §8.7, §8.8), cross-document
+// consistency and the résumé layout (§5.10). Pure functions with no runtime dependencies, safe to
+// import in the browser.
 
 export * from "./types";
 export {
@@ -86,3 +87,27 @@ export {
   type ChangeInfo,
   type Linter,
 } from "./run";
+export {
+  bulletText,
+  estimatePages,
+  fillPlaceholders,
+  orderedSections,
+  overflowIndex,
+  placeholdersIn,
+  RESUME_LAYOUT,
+  resumeLines,
+  type ResumeLine,
+} from "./resume";
+export {
+  CONSISTENCY_SUBJECTS,
+  type ConsistencyDoc,
+  type ConsistencyDocKind,
+  type ConsistencyFinding,
+  type ConsistencyInput,
+  type ConsistencyRole,
+  type ConsistencySegment,
+  type ConsistencySubject,
+  type ConsistencyValue,
+} from "./consistency/types";
+export { checkConsistency } from "./consistency/check";
+export { fitToLimit, type FitResult } from "./fit";

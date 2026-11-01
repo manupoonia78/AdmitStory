@@ -15,7 +15,8 @@
     "check:tasks": "tsx scripts/check-tasks.ts",
     "check:fixtures": "tsx scripts/check-fixtures.ts",
     "record:phase4": "tsx scripts/record-phase4.ts",
-    "kit:golden": "tsx scripts/kit-golden.ts"
+    "kit:golden": "tsx scripts/kit-golden.ts",
+    "record:phase5": "tsx scripts/record-phase5.ts"
   },
   "dependencies": {
     "@admitstory/linters": "workspace:*",

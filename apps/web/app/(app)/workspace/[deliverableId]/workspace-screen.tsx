@@ -5,6 +5,7 @@ import {
   Button,
   CheckList,
   CoachSheet,
+  ConsistencyList,
   Dialog,
   DialogContent,
   ExportMenu,
@@ -48,6 +49,9 @@ import type { WorkspaceView } from "@/lib/workspace/view";
 // typing; a refinement comes back as a new version with "Keep change" or "Undo".
 
 const SAVE_DEBOUNCE_MS = 1_500;
+
+/** The résumé entry in Files opens the Résumé page; every other entry is a deliverable. */
+const fileHref = (key: string) => (key === "resume" ? "/resume" : `/workspace/${key}`);
 
 /** What the canvas shows before TipTap arrives: the same draft, as text, in the same place. */
 const CanvasStandIn = createContext<ReactNode>(null);
@@ -266,7 +270,7 @@ export function WorkspaceScreen({ initial }: { initial: WorkspaceView }) {
       : [],
   );
   const counted = draft && deliverable.rule ? countFor(draft.text, deliverable.rule) : 0;
-  const mustFix = view.checks.filter((c) => c.severity === "must").length;
+  const mustFix = view.checks.filter((c) => c.severity === "must").length + view.consistency.length;
   const openVerify = view.verify.filter((v) => v.status === "open").length;
   const current = view.options.find((o) => o.inUse);
 
@@ -518,14 +522,36 @@ export function WorkspaceScreen({ initial }: { initial: WorkspaceView }) {
         />
       }
       checks={
-        <CheckList
-          findings={view.checks}
-          paragraphIds={draft?.paragraphs.map((p) => p.id) ?? []}
-          onFix={(finding) => {
-            const row = view.checks.find((c) => c === finding);
-            if (row) void send(`/api/checks/${row.id}`, "PATCH", { action: "fix" }).then(reload);
-          }}
-        />
+        <div className="flex flex-col gap-4">
+          {view.consistency.length > 0 ? (
+            <ConsistencyList
+              findings={view.consistency}
+              hrefFor={(value) =>
+                value.docKind === "fact_sheet"
+                  ? "/dossier"
+                  : value.docKind === "resume"
+                    ? "/resume"
+                    : value.docId === deliverable.id || value.docKind === "form"
+                      ? null
+                      : `/workspace/${value.docId}`
+              }
+              onDismiss={(finding) =>
+                void send("/api/consistency", "POST", {
+                  action: "dismiss",
+                  findingId: finding.id,
+                }).then(reload)
+              }
+            />
+          ) : null}
+          <CheckList
+            findings={view.checks}
+            paragraphIds={draft?.paragraphs.map((p) => p.id) ?? []}
+            onFix={(finding) => {
+              const row = view.checks.find((c) => c === finding);
+              if (row) void send(`/api/checks/${row.id}`, "PATCH", { action: "fix" }).then(reload);
+            }}
+          />
+        </div>
       }
       verify={
         <VerifyList
@@ -551,8 +577,8 @@ export function WorkspaceScreen({ initial }: { initial: WorkspaceView }) {
             heading={view.heading}
             files={view.files}
             selectedKey={deliverable.id}
-            onSelect={(key) => router.push(`/workspace/${key}`)}
-            hrefFor={(key) => `/workspace/${key}`}
+            onSelect={(key) => router.push(fileHref(key))}
+            hrefFor={fileHref}
           />
         }
         document={documentPane}

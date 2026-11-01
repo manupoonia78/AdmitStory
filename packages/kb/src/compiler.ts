@@ -294,7 +294,13 @@ export function compilePack(pack: SchoolPack, options: CompilePackOptions): Comp
     for (const section of app.form_sections) {
       const parts = [section.key, quote(section.label)];
       if (section.item_count_max) parts.push(`max ${section.item_count_max} items`);
-      if (section.char_limit) parts.push(`${section.char_limit} chars`);
+      // Without a counting rule the line stays as it was, so published packs compile unchanged.
+      if (section.char_limit)
+        parts.push(
+          section.limit_kind
+            ? limitText({ kind: section.limit_kind, value: section.char_limit })
+            : `${section.char_limit} chars`,
+        );
       const ok = emit(ctx, section, "application", parts.join(" | "));
       items(ctx, section.guidance, "application", "  ", ok);
     }

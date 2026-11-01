@@ -1,0 +1,263 @@
+{
+  "applicant": "nine-year-generalist",
+  "facts": [
+    {
+      "code": "F01",
+      "key": "employer_current",
+      "value": "Great Lakes Provision Company",
+      "approvedPhrasing": null
+    },
+    {
+      "code": "F02",
+      "key": "title_current",
+      "value": "Director of Operations, Midwest",
+      "approvedPhrasing": null
+    },
+    {
+      "code": "F03",
+      "key": "title_previous",
+      "value": "Site Manager, Bedford Park",
+      "approvedPhrasing": null
+    },
+    {
+      "code": "F04",
+      "key": "title_earlier",
+      "value": "Operations Supervisor, then Inbound Manager",
+      "approvedPhrasing": null
+    },
+    {
+      "code": "F05",
+      "key": "team_size",
+      "value": "210 people across three sites, with 4 site managers reporting to him",
+      "approvedPhrasing": null
+    },
+    {
+      "code": "F06",
+      "key": "location_current",
+      "value": "Chicago, Illinois, United States",
+      "approvedPhrasing": null
+    },
+    {
+      "code": "F07",
+      "key": "degree",
+      "value": "BA in History, Marquette University, 2017",
+      "approvedPhrasing": null
+    },
+    {
+      "code": "F08",
+      "key": "gpa",
+      "value": "3.3 out of 4",
+      "approvedPhrasing": null
+    },
+    {
+      "code": "F09",
+      "key": "gmat_total",
+      "value": "720",
+      "approvedPhrasing": null
+    },
+    {
+      "code": "F10",
+      "key": "languages",
+      "value": "English, some Spanish learned on the floor",
+      "approvedPhrasing": null
+    },
+    {
+      "code": "F11",
+      "key": "site_scale",
+      "value": "About 11,000 pallet positions and 1,100 orders a day across the three sites",
+      "approvedPhrasing": null
+    },
+    {
+      "code": "F12",
+      "key": "cost_responsibility",
+      "value": "Operating budget of about $31 million",
+      "approvedPhrasing": null
+    },
+    {
+      "code": "F13",
+      "key": "recall",
+      "value": "Led the 2022 product recall covering about 14,000 cases",
+      "approvedPhrasing": null
+    },
+    {
+      "code": "F14",
+      "key": "union",
+      "value": "Two of the three sites are union; contract renegotiated in 2023",
+      "approvedPhrasing": null
+    }
+  ],
+  "roles": [
+    {
+      "ref": "r1",
+      "organisation": "Great Lakes Provision Company",
+      "title": "Director of Operations, Midwest",
+      "dates": "2024 – Present"
+    },
+    {
+      "ref": "r2",
+      "organisation": "Great Lakes Provision Company",
+      "title": "Site Manager, Bedford Park",
+      "dates": "2021 – 2024"
+    },
+    {
+      "ref": "r3",
+      "organisation": "Great Lakes Provision Company",
+      "title": "Inbound Manager",
+      "dates": "2019 – 2021"
+    },
+    {
+      "ref": "r4",
+      "organisation": "Great Lakes Provision Company",
+      "title": "Operations Supervisor",
+      "dates": "2017 – 2019"
+    }
+  ],
+  "clean": [
+    {
+      "id": "resume",
+      "kind": "resume",
+      "label": "Resume",
+      "segments": [
+        {
+          "ref": "b1",
+          "text": "Lead 210 people across three distribution centres through 4 site managers; operating budget of about $31 million."
+        },
+        {
+          "ref": "b2",
+          "text": "Led the 2022 product recall covering about 14,000 cases and 340 restaurants; traced about 3,000 extra cases in about 9 hours."
+        },
+        {
+          "ref": "b3",
+          "text": "Renegotiated the union contract in 2023 at a 2.5% settlement; attrition fell from 48% to 26%."
+        },
+        {
+          "ref": "b4",
+          "text": "Closed the Rockford site with 9 months' notice for 54 jobs and placed 19 people at other sites; cost per case improved about 7%."
+        },
+        {
+          "ref": "b5",
+          "text": "Since 2020, certified 41 warehouse staff through a night class; 6 are now supervisors."
+        }
+      ]
+    },
+    {
+      "id": "form:employment",
+      "kind": "form",
+      "label": "Form: Employment history",
+      "segments": [
+        {
+          "ref": "employment/i1",
+          "text": "Director of Operations, Midwest, Great Lakes Provision Company, Chicago (2024 to present). I lead 210 people across three sites, with 4 site managers reporting to me."
+        },
+        {
+          "ref": "employment/i2",
+          "text": "Site Manager, Bedford Park (2021 to 2024)."
+        }
+      ]
+    },
+    {
+      "id": "essay-1",
+      "kind": "essay",
+      "label": "Essay 1",
+      "segments": [
+        {
+          "ref": "p1",
+          "text": "I became Director of Operations, Midwest in 2024, after three years as Site Manager, Bedford Park. Four site managers report to me now, and between them they run 210 people."
+        },
+        {
+          "ref": "p2",
+          "text": "The 2022 recall covered about 14,000 cases shipped to 340 restaurants. We pulled about 3,000 more cases than the supplier listed, and it took about 9 hours to trace them."
+        }
+      ]
+    },
+    {
+      "id": "brief:liu",
+      "kind": "brief",
+      "label": "Brief for Karen Liu",
+      "segments": [
+        {
+          "ref": "t1",
+          "text": "Dale ran Bedford Park and now leads 210 people across three sites as Director of Operations, Midwest."
+        },
+        {
+          "ref": "t2",
+          "text": "On the Rockford closure he gave 54 people 9 months' notice and placed 19 of them at other sites."
+        }
+      ]
+    }
+  ],
+  "seeded": [
+    {
+      "id": "nine-year-generalist-01",
+      "subject": "employer",
+      "doc_id": "form:employment",
+      "ref": "employment/i1",
+      "from": "Great Lakes Provision Company, Chicago",
+      "to": "Great Lakes Provisions, Chicago",
+      "note": "company name changed in a form entry"
+    },
+    {
+      "id": "nine-year-generalist-02",
+      "subject": "title",
+      "doc_id": "essay-1",
+      "ref": "p1",
+      "from": "as Site Manager, Bedford Park",
+      "to": "as General Manager, Bedford Park",
+      "note": "previous title inflated in an essay"
+    },
+    {
+      "id": "nine-year-generalist-03",
+      "subject": "date",
+      "doc_id": "resume",
+      "ref": "r2.dates",
+      "from": "2021 – 2024",
+      "to": "2020 – 2024",
+      "note": "résumé dates for the previous role"
+    },
+    {
+      "id": "nine-year-generalist-04",
+      "subject": "team_size",
+      "doc_id": "brief:liu",
+      "ref": "t1",
+      "from": "leads 210 people",
+      "to": "leads 250 people",
+      "note": "head count rounded up in a brief"
+    },
+    {
+      "id": "nine-year-generalist-05",
+      "subject": "number",
+      "doc_id": "resume",
+      "ref": "b2",
+      "from": "about 14,000 cases",
+      "to": "about 16,000 cases",
+      "note": "recall size on the résumé"
+    },
+    {
+      "id": "nine-year-generalist-06",
+      "subject": "title",
+      "doc_id": "brief:liu",
+      "ref": "t1",
+      "from": "Director of Operations, Midwest.",
+      "to": "Director of Operations, Central Region.",
+      "note": "title qualifier changed in a brief"
+    },
+    {
+      "id": "nine-year-generalist-07",
+      "subject": "team_size",
+      "doc_id": "essay-1",
+      "ref": "p1",
+      "from": "Four site managers report",
+      "to": "Five site managers report",
+      "note": "direct reports in an essay"
+    },
+    {
+      "id": "nine-year-generalist-08",
+      "subject": "date",
+      "doc_id": "essay-1",
+      "ref": "p1",
+      "from": "Midwest in 2024",
+      "to": "Midwest in 2023",
+      "note": "promotion year in an essay"
+    }
+  ]
+}

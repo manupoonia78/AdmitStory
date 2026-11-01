@@ -1,0 +1,226 @@
+{
+  "applicant": "officer-to-operations",
+  "facts": [
+    {
+      "code": "F01",
+      "key": "employer_current",
+      "value": "Nigerian Army",
+      "approvedPhrasing": null
+    },
+    {
+      "code": "F02",
+      "key": "title_current",
+      "value": "Captain",
+      "approvedPhrasing": null
+    },
+    {
+      "code": "F03",
+      "key": "title_previous",
+      "value": "Lieutenant",
+      "approvedPhrasing": null
+    },
+    {
+      "code": "F04",
+      "key": "team_size",
+      "value": "62 soldiers, including attachments",
+      "approvedPhrasing": null
+    },
+    {
+      "code": "F05",
+      "key": "location_current",
+      "value": "Kaduna, Nigeria",
+      "approvedPhrasing": null
+    },
+    {
+      "code": "F06",
+      "key": "degree",
+      "value": "BSc in Mechanical Engineering, University of Nigeria Nsukka, 2017",
+      "approvedPhrasing": null
+    },
+    {
+      "code": "F07",
+      "key": "gpa",
+      "value": "3.4 out of 5",
+      "approvedPhrasing": null
+    },
+    {
+      "code": "F08",
+      "key": "military_training",
+      "value": "Nigerian Defence Academy regular course, commissioned 2018",
+      "approvedPhrasing": null
+    },
+    {
+      "code": "F09",
+      "key": "gmat_total",
+      "value": "680",
+      "approvedPhrasing": null
+    },
+    {
+      "code": "F10",
+      "key": "languages",
+      "value": "English, Igbo, Hausa",
+      "approvedPhrasing": null
+    },
+    {
+      "code": "F11",
+      "key": "budget_responsibility",
+      "value": "Annual fuel and spares budget of about 310 million naira",
+      "approvedPhrasing": null
+    },
+    {
+      "code": "F12",
+      "key": "commendation",
+      "value": "Divisional commendation for the 2024 fuel accounting reform",
+      "approvedPhrasing": null
+    }
+  ],
+  "roles": [
+    {
+      "ref": "r1",
+      "organisation": "Nigerian Army",
+      "title": "Captain",
+      "dates": "2023 – Present"
+    },
+    {
+      "ref": "r2",
+      "organisation": "Nigerian Army",
+      "title": "Lieutenant",
+      "dates": "2020 – 2023"
+    }
+  ],
+  "clean": [
+    {
+      "id": "resume",
+      "kind": "resume",
+      "label": "Resume",
+      "segments": [
+        {
+          "ref": "b1",
+          "text": "Command a supply company of 62 soldiers, including attachments, in 3 Division, Kaduna."
+        },
+        {
+          "ref": "b2",
+          "text": "Cut diesel losses from about 18% to under 3% by reconciling three months of books; the log is now used by 4 supply companies."
+        },
+        {
+          "ref": "b3",
+          "text": "Manage an annual fuel and spares budget of about 310 million naira."
+        },
+        {
+          "ref": "b4",
+          "text": "Since 2021, run a literacy class twice a week; 7 of its students have since been promoted."
+        },
+        {
+          "ref": "b5",
+          "text": "Divisional commendation for the 2024 fuel accounting reform."
+        }
+      ]
+    },
+    {
+      "id": "form:employment",
+      "kind": "form",
+      "label": "Form: Employment history",
+      "segments": [
+        {
+          "ref": "employment/i1",
+          "text": "Captain, Officer Commanding a supply company, Nigerian Army logistics corps, Kaduna (2023 to present). I command 62 soldiers, including attachments."
+        }
+      ]
+    },
+    {
+      "id": "essay-1",
+      "kind": "essay",
+      "label": "Essay 1",
+      "segments": [
+        {
+          "ref": "p1",
+          "text": "In 2023 I took a convoy of 14 vehicles and 38 soldiers 400 kilometres at night, on a stretch that had seen 3 attacks that month."
+        },
+        {
+          "ref": "p2",
+          "text": "I was promoted to Captain in 2023 and now command a supply company of 62 soldiers. In 2024 I traced most of our diesel losses to 2 of our 11 vehicles and brought losses from about 18% to under 3%."
+        }
+      ]
+    },
+    {
+      "id": "brief:okonkwo",
+      "kind": "brief",
+      "label": "Brief for Major Okonkwo",
+      "segments": [
+        {
+          "ref": "t1",
+          "text": "Emeka has been a Captain since 2023 and commands a supply company of 62 soldiers."
+        },
+        {
+          "ref": "t2",
+          "text": "The fuel log he designed in 2024 is now used by 4 supply companies and earned a divisional commendation."
+        }
+      ]
+    }
+  ],
+  "seeded": [
+    {
+      "id": "officer-to-operations-01",
+      "subject": "title",
+      "doc_id": "essay-1",
+      "ref": "p2",
+      "from": "promoted to Captain",
+      "to": "promoted to Major",
+      "note": "rank inflated in an essay"
+    },
+    {
+      "id": "officer-to-operations-02",
+      "subject": "date",
+      "doc_id": "brief:okonkwo",
+      "ref": "t1",
+      "from": "since 2023",
+      "to": "since 2022",
+      "note": "promotion year in a brief"
+    },
+    {
+      "id": "officer-to-operations-03",
+      "subject": "team_size",
+      "doc_id": "form:employment",
+      "ref": "employment/i1",
+      "from": "I command 62 soldiers",
+      "to": "I command 60 soldiers",
+      "note": "company strength rounded in a form entry"
+    },
+    {
+      "id": "officer-to-operations-04",
+      "subject": "number",
+      "doc_id": "resume",
+      "ref": "b2",
+      "from": "about 18%",
+      "to": "about 28%",
+      "note": "diesel loss before the reform"
+    },
+    {
+      "id": "officer-to-operations-05",
+      "subject": "date",
+      "doc_id": "resume",
+      "ref": "b5",
+      "from": "the 2024 fuel",
+      "to": "the 2023 fuel",
+      "note": "commendation year on the résumé"
+    },
+    {
+      "id": "officer-to-operations-06",
+      "subject": "title",
+      "doc_id": "resume",
+      "ref": "r1.title",
+      "from": "Captain",
+      "to": "Major",
+      "note": "rank on the résumé"
+    },
+    {
+      "id": "officer-to-operations-07",
+      "subject": "team_size",
+      "doc_id": "resume",
+      "ref": "b1",
+      "from": "company of 62 soldiers",
+      "to": "company of 64 soldiers",
+      "note": "company strength on the résumé"
+    }
+  ]
+}

@@ -337,3 +337,21 @@ export {
   type RevisionRequest,
   type VerifyItem,
 } from "./workspace";
+export {
+  dismissFinding,
+  getFormAdvice,
+  getResumeReview,
+  getResumeReviewForSource,
+  latestResumeReview,
+  latestResumeSource,
+  listDismissedFindings,
+  restoreFinding,
+  saveFormAdvice,
+  saveResumeReview,
+  setBulletDecision,
+  setFormEdit,
+  setResumeOrder,
+  type FormAdviceRow,
+  type ResumeReviewRow,
+  type ResumeSource,
+} from "./forms";

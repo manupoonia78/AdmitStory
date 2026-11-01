@@ -1,0 +1,265 @@
+{
+  "applicant": "engineer-to-product",
+  "facts": [
+    {
+      "code": "F01",
+      "key": "employer_current",
+      "value": "Meridian Health Systems",
+      "approvedPhrasing": null
+    },
+    {
+      "code": "F02",
+      "key": "title_current",
+      "value": "Senior Software Engineer",
+      "approvedPhrasing": "Senior Software Engineer"
+    },
+    {
+      "code": "F03",
+      "key": "title_previous",
+      "value": "Software Engineer",
+      "approvedPhrasing": null
+    },
+    {
+      "code": "F04",
+      "key": "team_size",
+      "value": "4 engineers he coordinates, no formal reports",
+      "approvedPhrasing": null
+    },
+    {
+      "code": "F05",
+      "key": "location_current",
+      "value": "Bengaluru, India",
+      "approvedPhrasing": null
+    },
+    {
+      "code": "F06",
+      "key": "degree",
+      "value": "B.Tech in Computer Science, Vellore Institute of Technology, 2020",
+      "approvedPhrasing": null
+    },
+    {
+      "code": "F07",
+      "key": "gpa",
+      "value": "8.4 out of 10",
+      "approvedPhrasing": null
+    },
+    {
+      "code": "F08",
+      "key": "gmat_total",
+      "value": "705",
+      "approvedPhrasing": null
+    },
+    {
+      "code": "F09",
+      "key": "languages",
+      "value": "English, Hindi, Tamil",
+      "approvedPhrasing": null
+    },
+    {
+      "code": "F10",
+      "key": "promotion",
+      "value": "Promoted to Senior Software Engineer in April 2024, two years ahead of the usual track",
+      "approvedPhrasing": null
+    },
+    {
+      "code": "F11",
+      "key": "side_project",
+      "value": "Runs a Saturday coding class for 12 government-school students in Bengaluru, since 2023",
+      "approvedPhrasing": null
+    },
+    {
+      "code": "F12",
+      "key": "manager_name",
+      "value": "Ravi Menon",
+      "approvedPhrasing": null
+    }
+  ],
+  "roles": [
+    {
+      "ref": "r1",
+      "organisation": "Meridian Health Systems",
+      "title": "Senior Software Engineer",
+      "dates": "Apr 2024 – Present"
+    },
+    {
+      "ref": "r2",
+      "organisation": "Meridian Health Systems",
+      "title": "Software Engineer",
+      "dates": "Jul 2020 – Mar 2024"
+    }
+  ],
+  "clean": [
+    {
+      "id": "resume",
+      "kind": "resume",
+      "label": "Resume",
+      "segments": [
+        {
+          "ref": "b1",
+          "text": "Coordinate a team of four engineers on the scheduling platform used by 40+ hospitals in India and the US."
+        },
+        {
+          "ref": "b2",
+          "text": "Cut scheduling page loads from 4.2 seconds to 900 milliseconds by fixing the three queries behind 80% of slow requests; the customer went live a month early."
+        },
+        {
+          "ref": "b3",
+          "text": "Rewrote the lab-feed retry logic overnight during a 900-bed hospital go-live; zero dropped messages in the twenty months since."
+        },
+        {
+          "ref": "b4",
+          "text": "Added a pre-migration check after a 2022 incident that took 2 hours to restore; it has blocked 4 unsafe migrations since."
+        },
+        {
+          "ref": "edu.line1",
+          "text": "B.Tech in Computer Science, Vellore Institute of Technology, 2020"
+        },
+        {
+          "ref": "extra.line1",
+          "text": "Since 2023, run a Saturday coding class for 12 government-school students in Bengaluru."
+        }
+      ]
+    },
+    {
+      "id": "form:employment",
+      "kind": "form",
+      "label": "Form: Employment history",
+      "segments": [
+        {
+          "ref": "employment/i1",
+          "text": "Senior Software Engineer, Meridian Health Systems (April 2024 to present). I coordinate 4 engineers on a scheduling platform that serves 40+ hospitals in India and the US. Promoted from Software Engineer two years ahead of the usual track."
+        }
+      ]
+    },
+    {
+      "id": "form:activities",
+      "kind": "form",
+      "label": "Form: Activities",
+      "segments": [
+        {
+          "ref": "activities/i1",
+          "text": "Saturday coding class, Bengaluru (since 2023). I teach 12 government-school students, with three colleagues covering alternate Saturdays."
+        }
+      ]
+    },
+    {
+      "id": "essay-1",
+      "kind": "essay",
+      "label": "Essay 1",
+      "segments": [
+        {
+          "ref": "p1",
+          "text": "At 2 a.m., during the go-live at a 900-bed hospital in Chennai, the lab feed started dropping every fourth message. I rewrote the retry logic, called the vendor's on-call engineer, and got the batch window widened from 30 to 90 seconds before the 6 a.m. shift change."
+        },
+        {
+          "ref": "p2",
+          "text": "I joined Meridian Health Systems as a Software Engineer in July 2020 and became a Senior Software Engineer in April 2024. Today I coordinate four engineers, and the lesson I took from that night is to ask for help sooner."
+        }
+      ]
+    },
+    {
+      "id": "essay-2",
+      "kind": "essay",
+      "label": "Essay 2",
+      "segments": [
+        {
+          "ref": "p1",
+          "text": "I spent a weekend instrumenting the scheduling module and found that three queries caused 80% of the slow requests. Fixing two of them took page loads from 4.2 seconds to 900 milliseconds, and the director shelved a six-month rewrite."
+        },
+        {
+          "ref": "p2",
+          "text": "Outside work, I have run a Saturday coding class for twelve government-school students since 2023; four of them have moved on to a paid bootcamp."
+        }
+      ]
+    },
+    {
+      "id": "brief:ravi",
+      "kind": "brief",
+      "label": "Brief for Ravi Menon",
+      "segments": [
+        {
+          "ref": "t1",
+          "text": "Arjun was promoted to Senior Software Engineer in April 2024 and coordinates four engineers on the scheduling platform."
+        },
+        {
+          "ref": "t2",
+          "text": "The go-live at the 900-bed hospital: he fixed the lab feed before the 6 a.m. shift change while you were on a flight."
+        }
+      ]
+    }
+  ],
+  "seeded": [
+    {
+      "id": "engineer-to-product-01",
+      "subject": "employer",
+      "doc_id": "form:employment",
+      "ref": "employment/i1",
+      "from": "Meridian Health Systems (April",
+      "to": "Meridian Health (April",
+      "note": "short employer name in a form entry"
+    },
+    {
+      "id": "engineer-to-product-02",
+      "subject": "title",
+      "doc_id": "brief:ravi",
+      "ref": "t1",
+      "from": "promoted to Senior Software Engineer",
+      "to": "promoted to Lead Software Engineer",
+      "note": "inflated title in a recommender brief"
+    },
+    {
+      "id": "engineer-to-product-03",
+      "subject": "date",
+      "doc_id": "resume",
+      "ref": "r1.dates",
+      "from": "Apr 2024",
+      "to": "Apr 2023",
+      "note": "résumé start date a year early"
+    },
+    {
+      "id": "engineer-to-product-04",
+      "subject": "team_size",
+      "doc_id": "essay-1",
+      "ref": "p2",
+      "from": "coordinate four engineers",
+      "to": "coordinate five engineers",
+      "note": "team size in an essay"
+    },
+    {
+      "id": "engineer-to-product-05",
+      "subject": "number",
+      "doc_id": "resume",
+      "ref": "b2",
+      "from": "900 milliseconds",
+      "to": "700 milliseconds",
+      "note": "page-load result differs from the essay"
+    },
+    {
+      "id": "engineer-to-product-06",
+      "subject": "number",
+      "doc_id": "essay-2",
+      "ref": "p2",
+      "from": "for twelve government-school students",
+      "to": "for fifteen government-school students",
+      "note": "class size written as a word"
+    },
+    {
+      "id": "engineer-to-product-07",
+      "subject": "number",
+      "doc_id": "resume",
+      "ref": "b1",
+      "from": "used by 40+ hospitals",
+      "to": "used by 45 hospitals",
+      "note": "40+ against 45"
+    },
+    {
+      "id": "engineer-to-product-08",
+      "subject": "number",
+      "doc_id": "brief:ravi",
+      "ref": "t2",
+      "from": "the 900-bed hospital",
+      "to": "the 800-bed hospital",
+      "note": "hospital size in a brief"
+    }
+  ]
+}

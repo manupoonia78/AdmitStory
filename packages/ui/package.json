@@ -13,6 +13,7 @@
     "typecheck": "tsc -p tsconfig.json"
   },
   "dependencies": {
+    "@admitstory/linters": "workspace:*",
     "@admitstory/shared": "workspace:*",
     "@phosphor-icons/react": "2.1.10",
     "@tiptap/core": "3.32.2",

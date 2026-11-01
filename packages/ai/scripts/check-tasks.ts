@@ -26,6 +26,7 @@ import {
   KIT_SHORTFORM_INPUT,
   UTIL_CLASSIFY_INPUT,
 } from "./samples/phase4";
+import { FORMS_ADVISE_INPUT, RESUME_REVIEW_INPUT } from "./samples/phase5";
 
 const root = findRepoRoot(process.cwd());
 if (!root) throw new Error("no repo root");
@@ -106,6 +107,8 @@ const SAMPLES: Record<string, unknown> = {
   "draft.need_fill": DRAFT_NEED_FILL_INPUT,
   "util.classify": UTIL_CLASSIFY_INPUT,
   "kb.refresh_check": KB_REFRESH_CHECK_INPUT,
+  "forms.advise": FORMS_ADVISE_INPUT,
+  "resume.review": RESUME_REVIEW_INPUT,
 };
 
 let failures = 0;

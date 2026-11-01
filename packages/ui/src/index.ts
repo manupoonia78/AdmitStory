@@ -126,3 +126,5 @@ export * from "./dossier";
 // Phase 3 areas (docs/design/phase-3-4-direction.md).
 export * from "./profile";
 export * from "./strategy";
+// Phase 5: Form Advisor, Résumé Pass and the consistency check (spec §5.10).
+export * from "./forms";

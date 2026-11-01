@@ -190,6 +190,8 @@ export interface FormSection extends PackCited {
   label: string;
   item_count_max?: number;
   char_limit?: number;
+  /** How the portal counts `char_limit`; absent means characters including spaces. */
+  limit_kind?: LimitKind;
   guidance: PackItem[];
 }
 

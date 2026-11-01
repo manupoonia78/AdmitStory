@@ -10,5 +10,7 @@
     "typecheck": "tsc -p tsconfig.json"
   },
   "dependencies": {},
-  "devDependencies": {}
+  "devDependencies": {
+    "@admitstory/shared": "workspace:*"
+  }
 }
