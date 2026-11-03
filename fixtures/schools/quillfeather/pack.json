@@ -1,0 +1,628 @@
+{
+  "school": {
+    "id": "quillfeather",
+    "name": "Quillfeather Graduate School of Business",
+    "short_name": "Quillfeather",
+    "country": "US",
+    "city": "Port Ellery, OR",
+    "website": "https://www.quillfeather.example",
+    "program": "full_time_mba"
+  },
+  "cycle": "2026-27",
+  "version": 2,
+  "status": "complete",
+  "synthetic": true,
+  "k_high_water": 46,
+  "sources": [
+    {
+      "id": "quillfeather-admissions",
+      "type": "official",
+      "title": "Quillfeather application instructions (synthetic)",
+      "url": "https://www.quillfeather.example/mba/apply",
+      "trust": 5,
+      "retrieved_at": "2026-06-20",
+      "rights_note": null
+    },
+    {
+      "id": "quillfeather-employment",
+      "type": "official",
+      "title": "Quillfeather employment outcomes, class of 2026 (synthetic)",
+      "url": "https://www.quillfeather.example/mba/outcomes",
+      "trust": 5,
+      "retrieved_at": "2026-08-11",
+      "rights_note": null
+    },
+    {
+      "id": "quillfeather-class-profile",
+      "type": "official",
+      "title": "Quillfeather entering class profile (synthetic)",
+      "url": "https://www.quillfeather.example/mba/class",
+      "trust": 5,
+      "retrieved_at": "2026-08-11",
+      "rights_note": null
+    },
+    {
+      "id": "quillfeather-ai-policy",
+      "type": "official",
+      "title": "Quillfeather application integrity and AI policy (synthetic)",
+      "url": "https://www.quillfeather.example/mba/apply/integrity",
+      "trust": 5,
+      "retrieved_at": "2026-06-20",
+      "rights_note": null
+    },
+    {
+      "id": "quillfeather-webinar",
+      "type": "adcom",
+      "title": "Quillfeather admissions Q&A, June 2026 (synthetic)",
+      "url": null,
+      "trust": 4,
+      "retrieved_at": "2026-06-20",
+      "rights_note": null
+    },
+    {
+      "id": "quillfeather-alumni",
+      "type": "insider",
+      "title": "Conversations with Quillfeather alumni (synthetic)",
+      "url": null,
+      "trust": 3,
+      "retrieved_at": "2026-09-22",
+      "rights_note": null
+    },
+    {
+      "id": "quillfeather-interview-reports",
+      "type": "interview_reports",
+      "title": "Applicant interview reports (synthetic)",
+      "url": null,
+      "trust": 3,
+      "retrieved_at": "2026-09-22",
+      "rights_note": null
+    },
+    {
+      "id": "quillfeather-coach",
+      "type": "coach_notes",
+      "title": "Admitstory coaching notes on Quillfeather (synthetic)",
+      "url": null,
+      "trust": 4,
+      "retrieved_at": "2026-09-22",
+      "rights_note": null
+    }
+  ],
+  "official_urls": [
+    {
+      "kind": "prompts",
+      "url": "https://www.quillfeather.example/mba/apply"
+    },
+    {
+      "kind": "deadlines",
+      "url": "https://www.quillfeather.example/mba/apply/dates"
+    },
+    {
+      "kind": "class_profile",
+      "url": "https://www.quillfeather.example/mba/class"
+    },
+    {
+      "kind": "employment_report",
+      "url": "https://www.quillfeather.example/mba/outcomes"
+    },
+    {
+      "kind": "ai_policy",
+      "url": "https://www.quillfeather.example/mba/apply/integrity"
+    }
+  ],
+  "rounds": [
+    {
+      "id": "K01",
+      "name": "R1",
+      "deadline": "2026-09-23",
+      "decision_date": "2026-12-16",
+      "notes": [],
+      "source_ids": ["quillfeather-admissions"],
+      "verified_at": "2026-06-20"
+    },
+    {
+      "id": "K02",
+      "name": "R2",
+      "deadline": "2027-01-13",
+      "decision_date": "2027-03-31",
+      "notes": [],
+      "source_ids": ["quillfeather-admissions"],
+      "verified_at": "2026-06-20"
+    },
+    {
+      "id": "K03",
+      "name": "R3",
+      "deadline": "2027-03-31",
+      "decision_date": "2027-05-12",
+      "notes": [],
+      "source_ids": ["quillfeather-admissions"],
+      "verified_at": "2026-06-20"
+    }
+  ],
+  "application": {
+    "essays": [
+      {
+        "id": "K04",
+        "key": "values",
+        "prompt_verbatim": "Describe a decision you made that reflects what you value most. Why did you make it?",
+        "limit": {
+          "kind": "words",
+          "value": 450
+        },
+        "required": true,
+        "archetypes": ["VALUES"],
+        "parts": ["the decision", "the value it reflects", "why you made it"],
+        "notes": [
+          {
+            "id": "K05",
+            "text": "The committee wants the reasoning, including what the decision cost you.",
+            "source_ids": ["quillfeather-webinar"],
+            "verified_at": "2026-06-20",
+            "confidence": 0.8
+          }
+        ],
+        "source_ids": ["quillfeather-admissions"],
+        "verified_at": "2026-06-20"
+      }
+    ],
+    "short_answers": [
+      {
+        "id": "K06",
+        "key": "why_quillfeather",
+        "prompt_verbatim": "Why is Quillfeather the right place for you?",
+        "limit": {
+          "kind": "chars_incl_spaces",
+          "value": 600
+        },
+        "required": true,
+        "archetypes": ["WHY-SCHOOL", "MICRO"],
+        "parts": ["why this school"],
+        "notes": [],
+        "source_ids": ["quillfeather-admissions"],
+        "verified_at": "2026-06-20"
+      }
+    ],
+    "goal_fields": [
+      {
+        "id": "K07",
+        "key": "short_term_goal",
+        "prompt_verbatim": "What is your short-term career goal after earning your MBA?",
+        "limit": {
+          "kind": "chars_incl_spaces",
+          "value": 300
+        },
+        "required": true,
+        "archetypes": ["GOALBOX", "GOALS"],
+        "parts": ["role", "industry"],
+        "notes": [
+          {
+            "id": "K08",
+            "text": "State a function and an industry; the box is too short for a narrative.",
+            "source_ids": ["quillfeather-webinar"],
+            "verified_at": "2026-06-20",
+            "confidence": 0.85
+          }
+        ],
+        "source_ids": ["quillfeather-admissions"],
+        "verified_at": "2026-06-20"
+      },
+      {
+        "id": "K09",
+        "key": "long_term_goal",
+        "prompt_verbatim": "What is your long-term career goal?",
+        "limit": {
+          "kind": "chars_incl_spaces",
+          "value": 300
+        },
+        "required": true,
+        "archetypes": ["GOALBOX", "GOALS"],
+        "parts": ["long-term aim"],
+        "notes": [],
+        "source_ids": ["quillfeather-admissions"],
+        "verified_at": "2026-06-20"
+      },
+      {
+        "id": "K10",
+        "key": "goal_alternative",
+        "prompt_verbatim": "If your short-term goal does not work out, what would you pursue instead?",
+        "limit": {
+          "kind": "chars_incl_spaces",
+          "value": 250
+        },
+        "required": true,
+        "archetypes": ["GOALBOX"],
+        "parts": ["alternative path"],
+        "notes": [
+          {
+            "id": "K11",
+            "text": "A plan B in an adjacent function reads as realistic; a different industry reads as unfocused.",
+            "source_ids": ["quillfeather-coach"],
+            "verified_at": "2026-09-22",
+            "confidence": 0.75
+          }
+        ],
+        "source_ids": ["quillfeather-admissions"],
+        "verified_at": "2026-06-20"
+      }
+    ],
+    "video": [],
+    "reapplicant": {
+      "essay": null,
+      "policy": [
+        {
+          "id": "K12",
+          "text": "Reapplicants complete the full application again and update the goal fields.",
+          "source_ids": ["quillfeather-admissions"],
+          "verified_at": "2026-06-20",
+          "confidence": 0.9
+        }
+      ]
+    },
+    "optional_essay": {
+      "id": "K13",
+      "key": "optional",
+      "prompt_verbatim": "Please share any additional information that would help us evaluate your candidacy.",
+      "limit": {
+        "kind": "words",
+        "value": 300
+      },
+      "required": false,
+      "archetypes": ["OPTIONAL", "CONTEXT"],
+      "parts": [],
+      "notes": [],
+      "source_ids": ["quillfeather-admissions"],
+      "verified_at": "2026-06-20"
+    },
+    "form_sections": [
+      {
+        "id": "K14",
+        "key": "employment",
+        "label": "Employment history",
+        "item_count_max": 4,
+        "char_limit": 500,
+        "guidance": [
+          {
+            "id": "K15",
+            "text": "Each role's description is limited to 500 characters.",
+            "source_ids": ["quillfeather-admissions"],
+            "verified_at": "2026-06-20",
+            "confidence": 0.9
+          }
+        ],
+        "source_ids": ["quillfeather-admissions"],
+        "verified_at": "2026-06-20"
+      }
+    ],
+    "recommendations": {
+      "id": "K16",
+      "count": 1,
+      "format": "gmac_common",
+      "questions": [],
+      "notes": [
+        {
+          "id": "K17",
+          "text": "Only one recommendation is required; a second is not read.",
+          "source_ids": ["quillfeather-admissions"],
+          "verified_at": "2026-06-20",
+          "confidence": 0.9
+        }
+      ],
+      "source_ids": ["quillfeather-admissions"],
+      "verified_at": "2026-06-20"
+    },
+    "resume": {
+      "id": "K18",
+      "page_limit": 1,
+      "notes": [],
+      "source_ids": ["quillfeather-admissions"],
+      "verified_at": "2026-06-20"
+    },
+    "test_policy": [
+      {
+        "id": "K19",
+        "text": "Requires the GMAT Focus Edition or the GRE; waivers are not offered.",
+        "source_ids": ["quillfeather-admissions"],
+        "verified_at": "2026-06-20",
+        "confidence": 0.9
+      }
+    ],
+    "fees_waivers": [
+      {
+        "id": "K20",
+        "text": "The application fee is USD 175; waivers are available for applicants who attend a campus visit day.",
+        "source_ids": ["quillfeather-admissions"],
+        "verified_at": "2026-06-20",
+        "confidence": 0.9
+      }
+    ]
+  },
+  "values": {
+    "stated": [
+      {
+        "id": "K21",
+        "text": "Quillfeather looks for candidates who can explain the reasons behind their choices.",
+        "source_ids": ["quillfeather-admissions"],
+        "verified_at": "2026-06-20",
+        "confidence": 0.9
+      },
+      {
+        "id": "K22",
+        "text": "The school prizes candour about what applicants do not yet know.",
+        "source_ids": ["quillfeather-webinar"],
+        "verified_at": "2026-06-20",
+        "confidence": 0.85
+      }
+    ],
+    "trait_map": [
+      {
+        "school_value": "reasoned choices",
+        "admitstory_traits": ["principled_stands", "analytical"]
+      },
+      {
+        "school_value": "candour about limits",
+        "admitstory_traits": ["honest_about_limits", "self_aware"],
+        "note": {
+          "id": "K23",
+          "text": "A clear statement of a skill gap helps the goals boxes more than ambition does.",
+          "source_ids": ["quillfeather-coach"],
+          "verified_at": "2026-09-22",
+          "confidence": 0.75
+        }
+      }
+    ]
+  },
+  "culture_and_location": [
+    {
+      "id": "K24",
+      "text": "Riverfront campus in a mid-sized port city with a strong outdoor-industry employer base.",
+      "source_ids": ["quillfeather-admissions"],
+      "verified_at": "2026-06-20",
+      "confidence": 0.9
+    },
+    {
+      "id": "K25",
+      "text": "Students describe the culture as low-key and cooperative.",
+      "source_ids": ["quillfeather-alumni"],
+      "verified_at": "2026-09-22",
+      "confidence": 0.75
+    }
+  ],
+  "academics": {
+    "courses": [
+      {
+        "id": "K26",
+        "name": "Decision Analysis Studio",
+        "what_it_is": "A core course where students defend a real business decision to a panel.",
+        "why_it_matters_for": ["analytical", "general management"],
+        "url": "https://www.quillfeather.example/mba/curriculum",
+        "source_ids": ["quillfeather-admissions"],
+        "verified_at": "2026-06-20"
+      }
+    ],
+    "centers": [
+      {
+        "id": "K27",
+        "name": "Center for Outdoor Industry Strategy",
+        "what_it_is": "Industry partnerships and case writing with outdoor-products companies.",
+        "why_it_matters_for": ["consumer products", "marketing"],
+        "url": "https://www.quillfeather.example/centers/outdoor",
+        "source_ids": ["quillfeather-admissions"],
+        "verified_at": "2026-06-20"
+      }
+    ],
+    "experiential": [
+      {
+        "id": "K28",
+        "name": "Port Ellery Practicum",
+        "what_it_is": "A semester-long consulting project with a local manufacturer.",
+        "why_it_matters_for": ["operations", "consulting"],
+        "url": null,
+        "source_ids": ["quillfeather-admissions"],
+        "verified_at": "2026-06-20"
+      }
+    ],
+    "structure": [
+      {
+        "id": "K29",
+        "text": "Twenty-one-month program with a required summer internship.",
+        "source_ids": ["quillfeather-admissions"],
+        "verified_at": "2026-06-20",
+        "confidence": 0.9
+      }
+    ]
+  },
+  "community": {
+    "clubs": [
+      {
+        "id": "K30",
+        "name": "Outdoor Business Club",
+        "what_it_is": "Runs treks to outdoor-industry employers and a spring case competition.",
+        "why_it_matters_for": ["consumer products"],
+        "url": null,
+        "source_ids": ["quillfeather-alumni"],
+        "verified_at": "2026-09-22"
+      }
+    ],
+    "traditions": [
+      {
+        "id": "K31",
+        "text": "First-years and second-years cook a shared dinner every Thursday.",
+        "source_ids": ["quillfeather-alumni"],
+        "verified_at": "2026-09-22",
+        "confidence": 0.7
+      }
+    ],
+    "treks_events": []
+  },
+  "careers": {
+    "employment_report": {
+      "id": "K32",
+      "class_year": 2026,
+      "currency": "USD",
+      "by_function": [
+        {
+          "function": "Marketing and brand",
+          "share": 0.27,
+          "median_base": 135000
+        },
+        {
+          "function": "Operations",
+          "share": 0.24,
+          "median_base": 130000
+        },
+        {
+          "function": "Consulting",
+          "share": 0.21,
+          "median_base": 165000
+        },
+        {
+          "function": "Finance",
+          "share": 0.15,
+          "median_base": 140000
+        },
+        {
+          "function": "Other",
+          "share": 0.13,
+          "median_base": null
+        }
+      ],
+      "top_employers": [
+        "Fernhollow Outfitters",
+        "Ridgeline Freight Co.",
+        "Northbeam Advisory",
+        "Coldwater Mills"
+      ],
+      "source_ids": ["quillfeather-employment"],
+      "verified_at": "2026-08-11"
+    },
+    "recruiting_notes": [
+      {
+        "id": "K33",
+        "text": "Most marketing offers come from regional consumer brands rather than national ones.",
+        "source_ids": ["quillfeather-alumni"],
+        "verified_at": "2026-09-22",
+        "confidence": 0.7
+      }
+    ]
+  },
+  "class_profile": {
+    "id": "K34",
+    "class_year": 2028,
+    "class_size": 142,
+    "gmat_focus_median": 625,
+    "gmat_classic_median": null,
+    "gre_median": {
+      "verbal": 158,
+      "quant": 157
+    },
+    "gpa_median": 3.4,
+    "gpa_scale": 4,
+    "work_experience_years_median": 4.5,
+    "international_share": 0.21,
+    "source_ids": ["quillfeather-class-profile"],
+    "verified_at": "2026-08-11"
+  },
+  "interview": {
+    "id": "K35",
+    "invitation": "invite_only",
+    "who": ["student", "alum"],
+    "blind": true,
+    "length_min": 30,
+    "location": ["virtual", "hub"],
+    "common_questions": [
+      {
+        "id": "K36",
+        "text": "Tell me about yourself.",
+        "frequency_weight": 5,
+        "source_ids": ["quillfeather-interview-reports"],
+        "verified_at": "2026-09-22"
+      },
+      {
+        "id": "K37",
+        "text": "What would you do if your short-term goal did not work out?",
+        "frequency_weight": 3,
+        "source_ids": ["quillfeather-interview-reports"],
+        "verified_at": "2026-09-22"
+      }
+    ],
+    "format_notes": [
+      {
+        "id": "K38",
+        "text": "Interviewers see only the resume.",
+        "source_ids": ["quillfeather-admissions"],
+        "verified_at": "2026-06-20",
+        "confidence": 0.9
+      }
+    ],
+    "source_ids": ["quillfeather-admissions", "quillfeather-interview-reports"],
+    "verified_at": "2026-09-22"
+  },
+  "ai_policy": {
+    "id": "K39",
+    "stance": "limited",
+    "applies_to": ["essays", "recommendations"],
+    "disclosure_text": null,
+    "notes": [
+      {
+        "id": "K40",
+        "text": "Applicants may use AI tools to brainstorm and to check grammar, but not to write any part of an essay or goal field.",
+        "source_ids": ["quillfeather-ai-policy"],
+        "verified_at": "2026-06-20",
+        "confidence": 0.9
+      },
+      {
+        "id": "K41",
+        "text": "Recommenders may not use AI tools to write the recommendation.",
+        "source_ids": ["quillfeather-ai-policy"],
+        "verified_at": "2026-06-20",
+        "confidence": 0.9
+      }
+    ],
+    "source_ids": ["quillfeather-ai-policy"],
+    "verified_at": "2026-06-20"
+  },
+  "scholarships": [
+    {
+      "id": "K42",
+      "text": "Merit scholarships are awarded at admission; there is no separate application.",
+      "source_ids": ["quillfeather-admissions"],
+      "verified_at": "2026-06-20",
+      "confidence": 0.9
+    }
+  ],
+  "insider_notes": [
+    {
+      "id": "K43",
+      "text": "Alumni interviewers often ask about the alternative goal; know it as well as the main one.",
+      "source_ids": ["quillfeather-interview-reports"],
+      "verified_at": "2026-09-22",
+      "confidence": 0.7
+    }
+  ],
+  "avoid": [
+    {
+      "id": "K44",
+      "text": "Restating the long-term goal in the short-term box.",
+      "source_ids": ["quillfeather-coach"],
+      "verified_at": "2026-09-22",
+      "confidence": 0.8
+    }
+  ],
+  "angles_that_work": [
+    {
+      "id": "K45",
+      "text": "Goal boxes written as a role, an industry and one reason, in that order.",
+      "source_ids": ["quillfeather-coach"],
+      "verified_at": "2026-09-22",
+      "confidence": 0.8
+    }
+  ],
+  "glossary": [
+    {
+      "id": "K46",
+      "term": "Practicum",
+      "plain_definition": "Quillfeather's name for a semester-long consulting project for a real client.",
+      "source_ids": ["quillfeather-admissions"],
+      "verified_at": "2026-06-20"
+    }
+  ]
+}

@@ -1,0 +1,234 @@
+{
+  "school": {
+    "id": "darden",
+    "name": "University of Virginia Darden School of Business",
+    "short_name": "Darden",
+    "country": "US",
+    "city": "Charlottesville, VA",
+    "website": "https://www.darden.virginia.edu",
+    "program": "full_time_mba"
+  },
+  "cycle": "2026-27",
+  "version": 1,
+  "status": "draft",
+  "_todo": [
+    "sources: the exact admissions page URL each item is verified against (only the school website is known)",
+    "official_urls: the prompts, deadlines, class profile, employment report and AI policy pages",
+    "rounds: EA, R1, R2 and R3 deadlines and decision dates from the official site",
+    "application.essays: verify every prompt's wording and limit against darden.virginia.edu for 2026-27, then set verified_at",
+    "application.essays[key=batten_scholars].prompt_verbatim: only a paraphrase was observed; add the exact wording and verify eligibility",
+    "application.short_answers[key=worldwide_location]: verify the separate 5-word location field",
+    "application.optional_essay: verify wording and limit",
+    "application.video[0].think_time_s",
+    "application.video[0].attempts",
+    "application.video[0].question_types",
+    "application.video[0]: verify the 90-second answer time and the no-scripting rule",
+    "application.reapplicant",
+    "application.form_sections",
+    "application.recommendations: count, format and questions verbatim",
+    "application.resume",
+    "application.test_policy",
+    "application.fees_waivers",
+    "values.stated",
+    "values.trait_map",
+    "culture_and_location",
+    "academics: courses, centres and experiential programs with URLs and verified dates",
+    "community: clubs, traditions, treks and events",
+    "careers.employment_report: the latest report (by function, median base, top employers, international outcomes)",
+    "careers.recruiting_notes",
+    "class_profile",
+    "interview: invitation policy, who, blind or file-read, length, common questions with frequency",
+    "ai_policy: stance and scope for 2026-27 (currently unknown)",
+    "scholarships",
+    "insider_notes",
+    "avoid",
+    "angles_that_work",
+    "glossary: program structure terms a candidate may use in an interview"
+  ],
+  "k_high_water": 13,
+  "sources": [
+    {
+      "id": "darden-official-site",
+      "type": "official",
+      "title": "Darden School of Business website (prompts observed during spec research, Build Spec Appendix G)",
+      "url": "https://www.darden.virginia.edu",
+      "trust": 5,
+      "retrieved_at": null,
+      "rights_note": "School-published facts; use with attribution (§9.6). Re-verify every item before publishing."
+    }
+  ],
+  "official_urls": [{ "kind": "other", "url": "https://www.darden.virginia.edu" }],
+  "rounds": [],
+  "application": {
+    "essays": [
+      {
+        "id": "K01",
+        "key": "classmates",
+        "prompt_verbatim": "What would you want your classmates to know about you that is not on your resume?",
+        "limit": { "kind": "words", "value": 200 },
+        "required": true,
+        "archetypes": ["IDENTITY"],
+        "parts": ["something classmates should know", "not on the resume"],
+        "notes": [],
+        "source_ids": ["darden-official-site"],
+        "verified_at": null
+      },
+      {
+        "id": "K02",
+        "key": "goals",
+        "prompt_verbatim": "At this time how would you describe your short-term, post-MBA goal in terms of industry, function, geography, company size and/or mission and how does it align with the long-term vision you have for your career?",
+        "limit": { "kind": "words", "value": 200 },
+        "required": true,
+        "archetypes": ["GOALS"],
+        "parts": [
+          "short-term goal: industry, function, geography, company size and/or mission",
+          "alignment with long-term vision"
+        ],
+        "notes": [],
+        "source_ids": ["darden-official-site"],
+        "verified_at": null
+      },
+      {
+        "id": "K03",
+        "key": "worldwide",
+        "prompt_verbatim": "If you could choose any location in the world, where would you want to travel (5 words), and why? (50 words)",
+        "limit": { "kind": "words", "value": 50 },
+        "required": true,
+        "archetypes": ["MICRO"],
+        "parts": [
+          "why (50 words); the location is the separate 5-word short answer worldwide_location"
+        ],
+        "notes": [
+          {
+            "id": "K04",
+            "text": "Context: Darden Worldwide Course opportunity for full-time students",
+            "source_ids": ["darden-official-site"],
+            "verified_at": null,
+            "confidence": 0.6
+          }
+        ],
+        "source_ids": ["darden-official-site"],
+        "verified_at": null
+      },
+      {
+        "id": "K05",
+        "key": "charlottesville",
+        "prompt_verbatim": "What are you excited to explore in Charlottesville?",
+        "limit": { "kind": "words", "value": 25 },
+        "required": true,
+        "archetypes": ["MICRO"],
+        "parts": ["what to explore"],
+        "notes": [
+          {
+            "id": "K06",
+            "text": "Inside the application form",
+            "source_ids": ["darden-official-site"],
+            "verified_at": null,
+            "confidence": 0.6
+          }
+        ],
+        "source_ids": ["darden-official-site"],
+        "verified_at": null
+      },
+      {
+        "id": "K07",
+        "key": "context",
+        "prompt_verbatim": "You may use this opportunity to expand, for example, on family, medical, financial or other circumstances that will help us understand your opportunities, achievement, resilience, and impact within context.",
+        "limit": { "kind": "words", "value": 150 },
+        "required": false,
+        "archetypes": ["CONTEXT"],
+        "parts": [],
+        "notes": [],
+        "source_ids": ["darden-official-site"],
+        "verified_at": null
+      },
+      {
+        "id": "K08",
+        "key": "batten_scholars",
+        "prompt_verbatim": null,
+        "limit": { "kind": "words", "value": 500 },
+        "required": false,
+        "archetypes": ["SCHOLARSHIP", "LEADERSHIP"],
+        "parts": [],
+        "notes": [
+          {
+            "id": "K09",
+            "text": "Paraphrase, not verbatim: a scholarship essay demonstrating leadership in innovation, technology, or entrepreneurship.",
+            "source_ids": ["darden-official-site"],
+            "verified_at": null,
+            "confidence": 0.4
+          }
+        ],
+        "source_ids": ["darden-official-site"],
+        "verified_at": null
+      }
+    ],
+    "short_answers": [
+      {
+        "id": "K10",
+        "key": "worldwide_location",
+        "prompt_verbatim": "If you could choose any location in the world, where would you want to travel (5 words), and why? (50 words)",
+        "limit": { "kind": "words", "value": 5 },
+        "required": true,
+        "archetypes": ["MICRO"],
+        "parts": ["location (5 words); the why is the essay worldwide"],
+        "notes": [],
+        "source_ids": ["darden-official-site"],
+        "verified_at": null
+      }
+    ],
+    "goal_fields": [],
+    "video": [
+      {
+        "id": "K12",
+        "format": "async_video",
+        "think_time_s": null,
+        "answer_time_s": 90,
+        "attempts": null,
+        "question_types": [],
+        "scripting_allowed": false,
+        "source_ids": ["darden-official-site"],
+        "verified_at": null
+      }
+    ],
+    "reapplicant": null,
+    "optional_essay": {
+      "id": "K11",
+      "key": "additional",
+      "prompt_verbatim": "If there is further information you believe would be helpful to the Admissions Committee, please provide it.",
+      "limit": { "kind": "words", "value": 250 },
+      "required": false,
+      "archetypes": ["OPTIONAL"],
+      "parts": [],
+      "notes": [],
+      "source_ids": ["darden-official-site"],
+      "verified_at": null
+    },
+    "form_sections": [],
+    "recommendations": null,
+    "resume": null,
+    "test_policy": [],
+    "fees_waivers": []
+  },
+  "values": { "stated": [], "trait_map": [] },
+  "culture_and_location": [],
+  "academics": { "courses": [], "centers": [], "experiential": [], "structure": [] },
+  "community": { "clubs": [], "traditions": [], "treks_events": [] },
+  "careers": { "employment_report": null, "recruiting_notes": [] },
+  "class_profile": null,
+  "interview": null,
+  "ai_policy": {
+    "id": "K13",
+    "stance": "unknown",
+    "applies_to": [],
+    "disclosure_text": null,
+    "notes": [],
+    "source_ids": [],
+    "verified_at": null
+  },
+  "scholarships": [],
+  "insider_notes": [],
+  "avoid": [],
+  "angles_that_work": [],
+  "glossary": []
+}

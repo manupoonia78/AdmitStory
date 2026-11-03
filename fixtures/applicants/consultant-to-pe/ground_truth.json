@@ -1,0 +1,386 @@
+{
+  "facts": [
+    {
+      "key": "employer_current",
+      "value": "Halderbach Partners",
+      "note": "mid-tier strategy consultancy, about 420 consultants, offices in Frankfurt, Munich and Vienna"
+    },
+    {
+      "key": "title_current",
+      "value": "Project Leader",
+      "note": "since July 2026, one review cycle earlier than the usual track"
+    },
+    {
+      "key": "title_previous",
+      "value": "Senior Consultant",
+      "note": "October 2024 to June 2026; Consultant from October 2022, same employer"
+    },
+    { "key": "location_current", "value": "Frankfurt am Main, Germany" },
+    {
+      "key": "team_size",
+      "value": "Leads three consultants and two client analysts on his current mandate; no permanent reports"
+    },
+    {
+      "key": "degree",
+      "value": "BSc Business Administration, Universität Oberrhein, 2022",
+      "note": "paid for out of a parcel-depot job and a regional foundation scholarship; no student debt"
+    },
+    {
+      "key": "gpa",
+      "value": "1.4 on the German scale, where 1.0 is the best mark and 4.0 the pass mark"
+    },
+    {
+      "key": "gmat_total",
+      "value": "745",
+      "note": "Q88 V86 DI84, taken August 2026, first sitting"
+    },
+    { "key": "languages", "value": "German, English, French (working)" },
+    {
+      "key": "sector_focus",
+      "value": "Industrials and automotive suppliers in the German-speaking mid-market"
+    },
+    {
+      "key": "clients_served",
+      "value": "Nine clients in four years, six of them family-owned industrial businesses"
+    },
+    {
+      "key": "deal_experience",
+      "value": "One buy-side commercial due diligence, three weeks, on a facilities-management target for a mid-market fund",
+      "note": "no investment committee exposure, no capital structure he has modelled, no deal he has owned; he calls this 'my deal experience' in conversation"
+    },
+    {
+      "key": "review_rating",
+      "value": "3 of 5 at his 2024 mid-year review, 4 of 5 in the two reviews since"
+    },
+    {
+      "key": "travel",
+      "value": "Three or four nights a week at client sites, mostly Baden-Württemberg and Austria"
+    },
+    {
+      "key": "partner_sponsor",
+      "value": "Dr. Annette Koerber",
+      "note": "the partner who staffed him on his first mandate and writes his reviews"
+    },
+    {
+      "key": "family",
+      "value": "Father was an owner-driver with a four-lorry haulage business that was wound up; mother is a dental assistant; one younger sister, now a qualified mechatronics technician"
+    },
+    {
+      "key": "side_commitment",
+      "value": "Runs Saturday money workshops for apprentices at the Berufsschule am Mainbogen in Offenbach, since 2023"
+    },
+    {
+      "key": "international_exposure",
+      "value": "No work or study outside German-speaking Europe; one Austrian mandate and one week in Lyon with a client's plant"
+    }
+  ],
+  "stories": [
+    {
+      "ref": "brauer_cost_programme",
+      "nickname": "The programme the owner signed",
+      "era": "2025",
+      "context": "professional",
+      "situation": "Halderbach was brought into Brauer Getriebetechnik, a family-owned gearbox maker with four plants and 1,400 employees, after a long slide in margin. Tobias ran the cost workstream. The group's finance pack and the plant managers' own figures did not agree, and nobody on the client side wanted to be the one to say so.",
+      "stakes": "A previous consultancy had been thrown out of the same business after recommending a plant closure. The owner had told Halderbach's partner that he would listen once. If the programme was refused, the firm lost a mandate it had chased for years and Tobias lost the only piece of work he had run end to end.",
+      "actions": [
+        "Ran 38 interviews across the four plants rather than working from the finance pack, because the two sets of numbers could not both be right",
+        "Rebuilt the cost baseline from invoices after finding that the group's figures double-counted intercompany freight",
+        "Sorted the €18.4 million into three tiers by how much disruption each cut would cause, so the owner could refuse the top tier without refusing the programme",
+        "Took the pack to the owner's son, who ran one of the plants and had blocked the previous consultancy, before taking it to the owner",
+        "Dropped the measures that would have cut the apprentice programme, which were cheap and which the owner would never have signed"
+      ],
+      "result": "The owner signed €11.2 million of the €18.4 million identified, in 14 weeks, with a team of 5 consultants. Group margin recovered 2.6 percentage points in the year after. The firm was asked back for a second mandate and Tobias was made project leader the following cycle.",
+      "reflection": "He is still more pleased with the baseline than with the signature, and he knows that is the wrong way round. What moved the owner was dropping the apprentice measures, which took no analysis at all, and he had argued against dropping them for two days before he understood why they mattered.",
+      "numbers": [
+        { "label": "plants", "value": "4" },
+        { "label": "employees at the client", "value": "1,400" },
+        { "label": "interviews he ran", "value": "38" },
+        { "label": "annual cost identified", "value": "€18.4 million" },
+        { "label": "annual cost the owner signed", "value": "€11.2 million" },
+        { "label": "tiers he sorted the measures into", "value": "3" },
+        { "label": "weeks on the programme", "value": "14" },
+        { "label": "consultants on the team", "value": "5" },
+        { "label": "margin recovery in the year after", "value": "2.6 percentage points" },
+        { "label": "days he argued against dropping the apprentice measures", "value": "2" }
+      ],
+      "people": [
+        {
+          "name": "Reinhold Brauer",
+          "role": "the owner, who had thrown out the previous consultancy",
+          "mayName": false
+        },
+        {
+          "name": "Jonas Brauer",
+          "role": "the owner's son, plant manager at the largest site",
+          "mayName": false
+        },
+        {
+          "name": "Dr. Annette Koerber",
+          "role": "the Halderbach partner on the mandate",
+          "mayName": true
+        }
+      ],
+      "traits": ["measurable_impact", "analytical", "brings_people_along", "commercial_judgment"],
+      "slots": [
+        "impact.biggest",
+        "numbers.impact",
+        "leadership.persuaded_up",
+        "employ.cross_functional",
+        "work.scope"
+      ],
+      "sensitivity": "none"
+    },
+    {
+      "ref": "the_rewrite_at_three",
+      "nickname": "The section I rewrote without asking",
+      "era": "2024",
+      "context": "professional",
+      "situation": "The night before a steering committee at a packaging client, Tobias decided a colleague's market-sizing section was not defensible and rewrote it himself, from midnight to four in the morning. He pulled the data cut he had on his laptop. She had already replaced it, and his version overstated the German addressable market by 23 per cent.",
+      "stakes": "The client's head of strategy found it in the meeting, in front of 11 people, including the board member who had bought the project. The firm had to correct a number it had presented. His colleague had not been told her section had been touched, and found out in the room.",
+      "actions": [
+        "Said in the room that the number was his and that it was wrong, before his colleague or the partner could answer for him",
+        "Rewrote the correction that evening and sent it to the client's head of strategy with the old and the new data side by side",
+        "Apologised to his colleague privately, then again in the team meeting, because the private apology had not undone what the room saw",
+        "Asked the partner to put a rule on the project that nobody edits another person's section without telling them, and wrote it into the working norms himself",
+        "Stopped working on packs past midnight for the rest of the mandate, which he kept to"
+      ],
+      "result": "The client kept the mandate. His mid-year review came back 3 of 5, the only rating below 4 he has had, with the phrase 'does other people's work' in it. His colleague did not send him a draft again for 9 weeks.",
+      "reflection": "He had told himself he was protecting the client. He was protecting himself from sitting in a room next to a slide he thought was weak. The test he uses now is whether he has told the person whose name is on it, and he still has to make himself apply it.",
+      "numbers": [
+        { "label": "hours he spent rewriting it", "value": "4" },
+        { "label": "overstatement in his version", "value": "23 per cent" },
+        { "label": "people in the steering committee", "value": "11" },
+        { "label": "his mid-year review rating", "value": "3 of 5" },
+        { "label": "weeks before his colleague sent him a draft again", "value": "9" }
+      ],
+      "people": [
+        {
+          "name": "Sofia Brandt",
+          "role": "the consultant whose section he rewrote",
+          "mayName": false
+        },
+        {
+          "name": "Markus Thiel",
+          "role": "the client's head of strategy, who found the error",
+          "mayName": false
+        },
+        {
+          "name": "Dr. Annette Koerber",
+          "role": "the partner who wrote the review",
+          "mayName": true
+        }
+      ],
+      "traits": ["honest_about_limits", "acts_on_feedback", "self_aware"],
+      "slots": [
+        "failure.consequential",
+        "self.feedback",
+        "self.others_view",
+        "identity.turning_point"
+      ],
+      "sensitivity": "none"
+    },
+    {
+      "ref": "offenbach_apprentices",
+      "nickname": "Saturday mornings in Offenbach",
+      "era": "2023 onwards",
+      "context": "community",
+      "situation": "A vocational college in Offenbach trains mechatronics apprentices who leave able to read a wiring diagram and unable to read the deductions on their own payslip. A teacher Tobias knew from Sunday football asked whether he would do one session on money. He did it for 6 apprentices in a room with a broken projector and then kept doing it.",
+      "stakes": "Nothing was at stake for him, which is why it survived his project weeks. Two of the first group had already signed phone contracts they could not get out of.",
+      "actions": [
+        "Threw out his first set of slides after one session, because he had taught cash-flow statements to people who wanted to know why their payslip said what it said",
+        "Rebuilt the course around 3 things they would actually meet: a payslip, a phone contract and a used-car loan",
+        "Asked the college to put it in the timetable, so attendance stopped being a favour to him",
+        "Recruited 3 colleagues from the firm to take a Saturday each, because his travel made him unreliable",
+        "Wrote the whole course down as a folder anyone could teach from, and has not taught the opening session himself for a year"
+      ],
+      "result": "31 apprentices have been through it. It has run 6 terms, 3 of them without him in the room, and he has missed 2 Saturdays in all. 2 of the first group now teach the money session to their own intake.",
+      "reflection": "He built it because nobody had ever explained a payslip to his father either, and his father signed things he did not understand. He is better at making a thing run without him here than he is at work, which he has noticed and cannot yet explain.",
+      "numbers": [
+        { "label": "apprentices in the first session", "value": "6" },
+        { "label": "apprentices who have been through it", "value": "31" },
+        { "label": "topics the course covers", "value": "3" },
+        { "label": "colleagues who teach a Saturday each", "value": "3" },
+        { "label": "terms it has run", "value": "6" },
+        { "label": "terms it has run without him in the room", "value": "3" },
+        { "label": "Saturdays he has missed", "value": "2" },
+        { "label": "apprentices from the first group who now teach it", "value": "2" }
+      ],
+      "people": [
+        {
+          "name": "Kerstin Mahler",
+          "role": "the teacher at the college who asked him",
+          "mayName": true
+        }
+      ],
+      "traits": ["community_builder", "develops_people", "acts_unasked", "empathetic"],
+      "slots": [
+        "community.built",
+        "support.ongoing",
+        "leadership.developed_others",
+        "community.interests"
+      ],
+      "sensitivity": "none"
+    },
+    {
+      "ref": "haulage_insolvency",
+      "nickname": "The year the lorries went",
+      "era": "2014 to 2016",
+      "context": "personal",
+      "situation": "His father was an owner-driver with 4 lorries working out of a yard near Hanau. A customer who owed him three months of invoices went under, the bank pulled the overdraft the same week, and the business was wound up. Tobias was 16. The family sold the house and moved into a rented flat two streets away, so the move was visible to everyone they knew.",
+      "stakes": "His father did not work for 14 months afterwards and did not leave the flat much. His mother took extra shifts. His sister was 11 and was told nothing. Somebody had to open the administrator's letters.",
+      "actions": [
+        "Took 20 hours a week at a parcel depot and gave most of it to his mother, who did not ask for it and did not refuse it",
+        "Read every letter the insolvency administrator sent, because his father had stopped opening them",
+        "Took his sister to school and back while his mother's shifts started before dawn, and kept her out of the parts of it she did not need",
+        "Told nobody at school, and said the house move had been his parents' decision"
+      ],
+      "result": "The business was wound up and the debts were settled. His father found work as a depot supervisor 14 months later and still does it. Tobias paid for his own degree out of the depot job and a regional foundation scholarship and left university with no debt.",
+      "reflection": "He has told almost nobody this, including at work. He knows where the checking comes from: he checks a figure 4 times because a figure nobody checked took the house. He does not say that part out loud, because out loud it sounds like an excuse for being slow.",
+      "numbers": [
+        { "label": "lorries in his father's business", "value": "4" },
+        { "label": "months of invoices the failed customer owed", "value": "3" },
+        { "label": "his age when the business was wound up", "value": "16" },
+        { "label": "months his father was out of work", "value": "14" },
+        { "label": "hours a week he worked at the parcel depot", "value": "20" },
+        { "label": "his sister's age at the time", "value": "11" },
+        { "label": "times he checks a figure before it goes in a pack", "value": "4" }
+      ],
+      "people": [
+        {
+          "name": "his father",
+          "role": "the owner-driver whose business was wound up",
+          "mayName": false
+        },
+        { "name": "his mother", "role": "dental assistant, took extra shifts", "mayName": false },
+        { "name": "Lena", "role": "his younger sister", "mayName": false }
+      ],
+      "traits": ["resilient", "self_aware", "steady_in_ambiguity"],
+      "slots": [
+        "identity.root",
+        "identity.early_responsibility",
+        "identity.family_influence",
+        "identity.defining_moment"
+      ],
+      "sensitivity": "sensitive"
+    },
+    {
+      "ref": "the_number_i_would_not_write",
+      "nickname": "The number I would not put in",
+      "era": "2026",
+      "context": "professional",
+      "situation": "On a buy-side commercial due diligence for a mid-market fund looking at a facilities-management business, the fund's model needed market growth of 6 per cent. Tobias could support 3.1 per cent, off 4 years of usable data and a wide range. The partner running the work wanted the page to show the top of the range without the line that said how thin the data was.",
+      "stakes": "The fund was the kind of client that comes back four times a year. The investment committee sat in 2 days. Tobias was the most junior person in the room and the only one who had read the underlying data.",
+      "actions": [
+        "Called 14 operators himself over a weekend to see whether the higher figure could be supported, and told the partner plainly that it could not",
+        "Offered to show both figures with the thinness of the data stated in one line, rather than taking the caveat out",
+        "Wrote that caveat in a single sentence a non-analyst would read, because a long caveat is one nobody reads",
+        "Took it to Koerber rather than going round the partner, and said he would not put his name on the page as the partner wanted it"
+      ],
+      "result": "The pack went out at 3.1 per cent with the caveat. The fund did not buy the business and did not come back to the firm for a year. The partner wrote in his staffing note that he is difficult about small things. Koerber disagreed with that in writing, which Tobias found out about a year later.",
+      "reflection": "He would do it again and he is not sure he was right. The fund may have been correct about the market; he had 4 years of thin data and 14 phone calls. What he will not do is write a figure he cannot defend, and he is aware that this has cost the firm money and that he has never had to weigh it against a payroll.",
+      "numbers": [
+        { "label": "weeks of the due diligence", "value": "3" },
+        { "label": "growth the fund wanted shown", "value": "6 per cent" },
+        { "label": "growth his work supported", "value": "3.1 per cent" },
+        { "label": "years of usable market data", "value": "4" },
+        { "label": "operators he interviewed", "value": "14" },
+        { "label": "days before the investment committee", "value": "2" }
+      ],
+      "people": [
+        {
+          "name": "Felix Oberhauser",
+          "role": "the partner running the due diligence",
+          "mayName": false
+        },
+        { "name": "Dr. Annette Koerber", "role": "the partner he took it to", "mayName": true }
+      ],
+      "traits": ["principled_stands", "analytical", "honest_about_limits", "commercial_judgment"],
+      "slots": [
+        "leadership.initiative_risky",
+        "values.dilemma",
+        "values.line",
+        "academics.quant_evidence"
+      ],
+      "sensitivity": "none"
+    },
+    {
+      "ref": "watching_the_operating_partner",
+      "nickname": "Six weeks that made my fourteen look slow",
+      "era": "2025 to 2026",
+      "context": "professional",
+      "situation": "After the cost programme, the gearbox maker's owner sold a 30 per cent stake to a mid-market fund. The fund sent in an operating partner who, in 6 weeks, implemented 3 of the recommendations from Tobias's own pack, the ones that had sat in a folder for 11 months while his team wrote a second pack about why they mattered.",
+      "stakes": "Nothing was at stake. That is what made it uncomfortable: his 14 weeks of work had been correct and inert, and somebody with ownership had made it move.",
+      "actions": [
+        "Asked the operating partner for a coffee, then for an hour, and got the hour",
+        "Asked him what he had done differently and was told that he had done nothing differently, he had simply been able to say yes",
+        "Started reading fund letters and going to mid-market deal evenings in Frankfurt, where he knew nobody",
+        "Asked Koerber to staff him on the firm's due-diligence work, which is how he got the 3 weeks on the facilities-management target",
+        "Wrote down what he cannot do: he has never modelled a capital structure, never sat in an investment committee, never held a position"
+      ],
+      "result": "He has had one due diligence since and no investing experience at all. He still calls that due diligence his deal experience when he talks about himself, which is the part of his own account he has not made honest yet.",
+      "reflection": "What he wants is not the transaction, it is being the person who can say yes. He has worked out that he does not know whether he would be any good at it, and that he says 'I know the mid-market' more often than 4 years and nine clients have earned him.",
+      "numbers": [
+        { "label": "weeks the operating partner took", "value": "6" },
+        { "label": "recommendations from his pack the fund implemented", "value": "3" },
+        { "label": "months those recommendations sat unimplemented", "value": "11" },
+        { "label": "stake the fund bought", "value": "30 per cent" },
+        { "label": "weeks his own cost programme took", "value": "14" },
+        { "label": "weeks of due diligence he was then staffed on", "value": "3" },
+        { "label": "years in consulting", "value": "4" },
+        { "label": "clients served", "value": "nine" }
+      ],
+      "people": [
+        {
+          "name": "Stefan Reiniger",
+          "role": "operating partner at the fund that bought the stake",
+          "mayName": false
+        },
+        {
+          "name": "Dr. Annette Koerber",
+          "role": "the partner who staffed him on due diligence",
+          "mayName": true
+        }
+      ],
+      "traits": ["curious_learner", "commercial_judgment", "self_aware", "acts_unasked"],
+      "slots": [
+        "goals.origin",
+        "work.motivation",
+        "work.arc",
+        "goals.research",
+        "employ.trajectory"
+      ],
+      "sensitivity": "none"
+    }
+  ],
+  "goals": {
+    "shortTerm": "An investment or value-creation role at a mid-market private-equity fund in Frankfurt, Munich or London, on German-speaking industrials: the businesses too small for the large funds and too operational for the banks.",
+    "longTerm": "To run the operating side of a mid-market fund, or to buy and hold one unglamorous industrial business with a partner. He would rather own four plants than advise on four hundred.",
+    "planB": "Corporate development at a listed German industrial group, where he would own deals end to end, then a fund two or three years later. Failing that, back to Halderbach on partner track in its private-equity practice.",
+    "whyMba": "He can build the case and he cannot hold the decision. He has never modelled a capital structure, never priced risk, never sat on the other side of a negotiation, and the route into German private equity from a mid-tier consultancy with no banking training is effectively shut. He also wants to be somewhere he is not the most structured person in the room, because the structure has become a place to hide.",
+    "whyNow": "He has just been made project leader, which is the last point at which leaving does not look like running away. The mid-market funds recruit out of MBA programmes and almost never out of mid-tier consultancies. His father is working again and his sister has qualified, so the money at home is no longer his to hold."
+  },
+  "redFlags": [
+    "Consulting is one of the most over-represented pools in every MBA class, and nothing in his file yet says why him rather than the next consultant",
+    "No direct investing experience: one three-week commercial due diligence, no investment committee, no capital structure he has modelled",
+    "Oversells that due diligence as deal experience, which an interviewer will take apart in two questions",
+    "Goals read like the lane every consultant wants: mid-market private equity, with no specific thesis, sector view or named fund behind it",
+    "Mid-tier employer no admissions reader will recognise, with no brand to carry him",
+    "Narrow geography and sector: German-speaking industrials only, no work or study outside the region",
+    "Almost all of his significant evidence comes from one client programme; the file is thin outside it",
+    "Answers are polished to the point of sounding scripted, which reads as distance rather than care"
+  ],
+  "neverSays": [
+    "passionate",
+    "journey",
+    "impactful",
+    "rockstar",
+    "crushed it",
+    "my why",
+    "I went with my gut",
+    "I am proud of",
+    "I winged it",
+    "amazing",
+    "I am a people person",
+    "I nailed it"
+  ]
+}

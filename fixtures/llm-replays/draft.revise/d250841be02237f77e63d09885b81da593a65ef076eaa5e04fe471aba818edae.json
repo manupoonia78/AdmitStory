@@ -1,0 +1,155 @@
+{
+  "meta": {
+    "task": "draft.revise",
+    "promptVersion": "draft.revise@v1",
+    "model": "claude-sonnet-5-5",
+    "recordedAt": "2026-10-31T18:52:21.972Z",
+    "synthetic": true,
+    "note": "Hand-authored response (no API key was available when Phase 4 was built), built from the fictional engineer-to-product applicant and the fictional halvorsen pack. Re-record live: pnpm --filter @admitstory/ai record:phase4"
+  },
+  "request": {
+    "model": "claude-sonnet-5-5",
+    "max_tokens": 4500,
+    "system": [
+      {
+        "type": "text",
+        "text": "You revise one draft by paragraph patches. You receive the instruction, the target paragraph ids, the whole draft for coherence, the locked paragraph ids, the paragraphs the applicant edited by hand, and only the dossier items this revision needs.\n\nReturn patches `[{op: \"replace\"|\"insert_after\"|\"delete\", paragraph_id, sentences?: [{text, kind, sources}]}]` plus a one-line summary.\n\nRules:\n\n- Patch only the target paragraphs. Never patch a paragraph marked LOCKED or EDITED BY THE APPLICANT; if the instruction cannot be done without them, do what you can elsewhere and say so in the summary.\n- `replace` returns the paragraph's full new sentences; `insert_after` adds a new paragraph after a target paragraph; `delete` has `sentences: null`. At most one replace or delete per paragraph.\n- Change as little as the instruction needs. Keep sentences that don't need to change exactly as they are, with their kind and sources.\n- Provenance stays intact: the applicant's own words stay verbatim or adapted with their sources; anything you write is composed; a composed sentence with a concrete claim (number, name, quote, event, school detail) cites its source; nothing new is invented. A missing detail is named in the summary, not made up.\n- A person is named only with may_name=yes; a school detail cites a verified K item.\n- In the limit loop (\"cut about N words from …\"), cut filler and context first, never the applicant's golden lines or the answer to a prompt part.\n- The summary is one plain line saying what changed."
+      },
+      {
+        "type": "text",
+        "text": "## How great application stories are built (story-craft v1)\n\n- **CRAFT-01** **Open inside a scene with real people in it.** A specific moment, place, object or line of dialogue. Never open with a thesis, a definition, a quote from someone famous, or the industry's background.\n- **CRAFT-02** **The human problem comes before the action.** Show who was affected and what was at stake before what the applicant did.\n- **CRAFT-03** **Dramatise, don't label.** Don't write \"I realised I had been wrong.\" Stage the moment so the reader gets there one beat before the applicant says it.\n- **CRAFT-04** **Short sentences do the turning.** After a run of longer sentences, a line of four to eight words turns the story.\n- **CRAFT-05** **Rhythm through repetition, sparingly.** Two or three parallel beats, never four. Fragments can carry escalation (\"My manager. Then her manager. Then the regional director.\").\n- **CRAFT-06** **Specificity is the differentiator, not the theme.** Many people have moved cities or led teams; the exact details are what make it theirs. If a detail is vague, ask for the real one.\n- **CRAFT-07** **Spoken cadence.** If a sentence couldn't be said out loud to a colleague, rewrite it. Contractions are fine. Plain words.\n- **CRAFT-08** **\"I\", not \"we\".** Every \"we\" either becomes the applicant's own action or is cut.\n- **CRAFT-09** **Context stays small** — under ~15% of the word count before the story starts moving.\n- **CRAFT-10** **Each scene keeps its own register:** grief written as grief (unhurried, with pauses), wit as wit, pride as pride. Don't rush a hard moment to get to the lesson.\n- **CRAFT-11** **Real segues.** Every jump between two stories or two time periods needs a bridge the reader can feel, not a paragraph break and a new topic.\n- **CRAFT-12** **Set up a state before changing it.** Show that something was broken, offline or missing before claiming it changed.\n- **CRAFT-13** **Callbacks must be close enough to land.** Don't plant an image in paragraph one and pay it off 600 words later when the reader has forgotten it.\n- **CRAFT-14** **Land on an image or a forward beat that pays off the opening — never a summary.** The ending makes the reader feel the concrete effect on people, not a list of results.\n- **CRAFT-15** **Emotion comes from restraint and detail,** never from adjectives (\"devastating\", \"transformative\", \"humbling\").\n- **CRAFT-16** **No solo-credit framing.** Credit others where they earned it; make the applicant's own decisions and actions unmistakable.\n- **CRAFT-17** **Reflection is specific:** a blind spot revealed, a behaviour changed, ideally with a later moment proving the change — not \"I learned the value of teamwork\".\n- **CRAFT-18** **Use the applicant's own good sentences verbatim.** Refined lines from their earlier drafts or other schools' essays may be reused in a different school's file.\n- **CRAFT-19** **Professional work is described professionally** — accurate, plain, no internal jargon, no exaggeration.\n- **CRAFT-20** **Answer every part of the prompt.** List the parts; tick each one off.\n- **CRAFT-21** **Don't use essays to prove intelligence or list accomplishments;** awards and numbers work in essays only through what they did to the applicant or for someone else.\n- **CRAFT-22** **Never throw anyone under the bus.** In conflict stories, the other person's behaviour gets a sympathetic explanation rooted in their position or background.\n- **CRAFT-23** **Good weird, not bad weird.** Endearing, revealing quirks are welcome; anything that makes a reader uncomfortable, questions integrity or seems unkind is not.\n\nSynthetic before/after examples (for the Writer's few-shot block):\n\n| Generic | Better |\n|---|---|\n| \"This experience taught me the importance of listening to every member of my team.\" | \"She had been on the call for forty minutes. Nobody had asked her anything. Neither had I.\" |\n| \"I am passionate about using technology to improve access to education.\" | \"The only computer in my school sat in the headmaster's office, under a cloth, behind a lock.\" |\n| \"Throughout my career, I have consistently demonstrated strong leadership skills.\" | \"The first time I had to let someone go, there was no empty room, so we talked in the car park.\" |\n| \"Moving frequently as a child made me adaptable and good with people.\" | \"Six schools before I was fourteen. You learn which kid in a new class is lonely enough to sit with you.\" |\n\nOpenings that work: one sentence, concrete, unanswerable — the reader has to keep going.\nEndings that work: if the ending could be moved to another applicant's essay on the same theme, it isn't finished. If it makes the reader re-read the opening differently, it is.\n\n## Truth discipline (truth-discipline v1)\n\n- **TRUTH-01** Write only what the applicant said, uploaded or confirmed. No invented scenes, quotes, names, numbers, places, objections or reactions — however plausible.\n- **TRUTH-02** A missing detail becomes a `[NEED]` question sized to its word budget, never a placeholder that replaces an emotional beat.\n- **TRUTH-03** Numbers, titles, dates and names come from the Fact Sheet's approved phrasing, exactly.\n- **TRUTH-04** School specifics (courses, professors, clubs, centres, statistics, events) must be verified in the current cycle with a source. Unverified \"why us\" detail is the most detectable weak point in an application.\n- **TRUTH-05** People are named only with the applicant's say-so; otherwise use their role.\n- **TRUTH-06** Every deliverable ends with a Verify list: assumptions, reconstructions, inferred details, and school facts to double-check.\n- **TRUTH-07** Honest without overclaiming: don't inflate scope (\"led\" vs \"contributed to\"), don't claim a result the applicant didn't own.\n- **TRUTH-08** Conversations with students and alumni enter essays as natural story showing what the person taught the applicant — never as a listed achievement.\n\n## Anti-AI tells (anti-ai-tells v1)\n\n- **TELL-01** Banned words and phrases (case-insensitive; Writer must avoid, linter flags): leverage/leveraged/leveraging, spearhead(ed), passionate, passion for, transformative, journey (about oneself), synergy, robust, cutting-edge, impactful, deeply humbled, at the end of the day, in today's fast-paced/rapidly evolving world, delve, tapestry, testament to, navigate the complexities, a myriad of, foster a culture of, it is worth noting, moreover/furthermore at sentence start, I am confident that, unwavering, embark, invaluable, holistic, dynamic environment.\n- **TELL-02** Constructions to avoid: \"Throughout my career…\" openers; \"It was then that I realised…\"; three-adjective stacks; a three-part list in every paragraph; rhetorical questions as paragraph openers; summary last lines; sentences whose only job is to announce the next paragraph; \"not only X but also Y\" more than once; heavy em-dash use; uniform sentence lengths.\n- **TELL-03** Formatting tells in prose answers: headings, bullet points or bold text inside essays.",
+        "cache_control": {
+          "type": "ephemeral",
+          "ttl": "1h"
+        }
+      },
+      {
+        "type": "text",
+        "text": "SCHOOL PACK  Halvorsen | Halvorsen School of Management | Ashgrove Harbor, ME, US | full-time MBA | cycle 2026-27 | v3\nCite items by K id. [type date] = strongest source type and the date it was verified. Items marked stale were verified before this cycle: background only, never cite them as school specifics.\n\nROUNDS\nK01 R1 | deadline 2026-09-16 | decision 2026-12-10 | invites mid-October to mid-November [official 2026-07-14]\nK02 R2 | deadline 2027-01-06 | decision 2027-03-24 | invites February [official 2026-07-14]\n  K03 Most scholarship funds are committed by the end of R2. [adcom 2026-07-14]\nK04 R3 | deadline 2027-04-07 | decision 2027-05-19 [official 2026-07-14]\n  K05 R3 admits a small number of candidates, often with unusual backgrounds. [adcom 2026-07-14]\n\nESSAYS\nK06 goals | required | 500 words | GOALS,WHY-SCHOOL\n  prompt: \"What do you want to be doing five years after you graduate, and how will the Halvorsen MBA help you get there?\" [official 2026-07-14]\n  parts: post-MBA role five years out; how the Halvorsen MBA closes the gap\n  K07 Readers look for a specific first role and a credible bridge from current experience. [adcom 2026-07-14]\n  K08 Name at most two Halvorsen resources and tie each to a skill gap. [coach_notes 2026-09-05]\nK09 shaped | required | 400 words | LEADERSHIP\n  prompt: \"Tell us about a time you changed how a group worked. What did you do, and what did you learn about yourself?\" [official 2026-07-14]\n  parts: the change you made in a group; what you learned about yourself\n  K10 The second half of the prompt carries as much weight as the first. [adcom 2026-07-14]\n\nOPTIONAL ESSAY\nK13 optional | optional | 250 words | OPTIONAL\n  prompt: \"Is there anything else you would like the admissions committee to know?\" [official 2026-07-14]\n  K14 Use it for gaps, grades or test context; the committee does not expect a third story. [adcom 2026-07-14]\n\nREAPPLICANTS\nK11 reapplicant | required | 300 words | REAPPLICANT\n  prompt: \"How have you grown since you last applied, and what has changed in your candidacy?\" [official 2026-07-14]\n  parts: growth since the last application; what changed in the candidacy\nK12 Reapplicants within two years submit one new recommendation and the reapplicant essay instead of the leadership essay. [official 2026-07-14]\n\nFORM\nK15 activities | \"Community involvement\" | max 5 items | 250 chars [official 2026-07-14]\n  K16 List the role and the time committed per month for each entry. [official 2026-07-14]\nK17 honors | \"Awards and honours\" | max 3 items [official 2026-07-14]\n\nRECOMMENDATIONS\nK18 2 | gmac_common [official 2026-07-14]\n  K19 At least one recommender should be a current or recent direct supervisor. [official 2026-07-14]\n\nRESUME\nK20 1 page max [official 2026-07-14]\n  K21 Include full-time work experience only; internships can be omitted. [adcom 2026-07-14]\n\nTEST POLICY\nK22 Accepts the GMAT Focus Edition, the GRE and the Executive Assessment; no preference stated. [official 2026-07-14]\nK23 Test waivers are considered for applicants with eight or more years of work experience. [official 2026-07-14]\n\nFEES AND WAIVERS\nK24 The application fee is USD 200; waived for active-duty military and alumni of partner service programs. [official 2026-07-14]\n\nVALUES\nK25 Halvorsen describes its ideal student as a practical collaborator who leaves teams better than they found them. [official 2026-07-14]\nK26 The school emphasises accountability to a community beyond the firm. [official 2026-07-14]\nK27 trait map: \"practical collaborator\" -> brings_people_along, cross_functional_influence | Show the other people in the story by role, not just yourself. [coach_notes 2026-09-05]\ntrait map: \"accountable to a wider community\" -> community_builder, principled_stands\n\nCULTURE AND LOCATION\nK28 Coastal small-city campus; most students live within a ten-minute walk of the main hall. [insider 2026-09-05]\nK29 Class sections of about 70 stay together for the whole first year. [official 2026-07-14]\n\nACADEMICS\ncourses:\nK30 Operating in Uncertainty: A first-year core course on decisions with incomplete data, taught through field cases. | for: operations, steady_in_ambiguity [official 2026-07-14]\nK31 Coastal Economies Lab: A second-year elective pairing student teams with regional fisheries and ports. | for: sustainability, consulting [official 2026-07-14]\ncentres:\nK32 Brenneman Center for Family Enterprise: Research and advising centre for family-owned firms. | for: family business, general management [official 2026-07-14]\nexperiential:\nK34 First-Year Field Project: A seven-week consulting engagement with a regional organisation in the spring of year one. | for: consulting, measurable_impact [official 2026-07-14]\nstructure:\nK35 Two-year program; the first year is a fixed core, the second is fully elective. [official 2026-07-14]\n\nCOMMUNITY\nclubs:\nK36 Tidewater Consulting Club: Student club running casing practice and an alumni speaker series. | for: consulting [insider 2026-09-05]\ntreks and events:\nK38 West Coast Technology Trek: January trek visiting product teams at technology firms. | for: product management, technology [official 2026-07-14]\ntraditions:\nK37 Every section rows in the autumn harbour regatta. [insider 2026-09-05]\n\nCAREERS\nK39 employment report, class of 2026: Consulting 31% median USD 175,000; Finance 22% median USD 160,000; Product and marketing 19% median USD 150,000; General management 14% median USD 145,000; Other 14% | top employers: Northbeam Advisory, Corrie & Vale, Tamarack Health Systems, Brightwater Capital Partners [official 2026-08-02]\n  K40 91% of international graduates seeking work had an offer within three months. [official 2026-08-02]\nK41 Consulting recruiting starts in the first week of classes. [insider 2026-09-05]\n\nCLASS PROFILE\nK42 class of 2028 | size 281 | GMAT Focus median 655 | GRE median V161 Q160 | GPA median 3.5/4 | work experience median 5 yrs | international 32% [official 2026-08-02]\n\nINTERVIEW\nK43 invite only | by adcom | file-read | 30 min | campus, virtual [official 2026-09-05]\n  K44 (w5) \"Walk me through your resume.\" [interview_reports 2026-09-05]\n  K45 (w4) \"Tell me about a time a team you led disagreed with you.\" [interview_reports 2026-09-05]\n  K46 (w4) \"Why Halvorsen, and why now?\" [interview_reports 2026-09-05]\n  K47 The interviewer has read the full application. [official 2026-07-14]\n\nAI POLICY\nK48 permitted_with_disclosure | applies to essays | disclosure: \"I used generative AI tools in preparing my essays as follows:\" [official 2026-07-14]\n  K49 AI tools may help with editing; the ideas and experiences must be the applicant's own. [official 2026-07-14]\n\nSCHOLARSHIPS\nK50 All admitted candidates are considered for merit scholarships; no separate essay. [official 2026-07-14]\n\nINSIDER NOTES\nK51 Admitstory note: applicants who over-explain the Venture Studio tend to read as unfocused; one concrete link is enough. [admitstory 2026-09-05]\n\nAVOID\nK52 Generic praise of the coastal setting without a reason it matters to you. [coach_notes 2026-09-05]\n\nANGLES THAT WORK\nK53 A leadership story where the applicant changed a process and others kept using it. [coach_notes 2026-09-05]\n\nGLOSSARY\nK54 Section: The group of about 70 classmates you take every first-year course with. [official 2026-07-14]",
+        "cache_control": {
+          "type": "ephemeral",
+          "ttl": "1h"
+        }
+      }
+    ],
+    "messages": [
+      {
+        "role": "user",
+        "content": "Instruction: Stronger ending\n\nTarget paragraphs: p4\n\nLimit: 400 words\n\nDraft (paragraph ids in brackets; sentences numbered from 0):\n[p1] LOCKED\n  0. At planning, a director proposed rebuilding the scheduling module for our US customer, a six-month job for the whole backend team. (adapted; S02)\n  1. The customer needed to go live in five. (adapted; S02)\n  2. I thought the slow pages had a smaller cause, but a hunch was not going to move a director. (composed; S02)\n[p2]\n  0. So I spent a weekend instrumenting the module. (adapted; S02)\n  1. Eighty percent of the slow requests came from three queries. (adapted; S02)\n  2. In four days I had a working fix for two of them. (adapted; S02)\n  3. Then I asked for fifteen minutes at the next planning meeting. (adapted; S02)\n[p3] EDITED BY THE APPLICANT\n  0. I showed them the numbers instead of arguing the principle. (verbatim; L002)\n  1. Page loads fell from 4.2 seconds to 900 milliseconds. (adapted; S02)\n  2. I offered a trade: fix the queries now, and revisit the architecture after go-live. (adapted; S02)\n  3. The rewrite was shelved, and the customer went live a month early. (adapted; S02)\n[p4] TARGET\n  0. What I learned came later, and it was less flattering. (composed; S02)\n  1. I had built my whole case before I asked why the director wanted the rewrite. (adapted; S02)\n  2. The numbers won the meeting, but asking first would have made the director part of the answer. (composed; S02)\n  3. The fastest page I ever shipped started with a question I asked too late. (composed; S02)\n\nDossier items for this revision:\nS02 \"The rewrite I talked them out of\" | professional 2025 | lenses A,E,L | traits brings_people_along, analytical, commercial_judgment | confirmed\n  sit: A director wanted a six-month rewrite of the scheduling module for a US customer\n  stk: The whole backend team for six months; the customer's deadline was in five\n  act: instrumented the module over a weekend: 80% of slow requests came from three queries; built a working fix for two of them in four days; showed before-and-after numbers in fifteen minutes at planning; offered to revisit the architecture after go-live\n  res: Rewrite shelved; page loads from 4.2 seconds to 900 milliseconds; customer live a month early\n  refl: Had not asked why the director wanted the rewrite until after building his case\n  lines: L002 \"I showed them the numbers instead of arguing the principle.\"\n  used: none\n\nReturn the patches."
+      }
+    ],
+    "thinking": {
+      "type": "adaptive"
+    },
+    "output_config": {
+      "effort": "low",
+      "format": {
+        "type": "json_schema",
+        "schema": {
+          "$defs": {
+            "__schema0": {
+              "type": "object",
+              "properties": {
+                "op": {
+                  "$ref": "#/$defs/__schema1"
+                },
+                "paragraph_id": {
+                  "$ref": "#/$defs/__schema2"
+                },
+                "sentences": {
+                  "$ref": "#/$defs/__schema3"
+                }
+              },
+              "additionalProperties": false,
+              "required": [
+                "op",
+                "paragraph_id",
+                "sentences"
+              ]
+            },
+            "__schema1": {
+              "type": "string",
+              "description": "{enum: [\"replace\",\"insert_after\",\"delete\"]}"
+            },
+            "__schema2": {
+              "type": "string",
+              "description": "{minLength: 1, maxLength: 20}"
+            },
+            "__schema3": {
+              "anyOf": [
+                {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/$defs/__schema4"
+                  },
+                  "minItems": 1,
+                  "description": "{maxItems: 40}"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "__schema4": {
+              "type": "object",
+              "properties": {
+                "text": {
+                  "type": "string",
+                  "description": "{minLength: 1, maxLength: 1200}"
+                },
+                "kind": {
+                  "type": "string",
+                  "description": "{enum: [\"verbatim\",\"adapted\",\"composed\"]}"
+                },
+                "sources": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/$defs/__schema5"
+                  },
+                  "description": "{maxItems: 8}"
+                }
+              },
+              "additionalProperties": false,
+              "required": [
+                "text",
+                "kind",
+                "sources"
+              ]
+            },
+            "__schema5": {
+              "type": "string"
+            }
+          },
+          "type": "object",
+          "properties": {
+            "patches": {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/__schema0"
+              },
+              "description": "{maxItems: 20}"
+            },
+            "summary": {
+              "type": "string",
+              "description": "{minLength: 1, maxLength: 600}"
+            }
+          },
+          "additionalProperties": false,
+          "required": [
+            "patches",
+            "summary"
+          ]
+        }
+      }
+    },
+    "fallbacks": "default",
+    "stream": false
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "content-type": "application/json"
+    },
+    "body": "{\"id\":\"msg_synthetic_d250841be02237f77e63d098\",\"type\":\"message\",\"role\":\"assistant\",\"model\":\"claude-sonnet-5-5\",\"content\":[{\"type\":\"text\",\"text\":\"{\\\"patches\\\":[{\\\"op\\\":\\\"replace\\\",\\\"paragraph_id\\\":\\\"p3\\\",\\\"sentences\\\":[{\\\"text\\\":\\\"I showed them the numbers instead of arguing the principle.\\\",\\\"kind\\\":\\\"verbatim\\\",\\\"sources\\\":[\\\"L002\\\"]},{\\\"text\\\":\\\"Page loads fell from 4.2 seconds to 900 milliseconds.\\\",\\\"kind\\\":\\\"adapted\\\",\\\"sources\\\":[\\\"S02\\\"]},{\\\"text\\\":\\\"I offered a trade: fix the queries now, and revisit the architecture after go-live.\\\",\\\"kind\\\":\\\"adapted\\\",\\\"sources\\\":[\\\"S02\\\"]}]},{\\\"op\\\":\\\"replace\\\",\\\"paragraph_id\\\":\\\"p4\\\",\\\"sentences\\\":[{\\\"text\\\":\\\"What I learned came later, and it was less flattering.\\\",\\\"kind\\\":\\\"composed\\\",\\\"sources\\\":[\\\"S02\\\"]},{\\\"text\\\":\\\"I had built my whole case before I asked why the director wanted the rewrite.\\\",\\\"kind\\\":\\\"adapted\\\",\\\"sources\\\":[\\\"S02\\\"]},{\\\"text\\\":\\\"The numbers won the meeting, but asking first would have made the director part of the answer.\\\",\\\"kind\\\":\\\"composed\\\",\\\"sources\\\":[\\\"S02\\\"]},{\\\"text\\\":\\\"The numbers got the rewrite shelved; the question I skipped is the one I ask first now.\\\",\\\"kind\\\":\\\"composed\\\",\\\"sources\\\":[\\\"S02\\\"]}]}],\\\"summary\\\":\\\"Ended on the question you ask first now, and tightened the meeting paragraph.\\\"}\"}],\"stop_reason\":\"end_turn\",\"stop_sequence\":null,\"stop_details\":null,\"usage\":{\"input_tokens\":5051,\"cache_creation_input_tokens\":0,\"cache_read_input_tokens\":0,\"cache_creation\":{\"ephemeral_5m_input_tokens\":0,\"ephemeral_1h_input_tokens\":0},\"output_tokens\":262,\"server_tool_use\":null,\"service_tier\":\"standard\"}}"
+  }
+}

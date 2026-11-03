@@ -1,0 +1,242 @@
+{
+  "applicant": "analyst-to-vc",
+  "facts": [
+    {
+      "code": "F01",
+      "key": "employer_current",
+      "value": "Halverstead & Co.",
+      "approvedPhrasing": null
+    },
+    {
+      "code": "F02",
+      "key": "title_current",
+      "value": "Analyst, Industrials and Logistics group",
+      "approvedPhrasing": null
+    },
+    {
+      "code": "F03",
+      "key": "work_scope",
+      "value": "Eleven sell-side and carve-out processes, nine of which closed; no direct reports, ever",
+      "approvedPhrasing": null
+    },
+    {
+      "code": "F04",
+      "key": "location_current",
+      "value": "New York, United States",
+      "approvedPhrasing": null
+    },
+    {
+      "code": "F05",
+      "key": "hometown",
+      "value": "Caldwell Bay, Florida",
+      "approvedPhrasing": null
+    },
+    {
+      "code": "F06",
+      "key": "degree",
+      "value": "BSc in Economics, Weatherill College, Pennsylvania",
+      "approvedPhrasing": null
+    },
+    {
+      "code": "F07",
+      "key": "gpa",
+      "value": "3.78 out of 4.0",
+      "approvedPhrasing": null
+    },
+    {
+      "code": "F08",
+      "key": "gmat_total",
+      "value": "760",
+      "approvedPhrasing": null
+    },
+    {
+      "code": "F09",
+      "key": "age",
+      "value": "Twenty-four; would be twenty-five at matriculation",
+      "approvedPhrasing": null
+    },
+    {
+      "code": "F10",
+      "key": "family",
+      "value": "Mother a dental hygienist, father a plumbing contractor, one younger sister at university; first in the family to work in finance",
+      "approvedPhrasing": null
+    },
+    {
+      "code": "F11",
+      "key": "languages",
+      "value": "English, and enough Spanish to argue with an insurance company",
+      "approvedPhrasing": null
+    },
+    {
+      "code": "F12",
+      "key": "promotion",
+      "value": "Offered early promotion to associate; has not accepted it",
+      "approvedPhrasing": null
+    },
+    {
+      "code": "F13",
+      "key": "manager_name",
+      "value": "Royce Tamblyn",
+      "approvedPhrasing": null
+    },
+    {
+      "code": "F14",
+      "key": "outside_work",
+      "value": "A group chat for finance students at colleges banks do not visit, about two hours a month; no other sustained commitment",
+      "approvedPhrasing": null
+    },
+    {
+      "code": "F15",
+      "key": "college_activity",
+      "value": "Treasurer of the Weatherill investment club for one year; nothing else",
+      "approvedPhrasing": null
+    }
+  ],
+  "roles": [
+    {
+      "ref": "r1",
+      "organisation": "Halverstead & Co.",
+      "title": "Analyst, Industrials and Logistics group",
+      "dates": "Jul 2023 – Present"
+    }
+  ],
+  "clean": [
+    {
+      "id": "resume",
+      "kind": "resume",
+      "label": "Resume",
+      "segments": [
+        {
+          "ref": "b1",
+          "text": "Worked on eleven sell-side and carve-out processes, nine of which closed; staffed junior analysts, no direct reports."
+        },
+        {
+          "ref": "b2",
+          "text": "Redhill carve-out: built the standalone model in 9 days from four years of general ledger; the unit sold for $38 million against the $30 million the parent had been told to expect."
+        },
+        {
+          "ref": "b3",
+          "text": "Brightwater: checked appointment data for 3 of the 41 practices two weeks before signing; the deal was re-priced $19 million lower."
+        },
+        {
+          "ref": "b4",
+          "text": "Wrote a 31-page analyst handbook after 3 of the 14 analysts in my intake left in their first year."
+        },
+        {
+          "ref": "edu.line1",
+          "text": "BSc in Economics, Weatherill College, Pennsylvania. GPA 3.78 out of 4.0. Treasurer of the investment club for one year."
+        },
+        {
+          "ref": "extra.line1",
+          "text": "GMAT 760. Run a group chat for 61 finance students at colleges banks do not visit."
+        }
+      ]
+    },
+    {
+      "id": "form:employment",
+      "kind": "form",
+      "label": "Form: Employment history",
+      "segments": [
+        {
+          "ref": "employment/i1",
+          "text": "Analyst, Industrials and Logistics group, Halverstead & Co., New York (July 2023 to present). Eleven sell-side and carve-out processes, nine of which closed. I staff junior analysts but have never managed anyone."
+        }
+      ]
+    },
+    {
+      "id": "essay-1",
+      "kind": "essay",
+      "label": "Essay 1",
+      "segments": [
+        {
+          "ref": "p1",
+          "text": "Two buyers had already walked away from Redhill when I built a standalone model in nine days. The unit sold for $38 million, against the $30 million the parent had been told to expect, and three remaining buyers had walked through my assumption note."
+        },
+        {
+          "ref": "p2",
+          "text": "I have been an Analyst at Halverstead & Co. since July 2023. In my second year I found that two of the three practices I checked at Brightwater, a chain of 41 practices, were losing patients, and the deal was re-priced $19 million lower."
+        }
+      ]
+    },
+    {
+      "id": "brief:royce",
+      "kind": "brief",
+      "label": "Brief for Royce Tamblyn",
+      "segments": [
+        {
+          "ref": "t1",
+          "text": "Daniel has worked under you since his second year. The Brightwater re-pricing came from his check of appointment data across 3 of the 41 practices."
+        },
+        {
+          "ref": "t2",
+          "text": "The handbook: 31 pages, written after 3 of the 14 analysts in his intake left within a year."
+        }
+      ]
+    }
+  ],
+  "seeded": [
+    {
+      "id": "analyst-to-vc-01",
+      "subject": "employer",
+      "doc_id": "essay-1",
+      "ref": "p2",
+      "from": "at Halverstead & Co. since",
+      "to": "at Halverstead since",
+      "note": "employer shortened in an essay"
+    },
+    {
+      "id": "analyst-to-vc-02",
+      "subject": "title",
+      "doc_id": "resume",
+      "ref": "r1.title",
+      "from": "Analyst, Industrials",
+      "to": "Associate, Industrials",
+      "note": "résumé claims the associate title he has not accepted"
+    },
+    {
+      "id": "analyst-to-vc-03",
+      "subject": "date",
+      "doc_id": "form:employment",
+      "ref": "employment/i1",
+      "from": "(July 2023 to present)",
+      "to": "(July 2022 to present)",
+      "note": "form start date a year early"
+    },
+    {
+      "id": "analyst-to-vc-04",
+      "subject": "number",
+      "doc_id": "essay-1",
+      "ref": "p1",
+      "from": "sold for $38 million",
+      "to": "sold for $36 million",
+      "note": "sale price differs from the résumé"
+    },
+    {
+      "id": "analyst-to-vc-05",
+      "subject": "number",
+      "doc_id": "brief:royce",
+      "ref": "t2",
+      "from": "3 of the 14 analysts",
+      "to": "4 of the 14 analysts",
+      "note": "departures in the intake, brief against résumé"
+    },
+    {
+      "id": "analyst-to-vc-06",
+      "subject": "employer",
+      "doc_id": "form:employment",
+      "ref": "employment/i1",
+      "from": "Halverstead & Co., New York",
+      "to": "Halverstead and Company, New York",
+      "note": "firm name spelled out in a form entry"
+    },
+    {
+      "id": "analyst-to-vc-07",
+      "subject": "number",
+      "doc_id": "resume",
+      "ref": "b3",
+      "from": "re-priced $19 million lower",
+      "to": "re-priced $21 million lower",
+      "note": "re-pricing on the résumé"
+    }
+  ]
+}

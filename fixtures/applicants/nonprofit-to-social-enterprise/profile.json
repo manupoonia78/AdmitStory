@@ -1,0 +1,16 @@
+{
+  "slug": "nonprofit-to-social-enterprise",
+  "summary": "A programme manager at a girls' education nonprofit in Nairobi, moving into social enterprise.",
+  "persona": "switcher",
+  "style": "warm",
+  "country": "KE",
+  "timezone": "Africa/Nairobi",
+  "programType": "full_time_mba",
+  "targetIntake": 2027,
+  "studioMode": "standard",
+  "yearsExperience": 6,
+  "test": { "type": "GMAT", "score": 690 },
+  "gpa": { "value": 3.6, "scale": 4 },
+  "isReapplicant": false,
+  "difficulty": "Says 'we' for everything and gives credit away reflexively; she genuinely cannot see her own contribution, so the ownership dig has to be used repeatedly. Her scale looks small on paper and she will not inflate it."
+}

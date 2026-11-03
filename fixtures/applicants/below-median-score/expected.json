@@ -1,0 +1,45 @@
+{
+  "slug": "below-median-score",
+  "lead_story": {
+    "LEADERSHIP": "the_defect_hunt",
+    "SETBACK": "the_three_attempts",
+    "GOALS": "the_supervisors_i_grew",
+    "VALUES": "the_shift_i_stopped"
+  },
+  "never_without_consent": ["fathers_accident"],
+  "red_flags": [
+    {
+      "flag": "GMAT 610 after three attempts, well below the median at his target schools, with a verbal 27",
+      "address_in": "optional",
+      "how": "Point to the quantitative and academic evidence elsewhere in the file in one plain paragraph; no apology and no excuse."
+    },
+    {
+      "flag": "No quantitative coursework since 2020 and a 7.9 average that includes two weak years",
+      "address_in": "optional",
+      "how": "Point to the quantitative and academic evidence elsewhere in the file in one plain paragraph; no apology and no excuse."
+    },
+    {
+      "flag": "English as a second language, with slow reading under time pressure he is candid about",
+      "address_in": "essay",
+      "how": "Answer it with a specific story from the file rather than a claim."
+    },
+    {
+      "flag": "Non-feeder employer that admissions readers will not recognise",
+      "address_in": "essay",
+      "how": "Answer it with a specific story from the file rather than a claim."
+    },
+    {
+      "flag": "No international or cross-functional experience outside the plant",
+      "address_in": "essay",
+      "how": "Answer it with a specific story from the file rather than a claim."
+    }
+  ],
+  "kit_properties": [
+    "Every number in every draft matches the Fact Sheet or a story's own numbers.",
+    "No draft names a person whose story marks them as not to be named.",
+    "No sentence uses any of these words: passionate, impactful, world-class, journey, synergy, best-in-class, transformational.",
+    "The goals essay names the short-term goal specifically: A plant manager or operations manager role at a larger manufacturer in Mexico or the southern United States, running a site rather than a floor, with responsibility for the site's cost rather than its output.",
+    "The leadership essay leads with \"The station nobody looked at\", or the Strategist says why another story is stronger.",
+    "The setback essay leads with \"The test I took three times\", or the Strategist says why another story is stronger."
+  ]
+}

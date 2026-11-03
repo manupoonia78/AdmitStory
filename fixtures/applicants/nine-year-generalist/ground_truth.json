@@ -1,0 +1,280 @@
+{
+  "facts": [
+    {
+      "key": "employer_current",
+      "value": "Great Lakes Provision Company",
+      "note": "foodservice distributor, about $900 million revenue"
+    },
+    {
+      "key": "title_current",
+      "value": "Director of Operations, Midwest",
+      "note": "since 2024; three distribution centres"
+    },
+    { "key": "title_previous", "value": "Site Manager, Bedford Park", "note": "2021 to 2024" },
+    {
+      "key": "title_earlier",
+      "value": "Operations Supervisor, then Inbound Manager",
+      "note": "2017 to 2021"
+    },
+    {
+      "key": "team_size",
+      "value": "210 people across three sites, with 4 site managers reporting to him"
+    },
+    { "key": "location_current", "value": "Chicago, Illinois, United States" },
+    { "key": "degree", "value": "BA in History, Marquette University, 2017" },
+    { "key": "gpa", "value": "3.3 out of 4" },
+    { "key": "gmat_total", "value": "720", "note": "Q47 V42, taken April 2026" },
+    { "key": "languages", "value": "English, some Spanish learned on the floor" },
+    {
+      "key": "site_scale",
+      "value": "About 11,000 pallet positions and 1,100 orders a day across the three sites"
+    },
+    { "key": "cost_responsibility", "value": "Operating budget of about $31 million" },
+    { "key": "recall", "value": "Led the 2022 product recall covering about 14,000 cases" },
+    { "key": "union", "value": "Two of the three sites are union; contract renegotiated in 2023" }
+  ],
+  "stories": [
+    {
+      "ref": "the_strike_that_didnt_happen",
+      "nickname": "The contract nobody wanted to sign",
+      "era": "2023",
+      "context": "professional",
+      "situation": "The Bedford Park contract came up with a strike authorisation vote already passed. Corporate's position was a 2% increase and no change to the shift-bid system. Dale knew from three years on that floor that the shift-bid system, not the money, was what people were angry about — it let the four most senior drivers take every weekend off, which pushed weekends onto the newest hires.",
+      "stakes": "A strike at Bedford Park takes out 60% of the region's volume. He was a site manager, not the negotiator, and the shift-bid change was not on corporate's list of things it was willing to discuss.",
+      "actions": [
+        "Pulled three years of shift-bid data and showed that 14 of the 23 weekend shifts were being worked by people with under a year of service",
+        "Took it to his VP with the argument that fixing it cost nothing, which is why it had never been raised",
+        "Asked the union steward privately whether a shift-bid change would move the vote, before proposing it to his own side",
+        "Sat in the negotiation and said nothing for two sessions, because he had been told to",
+        "Gave the steward the data so the proposal came from the union rather than from management"
+      ],
+      "result": "The contract settled at 2.5% with a rotating weekend bid. No strike. Voluntary attrition among under-one-year staff fell from 48% to 26% over the following year, which was the thing that actually mattered to the sites' cost.",
+      "reflection": "Letting the union propose it meant he got no credit for it internally for about two years, and it is the only reason it passed. He is fine with that trade and would make it again; he is less sure he would have been fine with it at 25.",
+      "numbers": [
+        { "label": "share of regional volume at Bedford Park", "value": "60%" },
+        { "label": "weekend shifts worked by under-one-year staff", "value": "14 of 23" },
+        { "label": "settlement", "value": "2.5%" },
+        { "label": "attrition before", "value": "48%" },
+        { "label": "attrition after", "value": "26%" },
+        { "label": "sessions he said nothing", "value": "2" }
+      ],
+      "people": [
+        { "name": "Ray Dombrowski", "role": "the union steward at Bedford Park", "mayName": true },
+        {
+          "name": "Karen Liu",
+          "role": "his VP, who took the shift-bid argument to the table",
+          "mayName": true
+        }
+      ],
+      "traits": ["brings_people_along", "analytical", "principled_stands", "empathetic"],
+      "slots": [
+        "leadership.persuaded_up",
+        "impact.biggest",
+        "numbers.impact",
+        "self.others_view",
+        "employ.cross_functional"
+      ],
+      "sensitivity": "none"
+    },
+    {
+      "ref": "the_recall",
+      "nickname": "Fourteen thousand cases in a weekend",
+      "era": "2022",
+      "context": "professional",
+      "situation": "A supplier notified Great Lakes on a Friday evening that a batch of frozen chicken might be contaminated. About 14,000 cases had already shipped to 340 restaurants. Dale was the inbound manager and the only person in the building who knew the lot-tracking system well enough to trace it.",
+      "stakes": "People eating it. Also a company that had never done a recall and had no written process for one.",
+      "actions": [
+        "Traced all 14,000 cases to 340 customers by 4 a.m. Saturday, working with two people he called in",
+        "Started calling customers himself at 5 a.m. rather than waiting for the corporate communications plan that arrived Monday",
+        "Decided to pull a wider lot range than the supplier specified, about 3,000 extra cases, because the lot boundary was uncertain",
+        "Wrote the recall process afterwards, unasked, and it is still the company's procedure"
+      ],
+      "result": "Every case was accounted for by Sunday evening. No illnesses were reported. Nine customers thanked the company in writing and two left anyway. The written process he produced has been used twice since, both times without him.",
+      "reflection": "He pulled the wider range on his own authority and was told on Monday that it had not been his call to make, which was true. He also thinks he would do it again, and he is honest that those two sentences do not resolve.",
+      "numbers": [
+        { "label": "cases shipped", "value": "about 14,000" },
+        { "label": "restaurants affected", "value": "340" },
+        { "label": "extra cases he pulled", "value": "about 3,000" },
+        { "label": "hours to trace them", "value": "about 9" },
+        { "label": "customers who left", "value": "2" },
+        { "label": "times the process has been used since", "value": "2" }
+      ],
+      "people": [
+        {
+          "name": "Teresa Alvarez",
+          "role": "one of the two he called in that night",
+          "mayName": true
+        }
+      ],
+      "traits": [
+        "delivers_under_pressure",
+        "steady_in_ambiguity",
+        "acts_unasked",
+        "principled_stands"
+      ],
+      "slots": ["leadership.initiative_risky", "values.dilemma", "work.scope", "values.line"],
+      "sensitivity": "none"
+    },
+    {
+      "ref": "the_migration_i_rushed",
+      "nickname": "The go-live I should have delayed",
+      "era": "2019",
+      "context": "professional",
+      "situation": "Dale was the site lead for a warehouse-management system cutover at Bedford Park. Two of the four pre-go-live checks had failed and he judged them minor. He had also told his VP the date twice and did not want to move it a third time.",
+      "stakes": "The site shipped 420 orders a day and the system is how you know where anything is.",
+      "actions": [
+        "Went live on the date",
+        "Lost picking accuracy for nine days: about 1 in 14 orders went out wrong",
+        "Put the site on paper picking for four days himself rather than rolling back, which was the right call and which he arrived at twelve hours too late",
+        "Called the eleven largest customers personally during it",
+        "Told his VP, in writing, that he had gone live knowing two checks had failed"
+      ],
+      "result": "Accuracy recovered in nine days. The site lost about $240,000 in credits and expedited freight. He was still given the site manager role two years later, and his VP has said the written admission is why.",
+      "reflection": "He went live because he had committed to a date, and he had committed to the date publicly, and he now treats a public commitment as the specific thing that makes him make bad decisions. He says the date out loud later than he used to.",
+      "numbers": [
+        { "label": "pre-go-live checks failed", "value": "2 of 4" },
+        { "label": "orders a day", "value": "420" },
+        { "label": "orders going out wrong", "value": "about 1 in 14" },
+        { "label": "days to recover", "value": "9" },
+        { "label": "days on paper picking", "value": "4" },
+        { "label": "cost in credits and freight", "value": "about $240,000" }
+      ],
+      "people": [
+        { "name": "Karen Liu", "role": "his VP, whom he told in writing", "mayName": true }
+      ],
+      "traits": ["honest_about_limits", "acts_on_feedback", "self_aware", "resilient"],
+      "slots": ["failure.consequential", "self.feedback", "identity.turning_point"],
+      "sensitivity": "none"
+    },
+    {
+      "ref": "the_night_class",
+      "nickname": "The forklift certification class",
+      "era": "2020 onwards",
+      "context": "community",
+      "situation": "Great Lakes paid for forklift certification but ran the class in English only, during the day, which excluded about a quarter of the warehouse floor. Dale's Spanish at the time was bad.",
+      "stakes": "Certification is a $4-an-hour difference in pay, and the people excluded were the people who needed it most.",
+      "actions": [
+        "Learned enough Spanish to run the safety portion himself, badly, over about a year",
+        "Moved the class to the shift change so people could attend either side of their own shift",
+        "Paid for a bilingual instructor out of his site budget when corporate training refused, and told corporate afterwards",
+        "Handed the class to two of the first cohort once they were certified to instruct"
+      ],
+      "result": "Forty-one people have been certified through the class since 2020. It runs at all three sites now. Six of the forty-one are supervisors.",
+      "reflection": "His Spanish is still bad and the bilingual instructor is the thing that worked; the year he spent learning it himself was mostly ego. He is more willing to buy the right answer than to be the right answer now.",
+      "numbers": [
+        { "label": "share of the floor excluded", "value": "about a quarter" },
+        { "label": "pay difference from certification", "value": "$4 an hour" },
+        { "label": "people certified since 2020", "value": "41" },
+        { "label": "who are now supervisors", "value": "6" }
+      ],
+      "people": [
+        {
+          "name": "Hector Rios",
+          "role": "one of the first cohort, now an instructor",
+          "mayName": true
+        }
+      ],
+      "traits": ["develops_people", "community_builder", "acts_unasked", "self_aware"],
+      "slots": [
+        "community.built",
+        "leadership.developed_others",
+        "support.ongoing",
+        "leadership.originated_idea",
+        "employ.trajectory"
+      ],
+      "sensitivity": "none"
+    },
+    {
+      "ref": "my_mothers_diagnosis",
+      "nickname": "The two years I did not apply",
+      "era": "2023 to 2025",
+      "context": "personal",
+      "situation": "Dale had a GMAT booked for 2023. His mother was diagnosed with early-onset Alzheimer's that spring, at 61, and he is the only one of three siblings in Chicago. He cancelled the test and did not rebook for two years.",
+      "stakes": "It is the honest answer to why he is applying at 31 rather than at 28, and he has not used it, because he does not want to be the applicant whose reason is a sick parent.",
+      "actions": [
+        "Took over her affairs, the house sale and the care arrangements over about eighteen months",
+        "Moved to a 6 a.m. start so he could be at her place in the late afternoon",
+        "Asked his brother and sister to take two months each a year, which took a hard conversation and now happens",
+        "Rebooked the GMAT in January 2026, once the care arrangement was stable"
+      ],
+      "result": "His mother is in a care facility twelve minutes from his apartment. His siblings take two months each. He took the GMAT in April 2026 and scored 720.",
+      "reflection": "He has spent two years making a system that runs without him being the only one in it, for his own family, which is exactly the thing he is good at at work and had never done at home. It is also, he thinks, why he is ready for general management and was not at 28.",
+      "numbers": [
+        { "label": "her age at diagnosis", "value": "61" },
+        { "label": "years before he rebooked the test", "value": "2" },
+        { "label": "months of arranging her affairs", "value": "about 18" },
+        { "label": "months each his siblings take", "value": "2" },
+        { "label": "minutes from his apartment to the facility", "value": "12" }
+      ],
+      "people": [{ "name": "his mother", "role": "the diagnosis and her care", "mayName": false }],
+      "traits": ["resilient", "steady_in_ambiguity", "self_aware", "empathetic"],
+      "slots": ["identity.early_responsibility", "support.someone_hard", "why.now", "goals.origin"],
+      "sensitivity": "sensitive"
+    },
+    {
+      "ref": "the_third_site",
+      "nickname": "The site I closed",
+      "era": "2025",
+      "context": "professional",
+      "situation": "One of Dale's three distribution centres, in Rockford, was 40% utilised and losing about $2.1 million a year. Closing it meant 54 jobs in a town where Great Lakes was one of six employers of that size. He was the one who recommended it.",
+      "stakes": "Fifty-four people, and he knew about thirty of them by name.",
+      "actions": [
+        "Built the case including the version that kept it open, so the board saw a real alternative rather than a straw one",
+        "Negotiated nine months' notice instead of the required sixty days, which cost about $600,000 and which he argued for on the grounds that it was the difference between people finding work and not",
+        "Placed 19 of the 54 at the other two sites and drove two of them to interviews himself",
+        "Told the site in person, all at once, rather than by manager",
+        "Stayed in Rockford for the last two weeks of the wind-down"
+      ],
+      "result": "The site closed in November 2025. Nineteen were placed internally, about twenty found work locally within six months, and he does not know about the rest, which he says plainly. The region's cost per case fell about 7%.",
+      "reflection": "It was the right decision and he has not got used to it. He keeps the fact that he does not know what happened to about fifteen people, rather than finding out, and he is aware that is a choice he is making.",
+      "numbers": [
+        { "label": "utilisation at Rockford", "value": "40%" },
+        { "label": "annual loss", "value": "about $2.1 million" },
+        { "label": "jobs", "value": "54" },
+        { "label": "notice given", "value": "9 months" },
+        { "label": "cost of the extra notice", "value": "about $600,000" },
+        { "label": "placed at other sites", "value": "19" },
+        { "label": "cost per case improvement", "value": "about 7%" }
+      ],
+      "people": [
+        {
+          "name": "Marla Dunn",
+          "role": "the Rockford site manager who ran the wind-down with him",
+          "mayName": true
+        }
+      ],
+      "traits": [
+        "commercial_judgment",
+        "principled_stands",
+        "honest_about_limits",
+        "measurable_impact"
+      ],
+      "slots": ["leadership.changed_course", "values.line", "work.arc", "academics.quant_evidence"],
+      "sensitivity": "none"
+    }
+  ],
+  "goals": {
+    "shortTerm": "A general manager or business unit role at a distribution, logistics or consumer company — a P&L of $100 to $300 million where operations is one of the levers rather than the whole job.",
+    "longTerm": "To run a mid-sized distribution business as its chief operating officer or chief executive, in the Midwest, and specifically one where the physical network is the business rather than an overhead.",
+    "planB": "The VP of Operations role at Great Lakes, which his VP has indicated is his in two or three years, and which keeps him in operations rather than moving him into general management.",
+    "whyMba": "Nine years of being the person who fixes the site. He has never owned revenue, never priced anything, never sat in a room where the question was which business to be in. He also has a history degree and has never been taught finance, and he has been promoted four times by people who already knew him.",
+    "whyNow": "His mother's care has been stable for a year and his siblings take two months each. He is 31 and the next internal step would make it fifteen years at one company before he ever sees a P&L."
+  },
+  "redFlags": [
+    "Nine years of experience at matriculation, above the cohort median",
+    "One employer for his whole career; every promotion decided by people who already knew him",
+    "Risk of reading as a plateau rather than a trajectory",
+    "No formal quantitative or finance training; a history degree and a Q47",
+    "The 'why now rather than three years ago' question, which he cannot yet answer without his mother's diagnosis"
+  ],
+  "neverSays": [
+    "passionate",
+    "synergy",
+    "journey",
+    "best-in-class",
+    "thought leader",
+    "impactful",
+    "rockstar",
+    "crushing it"
+  ]
+}

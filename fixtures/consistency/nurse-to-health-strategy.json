@@ -1,0 +1,278 @@
+{
+  "applicant": "nurse-to-health-strategy",
+  "facts": [
+    {
+      "code": "F01",
+      "key": "full_name",
+      "value": "Nguyễn Hoài Trâm",
+      "approvedPhrasing": null
+    },
+    {
+      "code": "F02",
+      "key": "employer_current",
+      "value": "An Khang General Hospital",
+      "approvedPhrasing": null
+    },
+    {
+      "code": "F03",
+      "key": "title_current",
+      "value": "Charge Nurse, Adult Intensive Care",
+      "approvedPhrasing": null
+    },
+    {
+      "code": "F04",
+      "key": "title_previous",
+      "value": "ICU Staff Nurse",
+      "approvedPhrasing": null
+    },
+    {
+      "code": "F05",
+      "key": "unit_scope",
+      "value": "A 22-bed adult ICU with 34 nurses on the roster; she runs the day shift of 11",
+      "approvedPhrasing": null
+    },
+    {
+      "code": "F06",
+      "key": "authority",
+      "value": "No line-management authority, no budget line, no hiring or dismissal say; the roster office and the medical director hold both",
+      "approvedPhrasing": null
+    },
+    {
+      "code": "F07",
+      "key": "location_current",
+      "value": "Ho Chi Minh City, Vietnam",
+      "approvedPhrasing": null
+    },
+    {
+      "code": "F08",
+      "key": "hometown",
+      "value": "Vĩnh Long province, in the Mekong Delta",
+      "approvedPhrasing": null
+    },
+    {
+      "code": "F09",
+      "key": "degree",
+      "value": "BSc Nursing, Phú Mỹ University of Health Sciences, Ho Chi Minh City, 2018",
+      "approvedPhrasing": null
+    },
+    {
+      "code": "F10",
+      "key": "gpa",
+      "value": "8.1 out of 10",
+      "approvedPhrasing": null
+    },
+    {
+      "code": "F11",
+      "key": "executive_assessment",
+      "value": "155",
+      "approvedPhrasing": null
+    },
+    {
+      "code": "F12",
+      "key": "languages",
+      "value": "Vietnamese and Khmer from childhood, English third",
+      "approvedPhrasing": null
+    },
+    {
+      "code": "F13",
+      "key": "english_level",
+      "value": "IELTS 7.0, speaking 6.5",
+      "approvedPhrasing": null
+    },
+    {
+      "code": "F14",
+      "key": "certification",
+      "value": "Critical care nursing certificate, Southern Critical Care Nursing Association, 2021",
+      "approvedPhrasing": null
+    },
+    {
+      "code": "F15",
+      "key": "management_training",
+      "value": "None of any kind. No course, no budget, no project she has been formally accountable for",
+      "approvedPhrasing": null
+    },
+    {
+      "code": "F16",
+      "key": "international_exposure",
+      "value": "A three-week clinical attachment at a provincial hospital in Takéo, Cambodia, in 2024; otherwise has not worked outside Vietnam",
+      "approvedPhrasing": null
+    },
+    {
+      "code": "F17",
+      "key": "medical_director",
+      "value": "Dr. Phạm Quốc Đạt",
+      "approvedPhrasing": null
+    },
+    {
+      "code": "F18",
+      "key": "deputy_director",
+      "value": "Dr. Lê Minh Khoa",
+      "approvedPhrasing": null
+    },
+    {
+      "code": "F19",
+      "key": "side_commitment",
+      "value": "Runs a Sunday group for new ICU nurses across the district, started 2023",
+      "approvedPhrasing": null
+    },
+    {
+      "code": "F20",
+      "key": "family",
+      "value": "Mother in Vĩnh Long, a younger sister in Ho Chi Minh City, a brother who is an electrician; father died in 2012",
+      "approvedPhrasing": null
+    }
+  ],
+  "roles": [
+    {
+      "ref": "r1",
+      "organisation": "An Khang General Hospital",
+      "title": "Charge Nurse, Adult Intensive Care",
+      "dates": "Feb 2023 – Present"
+    },
+    {
+      "ref": "r2",
+      "organisation": "An Khang General Hospital",
+      "title": "ICU Staff Nurse",
+      "dates": "Jul 2018 – Jan 2023"
+    }
+  ],
+  "clean": [
+    {
+      "id": "resume",
+      "kind": "resume",
+      "label": "Resume",
+      "segments": [
+        {
+          "ref": "b1",
+          "text": "Run the day shift of 11 nurses in a 22-bed adult ICU with 34 nurses on the roster."
+        },
+        {
+          "ref": "b2",
+          "text": "Cut handover time from about 40 minutes to 25 minutes for 22 patients with a one-page sheet and a 12-hour look-back."
+        },
+        {
+          "ref": "b3",
+          "text": "Counted 212 discharges over six months: patients were held 2.4 days past need on average, 61% of them waiting for a ward bed."
+        },
+        {
+          "ref": "b4",
+          "text": "Since 2023, run a Sunday group for new ICU nurses across the district; 34 nurses have come through it."
+        },
+        {
+          "ref": "cert.line1",
+          "text": "Critical care nursing certificate, Southern Critical Care Nursing Association, 2021."
+        }
+      ]
+    },
+    {
+      "id": "form:employment",
+      "kind": "form",
+      "label": "Form: Employment history",
+      "segments": [
+        {
+          "ref": "employment/i1",
+          "text": "Charge Nurse, Adult Intensive Care, An Khang General Hospital (February 2023 to present). I run the day shift of 11 nurses on a 22-bed adult ICU."
+        },
+        {
+          "ref": "employment/i2",
+          "text": "ICU Staff Nurse, An Khang General Hospital, same unit (July 2018 to January 2023)."
+        }
+      ]
+    },
+    {
+      "id": "essay-1",
+      "kind": "essay",
+      "label": "Essay 1",
+      "segments": [
+        {
+          "ref": "p1",
+          "text": "During the 2022 dengue surge, when I was an ICU Staff Nurse, our 22-bed unit stayed full for 12 days. On the worst morning 9 patients were waiting for a bed and 3 were being ventilated by hand."
+        },
+        {
+          "ref": "p2",
+          "text": "Since becoming Charge Nurse in February 2023, I have run the day shift of 11 nurses. In 2024 I changed how we hand over: it now takes 25 minutes instead of about 40."
+        }
+      ]
+    },
+    {
+      "id": "brief:pham",
+      "kind": "brief",
+      "label": "Brief for Dr. Phạm Quốc Đạt",
+      "segments": [
+        {
+          "ref": "t1",
+          "text": "Trâm has been Charge Nurse, Adult Intensive Care since February 2023 and runs the day shift of 11 nurses."
+        },
+        {
+          "ref": "t2",
+          "text": "Her bed-day count: 212 discharges over six months, held an average of 2.4 days past need."
+        }
+      ]
+    }
+  ],
+  "seeded": [
+    {
+      "id": "nurse-to-health-strategy-01",
+      "subject": "employer",
+      "doc_id": "form:employment",
+      "ref": "employment/i2",
+      "from": "An Khang General Hospital, same",
+      "to": "An Khang Hospital, same",
+      "note": "hospital name shortened in a form entry"
+    },
+    {
+      "id": "nurse-to-health-strategy-02",
+      "subject": "title",
+      "doc_id": "essay-1",
+      "ref": "p2",
+      "from": "becoming Charge Nurse in",
+      "to": "becoming Senior Charge Nurse in",
+      "note": "inflated title in an essay"
+    },
+    {
+      "id": "nurse-to-health-strategy-03",
+      "subject": "date",
+      "doc_id": "resume",
+      "ref": "r2.dates",
+      "from": "Jul 2018",
+      "to": "Jul 2019",
+      "note": "résumé start date for the earlier role"
+    },
+    {
+      "id": "nurse-to-health-strategy-04",
+      "subject": "team_size",
+      "doc_id": "brief:pham",
+      "ref": "t1",
+      "from": "shift of 11 nurses",
+      "to": "shift of 12 nurses",
+      "note": "shift size in a brief"
+    },
+    {
+      "id": "nurse-to-health-strategy-05",
+      "subject": "number",
+      "doc_id": "resume",
+      "ref": "b3",
+      "from": "212 discharges",
+      "to": "221 discharges",
+      "note": "digits swapped on the résumé"
+    },
+    {
+      "id": "nurse-to-health-strategy-06",
+      "subject": "date",
+      "doc_id": "form:employment",
+      "ref": "employment/i1",
+      "from": "(February 2023 to present)",
+      "to": "(March 2023 to present)",
+      "note": "start month in a form entry"
+    },
+    {
+      "id": "nurse-to-health-strategy-07",
+      "subject": "number",
+      "doc_id": "resume",
+      "ref": "b2",
+      "from": "to 25 minutes",
+      "to": "to 20 minutes",
+      "note": "handover time on the résumé"
+    }
+  ]
+}

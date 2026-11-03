@@ -1,0 +1,250 @@
+{
+  "applicant": "reapplicant",
+  "facts": [
+    {
+      "code": "F01",
+      "key": "employer_current",
+      "value": "Kalyan Autoparts Limited",
+      "approvedPhrasing": null
+    },
+    {
+      "code": "F02",
+      "key": "title_current",
+      "value": "Senior Manager, Supply Chain",
+      "approvedPhrasing": null
+    },
+    {
+      "code": "F03",
+      "key": "title_previous",
+      "value": "Manager, Supply Chain",
+      "approvedPhrasing": null
+    },
+    {
+      "code": "F04",
+      "key": "title_first",
+      "value": "Graduate Engineer Trainee, then Assistant Manager",
+      "approvedPhrasing": null
+    },
+    {
+      "code": "F05",
+      "key": "team_size",
+      "value": "14 people, up from 6 before the April 2026 promotion",
+      "approvedPhrasing": null
+    },
+    {
+      "code": "F06",
+      "key": "location_current",
+      "value": "Pune, Maharashtra, India",
+      "approvedPhrasing": null
+    },
+    {
+      "code": "F07",
+      "key": "degree",
+      "value": "B.E. in Production Engineering, College of Engineering Pune, 2019",
+      "approvedPhrasing": null
+    },
+    {
+      "code": "F08",
+      "key": "gpa",
+      "value": "7.6 out of 10",
+      "approvedPhrasing": null
+    },
+    {
+      "code": "F09",
+      "key": "gmat_total",
+      "value": "730",
+      "approvedPhrasing": null
+    },
+    {
+      "code": "F10",
+      "key": "languages",
+      "value": "English, Hindi, Marathi",
+      "approvedPhrasing": null
+    },
+    {
+      "code": "F11",
+      "key": "spend_responsibility",
+      "value": "Annual purchasing spend of about 190 crore rupees, up from 70 crore",
+      "approvedPhrasing": null
+    },
+    {
+      "code": "F12",
+      "key": "last_cycle",
+      "value": "Applied to four schools in Round 2 of the 2026 cycle; four denials, one interview",
+      "approvedPhrasing": null
+    },
+    {
+      "code": "F13",
+      "key": "new_coursework",
+      "value": "MITx Probability and Statistics, completed July 2026, graded 94%",
+      "approvedPhrasing": null
+    },
+    {
+      "code": "F14",
+      "key": "conversations_this_year",
+      "value": "Spoke to 11 current students and 3 alumni between March and September 2026",
+      "approvedPhrasing": null
+    }
+  ],
+  "roles": [
+    {
+      "ref": "r1",
+      "organisation": "Kalyan Autoparts Limited",
+      "title": "Senior Manager, Supply Chain",
+      "dates": "Apr 2026 – Present"
+    },
+    {
+      "ref": "r2",
+      "organisation": "Kalyan Autoparts Limited",
+      "title": "Manager, Supply Chain",
+      "dates": "2023 – Mar 2026"
+    },
+    {
+      "ref": "r3",
+      "organisation": "Kalyan Autoparts Limited",
+      "title": "Assistant Manager",
+      "dates": "2021 – 2023"
+    },
+    {
+      "ref": "r4",
+      "organisation": "Kalyan Autoparts Limited",
+      "title": "Graduate Engineer Trainee",
+      "dates": "2019 – 2021"
+    }
+  ],
+  "clean": [
+    {
+      "id": "resume",
+      "kind": "resume",
+      "label": "Resume",
+      "segments": [
+        {
+          "ref": "b1",
+          "text": "Lead a 14-person supply-chain team and about 190 crore rupees of annual purchasing spend."
+        },
+        {
+          "ref": "b2",
+          "text": "Kept the line running when a supplier of 3 of 11 critical parts failed: got 6 crore rupees of exposure approved in 4 days, and a second source now supplies 30%."
+        },
+        {
+          "ref": "b3",
+          "text": "Wrote off about 6.5 crore rupees on a discontinued variant, about 2% of that year's profit, then took about 18 days out of average inventory."
+        },
+        {
+          "ref": "b4",
+          "text": "MITx Probability and Statistics, completed July 2026, graded 94%."
+        }
+      ]
+    },
+    {
+      "id": "form:employment",
+      "kind": "form",
+      "label": "Form: Employment history",
+      "segments": [
+        {
+          "ref": "employment/i1",
+          "text": "Senior Manager, Supply Chain, Kalyan Autoparts Limited, Pune (April 2026 to present). I lead 14 people, up from 6 before my promotion, and about 190 crore rupees of spend."
+        },
+        {
+          "ref": "employment/i2",
+          "text": "Manager, Supply Chain (2023 to March 2026). Joined Kalyan Autoparts Limited in 2019 as a Graduate Engineer Trainee."
+        }
+      ]
+    },
+    {
+      "id": "essay-1",
+      "kind": "essay",
+      "label": "Essay 1",
+      "segments": [
+        {
+          "ref": "p1",
+          "text": "Last cycle I applied to four schools and was denied by all four. Since then I have retaken the GMAT, moving from 700 to 730, and finished MITx Probability and Statistics with 94%."
+        },
+        {
+          "ref": "p2",
+          "text": "In April 2026 I was promoted to Senior Manager, Supply Chain, and my team grew from 6 to 14 people. Earlier that year I set up a second source for three parts at risk, with 6 crore rupees of exposure approved in four days."
+        }
+      ]
+    },
+    {
+      "id": "brief:deshpande",
+      "kind": "brief",
+      "label": "Brief for Mrs Deshpande",
+      "segments": [
+        {
+          "ref": "t1",
+          "text": "Nikhil was promoted to Senior Manager, Supply Chain in April 2026 and now leads 14 people."
+        },
+        {
+          "ref": "t2",
+          "text": "The supplier rescue: 6 crore rupees of exposure approved in 4 days, and a second source that now supplies 30% of the parts."
+        }
+      ]
+    }
+  ],
+  "seeded": [
+    {
+      "id": "reapplicant-01",
+      "subject": "employer",
+      "doc_id": "form:employment",
+      "ref": "employment/i2",
+      "from": "Joined Kalyan Autoparts Limited in",
+      "to": "Joined Kalyan Auto Parts in",
+      "note": "company name split in a form entry"
+    },
+    {
+      "id": "reapplicant-02",
+      "subject": "title",
+      "doc_id": "resume",
+      "ref": "r3.title",
+      "from": "Assistant Manager",
+      "to": "Deputy Manager",
+      "note": "earlier title changed on the résumé"
+    },
+    {
+      "id": "reapplicant-03",
+      "subject": "date",
+      "doc_id": "form:employment",
+      "ref": "employment/i1",
+      "from": "(April 2026 to present)",
+      "to": "(April 2025 to present)",
+      "note": "promotion date in a form entry"
+    },
+    {
+      "id": "reapplicant-04",
+      "subject": "team_size",
+      "doc_id": "brief:deshpande",
+      "ref": "t1",
+      "from": "now leads 14 people",
+      "to": "now leads 16 people",
+      "note": "team size in a brief"
+    },
+    {
+      "id": "reapplicant-05",
+      "subject": "number",
+      "doc_id": "brief:deshpande",
+      "ref": "t2",
+      "from": "now supplies 30%",
+      "to": "now supplies 35%",
+      "note": "second-source share in a brief"
+    },
+    {
+      "id": "reapplicant-06",
+      "subject": "number",
+      "doc_id": "essay-1",
+      "ref": "p1",
+      "from": "moving from 700 to 730",
+      "to": "moving from 700 to 740",
+      "note": "GMAT score in an essay"
+    },
+    {
+      "id": "reapplicant-07",
+      "subject": "team_size",
+      "doc_id": "resume",
+      "ref": "b1",
+      "from": "a 14-person supply-chain team",
+      "to": "a 16-person supply-chain team",
+      "note": "team size on the résumé"
+    }
+  ]
+}

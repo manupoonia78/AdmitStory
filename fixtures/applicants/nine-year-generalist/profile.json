@@ -1,0 +1,16 @@
+{
+  "slug": "nine-year-generalist",
+  "summary": "Nine years in operations at a food-distribution company in Chicago, targeting general management.",
+  "persona": "perfectionist",
+  "style": "humorous",
+  "country": "US",
+  "timezone": "America/Chicago",
+  "programType": "full_time_mba",
+  "targetIntake": 2027,
+  "studioMode": "deep",
+  "yearsExperience": 9,
+  "test": { "type": "GMAT", "score": 720 },
+  "gpa": { "value": 3.3, "scale": 4 },
+  "isReapplicant": false,
+  "difficulty": "Has more material than anyone and no idea which of it matters; will happily spend ten minutes on the wrong story and enjoy it. The 'why now and not three years ago' question is the one he genuinely cannot answer yet."
+}

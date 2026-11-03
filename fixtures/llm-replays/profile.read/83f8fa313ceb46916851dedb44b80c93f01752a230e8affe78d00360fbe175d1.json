@@ -1,0 +1,285 @@
+{
+  "meta": {
+    "task": "profile.read",
+    "promptVersion": "profile.read@v1",
+    "model": "claude-sonnet-5-5",
+    "recordedAt": "2026-10-31T11:19:51.274Z",
+    "synthetic": true,
+    "note": "Hand-authored response (no API key was available when Phase 3 was built), built from the fictional engineer-to-product applicant and the fictional Halvorsen pack. Re-record live: pnpm --filter @admitstory/ai record:phase3"
+  },
+  "request": {
+    "model": "claude-sonnet-5-5",
+    "max_tokens": 9000,
+    "system": [
+      {
+        "type": "text",
+        "text": "You write the Profile Read for an MBA applicant: how an admissions reader is likely to see them in the first few minutes, and what to do about it. The applicant's compact dossier is above. Be direct, specific and kind. Evidence decides every line.\n\nProduce:\n\n1. **lenses** — one read per lens, in the order a reader checks them (`LENS-02`): academics, self_awareness, employability, leadership. Each has:\n   - **helps[]** — what already works for this lens, each with the facts, stories or golden lines behind it in `cites` (F, S or L codes from the dossier).\n   - **doubts[]** — what may raise a doubt, each tied to one red flag from the canon by its ID in `flag_id` (for example `FLAG-01` for a deeply technical background, `FLAG-07` for a score below a target's median), with the material that raises it in `cites`. A doubt with nothing in the dossier behind it is not a doubt; leave it out.\n   - **do[]** — concrete actions for this lens, each with a realistic `time_estimate` (\"2 hours\", \"an evening a week for a month\") and the material it builds on in `cites`.\n2. **strengthening_plan[]** — up to eight things that could still change before deadlines, most valuable first, each with `why` it matters for this applicant. Examples of the right size: \"Talk to 3 people in your target role this month\", \"Your strongest leadership story has no number in it; find one\". Never pad the plan.\n3. **brand_preview[]** — up to four traits the stories actually prove, each citing the stories (S codes) that prove it. If the dossier has a BRAND line, start from it.\n\nRules:\n\n- Cite only codes that appear in the dossier. Never invent a fact, a number, a school statistic or a story. Missing material becomes an action (\"Find the number behind…\"), never an assumption.\n- Where the request gives the applicant's numbers against a school's class profile (\"above\", \"near\", \"below\" the median), use those labels as given. They were computed in code. Never restate them as odds.\n- No admission odds, no percentages of chance, no scores out of 100, no rankings of the applicant (§14.5).\n- No praise and no reassurance. Say what a reader will see and what to do. Plain words; no \"journey\", \"passion\" or \"unleash\".\n- Stories marked as withheld in the dossier are not available. Do not guess what they contain.\n\nReturn JSON matching the schema."
+      },
+      {
+        "type": "text",
+        "text": "## How admissions readers think (admissions-lens v1)\n\n- **LENS-01** Readers move fast and screen risk against reward. Every component either removes a doubt or adds evidence.\n- **LENS-02** Four lenses, in the order a reader implicitly checks them: (1) **Academics** — can they handle the work; (2) **Self-awareness and emotional intelligence** — can they reflect, take feedback, change; (3) **Employability** — will recruiters want them, in the role they named; (4) **Leadership potential**.\n- **LENS-03** Leadership means three things together: **originating** an idea or approach, **acting without being asked**, and **bringing resistant people along**. A title is not leadership; executing someone else's plan well is weaker evidence than a small moment the applicant started themselves.\n- **LENS-04** Rejections usually come from an accumulation of small unresolved doubts across the file, not one flaw. Consistency and completeness beat one spectacular data point.\n- **LENS-05** Audit the whole file: a grid of the four lenses against every essay, short answer, form entry, resume line and recommender talking point. An empty row is a gap to fix before submitting.\n- **LENS-06** Academics are proven by scores, transcripts and quantitative work, not essays. A weak data point is offset by other concrete evidence (a quantitative role, a course, a certification, an improved score), never by asserting capability.\n- **LENS-07** Self-awareness shows in how setbacks and feedback are discussed, not in accomplishments. A highlight reel without honest self-examination reads as immature.\n- **LENS-08** Employability is increasingly judged on business impact, cross-functional influence and the ability to explain specialised work in plain business language.\n- **LENS-09** Tone: confident and humble at once. Specific actions and measured outcomes; no self-congratulating adjectives. Readers detect both false modesty and unearned confidence.\n\n## Common doubts and how to address them (red-flags v1)\n\nNever leave a doubt unaddressed; reframe it with evidence, not excuses.\n\n| ID | Flag | Mitigation |\n|---|---|---|\n| FLAG-01 | Deeply technical background | Show business judgment, cross-functional influence, communication; translate jargon; one technical term at most per essay |\n| FLAG-02 | No formal management title | Leadership without authority: originated ideas, persuaded peers or superiors, built something outside work |\n| FLAG-03 | Lesser-known employer | Explain scope and stakes plainly (size, money, people affected) instead of relying on the brand |\n| FLAG-04 | No leadership in college | Informal leadership: organising, tutoring, starting something; or let later evidence carry it |\n| FLAG-05 | Limited international exposure | Cross-cultural collaboration, remote teams, moves, languages |\n| FLAG-06 | Reapplicant | Briefly name what materially changed (scope, results, clarity of goals, engagement with the school); never sound aggrieved |\n| FLAG-07 | Test score or GPA below the school's range | Brief factual context only if real; point to other quantitative evidence; consider a retake if time allows |\n| FLAG-08 | Short stints / unclear path | Name the thread that connects the roles (function, problem, skill) |\n| FLAG-09 | Very common profile for the pool | Lean into specific traits, an unusual angle, a distinctive goal rooted in lived experience |\n| FLAG-10 | Younger or older than the typical class | Younger: show maturity and scope. Older: show openness to learning and why now |\n| FLAG-11 | Career switcher | Name the switch in one sentence; spend the space on the connecting thread and the homework done to test the switch |\n\nStructure for addressing a flag directly (optional essay or a short paragraph): what happened (1–2 sentences, factual) → real context, not an excuse → what the applicant did about it → what's different now.",
+        "cache_control": {
+          "type": "ephemeral",
+          "ttl": "1h"
+        }
+      },
+      {
+        "type": "text",
+        "text": "APPLICANT  A-e2p | target: MBA 2027 | country: IN | yrs_exp: 5.5 | test: GMAT 705 | gpa: 8.4/10\nFACTS\nF01 employer_current = \"Meridian Health Systems\" (hospital software; 40+ hospitals in India and the US) [confirmed]\nF02 title_current = \"Senior Software Engineer\" (since April 2024) [confirmed]\nF03 team_size = \"4 engineers he coordinates, no formal reports\" [confirmed]\nF04 location_current = \"Bengaluru, India\" [confirmed]\nF05 degree = \"B.Tech in Computer Science, Vellore Institute of Technology, 2020\" [confirmed]\nF06 gmat_total = \"705\" (Q50 V34, taken September 2026) [confirmed]\nF07 promotion = \"Promoted to Senior Software Engineer in April 2024, two years ahead of the usual track\" [confirmed]\nF08 side_project = \"Runs a Saturday coding class for 12 government-school students in Bengaluru, since 2023\" [confirmed]\nSTORIES\nS02 \"The rewrite I talked them out of\" | professional 2025 | lenses A,E,L | traits brings_people_along, analytical, commercial_judgment | confirmed\n  sit: A director wanted a six-month rewrite of the scheduling module for a US customer\n  stk: The whole backend team for six months; the customer's deadline was in five\n  act: instrumented the module over a weekend: 80% of slow requests came from three queries; built a working fix for two of them in four days; showed before-and-after numbers in fifteen minutes at planning; offered to revisit the architecture after go-live\n  res: Rewrite shelved; page loads from 4.2 seconds to 900 milliseconds; customer live a month early\n  refl: Had not asked why the director wanted the rewrite until after building his case\n  lines: L002 \"I showed them the numbers instead of arguing the principle.\"\n  used: none\nS01 \"The night-shift fix\" | professional 2024 | lenses E,L | traits delivers_under_pressure, originates_ideas, cross_functional_influence | confirmed\n  sit: Go-live at a 900-bed hospital; the lab feed dropped every fourth message at 2 a.m.\n  stk: Rollback at the 6 a.m. shift change and a contract fourteen months in the winning\n  act: found the retry logic re-sent whole batches; rewrote the retry per message and tested it on replayed traffic; persuaded the vendor's on-call engineer to widen the batch window from 30 to 90 seconds; wrote a runbook for the hospital's IT staff\n  res: Go-live held; no dropped messages in twenty months; the runbook became Meridian's template\n  refl: Spent four hours alone before calling the vendor; asks for help earlier now\n  lines: L001 \"It was 2 a.m. and nobody else on the call knew the old interface.\"\n  people: P1 Ravi Menon (engineering manager; may_name=yes)\n  used: none\nS03 \"Twelve kids on a Saturday\" | community 2023 onwards | lenses S,L | traits community_builder, develops_people, acts_unasked | confirmed\n  sit: A government school had donated computers and nobody to teach with them\n  stk: Two of the first four students had never used a keyboard\n  act: taught every Saturday for a year; rewrote the curriculum after one term: typing and files before programming; recruited three colleagues to take alternate Saturdays\n  res: Twelve students; four moved on to a paid bootcamp; runs without him for six months\n  refl: The barrier was confidence, not computers; builds things to run without him now\n  lines: L003 \"The class has not needed me for six months, which was the point.\"\n  people: P2 Lakshmi (the school's headmistress; may_name=yes)\n  used: none\nS06 \"Watching the ward use what I built\" | professional 2024 | lenses S,E | traits curious_learner, commercial_judgment, acts_unasked | confirmed\n  sit: Nurses had a paper workaround for a screen he built\n  stk: Nothing broke; the system worked as specified and was still wrong\n  act: sat with four nurses through a full shift and listed every workaround; took the list to the product team instead of patching the code; argued for two months to get the field order changed\n  res: Screen changed, workaround gone; he has sat in product reviews since\n  refl: The decision about what to build interests him more than the building\n  lines: L004 \"It was working exactly as specified, and it was still wrong.\"\n  used: none\nS04 \"The migration I got wrong\" | professional 2022 | lenses S | traits honest_about_limits, acts_on_feedback, self_aware | confirmed\n  sit: A migration tested on a three-month-old copy corrupted about 1,100 appointment records\n  stk: The hospital phoned patients all Saturday; he had to be on the customer call\n  act: restored from backup within two hours; wrote the incident note himself without softening his part; added a schema check that has blocked four migrations since\n  res: No appointments permanently lost; promoted eighteen months later\n  refl: Had not asked anyone to check his plan because he did not want to look slow\n  people: P1 Ravi Menon (engineering manager; may_name=yes)\n  used: none\nBRAND  brings_people_along (S01,S02) | commercial_judgment (S02,S06) | community_builder (S03)\nVOICE  sent_len≈11w var=low register=plain humour=none opens_with=statement avoids=[jargon,\"passionate\",\"I led\"]\nGOALS  ST: Product manager on a health-data team, owning a clinical workflow | LT: Shared health records across Indian hospitals | planB: Health-tech strategy consulting, then product\nSENSITIVE(excluded unless consent): 1 item withheld\n",
+        "cache_control": {
+          "type": "ephemeral"
+        }
+      }
+    ],
+    "messages": [
+      {
+        "role": "user",
+        "content": "Target schools, with the applicant's numbers against each class profile (computed in code: use as given, never as odds):\n  Halvorsen School of Management: test above the median | GPA not comparable | years of experience near the median\n\nWrite the Profile Read for the applicant in the dossier: the four lenses, the strengthening plan and the brand preview."
+      }
+    ],
+    "thinking": {
+      "type": "adaptive"
+    },
+    "output_config": {
+      "effort": "medium",
+      "format": {
+        "type": "json_schema",
+        "schema": {
+          "$defs": {
+            "__schema0": {
+              "type": "object",
+              "properties": {
+                "helps": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/$defs/__schema1"
+                  },
+                  "description": "{maxItems: 6}"
+                },
+                "doubts": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/$defs/__schema3"
+                  },
+                  "description": "{maxItems: 6}"
+                },
+                "do": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/$defs/__schema4"
+                  },
+                  "description": "{maxItems: 5}"
+                }
+              },
+              "additionalProperties": false,
+              "required": [
+                "helps",
+                "doubts",
+                "do"
+              ]
+            },
+            "__schema1": {
+              "type": "object",
+              "properties": {
+                "text": {
+                  "type": "string",
+                  "description": "{minLength: 1, maxLength: 500}"
+                },
+                "cites": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/$defs/__schema2"
+                  },
+                  "minItems": 1,
+                  "description": "{maxItems: 8}"
+                }
+              },
+              "additionalProperties": false,
+              "required": [
+                "text",
+                "cites"
+              ]
+            },
+            "__schema2": {
+              "type": "string"
+            },
+            "__schema3": {
+              "type": "object",
+              "properties": {
+                "flag_id": {
+                  "type": "string",
+                  "description": "{enum: [\"FLAG-01\",\"FLAG-02\",\"FLAG-03\",\"FLAG-04\",\"FLAG-05\",\"FLAG-06\",\"FLAG-07\",\"FLAG-08\",\"FLAG-09\",\"FLAG-10\",\"FLAG-11\"]}"
+                },
+                "text": {
+                  "type": "string",
+                  "description": "{minLength: 1, maxLength: 500}"
+                },
+                "cites": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/$defs/__schema2"
+                  },
+                  "minItems": 1,
+                  "description": "{maxItems: 8}"
+                }
+              },
+              "additionalProperties": false,
+              "required": [
+                "flag_id",
+                "text",
+                "cites"
+              ]
+            },
+            "__schema4": {
+              "type": "object",
+              "properties": {
+                "action": {
+                  "$ref": "#/$defs/__schema5"
+                },
+                "time_estimate": {
+                  "$ref": "#/$defs/__schema6"
+                },
+                "cites": {
+                  "$ref": "#/$defs/__schema7"
+                }
+              },
+              "additionalProperties": false,
+              "required": [
+                "action",
+                "time_estimate",
+                "cites"
+              ]
+            },
+            "__schema5": {
+              "type": "string",
+              "description": "{minLength: 1, maxLength: 400}"
+            },
+            "__schema6": {
+              "type": "string",
+              "description": "How long it takes, e.g. \"2 hours\" or \"an evening a week for a month\"\n\n{minLength: 1, maxLength: 80}"
+            },
+            "__schema7": {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/__schema2"
+              },
+              "description": "{maxItems: 8}"
+            },
+            "__schema8": {
+              "type": "object",
+              "properties": {
+                "action": {
+                  "$ref": "#/$defs/__schema5"
+                },
+                "time_estimate": {
+                  "$ref": "#/$defs/__schema6"
+                },
+                "cites": {
+                  "$ref": "#/$defs/__schema7"
+                },
+                "why": {
+                  "type": "string",
+                  "description": "{minLength: 1, maxLength: 500}"
+                }
+              },
+              "additionalProperties": false,
+              "required": [
+                "action",
+                "time_estimate",
+                "cites",
+                "why"
+              ]
+            },
+            "__schema9": {
+              "type": "object",
+              "properties": {
+                "trait": {
+                  "type": "string",
+                  "description": "{enum: [\"originates_ideas\",\"acts_unasked\",\"brings_people_along\",\"develops_people\",\"principled_stands\",\"steady_in_ambiguity\",\"self_aware\",\"acts_on_feedback\",\"resilient\",\"empathetic\",\"honest_about_limits\",\"measurable_impact\",\"analytical\",\"commercial_judgment\",\"cross_functional_influence\",\"delivers_under_pressure\",\"global_outlook\",\"unusual_path\",\"community_builder\",\"curious_learner\",\"creative\"]}"
+                },
+                "why": {
+                  "type": "string",
+                  "description": "{minLength: 1, maxLength: 400}"
+                },
+                "cites": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/$defs/__schema10"
+                  },
+                  "minItems": 1,
+                  "description": "{maxItems: 6}"
+                }
+              },
+              "additionalProperties": false,
+              "required": [
+                "trait",
+                "why",
+                "cites"
+              ]
+            },
+            "__schema10": {
+              "type": "string"
+            }
+          },
+          "type": "object",
+          "properties": {
+            "lenses": {
+              "type": "object",
+              "properties": {
+                "academics": {
+                  "$ref": "#/$defs/__schema0"
+                },
+                "self_awareness": {
+                  "$ref": "#/$defs/__schema0"
+                },
+                "employability": {
+                  "$ref": "#/$defs/__schema0"
+                },
+                "leadership": {
+                  "$ref": "#/$defs/__schema0"
+                }
+              },
+              "additionalProperties": false,
+              "required": [
+                "academics",
+                "self_awareness",
+                "employability",
+                "leadership"
+              ]
+            },
+            "strengthening_plan": {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/__schema8"
+              },
+              "minItems": 1,
+              "description": "{maxItems: 8}"
+            },
+            "brand_preview": {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/__schema9"
+              },
+              "description": "{maxItems: 4}"
+            }
+          },
+          "additionalProperties": false,
+          "required": [
+            "lenses",
+            "strengthening_plan",
+            "brand_preview"
+          ]
+        }
+      }
+    },
+    "fallbacks": "default",
+    "stream": false
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "content-type": "application/json"
+    },
+    "body": "{\"id\":\"msg_synthetic_83f8fa313ceb46916851dedb\",\"type\":\"message\",\"role\":\"assistant\",\"model\":\"claude-sonnet-5-5\",\"content\":[{\"type\":\"text\",\"text\":\"{\\\"lenses\\\":{\\\"academics\\\":{\\\"helps\\\":[{\\\"text\\\":\\\"A GMAT of 705 with Q50, and quantitative work a reader can see: tracing 80% of slow requests to three queries.\\\",\\\"cites\\\":[\\\"F06\\\",\\\"S02\\\"]}],\\\"doubts\\\":[],\\\"do\\\":[{\\\"action\\\":\\\"Put the query analysis and its numbers on your resume, not only in an essay.\\\",\\\"time_estimate\\\":\\\"1 hour\\\",\\\"cites\\\":[\\\"S02\\\"]}]},\\\"self_awareness\\\":{\\\"helps\\\":[{\\\"text\\\":\\\"You own a real mistake plainly: the migration story names what you got wrong and what you changed.\\\",\\\"cites\\\":[\\\"S04\\\"]}],\\\"doubts\\\":[],\\\"do\\\":[{\\\"action\\\":\\\"Write down, in two sentences, what the migration taught you that the night-shift fix confirmed.\\\",\\\"time_estimate\\\":\\\"30 minutes\\\",\\\"cites\\\":[\\\"S04\\\",\\\"S01\\\"]}]},\\\"employability\\\":{\\\"helps\\\":[{\\\"text\\\":\\\"You chose product work before applying: three days on the ward and two months arguing for a change.\\\",\\\"cites\\\":[\\\"S06\\\",\\\"L004\\\"]}],\\\"doubts\\\":[{\\\"flag_id\\\":\\\"FLAG-01\\\",\\\"text\\\":\\\"Most of your evidence is engineering; a reader will look for business judgment in plain language.\\\",\\\"cites\\\":[\\\"F02\\\",\\\"S01\\\"]},{\\\"flag_id\\\":\\\"FLAG-03\\\",\\\"text\\\":\\\"Meridian Health Systems will be unfamiliar to many readers, so its scale has to be stated.\\\",\\\"cites\\\":[\\\"F01\\\"]}],\\\"do\\\":[{\\\"action\\\":\\\"Talk to 3 product managers in health-data teams this month and note what they wish they had known.\\\",\\\"time_estimate\\\":\\\"an evening a week for a month\\\",\\\"cites\\\":[\\\"S06\\\"]}]},\\\"leadership\\\":{\\\"helps\\\":[{\\\"text\\\":\\\"You change minds with evidence: the rewrite was shelved after fifteen minutes of numbers.\\\",\\\"cites\\\":[\\\"S02\\\",\\\"L002\\\"]},{\\\"text\\\":\\\"You built something that runs without you: the Saturday class.\\\",\\\"cites\\\":[\\\"S03\\\",\\\"F08\\\"]}],\\\"doubts\\\":[{\\\"flag_id\\\":\\\"FLAG-02\\\",\\\"text\\\":\\\"You coordinate four engineers but have no reports, so leadership has to show without a title.\\\",\\\"cites\\\":[\\\"F03\\\"]}],\\\"do\\\":[{\\\"action\\\":\\\"Ask your manager whether he will speak to the night-shift call and the incident note in his letter.\\\",\\\"time_estimate\\\":\\\"30 minutes\\\",\\\"cites\\\":[\\\"S01\\\",\\\"S04\\\"]}]}},\\\"strengthening_plan\\\":[{\\\"action\\\":\\\"Talk to 3 people in your target role this month.\\\",\\\"time_estimate\\\":\\\"an evening a week for a month\\\",\\\"why\\\":\\\"Your goal is specific; conversations give you the first-hand reasons a goals essay needs.\\\",\\\"cites\\\":[\\\"S06\\\"]},{\\\"action\\\":\\\"State Meridian's scale in one line everywhere it appears: 40+ hospitals in India and the US.\\\",\\\"time_estimate\\\":\\\"1 hour\\\",\\\"why\\\":\\\"A reader who has not heard of the employer judges the role by the scale you give it.\\\",\\\"cites\\\":[\\\"F01\\\"]}],\\\"brand_preview\\\":[{\\\"trait\\\":\\\"brings_people_along\\\",\\\"why\\\":\\\"You win arguments with evidence, not rank.\\\",\\\"cites\\\":[\\\"S02\\\",\\\"S01\\\"]},{\\\"trait\\\":\\\"commercial_judgment\\\",\\\"why\\\":\\\"You ask what should be built, not only how.\\\",\\\"cites\\\":[\\\"S06\\\",\\\"S02\\\"]},{\\\"trait\\\":\\\"community_builder\\\",\\\"why\\\":\\\"The Saturday class outlasted your own Saturdays.\\\",\\\"cites\\\":[\\\"S03\\\"]}]}\"}],\"stop_reason\":\"end_turn\",\"stop_sequence\":null,\"stop_details\":null,\"usage\":{\"input_tokens\":3974,\"cache_creation_input_tokens\":0,\"cache_read_input_tokens\":0,\"cache_creation\":{\"ephemeral_5m_input_tokens\":0,\"ephemeral_1h_input_tokens\":0},\"output_tokens\":674,\"server_tool_use\":null,\"service_tier\":\"standard\"}}"
+  }
+}

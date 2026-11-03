@@ -1,0 +1,234 @@
+{
+  "facts": [
+    {
+      "key": "employer_current",
+      "value": "Saravana Mills Private Limited",
+      "note": "family-owned spinning mill, founded 1979 by his grandfather"
+    },
+    { "key": "title_current", "value": "Director, Operations", "note": "since 2023" },
+    {
+      "key": "title_previous",
+      "value": "Management Trainee, then Assistant Manager",
+      "note": "2021 to 2023"
+    },
+    { "key": "team_size", "value": "81 people across two shifts" },
+    { "key": "location_current", "value": "Coimbatore, Tamil Nadu, India" },
+    { "key": "degree", "value": "B.Tech in Textile Technology, PSG College of Technology, 2020" },
+    { "key": "gpa", "value": "8.1 out of 10" },
+    { "key": "gmat_total", "value": "715", "note": "Q50 V36, taken June 2026" },
+    { "key": "languages", "value": "English, Tamil, Hindi" },
+    { "key": "plant_scale", "value": "1,400 spindles, about 95 tonnes of yarn a month" },
+    { "key": "revenue", "value": "About 41 crore rupees in the year to March 2026" },
+    {
+      "key": "margin_change",
+      "value": "Operating margin moved from 9% to 14% between 2023 and 2026"
+    },
+    {
+      "key": "father_name",
+      "value": "Saravanan Murugesan",
+      "note": "his father, Managing Director"
+    }
+  ],
+  "stories": [
+    {
+      "ref": "overruled_my_father",
+      "nickname": "The order I turned down",
+      "era": "2024",
+      "context": "professional",
+      "situation": "A long-standing customer offered an order worth about 6 crore rupees — a seventh of the mill's year — at a price Karthik had costed at a 4% loss once the finer count was accounted for. His father had done business with this customer's father for twenty-two years and had already indicated they would take it.",
+      "stakes": "Turning it down meant contradicting his father on a relationship older than Karthik, in a business where his authority rests entirely on his father's. It also meant the mill would be 12% under capacity for a quarter.",
+      "actions": [
+        "Rebuilt the costing three times, including the version his father's accountant used, which showed a small profit, and found the difference was an overhead allocation that had not been updated since 2019",
+        "Raised it with his father privately first, and was overruled",
+        "Raised it a second time with the updated overhead rate written out, which was the mistake he regrets — he did it in front of the floor supervisor",
+        "Found two smaller orders at better prices to cover 9% of the gap before the decision had to be made final",
+        "Let his father make the call and say it to the customer himself"
+      ],
+      "result": "The order was declined. The mill ran 3% under capacity for the quarter rather than 12%, and the customer came back the following year at a workable price. The overhead rate has been recalculated every year since.",
+      "reflection": "He was right about the number and wrong about the room. His father's authority on the floor matters more to the mill than his being seen to be right, and he spent six months repairing something that did not need to be broken.",
+      "numbers": [
+        { "label": "order value", "value": "about 6 crore rupees" },
+        { "label": "share of the mill's year", "value": "a seventh" },
+        { "label": "loss on the order as costed", "value": "4%" },
+        { "label": "capacity gap it would have left", "value": "12%" },
+        { "label": "gap actually left", "value": "3%" },
+        { "label": "years of the customer relationship", "value": "22" },
+        { "label": "year the overhead allocation had last been updated", "value": "2019" }
+      ],
+      "people": [
+        {
+          "name": "Saravanan Murugesan",
+          "role": "his father and the Managing Director",
+          "mayName": true
+        },
+        { "name": "Mr Rajendran", "role": "the floor supervisor who was present", "mayName": false }
+      ],
+      "traits": ["analytical", "principled_stands", "commercial_judgment", "self_aware"],
+      "slots": [
+        "leadership.persuaded_up",
+        "impact.biggest",
+        "values.dilemma",
+        "academics.quant_evidence",
+        "numbers.impact"
+      ],
+      "sensitivity": "none"
+    },
+    {
+      "ref": "night_shift_women",
+      "nickname": "The shift nobody wanted to start",
+      "era": "2025",
+      "context": "professional",
+      "situation": "The mill's second shift was short of twelve people and had been for a year. The available labour in the area was women who could not work nights because there was no transport and no facilities. Karthik proposed a 6 a.m. shift with a company bus, which no mill in the cluster was doing.",
+      "stakes": "The bus and the facilities cost about 14 lakh rupees up front, and the senior supervisors believed women would not stay. Two of them said so to his father rather than to him.",
+      "actions": [
+        "Visited the four villages the workers came from and asked the women directly what would be needed, which produced the bus timing and the toilet requirement he had not thought of",
+        "Costed it against the cost of running twelve short, which nobody had done",
+        "Asked the two objecting supervisors to run the pilot rather than going around them",
+        "Hired a woman supervisor for the shift, which was the part his father questioned most"
+      ],
+      "result": "The shift is fully staffed with 29 people, 22 of them women. Attrition on that shift is 9% against 31% on the night shift it replaced. Two other mills in the cluster have copied it.",
+      "reflection": "He had planned the whole thing before asking the people who would work it, and the two things that actually made it work — the bus leaving from the village rather than the main road, and the toilets — both came from that conversation. He asks first now.",
+      "numbers": [
+        { "label": "people short", "value": "12" },
+        { "label": "up-front cost", "value": "about 14 lakh rupees" },
+        { "label": "people on the shift now", "value": "29" },
+        { "label": "women on the shift", "value": "22" },
+        { "label": "attrition on the new shift", "value": "9%" },
+        { "label": "attrition on the old night shift", "value": "31%" },
+        { "label": "villages he visited", "value": "4" }
+      ],
+      "people": [
+        {
+          "name": "Devi Lakshmi",
+          "role": "the supervisor he hired for the new shift",
+          "mayName": true
+        }
+      ],
+      "traits": [
+        "originates_ideas",
+        "brings_people_along",
+        "commercial_judgment",
+        "curious_learner"
+      ],
+      "slots": [
+        "leadership.originated_idea",
+        "leadership.initiative_risky",
+        "employ.cross_functional",
+        "work.scope"
+      ],
+      "sensitivity": "none"
+    },
+    {
+      "ref": "the_contract_i_lost",
+      "nickname": "The spinning contract I lost us",
+      "era": "2022",
+      "context": "professional",
+      "situation": "As an assistant manager Karthik was given a 90 lakh rupee job-work contract to manage. He accepted a delivery schedule that assumed the mill's older frames ran at the newer frames' speed, because he had taken the speed from the machine specification rather than the floor.",
+      "stakes": "The mill missed the second delivery by nine days and the customer cancelled the remainder.",
+      "actions": [
+        "Told his father the day he realised, before the first delivery slipped",
+        "Went to the customer in person with a revised schedule rather than sending a letter, and was turned down",
+        "Measured the actual running speed of all 1,400 spindles over a fortnight, which nobody had done since 2016",
+        "Built the speed table that every quotation has used since"
+      ],
+      "result": "The contract was lost and the mill wrote off about 11 lakh rupees. The speed table has been used on every quotation for four years, and the mill has not missed a delivery date since 2023.",
+      "reflection": "He had trusted a document over the floor, which is exactly the mistake an engineering graduate joining his family's mill is most likely to make, and he made it in his second year. He walks the floor before he quotes now, and it has become the thing the supervisors trust him for.",
+      "numbers": [
+        { "label": "contract value", "value": "90 lakh rupees" },
+        { "label": "days late on the second delivery", "value": "9" },
+        { "label": "written off", "value": "about 11 lakh rupees" },
+        { "label": "spindles measured", "value": "1,400" },
+        { "label": "year the speed data had last been taken", "value": "2016" }
+      ],
+      "people": [
+        { "name": "Saravanan Murugesan", "role": "his father, whom he told first", "mayName": true }
+      ],
+      "traits": ["honest_about_limits", "acts_on_feedback", "resilient", "analytical"],
+      "slots": ["failure.consequential", "self.feedback", "identity.turning_point"],
+      "sensitivity": "none"
+    },
+    {
+      "ref": "grandfather_stroke",
+      "nickname": "The year my grandfather could not speak",
+      "era": "2021",
+      "context": "personal",
+      "situation": "His grandfather, who founded the mill, had a stroke six months after Karthik joined and lost most of his speech for the last year of his life. Karthik sat with him most evenings. The old man could still read a balance sheet and would point at numbers he did not like.",
+      "stakes": "Nothing in the business. Everything in why Karthik stayed.",
+      "actions": [
+        "Took the monthly accounts to him every month and went through them line by line",
+        "Wrote down the things he pointed at, which became a list of about forty items",
+        "Worked through the list over the following three years"
+      ],
+      "result": "His grandfather died in 2022. Twenty-nine of the forty items have been dealt with, including the overhead allocation that cost the mill the 6 crore order argument three years later.",
+      "reflection": "He had assumed he was in the mill because it was expected. The year of evenings is when it became his own decision, and it is the honest answer to why he is not in a consulting job in Chennai. He does not usually give that answer because it sounds sentimental.",
+      "numbers": [
+        { "label": "items on his grandfather's list", "value": "about 40" },
+        { "label": "items dealt with", "value": "29" },
+        { "label": "months after joining that the stroke happened", "value": "6" }
+      ],
+      "people": [
+        {
+          "name": "his grandfather",
+          "role": "founded the mill in 1979; the stroke and his death",
+          "mayName": false
+        }
+      ],
+      "traits": ["resilient", "curious_learner", "self_aware"],
+      "slots": ["identity.root", "identity.family_influence", "goals.origin", "work.motivation"],
+      "sensitivity": "sensitive"
+    },
+    {
+      "ref": "cluster_group",
+      "nickname": "The group of eleven mills",
+      "era": "2024 onwards",
+      "context": "community",
+      "situation": "Eleven small mills in the Coimbatore cluster each negotiated cotton prices alone and each lost to the same three traders. Karthik proposed buying together, which meant persuading families who had competed for forty years to show each other their volumes.",
+      "stakes": "He was the youngest person in every one of those rooms by fifteen years, and his father thought it would fail.",
+      "actions": [
+        "Went to each of the eleven owners individually before proposing it to any group, which took five months",
+        "Proposed that volumes be shared with an accountant rather than with each other, which removed the real objection",
+        "Took the smallest mill's side in the first allocation dispute, against his own mill's interest",
+        "Rotated the chair annually so it would not become his"
+      ],
+      "result": "Seven of the eleven joined. The group has bought together for two years and the members' cotton cost is about 3% below what they paid alone. Karthik chaired it for the first year and handed it on.",
+      "reflection": "Taking the smallest mill's side in the first dispute cost his mill about 2 lakh rupees and is the only reason the group still exists. He had not planned that; he decided it in the room, and it is the thing he is most pleased about.",
+      "numbers": [
+        { "label": "mills approached", "value": "11" },
+        { "label": "mills that joined", "value": "7" },
+        { "label": "months of individual conversations", "value": "5" },
+        { "label": "cotton cost reduction", "value": "about 3%" },
+        { "label": "cost to his own mill of the first dispute", "value": "about 2 lakh rupees" }
+      ],
+      "people": [
+        {
+          "name": "Mr Velusamy",
+          "role": "owner of the smallest mill, whose side he took",
+          "mayName": true
+        }
+      ],
+      "traits": ["community_builder", "brings_people_along", "principled_stands", "unusual_path"],
+      "slots": [
+        "community.built",
+        "leadership.developed_others",
+        "support.ongoing",
+        "employ.trajectory"
+      ],
+      "sensitivity": "none"
+    }
+  ],
+  "goals": {
+    "shortTerm": "To return to Saravana Mills as Managing Director with a mandate to professionalise it: an outside finance head, a board with two non-family members, and a second product line. If that is refused, a two-year operations role at a large Indian textile group first.",
+    "longTerm": "To build the mill into a group of four or five units with professional management and no requirement that a Murugesan runs it, so that his own children have a choice he did not.",
+    "planB": "Operations or supply-chain consulting in India for three years, which would let him see thirty mills rather than one, then return.",
+    "whyMba": "Everything he knows he learned inside one mill from two men related to him. He has never been managed by someone who could fire him, never raised external capital, and never worked anywhere with a governance structure. He cannot tell which of the mill's practices are good and which are merely familiar.",
+    "whyNow": "His father is 58 and has said he wants to step back at 62. The succession conversation is happening in the next two years whether Karthik is ready or not."
+  },
+  "redFlags": [
+    "Family business: no promotion anyone outside the family decided, and no external validation of his record",
+    "Reader doubt about whether the achievements were his or were handed to him",
+    "Unclear whether the MBA is his choice or his father's plan",
+    "Narrow experience: one employer, one industry, one city",
+    "No international exposure"
+  ],
+  "neverSays": ["passionate", "journey", "legacy", "impactful", "self-made", "visionary", "disrupt"]
+}

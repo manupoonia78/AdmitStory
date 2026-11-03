@@ -1,0 +1,16 @@
+{
+  "slug": "below-median-score",
+  "summary": "Runs the floor at an appliance plant in Monterrey, Mexico, with a GMAT of 610 after three attempts.",
+  "persona": "international",
+  "style": "warm",
+  "country": "MX",
+  "timezone": "America/Monterrey",
+  "programType": "full_time_mba",
+  "targetIntake": 2027,
+  "studioMode": "standard",
+  "yearsExperience": 6,
+  "test": { "type": "GMAT", "score": 610 },
+  "gpa": { "value": 7.9, "scale": 10 },
+  "isReapplicant": false,
+  "difficulty": "The score is the whole conversation in his head and he raises it unprompted, apologetically. The work evidence is genuinely excellent and he describes it as ordinary. Quantitative evidence has to be found on the plant floor, because there is none in his transcript."
+}

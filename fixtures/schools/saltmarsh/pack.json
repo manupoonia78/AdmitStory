@@ -1,0 +1,465 @@
+{
+  "school": {
+    "id": "saltmarsh",
+    "name": "Saltmarsh Institute of Management",
+    "short_name": "Saltmarsh",
+    "country": "SG",
+    "city": "Teluk Serai",
+    "website": "https://www.saltmarsh.example",
+    "program": "full_time_mba"
+  },
+  "cycle": "2026-27",
+  "version": 1,
+  "status": "complete",
+  "synthetic": true,
+  "k_high_water": 30,
+  "sources": [
+    {
+      "id": "saltmarsh-admissions",
+      "type": "official",
+      "title": "Saltmarsh MBA admissions requirements (synthetic)",
+      "url": "https://www.saltmarsh.example/mba/admissions",
+      "trust": 5,
+      "retrieved_at": "2026-07-22",
+      "rights_note": null
+    },
+    {
+      "id": "saltmarsh-employment",
+      "type": "official",
+      "title": "Saltmarsh MBA employment report 2026 (synthetic)",
+      "url": "https://www.saltmarsh.example/mba/employment",
+      "trust": 5,
+      "retrieved_at": "2026-08-19",
+      "rights_note": null
+    },
+    {
+      "id": "saltmarsh-class-profile",
+      "type": "official",
+      "title": "Saltmarsh MBA class profile (synthetic)",
+      "url": "https://www.saltmarsh.example/mba/profile",
+      "trust": 5,
+      "retrieved_at": "2026-08-19",
+      "rights_note": null
+    },
+    {
+      "id": "saltmarsh-ai-policy",
+      "type": "official",
+      "title": "Saltmarsh guidance on AI tools (synthetic)",
+      "url": "https://www.saltmarsh.example/mba/admissions/ai",
+      "trust": 5,
+      "retrieved_at": "2026-07-22",
+      "rights_note": null
+    },
+    {
+      "id": "saltmarsh-webinar",
+      "type": "adcom",
+      "title": "Saltmarsh admissions webinar, August 2026 (synthetic)",
+      "url": null,
+      "trust": 4,
+      "retrieved_at": "2026-08-19",
+      "rights_note": null
+    },
+    {
+      "id": "saltmarsh-students",
+      "type": "insider",
+      "title": "Conversations with Saltmarsh students (synthetic)",
+      "url": null,
+      "trust": 3,
+      "retrieved_at": "2026-09-30",
+      "rights_note": null
+    },
+    {
+      "id": "saltmarsh-interview-reports",
+      "type": "interview_reports",
+      "title": "Applicant reports of the video assessment (synthetic)",
+      "url": null,
+      "trust": 3,
+      "retrieved_at": "2026-09-30",
+      "rights_note": null
+    },
+    {
+      "id": "saltmarsh-coach",
+      "type": "coach_notes",
+      "title": "Admitstory coaching notes on Saltmarsh (synthetic)",
+      "url": null,
+      "trust": 4,
+      "retrieved_at": "2026-09-30",
+      "rights_note": null
+    }
+  ],
+  "official_urls": [
+    {
+      "kind": "prompts",
+      "url": "https://www.saltmarsh.example/mba/admissions"
+    },
+    {
+      "kind": "deadlines",
+      "url": "https://www.saltmarsh.example/mba/admissions/dates"
+    },
+    {
+      "kind": "class_profile",
+      "url": "https://www.saltmarsh.example/mba/profile"
+    },
+    {
+      "kind": "employment_report",
+      "url": "https://www.saltmarsh.example/mba/employment"
+    },
+    {
+      "kind": "ai_policy",
+      "url": "https://www.saltmarsh.example/mba/admissions/ai"
+    }
+  ],
+  "rounds": [
+    {
+      "id": "K01",
+      "name": "R1",
+      "deadline": "2026-10-01",
+      "decision_date": "2026-12-15",
+      "notes": [],
+      "source_ids": ["saltmarsh-admissions"],
+      "verified_at": "2026-07-22"
+    },
+    {
+      "id": "K02",
+      "name": "R2",
+      "deadline": "2027-01-15",
+      "decision_date": "2027-03-31",
+      "notes": [],
+      "source_ids": ["saltmarsh-admissions"],
+      "verified_at": "2026-07-22"
+    }
+  ],
+  "application": {
+    "essays": [
+      {
+        "id": "K03",
+        "key": "career_plan",
+        "prompt_verbatim": "Describe your career plan after the MBA and the experiences that led you to it.",
+        "limit": {
+          "kind": "chars_excl_spaces",
+          "value": 2000
+        },
+        "required": true,
+        "archetypes": ["GOALS"],
+        "parts": ["career plan", "experiences that led to it"],
+        "notes": [],
+        "source_ids": ["saltmarsh-admissions"],
+        "verified_at": "2026-07-22"
+      },
+      {
+        "id": "K04",
+        "key": "setback",
+        "prompt_verbatim": "Tell us about a setback and what you did next.",
+        "limit": {
+          "kind": "chars_excl_spaces",
+          "value": 1500
+        },
+        "required": true,
+        "archetypes": ["SETBACK"],
+        "parts": ["the setback", "what you did next"],
+        "notes": [
+          {
+            "id": "K05",
+            "text": "The committee wants most of the essay spent on what you did next.",
+            "source_ids": ["saltmarsh-webinar"],
+            "verified_at": "2026-08-19",
+            "confidence": 0.8
+          }
+        ],
+        "source_ids": ["saltmarsh-admissions"],
+        "verified_at": "2026-07-22"
+      }
+    ],
+    "short_answers": [],
+    "goal_fields": [],
+    "video": [
+      {
+        "id": "K06",
+        "format": "async_video",
+        "think_time_s": 30,
+        "answer_time_s": 60,
+        "attempts": 1,
+        "scripting_allowed": false,
+        "question_types": [
+          {
+            "id": "K07",
+            "text": "One question about a recent professional challenge.",
+            "source_ids": ["saltmarsh-interview-reports"],
+            "verified_at": "2026-09-30",
+            "confidence": 0.75
+          },
+          {
+            "id": "K08",
+            "text": "One question about why the applicant wants to study in Asia.",
+            "source_ids": ["saltmarsh-interview-reports"],
+            "verified_at": "2026-09-30",
+            "confidence": 0.75
+          },
+          {
+            "id": "K09",
+            "text": "One random question about a personal interest.",
+            "source_ids": ["saltmarsh-interview-reports"],
+            "verified_at": "2026-09-30",
+            "confidence": 0.7
+          }
+        ],
+        "source_ids": ["saltmarsh-admissions"],
+        "verified_at": "2026-07-22"
+      }
+    ],
+    "reapplicant": null,
+    "optional_essay": {
+      "id": "K10",
+      "key": "optional",
+      "prompt_verbatim": "Is there anything else you would like us to consider?",
+      "limit": {
+        "kind": "chars_excl_spaces",
+        "value": 1000
+      },
+      "required": false,
+      "archetypes": ["OPTIONAL"],
+      "parts": [],
+      "notes": [],
+      "source_ids": ["saltmarsh-admissions"],
+      "verified_at": "2026-07-22"
+    },
+    "form_sections": [],
+    "recommendations": {
+      "id": "K11",
+      "count": 2,
+      "format": "gmac_common",
+      "questions": [],
+      "notes": [],
+      "source_ids": ["saltmarsh-admissions"],
+      "verified_at": "2026-07-22"
+    },
+    "resume": {
+      "id": "K12",
+      "page_limit": 2,
+      "notes": [],
+      "source_ids": ["saltmarsh-admissions"],
+      "verified_at": "2026-07-22"
+    },
+    "test_policy": [
+      {
+        "id": "K13",
+        "text": "Requires the GMAT Focus Edition, the GRE or the Saltmarsh online admissions test.",
+        "source_ids": ["saltmarsh-admissions"],
+        "verified_at": "2026-07-22",
+        "confidence": 0.9
+      }
+    ],
+    "fees_waivers": [
+      {
+        "id": "K14",
+        "text": "The application fee is SGD 100.",
+        "source_ids": ["saltmarsh-admissions"],
+        "verified_at": "2026-07-22",
+        "confidence": 0.9
+      }
+    ]
+  },
+  "values": {
+    "stated": [
+      {
+        "id": "K15",
+        "text": "Saltmarsh looks for applicants who want an Asian career and can show regional curiosity.",
+        "source_ids": ["saltmarsh-admissions"],
+        "verified_at": "2026-07-22",
+        "confidence": 0.9
+      }
+    ],
+    "trait_map": [
+      {
+        "school_value": "regional curiosity",
+        "admitstory_traits": ["global_outlook", "curious_learner"]
+      }
+    ]
+  },
+  "culture_and_location": [
+    {
+      "id": "K16",
+      "text": "Most of the class lives in on-campus residences for the first term.",
+      "source_ids": ["saltmarsh-admissions"],
+      "verified_at": "2026-07-22",
+      "confidence": 0.9
+    }
+  ],
+  "academics": {
+    "courses": [
+      {
+        "id": "K17",
+        "name": "Asian Business Systems",
+        "what_it_is": "A core course comparing corporate governance across six Asian markets.",
+        "why_it_matters_for": ["global_outlook", "strategy"],
+        "url": "https://www.saltmarsh.example/mba/courses",
+        "source_ids": ["saltmarsh-admissions"],
+        "verified_at": "2026-07-22"
+      }
+    ],
+    "centers": [
+      {
+        "id": "K18",
+        "name": "Saltmarsh Centre for Supply Chain Resilience",
+        "what_it_is": "Applied research centre working with regional logistics firms.",
+        "why_it_matters_for": ["operations", "supply chain"],
+        "url": null,
+        "source_ids": ["saltmarsh-admissions"],
+        "verified_at": "2026-07-22"
+      }
+    ],
+    "experiential": [
+      {
+        "id": "K19",
+        "name": "Regional Immersion",
+        "what_it_is": "Two-week field study in a neighbouring market in the second term.",
+        "why_it_matters_for": ["global_outlook"],
+        "url": null,
+        "source_ids": ["saltmarsh-admissions"],
+        "verified_at": "2026-07-22"
+      }
+    ],
+    "structure": [
+      {
+        "id": "K20",
+        "text": "Sixteen-month program with an optional internship term.",
+        "source_ids": ["saltmarsh-admissions"],
+        "verified_at": "2026-07-22",
+        "confidence": 0.9
+      }
+    ]
+  },
+  "community": {
+    "clubs": [
+      {
+        "id": "K21",
+        "name": "Saltmarsh Technology Club",
+        "what_it_is": "Hosts founders and product leaders from regional startups.",
+        "why_it_matters_for": ["technology", "entrepreneurship"],
+        "url": null,
+        "source_ids": ["saltmarsh-students"],
+        "verified_at": "2026-09-30"
+      }
+    ],
+    "traditions": [],
+    "treks_events": []
+  },
+  "careers": {
+    "employment_report": {
+      "id": "K22",
+      "class_year": 2026,
+      "currency": "SGD",
+      "by_function": [
+        {
+          "function": "Technology",
+          "share": 0.29,
+          "median_base": 120000
+        },
+        {
+          "function": "Consulting",
+          "share": 0.26,
+          "median_base": 125000
+        },
+        {
+          "function": "Finance",
+          "share": 0.2,
+          "median_base": 115000
+        },
+        {
+          "function": "Operations",
+          "share": 0.15,
+          "median_base": 100000
+        },
+        {
+          "function": "Other",
+          "share": 0.1,
+          "median_base": null
+        }
+      ],
+      "top_employers": ["Lumen Straits Logistics", "Kapok Ventures", "Northbeam Advisory"],
+      "source_ids": ["saltmarsh-employment"],
+      "verified_at": "2026-08-19"
+    },
+    "recruiting_notes": []
+  },
+  "class_profile": {
+    "id": "K23",
+    "class_year": 2027,
+    "class_size": 110,
+    "gmat_focus_median": 635,
+    "gmat_classic_median": null,
+    "gre_median": null,
+    "gpa_median": null,
+    "gpa_scale": null,
+    "work_experience_years_median": 5,
+    "international_share": 0.9,
+    "source_ids": ["saltmarsh-class-profile"],
+    "verified_at": "2026-08-19"
+  },
+  "interview": {
+    "id": "K24",
+    "invitation": "invite_only",
+    "who": ["adcom"],
+    "blind": false,
+    "length_min": 30,
+    "location": ["virtual"],
+    "common_questions": [
+      {
+        "id": "K25",
+        "text": "Why do you want to build your career in Asia?",
+        "frequency_weight": 5,
+        "source_ids": ["saltmarsh-interview-reports"],
+        "verified_at": "2026-09-30"
+      }
+    ],
+    "format_notes": [],
+    "source_ids": ["saltmarsh-admissions", "saltmarsh-interview-reports"],
+    "verified_at": "2026-09-30"
+  },
+  "ai_policy": {
+    "id": "K26",
+    "stance": "permitted",
+    "applies_to": ["essays"],
+    "disclosure_text": null,
+    "notes": [
+      {
+        "id": "K27",
+        "text": "AI tools may be used for essays; the video assessment must be answered live without notes.",
+        "source_ids": ["saltmarsh-ai-policy"],
+        "verified_at": "2026-07-22",
+        "confidence": 0.9
+      }
+    ],
+    "source_ids": ["saltmarsh-ai-policy"],
+    "verified_at": "2026-07-22"
+  },
+  "scholarships": [],
+  "insider_notes": [
+    {
+      "id": "K28",
+      "text": "Students say the random video question rewards a relaxed, specific answer over a polished one.",
+      "source_ids": ["saltmarsh-students"],
+      "verified_at": "2026-09-30",
+      "confidence": 0.7
+    }
+  ],
+  "avoid": [
+    {
+      "id": "K29",
+      "text": "Reading from notes during the video assessment.",
+      "source_ids": ["saltmarsh-coach"],
+      "verified_at": "2026-09-30",
+      "confidence": 0.8
+    }
+  ],
+  "angles_that_work": [
+    {
+      "id": "K30",
+      "text": "A setback essay that ends on a habit the applicant still practises.",
+      "source_ids": ["saltmarsh-coach"],
+      "verified_at": "2026-09-30",
+      "confidence": 0.75
+    }
+  ],
+  "glossary": []
+}

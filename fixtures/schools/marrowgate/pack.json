@@ -1,0 +1,569 @@
+{
+  "school": {
+    "id": "marrowgate",
+    "name": "Marrowgate School of Business",
+    "short_name": "Marrowgate",
+    "country": "GB",
+    "city": "Fenwick Cross",
+    "website": "https://www.marrowgate.example",
+    "program": "full_time_mba"
+  },
+  "cycle": "2026-27",
+  "version": 1,
+  "status": "complete",
+  "synthetic": true,
+  "k_high_water": 41,
+  "sources": [
+    {
+      "id": "marrowgate-admissions",
+      "type": "official",
+      "title": "Marrowgate MBA application guide (synthetic)",
+      "url": "https://www.marrowgate.example/mba/application",
+      "trust": 5,
+      "retrieved_at": "2026-07-01",
+      "rights_note": null
+    },
+    {
+      "id": "marrowgate-employment",
+      "type": "official",
+      "title": "Marrowgate MBA employment report 2026 (synthetic)",
+      "url": "https://www.marrowgate.example/mba/careers/report",
+      "trust": 5,
+      "retrieved_at": "2026-07-28",
+      "rights_note": null
+    },
+    {
+      "id": "marrowgate-class-profile",
+      "type": "official",
+      "title": "Marrowgate MBA class profile (synthetic)",
+      "url": "https://www.marrowgate.example/mba/class-profile",
+      "trust": 5,
+      "retrieved_at": "2026-07-28",
+      "rights_note": null
+    },
+    {
+      "id": "marrowgate-ai-policy",
+      "type": "official",
+      "title": "Marrowgate policy on AI in admissions (synthetic)",
+      "url": "https://www.marrowgate.example/mba/application/ai",
+      "trust": 5,
+      "retrieved_at": "2026-07-01",
+      "rights_note": null
+    },
+    {
+      "id": "marrowgate-webinar",
+      "type": "adcom",
+      "title": "Marrowgate admissions webinar, July 2026 (synthetic)",
+      "url": null,
+      "trust": 4,
+      "retrieved_at": "2026-07-01",
+      "rights_note": null
+    },
+    {
+      "id": "marrowgate-students",
+      "type": "insider",
+      "title": "Conversations with Marrowgate students (synthetic)",
+      "url": null,
+      "trust": 3,
+      "retrieved_at": "2026-09-12",
+      "rights_note": null
+    },
+    {
+      "id": "marrowgate-interview-reports",
+      "type": "interview_reports",
+      "title": "Applicant interview reports (synthetic)",
+      "url": null,
+      "trust": 3,
+      "retrieved_at": "2026-09-12",
+      "rights_note": null
+    },
+    {
+      "id": "marrowgate-coach",
+      "type": "coach_notes",
+      "title": "Admitstory coaching notes on Marrowgate (synthetic)",
+      "url": null,
+      "trust": 4,
+      "retrieved_at": "2026-09-12",
+      "rights_note": null
+    }
+  ],
+  "official_urls": [
+    {
+      "kind": "prompts",
+      "url": "https://www.marrowgate.example/mba/application"
+    },
+    {
+      "kind": "deadlines",
+      "url": "https://www.marrowgate.example/mba/application/dates"
+    },
+    {
+      "kind": "employment_report",
+      "url": "https://www.marrowgate.example/mba/careers/report"
+    },
+    {
+      "kind": "ai_policy",
+      "url": "https://www.marrowgate.example/mba/application/ai"
+    }
+  ],
+  "rounds": [
+    {
+      "id": "K01",
+      "name": "Stage 1",
+      "deadline": "2026-09-09",
+      "decision_date": "2026-11-25",
+      "notes": [],
+      "source_ids": ["marrowgate-admissions"],
+      "verified_at": "2026-07-01"
+    },
+    {
+      "id": "K02",
+      "name": "Stage 2",
+      "deadline": "2026-11-04",
+      "decision_date": "2027-01-27",
+      "notes": [],
+      "source_ids": ["marrowgate-admissions"],
+      "verified_at": "2026-07-01"
+    },
+    {
+      "id": "K03",
+      "name": "Stage 3",
+      "deadline": "2027-01-06",
+      "decision_date": "2027-03-17",
+      "notes": [],
+      "source_ids": ["marrowgate-admissions"],
+      "verified_at": "2026-07-01"
+    },
+    {
+      "id": "K04",
+      "name": "Stage 4",
+      "deadline": "2027-03-03",
+      "decision_date": "2027-05-05",
+      "notes": [
+        {
+          "id": "K05",
+          "text": "Stage 4 places are limited and visa timelines are tight for international admits.",
+          "source_ids": ["marrowgate-webinar"],
+          "verified_at": "2026-07-01",
+          "confidence": 0.8
+        }
+      ],
+      "source_ids": ["marrowgate-admissions"],
+      "verified_at": "2026-07-01"
+    }
+  ],
+  "application": {
+    "essays": [
+      {
+        "id": "K06",
+        "key": "post_mba",
+        "prompt_verbatim": "What are your post-MBA goals, and how will Marrowgate help you reach them?",
+        "limit": {
+          "kind": "words",
+          "value": 500
+        },
+        "required": true,
+        "archetypes": ["GOALS", "WHY-SCHOOL"],
+        "parts": ["post-MBA goals", "how Marrowgate helps"],
+        "notes": [],
+        "source_ids": ["marrowgate-admissions"],
+        "verified_at": "2026-07-01"
+      }
+    ],
+    "short_answers": [
+      {
+        "id": "K07",
+        "key": "eight_things",
+        "prompt_verbatim": "Share eight things about yourself that would help your future classmates get to know you.",
+        "limit": {
+          "kind": "words",
+          "value": 25
+        },
+        "required": true,
+        "archetypes": ["LIST", "IDENTITY"],
+        "parts": ["eight separate entries", "each entry stands alone"],
+        "list_count": 8,
+        "notes": [
+          {
+            "id": "K08",
+            "text": "The committee reads the list for range: work, life outside work and values.",
+            "source_ids": ["marrowgate-webinar"],
+            "verified_at": "2026-07-01",
+            "confidence": 0.85
+          },
+          {
+            "id": "K09",
+            "text": "Avoid eight resume facts; at most two entries should be about work.",
+            "source_ids": ["marrowgate-coach"],
+            "verified_at": "2026-09-12",
+            "confidence": 0.8
+          }
+        ],
+        "source_ids": ["marrowgate-admissions"],
+        "verified_at": "2026-07-01"
+      },
+      {
+        "id": "K10",
+        "key": "contribution",
+        "prompt_verbatim": "How will you contribute to the Marrowgate community?",
+        "limit": {
+          "kind": "words",
+          "value": 150
+        },
+        "required": true,
+        "archetypes": ["CONTRIBUTION"],
+        "parts": ["what you will contribute"],
+        "notes": [],
+        "source_ids": ["marrowgate-admissions"],
+        "verified_at": "2026-07-01"
+      }
+    ],
+    "goal_fields": [],
+    "video": [],
+    "reapplicant": {
+      "essay": {
+        "id": "K11",
+        "key": "reapplicant",
+        "prompt_verbatim": "What has changed since your last application?",
+        "limit": {
+          "kind": "words",
+          "value": 200
+        },
+        "required": true,
+        "archetypes": ["REAPPLICANT"],
+        "parts": ["what changed"],
+        "notes": [],
+        "source_ids": ["marrowgate-admissions"],
+        "verified_at": "2026-07-01"
+      },
+      "policy": []
+    },
+    "optional_essay": null,
+    "form_sections": [
+      {
+        "id": "K12",
+        "key": "career_history",
+        "label": "Career history",
+        "item_count_max": 6,
+        "guidance": [
+          {
+            "id": "K13",
+            "text": "Explain every gap longer than three months in the career history section.",
+            "source_ids": ["marrowgate-admissions"],
+            "verified_at": "2026-07-01",
+            "confidence": 0.9
+          }
+        ],
+        "source_ids": ["marrowgate-admissions"],
+        "verified_at": "2026-07-01"
+      }
+    ],
+    "recommendations": {
+      "id": "K14",
+      "count": 2,
+      "format": "school_specific",
+      "questions": [
+        {
+          "text_verbatim": "How does the candidate's performance compare with that of peers in similar roles?",
+          "limit": {
+            "kind": "words",
+            "value": 300
+          }
+        },
+        {
+          "text_verbatim": "Describe the most important piece of constructive feedback you have given the candidate and how they responded.",
+          "limit": {
+            "kind": "words",
+            "value": 300
+          }
+        }
+      ],
+      "notes": [
+        {
+          "id": "K15",
+          "text": "One recommender must be the applicant's current line manager unless the applicant explains why not.",
+          "source_ids": ["marrowgate-admissions"],
+          "verified_at": "2026-07-01",
+          "confidence": 0.9
+        }
+      ],
+      "source_ids": ["marrowgate-admissions"],
+      "verified_at": "2026-07-01"
+    },
+    "resume": {
+      "id": "K16",
+      "page_limit": 2,
+      "notes": [],
+      "source_ids": ["marrowgate-admissions"],
+      "verified_at": "2026-07-01"
+    },
+    "test_policy": [
+      {
+        "id": "K17",
+        "text": "Accepts the GMAT Focus Edition and the GRE; the Executive Assessment is not accepted.",
+        "source_ids": ["marrowgate-admissions"],
+        "verified_at": "2026-07-01",
+        "confidence": 0.9
+      }
+    ],
+    "fees_waivers": [
+      {
+        "id": "K18",
+        "text": "The application fee is GBP 150.",
+        "source_ids": ["marrowgate-admissions"],
+        "verified_at": "2026-07-01",
+        "confidence": 0.9
+      }
+    ]
+  },
+  "values": {
+    "stated": [
+      {
+        "id": "K19",
+        "text": "Marrowgate seeks internationally minded leaders who learn from people unlike themselves.",
+        "source_ids": ["marrowgate-admissions"],
+        "verified_at": "2026-07-01",
+        "confidence": 0.9
+      }
+    ],
+    "trait_map": [
+      {
+        "school_value": "internationally minded",
+        "admitstory_traits": ["global_outlook", "curious_learner"]
+      }
+    ]
+  },
+  "culture_and_location": [
+    {
+      "id": "K20",
+      "text": "A one-year intensive program; the class is over 80% international.",
+      "source_ids": ["marrowgate-admissions"],
+      "verified_at": "2026-07-01",
+      "confidence": 0.9
+    },
+    {
+      "id": "K21",
+      "text": "Students describe an intense first term with little free time.",
+      "source_ids": ["marrowgate-students"],
+      "verified_at": "2026-09-12",
+      "confidence": 0.75
+    }
+  ],
+  "academics": {
+    "courses": [
+      {
+        "id": "K22",
+        "name": "Leading Across Borders",
+        "what_it_is": "A core course on managing teams that span countries and cultures.",
+        "why_it_matters_for": ["global_outlook", "general management"],
+        "url": "https://www.marrowgate.example/mba/curriculum",
+        "source_ids": ["marrowgate-admissions"],
+        "verified_at": "2026-07-01"
+      }
+    ],
+    "centers": [
+      {
+        "id": "K23",
+        "name": "Institute for Responsible Finance",
+        "what_it_is": "Research centre on sustainable investing and governance.",
+        "why_it_matters_for": ["finance", "sustainability"],
+        "url": "https://www.marrowgate.example/research/responsible-finance",
+        "source_ids": ["marrowgate-admissions"],
+        "verified_at": "2026-07-01"
+      }
+    ],
+    "experiential": [
+      {
+        "id": "K24",
+        "name": "Global Consulting Week",
+        "what_it_is": "A one-week client project abroad in the final term.",
+        "why_it_matters_for": ["consulting", "global_outlook"],
+        "url": null,
+        "source_ids": ["marrowgate-admissions"],
+        "verified_at": "2026-07-01"
+      }
+    ],
+    "structure": [
+      {
+        "id": "K25",
+        "text": "Twelve-month program in four terms, with no summer internship.",
+        "source_ids": ["marrowgate-admissions"],
+        "verified_at": "2026-07-01",
+        "confidence": 0.9
+      }
+    ]
+  },
+  "community": {
+    "clubs": [
+      {
+        "id": "K26",
+        "name": "Marrowgate Finance Society",
+        "what_it_is": "Organises recruiting events with investment firms.",
+        "why_it_matters_for": ["finance"],
+        "url": null,
+        "source_ids": ["marrowgate-students"],
+        "verified_at": "2026-09-12"
+      }
+    ],
+    "traditions": [
+      {
+        "id": "K27",
+        "text": "Each new class hosts an international food evening in the first month.",
+        "source_ids": ["marrowgate-students"],
+        "verified_at": "2026-09-12",
+        "confidence": 0.7
+      }
+    ],
+    "treks_events": []
+  },
+  "careers": {
+    "employment_report": {
+      "id": "K28",
+      "class_year": 2026,
+      "currency": "GBP",
+      "by_function": [
+        {
+          "function": "Consulting",
+          "share": 0.36,
+          "median_base": 95000
+        },
+        {
+          "function": "Finance",
+          "share": 0.25,
+          "median_base": 90000
+        },
+        {
+          "function": "Technology",
+          "share": 0.21,
+          "median_base": 88000
+        },
+        {
+          "function": "Other",
+          "share": 0.18,
+          "median_base": null
+        }
+      ],
+      "top_employers": ["Halberd & Rowe", "Saffron Bridge Capital", "Pellucid Systems"],
+      "intl_offer_rates": {
+        "id": "K29",
+        "text": "84% of graduates seeking work had accepted an offer three months after graduation.",
+        "source_ids": ["marrowgate-employment"],
+        "verified_at": "2026-07-28",
+        "confidence": 0.9
+      },
+      "source_ids": ["marrowgate-employment"],
+      "verified_at": "2026-07-28"
+    },
+    "recruiting_notes": [
+      {
+        "id": "K30",
+        "text": "With no internship, career switchers rely on the autumn consulting recruiting cycle.",
+        "source_ids": ["marrowgate-coach"],
+        "verified_at": "2026-09-12",
+        "confidence": 0.75
+      }
+    ]
+  },
+  "class_profile": {
+    "id": "K31",
+    "class_year": 2027,
+    "class_size": 96,
+    "gmat_focus_median": 645,
+    "gmat_classic_median": null,
+    "gre_median": null,
+    "gpa_median": null,
+    "gpa_scale": null,
+    "work_experience_years_median": 6,
+    "international_share": 0.83,
+    "source_ids": ["marrowgate-class-profile"],
+    "verified_at": "2026-07-28"
+  },
+  "interview": {
+    "id": "K32",
+    "invitation": "invite_only",
+    "who": ["alum"],
+    "blind": false,
+    "length_min": 45,
+    "location": ["hub", "virtual"],
+    "common_questions": [
+      {
+        "id": "K33",
+        "text": "Why a one-year MBA?",
+        "frequency_weight": 5,
+        "source_ids": ["marrowgate-interview-reports"],
+        "verified_at": "2026-09-12"
+      },
+      {
+        "id": "K34",
+        "text": "Describe a time you worked with someone from a very different culture.",
+        "frequency_weight": 4,
+        "source_ids": ["marrowgate-interview-reports"],
+        "verified_at": "2026-09-12"
+      }
+    ],
+    "format_notes": [
+      {
+        "id": "K35",
+        "text": "Alumni interviewers have read the full application.",
+        "source_ids": ["marrowgate-admissions"],
+        "verified_at": "2026-07-01",
+        "confidence": 0.9
+      }
+    ],
+    "source_ids": ["marrowgate-admissions", "marrowgate-interview-reports"],
+    "verified_at": "2026-09-12"
+  },
+  "ai_policy": {
+    "id": "K36",
+    "stance": "prohibited",
+    "applies_to": ["essays", "video", "recommendations"],
+    "disclosure_text": null,
+    "notes": [
+      {
+        "id": "K37",
+        "text": "Applicants must confirm that no part of the application was written with generative AI tools.",
+        "source_ids": ["marrowgate-ai-policy"],
+        "verified_at": "2026-07-01",
+        "confidence": 0.9
+      }
+    ],
+    "source_ids": ["marrowgate-ai-policy"],
+    "verified_at": "2026-07-01"
+  },
+  "scholarships": [
+    {
+      "id": "K38",
+      "text": "Scholarship applications are due two weeks after the admission offer.",
+      "source_ids": ["marrowgate-admissions"],
+      "verified_at": "2026-07-01",
+      "confidence": 0.9
+    }
+  ],
+  "insider_notes": [],
+  "avoid": [
+    {
+      "id": "K39",
+      "text": "Treating the eight-things list as a second resume.",
+      "source_ids": ["marrowgate-coach"],
+      "verified_at": "2026-09-12",
+      "confidence": 0.85
+    }
+  ],
+  "angles_that_work": [
+    {
+      "id": "K40",
+      "text": "Entries that show a habit or a belief through one concrete detail.",
+      "source_ids": ["marrowgate-coach"],
+      "verified_at": "2026-09-12",
+      "confidence": 0.8
+    }
+  ],
+  "glossary": [
+    {
+      "id": "K41",
+      "term": "Stage",
+      "plain_definition": "Marrowgate's word for an application round.",
+      "source_ids": ["marrowgate-admissions"],
+      "verified_at": "2026-07-01"
+    }
+  ]
+}

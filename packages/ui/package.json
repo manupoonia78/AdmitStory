@@ -1,0 +1,45 @@
+{
+  "name": "@admitstory/ui",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts",
+    "./tokens.css": "./src/tokens.css",
+    "./theme.css": "./src/theme.css",
+    "./editor": "./src/editor.ts"
+  },
+  "scripts": {
+    "typecheck": "tsc -p tsconfig.json"
+  },
+  "dependencies": {
+    "@admitstory/linters": "workspace:*",
+    "@admitstory/shared": "workspace:*",
+    "@phosphor-icons/react": "2.1.10",
+    "@tiptap/core": "3.32.2",
+    "@tiptap/pm": "3.32.2",
+    "@tiptap/react": "3.32.2",
+    "@tiptap/starter-kit": "3.32.2",
+    "cmdk": "1.1.1",
+    "detect-gpu": "5.0.70",
+    "motion": "14.7.1",
+    "ogl": "1.0.11",
+    "radix-ui": "1.8.1"
+  },
+  "devDependencies": {
+    "@testing-library/react": "16.3.3",
+    "@types/react": "19.3.0",
+    "@types/react-dom": "19.3.0",
+    "next": "16.4.3",
+    "react": "19.3.1",
+    "react-dom": "19.3.1"
+  },
+  "peerDependencies": {
+    "next": "^16.0.0",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0"
+  },
+  "sideEffects": [
+    "*.css"
+  ]
+}

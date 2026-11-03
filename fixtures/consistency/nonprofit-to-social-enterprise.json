@@ -1,0 +1,239 @@
+{
+  "applicant": "nonprofit-to-social-enterprise",
+  "facts": [
+    {
+      "code": "F01",
+      "key": "employer_current",
+      "value": "Dada Asilia Trust",
+      "approvedPhrasing": null
+    },
+    {
+      "code": "F02",
+      "key": "title_current",
+      "value": "Programme Manager",
+      "approvedPhrasing": null
+    },
+    {
+      "code": "F03",
+      "key": "title_previous",
+      "value": "Programme Officer",
+      "approvedPhrasing": null
+    },
+    {
+      "code": "F04",
+      "key": "team_size",
+      "value": "5 field officers and 23 volunteer mentors",
+      "approvedPhrasing": null
+    },
+    {
+      "code": "F05",
+      "key": "location_current",
+      "value": "Nairobi, Kenya",
+      "approvedPhrasing": null
+    },
+    {
+      "code": "F06",
+      "key": "degree",
+      "value": "BA in Sociology, Kenyatta University, 2018",
+      "approvedPhrasing": null
+    },
+    {
+      "code": "F07",
+      "key": "gpa",
+      "value": "Second Class Upper, equivalent to 3.6 of 4",
+      "approvedPhrasing": null
+    },
+    {
+      "code": "F08",
+      "key": "gmat_total",
+      "value": "690",
+      "approvedPhrasing": null
+    },
+    {
+      "code": "F09",
+      "key": "languages",
+      "value": "English, Swahili, Kikuyu",
+      "approvedPhrasing": null
+    },
+    {
+      "code": "F10",
+      "key": "programme_scale",
+      "value": "340 girls across 11 schools in Kiambu and Machakos counties",
+      "approvedPhrasing": null
+    },
+    {
+      "code": "F11",
+      "key": "budget_responsibility",
+      "value": "Annual programme budget of 28 million shillings",
+      "approvedPhrasing": null
+    },
+    {
+      "code": "F12",
+      "key": "funders",
+      "value": "Three institutional funders; the largest provides 61% of the budget",
+      "approvedPhrasing": null
+    }
+  ],
+  "roles": [
+    {
+      "ref": "r1",
+      "organisation": "Dada Asilia Trust",
+      "title": "Programme Manager",
+      "dates": "2023 – Present"
+    },
+    {
+      "ref": "r2",
+      "organisation": "Dada Asilia Trust",
+      "title": "Programme Officer",
+      "dates": "2019 – 2023"
+    }
+  ],
+  "clean": [
+    {
+      "id": "resume",
+      "kind": "resume",
+      "label": "Resume",
+      "segments": [
+        {
+          "ref": "b1",
+          "text": "Manage 5 field officers and 23 volunteer mentors serving 340 girls across 11 schools in Kiambu and Machakos counties."
+        },
+        {
+          "ref": "b2",
+          "text": "Run an annual programme budget of 28 million shillings from three institutional funders."
+        },
+        {
+          "ref": "b3",
+          "text": "Moved fee money into mentoring in the pilot schools, raising retention from 58% to 81%."
+        },
+        {
+          "ref": "b4",
+          "text": "Since 2022, run a Saturday market group for girls: 19 so far, about 12,000 shillings of monthly profit from a 4,000-shilling starting loan."
+        },
+        {
+          "ref": "edu.line1",
+          "text": "BA in Sociology, Kenyatta University, 2018."
+        }
+      ]
+    },
+    {
+      "id": "form:employment",
+      "kind": "form",
+      "label": "Form: Employment history",
+      "segments": [
+        {
+          "ref": "employment/i1",
+          "text": "Programme Manager, Dada Asilia Trust, Nairobi (2023 to present). I manage 5 field officers and 23 volunteer mentors; the programme reaches 340 girls in 11 schools."
+        },
+        {
+          "ref": "employment/i2",
+          "text": "Programme Officer, Dada Asilia Trust (2019 to 2023)."
+        }
+      ]
+    },
+    {
+      "id": "essay-1",
+      "kind": "essay",
+      "label": "Essay 1",
+      "segments": [
+        {
+          "ref": "p1",
+          "text": "In 2024 I argued for seven months to stop paying school fees in the pilot schools and put the money into mentoring. Retention there rose from 58% to 81%, though 11 girls left anyway."
+        },
+        {
+          "ref": "p2",
+          "text": "As Programme Manager at Dada Asilia Trust since 2023, I lead a team of 5 field officers and 23 volunteer mentors. Our largest funder provides 61% of the budget, so eleven jobs depend on one renewal."
+        }
+      ]
+    },
+    {
+      "id": "brief:odhiambo",
+      "kind": "brief",
+      "label": "Brief for Grace Odhiambo",
+      "segments": [
+        {
+          "ref": "t1",
+          "text": "Wanjiru has been Programme Manager since 2023 and manages 5 field officers and 23 volunteer mentors."
+        },
+        {
+          "ref": "t2",
+          "text": "The fee decision: retention in the pilot schools went from 58% to 81%."
+        }
+      ]
+    }
+  ],
+  "seeded": [
+    {
+      "id": "nonprofit-to-social-enterprise-01",
+      "subject": "employer",
+      "doc_id": "essay-1",
+      "ref": "p2",
+      "from": "at Dada Asilia Trust since",
+      "to": "at Dada Asilia Foundation since",
+      "note": "organisation renamed in an essay"
+    },
+    {
+      "id": "nonprofit-to-social-enterprise-02",
+      "subject": "title",
+      "doc_id": "form:employment",
+      "ref": "employment/i2",
+      "from": "Programme Officer, Dada",
+      "to": "Programme Coordinator, Dada",
+      "note": "previous title changed in a form entry"
+    },
+    {
+      "id": "nonprofit-to-social-enterprise-03",
+      "subject": "date",
+      "doc_id": "brief:odhiambo",
+      "ref": "t1",
+      "from": "since 2023",
+      "to": "since 2022",
+      "note": "promotion year in a brief"
+    },
+    {
+      "id": "nonprofit-to-social-enterprise-04",
+      "subject": "team_size",
+      "doc_id": "resume",
+      "ref": "b1",
+      "from": "23 volunteer mentors",
+      "to": "25 volunteer mentors",
+      "note": "mentor count on the résumé"
+    },
+    {
+      "id": "nonprofit-to-social-enterprise-05",
+      "subject": "number",
+      "doc_id": "essay-1",
+      "ref": "p1",
+      "from": "from 58% to 81%",
+      "to": "from 58% to 84%",
+      "note": "retention result in an essay"
+    },
+    {
+      "id": "nonprofit-to-social-enterprise-06",
+      "subject": "team_size",
+      "doc_id": "form:employment",
+      "ref": "employment/i1",
+      "from": "I manage 5 field officers",
+      "to": "I manage 6 field officers",
+      "note": "field officers in a form entry"
+    },
+    {
+      "id": "nonprofit-to-social-enterprise-07",
+      "subject": "title",
+      "doc_id": "resume",
+      "ref": "r2.title",
+      "from": "Programme Officer",
+      "to": "Programme Associate",
+      "note": "earlier title on the résumé"
+    },
+    {
+      "id": "nonprofit-to-social-enterprise-08",
+      "subject": "number",
+      "doc_id": "brief:odhiambo",
+      "ref": "t2",
+      "from": "went from 58% to 81%",
+      "to": "went from 55% to 81%",
+      "note": "baseline retention in a brief"
+    }
+  ]
+}

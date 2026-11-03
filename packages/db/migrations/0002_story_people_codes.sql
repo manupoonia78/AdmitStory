@@ -1,0 +1,1 @@
+ALTER TABLE "stories" ADD COLUMN "people_codes" text[] DEFAULT '{}'::text[] NOT NULL;

@@ -1,0 +1,689 @@
+{
+  "school": {
+    "id": "halvorsen",
+    "name": "Halvorsen School of Management",
+    "short_name": "Halvorsen",
+    "country": "US",
+    "city": "Ashgrove Harbor, ME",
+    "website": "https://www.halvorsen.example",
+    "program": "full_time_mba"
+  },
+  "cycle": "2026-27",
+  "version": 3,
+  "status": "complete",
+  "synthetic": true,
+  "k_high_water": 54,
+  "sources": [
+    {
+      "id": "halvorsen-admissions",
+      "type": "official",
+      "title": "Halvorsen admissions: essays and deadlines (synthetic)",
+      "url": "https://www.halvorsen.example/admissions/essays",
+      "trust": 5,
+      "retrieved_at": "2026-07-14",
+      "rights_note": null
+    },
+    {
+      "id": "halvorsen-employment",
+      "type": "official",
+      "title": "Halvorsen employment report, class of 2026 (synthetic)",
+      "url": "https://www.halvorsen.example/careers/employment-report",
+      "trust": 5,
+      "retrieved_at": "2026-08-02",
+      "rights_note": null
+    },
+    {
+      "id": "halvorsen-class-profile",
+      "type": "official",
+      "title": "Halvorsen class profile, class of 2028 (synthetic)",
+      "url": "https://www.halvorsen.example/admissions/class-profile",
+      "trust": 5,
+      "retrieved_at": "2026-08-02",
+      "rights_note": null
+    },
+    {
+      "id": "halvorsen-ai-policy",
+      "type": "official",
+      "title": "Halvorsen statement on generative AI in applications (synthetic)",
+      "url": "https://www.halvorsen.example/admissions/ai-policy",
+      "trust": 5,
+      "retrieved_at": "2026-07-14",
+      "rights_note": null
+    },
+    {
+      "id": "halvorsen-webinar",
+      "type": "adcom",
+      "title": "Halvorsen admissions director webinar, July 2026 (synthetic)",
+      "url": null,
+      "trust": 4,
+      "retrieved_at": "2026-07-14",
+      "rights_note": null
+    },
+    {
+      "id": "halvorsen-students",
+      "type": "insider",
+      "title": "Conversations with second-year Halvorsen students (synthetic)",
+      "url": null,
+      "trust": 3,
+      "retrieved_at": "2026-09-05",
+      "rights_note": null
+    },
+    {
+      "id": "halvorsen-interview-reports",
+      "type": "interview_reports",
+      "title": "Applicant interview reports, 2025-26 cycle (synthetic)",
+      "url": null,
+      "trust": 3,
+      "retrieved_at": "2026-09-05",
+      "rights_note": null
+    },
+    {
+      "id": "halvorsen-coach",
+      "type": "coach_notes",
+      "title": "Admitstory coaching notes on Halvorsen (synthetic)",
+      "url": null,
+      "trust": 4,
+      "retrieved_at": "2026-09-05",
+      "rights_note": null
+    },
+    {
+      "id": "halvorsen-guide-notes",
+      "type": "third_party_reference",
+      "title": "Notes from a paid admissions guide (synthetic)",
+      "url": null,
+      "trust": 2,
+      "retrieved_at": "2026-09-05",
+      "rights_note": "Paid third-party material: reference only. Never quoted or shown to users (§9.6)."
+    }
+  ],
+  "official_urls": [
+    {
+      "kind": "prompts",
+      "url": "https://www.halvorsen.example/admissions/essays"
+    },
+    {
+      "kind": "deadlines",
+      "url": "https://www.halvorsen.example/admissions/deadlines"
+    },
+    {
+      "kind": "class_profile",
+      "url": "https://www.halvorsen.example/admissions/class-profile"
+    },
+    {
+      "kind": "employment_report",
+      "url": "https://www.halvorsen.example/careers/employment-report"
+    },
+    {
+      "kind": "ai_policy",
+      "url": "https://www.halvorsen.example/admissions/ai-policy"
+    }
+  ],
+  "rounds": [
+    {
+      "id": "K01",
+      "name": "R1",
+      "deadline": "2026-09-16",
+      "decision_date": "2026-12-10",
+      "interview_invites_window": "mid-October to mid-November",
+      "notes": [],
+      "source_ids": ["halvorsen-admissions"],
+      "verified_at": "2026-07-14"
+    },
+    {
+      "id": "K02",
+      "name": "R2",
+      "deadline": "2027-01-06",
+      "decision_date": "2027-03-24",
+      "interview_invites_window": "February",
+      "notes": [
+        {
+          "id": "K03",
+          "text": "Most scholarship funds are committed by the end of R2.",
+          "source_ids": ["halvorsen-webinar"],
+          "verified_at": "2026-07-14",
+          "confidence": 0.8
+        }
+      ],
+      "source_ids": ["halvorsen-admissions"],
+      "verified_at": "2026-07-14"
+    },
+    {
+      "id": "K04",
+      "name": "R3",
+      "deadline": "2027-04-07",
+      "decision_date": "2027-05-19",
+      "notes": [
+        {
+          "id": "K05",
+          "text": "R3 admits a small number of candidates, often with unusual backgrounds.",
+          "source_ids": ["halvorsen-webinar"],
+          "verified_at": "2026-07-14",
+          "confidence": 0.7
+        }
+      ],
+      "source_ids": ["halvorsen-admissions"],
+      "verified_at": "2026-07-14"
+    }
+  ],
+  "application": {
+    "essays": [
+      {
+        "id": "K06",
+        "key": "goals",
+        "prompt_verbatim": "What do you want to be doing five years after you graduate, and how will the Halvorsen MBA help you get there?",
+        "limit": {
+          "kind": "words",
+          "value": 500
+        },
+        "required": true,
+        "archetypes": ["GOALS", "WHY-SCHOOL"],
+        "parts": ["post-MBA role five years out", "how the Halvorsen MBA closes the gap"],
+        "notes": [
+          {
+            "id": "K07",
+            "text": "Readers look for a specific first role and a credible bridge from current experience.",
+            "source_ids": ["halvorsen-webinar"],
+            "verified_at": "2026-07-14",
+            "confidence": 0.85
+          },
+          {
+            "id": "K08",
+            "text": "Name at most two Halvorsen resources and tie each to a skill gap.",
+            "source_ids": ["halvorsen-coach"],
+            "verified_at": "2026-09-05",
+            "confidence": 0.8
+          }
+        ],
+        "source_ids": ["halvorsen-admissions"],
+        "verified_at": "2026-07-14"
+      },
+      {
+        "id": "K09",
+        "key": "shaped",
+        "prompt_verbatim": "Tell us about a time you changed how a group worked. What did you do, and what did you learn about yourself?",
+        "limit": {
+          "kind": "words",
+          "value": 400
+        },
+        "required": true,
+        "archetypes": ["LEADERSHIP"],
+        "parts": ["the change you made in a group", "what you learned about yourself"],
+        "notes": [
+          {
+            "id": "K10",
+            "text": "The second half of the prompt carries as much weight as the first.",
+            "source_ids": ["halvorsen-webinar"],
+            "verified_at": "2026-07-14",
+            "confidence": 0.8
+          }
+        ],
+        "source_ids": ["halvorsen-admissions"],
+        "verified_at": "2026-07-14"
+      }
+    ],
+    "short_answers": [],
+    "goal_fields": [],
+    "video": [],
+    "reapplicant": {
+      "essay": {
+        "id": "K11",
+        "key": "reapplicant",
+        "prompt_verbatim": "How have you grown since you last applied, and what has changed in your candidacy?",
+        "limit": {
+          "kind": "words",
+          "value": 300
+        },
+        "required": true,
+        "archetypes": ["REAPPLICANT"],
+        "parts": ["growth since the last application", "what changed in the candidacy"],
+        "notes": [],
+        "source_ids": ["halvorsen-admissions"],
+        "verified_at": "2026-07-14"
+      },
+      "policy": [
+        {
+          "id": "K12",
+          "text": "Reapplicants within two years submit one new recommendation and the reapplicant essay instead of the leadership essay.",
+          "source_ids": ["halvorsen-admissions"],
+          "verified_at": "2026-07-14",
+          "confidence": 0.9
+        }
+      ]
+    },
+    "optional_essay": {
+      "id": "K13",
+      "key": "optional",
+      "prompt_verbatim": "Is there anything else you would like the admissions committee to know?",
+      "limit": {
+        "kind": "words",
+        "value": 250
+      },
+      "required": false,
+      "archetypes": ["OPTIONAL"],
+      "parts": [],
+      "notes": [
+        {
+          "id": "K14",
+          "text": "Use it for gaps, grades or test context; the committee does not expect a third story.",
+          "source_ids": ["halvorsen-webinar"],
+          "verified_at": "2026-07-14",
+          "confidence": 0.85
+        }
+      ],
+      "source_ids": ["halvorsen-admissions"],
+      "verified_at": "2026-07-14"
+    },
+    "form_sections": [
+      {
+        "id": "K15",
+        "key": "activities",
+        "label": "Community involvement",
+        "item_count_max": 5,
+        "char_limit": 250,
+        "guidance": [
+          {
+            "id": "K16",
+            "text": "List the role and the time committed per month for each entry.",
+            "source_ids": ["halvorsen-admissions"],
+            "verified_at": "2026-07-14",
+            "confidence": 0.9
+          }
+        ],
+        "source_ids": ["halvorsen-admissions"],
+        "verified_at": "2026-07-14"
+      },
+      {
+        "id": "K17",
+        "key": "honors",
+        "label": "Awards and honours",
+        "item_count_max": 3,
+        "guidance": [],
+        "source_ids": ["halvorsen-admissions"],
+        "verified_at": "2026-07-14"
+      }
+    ],
+    "recommendations": {
+      "id": "K18",
+      "count": 2,
+      "format": "gmac_common",
+      "questions": [],
+      "notes": [
+        {
+          "id": "K19",
+          "text": "At least one recommender should be a current or recent direct supervisor.",
+          "source_ids": ["halvorsen-admissions"],
+          "verified_at": "2026-07-14",
+          "confidence": 0.9
+        }
+      ],
+      "source_ids": ["halvorsen-admissions"],
+      "verified_at": "2026-07-14"
+    },
+    "resume": {
+      "id": "K20",
+      "page_limit": 1,
+      "notes": [
+        {
+          "id": "K21",
+          "text": "Include full-time work experience only; internships can be omitted.",
+          "source_ids": ["halvorsen-webinar"],
+          "verified_at": "2026-07-14",
+          "confidence": 0.7
+        }
+      ],
+      "source_ids": ["halvorsen-admissions"],
+      "verified_at": "2026-07-14"
+    },
+    "test_policy": [
+      {
+        "id": "K22",
+        "text": "Accepts the GMAT Focus Edition, the GRE and the Executive Assessment; no preference stated.",
+        "source_ids": ["halvorsen-admissions"],
+        "verified_at": "2026-07-14",
+        "confidence": 0.9
+      },
+      {
+        "id": "K23",
+        "text": "Test waivers are considered for applicants with eight or more years of work experience.",
+        "source_ids": ["halvorsen-admissions"],
+        "verified_at": "2026-07-14",
+        "confidence": 0.9
+      }
+    ],
+    "fees_waivers": [
+      {
+        "id": "K24",
+        "text": "The application fee is USD 200; waived for active-duty military and alumni of partner service programs.",
+        "source_ids": ["halvorsen-admissions"],
+        "verified_at": "2026-07-14",
+        "confidence": 0.9
+      }
+    ]
+  },
+  "values": {
+    "stated": [
+      {
+        "id": "K25",
+        "text": "Halvorsen describes its ideal student as a practical collaborator who leaves teams better than they found them.",
+        "source_ids": ["halvorsen-admissions"],
+        "verified_at": "2026-07-14",
+        "confidence": 0.9
+      },
+      {
+        "id": "K26",
+        "text": "The school emphasises accountability to a community beyond the firm.",
+        "source_ids": ["halvorsen-admissions"],
+        "verified_at": "2026-07-14",
+        "confidence": 0.9
+      }
+    ],
+    "trait_map": [
+      {
+        "school_value": "practical collaborator",
+        "admitstory_traits": ["brings_people_along", "cross_functional_influence"],
+        "note": {
+          "id": "K27",
+          "text": "Show the other people in the story by role, not just yourself.",
+          "source_ids": ["halvorsen-coach"],
+          "verified_at": "2026-09-05",
+          "confidence": 0.75
+        }
+      },
+      {
+        "school_value": "accountable to a wider community",
+        "admitstory_traits": ["community_builder", "principled_stands"]
+      }
+    ]
+  },
+  "culture_and_location": [
+    {
+      "id": "K28",
+      "text": "Coastal small-city campus; most students live within a ten-minute walk of the main hall.",
+      "source_ids": ["halvorsen-students"],
+      "verified_at": "2026-09-05",
+      "confidence": 0.8
+    },
+    {
+      "id": "K29",
+      "text": "Class sections of about 70 stay together for the whole first year.",
+      "source_ids": ["halvorsen-admissions"],
+      "verified_at": "2026-07-14",
+      "confidence": 0.9
+    }
+  ],
+  "academics": {
+    "courses": [
+      {
+        "id": "K30",
+        "name": "Operating in Uncertainty",
+        "what_it_is": "A first-year core course on decisions with incomplete data, taught through field cases.",
+        "why_it_matters_for": ["operations", "steady_in_ambiguity"],
+        "url": "https://www.halvorsen.example/academics/core",
+        "source_ids": ["halvorsen-admissions"],
+        "verified_at": "2026-07-14"
+      },
+      {
+        "id": "K31",
+        "name": "Coastal Economies Lab",
+        "what_it_is": "A second-year elective pairing student teams with regional fisheries and ports.",
+        "why_it_matters_for": ["sustainability", "consulting"],
+        "url": "https://www.halvorsen.example/academics/electives",
+        "source_ids": ["halvorsen-admissions"],
+        "verified_at": "2026-07-14"
+      }
+    ],
+    "centers": [
+      {
+        "id": "K32",
+        "name": "Brenneman Center for Family Enterprise",
+        "what_it_is": "Research and advising centre for family-owned firms.",
+        "why_it_matters_for": ["family business", "general management"],
+        "url": "https://www.halvorsen.example/centers/family-enterprise",
+        "source_ids": ["halvorsen-admissions"],
+        "verified_at": "2026-07-14"
+      },
+      {
+        "id": "K33",
+        "name": "Halvorsen Venture Studio",
+        "what_it_is": "Pre-seed support for student founders, with a summer stipend.",
+        "why_it_matters_for": ["entrepreneurship"],
+        "url": "https://www.halvorsen.example/centers/venture-studio",
+        "source_ids": ["halvorsen-admissions"],
+        "verified_at": "2025-09-18"
+      }
+    ],
+    "experiential": [
+      {
+        "id": "K34",
+        "name": "First-Year Field Project",
+        "what_it_is": "A seven-week consulting engagement with a regional organisation in the spring of year one.",
+        "why_it_matters_for": ["consulting", "measurable_impact"],
+        "url": "https://www.halvorsen.example/academics/field-project",
+        "source_ids": ["halvorsen-admissions"],
+        "verified_at": "2026-07-14"
+      }
+    ],
+    "structure": [
+      {
+        "id": "K35",
+        "text": "Two-year program; the first year is a fixed core, the second is fully elective.",
+        "source_ids": ["halvorsen-admissions"],
+        "verified_at": "2026-07-14",
+        "confidence": 0.9
+      }
+    ]
+  },
+  "community": {
+    "clubs": [
+      {
+        "id": "K36",
+        "name": "Tidewater Consulting Club",
+        "what_it_is": "Student club running casing practice and an alumni speaker series.",
+        "why_it_matters_for": ["consulting"],
+        "url": null,
+        "source_ids": ["halvorsen-students"],
+        "verified_at": "2026-09-05"
+      }
+    ],
+    "traditions": [
+      {
+        "id": "K37",
+        "text": "Every section rows in the autumn harbour regatta.",
+        "source_ids": ["halvorsen-students"],
+        "verified_at": "2026-09-05",
+        "confidence": 0.8
+      }
+    ],
+    "treks_events": [
+      {
+        "id": "K38",
+        "name": "West Coast Technology Trek",
+        "what_it_is": "January trek visiting product teams at technology firms.",
+        "why_it_matters_for": ["product management", "technology"],
+        "url": null,
+        "source_ids": ["halvorsen-admissions"],
+        "verified_at": "2026-07-14"
+      }
+    ]
+  },
+  "careers": {
+    "employment_report": {
+      "id": "K39",
+      "class_year": 2026,
+      "currency": "USD",
+      "by_function": [
+        {
+          "function": "Consulting",
+          "share": 0.31,
+          "median_base": 175000
+        },
+        {
+          "function": "Finance",
+          "share": 0.22,
+          "median_base": 160000
+        },
+        {
+          "function": "Product and marketing",
+          "share": 0.19,
+          "median_base": 150000
+        },
+        {
+          "function": "General management",
+          "share": 0.14,
+          "median_base": 145000
+        },
+        {
+          "function": "Other",
+          "share": 0.14,
+          "median_base": null
+        }
+      ],
+      "top_employers": [
+        "Northbeam Advisory",
+        "Corrie & Vale",
+        "Tamarack Health Systems",
+        "Brightwater Capital Partners"
+      ],
+      "intl_offer_rates": {
+        "id": "K40",
+        "text": "91% of international graduates seeking work had an offer within three months.",
+        "source_ids": ["halvorsen-employment"],
+        "verified_at": "2026-08-02",
+        "confidence": 0.9
+      },
+      "source_ids": ["halvorsen-employment"],
+      "verified_at": "2026-08-02"
+    },
+    "recruiting_notes": [
+      {
+        "id": "K41",
+        "text": "Consulting recruiting starts in the first week of classes.",
+        "source_ids": ["halvorsen-students"],
+        "verified_at": "2026-09-05",
+        "confidence": 0.8
+      }
+    ]
+  },
+  "class_profile": {
+    "id": "K42",
+    "class_year": 2028,
+    "class_size": 281,
+    "gmat_focus_median": 655,
+    "gmat_classic_median": null,
+    "gre_median": {
+      "verbal": 161,
+      "quant": 160
+    },
+    "gpa_median": 3.5,
+    "gpa_scale": 4,
+    "work_experience_years_median": 5,
+    "international_share": 0.32,
+    "source_ids": ["halvorsen-class-profile"],
+    "verified_at": "2026-08-02"
+  },
+  "interview": {
+    "id": "K43",
+    "invitation": "invite_only",
+    "who": ["adcom"],
+    "blind": false,
+    "length_min": 30,
+    "location": ["campus", "virtual"],
+    "common_questions": [
+      {
+        "id": "K44",
+        "text": "Walk me through your resume.",
+        "frequency_weight": 5,
+        "source_ids": ["halvorsen-interview-reports"],
+        "verified_at": "2026-09-05"
+      },
+      {
+        "id": "K45",
+        "text": "Tell me about a time a team you led disagreed with you.",
+        "frequency_weight": 4,
+        "source_ids": ["halvorsen-interview-reports"],
+        "verified_at": "2026-09-05"
+      },
+      {
+        "id": "K46",
+        "text": "Why Halvorsen, and why now?",
+        "frequency_weight": 4,
+        "source_ids": ["halvorsen-interview-reports"],
+        "verified_at": "2026-09-05"
+      }
+    ],
+    "format_notes": [
+      {
+        "id": "K47",
+        "text": "The interviewer has read the full application.",
+        "source_ids": ["halvorsen-admissions"],
+        "verified_at": "2026-07-14",
+        "confidence": 0.9
+      }
+    ],
+    "source_ids": ["halvorsen-admissions", "halvorsen-interview-reports"],
+    "verified_at": "2026-09-05"
+  },
+  "ai_policy": {
+    "id": "K48",
+    "stance": "permitted_with_disclosure",
+    "applies_to": ["essays"],
+    "disclosure_text": "I used generative AI tools in preparing my essays as follows:",
+    "notes": [
+      {
+        "id": "K49",
+        "text": "AI tools may help with editing; the ideas and experiences must be the applicant's own.",
+        "source_ids": ["halvorsen-ai-policy"],
+        "verified_at": "2026-07-14",
+        "confidence": 0.9
+      }
+    ],
+    "source_ids": ["halvorsen-ai-policy"],
+    "verified_at": "2026-07-14"
+  },
+  "scholarships": [
+    {
+      "id": "K50",
+      "text": "All admitted candidates are considered for merit scholarships; no separate essay.",
+      "source_ids": ["halvorsen-admissions"],
+      "verified_at": "2026-07-14",
+      "confidence": 0.9
+    }
+  ],
+  "insider_notes": [
+    {
+      "id": "K51",
+      "text": "Admitstory note: applicants who over-explain the Venture Studio tend to read as unfocused; one concrete link is enough.",
+      "source_ids": ["halvorsen-guide-notes"],
+      "verified_at": "2026-09-05",
+      "confidence": 0.6,
+      "approved_rewrite": true
+    }
+  ],
+  "avoid": [
+    {
+      "id": "K52",
+      "text": "Generic praise of the coastal setting without a reason it matters to you.",
+      "source_ids": ["halvorsen-coach"],
+      "verified_at": "2026-09-05",
+      "confidence": 0.8
+    }
+  ],
+  "angles_that_work": [
+    {
+      "id": "K53",
+      "text": "A leadership story where the applicant changed a process and others kept using it.",
+      "source_ids": ["halvorsen-coach"],
+      "verified_at": "2026-09-05",
+      "confidence": 0.8
+    }
+  ],
+  "glossary": [
+    {
+      "id": "K54",
+      "term": "Section",
+      "plain_definition": "The group of about 70 classmates you take every first-year course with.",
+      "source_ids": ["halvorsen-admissions"],
+      "verified_at": "2026-07-14"
+    }
+  ]
+}

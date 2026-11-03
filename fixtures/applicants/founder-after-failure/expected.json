@@ -1,0 +1,45 @@
+{
+  "slug": "founder-after-failure",
+  "lead_story": {
+    "LEADERSHIP": "the_pricing_mistake",
+    "SETBACK": "the_shutdown",
+    "GOALS": "the_warehouse_shift",
+    "VALUES": "the_riders_union"
+  },
+  "never_without_consent": ["the_five_months"],
+  "red_flags": [
+    {
+      "flag": "A failed company, with creditors paid at 40 cents",
+      "address_in": "essay",
+      "how": "Answer it with a specific story from the file rather than a claim."
+    },
+    {
+      "flag": "Five-month employment gap he has not settled on a way to describe",
+      "address_in": "optional",
+      "how": "Say what happened and what was done with the time in two or three factual sentences."
+    },
+    {
+      "flag": "Currently self-employed, so no manager can be asked about him",
+      "address_in": "essay",
+      "how": "Show it through a story where the applicant made a commercial or people decision and carried others with them."
+    },
+    {
+      "flag": "German grade of 2.1 that readers will not benchmark easily",
+      "address_in": "optional",
+      "how": "Point to the quantitative and academic evidence elsewhere in the file in one plain paragraph; no apology and no excuse."
+    },
+    {
+      "flag": "Risk of reading as either self-flagellating or evasive about the shutdown",
+      "address_in": "essay",
+      "how": "Answer it with a specific story from the file rather than a claim."
+    }
+  ],
+  "kit_properties": [
+    "Every number in every draft matches the Fact Sheet or a story's own numbers.",
+    "No draft names a person whose story marks them as not to be named.",
+    "No sentence uses any of these words: passionate, journey, pivot, failing forward, learnings, my baby, crushed it, impactful.",
+    "The goals essay names the short-term goal specifically: An operating role at a logistics or commerce company with real scale — a regional general manager or a head of operations for a business unit — in Germany or the Netherlands, where the unit economics are someone's actual job.",
+    "The leadership essay leads with \"The per-drop price I set too low\", or the Strategist says why another story is stronger.",
+    "The setback essay leads with \"The afternoon I did eleven conversations\", or the Strategist says why another story is stronger."
+  ]
+}

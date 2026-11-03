@@ -1,0 +1,16 @@
+{
+  "slug": "officer-to-operations",
+  "summary": "A logistics captain in the Nigerian Army, based in Kaduna, moving into operations at a manufacturer or a large distributor.",
+  "persona": "switcher",
+  "style": "warm",
+  "country": "NG",
+  "timezone": "Africa/Lagos",
+  "programType": "full_time_mba",
+  "targetIntake": 2027,
+  "studioMode": "deep",
+  "yearsExperience": 7,
+  "test": { "type": "GMAT", "score": 680 },
+  "gpa": { "value": 3.4, "scale": 5 },
+  "isReapplicant": false,
+  "difficulty": "Speaks in military terms a civilian reader will not follow, and understates scale badly: he commanded sixty soldiers and calls it a small unit. Every number has to be asked for, and every term translated."
+}

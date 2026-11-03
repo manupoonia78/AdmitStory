@@ -1,0 +1,219 @@
+/*
+ * Tailwind v4 theme for AdmitStory. Import AFTER tailwindcss in apps/web:
+ *
+ *   @import "tailwindcss";
+ *   @import "@admitstory/ui/theme.css";
+ *
+ * The default palette, fonts, type scale, radii and shadows are cleared so only design
+ * tokens produce utilities (bg-space, text-text-soft, border-edge, rounded-plane…).
+ */
+
+@import "./tokens.css";
+
+/* Scan this package's components so their class names are generated in the app build. */
+@source "./";
+@source not "./**/*.test.{ts,tsx}";
+
+/* `night:` styles apply wherever the Night palette does (see tokens.css). */
+@custom-variant night {
+  &:where([data-theme="night"], [data-theme="night"] *) {
+    @slot;
+  }
+  @media (prefers-color-scheme: dark) {
+    &:where(:root:not([data-theme="day"]), :root:not([data-theme="day"]) *) {
+      @slot;
+    }
+  }
+}
+
+/* Breakpoints (spec §6.12): mobile < 640, tablet 640–1023, laptop 1024–1279, desktop 1280+. */
+@theme {
+  --breakpoint-*: initial;
+  --breakpoint-sm: 40rem;
+  --breakpoint-lg: 64rem;
+  --breakpoint-xl: 80rem;
+
+  /* Sheets glide in; scrims fade. Reduced motion turns the slide into a fade (theme.css base). */
+  --animate-sheet-in: sheet-in var(--spring-glide-duration) var(--spring-glide) both;
+  --animate-sheet-out: sheet-out var(--spring-glide-duration) var(--spring-glide) both;
+  --animate-fade-in: fade-in var(--spring-glide-duration) linear both;
+  --animate-fade-out: fade-out var(--spring-glide-duration) linear both;
+
+  @keyframes sheet-in {
+    from {
+      transform: translateX(100%);
+    }
+  }
+  @keyframes sheet-out {
+    to {
+      transform: translateX(100%);
+    }
+  }
+  @keyframes fade-in {
+    from {
+      opacity: 0;
+    }
+  }
+  @keyframes fade-out {
+    to {
+      opacity: 0;
+    }
+  }
+}
+
+/*
+ * Runtime tokens. `inline` makes utilities reference the token directly;
+ * `reference` stops Tailwind re-declaring same-named variables (e.g. --font-ui),
+ * which would otherwise shadow tokens.css with a self-reference.
+ */
+@theme inline reference {
+  --color-*: initial;
+  --color-space: var(--space);
+  --color-depth: var(--depth);
+  --color-veil: var(--veil);
+  --color-edge: var(--edge);
+  --color-control: var(--control-edge);
+  --color-text: var(--text);
+  --color-text-soft: var(--text-soft);
+  --color-signal: var(--signal);
+  --color-on-signal: var(--on-signal);
+  --color-voice: var(--voice);
+  --color-voice-glow: var(--voice-glow);
+  --color-silver: var(--silver);
+  --color-record: var(--record);
+  --color-verified: var(--verified);
+  --color-needs: var(--needs);
+  --color-risk: var(--risk);
+  --color-scrim: var(--scrim);
+
+  --font-*: initial;
+  --font-ui: var(--font-ui);
+  --font-reading: var(--font-reading);
+
+  --text-*: initial;
+  --text-sm: var(--type-ui-sm);
+  --text-sm--line-height: var(--type-ui-sm-leading);
+  --text-base: var(--type-ui);
+  --text-base--line-height: var(--type-ui-leading);
+  --text-lg: var(--type-ui-lg);
+  --text-lg--line-height: var(--type-ui-lg-leading);
+  --text-read: var(--type-read);
+  --text-read--line-height: var(--type-read-leading);
+  --text-read-lg: var(--type-read-lg);
+  --text-read-lg--line-height: var(--type-read-lg-leading);
+  --text-display-sm: var(--type-display-sm);
+  --text-display-sm--line-height: var(--type-display-leading);
+  --text-display-sm--letter-spacing: var(--type-display-tracking);
+  --text-display-sm--font-weight: var(--type-display-weight);
+  --text-display: var(--type-display);
+  --text-display--line-height: var(--type-display-leading);
+  --text-display--letter-spacing: var(--type-display-tracking);
+  --text-display--font-weight: var(--type-display-weight);
+  --text-display-lg: var(--type-display-lg);
+  --text-display-lg--line-height: var(--type-display-leading);
+  --text-display-lg--letter-spacing: var(--type-display-tracking);
+  --text-display-lg--font-weight: var(--type-display-weight);
+  --text-display-xl: var(--type-display-xl);
+  --text-display-xl--line-height: var(--type-display-leading);
+  --text-display-xl--letter-spacing: var(--type-display-tracking);
+  --text-display-xl--font-weight: var(--type-display-weight);
+
+  --container-essay: var(--measure-essay);
+
+  --radius-*: initial;
+  --radius-control: var(--radius-control);
+  --radius-plane: var(--radius-plane);
+  --radius-sheet: var(--radius-sheet);
+  --radius-full: var(--radius-round);
+
+  --shadow-*: initial;
+  --shadow-overlay: var(--shadow-overlay);
+  --shadow-plane: var(--plane-light);
+  --inset-shadow-*: initial;
+  --drop-shadow-*: initial;
+  --text-shadow-*: initial;
+
+  --ease-*: initial;
+  --ease-snap: var(--spring-snap);
+  --ease-glide: var(--spring-glide);
+  --ease-drift: var(--spring-drift);
+  --ease-settle: var(--spring-settle);
+}
+
+/*
+ * A raised plane (spec §6.5): --depth, a 1px --edge, the 16px radius, and in Night a 1px inner
+ * edge light instead of a shadow.
+ */
+@utility plane {
+  background-color: var(--depth);
+  border: 1px solid var(--edge);
+  border-radius: var(--radius-plane);
+  box-shadow: var(--plane-light);
+}
+
+/* Paints film grain on an element that has its own --space background (Night only). */
+@utility grain {
+  background-image: var(--grain);
+}
+
+@layer base {
+  html {
+    background-color: var(--space);
+    color: var(--text);
+    font-family: var(--font-ui);
+  }
+
+  body {
+    min-height: 100dvh;
+    background-color: var(--space);
+    background-image: var(--grain);
+    color: var(--text);
+    font-family: var(--font-ui);
+    font-size: var(--type-ui);
+    line-height: var(--type-ui-leading);
+    -webkit-font-smoothing: antialiased;
+    /* Sentence case everywhere (spec §6.4): nothing in the system uppercases text. */
+    text-transform: none;
+  }
+
+  /* A theme scope inside the page (ImmersiveScope, a Day sheet) paints its own background. */
+  :where(body [data-theme]) {
+    background-color: var(--space);
+    background-image: var(--grain);
+    color: var(--text);
+  }
+
+  :focus-visible {
+    outline: var(--focus-ring-width) solid var(--focus-ring-color);
+    outline-offset: var(--focus-ring-offset);
+  }
+
+  /* The applicant's own words (spec §6.2): a soft glow in their Voiceprint hue. */
+  mark {
+    background-color: var(--voice-glow);
+    color: var(--text);
+    box-decoration-break: clone;
+    -webkit-box-decoration-break: clone;
+  }
+
+  /* Colour alone is not enough when the user asks for more contrast. */
+  @media (prefers-contrast: more), (forced-colors: active) {
+    mark {
+      text-decoration-line: underline;
+      text-decoration-style: dotted;
+      text-decoration-thickness: 1px;
+      text-underline-offset: 0.2em;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    /* Sheets fade instead of sliding (spec §6.6: no movement, 120 ms opacity fades). */
+    :root {
+      --animate-sheet-in: fade-in var(--spring-glide-duration) linear both;
+      --animate-sheet-out: fade-out var(--spring-glide-duration) linear both;
+    }
+    * {
+      scroll-behavior: auto !important;
+    }
+  }
+}

@@ -1,0 +1,51 @@
+{
+  "slug": "teacher-to-edtech",
+  "lead_story": {
+    "LEADERSHIP": "reading_minutes",
+    "SETBACK": "maths_app_pilot",
+    "GOALS": "ten_minutes_in_the_office",
+    "IDENTITY": "the_sewing_books",
+    "CONTRIBUTION": "roda_de_sabado"
+  },
+  "never_without_consent": ["the_chemotherapy_year"],
+  "red_flags": [
+    {
+      "flag": "GMAT 650 with Q42 is below the median at her target schools",
+      "address_in": "optional",
+      "how": "Point to the quantitative and academic evidence elsewhere in the file in one plain paragraph; no apology and no excuse."
+    },
+    {
+      "flag": "No business experience at all: no budget, no P&L, no commercial contract, no private-sector employer",
+      "address_in": "essay",
+      "how": "Show it through a story where the applicant made a commercial or people decision and carried others with them."
+    },
+    {
+      "flag": "Six years entirely on charity and municipal salary scales, which makes her post-MBA salary expectations hard to read",
+      "address_in": "essay",
+      "how": "Answer it with a specific story from the file rather than a claim."
+    },
+    {
+      "flag": "Quantitative readiness: no mathematics beyond secondary school, and a 40-hour online course as the only formal preparation",
+      "address_in": "optional",
+      "how": "Point to the quantitative and academic evidence elsewhere in the file in one plain paragraph; no apology and no excuse."
+    },
+    {
+      "flag": "Employer and university will be unrecognisable to an admissions reader, with no external ranking to anchor them",
+      "address_in": "essay",
+      "how": "Answer it with a specific story from the file rather than a claim."
+    },
+    {
+      "flag": "No international experience beyond one self-funded week in Montevideo, and English is a working language she learned at evening class",
+      "address_in": "essay",
+      "how": "Answer it with a specific story from the file rather than a claim."
+    }
+  ],
+  "kit_properties": [
+    "Every number in every draft matches the Fact Sheet or a story's own numbers.",
+    "No draft names a person whose story marks them as not to be named.",
+    "No sentence uses any of these words: passionate, journey, impactful, disruptive, scalable, stakeholders, empowered, transformational, a natural leader, I inspired them.",
+    "The goals essay names the short-term goal specifically: Product or implementation at an education technology company selling to public school systems in Brazil, owning the part that meets teachers: what a classroom can actually run, how a rollout is trained, what gets measured.",
+    "The leadership essay leads with \"The twenty minutes on the door\", or the Strategist says why another story is stronger.",
+    "The setback essay leads with \"The app I talked everyone into\", or the Strategist says why another story is stronger."
+  ]
+}

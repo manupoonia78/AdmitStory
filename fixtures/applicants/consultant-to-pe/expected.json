@@ -1,0 +1,61 @@
+{
+  "slug": "consultant-to-pe",
+  "lead_story": {
+    "LEADERSHIP": "brauer_cost_programme",
+    "SETBACK": "the_rewrite_at_three",
+    "GOALS": "watching_the_operating_partner",
+    "CONTRIBUTION": "offenbach_apprentices",
+    "VALUES": "the_number_i_would_not_write"
+  },
+  "never_without_consent": ["haulage_insolvency"],
+  "red_flags": [
+    {
+      "flag": "Consulting is one of the most over-represented pools in every MBA class, and nothing in his file yet says why him rather than the next consultant",
+      "address_in": "essay",
+      "how": "Answer it with a specific story from the file rather than a claim."
+    },
+    {
+      "flag": "No direct investing experience: one three-week commercial due diligence, no investment committee, no capital structure he has modelled",
+      "address_in": "essay",
+      "how": "Show it through a story where the applicant made a commercial or people decision and carried others with them."
+    },
+    {
+      "flag": "Oversells that due diligence as deal experience, which an interviewer will take apart in two questions",
+      "address_in": "essay",
+      "how": "Answer it with a specific story from the file rather than a claim."
+    },
+    {
+      "flag": "Goals read like the lane every consultant wants: mid-market private equity, with no specific thesis, sector view or named fund behind it",
+      "address_in": "essay",
+      "how": "Make the short-term goal specific (role, sector, place) and connect it to a story that shows the motive."
+    },
+    {
+      "flag": "Mid-tier employer no admissions reader will recognise, with no brand to carry him",
+      "address_in": "essay",
+      "how": "Answer it with a specific story from the file rather than a claim."
+    },
+    {
+      "flag": "Narrow geography and sector: German-speaking industrials only, no work or study outside the region",
+      "address_in": "essay",
+      "how": "Answer it with a specific story from the file rather than a claim."
+    },
+    {
+      "flag": "Almost all of his significant evidence comes from one client programme; the file is thin outside it",
+      "address_in": "essay",
+      "how": "Answer it with a specific story from the file rather than a claim."
+    },
+    {
+      "flag": "Answers are polished to the point of sounding scripted, which reads as distance rather than care",
+      "address_in": "essay",
+      "how": "Answer it with a specific story from the file rather than a claim."
+    }
+  ],
+  "kit_properties": [
+    "Every number in every draft matches the Fact Sheet or a story's own numbers.",
+    "No draft names a person whose story marks them as not to be named.",
+    "No sentence uses any of these words: passionate, journey, impactful, rockstar, crushed it, my why, I went with my gut, I am proud of, I winged it, amazing.",
+    "The goals essay names the short-term goal specifically: An investment or value-creation role at a mid-market private-equity fund in Frankfurt, Munich or London, on German-speaking industrials: the businesses too small for the large funds and too operational for the banks.",
+    "The leadership essay leads with \"The programme the owner signed\", or the Strategist says why another story is stronger.",
+    "The setback essay leads with \"The section I rewrote without asking\", or the Strategist says why another story is stronger."
+  ]
+}

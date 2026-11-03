@@ -1,0 +1,79 @@
+%PDF-1.4
+1 0 obj
+<< /Type /Catalog /Pages 2 0 R >>
+endobj
+2 0 obj
+<< /Type /Pages /Kids [3 0 R] /Count 1 >>
+endobj
+3 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 5 0 R /F2 6 0 R >> >> /Contents 4 0 R >>
+endobj
+4 0 obj
+<< /Length 2472 >>
+stream
+BT
+/F2 18 Tf
+1 0 0 1 56 786 Tm (Engineer Product) Tj
+/F1 10 Tf
+1 0 0 1 56 772 Tm (Bengaluru, India | engineer.product@example.test) Tj
+/F1 8 Tf
+1 0 0 1 56 758 Tm (SYNTHETIC FIXTURE - not a real person) Tj
+/F2 12 Tf
+1 0 0 1 56 726 Tm (EXPERIENCE) Tj
+/F2 10 Tf
+1 0 0 1 56 704 Tm (Senior Software Engineer, Meridian Health Systems) Tj
+/F1 9 Tf
+1 0 0 1 56 690 Tm (since April 2024) Tj
+/F2 10 Tf
+1 0 0 1 56 668 Tm (Software Engineer, Meridian Health Systems) Tj
+/F1 9 Tf
+1 0 0 1 56 654 Tm (July 2020 to March 2024, same employer) Tj
+1 0 0 1 56 640 Tm (- The go-live held. No dropped messages in the twenty months since. The runbook became) Tj
+1 0 0 1 56 626 Tm (the template Meridian uses for every hospital go-live. \(hospital size 900 beds; dropped) Tj
+1 0 0 1 56 612 Tm (messages since 0; batch window 30 to 90 seconds; hours alone before calling the vendor) Tj
+1 0 0 1 56 598 Tm (4\)) Tj
+1 0 0 1 56 584 Tm (- The rewrite was shelved. Page loads went from 4.2 seconds to 900 milliseconds, and the) Tj
+1 0 0 1 56 570 Tm (customer went live a month early. The architecture was never rebuilt and has not needed) Tj
+1 0 0 1 56 556 Tm (to be. \(share of slow requests from three queries 80%; page load before 4.2 seconds;) Tj
+1 0 0 1 56 542 Tm (page load after 900 milliseconds; rewrite timeline avoided 6 months\)) Tj
+1 0 0 1 56 528 Tm (- No appointments were permanently lost. The schema check he added has blocked four) Tj
+1 0 0 1 56 514 Tm (migrations since, two of which would have been worse than his. He was promoted eighteen) Tj
+1 0 0 1 56 500 Tm (months later and his manager cited how he handled this. \(patient records affected about) Tj
+1 0 0 1 56 486 Tm (1,100; time to restore 2 hours; migrations the new check has blocked since 4\)) Tj
+1 0 0 1 56 472 Tm (- The screen was changed. The paper workaround stopped. He asked to join product reviews) Tj
+1 0 0 1 56 458 Tm (after that and has sat in them since. \(days on the ward 3; nurses shadowed 4; months to) Tj
+1 0 0 1 56 444 Tm (get the change prioritised 2\)) Tj
+/F2 12 Tf
+1 0 0 1 56 412 Tm (EDUCATION) Tj
+/F1 9 Tf
+1 0 0 1 56 398 Tm (B.Tech in Computer Science, Vellore Institute of Technology, 2020) Tj
+1 0 0 1 56 384 Tm (8.4 out of 10) Tj
+/F2 12 Tf
+1 0 0 1 56 352 Tm (ADDITIONAL) Tj
+/F1 9 Tf
+1 0 0 1 56 338 Tm (English, Hindi, Tamil) Tj
+1 0 0 1 56 324 Tm (705 \(Q50 V34, taken September 2026\)) Tj
+1 0 0 1 56 310 Tm (Runs a Saturday coding class for 12 government-school students in Bengaluru, since 2023) Tj
+ET
+endstream
+endobj
+5 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>
+endobj
+6 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica-Bold >>
+endobj
+xref
+0 7
+0000000000 65535 f 
+0000000009 00000 n 
+0000000058 00000 n 
+0000000115 00000 n 
+0000000251 00000 n 
+0000002775 00000 n 
+0000002845 00000 n 
+trailer
+<< /Size 7 /Root 1 0 R >>
+startxref
+2920
+%%EOF

@@ -1,0 +1,241 @@
+{
+  "facts": [
+    {
+      "key": "employer_current",
+      "value": "Nigerian Army",
+      "note": "logistics corps, 3 Division, Kaduna"
+    },
+    {
+      "key": "title_current",
+      "value": "Captain",
+      "note": "since 2023; Officer Commanding, supply company"
+    },
+    {
+      "key": "title_previous",
+      "value": "Lieutenant",
+      "note": "2020 to 2023, transport platoon commander"
+    },
+    { "key": "team_size", "value": "62 soldiers, including attachments" },
+    { "key": "location_current", "value": "Kaduna, Nigeria" },
+    {
+      "key": "degree",
+      "value": "BSc in Mechanical Engineering, University of Nigeria Nsukka, 2017"
+    },
+    { "key": "gpa", "value": "3.4 out of 5" },
+    {
+      "key": "military_training",
+      "value": "Nigerian Defence Academy regular course, commissioned 2018"
+    },
+    { "key": "gmat_total", "value": "680", "note": "Q48 V33, taken August 2026" },
+    { "key": "languages", "value": "English, Igbo, Hausa" },
+    {
+      "key": "budget_responsibility",
+      "value": "Annual fuel and spares budget of about 310 million naira"
+    },
+    {
+      "key": "commendation",
+      "value": "Divisional commendation for the 2024 fuel accounting reform"
+    }
+  ],
+  "stories": [
+    {
+      "ref": "fuel_losses",
+      "nickname": "Where the diesel was going",
+      "era": "2024",
+      "context": "professional",
+      "situation": "Emeka's company was losing about 18% of its diesel between the depot and the vehicles. Everyone treated it as normal wastage. He had the fuel book, the odometer readings and the depot receipts, and nobody had ever put the three side by side.",
+      "stakes": "The shortfall meant convoys were being sent out under-fuelled, and a stranded vehicle on that route was a safety problem rather than an accounting one. Naming it also meant implying that people in his own chain were either careless or stealing, which is not a small thing to imply about senior non-commissioned officers who had been there longer than he had.",
+      "actions": [
+        "Reconciled three months of fuel books against odometer readings himself, at night, because asking the storeman to do it would have told him it was being looked at",
+        "Found that the loss was concentrated in two of eleven vehicles and on two particular shifts",
+        "Took it to his commanding officer as a process problem rather than an accusation, and proposed a dip-test log signed by two people at issue and receipt",
+        "Trained all four storemen on the new log himself rather than issuing it as an order",
+        "Kept the two soldiers involved in their jobs after they admitted it, having argued for that outcome"
+      ],
+      "result": "Losses fell from about 18% to under 3% within two months and have stayed there. The log was adopted across the division's four supply companies the following year. He received a divisional commendation for it.",
+      "reflection": "He had assumed he would have to choose between fixing the problem and protecting his soldiers, and that turned out to be a false choice — but only because he presented it as a system failure first. He had nearly gone in the other way.",
+      "numbers": [
+        { "label": "diesel lost before", "value": "about 18%" },
+        { "label": "diesel lost after", "value": "under 3%" },
+        { "label": "vehicles where the loss concentrated", "value": "2 of 11" },
+        { "label": "months of books reconciled", "value": "3" },
+        { "label": "supply companies that adopted the log", "value": "4" }
+      ],
+      "people": [
+        {
+          "name": "Lieutenant Colonel Bello",
+          "role": "his commanding officer, who let him run it as a process reform",
+          "mayName": true
+        },
+        {
+          "name": "Staff Sergeant Danjuma",
+          "role": "the storeman whose shift the losses sat on",
+          "mayName": false
+        }
+      ],
+      "traits": ["analytical", "principled_stands", "measurable_impact", "develops_people"],
+      "slots": [
+        "impact.biggest",
+        "numbers.impact",
+        "leadership.originated_idea",
+        "values.dilemma",
+        "academics.quant_evidence"
+      ],
+      "sensitivity": "none"
+    },
+    {
+      "ref": "night_convoy",
+      "nickname": "The move we did at night",
+      "era": "2023",
+      "context": "professional",
+      "situation": "A 400-kilometre resupply move to a forward base, on a stretch where three vehicles had been attacked that month. The scheduled daylight move would have put his convoy on the worst forty kilometres in the early afternoon, which was when the attacks had happened.",
+      "stakes": "Moving at night went against the standing instruction, and he would have to answer for it if anything went wrong. Fourteen vehicles and thirty-eight soldiers were on the move.",
+      "actions": [
+        "Plotted the three attack locations and times and found they clustered in a four-hour window",
+        "Asked the operations officer for a variation to the standing instruction, in writing, and was refused",
+        "Went to the commanding officer directly with the plot rather than letting it go, which is not how a lieutenant is expected to behave",
+        "Moved the convoy in two halves overnight with a two-hour gap, so a single incident could not take the whole move",
+        "Briefed every driver on the reasoning rather than just the timing, so they would make the same call if he was not there"
+      ],
+      "result": "The move completed without incident. The night timing was adopted for that route and used for the following eight months. The operations officer who had refused him later asked him to write the route assessment.",
+      "reflection": "Going round the operations officer was right and he would do it again, but he did it in a way that embarrassed the man, and that cost him six months of a working relationship he needed. He would do the same thing more carefully now.",
+      "numbers": [
+        { "label": "distance", "value": "400 kilometres" },
+        { "label": "vehicles", "value": "14" },
+        { "label": "soldiers on the move", "value": "38" },
+        { "label": "attacks on that stretch that month", "value": "3" },
+        { "label": "gap between the two halves", "value": "2 hours" }
+      ],
+      "people": [
+        {
+          "name": "Major Okonkwo",
+          "role": "the operations officer who refused the variation",
+          "mayName": false
+        }
+      ],
+      "traits": ["steady_in_ambiguity", "acts_unasked", "brings_people_along", "self_aware"],
+      "slots": [
+        "leadership.persuaded_up",
+        "leadership.initiative_risky",
+        "self.others_view",
+        "work.scope"
+      ],
+      "sensitivity": "none"
+    },
+    {
+      "ref": "soldier_i_lost",
+      "nickname": "The letter I had to write",
+      "era": "2022",
+      "context": "professional",
+      "situation": "A driver in his platoon, Corporal Ibrahim, was killed in a road accident on a routine move that Emeka had planned. The vehicle was overloaded, which Emeka had seen and had decided was within tolerance.",
+      "stakes": "He had to tell the family himself, in person, which is the practice, and he had to sit in the board of inquiry that examined his own planning.",
+      "actions": [
+        "Told the board that the load had been his decision and that he had seen it and judged it acceptable, before anyone asked him directly",
+        "Travelled to the family in Jos himself rather than sending the welfare officer",
+        "Changed how his platoon loaded: weights written on the tailgate of every vehicle, checked by someone other than the driver",
+        "Kept visiting the family for the following two years"
+      ],
+      "result": "The board found the accident was caused primarily by a brake failure rather than the load, which did not change his view of it. The tailgate weight marking spread to the whole company and is still done. Corporal Ibrahim's son is now in secondary school and Emeka pays the fees.",
+      "reflection": "He had been treating tolerances as if they were permissions. He does not now. He also learned that saying the hard thing first, before being asked, is the only version of it that is worth anything.",
+      "numbers": [{ "label": "years he has kept visiting the family", "value": "2" }],
+      "people": [
+        { "name": "Corporal Ibrahim", "role": "the driver who was killed", "mayName": false },
+        { "name": "Mrs Ibrahim", "role": "his widow, whom Emeka still visits", "mayName": false }
+      ],
+      "traits": ["honest_about_limits", "acts_on_feedback", "resilient", "empathetic"],
+      "slots": [
+        "failure.consequential",
+        "self.feedback",
+        "identity.turning_point",
+        "support.someone_hard"
+      ],
+      "sensitivity": "sensitive"
+    },
+    {
+      "ref": "literacy_class",
+      "nickname": "Teaching my soldiers to read the manual",
+      "era": "2021 onwards",
+      "context": "community",
+      "situation": "Nine of the thirty-one soldiers in his platoon could not read the vehicle maintenance manual, and had been getting by on memory and asking each other. None of them would say so.",
+      "stakes": "A soldier who cannot read a torque setting is a safety problem, and the nine knew that saying so might end their careers.",
+      "actions": [
+        "Found out by asking them to read a page aloud in a one-to-one, which he regrets as a method",
+        "Ran a reading class twice a week after duty, starting with the manual rather than a primer, because that is what they wanted to be able to read",
+        "Told nobody in the chain of command for the first year, which protected them and was also against regulations",
+        "Handed the class to two of the first nine once they could teach it"
+      ],
+      "result": "All nine can read the manual. Seven have since been promoted. The class has run for five years and he has not taught it himself since 2023.",
+      "reflection": "He had thought the barrier was ability. It was shame, and the one-to-one reading test made that worse before it got better. He would ask the whole platoon to volunteer for 'extra technical training' now, and let them come to him.",
+      "numbers": [
+        { "label": "soldiers who could not read the manual", "value": "9 of 31" },
+        { "label": "promoted since", "value": "7" },
+        { "label": "years the class has run", "value": "5" },
+        { "label": "sessions a week", "value": "2" }
+      ],
+      "people": [
+        {
+          "name": "Private Musa",
+          "role": "one of the first nine, now a corporal who teaches the class",
+          "mayName": true
+        }
+      ],
+      "traits": ["develops_people", "community_builder", "empathetic", "acts_unasked"],
+      "slots": [
+        "leadership.developed_others",
+        "community.built",
+        "support.ongoing",
+        "employ.trajectory"
+      ],
+      "sensitivity": "none"
+    },
+    {
+      "ref": "why_operations",
+      "nickname": "The factory visit",
+      "era": "2025",
+      "context": "professional",
+      "situation": "On leave, a friend showed him round a flour mill in Lagos. Emeka spent two hours looking at the finished-goods store and asked why the stock sat for eleven days when the production run was four. Nobody there had the number to hand.",
+      "stakes": "Nothing, except that he could not stop thinking about it.",
+      "actions": [
+        "Asked for the dispatch book and worked out the eleven days himself over the afternoon",
+        "Wrote the manager a two-page note about it unasked, after the visit",
+        "Spoke to four more people in Nigerian manufacturing over the following year to find out whether what he saw was normal"
+      ],
+      "result": "The manager implemented part of it and offered him a job, which he turned down because he wanted the MBA first. Those four conversations are why he is applying.",
+      "reflection": "He had assumed the army's logistics discipline was ordinary and that business would be ahead of it. It is not, in the places he has looked, and that is the gap he wants to work in. It is also the first time he has wanted a civilian job rather than merely considered one.",
+      "numbers": [
+        { "label": "days stock sat", "value": "11" },
+        { "label": "days of production run", "value": "4" },
+        { "label": "people in manufacturing he spoke to afterwards", "value": "4" }
+      ],
+      "people": [
+        { "name": "Chidi Nwosu", "role": "the friend who arranged the visit", "mayName": true }
+      ],
+      "traits": ["curious_learner", "commercial_judgment", "analytical"],
+      "slots": ["goals.origin", "goals.research", "work.arc", "work.motivation"],
+      "sensitivity": "none"
+    }
+  ],
+  "goals": {
+    "shortTerm": "An operations or supply-chain manager at a large manufacturer or distributor in Nigeria or elsewhere in West Africa, running a plant's inbound and finished-goods flow rather than a central planning function.",
+    "longTerm": "To run the operations of a West African manufacturer at scale, and to fix the inland distribution problem that makes Nigerian goods expensive two hundred kilometres from where they are made.",
+    "planB": "Operations consulting for two or three years, which would let him see twenty sites instead of one, then a line role.",
+    "whyMba": "He has run logistics with a budget and no price. He has never had a customer, never set a price, never had to win work, and never worked with anyone who was not under orders. Those are the three things he cannot learn in the army.",
+    "whyNow": "He is at the end of his captain's appointment, which is the natural exit point; staying means a staff college place and another five years. His commission allows him to resign at the end of this year and not after."
+  },
+  "redFlags": [
+    "Military-to-business translation: nothing on the record a civilian recruiter will recognise",
+    "No corporate experience and no exposure to customers, pricing or revenue",
+    "GMAT 680 with a verbal 33, below the median at his target schools",
+    "Age 31 at matriculation, slightly above the cohort median",
+    "Nigerian degree classification that admissions readers will struggle to benchmark"
+  ],
+  "neverSays": [
+    "passionate",
+    "journey",
+    "impactful",
+    "I led",
+    "world-class",
+    "synergy",
+    "crushed it"
+  ]
+}

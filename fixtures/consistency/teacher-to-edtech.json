@@ -1,0 +1,269 @@
+{
+  "applicant": "teacher-to-edtech",
+  "facts": [
+    {
+      "code": "F01",
+      "key": "employer_current",
+      "value": "Escola Municipal Professora Dalva Ribeiro",
+      "approvedPhrasing": null
+    },
+    {
+      "code": "F02",
+      "key": "title_current",
+      "value": "Professora Coordenadora de Tecnologia Educacional",
+      "approvedPhrasing": null
+    },
+    {
+      "code": "F03",
+      "key": "title_previous",
+      "value": "Professora de Ensino Fundamental I, Years 1 to 5",
+      "approvedPhrasing": null
+    },
+    {
+      "code": "F04",
+      "key": "title_first",
+      "value": "Literacy tutor at Instituto Caminho Aberto, a small education charity in São Paulo",
+      "approvedPhrasing": null
+    },
+    {
+      "code": "F05",
+      "key": "team_size",
+      "value": "No formal reports. Runs training for the 14 class teachers at her school and for the technology link teacher at each of the 4 schools in her cluster.",
+      "approvedPhrasing": null
+    },
+    {
+      "code": "F06",
+      "key": "salary_current",
+      "value": "R$ 5,480 a month gross on the municipal teaching scale, plus R$ 900 for the coordination post",
+      "approvedPhrasing": null
+    },
+    {
+      "code": "F07",
+      "key": "location_current",
+      "value": "São Paulo, Brazil",
+      "approvedPhrasing": null
+    },
+    {
+      "code": "F08",
+      "key": "degree",
+      "value": "Licenciatura em Pedagogia, Faculdade Santo Aurélio, São Paulo, 2019",
+      "approvedPhrasing": null
+    },
+    {
+      "code": "F09",
+      "key": "gpa",
+      "value": "8.1 out of 10",
+      "approvedPhrasing": null
+    },
+    {
+      "code": "F10",
+      "key": "gmat_total",
+      "value": "650",
+      "approvedPhrasing": null
+    },
+    {
+      "code": "F11",
+      "key": "quant_background",
+      "value": "No mathematics beyond secondary school. Finished a 40-hour online course in spreadsheets and basic statistics in July 2026, and has done the maths teaching for Years 4 and 5 for four years.",
+      "approvedPhrasing": null
+    },
+    {
+      "code": "F12",
+      "key": "business_exposure",
+      "value": "Has never held a budget, priced anything or read a commercial contract. The largest sum she has decided on is the R$ 3,200 the parents' council raised for a charging trolley.",
+      "approvedPhrasing": null
+    },
+    {
+      "code": "F13",
+      "key": "languages",
+      "value": "Portuguese native, English working (free evening course at a state language centre, 2022 to 2024), Spanish reads but does not speak",
+      "approvedPhrasing": null
+    },
+    {
+      "code": "F14",
+      "key": "pupils_taught",
+      "value": "Roughly 160 children have been in her own classes since 2021",
+      "approvedPhrasing": null
+    },
+    {
+      "code": "F15",
+      "key": "teacher_network",
+      "value": "Founded Roda de Sábado, a Saturday teachers' circle, in 2023; 140 teachers across 11 schools",
+      "approvedPhrasing": null
+    },
+    {
+      "code": "F16",
+      "key": "manager_name",
+      "value": "Eliete Sampaio",
+      "approvedPhrasing": null
+    },
+    {
+      "code": "F17",
+      "key": "international_exposure",
+      "value": "Has never lived or worked outside Brazil. One week in Montevideo for a teachers' conference in 2024, self-funded.",
+      "approvedPhrasing": null
+    }
+  ],
+  "roles": [
+    {
+      "ref": "r1",
+      "organisation": "Escola Municipal Professora Dalva Ribeiro",
+      "title": "Professora Coordenadora de Tecnologia Educacional",
+      "dates": "Feb 2025 – Present"
+    },
+    {
+      "ref": "r2",
+      "organisation": "Escola Municipal Professora Dalva Ribeiro",
+      "title": "Professora de Ensino Fundamental I",
+      "dates": "Feb 2021 – Jan 2025"
+    },
+    {
+      "ref": "r3",
+      "organisation": "Instituto Caminho Aberto",
+      "title": "Literacy tutor",
+      "dates": "Mar 2020 – Jan 2021"
+    }
+  ],
+  "clean": [
+    {
+      "id": "resume",
+      "kind": "resume",
+      "label": "Resume",
+      "segments": [
+        {
+          "ref": "b1",
+          "text": "Run training for the 14 class teachers at my school and for the technology link teacher at each of the 4 schools in our cluster."
+        },
+        {
+          "ref": "b2",
+          "text": "Introduced a daily 20-minute reading slot: the class average rose from 41 to 78 words a minute, and all 14 classes in the school adopted it."
+        },
+        {
+          "ref": "b3",
+          "text": "Took 60 donated tablets out of the cupboard with 6 training sessions of 45 minutes; 9 of 14 teachers were using them by year end."
+        },
+        {
+          "ref": "b4",
+          "text": "Founded Roda de Sábado, a Saturday teachers' circle, in 2023; it now brings together 140 teachers from 11 schools."
+        }
+      ]
+    },
+    {
+      "id": "form:employment",
+      "kind": "form",
+      "label": "Form: Employment history",
+      "segments": [
+        {
+          "ref": "employment/i1",
+          "text": "Professora Coordenadora de Tecnologia Educacional, Escola Municipal Professora Dalva Ribeiro, São Paulo (since February 2025). I teach half the week and cover technology for a cluster of 4 schools."
+        }
+      ]
+    },
+    {
+      "id": "form:activities",
+      "kind": "form",
+      "label": "Form: Activities",
+      "segments": [
+        {
+          "ref": "activities/i1",
+          "text": "Roda de Sábado, a Saturday teachers' circle (founded 2023): 140 teachers from 11 schools share lesson sheets every other Saturday."
+        }
+      ]
+    },
+    {
+      "id": "essay-1",
+      "kind": "essay",
+      "label": "Essay 1",
+      "segments": [
+        {
+          "ref": "p1",
+          "text": "Before I taught, I was a literacy tutor at Instituto Caminho Aberto from March 2020 to January 2021. In February 2021 I took my own class at the school, and in February 2025 I became Professora Coordenadora de Tecnologia Educacional."
+        },
+        {
+          "ref": "p2",
+          "text": "In the reading project the class average rose from 41 to 78 words a minute, and all 14 classes in the school adopted the daily slot. I now run training for the 14 class teachers and for the link teacher at each of the 4 schools in my cluster."
+        }
+      ]
+    },
+    {
+      "id": "brief:sampaio",
+      "kind": "brief",
+      "label": "Brief for Eliete Sampaio",
+      "segments": [
+        {
+          "ref": "t1",
+          "text": "Beatriz became Professora Coordenadora de Tecnologia Educacional in February 2025, after four years as a class teacher at Escola Municipal Professora Dalva Ribeiro."
+        },
+        {
+          "ref": "t2",
+          "text": "Please mention the tablets: 60 had sat in the cupboard for 7 months, and by year end 9 of the 14 teachers were using them."
+        }
+      ]
+    }
+  ],
+  "seeded": [
+    {
+      "id": "teacher-to-edtech-01",
+      "subject": "employer",
+      "doc_id": "brief:sampaio",
+      "ref": "t1",
+      "from": "Escola Municipal Professora Dalva Ribeiro",
+      "to": "Escola Municipal Dalva Ribeiro",
+      "note": "school name shortened in a brief"
+    },
+    {
+      "id": "teacher-to-edtech-02",
+      "subject": "title",
+      "doc_id": "form:employment",
+      "ref": "employment/i1",
+      "from": "Professora Coordenadora de Tecnologia Educacional, Escola",
+      "to": "Coordenadora de Tecnologia, Escola",
+      "note": "title shortened in a form entry"
+    },
+    {
+      "id": "teacher-to-edtech-03",
+      "subject": "date",
+      "doc_id": "essay-1",
+      "ref": "p1",
+      "from": "in February 2025 I became",
+      "to": "in February 2024 I became",
+      "note": "promotion date in an essay"
+    },
+    {
+      "id": "teacher-to-edtech-04",
+      "subject": "team_size",
+      "doc_id": "essay-1",
+      "ref": "p2",
+      "from": "for the 14 class teachers",
+      "to": "for the 15 class teachers",
+      "note": "teachers she trains, in an essay"
+    },
+    {
+      "id": "teacher-to-edtech-05",
+      "subject": "number",
+      "doc_id": "resume",
+      "ref": "b2",
+      "from": "from 41 to 78 words",
+      "to": "from 41 to 87 words",
+      "note": "digits swapped on the résumé"
+    },
+    {
+      "id": "teacher-to-edtech-06",
+      "subject": "number",
+      "doc_id": "form:activities",
+      "ref": "activities/i1",
+      "from": "140 teachers from 11 schools",
+      "to": "140 teachers from 12 schools",
+      "note": "network reach in a form entry"
+    },
+    {
+      "id": "teacher-to-edtech-07",
+      "subject": "employer",
+      "doc_id": "form:employment",
+      "ref": "employment/i1",
+      "from": "Escola Municipal Professora Dalva Ribeiro, São Paulo",
+      "to": "EM Professora Dalva Ribeiro, São Paulo",
+      "note": "school name abbreviated in a form entry"
+    }
+  ]
+}

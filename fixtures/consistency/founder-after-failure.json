@@ -1,0 +1,248 @@
+{
+  "applicant": "founder-after-failure",
+  "facts": [
+    {
+      "code": "F01",
+      "key": "employer_current",
+      "value": "Independent consultant",
+      "approvedPhrasing": null
+    },
+    {
+      "code": "F02",
+      "key": "employer_previous",
+      "value": "Rundweg GmbH",
+      "approvedPhrasing": null
+    },
+    {
+      "code": "F03",
+      "key": "title_previous",
+      "value": "Co-founder and Managing Director",
+      "approvedPhrasing": null
+    },
+    {
+      "code": "F04",
+      "key": "employer_first",
+      "value": "Nordlicht Spedition",
+      "approvedPhrasing": null
+    },
+    {
+      "code": "F05",
+      "key": "title_first",
+      "value": "Operations Analyst, then Team Lead",
+      "approvedPhrasing": null
+    },
+    {
+      "code": "F06",
+      "key": "team_size",
+      "value": "11 at the peak, including 3 founders",
+      "approvedPhrasing": null
+    },
+    {
+      "code": "F07",
+      "key": "location_current",
+      "value": "Berlin, Germany",
+      "approvedPhrasing": null
+    },
+    {
+      "code": "F08",
+      "key": "degree",
+      "value": "MSc in Logistics, Technische Universität Dortmund, 2020",
+      "approvedPhrasing": null
+    },
+    {
+      "code": "F09",
+      "key": "gpa",
+      "value": "2.1 on the German 1 to 5 scale, where 1 is best",
+      "approvedPhrasing": null
+    },
+    {
+      "code": "F10",
+      "key": "gmat_total",
+      "value": "700",
+      "approvedPhrasing": null
+    },
+    {
+      "code": "F11",
+      "key": "languages",
+      "value": "German, English, Polish",
+      "approvedPhrasing": null
+    },
+    {
+      "code": "F12",
+      "key": "capital_raised",
+      "value": "1.4 million euros across a pre-seed and a bridge",
+      "approvedPhrasing": null
+    },
+    {
+      "code": "F13",
+      "key": "revenue_peak",
+      "value": "About 62,000 euros of monthly recurring revenue, March 2025",
+      "approvedPhrasing": null
+    },
+    {
+      "code": "F14",
+      "key": "employment_gap",
+      "value": "Five months between June 2026 and September 2026",
+      "approvedPhrasing": null
+    }
+  ],
+  "roles": [
+    {
+      "ref": "r1",
+      "organisation": "Independent consultant",
+      "title": "Logistics consultant",
+      "dates": "Sep 2026 – Present"
+    },
+    {
+      "ref": "r2",
+      "organisation": "Rundweg GmbH",
+      "title": "Co-founder and Managing Director",
+      "dates": "Jan 2023 – Jun 2026"
+    },
+    {
+      "ref": "r3",
+      "organisation": "Nordlicht Spedition",
+      "title": "Team Lead",
+      "dates": "2020 – 2022"
+    }
+  ],
+  "clean": [
+    {
+      "id": "resume",
+      "kind": "resume",
+      "label": "Resume",
+      "segments": [
+        {
+          "ref": "b1",
+          "text": "Co-founded a Berlin delivery-logistics startup and grew it to 11 people; raised 1.4 million euros across a pre-seed and a bridge."
+        },
+        {
+          "ref": "b2",
+          "text": "Reached about 62,000 euros of monthly recurring revenue in March 2025."
+        },
+        {
+          "ref": "b3",
+          "text": "Exited Dresden after a price test in Leipzig lost 38% of volume, moving blended margin from about minus 11% to about plus 4%."
+        },
+        {
+          "ref": "b4",
+          "text": "Converted 34 riders to employment contracts in 4 months; rider attrition fell from 61% to 19% a year."
+        },
+        {
+          "ref": "b5",
+          "text": "At Nordlicht Spedition, showed that an 18% productivity gap on the night shift was 3% once measured properly, after working 19 night shifts."
+        }
+      ]
+    },
+    {
+      "id": "form:employment",
+      "kind": "form",
+      "label": "Form: Employment history",
+      "segments": [
+        {
+          "ref": "employment/i1",
+          "text": "Co-founder and Managing Director, Rundweg GmbH, Berlin (January 2023 to June 2026). We grew to 11 people at the peak, including the three founders."
+        },
+        {
+          "ref": "employment/i2",
+          "text": "Operations Analyst, then Team Lead, Nordlicht Spedition, Hamburg (2020 to 2022)."
+        }
+      ]
+    },
+    {
+      "id": "essay-1",
+      "kind": "essay",
+      "label": "Essay 1",
+      "segments": [
+        {
+          "ref": "p1",
+          "text": "I co-founded Rundweg GmbH in January 2023 and ran it as Co-founder and Managing Director until we stopped trading in June 2026. At the peak we were 11 people, three of them founders."
+        },
+        {
+          "ref": "p2",
+          "text": "When I raised the shutdown, we had seven weeks of runway. Within three months, 9 of the 11 people had new jobs, and I paid about 7,000 euros from my own savings so that creditors received about 40 cents in the euro."
+        }
+      ]
+    },
+    {
+      "id": "brief:vogt",
+      "kind": "brief",
+      "label": "Brief for Mareike Vogt",
+      "segments": [
+        {
+          "ref": "t1",
+          "text": "Jonas was Co-founder and Managing Director of Rundweg GmbH from January 2023 to June 2026 and led a team of 11 at the peak."
+        },
+        {
+          "ref": "t2",
+          "text": "On the riders: he converted 34 riders to employment contracts, and attrition fell from 61% to 19% a year."
+        }
+      ]
+    }
+  ],
+  "seeded": [
+    {
+      "id": "founder-after-failure-01",
+      "subject": "employer",
+      "doc_id": "brief:vogt",
+      "ref": "t1",
+      "from": "of Rundweg GmbH from",
+      "to": "of Rundweg Logistics GmbH from",
+      "note": "company name padded in a brief"
+    },
+    {
+      "id": "founder-after-failure-02",
+      "subject": "title",
+      "doc_id": "essay-1",
+      "ref": "p1",
+      "from": "as Co-founder and Managing Director",
+      "to": "as Co-founder and CEO",
+      "note": "title changed in an essay"
+    },
+    {
+      "id": "founder-after-failure-03",
+      "subject": "date",
+      "doc_id": "resume",
+      "ref": "r2.dates",
+      "from": "Jan 2023",
+      "to": "Jan 2022",
+      "note": "résumé start date a year early"
+    },
+    {
+      "id": "founder-after-failure-04",
+      "subject": "team_size",
+      "doc_id": "brief:vogt",
+      "ref": "t1",
+      "from": "led a team of 11",
+      "to": "led a team of 14",
+      "note": "peak team size in a brief"
+    },
+    {
+      "id": "founder-after-failure-05",
+      "subject": "number",
+      "doc_id": "resume",
+      "ref": "b4",
+      "from": "from 61% to 19%",
+      "to": "from 61% to 21%",
+      "note": "attrition result on the résumé"
+    },
+    {
+      "id": "founder-after-failure-06",
+      "subject": "number",
+      "doc_id": "resume",
+      "ref": "b1",
+      "from": "raised 1.4 million euros",
+      "to": "raised 1.6 million euros",
+      "note": "capital raised on the résumé"
+    },
+    {
+      "id": "founder-after-failure-07",
+      "subject": "team_size",
+      "doc_id": "essay-1",
+      "ref": "p1",
+      "from": "At the peak we were 11 people",
+      "to": "At the peak we were 13 people",
+      "note": "peak head count in an essay"
+    }
+  ]
+}

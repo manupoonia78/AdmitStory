@@ -1,0 +1,248 @@
+{
+  "applicant": "below-median-score",
+  "facts": [
+    {
+      "code": "F01",
+      "key": "employer_current",
+      "value": "Electrodomésticos Nava",
+      "approvedPhrasing": null
+    },
+    {
+      "code": "F02",
+      "key": "title_current",
+      "value": "Floor Superintendent",
+      "approvedPhrasing": null
+    },
+    {
+      "code": "F03",
+      "key": "title_previous",
+      "value": "Line Supervisor",
+      "approvedPhrasing": null
+    },
+    {
+      "code": "F04",
+      "key": "title_first",
+      "value": "Quality Technician",
+      "approvedPhrasing": null
+    },
+    {
+      "code": "F05",
+      "key": "team_size",
+      "value": "180 people across three shifts, with 6 supervisors reporting to him",
+      "approvedPhrasing": null
+    },
+    {
+      "code": "F06",
+      "key": "location_current",
+      "value": "Monterrey, Nuevo León, Mexico",
+      "approvedPhrasing": null
+    },
+    {
+      "code": "F07",
+      "key": "degree",
+      "value": "Ingeniería Industrial, Universidad Autónoma de Nuevo León, 2020",
+      "approvedPhrasing": null
+    },
+    {
+      "code": "F08",
+      "key": "gpa",
+      "value": "7.9 out of 10",
+      "approvedPhrasing": null
+    },
+    {
+      "code": "F09",
+      "key": "gmat_total",
+      "value": "610",
+      "approvedPhrasing": null
+    },
+    {
+      "code": "F10",
+      "key": "languages",
+      "value": "Spanish, English",
+      "approvedPhrasing": null
+    },
+    {
+      "code": "F11",
+      "key": "plant_output",
+      "value": "About 1,900 units a day",
+      "approvedPhrasing": null
+    },
+    {
+      "code": "F12",
+      "key": "defect_change",
+      "value": "First-pass defect rate fell from 6.1% to 4.0% over nine months in 2025",
+      "approvedPhrasing": null
+    },
+    {
+      "code": "F13",
+      "key": "promotion",
+      "value": "Promoted to Floor Superintendent in 2024, the youngest at the plant",
+      "approvedPhrasing": null
+    },
+    {
+      "code": "F14",
+      "key": "certification",
+      "value": "Green Belt in Six Sigma, 2023, company programme",
+      "approvedPhrasing": null
+    }
+  ],
+  "roles": [
+    {
+      "ref": "r1",
+      "organisation": "Electrodomésticos Nava",
+      "title": "Floor Superintendent",
+      "dates": "2024 – Present"
+    },
+    {
+      "ref": "r2",
+      "organisation": "Electrodomésticos Nava",
+      "title": "Line Supervisor",
+      "dates": "2021 – 2024"
+    },
+    {
+      "ref": "r3",
+      "organisation": "Electrodomésticos Nava",
+      "title": "Quality Technician",
+      "dates": "2020 – 2021"
+    }
+  ],
+  "clean": [
+    {
+      "id": "resume",
+      "kind": "resume",
+      "label": "Resume",
+      "segments": [
+        {
+          "ref": "b1",
+          "text": "Run the Monterrey washing-machine floor: 180 people across three shifts, with 6 supervisors reporting to me; about 1,900 units a day."
+        },
+        {
+          "ref": "b2",
+          "text": "Cut the first-pass defect rate from 6.1% to 4.0% in nine months by tracing 41% of defects to one fixture; annual saving of about 11 million pesos."
+        },
+        {
+          "ref": "b3",
+          "text": "Stopped a shift for 4 hours over a 0.3-millimetre gauge error; the supplier replaced 4,100 drums."
+        },
+        {
+          "ref": "cert.line1",
+          "text": "Six Sigma Green Belt, 2023, company programme."
+        },
+        {
+          "ref": "edu.line1",
+          "text": "Ingeniería Industrial, Universidad Autónoma de Nuevo León, 2020."
+        }
+      ]
+    },
+    {
+      "id": "form:employment",
+      "kind": "form",
+      "label": "Form: Employment history",
+      "segments": [
+        {
+          "ref": "employment/i1",
+          "text": "Floor Superintendent, Electrodomésticos Nava, Monterrey (2024 to present). I lead 180 people across three shifts through six supervisors."
+        },
+        {
+          "ref": "employment/i2",
+          "text": "Line Supervisor, Electrodomésticos Nava (2021 to 2024). Quality Technician before that, from 2020."
+        }
+      ]
+    },
+    {
+      "id": "essay-1",
+      "kind": "essay",
+      "label": "Essay 1",
+      "segments": [
+        {
+          "ref": "p1",
+          "text": "I was promoted to Floor Superintendent in 2024, the youngest at the plant. Four of the six supervisors who report to me are older than I am, and two had applied for my job."
+        },
+        {
+          "ref": "p2",
+          "text": "In 2025 I logged 2,400 defects by hand over six weeks and found that 41% came from one station, where a fixture had 4 millimetres of play. A shim costing about 2,000 pesos fixed it; the first-pass defect rate fell from 6.1% to 4.0%."
+        }
+      ]
+    },
+    {
+      "id": "brief:salas",
+      "kind": "brief",
+      "label": "Brief for Ing. Patricia Salas",
+      "segments": [
+        {
+          "ref": "t1",
+          "text": "Rodrigo became Floor Superintendent in 2024 and now runs 180 people across three shifts."
+        },
+        {
+          "ref": "t2",
+          "text": "The defect hunt: first-pass defects fell from 6.1% to 4.0%, saving about 11 million pesos a year."
+        }
+      ]
+    }
+  ],
+  "seeded": [
+    {
+      "id": "below-median-score-01",
+      "subject": "employer",
+      "doc_id": "resume",
+      "ref": "r2.organisation",
+      "from": "Electrodomésticos Nava",
+      "to": "Nava Appliances",
+      "note": "employer translated on the résumé"
+    },
+    {
+      "id": "below-median-score-02",
+      "subject": "title",
+      "doc_id": "essay-1",
+      "ref": "p1",
+      "from": "promoted to Floor Superintendent",
+      "to": "promoted to Plant Superintendent",
+      "note": "inflated title in an essay"
+    },
+    {
+      "id": "below-median-score-03",
+      "subject": "date",
+      "doc_id": "brief:salas",
+      "ref": "t1",
+      "from": "Floor Superintendent in 2024",
+      "to": "Floor Superintendent in 2023",
+      "note": "promotion year in a brief"
+    },
+    {
+      "id": "below-median-score-04",
+      "subject": "team_size",
+      "doc_id": "resume",
+      "ref": "b1",
+      "from": "180 people",
+      "to": "190 people",
+      "note": "head count on the résumé"
+    },
+    {
+      "id": "below-median-score-05",
+      "subject": "number",
+      "doc_id": "essay-1",
+      "ref": "p2",
+      "from": "from 6.1% to 4.0%",
+      "to": "from 6.1% to 3.4%",
+      "note": "defect-rate result in an essay"
+    },
+    {
+      "id": "below-median-score-06",
+      "subject": "team_size",
+      "doc_id": "form:employment",
+      "ref": "employment/i1",
+      "from": "through six supervisors",
+      "to": "through eight supervisors",
+      "note": "supervisor count in a form entry"
+    },
+    {
+      "id": "below-median-score-07",
+      "subject": "team_size",
+      "doc_id": "brief:salas",
+      "ref": "t1",
+      "from": "runs 180 people",
+      "to": "runs about 200 people",
+      "note": "head count rounded in a brief"
+    }
+  ]
+}

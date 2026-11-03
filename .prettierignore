@@ -1,0 +1,8 @@
+pnpm-lock.yaml
+**/.next
+**/dist
+**/migrations/meta
+fixtures/llm-replays
+AdmitStory_Build_Spec.md
+knowledge/canon
+packages/ai/src/prompts/**/*.md

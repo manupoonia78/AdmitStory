@@ -1,0 +1,238 @@
+{
+  "applicant": "family-business-heir",
+  "facts": [
+    {
+      "code": "F01",
+      "key": "employer_current",
+      "value": "Saravana Mills Private Limited",
+      "approvedPhrasing": null
+    },
+    {
+      "code": "F02",
+      "key": "title_current",
+      "value": "Director, Operations",
+      "approvedPhrasing": null
+    },
+    {
+      "code": "F03",
+      "key": "title_previous",
+      "value": "Management Trainee, then Assistant Manager",
+      "approvedPhrasing": null
+    },
+    {
+      "code": "F04",
+      "key": "team_size",
+      "value": "81 people across two shifts",
+      "approvedPhrasing": null
+    },
+    {
+      "code": "F05",
+      "key": "location_current",
+      "value": "Coimbatore, Tamil Nadu, India",
+      "approvedPhrasing": null
+    },
+    {
+      "code": "F06",
+      "key": "degree",
+      "value": "B.Tech in Textile Technology, PSG College of Technology, 2020",
+      "approvedPhrasing": null
+    },
+    {
+      "code": "F07",
+      "key": "gpa",
+      "value": "8.1 out of 10",
+      "approvedPhrasing": null
+    },
+    {
+      "code": "F08",
+      "key": "gmat_total",
+      "value": "715",
+      "approvedPhrasing": null
+    },
+    {
+      "code": "F09",
+      "key": "languages",
+      "value": "English, Tamil, Hindi",
+      "approvedPhrasing": null
+    },
+    {
+      "code": "F10",
+      "key": "plant_scale",
+      "value": "1,400 spindles, about 95 tonnes of yarn a month",
+      "approvedPhrasing": null
+    },
+    {
+      "code": "F11",
+      "key": "revenue",
+      "value": "About 41 crore rupees in the year to March 2026",
+      "approvedPhrasing": null
+    },
+    {
+      "code": "F12",
+      "key": "margin_change",
+      "value": "Operating margin moved from 9% to 14% between 2023 and 2026",
+      "approvedPhrasing": null
+    },
+    {
+      "code": "F13",
+      "key": "father_name",
+      "value": "Saravanan Murugesan",
+      "approvedPhrasing": null
+    }
+  ],
+  "roles": [
+    {
+      "ref": "r1",
+      "organisation": "Saravana Mills Private Limited",
+      "title": "Director, Operations",
+      "dates": "2023 – Present"
+    },
+    {
+      "ref": "r2",
+      "organisation": "Saravana Mills Private Limited",
+      "title": "Assistant Manager",
+      "dates": "2022 – 2023"
+    },
+    {
+      "ref": "r3",
+      "organisation": "Saravana Mills Private Limited",
+      "title": "Management Trainee",
+      "dates": "2021 – 2022"
+    }
+  ],
+  "clean": [
+    {
+      "id": "resume",
+      "kind": "resume",
+      "label": "Resume",
+      "segments": [
+        {
+          "ref": "b1",
+          "text": "Run operations for 81 people across two shifts and 1,400 spindles, producing about 95 tonnes of yarn a month."
+        },
+        {
+          "ref": "b2",
+          "text": "Raised operating margin from 9% to 14% between 2023 and 2026, on revenue of about 41 crore rupees in the year to March 2026."
+        },
+        {
+          "ref": "b3",
+          "text": "Started a women's night shift in 2025: 29 people, 22 of them women; attrition of 9% against 31% on the old night shift."
+        },
+        {
+          "ref": "b4",
+          "text": "Formed a cotton-buying group of 7 mills out of 11 approached, cutting cotton cost by about 3%."
+        },
+        {
+          "ref": "edu.line1",
+          "text": "B.Tech in Textile Technology, PSG College of Technology, 2020."
+        }
+      ]
+    },
+    {
+      "id": "form:employment",
+      "kind": "form",
+      "label": "Form: Employment history",
+      "segments": [
+        {
+          "ref": "employment/i1",
+          "text": "Director, Operations, Saravana Mills Private Limited, Coimbatore (2023 to present). Responsible for 81 people across two shifts. Joined the mill in 2021 as a Management Trainee."
+        }
+      ]
+    },
+    {
+      "id": "essay-1",
+      "kind": "essay",
+      "label": "Essay 1",
+      "segments": [
+        {
+          "ref": "p1",
+          "text": "In 2024 I overruled my father on an order worth about 6 crore rupees, a seventh of the mill's year. Costed properly, it would have lost 4%; we took a smaller share and left a capacity gap of 3% instead of 12%."
+        },
+        {
+          "ref": "p2",
+          "text": "Since becoming Director, Operations in 2023, I have moved our operating margin from 9% to 14%. The night shift I started in 2025 now has 29 people and attrition of 9%."
+        }
+      ]
+    },
+    {
+      "id": "brief:rajendran",
+      "kind": "brief",
+      "label": "Brief for Mr Rajendran",
+      "segments": [
+        {
+          "ref": "t1",
+          "text": "Karthik has been Director, Operations since 2023 and is responsible for 81 people across two shifts."
+        },
+        {
+          "ref": "t2",
+          "text": "Please speak to the cotton-buying group: 7 of the 11 mills he approached joined, and cotton costs fell by about 3%."
+        }
+      ]
+    }
+  ],
+  "seeded": [
+    {
+      "id": "family-business-heir-01",
+      "subject": "employer",
+      "doc_id": "form:employment",
+      "ref": "employment/i1",
+      "from": "Saravana Mills Private Limited",
+      "to": "Saravana Spinning Mills",
+      "note": "mill renamed in a form entry"
+    },
+    {
+      "id": "family-business-heir-02",
+      "subject": "title",
+      "doc_id": "brief:rajendran",
+      "ref": "t1",
+      "from": "Director, Operations since",
+      "to": "Director of Operations since",
+      "note": "title reworded in a brief"
+    },
+    {
+      "id": "family-business-heir-03",
+      "subject": "date",
+      "doc_id": "essay-1",
+      "ref": "p2",
+      "from": "Operations in 2023",
+      "to": "Operations in 2022",
+      "note": "promotion year in an essay"
+    },
+    {
+      "id": "family-business-heir-04",
+      "subject": "team_size",
+      "doc_id": "resume",
+      "ref": "b1",
+      "from": "81 people",
+      "to": "85 people",
+      "note": "head count on the résumé"
+    },
+    {
+      "id": "family-business-heir-05",
+      "subject": "number",
+      "doc_id": "resume",
+      "ref": "b2",
+      "from": "from 9% to 14%",
+      "to": "from 9% to 15%",
+      "note": "margin result on the résumé"
+    },
+    {
+      "id": "family-business-heir-06",
+      "subject": "number",
+      "doc_id": "resume",
+      "ref": "b2",
+      "from": "about 41 crore rupees",
+      "to": "about 48 crore rupees",
+      "note": "revenue on the résumé"
+    },
+    {
+      "id": "family-business-heir-07",
+      "subject": "date",
+      "doc_id": "resume",
+      "ref": "r1.dates",
+      "from": "2023 – Present",
+      "to": "2024 – Present",
+      "note": "résumé start year"
+    }
+  ]
+}

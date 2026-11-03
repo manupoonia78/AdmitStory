@@ -1,0 +1,307 @@
+{
+  "meta": {
+    "task": "forms.advise",
+    "promptVersion": "forms.advise@v1",
+    "model": "claude-sonnet-5-5",
+    "recordedAt": "2026-11-01T08:13:58.707Z",
+    "synthetic": true,
+    "note": "Hand-authored response (no API key was available when Phase 5 was built), built from the fictional engineer-to-product applicant and the fictional halvorsen pack. Re-record live: pnpm --filter @admitstory/ai record:phase5"
+  },
+  "request": {
+    "model": "claude-sonnet-5-5",
+    "max_tokens": 11000,
+    "system": [
+      {
+        "type": "text",
+        "text": "You are the form advisor for this applicant's application to the school whose pack is below. The application form has the sections listed in the request (employment, responsibilities, extracurriculars, awards, additional information, career-goal fields and the like). For each section, decide what from the dossier goes in, how, and why.\n\nFor every section, list the candidate items from the dossier that could belong there: roles, responsibilities, activities, awards, results. A candidate is something the dossier actually contains; cite its F and S codes in `cites`. Then, per item:\n\n- `recommendation`, one of:\n  - `lead_with`: the strongest item for this section, put first;\n  - `include`;\n  - `combine_with`: merge with another item in the same section (name it in `combine_with`); one of the pair carries the entry;\n  - `move_to_resume`: belongs on the résumé, not in this field;\n  - `move_to_essay`: is essay material (name the essay's key in `move_to`), or the essay already carries it;\n  - `leave_out`.\n- `reason`: one plain sentence a busy applicant understands: which trait or lens it proves, whether it overlaps with an essay, how a reader may perceive it. Every recommendation has a reason, including leave_out.\n- `entry` (mode draft, for lead_with, include and combine_with only): the rewritten entry for the portal, in plain, outcome-first language a non-specialist understands (FORM-02, FORM-04). No internal jargon. Titles, dates, employer names, team sizes and numbers exactly as the Fact Sheet phrases them (FORM-01). Stay within the section's limit by its counting rule; aim for 90–100% of it. `sources` lists the F/S/L codes the entry draws on. In mode coach, `entry` is always null: this school doesn't allow AI-written answers, and the applicant writes their own.\n- `stronger`: up to 3 short pointers that would make the entry stronger (\"Add your role and a number\", \"Say what changed because of you\", \"This reads as a duty, not an achievement\").\n- `needs`: a detail the entry needs that the dossier lacks, as a question with an approximate word budget. Never invent it.\n\nRules:\n\n- A short intentional list beats an exhaustive one (FORM-03): respect \"entries at most\", and prefer items that reinforce the applicant's brand traits.\n- Achievements, not activities (FORM-04): who they worked with or the size of a deal they were part of isn't an achievement; what changed because of them is.\n- Nothing in a form entry repeats an essay's main story; when a candidate is an essay's primary story, the form gives it a single factual line or moves it to the essay.\n- An anomaly needs one factual sentence, then what changed (FORM-06).\n- A person is named only when the dossier says may_name=yes.\n- Never invent a fact, number, title, date or name. A missing detail is a need.\n\n`could_still_do`: up to 6 things the applicant could still do before submitting, if time allows, that would give a section something real (finish a course they've started, take a defined role in a club they're already in, document a result). Each with `why` and a realistic `time`. Only suggest what the dossier makes plausible.\n\n`verify`: anything in the entries the applicant must confirm before submitting.\n\nReturn JSON matching the schema."
+      },
+      {
+        "type": "text",
+        "text": "## Forms (forms v1)\n\n- **FORM-01** Titles, dates and names identical to the resume and recommender understanding.\n- **FORM-02** Responsibility descriptions mirror the resume's scope in plain, outcome-first language; no internal jargon.\n- **FORM-03** Choose extracurriculars and awards that reinforce the brand; a short intentional list beats an exhaustive one.\n- **FORM-04** Achievements, not activities: who they worked with or the size of a deal they were part of isn't an achievement; what changed because of them is.\n- **FORM-05** School-program fields get the same research effort as an essay.\n- **FORM-06** Explanations of anomalies: one factual sentence, then what changed.\n\n## How admissions readers think (admissions-lens v1)\n\n- **LENS-01** Readers move fast and screen risk against reward. Every component either removes a doubt or adds evidence.\n- **LENS-02** Four lenses, in the order a reader implicitly checks them: (1) **Academics** — can they handle the work; (2) **Self-awareness and emotional intelligence** — can they reflect, take feedback, change; (3) **Employability** — will recruiters want them, in the role they named; (4) **Leadership potential**.\n- **LENS-03** Leadership means three things together: **originating** an idea or approach, **acting without being asked**, and **bringing resistant people along**. A title is not leadership; executing someone else's plan well is weaker evidence than a small moment the applicant started themselves.\n- **LENS-04** Rejections usually come from an accumulation of small unresolved doubts across the file, not one flaw. Consistency and completeness beat one spectacular data point.\n- **LENS-05** Audit the whole file: a grid of the four lenses against every essay, short answer, form entry, resume line and recommender talking point. An empty row is a gap to fix before submitting.\n- **LENS-06** Academics are proven by scores, transcripts and quantitative work, not essays. A weak data point is offset by other concrete evidence (a quantitative role, a course, a certification, an improved score), never by asserting capability.\n- **LENS-07** Self-awareness shows in how setbacks and feedback are discussed, not in accomplishments. A highlight reel without honest self-examination reads as immature.\n- **LENS-08** Employability is increasingly judged on business impact, cross-functional influence and the ability to explain specialised work in plain business language.\n- **LENS-09** Tone: confident and humble at once. Specific actions and measured outcomes; no self-congratulating adjectives. Readers detect both false modesty and unearned confidence.\n\n## The whole application (file-strategy v1)\n\n- **FILE-01** Map before writing: every prompt and field of the school against the story bank; mark primary and supporting evidence.\n- **FILE-02** A story is the primary story of at most one deliverable per school. Two prompts that invite the same story get different stories.\n- **FILE-03** Every field says something new: form fields and short answers never recycle lines or images from the essays.\n- **FILE-04** Brand: 3–4 traits the evidence supports, reinforced through stories (never asserted), so a reader concludes them independently from several components.\n- **FILE-05** Essays and recommendations divide the work: if both touch one project, they show different facets with different evidence, and they sound like two different people.\n- **FILE-06** One weakness/development area, consistent across the file (essay, recommender, interview).\n- **FILE-07** Facts identical everywhere: titles, dates, team sizes, money and time figures.\n- **FILE-08** Reapplicants: the new file is new — not last year's essays edited. Name what changed; make the reapplicant essay the strongest piece.\n- **FILE-09** Range beats depth: across a school's file, show different lenses and traits, personal and professional sides.\n- **FILE-10** The career lane (short- and long-term goal, Plan B) is identical across all of one school's fields; it may differ between schools only when the applicant has genuinely chosen differently.\n\n## Truth discipline (truth-discipline v1)\n\n- **TRUTH-01** Write only what the applicant said, uploaded or confirmed. No invented scenes, quotes, names, numbers, places, objections or reactions — however plausible.\n- **TRUTH-02** A missing detail becomes a `[NEED]` question sized to its word budget, never a placeholder that replaces an emotional beat.\n- **TRUTH-03** Numbers, titles, dates and names come from the Fact Sheet's approved phrasing, exactly.\n- **TRUTH-04** School specifics (courses, professors, clubs, centres, statistics, events) must be verified in the current cycle with a source. Unverified \"why us\" detail is the most detectable weak point in an application.\n- **TRUTH-05** People are named only with the applicant's say-so; otherwise use their role.\n- **TRUTH-06** Every deliverable ends with a Verify list: assumptions, reconstructions, inferred details, and school facts to double-check.\n- **TRUTH-07** Honest without overclaiming: don't inflate scope (\"led\" vs \"contributed to\"), don't claim a result the applicant didn't own.\n- **TRUTH-08** Conversations with students and alumni enter essays as natural story showing what the person taught the applicant — never as a listed achievement.\n\n## Resume (resume v1)\n\n- **RES-01** One page, reverse-chronological, consistent formatting, ATS-safe.\n- **RES-02** Lead each bullet with the most impressive element; action → context → quantified result; vary verbs; replace \"significantly/successfully\" with a number.\n- **RES-03** The \"so what\" test on every line: why would a business care? If unanswerable, add the result or cut the line.\n- **RES-04** Lead each role with leadership or business impact; skip obvious duties; combine near-duplicates.\n- **RES-05** A stranger should reconstruct the trajectory and top three achievements in 30 seconds.\n- **RES-06** Translate specialised work for a non-specialist reader.",
+        "cache_control": {
+          "type": "ephemeral",
+          "ttl": "1h"
+        }
+      },
+      {
+        "type": "text",
+        "text": "SCHOOL PACK  Halvorsen | Halvorsen School of Management | Ashgrove Harbor, ME, US | full-time MBA | cycle 2026-27 | v3\nCite items by K id. [type date] = strongest source type and the date it was verified. Items marked stale were verified before this cycle: background only, never cite them as school specifics.\n\nROUNDS\nK01 R1 | deadline 2026-09-16 | decision 2026-12-10 | invites mid-October to mid-November [official 2026-07-14]\nK02 R2 | deadline 2027-01-06 | decision 2027-03-24 | invites February [official 2026-07-14]\n  K03 Most scholarship funds are committed by the end of R2. [adcom 2026-07-14]\nK04 R3 | deadline 2027-04-07 | decision 2027-05-19 [official 2026-07-14]\n  K05 R3 admits a small number of candidates, often with unusual backgrounds. [adcom 2026-07-14]\n\nESSAYS\nK06 goals | required | 500 words | GOALS,WHY-SCHOOL\n  prompt: \"What do you want to be doing five years after you graduate, and how will the Halvorsen MBA help you get there?\" [official 2026-07-14]\n  parts: post-MBA role five years out; how the Halvorsen MBA closes the gap\n  K07 Readers look for a specific first role and a credible bridge from current experience. [adcom 2026-07-14]\n  K08 Name at most two Halvorsen resources and tie each to a skill gap. [coach_notes 2026-09-05]\nK09 shaped | required | 400 words | LEADERSHIP\n  prompt: \"Tell us about a time you changed how a group worked. What did you do, and what did you learn about yourself?\" [official 2026-07-14]\n  parts: the change you made in a group; what you learned about yourself\n  K10 The second half of the prompt carries as much weight as the first. [adcom 2026-07-14]\n\nOPTIONAL ESSAY\nK13 optional | optional | 250 words | OPTIONAL\n  prompt: \"Is there anything else you would like the admissions committee to know?\" [official 2026-07-14]\n  K14 Use it for gaps, grades or test context; the committee does not expect a third story. [adcom 2026-07-14]\n\nREAPPLICANTS\nK11 reapplicant | required | 300 words | REAPPLICANT\n  prompt: \"How have you grown since you last applied, and what has changed in your candidacy?\" [official 2026-07-14]\n  parts: growth since the last application; what changed in the candidacy\nK12 Reapplicants within two years submit one new recommendation and the reapplicant essay instead of the leadership essay. [official 2026-07-14]\n\nFORM\nK15 activities | \"Community involvement\" | max 5 items | 250 chars [official 2026-07-14]\n  K16 List the role and the time committed per month for each entry. [official 2026-07-14]\nK17 honors | \"Awards and honours\" | max 3 items [official 2026-07-14]\n\nRECOMMENDATIONS\nK18 2 | gmac_common [official 2026-07-14]\n  K19 At least one recommender should be a current or recent direct supervisor. [official 2026-07-14]\n\nRESUME\nK20 1 page max [official 2026-07-14]\n  K21 Include full-time work experience only; internships can be omitted. [adcom 2026-07-14]\n\nTEST POLICY\nK22 Accepts the GMAT Focus Edition, the GRE and the Executive Assessment; no preference stated. [official 2026-07-14]\nK23 Test waivers are considered for applicants with eight or more years of work experience. [official 2026-07-14]\n\nFEES AND WAIVERS\nK24 The application fee is USD 200; waived for active-duty military and alumni of partner service programs. [official 2026-07-14]\n\nVALUES\nK25 Halvorsen describes its ideal student as a practical collaborator who leaves teams better than they found them. [official 2026-07-14]\nK26 The school emphasises accountability to a community beyond the firm. [official 2026-07-14]\nK27 trait map: \"practical collaborator\" -> brings_people_along, cross_functional_influence | Show the other people in the story by role, not just yourself. [coach_notes 2026-09-05]\ntrait map: \"accountable to a wider community\" -> community_builder, principled_stands\n\nCULTURE AND LOCATION\nK28 Coastal small-city campus; most students live within a ten-minute walk of the main hall. [insider 2026-09-05]\nK29 Class sections of about 70 stay together for the whole first year. [official 2026-07-14]\n\nACADEMICS\ncourses:\nK30 Operating in Uncertainty: A first-year core course on decisions with incomplete data, taught through field cases. | for: operations, steady_in_ambiguity [official 2026-07-14]\nK31 Coastal Economies Lab: A second-year elective pairing student teams with regional fisheries and ports. | for: sustainability, consulting [official 2026-07-14]\ncentres:\nK32 Brenneman Center for Family Enterprise: Research and advising centre for family-owned firms. | for: family business, general management [official 2026-07-14]\nexperiential:\nK34 First-Year Field Project: A seven-week consulting engagement with a regional organisation in the spring of year one. | for: consulting, measurable_impact [official 2026-07-14]\nstructure:\nK35 Two-year program; the first year is a fixed core, the second is fully elective. [official 2026-07-14]\n\nCOMMUNITY\nclubs:\nK36 Tidewater Consulting Club: Student club running casing practice and an alumni speaker series. | for: consulting [insider 2026-09-05]\ntreks and events:\nK38 West Coast Technology Trek: January trek visiting product teams at technology firms. | for: product management, technology [official 2026-07-14]\ntraditions:\nK37 Every section rows in the autumn harbour regatta. [insider 2026-09-05]\n\nCAREERS\nK39 employment report, class of 2026: Consulting 31% median USD 175,000; Finance 22% median USD 160,000; Product and marketing 19% median USD 150,000; General management 14% median USD 145,000; Other 14% | top employers: Northbeam Advisory, Corrie & Vale, Tamarack Health Systems, Brightwater Capital Partners [official 2026-08-02]\n  K40 91% of international graduates seeking work had an offer within three months. [official 2026-08-02]\nK41 Consulting recruiting starts in the first week of classes. [insider 2026-09-05]\n\nCLASS PROFILE\nK42 class of 2028 | size 281 | GMAT Focus median 655 | GRE median V161 Q160 | GPA median 3.5/4 | work experience median 5 yrs | international 32% [official 2026-08-02]\n\nINTERVIEW\nK43 invite only | by adcom | file-read | 30 min | campus, virtual [official 2026-09-05]\n  K44 (w5) \"Walk me through your resume.\" [interview_reports 2026-09-05]\n  K45 (w4) \"Tell me about a time a team you led disagreed with you.\" [interview_reports 2026-09-05]\n  K46 (w4) \"Why Halvorsen, and why now?\" [interview_reports 2026-09-05]\n  K47 The interviewer has read the full application. [official 2026-07-14]\n\nAI POLICY\nK48 permitted_with_disclosure | applies to essays | disclosure: \"I used generative AI tools in preparing my essays as follows:\" [official 2026-07-14]\n  K49 AI tools may help with editing; the ideas and experiences must be the applicant's own. [official 2026-07-14]\n\nSCHOLARSHIPS\nK50 All admitted candidates are considered for merit scholarships; no separate essay. [official 2026-07-14]\n\nINSIDER NOTES\nK51 Admitstory note: applicants who over-explain the Venture Studio tend to read as unfocused; one concrete link is enough. [admitstory 2026-09-05]\n\nAVOID\nK52 Generic praise of the coastal setting without a reason it matters to you. [coach_notes 2026-09-05]\n\nANGLES THAT WORK\nK53 A leadership story where the applicant changed a process and others kept using it. [coach_notes 2026-09-05]\n\nGLOSSARY\nK54 Section: The group of about 70 classmates you take every first-year course with. [official 2026-07-14]",
+        "cache_control": {
+          "type": "ephemeral",
+          "ttl": "1h"
+        }
+      },
+      {
+        "type": "text",
+        "text": "APPLICANT  A-e2p | target: MBA 2027 | country: IN | yrs_exp: 5.5 | test: GMAT 705 | gpa: 8.4/10\nFACTS\nF01 employer_current = \"Meridian Health Systems\" (hospital software; 40+ hospitals in India and the US) [confirmed]\nF02 title_current = \"Senior Software Engineer\" (since April 2024) [confirmed]\nF03 team_size = \"4 engineers he coordinates, no formal reports\" [confirmed]\nF04 location_current = \"Bengaluru, India\" [confirmed]\nF05 degree = \"B.Tech in Computer Science, Vellore Institute of Technology, 2020\" [confirmed]\nF06 gmat_total = \"705\" (Q50 V34, taken September 2026) [confirmed]\nF07 promotion = \"Promoted to Senior Software Engineer in April 2024, two years ahead of the usual track\" [confirmed]\nF08 side_project = \"Runs a Saturday coding class for 12 government-school students in Bengaluru, since 2023\" [confirmed]\nSTORIES\nS02 \"The rewrite I talked them out of\" | professional 2025 | lenses A,E,L | traits brings_people_along, analytical, commercial_judgment | confirmed\n  sit: A director wanted a six-month rewrite of the scheduling module for a US customer\n  stk: The whole backend team for six months; the customer's deadline was in five\n  act: instrumented the module over a weekend: 80% of slow requests came from three queries; built a working fix for two of them in four days; showed before-and-after numbers in fifteen minutes at planning; offered to revisit the architecture after go-live\n  res: Rewrite shelved; page loads from 4.2 seconds to 900 milliseconds; customer live a month early\n  refl: Had not asked why the director wanted the rewrite until after building his case\n  lines: L002 \"I showed them the numbers instead of arguing the principle.\"\n  used: none\nS01 \"The night-shift fix\" | professional 2024 | lenses E,L | traits delivers_under_pressure, originates_ideas, cross_functional_influence | confirmed\n  sit: Go-live at a 900-bed hospital; the lab feed dropped every fourth message at 2 a.m.\n  stk: Rollback at the 6 a.m. shift change and a contract fourteen months in the winning\n  act: found the retry logic re-sent whole batches; rewrote the retry per message and tested it on replayed traffic; persuaded the vendor's on-call engineer to widen the batch window from 30 to 90 seconds; wrote a runbook for the hospital's IT staff\n  res: Go-live held; no dropped messages in twenty months; the runbook became Meridian's template\n  refl: Spent four hours alone before calling the vendor; asks for help earlier now\n  lines: L001 \"It was 2 a.m. and nobody else on the call knew the old interface.\"\n  people: P1 Ravi Menon (engineering manager; may_name=yes)\n  used: none\nS03 \"Twelve kids on a Saturday\" | community 2023 onwards | lenses S,L | traits community_builder, develops_people, acts_unasked | confirmed\n  sit: A government school had donated computers and nobody to teach with them\n  stk: Two of the first four students had never used a keyboard\n  act: taught every Saturday for a year; rewrote the curriculum after one term: typing and files before programming; recruited three colleagues to take alternate Saturdays\n  res: Twelve students; four moved on to a paid bootcamp; runs without him for six months\n  refl: The barrier was confidence, not computers; builds things to run without him now\n  lines: L003 \"The class has not needed me for six months, which was the point.\"\n  people: P2 Lakshmi (the school's headmistress; may_name=yes)\n  used: none\nS06 \"Watching the ward use what I built\" | professional 2024 | lenses S,E | traits curious_learner, commercial_judgment, acts_unasked | confirmed\n  sit: Nurses had a paper workaround for a screen he built\n  stk: Nothing broke; the system worked as specified and was still wrong\n  act: sat with four nurses through a full shift and listed every workaround; took the list to the product team instead of patching the code; argued for two months to get the field order changed\n  res: Screen changed, workaround gone; he has sat in product reviews since\n  refl: The decision about what to build interests him more than the building\n  lines: L004 \"It was working exactly as specified, and it was still wrong.\"\n  used: none\nS04 \"The migration I got wrong\" | professional 2022 | lenses S | traits honest_about_limits, acts_on_feedback, self_aware | confirmed\n  sit: A migration tested on a three-month-old copy corrupted about 1,100 appointment records\n  stk: The hospital phoned patients all Saturday; he had to be on the customer call\n  act: restored from backup within two hours; wrote the incident note himself without softening his part; added a schema check that has blocked four migrations since\n  res: No appointments permanently lost; promoted eighteen months later\n  refl: Had not asked anyone to check his plan because he did not want to look slow\n  people: P1 Ravi Menon (engineering manager; may_name=yes)\n  used: none\nBRAND  brings_people_along (S01,S02) | commercial_judgment (S02,S06) | community_builder (S03)\nVOICE  sent_len≈11w var=low register=plain humour=none opens_with=statement avoids=[jargon,\"passionate\",\"I led\"]\nGOALS  ST: Product manager on a health-data team, owning a clinical workflow | LT: Shared health records across Indian hospitals | planB: Health-tech strategy consulting, then product\nSENSITIVE(excluded unless consent): 1 item withheld\n",
+        "cache_control": {
+          "type": "ephemeral"
+        }
+      }
+    ],
+    "messages": [
+      {
+        "role": "user",
+        "content": "Mode: draft\n\nForm sections:\nactivities | \"Community involvement\" | limit per entry: 250 characters including spaces | entries at most: 5\nhonors | \"Awards and honours\" | limit per entry: none | entries at most: 3\n\nWhat the essays and short answers carry (key | title | primary story):\ngoals | Essay 1 | S06\nshaped | Essay 2 | S02\noptional | Optional essay | none\n\nAdvise on every form section."
+      },
+      {
+        "role": "assistant",
+        "content": "{\"sections\":[{\"section_key\":\"activities\",\"items\":[{\"id\":\"i1\",\"candidate\":\"Saturday coding class\",\"cites\":[\"F08\",\"S03\"],\"recommendation\":\"lead_with\",\"combine_with\":null,\"move_to\":null,\"reason\":\"It proves you build things that last without you, and no essay uses it, so this field is its only home.\",\"entry\":{\"text\":\"Run a Saturday coding class for 12 government-school students in Bengaluru (since 2023). Rewrote the curriculum and recruited three colleagues; the class has run without me for six months.\",\"sources\":[\"F08\",\"S03\",\"L003\"]},\"stronger\":[\"Add the hours you give each month, as the form asks\"],\"needs\":[{\"question\":\"How many hours a month do you give the class now?\",\"approx_words\":3}]},{\"id\":\"i2\",\"candidate\":\"The night-shift fix\",\"cites\":[\"S01\"],\"recommendation\":\"move_to_resume\",\"combine_with\":null,\"move_to\":null,\"reason\":\"It's work, not community involvement; the résumé carries its result in one line, and the interview can tell the story.\",\"entry\":null,\"stronger\":[],\"needs\":[]},{\"id\":\"i3\",\"candidate\":\"The rewrite you talked them out of\",\"cites\":[\"S02\"],\"recommendation\":\"move_to_essay\",\"combine_with\":null,\"move_to\":\"shaped\",\"reason\":\"It's the main story of Essay 2; repeating it here would spend a field on something the reader already has.\",\"entry\":null,\"stronger\":[],\"needs\":[]}]},{\"section_key\":\"honors\",\"items\":[{\"id\":\"i1\",\"candidate\":\"Early promotion\",\"cites\":[\"F07\",\"F02\"],\"recommendation\":\"lead_with\",\"combine_with\":null,\"move_to\":null,\"reason\":\"A promotion two years ahead of the usual track is someone else's judgement of you, which is what this field is for.\",\"entry\":{\"text\":\"Promoted to Senior Software Engineer at Meridian Health Systems in April 2024, two years ahead of the usual track.\",\"sources\":[\"F07\",\"F01\"]},\"stronger\":[],\"needs\":[]},{\"id\":\"i2\",\"candidate\":\"Go-live runbook adopted company-wide\",\"cites\":[\"S01\"],\"recommendation\":\"combine_with\",\"combine_with\":null,\"move_to\":null,\"reason\":\"Not a formal award, but a recognised result: your company adopted your work as its template. Keep it only if the form accepts recognitions.\",\"entry\":{\"text\":\"Wrote the go-live runbook that became Meridian Health Systems' template.\",\"sources\":[\"S01\",\"F01\"]},\"stronger\":[\"Say how many go-lives have used it since, if you know\"],\"needs\":[]},{\"id\":\"i3\",\"candidate\":\"GMAT 705\",\"cites\":[\"F06\"],\"recommendation\":\"leave_out\",\"combine_with\":null,\"move_to\":null,\"reason\":\"Your score has its own field; listing it as an honour reads as padding.\",\"entry\":null,\"stronger\":[],\"needs\":[]}]}],\"could_still_do\":[{\"text\":\"Write down the class's monthly hours and what the four bootcamp students went on to do\",\"why\":\"It gives the community entry the time commitment the form asks for, and a result you can state.\",\"time\":\"An evening\"}],\"verify\":[{\"text\":\"12 students, three colleagues, six months without you\",\"reason\":\"The numbers in your community entry: confirm they're still current.\"}]}"
+      },
+      {
+        "role": "user",
+        "content": "Your previous reply did not pass validation:\n- sections.1.items.1.combine_with: Name the other item in this section it combines with\nReply again with the complete JSON object, fixing these problems and keeping everything else as it was."
+      }
+    ],
+    "thinking": {
+      "type": "adaptive"
+    },
+    "output_config": {
+      "effort": "medium",
+      "format": {
+        "type": "json_schema",
+        "schema": {
+          "$defs": {
+            "__schema0": {
+              "type": "object",
+              "properties": {
+                "section_key": {
+                  "$ref": "#/$defs/__schema1"
+                },
+                "items": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/$defs/__schema2"
+                  },
+                  "description": "{maxItems: 20}"
+                }
+              },
+              "additionalProperties": false,
+              "required": [
+                "section_key",
+                "items"
+              ]
+            },
+            "__schema1": {
+              "type": "string",
+              "description": "{minLength: 1, maxLength: 80}"
+            },
+            "__schema2": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "$ref": "#/$defs/__schema3"
+                },
+                "candidate": {
+                  "type": "string",
+                  "description": "{minLength: 1, maxLength: 120}"
+                },
+                "cites": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/$defs/__schema4"
+                  },
+                  "minItems": 1,
+                  "description": "{maxItems: 8}"
+                },
+                "recommendation": {
+                  "type": "string",
+                  "description": "{enum: [\"lead_with\",\"include\",\"combine_with\",\"move_to_resume\",\"move_to_essay\",\"leave_out\"]}"
+                },
+                "combine_with": {
+                  "anyOf": [
+                    {
+                      "$ref": "#/$defs/__schema3"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "move_to": {
+                  "anyOf": [
+                    {
+                      "$ref": "#/$defs/__schema1"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "reason": {
+                  "type": "string",
+                  "description": "One sentence: the trait or lens it proves, overlap, how it reads\n\n{minLength: 1, maxLength: 400}"
+                },
+                "entry": {
+                  "anyOf": [
+                    {
+                      "type": "object",
+                      "properties": {
+                        "text": {
+                          "type": "string",
+                          "description": "{minLength: 1, maxLength: 2000}"
+                        },
+                        "sources": {
+                          "type": "array",
+                          "items": {
+                            "$ref": "#/$defs/__schema4"
+                          },
+                          "minItems": 1,
+                          "description": "{maxItems: 8}"
+                        }
+                      },
+                      "additionalProperties": false,
+                      "required": [
+                        "text",
+                        "sources"
+                      ]
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "stronger": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/$defs/__schema5"
+                  },
+                  "description": "{maxItems: 3}"
+                },
+                "needs": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/$defs/__schema6"
+                  },
+                  "description": "{maxItems: 3}"
+                }
+              },
+              "additionalProperties": false,
+              "required": [
+                "id",
+                "candidate",
+                "cites",
+                "recommendation",
+                "combine_with",
+                "move_to",
+                "reason",
+                "entry",
+                "stronger",
+                "needs"
+              ]
+            },
+            "__schema3": {
+              "type": "string",
+              "description": "{pattern: \"^i\\\\d{1,3}$\"}"
+            },
+            "__schema4": {
+              "type": "string"
+            },
+            "__schema5": {
+              "type": "string",
+              "description": "{minLength: 1, maxLength: 200}"
+            },
+            "__schema6": {
+              "type": "object",
+              "properties": {
+                "question": {
+                  "type": "string",
+                  "description": "{minLength: 1, maxLength: 400}"
+                },
+                "approx_words": {
+                  "type": "integer",
+                  "description": "{minimum: 1, maximum: 200}"
+                }
+              },
+              "additionalProperties": false,
+              "required": [
+                "question",
+                "approx_words"
+              ]
+            },
+            "__schema7": {
+              "type": "object",
+              "properties": {
+                "text": {
+                  "type": "string",
+                  "description": "{minLength: 1, maxLength: 300}"
+                },
+                "why": {
+                  "type": "string",
+                  "description": "{minLength: 1, maxLength: 300}"
+                },
+                "time": {
+                  "type": "string",
+                  "description": "{minLength: 1, maxLength: 60}"
+                }
+              },
+              "additionalProperties": false,
+              "required": [
+                "text",
+                "why",
+                "time"
+              ]
+            },
+            "__schema8": {
+              "type": "object",
+              "properties": {
+                "text": {
+                  "type": "string",
+                  "description": "{minLength: 1, maxLength: 600}"
+                },
+                "reason": {
+                  "type": "string",
+                  "description": "{minLength: 1, maxLength: 300}"
+                }
+              },
+              "additionalProperties": false,
+              "required": [
+                "text",
+                "reason"
+              ]
+            }
+          },
+          "type": "object",
+          "properties": {
+            "sections": {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/__schema0"
+              },
+              "description": "{maxItems: 12}"
+            },
+            "could_still_do": {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/__schema7"
+              },
+              "description": "{maxItems: 6}"
+            },
+            "verify": {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/__schema8"
+              },
+              "description": "{maxItems: 20}"
+            }
+          },
+          "additionalProperties": false,
+          "required": [
+            "sections",
+            "could_still_do",
+            "verify"
+          ]
+        }
+      }
+    },
+    "fallbacks": "default",
+    "stream": false
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "content-type": "application/json"
+    },
+    "body": "{\"id\":\"msg_synthetic_a13e6dfc0038a65c6b35c022\",\"type\":\"message\",\"role\":\"assistant\",\"model\":\"claude-sonnet-5-5\",\"content\":[{\"type\":\"text\",\"text\":\"{\\\"sections\\\":[{\\\"section_key\\\":\\\"activities\\\",\\\"items\\\":[{\\\"id\\\":\\\"i1\\\",\\\"candidate\\\":\\\"Saturday coding class\\\",\\\"cites\\\":[\\\"F08\\\",\\\"S03\\\"],\\\"recommendation\\\":\\\"lead_with\\\",\\\"combine_with\\\":null,\\\"move_to\\\":null,\\\"reason\\\":\\\"It proves you build things that last without you, and no essay uses it, so this field is its only home.\\\",\\\"entry\\\":{\\\"text\\\":\\\"Run a Saturday coding class for 12 government-school students in Bengaluru (since 2023). Rewrote the curriculum and recruited three colleagues; the class has run without me for six months.\\\",\\\"sources\\\":[\\\"F08\\\",\\\"S03\\\",\\\"L003\\\"]},\\\"stronger\\\":[\\\"Add the hours you give each month, as the form asks\\\"],\\\"needs\\\":[{\\\"question\\\":\\\"How many hours a month do you give the class now?\\\",\\\"approx_words\\\":3}]},{\\\"id\\\":\\\"i2\\\",\\\"candidate\\\":\\\"The night-shift fix\\\",\\\"cites\\\":[\\\"S01\\\"],\\\"recommendation\\\":\\\"move_to_resume\\\",\\\"combine_with\\\":null,\\\"move_to\\\":null,\\\"reason\\\":\\\"It's work, not community involvement; the résumé carries its result in one line, and the interview can tell the story.\\\",\\\"entry\\\":null,\\\"stronger\\\":[],\\\"needs\\\":[]},{\\\"id\\\":\\\"i3\\\",\\\"candidate\\\":\\\"The rewrite you talked them out of\\\",\\\"cites\\\":[\\\"S02\\\"],\\\"recommendation\\\":\\\"move_to_essay\\\",\\\"combine_with\\\":null,\\\"move_to\\\":\\\"shaped\\\",\\\"reason\\\":\\\"It's the main story of Essay 2; repeating it here would spend a field on something the reader already has.\\\",\\\"entry\\\":null,\\\"stronger\\\":[],\\\"needs\\\":[]}]},{\\\"section_key\\\":\\\"honors\\\",\\\"items\\\":[{\\\"id\\\":\\\"i1\\\",\\\"candidate\\\":\\\"Early promotion\\\",\\\"cites\\\":[\\\"F07\\\",\\\"F02\\\"],\\\"recommendation\\\":\\\"lead_with\\\",\\\"combine_with\\\":null,\\\"move_to\\\":null,\\\"reason\\\":\\\"A promotion two years ahead of the usual track is someone else's judgement of you, which is what this field is for.\\\",\\\"entry\\\":{\\\"text\\\":\\\"Promoted to Senior Software Engineer at Meridian Health Systems in April 2024, two years ahead of the usual track.\\\",\\\"sources\\\":[\\\"F07\\\",\\\"F01\\\"]},\\\"stronger\\\":[],\\\"needs\\\":[]},{\\\"id\\\":\\\"i2\\\",\\\"candidate\\\":\\\"Go-live runbook adopted company-wide\\\",\\\"cites\\\":[\\\"S01\\\"],\\\"recommendation\\\":\\\"include\\\",\\\"combine_with\\\":null,\\\"move_to\\\":null,\\\"reason\\\":\\\"Not a formal award, but a recognised result: your company adopted your work as its template. Keep it only if the form accepts recognitions.\\\",\\\"entry\\\":{\\\"text\\\":\\\"Wrote the go-live runbook that became Meridian Health Systems' template.\\\",\\\"sources\\\":[\\\"S01\\\",\\\"F01\\\"]},\\\"stronger\\\":[\\\"Say how many go-lives have used it since, if you know\\\"],\\\"needs\\\":[]},{\\\"id\\\":\\\"i3\\\",\\\"candidate\\\":\\\"GMAT 705\\\",\\\"cites\\\":[\\\"F06\\\"],\\\"recommendation\\\":\\\"leave_out\\\",\\\"combine_with\\\":null,\\\"move_to\\\":null,\\\"reason\\\":\\\"Your score has its own field; listing it as an honour reads as padding.\\\",\\\"entry\\\":null,\\\"stronger\\\":[],\\\"needs\\\":[]}]}],\\\"could_still_do\\\":[{\\\"text\\\":\\\"Write down the class's monthly hours and what the four bootcamp students went on to do\\\",\\\"why\\\":\\\"It gives the community entry the time commitment the form asks for, and a result you can state.\\\",\\\"time\\\":\\\"An evening\\\"}],\\\"verify\\\":[{\\\"text\\\":\\\"12 students, three colleagues, six months without you\\\",\\\"reason\\\":\\\"The numbers in your community entry: confirm they're still current.\\\"}]}\"}],\"stop_reason\":\"end_turn\",\"stop_sequence\":null,\"stop_details\":null,\"usage\":{\"input_tokens\":7384,\"cache_creation_input_tokens\":0,\"cache_read_input_tokens\":0,\"cache_creation\":{\"ephemeral_5m_input_tokens\":0,\"ephemeral_1h_input_tokens\":0},\"output_tokens\":725,\"server_tool_use\":null,\"service_tier\":\"standard\"}}"
+  }
+}

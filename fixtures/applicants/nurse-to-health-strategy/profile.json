@@ -1,0 +1,16 @@
+{
+  "slug": "nurse-to-health-strategy",
+  "summary": "An ICU charge nurse at a private hospital in Ho Chi Minh City, moving into health-system strategy and hospital operations.",
+  "persona": "international",
+  "style": "terse",
+  "country": "VN",
+  "timezone": "Asia/Ho_Chi_Minh",
+  "programType": "full_time_mba",
+  "targetIntake": 2027,
+  "studioMode": "standard",
+  "yearsExperience": 8,
+  "test": { "type": "EA", "score": 155 },
+  "gpa": { "value": 8.1, "scale": 10 },
+  "isReapplicant": false,
+  "difficulty": "English is her third language and she apologises for it before answering. She holds the most dramatic material of any fixture - patient deaths, a hospital in a surge - and will not dramatise a line of it. She reports the clinical facts, flatly, and then stops."
+}
