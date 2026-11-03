@@ -19,7 +19,8 @@
     "db:migrate": "pnpm --filter @admitstory/db migrate",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
-    "db:local": "pglite-server --db=.pglite --port=5433 --max-connections=10"
+    "db:local": "pglite-server --db=.pglite --port=5433 --max-connections=10",
+    "launch:check": "tsx scripts/launch-check.ts"
   },
   "devDependencies": {
     "@axe-core/playwright": "4.14.0",

@@ -8,6 +8,7 @@ import {
   voiceProviders,
   voiceSettingsOf,
 } from "@/lib/voice/server";
+import { assertFeatureOn } from "@/lib/features";
 
 // POST /api/tts (spec §11, §7.5): a question read aloud, streamed as NDJSON lines in the order
 // TtsStreamLine describes, so audio starts playing while the rest is still being synthesised.
@@ -33,7 +34,8 @@ export async function POST(request: Request): Promise<Response> {
         { status: 403 },
       );
     const body = await readJson(request, Body);
-    checkRateLimit("tts", userId, RATE_LIMITS.tts);
+    await checkRateLimit("tts", userId, RATE_LIMITS.tts);
+    await assertFeatureOn("read_aloud");
 
     const { tts, ttsCache } = voiceProviders();
     if (tts.name === "fake" && !fakeProvidersAllowed())

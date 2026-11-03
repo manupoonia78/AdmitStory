@@ -17,7 +17,7 @@ export async function POST(
   return handle(async () => {
     const { session } = await requireUser();
     const userId = session.user.id;
-    checkRateLimit("draftOption", userId, REFINE_LIMIT);
+    await checkRateLimit("draftOption", userId, REFINE_LIMIT);
     const id = await idParam(context, "id", "That deliverable");
     const angleId = await idParam(context, "angleId", "That option");
     const { deliverable } = await deliverableContext(userId, id);

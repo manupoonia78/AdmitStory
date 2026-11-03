@@ -269,6 +269,21 @@ export const ROUTES = {
     visibleBudget: 3_000,
     note: "Recommender portal only; judgment, so adaptive.",
   }),
+  // Not in §8.3's table (Phase 6 decision 12): intake extraction and the cross-recommender plan.
+  "lor.extract": route({
+    model: "haiku",
+    effort: "medium",
+    thinking: "adaptive",
+    visibleBudget: 4_000,
+    note: "Pulls recommender stories out of the applicant's intake answers; adaptive.",
+  }),
+  "lor.plan": route({
+    model: "sonnet",
+    effort: "medium",
+    thinking: "adaptive",
+    visibleBudget: 3_000,
+    note: "Who covers what across recommenders (LOR-03); judgment, so adaptive.",
+  }),
   "interview.plan": route({
     model: "sonnet",
     effort: "medium",
@@ -351,6 +366,15 @@ export const ROUTES = {
     thinking: "off",
     visibleBudget: 1_200,
     note: "Fixture applicant answering Studio questions in evals; thinking off.",
+  }),
+  // Not in §8.3's table: Phase 9b's rubric judge (§8.11). Admin only, synthetic fixtures only.
+  "eval.judge": route({
+    model: "opus",
+    effort: "medium",
+    thinking: "adaptive",
+    visibleBudget: 3_000,
+    fallback: { model: "sonnet", effort: "high", thinking: "adaptive" },
+    note: "Evaluation harness rubric judge (§8.11).",
   }),
 } as const satisfies Record<string, Route>;
 

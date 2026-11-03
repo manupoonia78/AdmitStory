@@ -54,6 +54,7 @@ export default async function ProfileReadPage() {
       brand={view?.brand ?? []}
       evidence={evidence}
       version={data.version}
+      readId={data.read ? data.readId : null}
       builtAt={data.builtAt}
       behind={data.behind}
       state={data.read ? "ready" : enough ? "building" : "thin"}

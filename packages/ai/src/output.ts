@@ -3,6 +3,7 @@ import type { ValidationIssue } from "./errors";
 import type { ApiMessage } from "./providers/anthropic";
 import type { AnyTaskDefinition } from "./tasks";
 import type { TaskLayers } from "./tasks/define";
+import { outputLeakIssues } from "./security/injection";
 
 // Reading a model reply, shared by ai.run() (run.ts) and the batch collector (batch.ts).
 
@@ -56,6 +57,10 @@ export function parseOutput(
   }
   const result = def.output.safeParse(json);
   if (!result.success) return { ok: false, issues: zodIssues(result.error) };
+  // An output that repeats our own block markers followed the untrusted input (§14.6).
+  const leaks = outputLeakIssues(text);
+  if (leaks.length > 0)
+    return { ok: false, issues: leaks.map((message) => ({ path: "", message })) };
   if (def.check && checkWith) {
     const issues = def.check(result.data, checkWith.input, checkWith.layers);
     if (issues.length > 0) return { ok: false, issues };

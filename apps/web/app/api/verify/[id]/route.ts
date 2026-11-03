@@ -10,7 +10,7 @@ export async function PATCH(
 ): Promise<Response> {
   return handle(async () => {
     const { session } = await requireUser();
-    checkRateLimit("workspaceWrites", session.user.id, WORKSPACE_WRITE_LIMIT);
+    await checkRateLimit("workspaceWrites", session.user.id, WORKSPACE_WRITE_LIMIT);
     const id = await idParam(context, "id", "That item");
     const body = await readJson(request, VerifyResolution);
     const item = await resolveVerifyItem(getDb(), session.user.id, id, body);

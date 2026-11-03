@@ -12,7 +12,7 @@ export async function GET(request: Request): Promise<Response> {
   return handle(async () => {
     const { session } = await requireUser();
     const userId = session.user.id;
-    checkRateLimit("schoolSearch", userId, STRATEGY_LIMITS.search);
+    await checkRateLimit("schoolSearch", userId, STRATEGY_LIMITS.search);
     const q = (new URL(request.url).searchParams.get("q") ?? "").slice(0, 200);
     const db = getDb();
     const [summaries, applicant] = await Promise.all([

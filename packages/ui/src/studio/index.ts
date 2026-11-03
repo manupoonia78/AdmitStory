@@ -73,3 +73,11 @@ export {
   type SpringState,
   type VoicedSpan,
 } from "./synthetic-signal";
+// The capture flight's geometry, pure (the marketing hero flies the visitor's words with it).
+export {
+  flightBox,
+  flightControlPoint,
+  quadraticPoint,
+  type Box as FlightBox,
+  type Point as FlightPoint,
+} from "./flight-path";

@@ -184,7 +184,9 @@ describe("fake TTS", () => {
 
   it("is selected when the configured provider has no key", () => {
     expect(selectTtsProvider(parseVoiceEnv({ TTS_PROVIDER: "cartesia" })).name).toBe("fake");
-    expect(selectTtsProvider(parseVoiceEnv({ CARTESIA_API_KEY: "k" })).name).toBe("cartesia");
+    expect(
+      selectTtsProvider(parseVoiceEnv({ TTS_PROVIDER: "cartesia", CARTESIA_API_KEY: "k" })).name,
+    ).toBe("cartesia");
     expect(
       selectTtsProvider(parseVoiceEnv({ TTS_PROVIDER: "elevenlabs", ELEVENLABS_API_KEY: "k" }))
         .name,

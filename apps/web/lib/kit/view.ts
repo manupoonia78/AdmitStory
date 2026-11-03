@@ -26,7 +26,7 @@ export const STAGE_LABELS: Record<KitStageKey, string> = {
   drafts: "Essays",
   short_form: "Short answers",
   checks: "Checks",
-  forms: "Form advisor and résumé pass",
+  forms: "Forms, résumé and recommender briefs",
   verify: "Verify list",
 };
 

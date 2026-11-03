@@ -24,6 +24,7 @@ export {
   safeEqual,
   type ContentKeyring,
 } from "./crypto/content";
+export { hashEmail, hashPortalToken, newPortalToken } from "./crypto/tokens";
 export type {
   ChunkFilters,
   ChunkHit,

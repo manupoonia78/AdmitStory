@@ -1,0 +1,39 @@
+name: Nightly evals
+
+# The live half of the eval gate (spec §8.11, Phase 9b decision 17): the suite runs against the
+# real models on a capped sample (≤ $5 a run) and is compared with fixtures/evals/baseline.json.
+# Without the ANTHROPIC_API_KEY repository secret it prints a notice and succeeds.
+
+on:
+  schedule:
+    - cron: "0 3 * * *"
+  workflow_dispatch:
+
+concurrency:
+  group: evals
+  cancel-in-progress: false
+
+jobs:
+  live:
+    name: Live eval gate
+    runs-on: ubuntu-latest
+    env:
+      ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+    steps:
+      - if: env.ANTHROPIC_API_KEY == ''
+        run: echo "::notice::ANTHROPIC_API_KEY is not set; skipping the live eval gate."
+      - if: env.ANTHROPIC_API_KEY != ''
+        uses: actions/checkout@v5
+      - if: env.ANTHROPIC_API_KEY != ''
+        uses: pnpm/action-setup@v4
+      - if: env.ANTHROPIC_API_KEY != ''
+        uses: actions/setup-node@v5
+        with:
+          node-version-file: .nvmrc
+          cache: pnpm
+      - if: env.ANTHROPIC_API_KEY != ''
+        run: pnpm install --frozen-lockfile
+      - if: env.ANTHROPIC_API_KEY != ''
+        run: pnpm --filter @admitstory/ai eval:gate --live
+        env:
+          AI_MODE: live

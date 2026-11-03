@@ -96,7 +96,9 @@ export async function listSourceTexts(
   db: DbExecutor,
   userId: string,
   options: { kinds?: readonly SourceKind[]; limit?: number } = {},
-): Promise<{ id: string; kind: SourceKind; text: string; createdAt: Date }[]> {
+): Promise<
+  { id: string; kind: SourceKind; text: string; meta: SourceRow["meta"]; createdAt: Date }[]
+> {
   const ownerId = assertId(userId, "userId");
   const rows = await db
     .select()
@@ -117,8 +119,34 @@ export async function listSourceTexts(
             id: row.id,
             kind: row.kind,
             text: decryptContent(keyring, row.textEncrypted),
+            meta: row.meta,
             createdAt: row.createdAt,
           },
         ],
   );
+}
+
+/**
+ * Merges `patch` into a source's meta (e.g. `{ usedAt }` once the homepage line has opened Story
+ * Studio). Only the owner's source; returns false if there is none. The text is never touched.
+ */
+export async function updateSourceMeta(
+  db: DbExecutor,
+  userId: string,
+  sourceId: string,
+  patch: Record<string, unknown>,
+): Promise<boolean> {
+  const ownerId = assertId(userId, "userId");
+  const id = assertId(sourceId, "sourceId");
+  const [row] = await db
+    .select({ meta: sources.meta })
+    .from(sources)
+    .where(and(eq(sources.userId, ownerId), eq(sources.id, id)))
+    .limit(1);
+  if (!row) return false;
+  await db
+    .update(sources)
+    .set({ meta: { ...(row.meta ?? {}), ...patch } })
+    .where(and(eq(sources.userId, ownerId), eq(sources.id, id)));
+  return true;
 }

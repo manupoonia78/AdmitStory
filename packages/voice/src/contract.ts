@@ -159,7 +159,7 @@ export interface TtsChunk {
 }
 
 export interface TTSProvider {
-  readonly name: "cartesia" | "elevenlabs" | "fake";
+  readonly name: "deepgram" | "openai_compat" | "cartesia" | "elevenlabs" | "fake";
   synthesize(
     input: { text: string; voice: TtsVoice; speed: TtsSpeed },
     signal?: AbortSignal,

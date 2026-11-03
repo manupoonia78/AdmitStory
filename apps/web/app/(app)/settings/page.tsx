@@ -40,6 +40,12 @@ export default async function SettingsPage() {
         <p>
           <TextLink href="/settings/security">Manage passkeys</TextLink>
         </p>
+        <p>
+          <TextLink href="/settings/privacy">Privacy and data</TextLink>
+          <span className="text-text-soft">
+            : what we keep, download it, or delete your account
+          </span>
+        </p>
       </section>
     </Page>
   );

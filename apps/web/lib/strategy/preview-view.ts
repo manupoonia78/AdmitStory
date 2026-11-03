@@ -5,6 +5,7 @@
 import type { SchoolPack } from "@admitstory/kb/types";
 import { traitLabel } from "@admitstory/shared";
 import type { FileMap, Positioning } from "@admitstory/shared/kit";
+import { COMING_SOON } from "@/lib/deferred/coming-soon";
 import type { PackDeliverable } from "./deliverables";
 import { firstCitation, shortDate, type RetrievalSource } from "./pack";
 import type { PreviewView } from "./types";
@@ -58,7 +59,8 @@ export function previewView(input: {
     support,
     fileMap: input.deliverables.map((d) => ({
       key: d.key,
-      deliverable: d.title,
+      // Interview practice is deferred (Phase 7), so its rows say so rather than promise a draft.
+      deliverable: d.kind === "interview_question" ? `${d.title} (${COMING_SOON})` : d.title,
       story: storyFor(d.key),
     })),
     deliverables: input.deliverables

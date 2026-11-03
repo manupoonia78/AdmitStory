@@ -46,13 +46,9 @@ export { StatusLabel, type StatusLabelProps, type StatusTone } from "./component
 export { SkipLink, type SkipLinkProps } from "./components/skip-link";
 export { VisuallyHidden } from "./components/visually-hidden";
 export { EmptyState, type EmptyStateAlign, type EmptyStateProps } from "./components/empty-state";
-export {
-  ThemeToggle,
-  setThemePreference,
-  useThemePreference,
-  type ThemeToggleProps,
-} from "./components/theme-toggle";
-export { applyThemeColor } from "./components/theme-store";
+export { ThemeToggle, type ThemeToggleProps } from "./components/theme-toggle";
+// The store has its own module, so reading or writing the preference never pulls in the toggle.
+export { applyThemeColor, setThemePreference, useThemePreference } from "./components/theme-store";
 export { ImmersiveScope, type ImmersiveScopeProps } from "./components/immersive-scope";
 export {
   DARK_SCHEME_MEDIA,
@@ -83,6 +79,8 @@ export {
   type CssSpring,
   type MotionToken,
 } from "./motion";
+// The same springs as plain curves, for GSAP on the marketing site (no motion/react import).
+export { SETTLE_SECONDS, springEase, springSamples } from "./motion-curves";
 export { VOICE_HUES, voiceHueAt, voiceHueStyle, type VoiceHue } from "./voice-hues";
 export {
   createFrameMonitor,
@@ -128,3 +126,10 @@ export * from "./profile";
 export * from "./strategy";
 // Phase 5: Form Advisor, Résumé Pass and the consistency check (spec §5.10).
 export * from "./forms";
+// Phase 6: the recommender portal at /r/[token] (spec §5.11, §6.7).
+export * from "./portal";
+// Phase 6: screen H, the applicant's side of the Recommender Kit (spec §5.11, §6.10 H).
+export * from "./recommenders";
+// Phase 9b: feedback capture and Settings › Privacy and data.
+export * from "./feedback";
+export * from "./privacy";

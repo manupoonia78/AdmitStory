@@ -32,7 +32,7 @@ export async function POST(
   return handle(async () => {
     const { session, profile } = await requireUser();
     const userId = session.user.id;
-    checkRateLimit("dossierWrites", userId, RATE_LIMITS.dossierWrites);
+    await checkRateLimit("dossierWrites", userId, RATE_LIMITS.dossierWrites);
     const { id } = await context.params;
     const body = await readJson(request, Body);
     const { text } = body;

@@ -31,7 +31,7 @@ import type * as Kit from "./types";
 const TraitId = z.enum(TRAIT_IDS as [TraitIdType, ...TraitIdType[]]);
 const LensId = z.enum(LENS_IDS);
 const Cite = z.string().refine((value) => isCode(value), {
-  message: "Not a provenance code (F##, S##, L###, P#, C#, K##)",
+  message: "Not a provenance code (F##, S##, L###, P#, C#, K##, R##)",
 });
 const StoryCode = z.string().refine((value) => isCode(value, "story"), {
   message: "Not a story code (S##)",
@@ -258,6 +258,13 @@ export const DrillFeedback = z.object({
   consistency_flags: z.array(z.object({ text: text(400), conflicts_with: Cite })).max(8),
 });
 
+const LorCites = z.array(Cite).max(8);
+
+/**
+ * Phase 6 decision 13: question ids, a story and facet per talking point, traits to reinforce, and
+ * cited key facts. Cites have no minimum here: "every point has a cite" is checked in code (the AI
+ * layer's briefCiteIssues), so a missing one gets the repair turn with a clear message.
+ */
 export const LorBrief = z.object({
   cover_note: text(2_000),
   schools: z
@@ -267,6 +274,7 @@ export const LorBrief = z.object({
         questions: z
           .array(
             z.object({
+              question_id: text(40),
               question_verbatim: text(2_000),
               talking_points: z
                 .array(
@@ -274,7 +282,9 @@ export const LorBrief = z.object({
                     point: text(400),
                     evidence: text(800),
                     trait: TraitId,
-                    cites: z.array(Cite).min(1).max(8),
+                    story: Cite.nullable(),
+                    facet: text(200),
+                    cites: LorCites,
                   }),
                 )
                 .max(8),
@@ -284,6 +294,9 @@ export const LorBrief = z.object({
       }),
     )
     .max(12),
+  traits_to_reinforce: z
+    .array(z.object({ trait: TraitId, why: text(600), cites: LorCites }))
+    .max(6),
   other_recommender_covers: z.array(text(400)).max(8),
   development_arc: z
     .object({
@@ -291,9 +304,10 @@ export const LorBrief = z.object({
       response: text(800),
       steps: z.array(text(400)).max(6),
       evidence: text(800),
+      cites: LorCites,
     })
     .nullable(),
-  key_facts: z.array(text(300)).max(20),
+  key_facts: z.array(z.object({ text: text(300), cites: LorCites })).max(20),
 });
 
 /* Profile Read and School Fit ----------------------------------------------------------------- */

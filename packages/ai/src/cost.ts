@@ -16,6 +16,7 @@ export const KIT_GENERATION_ESTIMATE_USD = {
   "forms.advise": 0.05,
   "resume.review": 0.05,
   "lor.brief": 0.1,
+  "lor.plan": 0.02,
   "interview.plan": 0.05,
 } as const;
 

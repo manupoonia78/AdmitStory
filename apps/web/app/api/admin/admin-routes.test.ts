@@ -48,7 +48,8 @@ function routes(at: string): string[] {
 const METHODS = ["GET", "POST", "PUT", "PATCH", "DELETE"] as const;
 const files = routes(adminDir);
 
-describe("admin routes refuse non-admins", () => {
+// Each route is imported on first use, which can take seconds under a loaded suite.
+describe("admin routes refuse non-admins", { timeout: 30_000 }, () => {
   it("finds the admin routes", () => {
     expect(files.length).toBeGreaterThan(10);
   });

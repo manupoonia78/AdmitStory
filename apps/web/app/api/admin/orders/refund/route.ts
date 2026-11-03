@@ -22,6 +22,11 @@ export const POST = adminRoute(async (admin, request) => {
   if (!purchase) throw new AdminActionError("That purchase could not be found.", 404);
   if (purchase.status !== "completed")
     throw new AdminActionError("That purchase has already been refunded.", 409);
+  if (purchase.provider === "comp")
+    throw new AdminActionError(
+      "That kit was a free grant. Revoke it on the user's page instead of refunding it.",
+      409,
+    );
   const result = await payments().refund({
     providerTxnId: purchase.providerTxnId,
     reason: body.reason,

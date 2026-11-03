@@ -17,7 +17,7 @@ export async function GET(
   return handle(async () => {
     const { session } = await requireUser();
     const userId = session.user.id;
-    checkRateLimit("schoolSearch", userId, STRATEGY_LIMITS.search);
+    await checkRateLimit("schoolSearch", userId, STRATEGY_LIMITS.search);
     const params = Params.safeParse(await context.params);
     if (!params.success) notFound("That school cycle");
     const applicant = await loadApplicant(userId);

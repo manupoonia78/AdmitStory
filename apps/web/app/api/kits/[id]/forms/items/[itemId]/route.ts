@@ -21,7 +21,7 @@ export async function PATCH(
   return handle(async () => {
     const { session } = await requireUser();
     const userId = session.user.id;
-    checkRateLimit("workspaceWrites", userId, WORKSPACE_WRITE_LIMIT);
+    await checkRateLimit("workspaceWrites", userId, WORKSPACE_WRITE_LIMIT);
     const kit = await formKitContext(userId, await idParam(context, "id", "That kit"));
     const itemId = z
       .string()

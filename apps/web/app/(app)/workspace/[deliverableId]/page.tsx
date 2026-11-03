@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { notFound } from "next/navigation";
+import { notFound, redirect } from "next/navigation";
 import { z } from "zod";
 import { getDb, getDeliverable } from "@admitstory/db";
 import { ApiError } from "@/lib/api";
@@ -32,6 +32,10 @@ export default async function WorkspacePage({
     throw error;
   };
   const deliverable = await getDeliverable(getDb(), userId, id.data);
+  // Recommender questions are answered in the recommender's own brief (Phase 6 decision 22).
+  if (deliverable?.type === "lor_question") redirect("/recommenders");
+  // Interview practice is deferred (Phase 7): its page says what is coming and when it's free.
+  if (deliverable?.type === "interview_question") redirect("/interview");
   if (deliverable?.type === "form_section") {
     const view = await loadFormView(userId, id.data).catch(notOpen);
     if ("closed" in view) return <Closed message={view.closed} />;

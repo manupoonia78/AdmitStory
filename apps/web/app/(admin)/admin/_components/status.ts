@@ -12,3 +12,13 @@ export const SOURCE_STATUS: Record<
   ready: { tone: "verified", label: "Ready" },
   failed: { tone: "risk", label: "Failed" },
 };
+
+/** An eval run's status in words (spec §8.11). */
+export const EVAL_STATUS: Record<string, { tone: StatusTone; label: string }> = {
+  queued: { tone: "neutral", label: "Queued" },
+  running: { tone: "neutral", label: "Running" },
+  passed: { tone: "verified", label: "Passed" },
+  failed: { tone: "risk", label: "Failed" },
+  skipped: { tone: "neutral", label: "Skipped" },
+  error: { tone: "risk", label: "Error" },
+};

@@ -21,6 +21,18 @@ export const OutgoingEmail = z.object({
     .string()
     .regex(/^[a-z0-9-]{1,40}$/)
     .default("email"),
+  /** Where replies go (Phase 6: a recommender's reply reaches the applicant directly). */
+  replyTo: z.email().optional(),
+  /**
+   * The From display name, e.g. "Asha Varma via AdmitStory". The address stays EMAIL_FROM's
+   * (decision 3), so only the name changes.
+   */
+  fromName: z
+    .string()
+    .trim()
+    .max(80)
+    .transform((name) => name.replace(/["<>\\\r\n]/g, "").trim())
+    .optional(),
 });
 export type OutgoingEmail = z.input<typeof OutgoingEmail>;
 
@@ -66,6 +78,13 @@ function slug(value: string): string {
     .slice(0, 80);
 }
 
+/** EMAIL_FROM with its display name replaced: `"Asha via AdmitStory" <hello@…>`. */
+export function fromWithName(from: string, name: string | undefined): string {
+  if (!name) return from;
+  const address = /<([^>]+)>/.exec(from)?.[1]?.trim() ?? from.trim();
+  return `"${name}" <${address}>`;
+}
+
 export interface SentEmail {
   transport: EmailTransport;
   /** Resend message id or outbox file path. */
@@ -98,7 +117,7 @@ export async function sendEmail(
   if (transport === "outbox") {
     const file = await writeToOutbox(
       email,
-      env.EMAIL_FROM ?? "local-outbox@localhost",
+      fromWithName(env.EMAIL_FROM ?? "local-outbox@localhost", email.fromName),
       options.outboxDir ?? outboxDir(),
     );
     // Never log the link or the body; the file name is enough to find it.
@@ -110,8 +129,9 @@ export async function sendEmail(
   if (!apiKey || !from) throw new EmailNotConfiguredError();
   const resend = new Resend(apiKey);
   const { data, error } = await resend.emails.send({
-    from,
+    from: fromWithName(from, email.fromName),
     to: email.to,
+    ...(email.replyTo ? { replyTo: email.replyTo } : {}),
     subject: email.subject,
     html: email.html,
     text: email.text,

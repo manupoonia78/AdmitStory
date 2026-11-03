@@ -14,6 +14,12 @@
 // 3. Runs Lighthouse three times per page in Playwright's Chromium and keeps the median run,
 //    as Lighthouse CI does. Writes apps/web/lighthouse-report-<page>.html for the median run.
 // 4. Prints a score table and exits non-zero if any median score is below 0.90.
+//
+//   pnpm lighthouse --marketing   (Phase 9a, plan §3.9)
+//
+// Runs only the five public marketing pages, signed out, with no database and no session, and adds
+// the SEO category. Thresholds are the marketing direction's: performance ≥ 0.90, accessibility,
+// best practices and SEO = 1.00. Reports are lighthouse-report-marketing-<page>.html.
 
 import { spawn, spawnSync, type ChildProcess } from "node:child_process";
 import { randomUUID } from "node:crypto";
@@ -26,6 +32,7 @@ import { createDb, confirmAgeAndTerms } from "@admitstory/db";
 import { chromium } from "@playwright/test";
 import { config as loadEnv } from "dotenv";
 import lighthouse from "lighthouse";
+import { MARKETING_ROUTES } from "../lib/marketing/routes";
 import { TERMS_VERSION } from "../lib/terms";
 
 const WEB_ROOT = fileURLToPath(new URL("..", import.meta.url));
@@ -35,13 +42,27 @@ loadEnv({ path: join(REPO_ROOT, ".env.local"), quiet: true });
 const APP_URL = (process.env.APP_URL || "http://localhost:3000").replace(/\/$/, "");
 const PORT = new URL(APP_URL).port || "3000";
 const OUTBOX = join(REPO_ROOT, ".outbox");
-const THRESHOLD = 0.9;
+const MARKETING = process.argv.includes("--marketing");
 const RUNS = 3;
-const CATEGORIES = ["performance", "accessibility", "best-practices"] as const;
-const PAGES = [
-  { name: "sign-in", path: "/sign-in", signedIn: false },
-  { name: "home", path: "/home", signedIn: true },
-] as const;
+const CATEGORIES = MARKETING
+  ? (["performance", "accessibility", "best-practices", "seo"] as const)
+  : (["performance", "accessibility", "best-practices"] as const);
+type Category = (typeof CATEGORIES)[number];
+/** The lowest acceptable median score per category. */
+const THRESHOLDS: Record<string, number> = MARKETING
+  ? { performance: 0.9, accessibility: 1, "best-practices": 1, seo: 1 }
+  : { performance: 0.9, accessibility: 0.9, "best-practices": 0.9 };
+const threshold = (category: string) => THRESHOLDS[category] ?? 0.9;
+const PAGES: readonly { name: string; path: string; signedIn: boolean }[] = MARKETING
+  ? MARKETING_ROUTES.map((path) => ({
+      name: `marketing-${path === "/" ? "home" : path.slice(1)}`,
+      path,
+      signedIn: false,
+    }))
+  : [
+      { name: "sign-in", path: "/sign-in", signedIn: false },
+      { name: "home", path: "/home", signedIn: true },
+    ];
 
 // Cloudflare's documented dummy token. Only Cloudflare's test secret keys accept it, so this
 // script can't get past Turnstile on a deployment with real keys (by design).
@@ -169,7 +190,7 @@ async function freePort(): Promise<number> {
   });
 }
 
-type Scores = Record<(typeof CATEGORIES)[number], number>;
+type Scores = Record<Category, number>;
 
 interface Run {
   scores: Scores;
@@ -184,7 +205,8 @@ function median(runs: Run[]): Run {
 
 async function main() {
   let server: ChildProcess | null = null;
-  const db = createDb(process.env.DATABASE_URL ?? "", { max: 1 });
+  // Marketing pages are signed out: no database, no session.
+  const db = MARKETING ? null : createDb(process.env.DATABASE_URL ?? "", { max: 1 });
   let userId: string | null = null;
   const browser = { close: async () => {} } as { close: () => Promise<void> };
 
@@ -192,9 +214,12 @@ async function main() {
     if (!(await isUp())) server = await startServer();
     else console.log(`Using the server already running on ${APP_URL}.`);
 
-    const session = await createSession();
-    userId = session.userId;
-    await confirmAgeAndTerms(db.db, userId, TERMS_VERSION);
+    let session: { cookie: string; userId: string } | null = null;
+    if (db) {
+      session = await createSession();
+      userId = session.userId;
+      await confirmAgeAndTerms(db.db, userId, TERMS_VERSION);
+    }
 
     const port = await freePort();
     const chrome = await chromium.launch({
@@ -206,7 +231,7 @@ async function main() {
     const results: { name: string; path: string; runs: Run[] }[] = [];
     let cookieSet = false;
     for (const page of PAGES) {
-      if (page.signedIn && !cookieSet) {
+      if (page.signedIn && session && !cookieSet) {
         // The session goes into the browser's own cookie jar (Lighthouse keeps cookies between
         // runs), so it applies to redirects and subresources the way it would for a person.
         // Lighthouse's extraHeaders were tried first: Chromium dropped that Cookie header on
@@ -216,7 +241,7 @@ async function main() {
         await cdp.detach();
         cookieSet = true;
       }
-      const warmHeaders = page.signedIn ? { cookie: session.cookie } : undefined;
+      const warmHeaders = page.signedIn && session ? { cookie: session.cookie } : undefined;
       // Warm the route once, so the first measured load isn't paying for module loading, and
       // check it answers with the page itself rather than a redirect.
       const warm = await fetch(`${APP_URL}${page.path}`, {
@@ -255,10 +280,12 @@ async function main() {
     }
 
     console.log(
-      `\nLighthouse (mobile preset), median of ${RUNS} runs; threshold ${THRESHOLD * 100}\n`,
+      `\nLighthouse (mobile preset), median of ${RUNS} runs; thresholds ${CATEGORIES.map(
+        (c) => `${c} ${threshold(c) * 100}`,
+      ).join(", ")}\n`,
     );
     console.log(
-      "Page".padEnd(12),
+      "Page".padEnd(14),
       ...CATEGORIES.map((c) => c.padStart(16)),
       "   all runs (performance)",
     );
@@ -267,23 +294,24 @@ async function main() {
       const { scores } = median(runs);
       const cells = CATEGORIES.map((c) => {
         const score = Math.round(scores[c] * 100);
-        if (scores[c] < THRESHOLD) failed = true;
-        return `${score}${scores[c] < THRESHOLD ? " (below)" : ""}`.padStart(16);
+        const below = scores[c] < threshold(c);
+        if (below) failed = true;
+        return `${score}${below ? " (below)" : ""}`.padStart(16);
       });
       const perfRuns = runs.map((r) => Math.round(r.scores.performance * 100)).join(", ");
-      console.log(path.padEnd(12), ...cells, `   ${perfRuns}`);
+      console.log(path.padEnd(14), ...cells, `   ${perfRuns}`);
     }
     console.log(
       `\nReports: ${PAGES.map((p) => `apps/web/lighthouse-report-${p.name}.html`).join(", ")}`,
     );
     if (failed) {
-      console.error(`\nAt least one score is below ${THRESHOLD * 100}.`);
+      console.error("\nAt least one score is below its threshold.");
       process.exitCode = 1;
     }
   } finally {
     await browser.close();
-    if (userId) await db.pool.query("delete from users where id = $1", [userId]);
-    await db.pool.end();
+    if (db && userId) await db.pool.query("delete from users where id = $1", [userId]);
+    await db?.pool.end();
     stopServer(server);
   }
 }

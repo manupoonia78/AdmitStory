@@ -1,9 +1,11 @@
+import { getDb } from "@admitstory/db";
 import { Button } from "@admitstory/ui";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { requireOnboardedUser } from "@/lib/app-user";
 import { nextStep } from "@/lib/home/next-step";
 import { loadHomeFacts } from "@/lib/home/server";
+import { recommenderSummary } from "@/lib/recommenders/summary";
 
 export const metadata: Metadata = { title: "Home" };
 
@@ -22,11 +24,24 @@ const STATUS_WORDS: Record<string, string> = {
 /**
  * Home (spec §5.1, screen A): the single most useful next step as the headline, then the
  * applicant's schools. Nothing else competes with the next step.
+ *
+ * One step outranks the journey's order: asking a recommender (§5.11). It is the only step with a
+ * date of its own — about seven weeks before a deadline — and it is somebody else's time, so when
+ * that date is within a week and no invitation has gone, it becomes the headline.
  */
 export default async function HomePage() {
   const { session } = await requireOnboardedUser();
-  const facts = await loadHomeFacts(session.user.id);
-  const step = nextStep(facts);
+  const userId = session.user.id;
+  const [facts, recommenders] = await Promise.all([
+    loadHomeFacts(userId),
+    recommenderSummary(getDb(), userId),
+  ]);
+  const ask = recommenders.next?.due ? recommenders.next : null;
+  const step = ask
+    ? { title: ask.text, action: "Open their page", href: ask.href }
+    : nextStep(facts);
+  const lineFor = (userSchoolId: string) =>
+    recommenders.schools.find((school) => school.userSchoolId === userSchoolId)?.label ?? null;
   return (
     <div className="mx-auto flex w-full max-w-4xl flex-col gap-12 px-4 py-10 sm:px-8 sm:py-16">
       <section className="flex flex-col items-start gap-6">
@@ -61,15 +76,25 @@ export default async function HomePage() {
                 <tr key={s.userSchoolId} className="border-b border-edge">
                   <td className="py-3 text-text">{s.name}</td>
                   <td className="py-3 text-text-soft">
-                    {s.kit
-                      ? s.kit.status === "ready"
-                        ? s.kit.openNeeds > 0
-                          ? `Kit ready, ${s.kit.openNeeds} ${s.kit.openNeeds === 1 ? "question" : "questions"} for you`
-                          : "Kit ready"
-                        : "Kit building"
-                      : s.published
-                        ? (STATUS_WORDS[s.status] ?? s.status)
-                        : "Pack coming soon"}
+                    <span className="block">
+                      {s.kit
+                        ? s.kit.status === "ready"
+                          ? s.kit.openNeeds > 0
+                            ? `Kit ready, ${s.kit.openNeeds} ${s.kit.openNeeds === 1 ? "question" : "questions"} for you`
+                            : "Kit ready"
+                          : "Kit building"
+                        : s.published
+                          ? (STATUS_WORDS[s.status] ?? s.status)
+                          : "Pack coming soon"}
+                    </span>
+                    {lineFor(s.userSchoolId) ? (
+                      <Link
+                        href="/recommenders"
+                        className="block text-sm text-text-soft hover:text-text"
+                      >
+                        {lineFor(s.userSchoolId)}
+                      </Link>
+                    ) : null}
                   </td>
                   <td className="py-3 text-right">
                     <Link

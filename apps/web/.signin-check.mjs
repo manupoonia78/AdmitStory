@@ -1,0 +1,18 @@
+import { chromium } from "@playwright/test";
+const browser = await chromium.launch({ channel: "chrome" });
+const page = await browser.newPage();
+page.on("console", (m) => { if (["error","warning"].includes(m.type())) console.log("CONSOLE", m.type(), m.text().slice(0, 600)); });
+page.on("pageerror", (e) => console.log("PAGEERROR", e.message.slice(0, 800)));
+page.on("response", (r) => { if (r.status() >= 400) console.log("HTTP", r.status(), r.url()); });
+page.on("requestfailed", (r) => console.log("REQFAIL", r.url(), r.failure()?.errorText));
+await page.goto("http://localhost:3000/sign-in", { waitUntil: "networkidle", timeout: 120000 });
+await page.waitForTimeout(4000);
+console.log("TITLE", await page.title());
+console.log("BODY", (await page.locator("body").innerText()).slice(0, 800));
+await page.fill('input[name=email]', 'test@example.com');
+await page.waitForTimeout(3000);
+await page.click('button[type=submit]');
+await page.waitForTimeout(8000);
+console.log("AFTER", (await page.locator("body").innerText()).slice(0, 800));
+await page.screenshot({ path: "/private/tmp/claude-501/-Users-manu-Desktop-AdmitStory/568b08d7-5256-4cf7-a17e-071aea65e7f5/scratchpad/signin.png" });
+await browser.close();

@@ -1,0 +1,333 @@
+/*
+ * Marketing-only CSS (direction §4.1, §9; plan §8.6), loaded by (marketing)/layout.tsx only.
+ * Tokens only: no new colours, easings, durations or sizes. Reduced motion turns every movement
+ * into the 120 ms fade tokens.css already defines, or no movement at all.
+ */
+
+/* The nav: compact (a --depth plane at 88% with a faint blur and a 1px --edge) by default, and
+   transparent with no edge over the landing hero until #hero-end scrolls past. Pages without a
+   hero are compact from the first paint, with no JS. */
+.site-header {
+  view-transition-name: site-header;
+  pointer-events: none;
+}
+.site-header-plane {
+  pointer-events: auto;
+  border: 1px solid var(--edge);
+  background-color: color-mix(in srgb, var(--depth) 88%, transparent);
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
+  transition:
+    background-color var(--spring-glide-duration) var(--spring-glide),
+    border-color var(--spring-glide-duration) var(--spring-glide),
+    backdrop-filter var(--spring-glide-duration) var(--spring-glide);
+}
+[data-marketing-theme]:has(#hero-end) .site-header:not([data-past-hero]) .site-header-plane {
+  border-color: transparent;
+  background-color: transparent;
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
+}
+/* Over the hero (always Night) the plane also takes data-theme="night" (NavCompact), so the
+   nav reads Night whatever the page theme. */
+
+::view-transition-group(site-header) {
+  animation: none;
+  z-index: 10;
+}
+::view-transition-old(site-header) {
+  display: none;
+}
+::view-transition-new(site-header) {
+  animation: none;
+}
+
+/* The phone menu: a native <dialog> as a full-height sheet rising on glide, radius 28 on top. */
+.site-menu {
+  position: fixed;
+  inset: auto 0 0 0;
+  width: 100%;
+  max-width: none;
+  height: calc(100dvh - 24px);
+  max-height: none;
+  margin: 0;
+  padding: 0;
+  border: 1px solid var(--edge);
+  border-bottom: 0;
+  border-radius: var(--radius-sheet) var(--radius-sheet) 0 0;
+  background-color: var(--depth);
+  color: var(--text);
+  box-shadow: var(--plane-light);
+  transform: translateY(0);
+  transition:
+    transform var(--spring-glide-duration) var(--spring-glide),
+    overlay var(--spring-glide-duration) allow-discrete,
+    display var(--spring-glide-duration) allow-discrete;
+}
+.site-menu:not([open]) {
+  transform: translateY(100%);
+}
+@starting-style {
+  .site-menu[open] {
+    transform: translateY(100%);
+  }
+}
+.site-menu::backdrop {
+  background-color: var(--scrim);
+  opacity: 1;
+  transition:
+    opacity 120ms linear,
+    overlay 120ms allow-discrete,
+    display 120ms allow-discrete;
+}
+@starting-style {
+  .site-menu[open]::backdrop {
+    opacity: 0;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .site-menu,
+  .site-menu:not([open]) {
+    transform: none;
+    transition:
+      opacity 120ms linear,
+      overlay 120ms allow-discrete,
+      display 120ms allow-discrete;
+  }
+  .site-menu:not([open]) {
+    opacity: 0;
+  }
+  @starting-style {
+    .site-menu[open] {
+      transform: none;
+      opacity: 0;
+    }
+  }
+}
+
+/* The theme switch's 2 px --signal indicator, sliding between Night and Day on snap. */
+.theme-switch-indicator {
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+  width: 50%;
+  height: 2px;
+  background-color: var(--signal);
+  transform: translateX(0);
+  transition: transform var(--spring-snap-duration) var(--spring-snap);
+}
+.theme-switch-indicator[data-on="day"] {
+  transform: translateX(100%);
+}
+@media (prefers-reduced-motion: reduce) {
+  .theme-switch-indicator {
+    transition: none;
+  }
+}
+
+/* Lenis (lenis/dist/lenis.css, inlined so no stylesheet request is added). */
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+.lenis:not(.lenis-autoToggle).lenis-stopped {
+  overflow: clip;
+}
+.lenis [data-lenis-prevent],
+.lenis [data-lenis-prevent-wheel],
+.lenis [data-lenis-prevent-touch],
+.lenis [data-lenis-prevent-vertical],
+.lenis [data-lenis-prevent-horizontal] {
+  overscroll-behavior: contain;
+}
+.lenis.lenis-smooth iframe {
+  pointer-events: none;
+}
+.lenis.lenis-autoToggle {
+  transition-property: overflow;
+  transition-duration: 1ms;
+  transition-behavior: allow-discrete;
+}
+
+/* The FAQ (direction §4.9): the plus turns into a minus on snap, and the answer's height glides
+   open where the browser can interpolate to auto. Elsewhere it opens instantly. */
+.faq-plus-stem {
+  transition: rotate var(--spring-snap-duration) var(--spring-snap);
+}
+.faq-item[open] .faq-plus-stem {
+  rotate: 90deg;
+}
+@supports (interpolate-size: allow-keywords) {
+  .faq {
+    interpolate-size: allow-keywords;
+  }
+  .faq-item::details-content {
+    block-size: 0;
+    overflow-y: clip;
+    transition:
+      block-size var(--spring-glide-duration) var(--spring-glide),
+      content-visibility var(--spring-glide-duration) allow-discrete;
+  }
+  .faq-item[open]::details-content {
+    block-size: auto;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .faq-plus-stem,
+  .faq-item::details-content {
+    transition: none;
+  }
+}
+
+/* Follow one sentence (direction §4.3). The stacked version is plain Tailwind in the markup.
+   Inside @supports and with motion welcome, each frame's sentence glow comes up as its chapter
+   scrolls in: the one scroll-linked thing on the stacked page, and part of the hero sequence. */
+.follow-sentence {
+  display: none;
+}
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .follow:not(.is-pinned) [data-sentence-slot] {
+      animation: follow-glow linear both;
+      animation-timeline: view();
+      animation-range: entry 30% cover 45%;
+    }
+  }
+}
+@keyframes follow-glow {
+  from {
+    text-shadow: 0 0 0 transparent;
+  }
+  to {
+    text-shadow: 0 0 24px var(--voice-glow);
+  }
+}
+
+/* The pinned stage (follow-sequence.ts adds .is-pinned on desktop). One viewport tall; every
+   chapter sits in the same grid cell, statements left and frames right, and GSAP shows one at a
+   time. The articles keep their DOM order, so they still read 1 to 4. */
+.follow.is-pinned {
+  height: 100svh;
+  padding-block: 0;
+  overflow: clip;
+}
+.follow.is-pinned .follow-stage {
+  height: 100%;
+  align-content: center;
+}
+.follow.is-pinned .follow-chapters {
+  display: grid;
+  grid-template-areas: "stack";
+  gap: 0;
+}
+.follow.is-pinned .follow-chapter {
+  grid-area: stack;
+  pointer-events: none;
+}
+.follow.is-pinned .follow-statement {
+  will-change: transform;
+}
+.follow.is-pinned .follow-fictional {
+  margin-top: 2.5rem;
+}
+.follow.is-pinned .follow-sentence {
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 2;
+  width: var(--follow-sentence-width, 32rem);
+  margin: 0;
+  font-size: var(--type-read-lg);
+  line-height: var(--type-read-lg-leading);
+  transform-origin: 0 0;
+  pointer-events: none;
+  visibility: hidden;
+}
+
+/* The hero (direction §4.2). The form's box is sized by CSS before anything loads: larger than
+   the viewport on desktop so it bleeds past the top and bottom, 120vw in the top 55% on phones. */
+.hero-form-box {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: min(112svh, 100vw);
+  aspect-ratio: 1 / 1;
+  margin: 0;
+  translate: -50% -50%;
+  pointer-events: none;
+}
+@media (max-width: 639px) {
+  .hero-form-box {
+    top: 27.5svh;
+    width: 120vw;
+  }
+}
+/* While the visitor speaks, the H1 and subline dim to 35% on snap. Opacity only, so the LCP
+   element never moves. */
+.hero-copy {
+  transition: opacity var(--spring-snap-duration) var(--spring-snap);
+}
+#hero[data-dim] .hero-copy {
+  opacity: 0.35;
+}
+/* The live transcript (and the write-instead field) sit over the upper form, clear of the H1. */
+.hero-center {
+  position: absolute;
+  top: 31svh;
+  left: 50%;
+  z-index: 20;
+  width: min(56rem, calc(100vw - 2rem));
+  translate: -50% -50%;
+}
+@media (max-width: 639px) {
+  .hero-center {
+    top: 27.5svh;
+  }
+}
+/* The essay sheet and its caption rise into the lower part of the stage. */
+.hero-sheet-stack {
+  position: absolute;
+  inset-inline: 0;
+  bottom: 0;
+  z-index: 30;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+  padding: 0 1rem 2rem;
+}
+.hero-line {
+  border-radius: 4px;
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
+  transition:
+    background-color var(--spring-glide-duration) var(--spring-glide),
+    box-shadow var(--spring-glide-duration) var(--spring-glide);
+}
+.hero-line[data-lit] {
+  background-color: var(--voice-glow);
+  box-shadow: 0 0 0.7em var(--voice-glow);
+}
+@media (max-height: 760px) {
+  .hero-ruled-extra {
+    display: none;
+  }
+}
+/* The 15-second ring around the record button. */
+@keyframes hero-countdown {
+  from {
+    stroke-dashoffset: 0;
+  }
+  to {
+    stroke-dashoffset: var(--ring-length);
+  }
+}
+.hero-ring {
+  animation: hero-countdown 15s linear forwards;
+}
+@media (prefers-reduced-motion: reduce) {
+  .hero-ring {
+    animation: none;
+  }
+}

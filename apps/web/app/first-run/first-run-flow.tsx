@@ -3,7 +3,9 @@
 import { Button, FieldHint, ImmersiveScope, TextField, VoiceprintStill, cx } from "@admitstory/ui";
 import { DEFAULT_IDENTITY } from "@admitstory/shared";
 import { useEffect, useRef, useState, useSyncExternalStore, useTransition } from "react";
+import { KEEP_LINE_COPY } from "@/app/(marketing)/_copy/keep-line";
 import { AlertMessage } from "@/components/live-message";
+import { clearFirstLine, readFirstLine, subscribeFirstLine } from "@/lib/marketing/first-line";
 import { completeFirstRun, type FirstRunInput } from "./actions";
 import { UploadStep } from "./upload-step";
 
@@ -68,6 +70,14 @@ export function FirstRunFlow({ defaults }: FirstRunFlowProps) {
   // fills it in on hydration without a cascade or a mismatch.
   const detectedTimezone = useSyncExternalStore(subscribeNever, readTimezone, readNoTimezone);
 
+  // The line said on our homepage, kept in this browser for 24 hours (plan §5). Once sent (or
+  // declined) it leaves storage at once; `heldLine` keeps it on screen, and in a retry, until the
+  // action finishes.
+  const storedLine = useSyncExternalStore(subscribeFirstLine, readFirstLine, readNoLine);
+  const [heldLine, setHeldLine] = useState<string | null>(null);
+  const homepageLine = heldLine ?? storedLine?.line ?? null;
+  const [keepLine, setKeepLine] = useState(true);
+
   const [answers, setAnswers] = useState<FirstRunInput>({
     targetIntake: defaults.targetIntake ?? INTAKES[0],
     programType: defaults.programType || "full_time_mba",
@@ -98,10 +108,16 @@ export function FirstRunFlow({ defaults }: FirstRunFlowProps) {
 
   const submit = () => {
     setError("");
+    const firstLine = homepageLine && keepLine ? homepageLine : undefined;
+    if (homepageLine) {
+      setHeldLine(homepageLine);
+      clearFirstLine();
+    }
     start(async () => {
       const result = await completeFirstRun({
         ...answers,
         timezone: answers.timezone || detectedTimezone,
+        ...(firstLine ? { firstLine } : {}),
       });
       if (result?.error) setError(result.error);
     });
@@ -256,6 +272,20 @@ export function FirstRunFlow({ defaults }: FirstRunFlowProps) {
                   );
                 })}
               </div>
+              {homepageLine ? (
+                <label className="flex min-h-11 cursor-pointer items-start gap-3 rounded-plane border border-edge p-4 hover:bg-veil">
+                  <input
+                    type="checkbox"
+                    checked={keepLine}
+                    onChange={(event) => setKeepLine(event.target.checked)}
+                    className="mt-1 size-4 shrink-0 accent-signal"
+                  />
+                  <span className="flex flex-col gap-2">
+                    <span className="text-text">{KEEP_LINE_COPY.firstRunCheckbox}</span>
+                    <span className="font-reading text-read text-text-soft">“{homepageLine}”</span>
+                  </span>
+                </label>
+              ) : null}
               <AlertMessage message={error} />
               <Actions
                 onBack={() => setStep("bring")}
@@ -398,4 +428,5 @@ function Actions({
 /* The browser's time zone, as an external value (see above). */
 const subscribeNever = () => () => {};
 const readTimezone = () => Intl.DateTimeFormat().resolvedOptions().timeZone;
+const readNoLine = () => null;
 const readNoTimezone = () => "";

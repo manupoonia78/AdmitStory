@@ -1,6 +1,12 @@
 import "server-only";
 
-import { applyPatches, selectEscalation, type AI, type RunContext } from "@admitstory/ai";
+import {
+  FeatureDisabledError,
+  applyPatches,
+  selectEscalation,
+  type AI,
+  type RunContext,
+} from "@admitstory/ai";
 import {
   addVerifyItems,
   createDraftVersion,
@@ -12,6 +18,7 @@ import {
   getKitStage,
   getVerifiedAiPolicy,
   listAngles,
+  listRecommenders,
   listDeliverables,
   listKitStages,
   saveAngles,
@@ -52,6 +59,7 @@ import type {
 } from "@admitstory/shared/kit";
 import { authorshipFor, DELIVERABLE_TYPE_OF, type AiStance } from "./authorship";
 import { adviseForms } from "@/lib/forms/advise";
+import { briefsForKit, type BriefsStageOutput } from "@/lib/recommenders/stage";
 import { reviewLatestResume } from "@/lib/forms/resume";
 import { packDeliverables, type PackDeliverable } from "@/lib/strategy/deliverables";
 import { ensureSnapshot, retrieveForSchool } from "@/lib/strategy/jobs";
@@ -62,7 +70,7 @@ import { latestPack } from "@/lib/strategy/server";
 // a crashed or retried run resumes where it stopped and never pays twice for a finished stage. The
 // Inngest function runs each stage in its own step; without Inngest (local development) the same
 // stages run in order after the webhook's response. Stage 9 runs the Form Advisor and the Résumé
-// Pass (Phase 5); recommender briefs and the interview plan join it in Phases 6 and 7.
+// Pass (Phase 5) and the recommender briefs (Phase 6); the interview plan joins it in Phase 7.
 
 export type KitAI = Pick<AI, "run">;
 
@@ -369,6 +377,23 @@ async function positioningStage(deps: KitDeps, ref: KitRef, l: Loaded) {
         limit: 6,
       })
     : { chunks: [], sources: [] };
+  // The applicant's recommenders for this school (§5.11): the file map plans what each covers.
+  const recommenders = (
+    await listRecommenders(deps.db, ref.userId, { userSchoolId: l.ctx.userSchoolId })
+  )
+    .slice(0, 4)
+    .map((r) => ({
+      id: r.ref,
+      role: [r.title, r.organisation].filter(Boolean).join(", ") || r.relationship,
+      relationship: [
+        r.relationship.replace(/_/g, " "),
+        r.durationText ? `known for ${r.durationText}` : "",
+        r.frequencyText ? `works together ${r.frequencyText}` : "",
+      ]
+        .filter(Boolean)
+        .join("; ")
+        .slice(0, 300),
+    }));
   const output = await deps.ai.run(
     "kit.positioning_filemap",
     {
@@ -382,7 +407,7 @@ async function positioningStage(deps: KitDeps, ref: KitRef, l: Loaded) {
         required,
       })),
       is_reapplicant: l.ctx.isReapplicant,
-      recommenders: [],
+      recommenders,
       retrieval: retrieval.chunks,
     },
     l.run,
@@ -576,6 +601,8 @@ async function draftsStage(deps: KitDeps, ref: KitRef, l: Loaded): Promise<Draft
         return { ok: true as const, id: row.id };
       } catch (error) {
         await updateDeliverable(deps.db, ref.userId, row.id, { status: "pending" });
+        // A kill switch pauses the whole stage (it is retried), rather than failing one essay.
+        if (error instanceof FeatureDisabledError) throw error;
         return {
           ok: false as const,
           id: row.id,
@@ -827,14 +854,17 @@ export interface FormsStageOutput {
   forms: { sections: number; mode: "draft" | "coach" } | "failed";
   /** "reviewed" now, "kept" an earlier review, "none" without a résumé, "failed" (kit continues). */
   resume: "reviewed" | "kept" | "none" | "failed";
-  /** Phases 6 and 7 add recommender briefs and the interview plan here. */
-  later: ["recommenders", "interview_plan"];
+  /** Phase 6: recommender briefs for this school ("failed" keeps the kit going). */
+  recommenders: BriefsStageOutput | "failed";
+  /** Phase 7 adds the interview plan here. */
+  later: ["interview_plan"];
 }
 
 /**
- * Stage 9 (§5.7): the Form Advisor for this school, and the Résumé Pass when a résumé has been
- * uploaded and not reviewed yet. Neither failing fails the kit, whose essays are ready by now: the
- * form view and the Résumé page each ask again when opened.
+ * Stage 9 (§5.7): the Form Advisor for this school, the Résumé Pass when a résumé has been
+ * uploaded and not reviewed yet, and the first brief for each recommender writing for this school
+ * (Phase 6). None failing fails the kit, whose essays are ready by now: the form view, the Résumé
+ * page and screen H each ask again when opened.
  */
 async function formsStage(deps: KitDeps, ref: KitRef, l: Loaded): Promise<FormsStageOutput> {
   let forms: FormsStageOutput["forms"];
@@ -854,10 +884,19 @@ async function formsStage(deps: KitDeps, ref: KitRef, l: Loaded): Promise<FormsS
     console.error("[kit] résumé pass failed", error);
     resume = "failed";
   }
+  let recommenders: FormsStageOutput["recommenders"];
+  try {
+    recommenders = await briefsForKit(deps, ref, l);
+  } catch (error) {
+    if (error instanceof KitNotFoundError) throw error;
+    console.error("[kit] recommender briefs failed", error);
+    recommenders = "failed";
+  }
   return {
     forms,
     resume,
-    later: ["recommenders", "interview_plan"],
+    recommenders,
+    later: ["interview_plan"],
   };
 }
 

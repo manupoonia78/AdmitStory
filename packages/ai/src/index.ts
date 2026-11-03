@@ -29,6 +29,7 @@ export {
   type EmbeddingProvider,
 } from "./embed";
 export {
+  DISABLED_TTL_MS,
   OVERLAY_TTL_MS,
   abBucket,
   createRegistryOverlay,
@@ -42,6 +43,7 @@ export {
   AIError,
   AIRefusalError,
   BudgetExceededError,
+  FeatureDisabledError,
   InputValidationError,
   OutputTruncatedError,
   OutputValidationError,
@@ -132,6 +134,14 @@ export {
   type Material,
   type PackIndex,
 } from "./tasks/provenance";
+// Phase 6: the Recommender Kit's rules, re-run by the app on stored briefs and portal answers.
+export {
+  assistAnswerText,
+  assistProvenanceIssues,
+  briefCiteIssues,
+  lorStoryText,
+  type BriefCiteContext,
+} from "./tasks/lor";
 export { TASKS, type TaskInput, type TaskName, type TaskOutput } from "./tasks";
 // Task input and output schemas, so feature code can type the values it hands to and gets from
 // ai.run() without importing from src/schemas directly.
@@ -150,3 +160,18 @@ export type { TracingConfig } from "./tracing";
 export * from "./canon";
 // The evaluation harness (spec §8.11). Node-only: it reads fixtures from disk.
 export * from "./fixtures";
+export {
+  INJECTION_NOTE_THRESHOLD,
+  canaryFor,
+  injectionSignals,
+  outputLeakIssues,
+  stripInvisible,
+} from "./security/injection";
+export {
+  baselinePath,
+  compareToBaseline,
+  loadBaseline,
+  runEvalSuite,
+  scanReplays,
+  type EvalCase,
+} from "./evals";

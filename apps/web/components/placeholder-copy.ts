@@ -20,11 +20,6 @@ export const PLACEHOLDERS = {
     emptyTitle: "No schools yet",
     emptyDescription: "School Strategy isn't open yet. Your schools will appear here.",
   },
-  interview: {
-    title: "Interview",
-    emptyTitle: "No practice yet",
-    emptyDescription: "Interview Studio isn't open yet. Practice will appear here.",
-  },
   connect: {
     title: "Connect",
     emptyTitle: "No contacts yet",

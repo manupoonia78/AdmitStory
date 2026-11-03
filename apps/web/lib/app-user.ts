@@ -5,7 +5,7 @@ import { redirect } from "next/navigation";
 import { cache } from "react";
 import type { AuthSession } from "./auth";
 import { createOnboardingGuard, hasCompletedWelcome } from "./guards";
-import { requireSession } from "./session";
+import { requireApiSession, requireSession } from "./session";
 
 export { hasCompletedWelcome };
 
@@ -14,13 +14,7 @@ export interface AppUser {
   profile: Profile;
 }
 
-/**
- * The signed-in user and their profile, deduplicated per request. Redirects to /sign-in without a
- * session. If the sign-up hook failed after the user row was written, the profile is created here
- * (onUserCreated is idempotent), so an account never gets stuck without one.
- */
-export const requireAppUser = cache(async (): Promise<AppUser> => {
-  const session = await requireSession();
+async function withProfile(session: AuthSession): Promise<AppUser> {
   const db = getDb();
   let profile = await getProfile(db, session.user.id);
   if (!profile) {
@@ -29,7 +23,21 @@ export const requireAppUser = cache(async (): Promise<AppUser> => {
   }
   if (!profile) throw new Error("The profile could not be created for the signed-in user.");
   return { session, profile };
-});
+}
+
+/**
+ * The signed-in user and their profile, deduplicated per request. Redirects to /sign-in without a
+ * session. If the sign-up hook failed after the user row was written, the profile is created here
+ * (onUserCreated is idempotent), so an account never gets stuck without one.
+ */
+export const requireAppUser = cache(async (): Promise<AppUser> =>
+  withProfile(await requireSession()),
+);
+
+/** The same for route handlers: NotSignedInError (401) without a session, never a redirect. */
+const requireApiAppUser = cache(async (): Promise<AppUser> =>
+  withProfile(await requireApiSession()),
+);
 
 const onboardingGuards = {
   page: cache(
@@ -39,16 +47,18 @@ const onboardingGuards = {
     }),
   ),
   action: createOnboardingGuard({ getAppUser: requireAppUser }),
+  api: createOnboardingGuard({ getAppUser: requireApiAppUser }),
 };
 
 /**
  * The signed-in user once the welcome gate (18+ and the integrity commitments) is passed. Every
  * (app) page calls it (the default, `"page"`: redirects to /welcome), and every server action that
  * acts for the user calls it with `"action"`, which throws WelcomeNotCompletedError (403) instead.
+ * Route handlers use `"api"` (through lib/api.ts requireUser): no session is NotSignedInError (401).
  * The (app) layout's own check is for UX only: it doesn't protect pages rendered beside it, and it
  * never runs for a server action.
  */
-export function requireOnboardedUser(from: "page" | "action" = "page"): Promise<AppUser> {
+export function requireOnboardedUser(from: "page" | "action" | "api" = "page"): Promise<AppUser> {
   return onboardingGuards[from]();
 }
 

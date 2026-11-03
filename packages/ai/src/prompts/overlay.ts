@@ -45,12 +45,16 @@ export interface RegistryOverlay {
   canonDocs(): Promise<readonly OverlayCanonDoc[]>;
   /** Task-level route overrides, validated by resolveRoute() when used. */
   routeOverrides(): Promise<Partial<Record<RouteTask, unknown>>>;
+  /** Tasks paused by a kill switch (Phase 9b); run() refuses them before any spend. */
+  disabledTasks(): Promise<ReadonlySet<string>>;
 }
 
 export interface RegistryOverlaySource {
   promptVersions?: (agent: string) => Promise<readonly OverlayPromptVersion[]>;
   canonDocs?: () => Promise<readonly OverlayCanonDoc[]>;
   routeOverrides?: () => Promise<Partial<Record<RouteTask, unknown>>>;
+  /** Tasks paused by a kill switch. Cached for DISABLED_TTL_MS whatever `ttlMs` says. */
+  disabledTasks?: () => Promise<ReadonlySet<string>>;
   /**
    * How long each answer is reused, in ms (default 60 s, so a publish shows up within a minute,
    * the Phase 3 AC). 0 reads the source on every call.
@@ -61,6 +65,8 @@ export interface RegistryOverlaySource {
 }
 
 export const OVERLAY_TTL_MS = 60_000;
+/** Kill switches act within 15 seconds (Phase 9b decision 5). */
+export const DISABLED_TTL_MS = 15_000;
 
 /**
  * A RegistryOverlay from plain async functions; a missing function means "nothing published".
@@ -71,9 +77,9 @@ export function createRegistryOverlay(source: RegistryOverlaySource): RegistryOv
   const now = source.now ?? Date.now;
   const cache = new Map<string, { at: number; value: Promise<unknown> }>();
 
-  function cached<T>(key: string, load: () => Promise<T>): Promise<T> {
+  function cached<T>(key: string, load: () => Promise<T>, ttlFor = ttl): Promise<T> {
     const hit = cache.get(key);
-    if (hit && ttl > 0 && now() - hit.at < ttl) return hit.value as Promise<T>;
+    if (hit && ttlFor > 0 && now() - hit.at < ttlFor) return hit.value as Promise<T>;
     const value = load();
     cache.set(key, { at: now(), value });
     value.catch(() => cache.delete(key));
@@ -88,6 +94,12 @@ export function createRegistryOverlay(source: RegistryOverlaySource): RegistryOv
     canonDocs: () => cached("canon", async () => (source.canonDocs ? source.canonDocs() : [])),
     routeOverrides: () =>
       cached("routes", async () => (source.routeOverrides ? source.routeOverrides() : {})),
+    disabledTasks: () =>
+      cached(
+        "disabled",
+        async () => (source.disabledTasks ? source.disabledTasks() : new Set<string>()),
+        ttl === 0 ? 0 : Math.min(ttl, DISABLED_TTL_MS),
+      ),
   };
 }
 

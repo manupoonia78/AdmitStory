@@ -1,15 +1,25 @@
 "use server";
 
-import { getDb, markFirstRunComplete, updateProfile, upsertFacts } from "@admitstory/db";
+import {
+  createSource,
+  getDb,
+  markFirstRunComplete,
+  updateProfile,
+  upsertFacts,
+} from "@admitstory/db";
 import { redirect } from "next/navigation";
 import { z } from "zod";
 import { captureServerEvent } from "@/lib/analytics/server";
 import { requireOnboardedUser } from "@/lib/app-user";
+import { HOMEPAGE_LINE_ORIGIN } from "@/lib/studio/homepage-line";
 
 // First run (spec §5.1): four screens, under a minute, then straight into Story Studio.
 //
 // The one-line current role becomes a Fact Sheet fact rather than a profile column, so the
 // interviewer confirms it in passing instead of asking for it again (§2 "tell it once", §5.2).
+//
+// The line said on our homepage, when the applicant kept it (plan §5 step 3), becomes a source
+// like anything else they said: encrypted, and quoted back by Story Studio's first question.
 
 const Input = z.object({
   targetIntake: z.coerce.number().int().min(2026).max(2035),
@@ -27,6 +37,14 @@ const Input = z.object({
   timezone: z.string().trim().min(1).max(64),
   currentRole: z.string().trim().max(200),
   studioMode: z.enum(["express", "standard", "deep"]),
+  firstLine: z
+    .string()
+    .trim()
+    .min(1)
+    .max(200)
+    // One line: no control characters (lib/marketing/first-line.ts cleanLine).
+    .regex(/^[^\u0000-\u001f\u007f-\u009f]+$/)
+    .optional(),
 });
 
 export type FirstRunInput = z.input<typeof Input>;
@@ -63,6 +81,13 @@ export async function completeFirstRun(input: FirstRunInput): Promise<FirstRunSt
         status: "needs_confirmation",
       },
     ]);
+
+  if (values.firstLine)
+    await createSource(db, userId, {
+      kind: "conversation_note",
+      text: values.firstLine,
+      meta: { origin: HOMEPAGE_LINE_ORIGIN },
+    });
 
   await markFirstRunComplete(db, userId);
   await captureServerEvent({

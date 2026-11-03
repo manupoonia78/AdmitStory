@@ -9,7 +9,7 @@ import { SpokenVoiceprintBody } from "@/lib/voice/schemas";
 export async function PUT(request: Request): Promise<Response> {
   return handle(async () => {
     const { session } = await requireUser();
-    checkRateLimit("dossierWrites", session.user.id, RATE_LIMITS.dossierWrites);
+    await checkRateLimit("dossierWrites", session.user.id, RATE_LIMITS.dossierWrites);
     const identity = await readJson(request, SpokenVoiceprintBody);
     const db = getDb();
     const saved = await saveVoiceprint(db, session.user.id, identity);

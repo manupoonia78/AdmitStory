@@ -9,6 +9,7 @@ import {
   Dialog,
   DialogContent,
   ExportMenu,
+  FeedbackControl,
   FilesPane,
   LimitCounter,
   NeedComposer,
@@ -51,7 +52,8 @@ import type { WorkspaceView } from "@/lib/workspace/view";
 const SAVE_DEBOUNCE_MS = 1_500;
 
 /** The résumé entry in Files opens the Résumé page; every other entry is a deliverable. */
-const fileHref = (key: string) => (key === "resume" ? "/resume" : `/workspace/${key}`);
+const fileHref = (key: string) =>
+  key === "resume" ? "/resume" : key === "recommenders" ? "/recommenders" : `/workspace/${key}`;
 
 /** What the canvas shows before TipTap arrives: the same draft, as text, in the same place. */
 const CanvasStandIn = createContext<ReactNode>(null);
@@ -466,6 +468,10 @@ export function WorkspaceScreen({ initial }: { initial: WorkspaceView }) {
           }
         />
       ) : null}
+
+      {draft && draft.paragraphs.length > 0 ? (
+        <FeedbackControl key={draft.id} targetType="draft" targetId={draft.id} />
+      ) : null}
       <StatusMessage
         message={optionLanded ? `Option ${drafting} is drafted. Compare it side by side.` : status}
       />
@@ -486,6 +492,7 @@ export function WorkspaceScreen({ initial }: { initial: WorkspaceView }) {
           shows={view.why.shows}
           promptParts={view.why.promptParts}
           schoolFit={view.why.schoolFit}
+          recommenderCovers={view.why.recommenderCovers}
         />
       }
       options={

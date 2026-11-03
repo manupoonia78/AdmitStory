@@ -1,7 +1,9 @@
 import { getDb, setKitStatus } from "@admitstory/db";
 import { ai } from "@/lib/ai";
+import { raiseAdminAlert } from "@/lib/alerts";
 import { finishKit, runStage, STAGE_ORDER } from "@/lib/kit/pipeline";
 import { inngest } from "../client";
+import { pausable } from "../pause";
 import { kitGapsAnswered, kitGenerate } from "../events";
 
 // Spec §5.7: the paid kit, one step per stage. Inngest memoises finished steps and each stage also
@@ -18,10 +20,18 @@ export const kitGenerateFn = inngest.createFunction(
     triggers: [kitGenerate],
     // One kit at a time per applicant, and a global ceiling on concurrent kits (§12.4).
     concurrency: [{ key: "event.data.userId", limit: 1 }, { limit: 20 }],
-    retries: 3,
+    // Enough retries to ride out a short kill-switch pause (15 minutes a retry).
+    retries: 6,
     onFailure: async ({ event }) => {
       const { kitId, userId } = event.data.event.data;
       console.error("[kit] generation failed for good; admin alerted", { kitId });
+      await raiseAdminAlert({
+        kind: "kit_failed",
+        key: `kit_failed:${kitId}`,
+        severity: "warn",
+        title: "A kit failed to build",
+        detail: { kitId, userId },
+      });
       await setKitStatus(getDb(), userId, kitId, "failed", {
         error: "Your kit stopped partway. Try again and it picks up where it stopped.",
       });
@@ -32,11 +42,13 @@ export const kitGenerateFn = inngest.createFunction(
     const deps = () => ({ ai: ai(), db: getDb() });
     await step.run("start", () => setKitStatus(getDb(), ref.userId, ref.kitId, "running"));
     for (const key of STAGE_ORDER) {
-      const output = await step.run(key, async () => {
-        const result = await runStage(deps(), ref, key);
-        await ai().flush();
-        return result;
-      });
+      const output = await step.run(key, () =>
+        pausable(async () => {
+          const result = await runStage(deps(), ref, key);
+          await ai().flush();
+          return result;
+        }),
+      );
       if (key === "gaps" && !ref.only && ((output as { blocking?: number }).blocking ?? 0) > 0)
         await step.waitForEvent("wait for gap answers", {
           event: kitGapsAnswered,

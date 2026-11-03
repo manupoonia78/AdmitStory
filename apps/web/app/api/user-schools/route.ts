@@ -40,7 +40,7 @@ export async function POST(request: Request): Promise<Response> {
   return handle(async () => {
     const { session } = await requireUser();
     const userId = session.user.id;
-    checkRateLimit("strategyWrites", userId, STRATEGY_LIMITS.writes);
+    await checkRateLimit("strategyWrites", userId, STRATEGY_LIMITS.writes);
     const body = await readJson(request, Body);
     let row;
     try {

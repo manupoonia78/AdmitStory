@@ -32,6 +32,9 @@ export const sourceKinds = [
   "import",
   "conversation_note",
   "need_answer",
+  // Phase 6: the applicant's intake answers about one recommender (meta: recommenderId,
+  // questionId). Never Dossier material: consolidation lists the kinds it reads explicitly.
+  "recommender_intake",
 ] as const;
 export const sourceKindEnum = pgEnum("source_kind", sourceKinds);
 export type SourceKind = (typeof sourceKinds)[number];

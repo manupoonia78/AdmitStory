@@ -58,7 +58,7 @@ export async function PATCH(
   return handle(async () => {
     const { session } = await requireUser();
     const userId = session.user.id;
-    checkRateLimit("strategyWrites", userId, STRATEGY_LIMITS.writes);
+    await checkRateLimit("strategyWrites", userId, STRATEGY_LIMITS.writes);
     const id = await ownedId(context);
     const patch = await readJson(request, Patch);
     const db = getDb();
@@ -100,7 +100,7 @@ export async function DELETE(
 ): Promise<Response> {
   return handle(async () => {
     const { session } = await requireUser();
-    checkRateLimit("strategyWrites", session.user.id, STRATEGY_LIMITS.writes);
+    await checkRateLimit("strategyWrites", session.user.id, STRATEGY_LIMITS.writes);
     const id = await ownedId(context);
     try {
       const removed = await removeUserSchool(getDb(), session.user.id, id);

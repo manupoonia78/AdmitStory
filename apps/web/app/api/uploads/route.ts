@@ -1,13 +1,16 @@
+import { injectionSignals } from "@admitstory/ai";
 import { createSource, getDb } from "@admitstory/db";
 import { importParseUpload, inngest } from "@/inngest";
 import { ApiError, RATE_LIMITS, badRequest, checkRateLimit, handle, requireUser } from "@/lib/api";
 import {
+  DocumentTooLargeError,
   MAX_UPLOAD_BYTES,
   UnsupportedDocumentError,
   extractDocumentText,
   formatFor,
   guessDocumentKind,
 } from "@/lib/studio/documents";
+import { assertFeatureOn } from "@/lib/features";
 
 // POST /api/uploads (spec §5.1 step 3, §5.2 "Upload").
 //
@@ -21,7 +24,8 @@ export async function POST(request: Request): Promise<Response> {
   return handle(async () => {
     const { session: auth } = await requireUser();
     const userId = auth.user.id;
-    checkRateLimit("uploads", userId, RATE_LIMITS.uploads);
+    await checkRateLimit("uploads", userId, RATE_LIMITS.uploads);
+    await assertFeatureOn("uploads");
 
     let form: FormData;
     try {
@@ -45,7 +49,7 @@ export async function POST(request: Request): Promise<Response> {
       format = resolved;
       text = await extractDocumentText(new Uint8Array(await file.arrayBuffer()), resolved);
     } catch (error) {
-      if (error instanceof UnsupportedDocumentError)
+      if (error instanceof UnsupportedDocumentError || error instanceof DocumentTooLargeError)
         throw new ApiError(error.status, error.message);
       // A corrupt or image-only PDF: say so plainly rather than failing silently.
       throw new ApiError(
@@ -66,7 +70,14 @@ export async function POST(request: Request): Promise<Response> {
     const source = await createSource(getDb(), userId, {
       kind: "upload",
       text,
-      meta: { fileName: file.name, format, bytes: file.size, documentKind },
+      // The injection score is a number, never text (Phase 9b decision 20).
+      meta: {
+        fileName: file.name,
+        format,
+        bytes: file.size,
+        documentKind,
+        injectionScore: injectionSignals(text).score,
+      },
     });
 
     // Parsing starts immediately in the background (spec §5.1 step 3).

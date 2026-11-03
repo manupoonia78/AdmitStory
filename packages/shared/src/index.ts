@@ -64,3 +64,4 @@ export {
 } from "./voiceprint";
 export * from "./dossier";
 export { SEED_SCHOOLS, spokenSchoolName, type SeedSchool, type SeedSchoolRegion } from "./schools";
+export * from "./ops";

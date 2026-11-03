@@ -93,6 +93,23 @@ describe("schema conventions (spec §10)", () => {
         "consistency_dismissals",
         "form_advice",
         "resume_reviews",
+        // Phase 6: the Recommender Kit and the recommender portal.
+        "lor_briefs",
+        "lor_plans",
+        "lor_stories",
+        "recommender_invites",
+        "recommender_reminders",
+        "recommender_workspaces",
+        "recommenders",
+        // Phase 9b: operations (kill switches, alerts, evals, break-glass, account deletion).
+        "account_deletions",
+        "admin_alerts",
+        "break_glass_grants",
+        "eval_ratings",
+        "eval_runs",
+        "eval_samples",
+        "feature_switches",
+        "route_overrides",
       ].sort(),
     );
   });
@@ -445,5 +462,77 @@ describe("Phase 5 tables (§5.10 forms, résumé, consistency)", () => {
     expect(uniques("resume_reviews")).toContainEqual(["source_id"]);
     expect(onDelete("resume_reviews", "source_id")).toBe("cascade");
     expect(uniques("consistency_dismissals")).toContainEqual(["user_id", "finding_id"]);
+  });
+});
+
+describe("Phase 6 tables (§5.11 Recommender Kit)", () => {
+  const uniques = (name: string) =>
+    table(name).uniqueConstraints.map((u) => u.columns.map((c) => c.name));
+  const indexed = (name: string) =>
+    table(name).indexes.map((i) => i.config.columns.map((c) => ("name" in c ? c.name : "")));
+  const owned = [
+    "recommenders",
+    "lor_stories",
+    "lor_plans",
+    "lor_briefs",
+    "recommender_invites",
+    "recommender_workspaces",
+    "recommender_reminders",
+  ];
+
+  it.each(owned)("%s has an indexed user_id that cascades with the user", (name) => {
+    expect(column(name, "user_id").notNull).toBe(true);
+    expect(onDelete(name, "user_id")).toBe("cascade");
+    expect([...indexed(name), ...uniques(name)].some((cols) => cols[0] === "user_id")).toBe(true);
+  });
+
+  it.each([
+    "lor_stories",
+    "lor_briefs",
+    "recommender_invites",
+    "recommender_workspaces",
+    "recommender_reminders",
+  ])("%s.recommender_id cascades with the recommender", (name) => {
+    expect(column(name, "recommender_id").notNull).toBe(true);
+    expect(onDelete(name, "recommender_id")).toBe("cascade");
+  });
+
+  it("keeps refs, R codes, plans, briefs, tokens, workspaces and reminders unique", () => {
+    expect(uniques("recommenders")).toContainEqual(["user_id", "ref"]);
+    expect(uniques("lor_stories")).toContainEqual(["user_id", "code"]);
+    expect(uniques("lor_plans")).toContainEqual(["user_id"]);
+    expect(uniques("lor_briefs")).toContainEqual(["recommender_id", "group_key"]);
+    expect(uniques("recommender_invites")).toContainEqual(["token_hash"]);
+    expect(uniques("recommender_workspaces")).toContainEqual(["recommender_id", "email_hash"]);
+    expect(uniques("recommender_reminders")).toContainEqual(["recommender_id", "kind", "deadline"]);
+    expect(indexed("recommender_invites")).toContainEqual(["previous_token_hash"]);
+    expect(indexed("recommender_reminders")).toContainEqual(["status", "send_at"]);
+    expect(indexed("lor_stories")).toContainEqual(["recommender_id"]);
+  });
+
+  it("keeps a workspace when its invite goes, and stores only token hashes", () => {
+    expect(onDelete("recommender_workspaces", "invite_id")).toBe("set null");
+    const inviteColumns = table("recommender_invites").columns.map((c) => c.name);
+    expect(inviteColumns).toEqual(expect.arrayContaining(["token_hash", "previous_token_hash"]));
+    expect(inviteColumns.some((c) => c === "token" || c === "raw_token")).toBe(false);
+  });
+
+  it("encrypts what the recommender writes rather than storing it in the clear", () => {
+    const names = table("recommender_workspaces").columns.map((c) => c.name);
+    expect(names).toEqual(
+      expect.arrayContaining([
+        "private_notes_encrypted",
+        "letter_draft_encrypted",
+        "voice_encrypted",
+      ]),
+    );
+    for (const plain of ["notes", "private_notes", "letter", "letter_draft", "voice"])
+      expect(names).not.toContain(plain);
+  });
+
+  it("starts reminders switched off and adds the intake source kind", () => {
+    expect(column("recommender_reminders", "status").default).toBe("suggested");
+    expect(schema.sourceKindEnum.enumValues).toContain("recommender_intake");
+    expect(schema.sourceKinds.at(-1)).toBe("recommender_intake");
   });
 });

@@ -1,4 +1,5 @@
 import { z } from "zod";
+import { isProductionDeploy, productionProblems } from "./launch-env";
 
 // Server environment (spec §17). Parsed on first use, never at import time, so `next build` only
 // needs the variables that the code it actually runs reads.
@@ -70,15 +71,41 @@ export const ServerEnv = z
     DEEPGRAM_API_KEY: optional,
     TTS_PROVIDER: z.preprocess(
       (value) => (typeof value === "string" && value.trim() !== "" ? value.trim() : undefined),
-      z.enum(["cartesia", "elevenlabs"]).default("cartesia"),
+      z.enum(["deepgram", "openai_compat", "cartesia", "elevenlabs"]).default("deepgram"),
     ),
     CARTESIA_API_KEY: optional,
+    OPENAI_TTS_BASE_URL: optionalUrl,
+    OPENAI_TTS_API_KEY: optional,
+    OPENAI_TTS_MODEL: optional,
+    OPENAI_TTS_VOICES: optional,
     ELEVENLABS_API_KEY: optional,
     FAKE_STT_URL: optional.pipe(z.url({ protocol: /^wss?$/ }).optional()),
     AI_MODE: z.preprocess(
       (value) => (typeof value === "string" && value.trim() !== "" ? value.trim() : undefined),
       z.enum(["replay", "live"]).default("replay"),
     ),
+    // Marketing site (Phase 9a). SITE_URL is the public domain for canonical URLs, the sitemap and
+    // the OG image; without it APP_URL stands in. DEMO_STT is the kill switch for speaking in the
+    // landing hero, and DEMO_DAILY_CAP the most demo sessions per day across all visitors.
+    SITE_URL: optionalUrl,
+    DEMO_STT: z.preprocess(
+      (value) =>
+        typeof value === "string" && value.trim() !== "" ? value.trim().toLowerCase() : undefined,
+      z.enum(["on", "off"]).default("on"),
+    ),
+    DEMO_DAILY_CAP: z.preprocess(
+      (value) => (typeof value === "string" && value.trim() !== "" ? value.trim() : undefined),
+      z.coerce.number().int().nonnegative().default(500),
+    ),
+    // Phase 9b. ADMIN_ALERT_EMAIL receives admin alerts; CSP_REPORT_ONLY=1 sends the policy as
+    // report-only; Upstash (or Vercel KV's names for it) backs rate limits and idempotency.
+    ADMIN_ALERT_EMAIL: optional.pipe(z.email().optional()),
+    CSP_REPORT_ONLY: optional,
+    UPSTASH_REDIS_REST_URL: optionalUrl,
+    UPSTASH_REDIS_REST_TOKEN: optional,
+    KV_REST_API_URL: optionalUrl,
+    KV_REST_API_TOKEN: optional,
+    VERCEL_ENV: optional,
   })
   // The widget (site key) and the server check (secret) only make sense together.
   .refine((env) => Boolean(env.TURNSTILE_SITE_KEY) === Boolean(env.TURNSTILE_SECRET_KEY), {
@@ -110,10 +137,16 @@ export type ServerEnv = z.output<typeof ServerEnv>;
 /** Parses an environment object; throws one readable error listing every problem. */
 export function parseServerEnv(source: Record<string, string | undefined>): ServerEnv {
   const result = ServerEnv.safeParse(source);
-  if (!result.success) {
-    const lines = result.error.issues.map(
-      (issue) => `  - ${issue.path.join(".")}: ${issue.message}`,
-    );
+  // A production deployment refuses fakes: replay AI, the outbox, fake payments and voice
+  // (Phase 9b decision 23). Listed with the schema's problems so one error says everything.
+  const production = isProductionDeploy(source) ? productionProblems(source) : [];
+  if (!result.success || production.length > 0) {
+    const lines = [
+      ...(result.success ? [] : result.error.issues).map(
+        (issue) => `  - ${issue.path.join(".")}: ${issue.message}`,
+      ),
+      ...production.map((problem) => `  - production: ${problem}`),
+    ];
     throw new Error(
       `Invalid server environment. Set these in the repo-root .env.local or the host:\n${lines.join("\n")}`,
     );

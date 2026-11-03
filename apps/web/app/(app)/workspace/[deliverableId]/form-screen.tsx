@@ -33,7 +33,8 @@ async function errorOf(response: Response | null, fallback: string): Promise<str
   return body?.error ?? fallback;
 }
 
-const fileHref = (key: string) => (key === "resume" ? "/resume" : `/workspace/${key}`);
+const fileHref = (key: string) =>
+  key === "resume" ? "/resume" : key === "recommenders" ? "/recommenders" : `/workspace/${key}`;
 
 export function FormScreen({ initial }: { initial: FormView }) {
   const router = useRouter();

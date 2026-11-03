@@ -1,5 +1,8 @@
 import "server-only";
 
+import { FeatureDisabledError } from "@admitstory/ai";
+import { ApiError } from "@/lib/api-error";
+import { pausedMessage } from "@/lib/features";
 import { EmailNotVerifiedError, NotSignedInError, WelcomeNotCompletedError } from "@/lib/guards";
 import { requireOnboardedUser, type AppUser } from "@/lib/app-user";
 import type { z } from "zod";
@@ -7,25 +10,16 @@ import type { z } from "zod";
 // Shared plumbing for the route handlers of spec §11: every input Zod-validated, every user-scoped
 // route ownership-checked, and one error shape so the client never has to guess.
 //
-// Rate limits are in-process (spec §12.4 specifies Upstash; it is not configured and is not part of
-// Phase 1 — see docs/phase-1.md). That protects a single instance from a runaway client, which is
-// what a development and beta deployment needs; it is not a defence across instances.
+// Rate limits live in lib/rate-limit.ts (Upstash, with an in-process fallback) and are re-exported
+// here for the routes that import them from this module.
+
+export { ApiError } from "@/lib/api-error";
+export { RATE_LIMITS, checkIpRateLimit, checkRateLimit, type RateLimit } from "@/lib/rate-limit";
 
 export interface ApiErrorBody {
   error: string;
   /** Only set when a field failed validation, so a form can point at it. */
   issues?: { path: string; message: string }[];
-}
-
-export class ApiError extends Error {
-  constructor(
-    readonly status: number,
-    message: string,
-    readonly issues?: { path: string; message: string }[],
-  ) {
-    super(message);
-    this.name = "ApiError";
-  }
 }
 
 export function badRequest(message: string, issues?: { path: string; message: string }[]): never {
@@ -43,8 +37,19 @@ export async function handle(run: () => Promise<Response>): Promise<Response> {
   } catch (error) {
     if (error instanceof ApiError)
       return Response.json(
-        { error: error.message, ...(error.issues ? { issues: error.issues } : {}) },
+        {
+          error: error.message,
+          ...(error.issues ? { issues: error.issues } : {}),
+          ...(error.code ? { code: error.code } : {}),
+          ...error.extra,
+        },
         { status: error.status },
+      );
+    // A kill switch (Phase 9b): the feature's own calm line, and a code the client can show.
+    if (error instanceof FeatureDisabledError)
+      return Response.json(
+        { error: await pausedMessage(error.feature), code: "paused", feature: error.feature },
+        { status: 503, headers: { "Retry-After": "60" } },
       );
     if (
       error instanceof NotSignedInError ||
@@ -62,7 +67,7 @@ export async function handle(run: () => Promise<Response>): Promise<Response> {
 
 /** The signed-in, onboarded user for a route handler, or a 401/403 response. */
 export function requireUser(): Promise<AppUser> {
-  return requireOnboardedUser("action");
+  return requireOnboardedUser("api");
 }
 
 /** Parses a JSON body against a schema, reporting field errors the form can use. */
@@ -86,38 +91,4 @@ export async function readJson<T extends z.ZodType>(
       })),
     );
   return parsed.data;
-}
-
-/* Rate limiting ------------------------------------------------------------------------------ */
-
-const buckets = new Map<string, number[]>();
-
-export interface RateLimit {
-  /** Requests allowed per window. */
-  limit: number;
-  windowMs: number;
-}
-
-/** Spec §12.4's Studio limits. Drills join them in Phase 7. */
-export const RATE_LIMITS = {
-  studioTurns: { limit: 30, windowMs: 60_000 },
-  tts: { limit: 60, windowMs: 60_000 },
-  /** Not in §12.4: one token per dictated answer, so this only stops a runaway client. */
-  sttToken: { limit: 20, windowMs: 60_000 },
-  uploads: { limit: 10, windowMs: 60_000 },
-  dossierWrites: { limit: 120, windowMs: 60_000 },
-} as const satisfies Record<string, RateLimit>;
-
-export function checkRateLimit(key: string, userId: string, { limit, windowMs }: RateLimit): void {
-  const bucketKey = `${key}:${userId}`;
-  const now = Date.now();
-  const recent = (buckets.get(bucketKey) ?? []).filter((at) => now - at < windowMs);
-  if (recent.length >= limit)
-    throw new ApiError(429, "That's faster than we can keep up with. Try again in a moment.");
-  recent.push(now);
-  buckets.set(bucketKey, recent);
-  // Keep the map from growing without bound on a long-lived instance.
-  if (buckets.size > 10_000)
-    for (const [candidate, times] of buckets)
-      if (times.every((at) => now - at >= windowMs)) buckets.delete(candidate);
 }

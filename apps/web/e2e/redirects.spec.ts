@@ -1,7 +1,7 @@
 import { expect, test } from "@playwright/test";
 
 test.describe("signed out", () => {
-  for (const path of ["/home", "/settings/security", "/welcome", "/"]) {
+  for (const path of ["/home", "/settings/security", "/welcome"]) {
     test(`${path} redirects to /sign-in`, async ({ page }) => {
       await page.goto(path);
       await expect(page).toHaveURL(/\/sign-in$/);

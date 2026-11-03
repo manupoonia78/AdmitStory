@@ -21,7 +21,15 @@ export const FILE_GROUPS = [
 export type FileGroupId = (typeof FILE_GROUPS)[number]["id"];
 
 /** A deliverable's state in the Files pane (spec §5.8): drafting, draft ready, needs you, final. */
-export type FileStatus = "waiting" | "drafting" | "draft_ready" | "needs_you" | "final" | "failed";
+export type FileStatus =
+  | "waiting"
+  | "drafting"
+  | "draft_ready"
+  | "needs_you"
+  | "final"
+  | "failed"
+  /** Interview practice (Phase 7) is not open at launch; its items say so plainly. */
+  | "coming_soon";
 
 export interface FileEntry {
   key: string;
@@ -56,6 +64,7 @@ const STATUS: Record<FileStatus, { tone: StatusTone; word: string }> = {
   needs_you: { tone: "needs", word: "Needs you" },
   final: { tone: "verified", word: "Final" },
   failed: { tone: "risk", word: "Didn’t finish" },
+  coming_soon: { tone: "neutral", word: "Coming soon" },
 };
 
 /** The status in words, with the count of open questions for "Needs you". */

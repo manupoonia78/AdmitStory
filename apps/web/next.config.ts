@@ -16,14 +16,28 @@ const browserEnv = Object.fromEntries(
   BROWSER_ENV_KEYS.map((key) => [key, process.env[key]?.trim() ?? ""]),
 );
 
-// Baseline security headers (spec §14.6). A full Content-Security-Policy (script/style/connect
-// sources for Turnstile, PostHog, Sentry, Paddle and Cal.com) is a Phase 9 item; until then the
-// policy only forbids framing.
+// Security headers (spec §14.6, Phase 9b decision 21). The Content-Security-Policy is not here:
+// proxy.ts builds it per request with a nonce, so each page response carries exactly one. HSTS
+// gains `preload` only once the domain is final (docs/LAUNCH.md).
 const SECURITY_HEADERS = [
   { key: "Strict-Transport-Security", value: "max-age=63072000; includeSubDomains" },
   { key: "X-Content-Type-Options", value: "nosniff" },
   { key: "Referrer-Policy", value: "strict-origin-when-cross-origin" },
-  { key: "Content-Security-Policy", value: "frame-ancestors 'none'" },
+  { key: "X-Frame-Options", value: "DENY" },
+  {
+    key: "Permissions-Policy",
+    value: 'camera=(), geolocation=(), microphone=(self), payment=(self "https://*.paddle.com")',
+  },
+  // Paddle's overlay and Google sign-in open popups that must be able to talk back.
+  { key: "Cross-Origin-Opener-Policy", value: "same-origin-allow-popups" },
+];
+
+// The recommender portal (Phase 6 plan §8): a token in the path must never leak through a Referer
+// header, a cache or a search engine. Listed after the global rule so these values win.
+const PORTAL_HEADERS = [
+  { key: "Referrer-Policy", value: "no-referrer" },
+  { key: "Cache-Control", value: "no-store" },
+  { key: "X-Robots-Tag", value: "noindex, nofollow" },
 ];
 
 // packages/ai reads these at runtime (canon, prompt templates, replay fixtures), so they must be
@@ -32,6 +46,10 @@ const AI_RUNTIME_FILES = [
   `${REPO_ROOT}knowledge/canon/*.md`,
   `${REPO_ROOT}packages/ai/src/prompts/**/*.md`,
   `${REPO_ROOT}fixtures/llm-replays/**/*.json`,
+  // Phase 9b's in-app eval scan: the baseline, the synthetic applicants and the compiled packs.
+  `${REPO_ROOT}fixtures/evals/*.json`,
+  `${REPO_ROOT}fixtures/applicants/**/*`,
+  `${REPO_ROOT}packages/ai/scripts/samples/*.compiled.txt`,
 ];
 
 const nextConfig: NextConfig = {
@@ -54,7 +72,12 @@ const nextConfig: NextConfig = {
     optimizePackageImports: ["@phosphor-icons/react", "@admitstory/ui"],
   },
   async headers() {
-    return [{ source: "/:path*", headers: SECURITY_HEADERS }];
+    return [
+      { source: "/:path*", headers: SECURITY_HEADERS },
+      { source: "/r", headers: PORTAL_HEADERS },
+      { source: "/r/:path*", headers: PORTAL_HEADERS },
+      { source: "/api/r/:path*", headers: PORTAL_HEADERS },
+    ];
   },
 };
 

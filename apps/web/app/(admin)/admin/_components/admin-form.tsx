@@ -7,7 +7,8 @@ import { adminRequest } from "./request";
 
 // A form that sends its fields to an /api/admin route as JSON, then refreshes the page's server
 // data. Field types come from the inputs: `data-json="number"`, `"boolean"` (checkbox), `"array"`
-// (checkboxes sharing a name), `"json"` (a textarea holding JSON). Empty text becomes null.
+// (checkboxes sharing a name), `"json"` (a textarea holding JSON). Empty text becomes null, and a
+// dotted name (`limit.key`) becomes a nested field.
 // `multipart` sends the FormData itself (file uploads).
 
 export interface AdminFormProps {
@@ -56,6 +57,24 @@ function toJson(form: HTMLFormElement): Record<string, unknown> {
       }
     } else if (kind === "keep") out[name] = raw;
     else out[name] = raw.trim() === "" ? null : raw;
+  }
+  return nest(out);
+}
+
+/** `{ "limit.key": "drills" }` → `{ limit: { key: "drills" } }`, for fields of a nested object. */
+function nest(flat: Record<string, unknown>): Record<string, unknown> {
+  const out: Record<string, unknown> = {};
+  for (const [name, value] of Object.entries(flat)) {
+    const path = name.split(".");
+    let target = out;
+    for (const part of path.slice(0, -1)) {
+      const next = target[part];
+      target = (next && typeof next === "object" ? next : (target[part] = {})) as Record<
+        string,
+        unknown
+      >;
+    }
+    target[path[path.length - 1] ?? name] = value;
   }
   return out;
 }

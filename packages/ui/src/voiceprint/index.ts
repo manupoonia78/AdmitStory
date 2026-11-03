@@ -15,6 +15,7 @@ export type {
 export { DEFAULT_IDENTITY, paramsFromIdentity } from "./params";
 export { Voiceprint } from "./voiceprint";
 export { VoiceprintStill, type VoiceprintStillProps } from "./voiceprint-still";
+export { voiceprintStillSvg } from "./still-svg";
 export { SILENT_SIGNAL, microphoneSupported, useMicrophone, type MicrophoneOptions } from "./audio";
 export type { AnalysisFrame } from "./audio-features";
 export {

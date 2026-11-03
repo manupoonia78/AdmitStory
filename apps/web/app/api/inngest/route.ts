@@ -6,6 +6,10 @@ import { serverEnv } from "@/lib/env";
 // Inngest calls this route to run functions (spec §7.4). Requests are signed with
 // INNGEST_SIGNING_KEY; INNGEST_DEV=1 (localhost only) points the SDK at a local Dev Server and
 // turns signature checks off.
+// Each step runs inside one request; long model calls need the Pro plan's 300 s.
+export const maxDuration = 300;
+export const dynamic = "force-dynamic";
+
 const handler = serve({ client: inngest, functions });
 type Handler = typeof handler.GET;
 

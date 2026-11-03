@@ -29,6 +29,10 @@ jobs:
       - run: pnpm lint
       - run: pnpm typecheck
       - run: pnpm test
+      # Phase 9b: replay eval gate (§8.11), route guard inventory, and known-vulnerable prod deps.
+      - run: pnpm --filter @admitstory/ai eval:gate
+      - run: pnpm --filter @admitstory/web routes:audit
+      - run: pnpm audit --prod --audit-level=high
 
   e2e:
     name: Integration, e2e smoke, Lighthouse

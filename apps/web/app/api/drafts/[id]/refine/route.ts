@@ -19,7 +19,7 @@ export async function POST(
 ): Promise<Response> {
   return handle(async () => {
     const { session } = await requireUser();
-    checkRateLimit("refine", session.user.id, REFINE_LIMIT);
+    await checkRateLimit("refine", session.user.id, REFINE_LIMIT);
     const ctx = await draftContext(session.user.id, await idParam(context, "id", "That draft"));
     const body = await readJson(request, Body);
     const result = await refineDraft(session.user.id, ctx, {

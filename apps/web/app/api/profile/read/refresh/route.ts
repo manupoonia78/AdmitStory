@@ -13,7 +13,7 @@ export async function POST(): Promise<Response> {
   return handle(async () => {
     const { session } = await requireUser();
     const userId = session.user.id;
-    checkRateLimit("profileReadRefresh", userId, STRATEGY_LIMITS.profileReadRefresh);
+    await checkRateLimit("profileReadRefresh", userId, STRATEGY_LIMITS.profileReadRefresh);
     const latest = await getLatestProfileRead(getDb(), userId);
     await dispatch(profileReadRequested.create({ userId, reason: "manual" }), () =>
       runProfileRead(userId, "manual"),

@@ -9,9 +9,11 @@ import {
   type EmbedInputType,
   type EmbeddingProvider,
 } from "./embed";
+import { featureForTask } from "@admitstory/shared";
 import {
   AIError,
   AIRefusalError,
+  FeatureDisabledError,
   InputValidationError,
   OutputTruncatedError,
   OutputValidationError,
@@ -443,7 +445,9 @@ export function createAI(config: AIConfig): AI {
     const def = getTask(task);
     const { route, prepared: preparedTask } = await resolve(def, ctx);
 
-    // 2. Budget: downgrade or refuse before spending anything.
+    // 2. Kill switch, then budget: refuse or downgrade before spending anything.
+    if (config.overlay && (await config.overlay.disabledTasks()).has(task))
+      throw new FeatureDisabledError(featureForTask(task) ?? "unknown", task);
     const decision = await checkBudget({
       ledger: config.ledger,
       userId: ctx.userId ?? null,

@@ -111,3 +111,15 @@ export {
 } from "./consistency/types";
 export { checkConsistency } from "./consistency/check";
 export { fitToLimit, type FitResult } from "./fit";
+export {
+  checkLorOverlap,
+  facetSimilarity,
+  LOR_ESSAY_SIMILARITY,
+  LOR_FACET_SIMILARITY,
+  recommenderVoice,
+  type LorEssayFacet,
+  type LorFacetPoint,
+  type LorOverlapFinding,
+  type LorOverlapInput,
+  type RecommenderVoice,
+} from "./lor";
