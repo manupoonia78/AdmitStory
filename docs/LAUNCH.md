@@ -31,8 +31,19 @@ Cartesia, ElevenLabs.
      manager**: without it every story and draft is unreadable. Rotate yearly.
 5. **Resend** → verify the sending domain (SPF, DKIM, DMARC) → `RESEND_API_KEY`, `EMAIL_FROM`
    (e.g. `AdmitStory <hello@admitstory.com>`).
-6. **Google OAuth** (optional) → `GOOGLE_CLIENT_ID`, `GOOGLE_CLIENT_SECRET`. Redirect URI
-   `https://<domain>/api/auth/callback/google`.
+6. **Google sign-in** (required at launch) → `GOOGLE_CLIENT_ID`, `GOOGLE_CLIENT_SECRET`. The
+   button is already built and appears on `/sign-in` once both are set.
+   - console.cloud.google.com → new project "AdmitStory".
+   - Google Auth Platform → Branding: app name, support email, logo, the domain under
+     "Authorized domains", links to `/privacy` and `/terms`. Audience: External. Data access:
+     scopes `openid`, `email`, `profile` only (no Google verification review needed for these).
+   - Clients → Create client → Web application. Authorized JavaScript origins:
+     `https://<domain>` and `http://localhost:3000`. Authorized redirect URIs:
+     `https://<domain>/api/auth/callback/google` and
+     `http://localhost:3000/api/auth/callback/google`. Copy the client ID and secret.
+   - Audience → "Publish app" (In production), or only test users listed there can sign in.
+   - A Google sign-in with the same email as an existing magic-link account signs into that
+     account (Google reports the email as verified).
 7. **Cloudflare Turnstile** → `TURNSTILE_SITE_KEY`, `TURNSTILE_SECRET_KEY` (hostname: the domain).
 8. **Anthropic** → `ANTHROPIC_API_KEY`, `AI_MODE=live`. Set a monthly spend limit in the console.
    Then re-record the replays (`pnpm --filter @admitstory/ai record:phase3` … `record:phase9`),

@@ -154,3 +154,9 @@ region, governing law and counsel's review of /privacy and /terms (the `TODO(Man
   typecheck, 2428 tests, build, bundle (`/` 154.4/155), Chrome pass on 8 signed-out pages (no CSP violations, 0 axe).
   Wrote `docs/phase-9.md` (deviations 1–6). NEXT: nothing left in the plan. Manu: commit, then `docs/LAUNCH.md` §1 in
   order; the signed-in a11y/CSP pass (needs a session and DB access) is on the go-live list.
+- 2026-11-03 (session 8): Committed everything (89105bf). Gates before the commit: format, lint, typecheck, 2428
+  tests, build, bundle. Google sign-in was already built (Phase 0: `socialProviders` in `lib/auth.ts`, the button on
+  `/sign-in`, hidden until both keys are set); Manu wants it at launch, so `launch-env.ts` now requires
+  `GOOGLE_CLIENT_ID` + `GOOGLE_CLIENT_SECRET` in production and `docs/LAUNCH.md` §1.6 has the Google Cloud steps.
+  Verified: Google sign-in links to an existing magic-link account with the same email (both verified). NEXT: Manu's
+  keys, in `docs/LAUNCH.md` §1 order; then the live acceptance runs and the signed-in CSP/a11y pass.

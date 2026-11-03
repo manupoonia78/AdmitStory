@@ -87,6 +87,12 @@ export function serviceChecks(env: Record<string, string | undefined>): ServiceC
       required: true,
     },
     {
+      service: "Google sign-in",
+      status: both("GOOGLE_CLIENT_ID", "GOOGLE_CLIENT_SECRET") ? "live" : "missing",
+      detail: "GOOGLE_CLIENT_ID + GOOGLE_CLIENT_SECRET (else the Google button is hidden)",
+      required: true,
+    },
+    {
       service: "Turnstile",
       status: both("TURNSTILE_SITE_KEY", "TURNSTILE_SECRET_KEY") ? "live" : "optional",
       detail: "TURNSTILE_SITE_KEY + TURNSTILE_SECRET_KEY",
