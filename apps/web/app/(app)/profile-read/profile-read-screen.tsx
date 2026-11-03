@@ -3,6 +3,7 @@
 import {
   Button,
   EvidenceLink,
+  FeedbackControl,
   LensFindings,
   LensInstrument,
   StrengtheningPlan,
@@ -38,6 +39,8 @@ export interface ProfileReadScreenProps {
   brand: Finding[];
   evidence: Record<string, EvidenceItem>;
   version: number | null;
+  /** The read on screen, rated by the feedback control at the foot. */
+  readId: string | null;
   builtAt: string | null;
   behind: boolean;
   /** "thin": not enough stories yet. "building": the first read is on its way. */
@@ -55,6 +58,7 @@ export function ProfileReadScreen({
   brand,
   evidence,
   version,
+  readId,
   builtAt,
   behind,
   state,
@@ -189,6 +193,14 @@ export function ProfileReadScreen({
             ))}
           </ul>
         </section>
+      ) : null}
+
+      {readId && state === "ready" ? (
+        <FeedbackControl
+          targetType="profile_read"
+          targetId={readId}
+          className="border-t border-edge pt-6"
+        />
       ) : null}
 
       {drawerUsed ? (

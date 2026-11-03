@@ -19,6 +19,9 @@ const guards = createGuards({
 /** Server components and actions: the session, or a redirect to /sign-in. */
 export const requireSession = guards.requireSession;
 
+/** Route handlers: the session, or NotSignedInError (401). A redirect means nothing to fetch(). */
+export const requireApiSession = createGuards({ getSession }).requireSession;
+
 /**
  * The session of a user whose email is verified, or EmailNotVerifiedError (403). Gates voice
  * routes from Phase 2 (spec §5.1, §12.4: verified email before any voice session).

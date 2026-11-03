@@ -28,7 +28,7 @@ export async function PATCH(
 ): Promise<Response> {
   return handle(async () => {
     const { session } = await requireUser();
-    checkRateLimit("dossierWrites", session.user.id, RATE_LIMITS.dossierWrites);
+    await checkRateLimit("dossierWrites", session.user.id, RATE_LIMITS.dossierWrites);
     const { id } = await context.params;
     const patch = await readJson(request, StoryPatch);
     const story = await updateStory(getDb(), session.user.id, id, patch);

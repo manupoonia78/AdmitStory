@@ -50,6 +50,20 @@
       "when": 1793520629156,
       "tag": "0006_forms_resume_consistency",
       "breakpoints": true
+    },
+    {
+      "idx": 7,
+      "version": "7",
+      "when": 1793596185252,
+      "tag": "0007_recommender_kit",
+      "breakpoints": true
+    },
+    {
+      "idx": 8,
+      "version": "7",
+      "when": 1793708288136,
+      "tag": "0008_hardening",
+      "breakpoints": true
     }
   ]
 }

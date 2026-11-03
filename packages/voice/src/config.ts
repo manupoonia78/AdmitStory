@@ -33,6 +33,21 @@ export const CARTESIA = {
   speedRange: [0.6, 1.5],
 } as const;
 
+/** Deepgram Aura-2 text to speech: the launch default (same key as dictation). */
+export const DEEPGRAM_TTS = {
+  url: "https://api.deepgram.com/v1/speak",
+  /** verify: the request character limit. */
+  maxChars: 2_000,
+} as const;
+
+/** A self-hosted OpenAI-compatible speech server (Kokoro-FastAPI). */
+export const OPENAI_COMPAT_TTS = {
+  maxChars: 4_000,
+  speedRange: [0.5, 2],
+  defaultModel: "kokoro",
+  defaultVoices: { warm: "af_heart", clear: "af_bella", low: "am_michael" },
+} as const;
+
 export const ELEVENLABS = {
   url: (voiceId: string) =>
     `https://api.elevenlabs.io/v1/text-to-speech/${encodeURIComponent(voiceId)}/stream/with-timestamps`,
@@ -47,12 +62,20 @@ export const ELEVENLABS = {
  * vendor's voice library (no id is guessed here); an adapter with an unmapped voice fails with a
  * message that points at this object.
  */
-export const PROVIDER_VOICES: Record<"cartesia" | "elevenlabs", Record<TtsVoice, string>> = {
+export const PROVIDER_VOICES: Record<
+  "deepgram" | "cartesia" | "elevenlabs",
+  Record<TtsVoice, string>
+> = {
+  // verify: picked from Deepgram's Aura-2 English voices; Manu may change them after listening.
+  deepgram: { warm: "aura-2-thalia-en", clear: "aura-2-andromeda-en", low: "aura-2-orion-en" },
   cartesia: { warm: "", clear: "", low: "" },
   elevenlabs: { warm: "", clear: "", low: "" },
 };
 
-export function providerVoiceId(provider: "cartesia" | "elevenlabs", voice: TtsVoice): string {
+export function providerVoiceId(
+  provider: "deepgram" | "cartesia" | "elevenlabs",
+  voice: TtsVoice,
+): string {
   const id = PROVIDER_VOICES[provider][voice];
   if (!id)
     throw new Error(

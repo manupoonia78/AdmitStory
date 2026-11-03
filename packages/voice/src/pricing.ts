@@ -8,7 +8,15 @@ export const VOICE_RATES = {
   /** verify: Deepgram streaming, USD per minute of audio. */
   sttPerMinute: { deepgram: 0.0048, fake: 0 },
   /** verify: §12.2 assumes $0.03–0.05 per 1K characters; the midpoint until invoices say otherwise. */
-  ttsPer1kChars: { cartesia: 0.04, elevenlabs: 0.04, fake: 0 },
+  ttsPer1kChars: {
+    /** verify: Aura-2 list price, USD per 1K characters. */
+    deepgram: 0.03,
+    /** Self-hosted: the server's own cost, not per character. */
+    openai_compat: 0,
+    cartesia: 0.04,
+    elevenlabs: 0.04,
+    fake: 0,
+  },
 } as const;
 
 export type SttProviderName = keyof typeof VOICE_RATES.sttPerMinute;

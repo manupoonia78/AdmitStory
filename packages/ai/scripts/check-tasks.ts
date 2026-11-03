@@ -27,6 +27,13 @@ import {
   UTIL_CLASSIFY_INPUT,
 } from "./samples/phase4";
 import { FORMS_ADVISE_INPUT, RESUME_REVIEW_INPUT } from "./samples/phase5";
+import {
+  ASSIST_INPUT,
+  LOR_BRIEF_REC1_INPUT,
+  LOR_EXTRACT_REC1_INPUT,
+  LOR_PLAN_INPUT,
+} from "./samples/phase6";
+import { EVAL_JUDGE_CLEAN_INPUT } from "./samples/phase9";
 
 const root = findRepoRoot(process.cwd());
 if (!root) throw new Error("no repo root");
@@ -109,6 +116,11 @@ const SAMPLES: Record<string, unknown> = {
   "kb.refresh_check": KB_REFRESH_CHECK_INPUT,
   "forms.advise": FORMS_ADVISE_INPUT,
   "resume.review": RESUME_REVIEW_INPUT,
+  "lor.extract": LOR_EXTRACT_REC1_INPUT,
+  "lor.plan": LOR_PLAN_INPUT,
+  "lor.brief": LOR_BRIEF_REC1_INPUT,
+  "lor.recommender_assist": ASSIST_INPUT,
+  "eval.judge": EVAL_JUDGE_CLEAN_INPUT,
 };
 
 let failures = 0;

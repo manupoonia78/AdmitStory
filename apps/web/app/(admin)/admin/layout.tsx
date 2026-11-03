@@ -14,12 +14,18 @@ export const metadata: Metadata = {
 };
 
 const NAV = [
+  { href: "/admin/costs", label: "Costs" },
+  { href: "/admin/switches", label: "Switches" },
+  { href: "/admin/routing", label: "Routing" },
+  { href: "/admin/users", label: "Users" },
+  { href: "/admin/orders", label: "Orders" },
+  { href: "/admin/feedback", label: "Feedback" },
+  { href: "/admin/evals", label: "Evals" },
   { href: "/admin/schools", label: "Schools and cycles" },
   { href: "/admin/sources", label: "Knowledge sources" },
   { href: "/admin/ai-policies", label: "AI policies" },
   { href: "/admin/canon", label: "Canon" },
   { href: "/admin/prompts", label: "Prompts" },
-  { href: "/admin/orders", label: "Orders" },
 ];
 
 export default async function AdminLayout({ children }: { children: ReactNode }) {
@@ -32,7 +38,7 @@ export default async function AdminLayout({ children }: { children: ReactNode })
           aria-label="Admin"
           className="mx-auto flex max-w-[96rem] flex-wrap items-center gap-x-5 gap-y-1 px-4 py-2 text-sm"
         >
-          <Link href="/admin/schools" className="font-semibold text-text">
+          <Link href="/admin" className="font-semibold text-text">
             Admin
           </Link>
           {NAV.map((item) => (

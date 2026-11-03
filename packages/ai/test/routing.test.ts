@@ -45,6 +45,11 @@ const SPEC: Record<RouteTask, [RoutableModelKey, Effort, number]> = {
   "util.summarize": ["haiku", "low", 1_000],
   // Added in Phase 1: the simulator §8.11 names but §8.3 has no row for.
   "eval.applicant_simulator": ["haiku", "low", 1_200],
+  // Added in Phase 9b (§8.11 rubric judge).
+  "eval.judge": ["opus", "medium", 3_000],
+  // Added in Phase 6: intake extraction and the recommender plan (plan decision 12).
+  "lor.extract": ["haiku", "medium", 4_000],
+  "lor.plan": ["sonnet", "medium", 3_000],
 };
 
 const allChoices = (): [string, ModelChoice][] =>

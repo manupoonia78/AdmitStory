@@ -7,8 +7,9 @@
 
 import type { LensId } from "../lenses";
 import type { TraitId } from "../traits";
+import type { LorGrowthArc } from "./recommenders";
 
-/** A provenance code: "F12" | "S03" | "L041" | "K17" | "C2" | "P3" (spec §8.7). */
+/** A provenance code: "F12" | "S03" | "L041" | "K17" | "C2" | "P3" (spec §8.7), or "R02" (Phase 6). */
 export type Cite = string;
 
 /** Where the Strategist plans to address a red flag (Appendix I `Positioning.red_flags`). */
@@ -250,22 +251,37 @@ export interface DrillFeedback {
   consistency_flags: { text: string; conflicts_with: Cite }[];
 }
 
-/** Talking points for a recommender. Deliberately has no field for letter prose (§5.11). */
+/** One talking point under a school's recommendation question (Phase 6 decision 13). */
+export interface LorTalkingPoint {
+  /** A factual bullet, never letter prose: ≤ 35 words, ≤ 2 sentences. */
+  point: string;
+  /** What the recommender saw, with the numbers exactly as the material gives them. */
+  evidence: string;
+  trait: TraitId;
+  /** The story it comes from: an R code (this recommender's) or an S code, or null. */
+  story: Cite | null;
+  /** Which side of the story this point covers, so two recommenders never tell the same one. */
+  facet: string;
+  cites: Cite[];
+}
+
+/**
+ * Talking points for a recommender (Appendix I, grown by Phase 6 decision 13). Deliberately has no
+ * field for letter prose (§5.11): the recommender writes the letter, in their own words.
+ */
 export interface LorBrief {
+  /** Short, warm, in the applicant's voice; never offers a draft or a template. */
   cover_note: string;
   schools: {
     school_cycle_id: string;
     questions: {
+      question_id: string;
       question_verbatim: string;
-      talking_points: { point: string; evidence: string; trait: TraitId; cites: Cite[] }[];
+      talking_points: LorTalkingPoint[];
     }[];
   }[];
+  traits_to_reinforce: { trait: TraitId; why: string; cites: Cite[] }[];
   other_recommender_covers: string[];
-  development_arc: {
-    feedback: string;
-    response: string;
-    steps: string[];
-    evidence: string;
-  } | null;
-  key_facts: string[];
+  development_arc: LorGrowthArc | null;
+  key_facts: { text: string; cites: Cite[] }[];
 }

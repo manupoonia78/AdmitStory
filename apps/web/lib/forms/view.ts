@@ -149,7 +149,7 @@ export async function formViewFor(
     listDeliverables(db, userId, kit.kit.id),
     listFacts(db, userId),
     listStories(db, userId),
-    kitFiles(userId, kit.kit.id),
+    kitFiles(userId, kit.kit.id, { schoolCycleId: kit.schoolCycleId }),
     consistencyReport(db, userId, { kitId: kit.kit.id }),
     isStale(userId, advice),
   ]);

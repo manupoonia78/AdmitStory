@@ -21,7 +21,7 @@ export async function POST(request: Request): Promise<Response> {
   return handle(async () => {
     const { session } = await requireUser();
     const userId = session.user.id;
-    checkRateLimit("resumeReview", userId, { limit: 5, windowMs: 60_000 });
+    await checkRateLimit("resumeReview", userId, { limit: 5, windowMs: 60_000 });
     await readJson(request, Body);
     const result = await reviewLatestResume(ai(), userId).catch((error: unknown) => {
       if (error instanceof ResumeLockedError) throw new ApiError(402, error.message);

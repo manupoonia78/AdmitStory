@@ -21,7 +21,7 @@ export async function POST(
   return handle(async () => {
     const { session } = await requireUser();
     const userId = session.user.id;
-    checkRateLimit("gapAnswers", userId, { limit: 30, windowMs: 60_000 });
+    await checkRateLimit("gapAnswers", userId, { limit: 30, windowMs: 60_000 });
     const params = await context.params;
     const ids = z.object({ id: z.guid(), gapId: z.guid() }).safeParse(params);
     if (!ids.success) notFound("That question");

@@ -22,6 +22,7 @@ import {
   type FactRef,
 } from "@admitstory/linters";
 import type { Paragraph } from "@admitstory/shared/kit";
+import { briefConsistencyDocs } from "@/lib/recommenders/consistency";
 import { asPack } from "@/lib/strategy/pack";
 import { latestPack } from "@/lib/strategy/server";
 import { entryKey, formSections } from "./advise";
@@ -152,7 +153,8 @@ export async function consistencyReport(
     roles = resume.roles;
   }
   for (const kit of kits) docs.push(...(await kitDocs(db, userId, kit.id)));
-  // Recommender briefs join in Phase 6 (kind "brief").
+  // Recommender briefs (kind "brief", Phase 6): a brief states the same facts as the file.
+  docs.push(...(await briefConsistencyDocs(db, userId, scope)));
   const findings = checkConsistency({ facts: factRefs(facts), roles, docs, dismissed });
   return {
     findings,

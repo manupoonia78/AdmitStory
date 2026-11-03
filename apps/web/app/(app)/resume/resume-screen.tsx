@@ -2,7 +2,7 @@
 
 import type { ConsistencyFinding, ConsistencyValue } from "@admitstory/linters";
 import type { BulletDecision } from "@admitstory/shared/kit";
-import { Button, EmptyState, ResumeSheet } from "@admitstory/ui";
+import { Button, EmptyState, FeedbackControl, ResumeSheet } from "@admitstory/ui";
 import { FileArrowUpIcon } from "@phosphor-icons/react";
 import Link from "next/link";
 import { useRef, useState } from "react";
@@ -237,6 +237,12 @@ export function ResumeScreen({ initial }: { initial: ResumeView }) {
               ? `/workspace/${value.docId}`
               : null
         }
+      />
+      <FeedbackControl
+        key={ready.reviewId}
+        targetType="resume_review"
+        targetId={ready.reviewId}
+        className="border-t border-edge pt-6"
       />
       <StatusMessage message={status} />
       <AlertMessage message={error} />

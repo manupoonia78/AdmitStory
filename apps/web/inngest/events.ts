@@ -22,14 +22,31 @@ export const kbPackPublished = eventType("kb/pack.published", {
   schema: z.object({ cycleId: z.guid(), version: z.int().positive() }),
 });
 
-/** A canon version was published: the eval suite runs from Phase 9 (§8.11); until then a no-op. */
+/** Run the eval suite (§8.11, §9.4): on canon publish, prompt activation, or "Run now". */
 export const evalsRun = eventType("evals/run", {
   schema: z.object({
-    reason: z.enum(["canon_published", "prompt_activated"]),
+    reason: z.enum(["canon_published", "prompt_activated", "manual"]),
     canonDocId: z.uuid().optional(),
+    promptVersionId: z.uuid().optional(),
     slug: z.string().max(80).optional(),
     version: z.int().positive().optional(),
+    /** Set when the console already created the run row ("Run now"). */
+    runId: z.uuid().optional(),
+    triggeredBy: z.uuid().optional(),
   }),
+});
+
+/* Phase 9b events ------------------------------------------------------------------------------ */
+
+/** Run the hourly spend watch now (dev and the console; the cron runs it otherwise). */
+export const adminSpendWatch = eventType("admin/spend-watch.run", {
+  schema: z.object({ reason: z.enum(["dev", "admin"]) }),
+});
+
+/** An account deletion was requested: email the confirmation, then delete the user row. */
+export const accountDeleteRequested = eventType("account/delete.requested", {
+  // No email here: the job reads it from the user row, so nothing personal sits in the event log.
+  schema: z.object({ deletionId: z.uuid() }),
 });
 
 /**
@@ -90,6 +107,28 @@ export const checksRerun = eventType("checks/rerun", {
     storyCodes: z.array(z.string().max(12)).max(200).optional(),
     reason: z.string().max(200),
   }),
+});
+
+/* Phase 6 events (spec §5.11, §7.4; plan §7) --------------------------------------------------- */
+
+/**
+ * Build (or rebuild) one recommender's briefs: the coverage plan first when its inputs changed,
+ * then `lor.brief` per school group. `applicant` is the brief route; `kit_stage` is pipeline stage 9.
+ */
+const LorBriefRequestedData = z.object({
+  userId: z.uuid(),
+  recommenderId: z.guid(),
+  groupKeys: z.array(z.string().min(1).max(80)).min(1).max(20),
+  reason: z.enum(["applicant", "kit_stage"]),
+});
+export type LorBriefRequested = z.infer<typeof LorBriefRequestedData>;
+export const lorBriefRequested = eventType("lor/brief.requested", {
+  schema: LorBriefRequestedData,
+});
+
+/** Run the recommender reminder loop now (the dev route; the hourly cron runs it otherwise). */
+export const recommenderRemindersRun = eventType("recommender/reminders.run", {
+  schema: z.object({ reason: z.enum(["dev", "admin"]) }),
 });
 
 /** True when events can be delivered (an event key, or the Dev Server). */

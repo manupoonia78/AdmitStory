@@ -5,6 +5,7 @@ import { after } from "next/server";
 import { inngest } from "@/inngest/client";
 import { evalsRun, inngestReady, kbPackPublished, kbSourceAdded } from "@/inngest/events";
 import { ai } from "@/lib/ai";
+import { runEvals } from "@/inngest/functions/evals-run";
 import { ingestKbSource } from "./ingest";
 
 // How the console starts background work. With Inngest configured (an event key, or the Dev
@@ -29,14 +30,26 @@ export async function emitPackPublished(cycleId: string, version: number): Promi
   await inngest.send(kbPackPublished.create({ cycleId, version }));
 }
 
-/** §9.4: publishing canon runs the eval suite. It arrives in Phase 9; until then this is logged. */
+/** §9.4: publishing canon (or activating a prompt, or "Run now") runs the eval suite (§8.11). */
 export async function emitEvalsRun(data: {
-  reason: "canon_published" | "prompt_activated";
+  reason: "canon_published" | "prompt_activated" | "manual";
   canonDocId?: string;
+  promptVersionId?: string;
   slug?: string;
   version?: number;
-}): Promise<void> {
-  console.info("[evals] run requested (the eval suite arrives in Phase 9):", data);
-  if (!inngestReady()) return;
-  await inngest.send(evalsRun.create(data));
+  runId?: string;
+  triggeredBy?: string;
+}): Promise<"queued" | "inline"> {
+  if (inngestReady()) {
+    await inngest.send(evalsRun.create(data));
+    return "queued";
+  }
+  after(async () => {
+    try {
+      await runEvals(data);
+    } catch (error) {
+      console.error("[evals] inline run failed:", error instanceof Error ? error.message : error);
+    }
+  });
+  return "inline";
 }

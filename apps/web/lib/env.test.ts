@@ -104,3 +104,31 @@ describe("helpers", () => {
     );
   });
 });
+
+describe("marketing env (Phase 9a)", () => {
+  it("defaults the hero demo to on with a daily cap of 500, and SITE_URL to unset", () => {
+    const env = testEnv();
+    expect(env.SITE_URL).toBeUndefined();
+    expect(env.DEMO_STT).toBe("on");
+    expect(env.DEMO_DAILY_CAP).toBe(500);
+    expect(testEnv({ DEMO_STT: "", DEMO_DAILY_CAP: " " })).toMatchObject({
+      DEMO_STT: "on",
+      DEMO_DAILY_CAP: 500,
+    });
+  });
+
+  it("reads the kill switch, the cap and the public domain", () => {
+    expect(testEnv({ DEMO_STT: "OFF" }).DEMO_STT).toBe("off");
+    expect(testEnv({ DEMO_DAILY_CAP: "40" }).DEMO_DAILY_CAP).toBe(40);
+    expect(testEnv({ SITE_URL: "https://admitstory.example" }).SITE_URL).toBe(
+      "https://admitstory.example",
+    );
+  });
+
+  it("rejects a malformed switch, cap or domain", () => {
+    expect(() => testEnv({ DEMO_STT: "maybe" })).toThrow(/DEMO_STT/);
+    expect(() => testEnv({ DEMO_DAILY_CAP: "-1" })).toThrow(/DEMO_DAILY_CAP/);
+    expect(() => testEnv({ DEMO_DAILY_CAP: "lots" })).toThrow(/DEMO_DAILY_CAP/);
+    expect(() => testEnv({ SITE_URL: "not a url" })).toThrow(/SITE_URL/);
+  });
+});

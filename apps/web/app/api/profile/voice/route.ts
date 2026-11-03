@@ -18,7 +18,7 @@ export async function GET(): Promise<Response> {
 export async function PATCH(request: Request): Promise<Response> {
   return handle(async () => {
     const { session } = await requireUser();
-    checkRateLimit("dossierWrites", session.user.id, RATE_LIMITS.dossierWrites);
+    await checkRateLimit("dossierWrites", session.user.id, RATE_LIMITS.dossierWrites);
     const patch = await readJson(request, VoiceSettingsPatchBody);
     const row = await updateVoiceSettings(getDb(), session.user.id, patch);
     if (!row) notFound("Your profile");

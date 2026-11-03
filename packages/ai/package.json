@@ -16,7 +16,10 @@
     "check:fixtures": "tsx scripts/check-fixtures.ts",
     "record:phase4": "tsx scripts/record-phase4.ts",
     "kit:golden": "tsx scripts/kit-golden.ts",
-    "record:phase5": "tsx scripts/record-phase5.ts"
+    "record:phase5": "tsx scripts/record-phase5.ts",
+    "record:phase6": "tsx scripts/record-phase6.ts",
+    "record:phase9": "tsx scripts/record-phase9.ts",
+    "eval:gate": "tsx scripts/eval-gate.ts"
   },
   "dependencies": {
     "@admitstory/linters": "workspace:*",

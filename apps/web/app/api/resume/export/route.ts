@@ -13,7 +13,7 @@ export async function POST(request: Request): Promise<Response> {
   return handle(async () => {
     const { session } = await requireUser();
     const userId = session.user.id;
-    checkRateLimit("export", userId, { limit: 20, windowMs: 60_000 });
+    await checkRateLimit("export", userId, { limit: 20, windowMs: 60_000 });
     await readJson(request, Body);
     const latest = await latestResumeReview(getDb(), userId);
     if (!latest) throw new ApiError(404, "There's no reviewed résumé to export yet.");

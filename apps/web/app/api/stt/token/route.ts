@@ -11,6 +11,7 @@ import {
   voiceProviders,
   voiceSettingsOf,
 } from "@/lib/voice/server";
+import { isFeatureOn, pausedMessage } from "@/lib/features";
 
 // POST /api/stt/token (spec §11, §7.5): a short-lived token for one Deepgram streaming connection,
 // so the browser streams audio straight to Deepgram and our master key never leaves the server.
@@ -33,7 +34,7 @@ export async function POST(): Promise<Response> {
         "email_unverified",
         "Confirm your email address before starting a voice session.",
       );
-    checkRateLimit("sttToken", userId, RATE_LIMITS.sttToken);
+    await checkRateLimit("sttToken", userId, RATE_LIMITS.sttToken);
 
     const remainingSeconds = await remainingVoiceSeconds(userId);
     if (remainingSeconds <= 0)
@@ -43,6 +44,8 @@ export async function POST(): Promise<Response> {
         "You've used your free voice minutes. Keep going in text; nothing is lost.",
       );
 
+    if (!(await isFeatureOn("studio_voice")))
+      return refuse(503, "stt_unavailable", await pausedMessage("studio_voice"));
     const { stt } = voiceProviders();
     if (stt.name === "fake" && !fakeProvidersAllowed())
       return refuse(503, "stt_unavailable", "Speaking isn't available right now. Type instead.");

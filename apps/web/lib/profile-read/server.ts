@@ -89,6 +89,8 @@ export async function runProfileRead(userId: string, reason: BuildReason): Promi
 /** Everything screen D needs, read in one place for the page and GET /api/profile/read. */
 export interface ProfileReadData {
   read: StoredRead | null;
+  /** The saved read's row id, which feedback is filed against. */
+  readId: string | null;
   version: number | null;
   builtAt: string | null;
   stories: ViewStory[];
@@ -113,6 +115,7 @@ export async function loadProfileRead(userId: string): Promise<ProfileReadData> 
     if (bar.id !== "goals" && bar.id !== "school_fit") levels[bar.id] = bar.level;
   return {
     read: row ? readStoredRead(row.content) : null,
+    readId: row?.id ?? null,
     version: row?.version ?? null,
     builtAt: row?.createdAt.toISOString() ?? null,
     stories: stories

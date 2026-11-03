@@ -23,7 +23,7 @@ export async function POST(
 ): Promise<Response> {
   return handle(async () => {
     const { session } = await requireUser();
-    checkRateLimit("strategyWrites", session.user.id, STRATEGY_LIMITS.writes);
+    await checkRateLimit("strategyWrites", session.user.id, STRATEGY_LIMITS.writes);
     const school = await schoolFor((await context.params).id);
     if (school.publishedPack)
       throw new ApiError(
@@ -41,7 +41,7 @@ export async function DELETE(
 ): Promise<Response> {
   return handle(async () => {
     const { session } = await requireUser();
-    checkRateLimit("strategyWrites", session.user.id, STRATEGY_LIMITS.writes);
+    await checkRateLimit("strategyWrites", session.user.id, STRATEGY_LIMITS.writes);
     const school = await schoolFor((await context.params).id);
     await withdrawSchoolVote(getDb(), session.user.id, school.id);
     return Response.json({ asked: false });

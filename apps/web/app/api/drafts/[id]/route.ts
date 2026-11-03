@@ -28,7 +28,7 @@ const Patch = z.strictObject({
 export async function PATCH(request: Request, context: Ctx): Promise<Response> {
   return handle(async () => {
     const { session } = await requireUser();
-    checkRateLimit("workspaceWrites", session.user.id, WORKSPACE_WRITE_LIMIT);
+    await checkRateLimit("workspaceWrites", session.user.id, WORKSPACE_WRITE_LIMIT);
     const { draft } = await draftContext(
       session.user.id,
       await idParam(context, "id", "That draft"),

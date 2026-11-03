@@ -39,7 +39,7 @@ export async function POST(request: Request): Promise<Response> {
   return handle(async () => {
     const { session } = await requireUser();
     const userId = session.user.id;
-    checkRateLimit("workspaceWrites", userId, WORKSPACE_WRITE_LIMIT);
+    await checkRateLimit("workspaceWrites", userId, WORKSPACE_WRITE_LIMIT);
     const body = await readJson(request, Body);
     const db = getDb();
     if (body.action === "dismiss") await dismissFinding(db, userId, body.findingId);

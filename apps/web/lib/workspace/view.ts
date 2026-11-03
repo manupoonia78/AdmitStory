@@ -4,6 +4,7 @@ import {
   getCurrentDraft,
   getDb,
   getDraft,
+  getKitContext,
   latestResumeReview,
   listAngles,
   listChecks,
@@ -33,6 +34,8 @@ import type {
 } from "@admitstory/ui";
 import type { CoachBeats, FileMap, VideoPlan } from "@admitstory/shared/kit";
 import { consistencyReport, findingsFor } from "@/lib/forms/consistency";
+import { recommenderCoversFor } from "@/lib/recommenders/covers";
+import { recommenderFileStatus } from "@/lib/recommenders/files";
 import { deliverableContext, policyFor } from "./server";
 
 // Everything screen G shows for one deliverable (spec §5.8, §6.10 G), as plain JSON for the page
@@ -108,6 +111,8 @@ export interface WorkspaceView {
     shows: string[];
     promptParts: { part: string; paragraphs: number[] }[];
     schoolFit: { text: string; sources: { id: string; label: string; verifiedAt: string }[] }[];
+    /** What this school's recommenders cover, so the essay leaves it to them (Phase 6). */
+    recommenderCovers: string[];
   };
   policy: {
     stance: string;
@@ -139,6 +144,11 @@ async function versionsOf(userId: string, deliverableId: string): Promise<DraftV
 
 /** The Files pane entry for the Résumé Pass, which lives at /resume (per applicant, not per kit). */
 export const RESUME_FILE_KEY = "resume";
+/**
+ * The Files pane entry for the recommender briefs, which live at /recommenders (Phase 6 decision
+ * 22): one entry in place of the pack's recommendation questions.
+ */
+export const RECOMMENDERS_FILE_KEY = "recommenders";
 
 /**
  * The Files pane for one kit (spec §5.8): every deliverable with its status, open questions and
@@ -152,48 +162,65 @@ export async function kitFiles(
     needs?: Awaited<ReturnType<typeof listNeedItems>>;
     verify?: Awaited<ReturnType<typeof listVerifyItems>>;
     current?: DraftRow | null;
+    /** The kit's school-cycle, for the recommender briefs' status; read when not given. */
+    schoolCycleId?: string;
   } = {},
 ): Promise<FileEntry[]> {
   const db = getDb();
-  const [all, needs, verify, review] = await Promise.all([
+  const [all, needs, verify, review, schoolCycleId] = await Promise.all([
     loaded.all ?? listDeliverables(db, userId, kitId).then((rows) => rows ?? []),
     loaded.needs ?? listNeedItems(db, userId, { kitId }),
     loaded.verify ?? listVerifyItems(db, userId, kitId),
     latestResumeReview(db, userId),
+    loaded.schoolCycleId ??
+      getKitContext(db, userId, kitId).then((ctx) => ctx?.schoolCycleId ?? null),
   ]);
+  const briefs = schoolCycleId
+    ? await recommenderFileStatus(db, userId, schoolCycleId)
+    : ("waiting" as const);
   const openNeeds = needs.filter((n) => n.status === "open");
   const files: FileEntry[] = await Promise.all(
-    all.map(async (d) => {
-      const rule = countRuleOf(d);
-      const current =
-        loaded.current && loaded.current.deliverableId === d.id
-          ? loaded.current
-          : await getCurrentDraft(db, userId, d.id);
-      const open =
-        openNeeds.filter((n) => n.deliverableId === d.id).length +
-        verify.filter((v) => v.deliverableId === d.id && v.status === "open").length;
-      return {
-        key: d.id,
-        title: d.title ?? d.packKey,
-        group: GROUP_OF[d.type] ?? "essays",
-        // Form sections are advised, not drafted: ready once the kit is.
-        status:
-          d.type === "form_section" && d.status === "pending"
-            ? "draft_ready"
-            : fileStatus(d, false),
-        ...(open > 0 ? { openQuestions: open } : {}),
-        ...(rule && current
-          ? {
-              progress: {
-                count: countAfterNormalize(current.plainText, d.limitKind ?? "words"),
-                limit: rule.limit,
-                unit: rule.unit,
-              },
-            }
-          : {}),
-      };
-    }),
+    all
+      .filter((d) => d.type !== "lor_question")
+      .map(async (d) => {
+        const rule = countRuleOf(d);
+        const current =
+          loaded.current && loaded.current.deliverableId === d.id
+            ? loaded.current
+            : await getCurrentDraft(db, userId, d.id);
+        const open =
+          openNeeds.filter((n) => n.deliverableId === d.id).length +
+          verify.filter((v) => v.deliverableId === d.id && v.status === "open").length;
+        return {
+          key: d.id,
+          title: d.title ?? d.packKey,
+          group: GROUP_OF[d.type] ?? "essays",
+          // Form sections are advised, not drafted: ready once the kit is.
+          status:
+            d.type === "interview_question"
+              ? "coming_soon"
+              : d.type === "form_section" && d.status === "pending"
+                ? "draft_ready"
+                : fileStatus(d, false),
+          ...(open > 0 ? { openQuestions: open } : {}),
+          ...(rule && current
+            ? {
+                progress: {
+                  count: countAfterNormalize(current.plainText, d.limitKind ?? "words"),
+                  limit: rule.limit,
+                  unit: rule.unit,
+                },
+              }
+            : {}),
+        };
+      }),
   );
+  files.push({
+    key: RECOMMENDERS_FILE_KEY,
+    title: "Recommender briefs",
+    group: "recommenders",
+    status: briefs,
+  });
   files.push({
     key: RESUME_FILE_KEY,
     title: "Resume pass",
@@ -222,9 +249,10 @@ export async function loadWorkspaceView(
       policyFor(kit),
       versionsOf(userId, deliverable.id),
     ]);
-  const [checks, report] = await Promise.all([
+  const [checks, report, recommenderCovers] = await Promise.all([
     draft ? listChecks(db, userId, draft.id) : [],
     consistencyReport(db, userId, { kitId: kit.kit.id }),
+    recommenderCoversFor(db, userId, kit.userSchoolId),
   ]);
   const allVersions = await listDraftVersions(db, userId, deliverable.id);
 
@@ -233,6 +261,7 @@ export async function loadWorkspaceView(
     needs,
     verify,
     current: draft,
+    schoolCycleId: kit.schoolCycleId,
   });
 
   const sources: Record<string, { label: string; quote: string }> = {};
@@ -370,6 +399,7 @@ export async function loadWorkspaceView(
           verifiedAt: verifiedOn,
         })),
       })),
+      recommenderCovers,
     },
     policy,
   };

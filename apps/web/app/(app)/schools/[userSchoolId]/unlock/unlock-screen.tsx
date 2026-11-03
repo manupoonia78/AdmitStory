@@ -7,6 +7,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useCallback, useEffect, useState } from "react";
 import { AlertMessage, StatusMessage } from "@/components/live-message";
+import { INTERVIEW_COMING_SOON } from "@/lib/interview/coming-soon";
 
 // Unlock (spec §5.6, §6.9 copy). One button names the exact action and price. With Paddle the
 // provider's overlay opens; locally (no Paddle keys) a calm test checkout stands in for it and
@@ -139,7 +140,9 @@ export function UnlockScreen({
             <li>Positioning and a file map for {school}</li>
             <li>Every essay, short answer and goals field, in your words where you said them</li>
             <li>Checks against the portal&apos;s limits and the school&apos;s rules</li>
+            <li>The form advisor, a résumé pass and a brief for each of your recommenders</li>
             <li>150 refinements and a version history</li>
+            <li className="text-text-soft">{INTERVIEW_COMING_SOON.promise}</li>
           </ul>
           <div className="flex flex-col items-start gap-2">
             <Button onClick={() => void checkout()} disabled={busy || !available}>

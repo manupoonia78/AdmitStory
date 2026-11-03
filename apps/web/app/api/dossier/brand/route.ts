@@ -16,7 +16,7 @@ export async function GET(): Promise<Response> {
 export async function PATCH(request: Request): Promise<Response> {
   return handle(async () => {
     const { session } = await requireUser();
-    checkRateLimit("dossierWrites", session.user.id, RATE_LIMITS.dossierWrites);
+    await checkRateLimit("dossierWrites", session.user.id, RATE_LIMITS.dossierWrites);
     const patch = await readJson(request, BrandPatch);
     const brand = await saveBrand(getDb(), session.user.id, { ...patch, accepted: true });
     return Response.json({ brand });

@@ -24,6 +24,7 @@ import {
   type WebhookHeaders,
 } from "@admitstory/payments";
 import { kitGenerate } from "@/inngest/events";
+import { raiseAdminAlert } from "@/lib/alerts";
 import { ApiError } from "@/lib/api";
 import { serverEnv } from "@/lib/env";
 import { latestPack } from "@/lib/strategy/server";
@@ -115,8 +116,16 @@ export async function openSchoolCheckout(
 export type WebhookResult = { status: number; body: Record<string, unknown> };
 
 async function alertAdmin(reason: string, meta: Record<string, unknown>): Promise<void> {
-  // Admin alerts are audit rows an admin reviews in the Orders console (§13).
+  // Admin alerts are audit rows an admin reviews in the Orders console (§13), and since Phase 9b
+  // an admin_alerts row on /admin, emailed to ADMIN_ALERT_EMAIL.
   console.warn("[payments] admin alert:", reason);
+  await raiseAdminAlert({
+    kind: "payment_mismatch",
+    key: `payment_mismatch:${typeof meta.eventId === "string" ? meta.eventId : reason.slice(0, 60)}`,
+    severity: "warn",
+    title: "A payment didn't match",
+    detail: { reason, ...meta },
+  });
   await recordAudit(systemContext(getDb(), "payments.webhook"), {
     action: "webhook_events.alert",
     targetType: "webhook_event",

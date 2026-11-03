@@ -9,6 +9,7 @@ import { PostHogIdentity } from "@/lib/analytics/posthog-client";
 import { googleConfigured, serverEnv } from "@/lib/env";
 import { getSession } from "@/lib/session";
 import { SIGN_IN_COPY, noticeForErrorCode } from "@/lib/sign-in-copy";
+import { KeptLine } from "./kept-line";
 import { SignInForm } from "./sign-in-form";
 
 export const metadata: Metadata = {
@@ -16,8 +17,12 @@ export const metadata: Metadata = {
   description: `Sign in to ${APP_NAME} with an email link, Google or a passkey.`,
 };
 
-/** `?error=` is the only parameter: the code Better Auth adds when it redirects back here. */
+/**
+ * `?error=` is the code Better Auth adds when it redirects back here. `?from=line` means the
+ * visitor pressed "Sign up and keep this line" on our homepage (plan §5).
+ */
 const SearchParams = z.object({
+  from: z.literal("line").optional().catch(undefined),
   error: z
     .string()
     .trim()
@@ -35,7 +40,7 @@ export default async function SignInPage({
   if (await getSession()) redirect("/home");
 
   const env = serverEnv();
-  const { error } = SearchParams.parse(await searchParams);
+  const { error, from } = SearchParams.parse(await searchParams);
   const theme = parseThemePreference((await cookies()).get(THEME_COOKIE)?.value);
 
   return (
@@ -43,7 +48,11 @@ export default async function SignInPage({
       {/* Signed out: forget any identity from before sign-out (no-op without POSTHOG_KEY). */}
       <PostHogIdentity userId={null} />
       <div className="flex flex-col gap-2">
-        <h1 className="text-display-sm text-text">{SIGN_IN_COPY.headline}</h1>
+        {from === "line" ? (
+          <KeptLine fallbackHeadline={SIGN_IN_COPY.headline} />
+        ) : (
+          <h1 className="text-display-sm text-text">{SIGN_IN_COPY.headline}</h1>
+        )}
         <p className="text-text-soft">{SIGN_IN_COPY.intro}</p>
       </div>
       <SignInForm

@@ -57,7 +57,7 @@ export async function POST(
     )
       return Response.json(preview, { status: 200 });
 
-    checkRateLimit("previewStart", userId, STRATEGY_LIMITS.previewStart);
+    await checkRateLimit("previewStart", userId, STRATEGY_LIMITS.previewStart);
     if ((await previewBudget(userId)) === "exceeded") {
       await setPreviewJob(userId, id, { state: "budget", at: new Date().toISOString() });
       return Response.json({ ...preview, state: { state: "budget" } });

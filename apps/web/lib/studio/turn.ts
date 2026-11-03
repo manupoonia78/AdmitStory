@@ -6,7 +6,9 @@ import {
   getDb,
   getLatestSnapshot,
   listFacts,
+  listSourceTexts,
   recentTurns,
+  updateSourceMeta,
   updateStudioSession,
   upsertSlotState,
   type StudioSession,
@@ -21,6 +23,7 @@ import {
   type SlotKey,
 } from "@admitstory/slots";
 import { ai } from "@/lib/ai";
+import { homepageOpener, unusedHomepageLine } from "./homepage-line";
 import { studioSchools } from "./schools";
 import { loadKnowledge, type StudioKnowledge } from "./state";
 
@@ -116,6 +119,17 @@ export async function askNextQuestion(
     countUserTurns(db, userId, session.id),
   ]);
 
+  // The line the applicant said on our homepage, if first run kept it: it seeds the very first
+  // question of a conversation, once (homepage-line.ts). Looked up only before the first turn.
+  const homepageLine =
+    history.length === 0
+      ? unusedHomepageLine(
+          await listSourceTexts(db, userId, { kinds: ["conversation_note"], limit: 20 }),
+        )
+      : null;
+  const homepageSeed = homepageOpener({ turnsInSession: history.length, source: homepageLine });
+  if (homepageSeed) seedQuestion = homepageSeed;
+
   const startedAt = Date.now();
   const result = await ai().run(
     "studio.interviewer",
@@ -157,10 +171,13 @@ export async function askNextQuestion(
   await upsertSlotState(db, userId, { slotKey: answeredSlot, asked: true });
   if (chapterId !== session.currentChapter)
     await updateStudioSession(db, userId, session.id, { currentChapter: chapterId });
-  if (opener)
+  // The homepage line took the express opener's place, so that opener is still to come.
+  if (opener && !homepageSeed)
     await updateStudioSession(db, userId, session.id, {
       openersAsked: session.openersAsked + 1,
     });
+  if (homepageSeed && homepageLine)
+    await updateSourceMeta(db, userId, homepageLine.id, { usedAt: now.toISOString() });
 
   return {
     question: result.question,

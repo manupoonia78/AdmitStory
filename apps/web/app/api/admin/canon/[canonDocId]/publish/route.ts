@@ -5,7 +5,7 @@ import { adminRoute } from "@/lib/admin/guard";
 import { canonRuleIds } from "@/lib/admin/registry";
 
 // POST /api/admin/canon/:canonDocId/publish (spec §9.4): publishing a canon version runs the eval
-// suite. The suite arrives in Phase 9; the evals/run event is emitted and logged until then.
+// suite (evals/run, Phase 9b; advisory in the app, enforced in CI and nightly).
 export const POST = adminRoute<{ canonDocId: string }>(async (admin, _request, { canonDocId }) => {
   const doc = await getCanonVersion(admin, canonDocId);
   if (!doc) notFound("That canon version");

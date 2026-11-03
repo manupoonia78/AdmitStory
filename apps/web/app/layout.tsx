@@ -1,11 +1,5 @@
 import { APP_NAME } from "@admitstory/shared";
-import {
-  THEME_COOKIE,
-  ToastProvider,
-  parseThemePreference,
-  themeAttribute,
-  themeColors,
-} from "@admitstory/ui";
+import { THEME_COOKIE, parseThemePreference, themeAttribute, themeColors } from "@admitstory/ui";
 import type { Metadata, Viewport } from "next";
 import { GeistSans } from "geist/font/sans";
 import { Newsreader } from "next/font/google";
@@ -62,9 +56,9 @@ export default async function RootLayout({ children }: { children: ReactNode }) 
       // ThemeToggle updates data-theme on the client without a reload.
       suppressHydrationWarning
     >
-      <body>
-        <ToastProvider>{children}</ToastProvider>
-      </body>
+      {/* No ToastProvider here: it sits in the layouts that toast ((app), the recommender
+          portal), so public pages don't carry its ~4 KB (marketing plan D1). */}
+      <body>{children}</body>
     </html>
   );
 }

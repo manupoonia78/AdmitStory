@@ -187,13 +187,45 @@ describe("Appendix I schemas", () => {
     // A brief carries talking points only; there is nowhere to put letter prose (§5.11).
     const brief = LorBrief.safeParse({
       cover_note: "Thank you.",
-      schools: [],
+      schools: [
+        {
+          school_cycle_id: "cycle-1",
+          questions: [
+            {
+              question_id: "c2",
+              question_verbatim: "How does the candidate compare?",
+              talking_points: [
+                {
+                  point: "Fixed the lab feed at 2 a.m.",
+                  evidence: "The go-live held.",
+                  trait: "delivers_under_pressure",
+                  story: "R01",
+                  facet: "The fix itself",
+                  cites: ["S01", "R01"],
+                },
+              ],
+            },
+          ],
+        },
+      ],
+      traits_to_reinforce: [{ trait: "brings_people_along", why: "The vendor call.", cites: [] }],
       other_recommender_covers: [],
       development_arc: null,
-      key_facts: [],
+      key_facts: [{ text: "Senior Software Engineer since April 2024", cites: ["F02"] }],
       letter: "Dear committee",
     });
     expect(brief.success && !("letter" in brief.data)).toBe(true);
+    // Phase 6 decision 13: key facts carry cites, talking points a story and a facet.
+    expect(
+      LorBrief.safeParse({
+        cover_note: "Thank you.",
+        schools: [],
+        traits_to_reinforce: [],
+        other_recommender_covers: [],
+        development_arc: null,
+        key_facts: ["A bare string"],
+      }).success,
+    ).toBe(false);
   });
 
   it("validate the Phase 3 reads", () => {

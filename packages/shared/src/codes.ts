@@ -1,9 +1,18 @@
 // Provenance codes (spec §8.7). Every citable thing an applicant's file is built from has a short,
 // stable code: the model reads and writes these, never database uuids. The widths come from §8.7
 // (`F##`, `S##`, `L###`, `P#`, `C#`, `K##`) and are minimums — a prolific applicant's 120th fact
-// is `F120`, not an error.
+// is `F120`, not an error. Phase 6 adds `R##`: a recommender's story, told by the applicant at
+// intake (per user, never in the Dossier), which a recommender brief may cite.
 
-export const CODE_KINDS = ["fact", "story", "line", "person", "conversation", "pack"] as const;
+export const CODE_KINDS = [
+  "fact",
+  "story",
+  "line",
+  "person",
+  "conversation",
+  "pack",
+  "lor_story",
+] as const;
 
 export type CodeKind = (typeof CODE_KINDS)[number];
 
@@ -20,6 +29,7 @@ const SHAPES: Record<CodeKind, CodeShape> = {
   person: { prefix: "P", digits: 1 },
   conversation: { prefix: "C", digits: 1 },
   pack: { prefix: "K", digits: 2 },
+  lor_story: { prefix: "R", digits: 2 },
 };
 
 const KIND_BY_PREFIX = new Map<string, CodeKind>(

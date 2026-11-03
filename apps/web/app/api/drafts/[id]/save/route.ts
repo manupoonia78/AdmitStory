@@ -18,7 +18,7 @@ export async function POST(
 ): Promise<Response> {
   return handle(async () => {
     const { session } = await requireUser();
-    checkRateLimit("workspaceWrites", session.user.id, WORKSPACE_WRITE_LIMIT);
+    await checkRateLimit("workspaceWrites", session.user.id, WORKSPACE_WRITE_LIMIT);
     const ctx = await draftContext(session.user.id, await idParam(context, "id", "That draft"));
     const body = await readJson(request, Body);
     const saved = await saveUserEdits(session.user.id, ctx, body.paragraphs, body.lockedParagraphs);

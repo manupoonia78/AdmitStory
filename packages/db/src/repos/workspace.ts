@@ -1204,6 +1204,16 @@ export const NewFeedback = z.strictObject({
   rating: z.int().min(-1).max(5).nullable().optional(),
   reason: z.string().trim().max(200).nullable().optional(),
   text: z.string().trim().max(4000).nullable().optional(),
+  /** Ids and labels only (school, deliverable type, prompt version), never text. */
+  meta: z
+    .strictObject({
+      school: z.string().max(80).optional(),
+      deliverableType: z.string().max(60).optional(),
+      promptVersion: z.string().max(40).optional(),
+      draftVersion: z.int().min(0).optional(),
+      kitId: z.guid().optional(),
+    })
+    .optional(),
 });
 export type NewFeedback = z.input<typeof NewFeedback>;
 
@@ -1222,6 +1232,7 @@ export async function recordFeedback(
       rating: v.rating ?? null,
       reason: v.reason ?? null,
       text: v.text ?? null,
+      meta: v.meta ?? {},
     })
     .returning();
   if (!row) throw new Error("Failed to record feedback");

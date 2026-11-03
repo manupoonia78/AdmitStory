@@ -24,7 +24,7 @@ export async function POST(
   return handle(async () => {
     const { session } = await requireUser();
     const userId = session.user.id;
-    checkRateLimit("refine", userId, REFINE_LIMIT);
+    await checkRateLimit("refine", userId, REFINE_LIMIT);
     const kit = await formKitContext(userId, await idParam(context, "id", "That kit"));
     const db = getDb();
     const [advice, latest] = await Promise.all([

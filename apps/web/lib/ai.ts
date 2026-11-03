@@ -13,8 +13,10 @@ import {
   getActivePromptVersions,
   getDb,
   getPublishedCanon,
+  listRouteOverrides,
   type DbExecutor,
 } from "@admitstory/db";
+import { disabledTasks } from "@/lib/features";
 
 // The app's one ai.run() entry point (spec §8.4), metering into usage_ledger in Postgres.
 // Server-only: it reads canon, prompts and replay fixtures from disk, and holds API keys.
@@ -24,6 +26,9 @@ import {
 // active prompt versions with their A/B weights and route overrides (`prompt_versions`) and
 // published canon documents (`canon_docs`). Answers are cached for OVERLAY_TTL_MS (60 s), so a
 // publish reaches every call within a minute without a database read per call.
+//
+// Phase 9b adds two more: task-level route overrides set at /admin/routing (`route_overrides`),
+// and the kill switches (`feature_switches`), whose paused tasks ai.run() refuses within 15 s.
 
 /**
  * The overlay over `prompt_versions` and `canon_docs`. Only active versions are handed over: an
@@ -49,6 +54,11 @@ export function registryOverlay(
       const rows = await getPublishedCanon(db);
       return rows.map((row) => ({ slug: row.slug, version: row.version, content: row.content }));
     },
+    async routeOverrides() {
+      const rows = await listRouteOverrides(db);
+      return Object.fromEntries(rows.map((row) => [row.task, row.override]));
+    },
+    disabledTasks,
   });
 }
 

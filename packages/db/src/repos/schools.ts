@@ -541,6 +541,39 @@ export async function getVerifiedAiPolicy(
   return row ?? null;
 }
 
+/** A verified AI policy as the public site shows it (§14.2): school, cycle, stance, source, date. */
+export interface VerifiedAiPolicyRow {
+  schoolName: string;
+  schoolSlug: string;
+  cycle: string;
+  stance: AiPolicy["stance"];
+  sourceUrl: string | null;
+  verifiedAt: Date;
+}
+
+/**
+ * Every verified AI policy, for the public marketing pages (no session). Unverified rows never
+ * leave the database. Ordered by school name, then the newest cycle first within each school.
+ */
+export async function listVerifiedAiPolicies(db: DbExecutor): Promise<VerifiedAiPolicyRow[]> {
+  const rows = await db
+    .select({
+      schoolName: schools.name,
+      schoolSlug: schools.slug,
+      cycle: schoolCycles.cycle,
+      stance: aiPolicies.stance,
+      sourceUrl: aiPolicies.sourceUrl,
+      verifiedAt: aiPolicies.verifiedAt,
+    })
+    .from(aiPolicies)
+    .innerJoin(schoolCycles, eq(schoolCycles.id, aiPolicies.schoolCycleId))
+    .innerJoin(schools, eq(schools.id, schoolCycles.schoolId))
+    .where(isNotNull(aiPolicies.verifiedAt))
+    .orderBy(asc(schools.name), desc(schoolCycles.cycle));
+  // The filter is in SQL; this narrows the type and keeps the rule even if the query changes.
+  return rows.flatMap((row) => (row.verifiedAt ? [{ ...row, verifiedAt: row.verifiedAt }] : []));
+}
+
 /* Public reads ------------------------------------------------------------------------------- */
 
 export interface SchoolSummary {

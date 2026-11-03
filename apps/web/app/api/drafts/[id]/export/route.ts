@@ -17,7 +17,7 @@ export async function POST(
 ): Promise<Response> {
   return handle(async () => {
     const { session } = await requireUser();
-    checkRateLimit("export", session.user.id, { limit: 20, windowMs: 60_000 });
+    await checkRateLimit("export", session.user.id, { limit: 20, windowMs: 60_000 });
     const ctx = await draftContext(session.user.id, await idParam(context, "id", "That draft"));
     const { format } = await readJson(request, Body);
     const profile = await getProfile(getDb(), session.user.id);

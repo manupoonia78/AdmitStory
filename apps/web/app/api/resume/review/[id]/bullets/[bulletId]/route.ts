@@ -25,7 +25,7 @@ export async function PATCH(
   return handle(async () => {
     const { session } = await requireUser();
     const userId = session.user.id;
-    checkRateLimit("workspaceWrites", userId, WORKSPACE_WRITE_LIMIT);
+    await checkRateLimit("workspaceWrites", userId, WORKSPACE_WRITE_LIMIT);
     const review = await ownResumeReview(userId, await idParam(context, "id", "That review"));
     const bulletId = (await context.params).bulletId;
     const bullet = review.content.sections

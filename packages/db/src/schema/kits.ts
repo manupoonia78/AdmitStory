@@ -8,6 +8,7 @@
 // carries a denormalised `user_id`, copied from the parent that the repository has just checked, so
 // every read and write is scoped by owner without a join and a forged child id finds nothing.
 
+import type { FeedbackMeta, FeedbackStatus } from "@admitstory/shared";
 import type { Paragraph } from "@admitstory/shared/kit";
 import { sql } from "drizzle-orm";
 import {
@@ -414,9 +415,16 @@ export const feedback = pgTable(
     rating: integer("rating"),
     reason: text("reason"),
     text: text("text"),
+    // Phase 9b: the admin inbox (spec §5.18). `meta` holds ids and labels only, never text.
+    status: text("status").$type<FeedbackStatus>().notNull().default("new"),
+    handledBy: uuid("handled_by").references(() => users.id, { onDelete: "set null" }),
+    handledAt: timestamptz("handled_at"),
+    adminNote: text("admin_note"),
+    meta: jsonb("meta").$type<FeedbackMeta>().notNull().default({}),
   },
   (t) => [
     index("feedback_user_id_idx").on(t.userId),
     index("feedback_target_idx").on(t.targetType, t.targetId),
+    index("feedback_status_idx").on(t.status, t.createdAt),
   ],
 );

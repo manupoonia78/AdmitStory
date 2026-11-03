@@ -126,3 +126,15 @@ export class UnknownTaskError extends AIError {
     );
   }
 }
+
+/** An admin paused this task's feature with a kill switch (spec §5.18); no API call was made. */
+export class FeatureDisabledError extends AIError {
+  override readonly name = "FeatureDisabledError";
+  readonly code = "paused";
+  constructor(
+    readonly feature: string,
+    readonly task: string,
+  ) {
+    super(`The ${feature} feature is paused (task ${task})`);
+  }
+}

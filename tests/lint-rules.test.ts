@@ -18,7 +18,9 @@ async function ruleIds(code: string, filePath: string): Promise<string[]> {
   return (result?.messages ?? []).map((m) => m.ruleId ?? "fatal");
 }
 
-describe("lint rules (spec §0)", () => {
+// ESLint loads the whole flat config (and its plugins) on the first lintText call, which can
+// take seconds under a loaded suite; the 5 s default makes this file flaky in CI.
+describe("lint rules (spec §0)", { timeout: 30_000 }, () => {
   it("rejects a model ID literal outside routing.ts", async () => {
     expect(await ruleIds(MODEL_LITERAL, "apps/web/x.ts")).toContain("no-restricted-syntax");
     expect(

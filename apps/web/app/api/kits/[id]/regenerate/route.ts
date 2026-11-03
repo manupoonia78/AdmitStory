@@ -24,7 +24,7 @@ export async function POST(
   return handle(async () => {
     const { session } = await requireUser();
     const userId = session.user.id;
-    checkRateLimit("kitRegenerate", userId, { limit: 5, windowMs: 60_000 });
+    await checkRateLimit("kitRegenerate", userId, { limit: 5, windowMs: 60_000 });
     const id = z.guid().safeParse((await context.params).id);
     if (!id.success) notFound("That kit");
     const db = getDb();

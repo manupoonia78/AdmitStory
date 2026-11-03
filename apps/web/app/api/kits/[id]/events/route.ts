@@ -12,6 +12,8 @@ const MAX_STREAM_MS = 4 * 60_000;
 const HEARTBEAT_MS = 20_000;
 
 export const dynamic = "force-dynamic";
+// A stream stays open while the work runs; Vercel ends a function at its maxDuration (Pro: 300 s).
+export const maxDuration = 300;
 
 export async function GET(
   request: Request,

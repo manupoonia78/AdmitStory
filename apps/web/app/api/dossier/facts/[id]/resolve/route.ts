@@ -14,7 +14,7 @@ export async function POST(
 ): Promise<Response> {
   return handle(async () => {
     const { session } = await requireUser();
-    checkRateLimit("dossierWrites", session.user.id, RATE_LIMITS.dossierWrites);
+    await checkRateLimit("dossierWrites", session.user.id, RATE_LIMITS.dossierWrites);
     const { id } = await context.params;
     const { choice } = await readJson(request, Body);
     const fact = await resolveFactConflict(getDb(), session.user.id, id, choice);

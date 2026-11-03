@@ -1,0 +1,103 @@
+{
+  "applicant": "engineer-to-product",
+  "note": "Seeded overlaps: Ravi and Kavita tell S04 the same way, and Halvorsen essay 1 tells it the same way too.",
+  "points": [
+    {
+      "recommenderId": "rec1",
+      "recommenderLabel": "Ravi",
+      "groupKey": "common",
+      "questionId": "q1",
+      "index": 0,
+      "story": "S04",
+      "trait": "leadership",
+      "facet": "holding the room when the discharge rollout slipped",
+      "text": "He took the blame for the slipped discharge rollout in front of the clinical directors and set out a two-week recovery plan. The directors stopped arguing and signed it off."
+    },
+    {
+      "recommenderId": "rec2",
+      "recommenderLabel": "Kavita",
+      "groupKey": "marrowgate",
+      "questionId": "mg1",
+      "index": 1,
+      "story": "S04",
+      "trait": "leadership",
+      "facet": "taking the blame for the slipped rollout in front of the directors",
+      "text": "He took responsibility for the slipped discharge rollout in front of the clinical directors and laid out a two-week recovery plan the directors signed off."
+    },
+    {
+      "recommenderId": "rec1",
+      "recommenderLabel": "Ravi",
+      "groupKey": "common",
+      "questionId": "q2",
+      "index": 0,
+      "story": "S04",
+      "trait": "analytical_rigor",
+      "facet": "rebuilding the discharge forecast from ward data",
+      "text": "He rebuilt the forecast from six months of ward data and found the night-shift gap nobody had costed."
+    },
+    {
+      "recommenderId": "rec2",
+      "recommenderLabel": "Kavita",
+      "groupKey": "marrowgate",
+      "questionId": "mg2",
+      "index": 0,
+      "story": "S07",
+      "trait": "empathy",
+      "facet": "briefing the night nurses himself",
+      "text": "He sat with the night nurses for three shifts before the pilot and rewrote the handover sheet around what they told him."
+    }
+  ],
+  "essays": [
+    {
+      "deliverableId": "d1",
+      "label": "Halvorsen essay 1",
+      "primaryStory": "S04",
+      "traits": ["leadership"],
+      "paragraphs": [
+        {
+          "id": "p1",
+          "text": "When the discharge rollout slipped I took the blame in front of the clinical directors rather than hand it to my team, and set out a two-week recovery plan. The directors stopped arguing and signed it off.",
+          "stories": ["S04"]
+        },
+        {
+          "id": "p2",
+          "text": "Halvorsen's health care initiative is the only place where the clinical faculty and the operations faculty teach the same course, which is the gap I keep hitting.",
+          "stories": []
+        }
+      ]
+    },
+    {
+      "deliverableId": "d2",
+      "label": "Marrowgate essay 2",
+      "primaryStory": "S09",
+      "traits": ["initiative"],
+      "paragraphs": [
+        {
+          "id": "p1",
+          "text": "I started the Saturday clinic data club with four analysts and a whiteboard, and it is now how the trust trains its registrars in measurement.",
+          "stories": ["S09"]
+        }
+      ]
+    }
+  ],
+  "expected": [
+    {
+      "kind": "brief_brief",
+      "story": "S04",
+      "a": "rec1 q1#0",
+      "b": "rec2 mg1#1"
+    },
+    {
+      "kind": "brief_essay",
+      "story": "S04",
+      "a": "rec1 q1#0",
+      "b": "d1/p1"
+    },
+    {
+      "kind": "brief_essay",
+      "story": "S04",
+      "a": "rec2 mg1#1",
+      "b": "d1/p1"
+    }
+  ]
+}

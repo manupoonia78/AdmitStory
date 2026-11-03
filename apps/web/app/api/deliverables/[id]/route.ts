@@ -24,7 +24,7 @@ const Patch = z.strictObject({ authorshipMode: z.enum(["draft", "coach", "talkin
 export async function PATCH(request: Request, context: Ctx): Promise<Response> {
   return handle(async () => {
     const { session } = await requireUser();
-    checkRateLimit("workspaceWrites", session.user.id, WORKSPACE_WRITE_LIMIT);
+    await checkRateLimit("workspaceWrites", session.user.id, WORKSPACE_WRITE_LIMIT);
     const id = await idParam(context, "id", "That deliverable");
     const { deliverable, kit } = await deliverableContext(session.user.id, id);
     const body = await readJson(request, Patch);

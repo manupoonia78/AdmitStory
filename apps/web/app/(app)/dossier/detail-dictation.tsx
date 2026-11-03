@@ -25,10 +25,13 @@ import {
 export function DetailDictation({
   onDictated,
   disabled = false,
+  label = "Say this detail",
 }: {
   /** A dictated answer is complete; the card adds its words to the box. */
   onDictated: (answer: SpokenAnswer) => void;
   disabled?: boolean;
+  /** What the button says: the recommender intake asks for an answer, not a detail. */
+  label?: string;
 }) {
   const mic = useMicrophone();
   const stopMic = mic.stop;
@@ -77,7 +80,7 @@ export function DetailDictation({
         onStop={() => void dictation.done()}
         signal={recording ? mic.signal : null}
         spaceToTalk={false}
-        label="Say this detail"
+        label={label}
         disabled={disabled}
         status={mic.status === "requesting" ? "Waiting for your browser's permission" : undefined}
       />
@@ -85,7 +88,7 @@ export function DetailDictation({
         <LiveTranscript
           segments={transcriptSegments(snapshot, `detail-${attempt}`)}
           signal={recording ? mic.signal : null}
-          label="Your detail"
+          label={label}
           className="h-16 w-full max-w-xs text-start"
         />
       ) : null}

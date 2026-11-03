@@ -88,7 +88,7 @@ export async function POST(request: Request): Promise<Response> {
     const { session: auth, profile } = await requireUser();
     const userId = auth.user.id;
     const body = await readJson(request, Body);
-    checkRateLimit("studioTurns", userId, RATE_LIMITS.studioTurns);
+    await checkRateLimit("studioTurns", userId, RATE_LIMITS.studioTurns);
 
     const db = getDb();
     const session = await getStudioSession(db, userId, body.sessionId);

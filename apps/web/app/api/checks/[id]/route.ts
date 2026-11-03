@@ -19,7 +19,7 @@ export async function PATCH(
   return handle(async () => {
     const { session } = await requireUser();
     const userId = session.user.id;
-    checkRateLimit("workspaceWrites", userId, WORKSPACE_WRITE_LIMIT);
+    await checkRateLimit("workspaceWrites", userId, WORKSPACE_WRITE_LIMIT);
     const id = await idParam(context, "id", "That check");
     const { action } = await readJson(request, Body);
     const db = getDb();

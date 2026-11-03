@@ -1,0 +1,55 @@
+{
+  "applicant": "engineer-to-product",
+  "note": "The same cast with the facets split the way lor.plan is meant to split them: no finding.",
+  "points": [
+    {
+      "recommenderId": "rec1",
+      "recommenderLabel": "Ravi",
+      "groupKey": "common",
+      "questionId": "q1",
+      "index": 0,
+      "story": "S04",
+      "trait": "leadership",
+      "facet": "holding the room when the discharge rollout slipped",
+      "text": "He took the blame for the slipped rollout in front of the clinical directors and set out a two-week recovery plan."
+    },
+    {
+      "recommenderId": "rec2",
+      "recommenderLabel": "Kavita",
+      "groupKey": "marrowgate",
+      "questionId": "mg1",
+      "index": 1,
+      "story": "S04",
+      "trait": "clinical_judgement",
+      "facet": "what the ward sisters said after the pilot",
+      "text": "Her sisters told her the handover sheet had cut the midnight phone calls, which is not something an engineer usually hears from a ward."
+    },
+    {
+      "recommenderId": "rec1",
+      "recommenderLabel": "Ravi",
+      "groupKey": "common",
+      "questionId": "q2",
+      "index": 0,
+      "story": "S07",
+      "trait": "analytical_rigor",
+      "facet": "rebuilding the discharge forecast from ward data",
+      "text": "He rebuilt the forecast from six months of ward data and found the night-shift gap nobody had costed."
+    }
+  ],
+  "essays": [
+    {
+      "deliverableId": "d1",
+      "label": "Halvorsen essay 1",
+      "primaryStory": "S04",
+      "traits": ["leadership"],
+      "paragraphs": [
+        {
+          "id": "p1",
+          "text": "The rollout taught me that a plan nobody on the ward has read is a plan that does not exist, so I spent the next month in handover meetings instead of in the backlog.",
+          "stories": ["S04"]
+        }
+      ]
+    }
+  ],
+  "expected": []
+}

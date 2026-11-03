@@ -17,7 +17,7 @@ export async function POST(
 ): Promise<Response> {
   return handle(async () => {
     const { session } = await requireUser();
-    checkRateLimit("needAnswer", session.user.id, REFINE_LIMIT);
+    await checkRateLimit("needAnswer", session.user.id, REFINE_LIMIT);
     const id = await idParam(context, "id", "That question");
     const body = await readJson(request, Body);
     return Response.json(await answerNeedAndFill(session.user.id, id, body.text, body.via));
