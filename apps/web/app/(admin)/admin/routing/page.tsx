@@ -19,7 +19,7 @@ export default async function RoutingPage() {
 
   return (
     <>
-      <h1 className="text-display-sm text-text">Routing</h1>
+      <h1 className="text-display text-text">Routing</h1>
       <p className="max-w-prose text-text-soft">
         An override wins over the routing table and any prompt version&apos;s own route. Use it to
         move a task to a cheaper model while costs are high, or away from a model that&apos;s

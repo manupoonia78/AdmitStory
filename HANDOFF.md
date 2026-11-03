@@ -58,7 +58,7 @@ Status key: `[x]` done · `[~]` in progress · `[ ]` not started.
 
 Spec §18 open decisions:
 
-1. **Name**: AdmitStory (`APP_NAME` in `packages/shared/src/brand.ts`). The domain is still needed from Manu.
+1. **Name**: AdmitStory (`APP_NAME` in `packages/shared/src/brand.ts`). The domain is `admitstories.com`.
 2. **Pricing**: flat $100 per school kit at launch. Bundles and regional (INR/PPP) pricing come after launch.
 3. **Refunds**: full refund within 7 days if no deliverable is marked final and fewer than 3 refinements were used.
 4. **`limited` schools**: coach mode by default (already built).
@@ -160,3 +160,16 @@ region, governing law and counsel's review of /privacy and /terms (the `TODO(Man
   `GOOGLE_CLIENT_ID` + `GOOGLE_CLIENT_SECRET` in production and `docs/LAUNCH.md` §1.6 has the Google Cloud steps.
   Verified: Google sign-in links to an existing magic-link account with the same email (both verified). NEXT: Manu's
   keys, in `docs/LAUNCH.md` §1 order; then the live acceptance runs and the signed-in CSP/a11y pass.
+- 2026-11-03 (session 10): **"Rendered" redesign of every app page** (Manu: all pages must look award-winning, like
+  they were made in Blender). Researched Awwwards/FWA 2025–26 winners (Lusion, abeto, Hubtown, Resend's iridescent
+  shader, Stripe's gradient glass). Built: (1) a live 3D studio behind every signed-in, first-run, sign-in, admin and
+  recommender-portal page: `packages/ui/src/scene/` (raw WebGL2 raymarcher, no library, glass with dispersion and
+  thin-film, holographic chrome, softbox lighting, bloom; nine objects, one per area via `scene-ids.ts`, morphing on
+  navigation; loads on idle, so 0 KB first-load; adaptive resolution; still frame under reduced motion; CSS-lit
+  fallback). (2) `packages/ui/src/render.css`: glass `plane` and `bg-depth`, glossy pill buttons (`gloss`), lit
+  selection (`lit`, aria-pressed chips, tabs), recessed inputs, chrome page titles with a one-time shine, page-entry
+  cascade, `eyebrow`. (3) Page work: bigger titles across (app)/(admin), new Coming-soon layout (Interview, Connect,
+  Tracker), glass tabs, empty-state orb, `Page` eyebrows, Résumé got its missing h1, Dossier padding fix, Studio aside
+  as glass, `AuthShell`/`AuthFrame` split (root not-found must stay client-free: `/` budget). Gates: typecheck, lint,
+  format, 1105 ui+web tests, build, bundle (`/` 154.4/155, max app route 158.8/160). Uncommitted. NOT seen in a
+  browser (need data): kits, workspace, school preview/unlock, recommender detail, populated home/dossier.

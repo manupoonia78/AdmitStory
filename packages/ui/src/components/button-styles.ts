@@ -6,7 +6,7 @@ export type ButtonSize = "md" | "sm";
 type ButtonShape = "label" | "icon";
 
 const BASE =
-  "relative inline-flex shrink-0 select-none items-center justify-center gap-2 whitespace-nowrap rounded-control font-medium " +
+  "relative inline-flex shrink-0 select-none items-center justify-center gap-2 whitespace-nowrap rounded-full font-medium " +
   // translate carries the magnetic pull (lib/magnetic): it eases on the snap spring too.
   "transition-[color,background-color,border-color,translate] duration-(--spring-snap-duration) ease-snap " +
   "disabled:cursor-not-allowed disabled:opacity-60 aria-disabled:cursor-not-allowed aria-disabled:opacity-60";
@@ -15,10 +15,11 @@ const BASE =
 // --control-edge so the control edge meets 3:1 (WCAG 1.4.11). Status colours never sit on
 // --veil, so danger hovers by deepening its own fill.
 const VARIANTS: Record<ButtonVariant, string> = {
-  primary: "bg-signal text-on-signal hover:bg-signal/90",
-  secondary: "border border-control bg-depth text-signal hover:bg-veil",
+  // Solid fills are lit, glossy pills (render.css `gloss`); secondary is frosted glass.
+  primary: "gloss bg-signal text-on-signal",
+  secondary: "glass-control border border-control bg-depth text-signal hover:bg-veil",
   quiet: "bg-transparent text-signal hover:bg-veil",
-  danger: "bg-risk text-on-signal hover:bg-risk/90",
+  danger: "gloss [--gloss:var(--risk)] bg-risk text-on-signal",
 };
 
 // Small controls stay 36px visually but get a 44px hit area (spec §6.12).
@@ -27,8 +28,8 @@ const HIT_AREA =
 
 const SIZES: Record<ButtonShape, Record<ButtonSize, string>> = {
   label: {
-    md: "min-h-11 px-4 text-base",
-    sm: `min-h-9 px-3 text-sm ${HIT_AREA}`,
+    md: "min-h-11 px-5 text-base",
+    sm: `min-h-9 px-4 text-sm ${HIT_AREA}`,
   },
   icon: {
     md: "size-11",

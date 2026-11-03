@@ -21,7 +21,7 @@ export function SessionSummaryCard({
   return (
     <section className="mx-auto flex w-full max-w-2xl flex-col gap-8 py-10">
       <div className="flex flex-col gap-3">
-        <h1 className="text-display-sm text-text">
+        <h1 className="text-display text-text">
           {stories === 0
             ? "Everything so far is saved."
             : `That's a strong start: ${stories} ${stories === 1 ? "story" : "stories"} and ${facts} ${facts === 1 ? "fact" : "facts"}.`}

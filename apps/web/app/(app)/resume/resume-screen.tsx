@@ -28,7 +28,13 @@ async function errorOf(response: Response | null, fallback: string): Promise<str
 
 function Frame({ children }: { children: React.ReactNode }) {
   return (
-    <div className="mx-auto flex w-full max-w-6xl flex-col gap-6 px-4 py-8 sm:px-8">{children}</div>
+    <div className="mx-auto flex w-full max-w-6xl flex-col gap-8 px-4 py-10 sm:px-8 sm:py-16">
+      <div className="flex flex-col gap-4">
+        <p className="eyebrow">Résumé Pass</p>
+        <h1 className="text-display text-text sm:text-display-lg">Your résumé</h1>
+      </div>
+      {children}
+    </div>
   );
 }
 

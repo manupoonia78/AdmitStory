@@ -13,7 +13,7 @@ export default async function SettingsPage() {
   const theme = parseThemePreference((await cookies()).get(THEME_COOKIE)?.value);
 
   return (
-    <Page title="Settings">
+    <Page eyebrow="Make it yours" title="Settings">
       <section aria-labelledby="appearance" className="flex flex-col gap-3 plane p-6">
         <h2 id="appearance" className="text-lg font-semibold">
           Appearance

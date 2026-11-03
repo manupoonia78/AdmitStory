@@ -10,8 +10,10 @@ Cartesia, ElevenLabs.
 
 ## 1. Accounts and keys, in order
 
-1. **Domain** (any registrar). DNS at Vercel. Sets `APP_URL` (the app, e.g. `https://admitstory.com`)
+1. **Domain**: `admitstories.com` (bought). DNS at Vercel. Sets `APP_URL` (the app, `https://admitstories.com`)
    and `SITE_URL` (the public site; the same value unless the site lives on another host).
+   In Vercel → Domains add both `admitstories.com` and `www.admitstories.com`, and set `www` to
+   redirect (308) to `admitstories.com`, so sessions, passkeys and canonical URLs all use one host.
 2. **Vercel Pro** (commercial use needs Pro). New project, root directory `apps/web`.
    `apps/web/vercel.json` sets the install and build commands and the function region.
    - **Region**: `sin1` (Singapore), next to the current Neon project in `ap-southeast-1`. Functions
@@ -30,21 +32,21 @@ Cartesia, ElevenLabs.
      `CONTENT_ENCRYPTION_KEY_ID=k2026`. **Keep a copy in a password
      manager**: without it every story and draft is unreadable. Rotate yearly.
 5. **Resend** → verify the sending domain (SPF, DKIM, DMARC) → `RESEND_API_KEY`, `EMAIL_FROM`
-   (e.g. `AdmitStory <hello@admitstory.com>`).
+   (e.g. `AdmitStory <hello@admitstories.com>`).
 6. **Google sign-in** (required at launch) → `GOOGLE_CLIENT_ID`, `GOOGLE_CLIENT_SECRET`. The
    button is already built and appears on `/sign-in` once both are set.
    - console.cloud.google.com → new project "AdmitStory".
-   - Google Auth Platform → Branding: app name, support email, logo, the domain under
+   - Google Auth Platform → Branding: app name, support email, logo, `admitstories.com` under
      "Authorized domains", links to `/privacy` and `/terms`. Audience: External. Data access:
      scopes `openid`, `email`, `profile` only (no Google verification review needed for these).
    - Clients → Create client → Web application. Authorized JavaScript origins:
-     `https://<domain>` and `http://localhost:3000`. Authorized redirect URIs:
-     `https://<domain>/api/auth/callback/google` and
+     `https://admitstories.com` and `http://localhost:3000`. Authorized redirect URIs:
+     `https://admitstories.com/api/auth/callback/google` and
      `http://localhost:3000/api/auth/callback/google`. Copy the client ID and secret.
    - Audience → "Publish app" (In production), or only test users listed there can sign in.
    - A Google sign-in with the same email as an existing magic-link account signs into that
      account (Google reports the email as verified).
-7. **Cloudflare Turnstile** → `TURNSTILE_SITE_KEY`, `TURNSTILE_SECRET_KEY` (hostname: the domain).
+7. **Cloudflare Turnstile** → `TURNSTILE_SITE_KEY`, `TURNSTILE_SECRET_KEY` (hostname: `admitstories.com`).
 8. **Anthropic** → `ANTHROPIC_API_KEY`, `AI_MODE=live`. Set a monthly spend limit in the console.
    Then re-record the replays (`pnpm --filter @admitstory/ai record:phase3` … `record:phase9`),
    run the live acceptance checks listed in `docs/phase-1.md` … `docs/phase-6.md`, and record the
@@ -63,10 +65,10 @@ Cartesia, ElevenLabs.
     `UPSTASH_REDIS_REST_URL` + `UPSTASH_REDIS_REST_TOKEN` (or `KV_REST_API_URL` + `KV_REST_API_TOKEN`).
     Rate limits and idempotency are shared across instances only with this.
 12. **Inngest Cloud** (Vercel integration) → `INNGEST_EVENT_KEY`, `INNGEST_SIGNING_KEY`. Sync
-    `https://<domain>/api/inngest` after the first deploy.
+    `https://admitstories.com/api/inngest` after the first deploy.
 13. **Paddle** (seller verification first; it can take days) → `PADDLE_ENV=production`,
     `PADDLE_API_KEY`, `PADDLE_CLIENT_TOKEN`, `PADDLE_WEBHOOK_SECRET`, `PADDLE_PRICE_SCHOOL_KIT`
-    (the $100 school kit price id). Webhook URL `https://<domain>/api/webhooks/paddle`.
+    (the $100 school kit price id). Webhook URL `https://admitstories.com/api/webhooks/paddle`.
 14. **Sentry** (optional) → `SENTRY_DSN`, plus `SENTRY_AUTH_TOKEN`, `SENTRY_ORG`, `SENTRY_PROJECT`
     for source maps. With a DSN set, CSP violation reports go to Sentry too.
 15. **PostHog** (optional) → `POSTHOG_KEY`, `POSTHOG_HOST`. Session replay masks every input and
@@ -86,7 +88,7 @@ Cartesia, ElevenLabs.
       timing ("within the hour", backups within 35 days) and PostHog's pseudonymous events.
     - Verify the 12 launch school packs, their AI policies and `COMMON_LOR_QUESTIONS`, then publish
       them from `/admin/schools`.
-    - Add `preload` to HSTS in `apps/web/next.config.ts` once the domain is final, and submit it
+    - Add `preload` to HSTS in `apps/web/next.config.ts` now that the domain is final (`admitstories.com`), and submit it
       at hstspreload.org.
 
 Leave `PROTOTYPES_ENABLED` unset in production (the `/prototype` pages stay off).
@@ -98,7 +100,7 @@ landing page's speaking demo, hard off).
 ## 2. Go-live checklist
 
 - [ ] `VERCEL_ENV=production pnpm launch:check` passes with the production values.
-- [ ] `https://<domain>/api/health` returns 200 with `"db":"ok"` and `"redis":"ok"`. Point an
+- [ ] `https://admitstories.com/api/health` returns 200 with `"db":"ok"` and `"redis":"ok"`. Point an
       uptime monitor at it (Vercel, Better Stack or similar), every minute.
 - [ ] In Chrome and Safari, with the browser console open, check there are no CSP violations:
       dictation (the capture worklet) records, read-aloud plays, Paddle checkout opens, Turnstile

@@ -46,7 +46,7 @@ export interface DockProps {
 const DOCK = cx(
   "group/dock contents",
   "sm:fixed sm:left-3 sm:top-1/2 sm:z-30 sm:flex sm:max-h-[calc(100dvh-1.5rem)] sm:w-16 sm:-translate-y-1/2 sm:flex-col sm:gap-2",
-  "sm:overflow-x-hidden sm:overflow-y-auto sm:overscroll-contain sm:p-2 sm:plane sm:[scrollbar-width:none]",
+  "sm:overflow-x-hidden sm:overflow-y-auto sm:overscroll-contain sm:p-2 sm:plane sm:rounded-[22px] sm:[scrollbar-width:none]",
   "sm:transition-[width] sm:duration-(--spring-glide-duration) sm:ease-glide sm:motion-reduce:transition-none",
   "sm:hover:w-52 sm:has-[:focus-visible]:w-52 sm:has-[[aria-expanded=true]]:w-52 sm:data-[folded]:w-16!",
   "sm:[view-transition-name:dock]",
@@ -58,14 +58,14 @@ const DOCK = cx(
 const NAV_LINK = cx(
   "relative flex min-h-12 flex-1 flex-col items-center justify-center gap-1 rounded-control px-0.5",
   "text-sm font-medium text-text-soft hover:text-text",
-  "aria-[current=page]:font-semibold aria-[current=page]:text-signal",
+  "aria-[current=page]:font-semibold aria-[current=page]:text-signal aria-[current=page]:[filter:drop-shadow(0_0_8px_color-mix(in_srgb,var(--signal)_70%,transparent))]",
   "sm:min-h-11 sm:w-full sm:flex-none sm:flex-row sm:justify-start sm:gap-0 sm:px-0 sm:hover:bg-veil",
 );
 
 // The veil under the current destination. It is one element that glides between items on the
 // glide spring when the route changes (a 48px pitch in the side dock, one slot in the bottom dock).
 const INDICATOR = cx(
-  "pointer-events-none absolute left-0 top-0 h-full w-[calc(100%/var(--dock-count))] rounded-control bg-veil",
+  "pointer-events-none absolute left-0 top-0 h-full w-[calc(100%/var(--dock-count))] rounded-control lit",
   "[transform:translateX(calc(var(--dock-index)*100%))]",
   "sm:h-11 sm:w-full sm:[transform:translateY(calc(var(--dock-index)*3rem))]",
   "transition-[transform,opacity] duration-(--spring-glide-duration) ease-glide motion-reduce:transition-opacity",

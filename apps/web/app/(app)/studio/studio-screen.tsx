@@ -325,7 +325,7 @@ function Interview({
 
   return (
     <ImmersiveScope
-      className="flex min-h-full flex-col gap-6 lg:flex-row lg:gap-10"
+      className="flex min-h-dvh flex-col gap-6 px-4 py-6 sm:-ml-22 sm:pl-30 sm:pr-8 lg:flex-row lg:gap-10 lg:py-8"
       style={hueStyle}
     >
       <div className="flex min-w-0 flex-1 flex-col gap-6">
@@ -446,7 +446,7 @@ function Interview({
         </div>
       </div>
 
-      <aside className="flex w-full shrink-0 flex-col gap-6 lg:w-80">
+      <aside className="plane flex w-full shrink-0 flex-col gap-6 self-start p-6 lg:sticky lg:top-8 lg:w-80">
         <ShelfPane
           sessionId={sessionId}
           initialStories={initialStories}

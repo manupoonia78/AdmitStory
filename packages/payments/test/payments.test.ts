@@ -510,7 +510,7 @@ describe("Fake provider (localhost only)", () => {
   const local = "http://localhost:3000";
 
   it("refuses to run when APP_URL isn't localhost", () => {
-    expect(() => createFakePayments({ appUrl: "https://admitstory.example" })).toThrow(
+    expect(() => createFakePayments({ appUrl: "https://admitstories.example" })).toThrow(
       PaymentsConfigError,
     );
     expect(() => createFakePayments({ appUrl: undefined })).toThrow(PaymentsConfigError);
@@ -620,7 +620,7 @@ describe("Provider selection and environment", () => {
   };
 
   it("picks Paddle when its keys are set, wherever the app runs", () => {
-    const env = parsePaymentsEnv({ ...keys, APP_URL: "https://admitstory.example" });
+    const env = parsePaymentsEnv({ ...keys, APP_URL: "https://admitstories.example" });
     expect(selectPaymentsProvider(env).name).toBe("paddle");
   });
 
@@ -629,7 +629,7 @@ describe("Provider selection and environment", () => {
       selectPaymentsProvider(parsePaymentsEnv({ APP_URL: "http://localhost:3000" })).name,
     ).toBe("fake");
     expect(() =>
-      selectPaymentsProvider(parsePaymentsEnv({ APP_URL: "https://admitstory.example" })),
+      selectPaymentsProvider(parsePaymentsEnv({ APP_URL: "https://admitstories.example" })),
     ).toThrow(/only when APP_URL is localhost/);
   });
 

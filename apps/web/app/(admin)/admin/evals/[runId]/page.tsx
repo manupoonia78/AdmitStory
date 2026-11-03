@@ -35,7 +35,7 @@ export default async function EvalRunPage({ params }: { params: Promise<{ runId:
 
   return (
     <>
-      <h1 className="text-display-sm text-text">Eval run, {run.reason.replace(/_/g, " ")}</h1>
+      <h1 className="text-display text-text">Eval run, {run.reason.replace(/_/g, " ")}</h1>
       <p className="flex flex-wrap items-center gap-3 text-text-soft">
         <StatusLabel tone={status.tone}>{status.label}</StatusLabel>
         <span>{run.mode}</span>

@@ -85,7 +85,7 @@ plain handler, which the hooks lint rejects; it now calls a plain `failNow`.
 
 ## What Manu provides
 
-1. The domain (`SITE_URL`: canonical URLs, sitemap, OG).
+1. ~~The domain~~ done: `admitstories.com` (`SITE_URL`: canonical URLs, sitemap, OG).
 2. Deepgram and Turnstile keys; then run `pnpm --filter @admitstory/web marketing:sample` once for
    the voiced sample.
 3. The legal entity, postal address, EU/UK representative if needed, the hello and privacy

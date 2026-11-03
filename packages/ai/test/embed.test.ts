@@ -53,7 +53,7 @@ describe("the fake embedder", () => {
   });
 
   it("refuses to run off localhost", () => {
-    expect(() => createFakeEmbedder({ appUrl: "https://admitstory.example" })).toThrow(
+    expect(() => createFakeEmbedder({ appUrl: "https://admitstories.example" })).toThrow(
       EmbedConfigError,
     );
     expect(() => createFakeEmbedder({ appUrl: undefined })).toThrow(EmbedConfigError);
@@ -61,7 +61,7 @@ describe("the fake embedder", () => {
   });
 
   it("is chosen only without a Voyage key, and only on first use", () => {
-    const pick = embedderFromEnv({ APP_URL: "https://admitstory.example" });
+    const pick = embedderFromEnv({ APP_URL: "https://admitstories.example" });
     expect(() => pick()).toThrow(EmbedConfigError);
     expect(embedderFromEnv({ VOYAGE_API_KEY: "pa-test" })().model).toBe("voyage-3.5-lite");
     expect(embedderFromEnv({ APP_URL: "http://localhost:3000" })().fake).toBe(true);

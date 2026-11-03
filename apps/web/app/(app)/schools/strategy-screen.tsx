@@ -76,8 +76,9 @@ export function StrategyScreen({
 
   return (
     <div className="mx-auto flex w-full max-w-6xl flex-col gap-12 px-4 py-8 sm:px-8 sm:py-12">
-      <header className="flex flex-col gap-3">
-        <h1 className="text-display-sm text-text">School Strategy</h1>
+      <header className="flex flex-col gap-4">
+        <p className="eyebrow">Where you will apply</p>
+        <h1 className="text-display text-text sm:text-display-lg">School Strategy</h1>
         <p className="max-w-essay font-reading text-read-lg text-text">
           {headline(rows, selected.length)}
         </p>

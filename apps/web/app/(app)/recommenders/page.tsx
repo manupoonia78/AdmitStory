@@ -28,7 +28,7 @@ export default async function Page() {
 
   if (view.state === "locked")
     return (
-      <PageFrame title={RECOMMENDERS_COPY.title}>
+      <PageFrame eyebrow="The people who vouch for you" title={RECOMMENDERS_COPY.title}>
         <EmptyState
           title={RECOMMENDERS_COPY.lockedTitle}
           description={RECOMMENDERS_COPY.lockedBody}
@@ -42,7 +42,7 @@ export default async function Page() {
     );
 
   return (
-    <PageFrame title={RECOMMENDERS_COPY.title}>
+    <PageFrame eyebrow="The people who vouch for you" title={RECOMMENDERS_COPY.title}>
       <p className="max-w-[48ch] font-reading text-reading-lg text-balance text-text">
         {RECOMMENDERS_COPY.lead}
       </p>

@@ -133,3 +133,5 @@ export * from "./recommenders";
 // Phase 9b: feedback capture and Settings › Privacy and data.
 export * from "./feedback";
 export * from "./privacy";
+// The rendered studio behind every app page: a CSS-lit fallback at first paint, WebGL on idle.
+export * from "./scene";

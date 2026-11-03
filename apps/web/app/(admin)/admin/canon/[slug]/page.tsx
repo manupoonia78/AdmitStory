@@ -25,7 +25,7 @@ export default async function CanonDocPage({ params }: { params: Promise<{ slug:
         <Link href="/admin/canon" className="text-sm text-text-soft hover:underline">
           Canon
         </Link>
-        <h1 className="text-display-sm text-text">{file.title}</h1>
+        <h1 className="text-display text-text">{file.title}</h1>
         <p className="text-sm text-text-soft">
           Live: version {live?.version ?? file.version}
           {live ? `, published ${formatDate(live.publishedAt)}` : " (the file)"}

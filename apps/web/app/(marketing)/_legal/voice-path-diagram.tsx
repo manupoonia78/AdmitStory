@@ -21,8 +21,8 @@ interface Label {
 
 interface Drawing {
   key: "h" | "v";
-  width: number;
-  height: number;
+  /** The viewBox, cropped to the ink so the drawing's left edge sits on the text column's. */
+  box: { x: number; y: number; width: number; height: number };
   /** The main line, the audio branch, and the closed mark at its end. */
   main: string;
   branch: string;
@@ -36,8 +36,7 @@ const N = PRIVACY_COPY.nodes;
 
 const ACROSS: Drawing = {
   key: "h",
-  width: 960,
-  height: 260,
+  box: { x: 30, y: 48, width: 880, height: 196 },
   main: "M40 90 L900 90",
   branch: "M40 90 L250 90 C 290 90, 290 200, 330 200 L440 200",
   mark: { x: 440, y: 200 },
@@ -57,13 +56,12 @@ const ACROSS: Drawing = {
     { x: 360, y: 188, text: N.audio, anchor: "start" },
     { x: 440, y: 232, text: N.discarded },
   ],
-  className: "hidden w-full max-w-[960px] lg:block",
+  className: "hidden w-full max-w-[880px] lg:block",
 };
 
 const DOWN: Drawing = {
   key: "v",
-  width: 340,
-  height: 520,
+  box: { x: 17, y: 16, width: 323, height: 474 },
   main: "M24 24 L24 480",
   branch: "M24 24 L24 130 C 24 175, 60 190, 110 190 L250 190",
   mark: { x: 250, y: 190 },
@@ -83,7 +81,7 @@ const DOWN: Drawing = {
     { x: 130, y: 178, text: N.audio, anchor: "start" },
     { x: 250, y: 220, text: N.discarded },
   ],
-  className: "block w-full max-w-[340px] lg:hidden",
+  className: "block w-full max-w-[323px] lg:hidden",
 };
 
 /** One run: the audio dot takes 2.2 s and fades at the mark; the text dot takes 3.4 s and stays. */
@@ -144,10 +142,10 @@ function Dots({ drawing }: { drawing: Drawing }) {
 }
 
 function PathDrawing({ drawing }: { drawing: Drawing }) {
-  const { mark } = drawing;
+  const { mark, box } = drawing;
   return (
     <svg
-      viewBox={`0 0 ${drawing.width} ${drawing.height}`}
+      viewBox={`${box.x} ${box.y} ${box.width} ${box.height}`}
       aria-hidden="true"
       focusable="false"
       className={drawing.className}
@@ -199,7 +197,7 @@ export function VoicePathDiagram() {
       <h2 id="voice-path-title" className="text-read-lg font-semibold text-text">
         {PRIVACY_COPY.diagramTitle}
       </h2>
-      <div className="mt-8">
+      <div className="mt-10">
         <PathDrawing drawing={ACROSS} />
         <PathDrawing drawing={DOWN} />
       </div>

@@ -18,7 +18,7 @@ export default async function ReviewPage() {
   ]);
   return (
     <>
-      <h1 className="text-display-sm text-text">Ratings, week {week.split("-W")[1]}</h1>
+      <h1 className="text-display text-text">Ratings, week {week.split("-W")[1]}</h1>
       <p className="max-w-prose text-text-soft">
         Ten a week keeps the judge honest. Keys: 1–5 to score, J and K to move. {done} saved this
         week.

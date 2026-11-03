@@ -37,7 +37,7 @@ export default async function SourcePage({ params }: { params: Promise<{ sourceI
         <Link href="/admin/sources" className="text-sm text-text-soft hover:underline">
           Knowledge sources
         </Link>
-        <h1 className="text-display-sm text-text">{source.title}</h1>
+        <h1 className="text-display text-text">{source.title}</h1>
         <p className="text-sm text-text-soft">
           {school?.name ?? "All schools"} · {source.cycle ?? "Evergreen"} ·{" "}
           {source.type.replaceAll("_", " ")} · trust {source.trust} · added{" "}

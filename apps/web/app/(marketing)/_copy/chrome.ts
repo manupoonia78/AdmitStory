@@ -3,12 +3,12 @@
 import { APP_NAME } from "@admitstory/shared/brand";
 
 /**
- * TODO(Manu): the legal entity and the contact addresses. Until they are set, the footer shows the
- * product name and these placeholders; nothing here is invented.
+ * The contact addresses on admitstories.com. TODO(Manu): the legal entity; until it is set, the
+ * footer shows this placeholder; nothing here is invented.
  */
 export const LEGAL_ENTITY = "TODO(Manu): legal entity";
-export const HELLO_EMAIL = "hello@TODO-domain";
-export const PRIVACY_EMAIL = "privacy@TODO-domain";
+export const HELLO_EMAIL = "hello@admitstories.com";
+export const PRIVACY_EMAIL = "privacy@admitstories.com";
 
 export const WORDMARK = APP_NAME;
 

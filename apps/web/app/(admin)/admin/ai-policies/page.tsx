@@ -35,7 +35,7 @@ export default async function AiPoliciesPage() {
 
   return (
     <>
-      <h1 className="text-display-sm text-text">AI policies</h1>
+      <h1 className="text-display text-text">AI policies</h1>
       <p className="max-w-3xl text-sm text-text-soft">
         Applicants see a policy only once it is verified against the school&apos;s own page. Saving
         a change clears the verification unless you tick the check.

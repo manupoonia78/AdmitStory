@@ -30,7 +30,7 @@ export default async function UserPage({ params }: { params: Promise<{ userId: s
   return (
     <>
       <div className="flex flex-col gap-1">
-        <h1 className="text-display-sm break-all text-text">{user.email}</h1>
+        <h1 className="text-display break-all text-text">{user.email}</h1>
         <p className="text-text-soft">
           {user.name ?? "No name"} · joined {formatDate(user.createdAt)} · email{" "}
           {user.emailVerified ? "confirmed" : "not confirmed"} ·{" "}

@@ -8,6 +8,7 @@ import type { AccountUser } from "./account-menu";
 import { CommandPaletteHost } from "./command-palette-host";
 import { Dock, type DockIcons } from "./dock";
 import { useCommandK } from "./keyboard-shortcut";
+import { SceneHost } from "../scene/scene-host";
 import { RouteTransition } from "./route-transition";
 import type { CommandAction } from "./types";
 import { ViewTransitionStyles } from "./view-transition-styles";
@@ -48,6 +49,7 @@ export function AppShellFrame({
   return (
     <div className="min-h-dvh text-text">
       <ViewTransitionStyles />
+      <SceneHost pathname={pathname} />
       <SkipLink targetId="main" />
 
       <Dock
@@ -65,7 +67,7 @@ export function AppShellFrame({
       <main
         id="main"
         tabIndex={-1}
-        className="min-w-0 pb-[calc(5.5rem+env(safe-area-inset-bottom))] outline-none sm:pb-0 sm:pl-22"
+        className="app-main min-w-0 pb-[calc(5.5rem+env(safe-area-inset-bottom))] outline-none sm:pb-0 sm:pl-22"
       >
         <RouteTransition>{children}</RouteTransition>
       </main>

@@ -35,7 +35,7 @@ export default async function PrivacyPage() {
   const view = await loadPrivacyView(user);
 
   return (
-    <Page title="Privacy and data">
+    <Page eyebrow="Settings" title="Privacy and data">
       <section aria-labelledby="keep" className="flex flex-col gap-4 plane p-6">
         <h2 id="keep" className="text-lg font-semibold">
           What we keep

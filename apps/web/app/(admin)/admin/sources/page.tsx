@@ -29,7 +29,7 @@ export default async function SourcesPage({
 
   return (
     <>
-      <h1 className="text-display-sm text-text">Knowledge sources</h1>
+      <h1 className="text-display text-text">Knowledge sources</h1>
       <Section title="Add a source" id="add">
         <SourceForm
           schools={schools.map((s) => ({ id: s.id, name: s.name }))}

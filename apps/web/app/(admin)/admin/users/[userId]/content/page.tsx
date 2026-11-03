@@ -22,7 +22,7 @@ export default async function ContentPage({ params }: { params: Promise<{ userId
     if (!(error instanceof BreakGlassRequiredError)) throw error;
     return (
       <>
-        <h1 className="text-display-sm text-text">Content access is closed</h1>
+        <h1 className="text-display text-text">Content access is closed</h1>
         <p className="text-text-soft">
           Open access with a reason on the{" "}
           <Link href={`/admin/users/${userId}`} className="underline underline-offset-4">
@@ -35,7 +35,7 @@ export default async function ContentPage({ params }: { params: Promise<{ userId
   }
   return (
     <>
-      <h1 className="text-display-sm text-text">Their content</h1>
+      <h1 className="text-display text-text">Their content</h1>
       <p className="text-needs" role="status">
         Read-only. Access closes at {stamp(view.expiresAt)}, and this view was logged.
       </p>

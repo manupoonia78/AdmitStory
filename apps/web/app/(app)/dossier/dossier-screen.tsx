@@ -64,9 +64,10 @@ export function DossierScreen({ stories, facts, people, brand, voice, goals }: D
   const conflicts = facts.filter((fact) => fact.status === "conflict").length;
 
   return (
-    <div className="flex flex-col gap-6">
-      <div className="flex flex-col gap-2">
-        <h1 className="text-display-sm text-text">Your Dossier</h1>
+    <div className="flex flex-col gap-8 px-4 py-10 sm:px-8 sm:py-16 xl:px-12">
+      <div className="flex flex-col gap-4">
+        <p className="eyebrow">Everything you have told us</p>
+        <h1 className="text-display text-text sm:text-display-lg">Your Dossier</h1>
         <p className="max-w-prose text-text-soft">
           Everything we know about you, and the only thing your drafts are built from. Correct
           anything that isn&apos;t right.

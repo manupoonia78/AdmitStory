@@ -34,7 +34,7 @@ export default async function AdminOverview() {
 
   return (
     <>
-      <h1 className="text-display-sm text-text">Overview</h1>
+      <h1 className="text-display text-text">Overview</h1>
       <dl className="grid grid-cols-2 gap-x-8 gap-y-3 tabular-nums sm:grid-cols-4">
         <div>
           <dt className="text-sm text-text-soft">Spend today (live)</dt>

@@ -121,7 +121,7 @@ export interface AdminAlertEmailInput {
   severity: "info" | "warn" | "critical";
   /** Ids and numbers only: never applicant text. */
   detail: Record<string, unknown>;
-  /** The console link, e.g. https://admitstory.com/admin. */
+  /** The console link, e.g. https://admitstories.com/admin. */
   consoleUrl: string;
   count: number;
 }

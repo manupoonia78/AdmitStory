@@ -25,7 +25,7 @@ export default async function SchoolsPage() {
 
   return (
     <>
-      <h1 className="text-display-sm text-text">Schools and cycles</h1>
+      <h1 className="text-display text-text">Schools and cycles</h1>
       <p className="max-w-3xl text-sm text-text-soft">
         A school can be bought once a pack version is published for its cycle. Open a cycle to
         review proposals and publish; votes are applicants asking for a pack.

@@ -9,20 +9,24 @@ export const Tabs = TabsPrimitive.Root;
 export function TabsList({ className, ...rest }: ComponentProps<typeof TabsPrimitive.List>) {
   return (
     <TabsPrimitive.List
-      className={cx("flex gap-1 overflow-x-auto border-b border-edge", className)}
+      className={cx(
+        "flex w-fit max-w-full gap-1 overflow-x-auto rounded-full border border-edge p-1 glass-control [scrollbar-width:none]",
+        className,
+      )}
       {...rest}
     />
   );
 }
 
-// The selected tab gets a signal underline as well as signal text, so selection is not colour alone.
+// A segmented glass rail: the selected tab is lit glass (render.css `lit`) with signal text and a
+// heavier weight, so selection is not colour alone.
 export function TabsTrigger({ className, ...rest }: ComponentProps<typeof TabsPrimitive.Trigger>) {
   return (
     <TabsPrimitive.Trigger
       className={cx(
-        "relative min-h-11 shrink-0 rounded-t-control px-3 font-medium text-text-soft hover:text-text",
-        "after:absolute after:inset-x-2 after:-bottom-px after:h-0.5 after:rounded-full",
-        "data-[state=active]:text-signal data-[state=active]:after:bg-signal",
+        "relative min-h-10 shrink-0 rounded-full px-4 font-medium text-text-soft hover:text-text",
+        "transition-[color,background-color,box-shadow] duration-(--spring-snap-duration) ease-snap",
+        "data-[state=active]:lit data-[state=active]:font-semibold data-[state=active]:text-signal",
         "disabled:cursor-not-allowed disabled:opacity-60",
         className,
       )}
@@ -32,5 +36,5 @@ export function TabsTrigger({ className, ...rest }: ComponentProps<typeof TabsPr
 }
 
 export function TabsContent({ className, ...rest }: ComponentProps<typeof TabsPrimitive.Content>) {
-  return <TabsPrimitive.Content className={cx("pt-4", className)} {...rest} />;
+  return <TabsPrimitive.Content className={cx("pt-6", className)} {...rest} />;
 }
