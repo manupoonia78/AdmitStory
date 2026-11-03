@@ -23,7 +23,7 @@ jobs:
       - if: env.ANTHROPIC_API_KEY == ''
         run: echo "::notice::ANTHROPIC_API_KEY is not set; skipping the live eval gate."
       - if: env.ANTHROPIC_API_KEY != ''
-        uses: actions/checkout@v5
+        uses: actions/checkout@v7
       - if: env.ANTHROPIC_API_KEY != ''
         uses: pnpm/action-setup@v4
       - if: env.ANTHROPIC_API_KEY != ''
