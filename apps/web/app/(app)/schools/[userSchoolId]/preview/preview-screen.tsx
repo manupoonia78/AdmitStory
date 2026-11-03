@@ -81,7 +81,7 @@ export function PreviewScreen({
         <Link href="/schools" className="text-sm text-text-soft underline-offset-2 hover:underline">
           School Strategy
         </Link>
-        <h1 className="text-display-sm text-text">{`${schoolName} kit preview`}</h1>
+        <h1 className="text-display text-text">{`${schoolName} kit preview`}</h1>
         <p className="max-w-essay text-text-soft">
           How you&apos;d position for {schoolName}, which story goes where, and what the kit drafts.
           The drafts themselves stay locked until you unlock the kit.

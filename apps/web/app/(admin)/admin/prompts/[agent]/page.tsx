@@ -50,7 +50,7 @@ export default async function AgentPromptsPage({ params }: { params: Promise<{ a
         <Link href="/admin/prompts" className="text-sm text-text-soft hover:underline">
           Prompts
         </Link>
-        <h1 className="font-mono text-display-sm text-text">{agent}</h1>
+        <h1 className="font-mono text-display text-text">{agent}</h1>
         <p className="text-sm text-text-soft">
           Serving:{" "}
           {active.length === 0

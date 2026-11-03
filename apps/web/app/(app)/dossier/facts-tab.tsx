@@ -60,7 +60,7 @@ export function FactsTab({ facts }: { facts: DossierFactView[] }) {
     <div className="flex flex-col gap-6">
       {conflicts.length > 0 ? (
         <section className="flex flex-col gap-3">
-          <h2 className="text-lg font-semibold text-text">
+          <h2 className="font-display text-[1.625rem] leading-tight tracking-[-0.01em] text-text">
             {conflicts.length === 1 ? "One fact needs you" : `${conflicts.length} facts need you`}
           </h2>
           <ul className="flex flex-col gap-3">

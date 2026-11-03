@@ -23,7 +23,7 @@ export default async function SwitchesPage() {
 
   return (
     <>
-      <h1 className="text-display-sm text-text">Switches</h1>
+      <h1 className="text-display text-text">Switches</h1>
       <p className="max-w-prose text-text-soft">
         Pause a feature when a provider is down, costs run away or something is wrong. Nothing is
         lost while it&apos;s paused, and it takes up to 15 seconds to reach every server.

@@ -273,7 +273,7 @@ export function DetailScreen({
 
       <div className="flex min-w-0 flex-1 flex-col gap-6">
         <header className="flex flex-col gap-2">
-          <h1 className="text-display-sm text-text">{detail.recommender.name}</h1>
+          <h1 className="text-display text-text">{detail.recommender.name}</h1>
           <nav aria-label="Recommender sections">
             <ul className="flex flex-wrap gap-x-4 gap-y-2">
               {RECOMMENDER_TABS.map((item) => (

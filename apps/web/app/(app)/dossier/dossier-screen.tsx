@@ -2,6 +2,7 @@
 
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@admitstory/ui";
 import dynamic from "next/dynamic";
+import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useCallback } from "react";
 import { StoriesTab } from "./stories-tab";
@@ -64,9 +65,18 @@ export function DossierScreen({ stories, facts, people, brand, voice, goals }: D
   const conflicts = facts.filter((fact) => fact.status === "conflict").length;
 
   return (
-    <div className="flex flex-col gap-6">
-      <div className="flex flex-col gap-2">
-        <h1 className="text-display-sm text-text">Your Dossier</h1>
+    <div className="mx-auto flex w-full max-w-6xl flex-col gap-8 px-5 py-10 sm:px-10 sm:py-14">
+      <div className="flex flex-col gap-4">
+        <nav aria-label="Breadcrumb" className="meta flex items-center gap-2">
+          <Link href="/settings" className="hover:text-text">
+            Settings
+          </Link>
+          <span aria-hidden>/</span>
+          <span aria-current="page" className="text-text">
+            Dossier
+          </span>
+        </nav>
+        <h1 className="text-display text-text">Your Dossier</h1>
         <p className="max-w-prose text-text-soft">
           Everything we know about you, and the only thing your drafts are built from. Correct
           anything that isn&apos;t right.

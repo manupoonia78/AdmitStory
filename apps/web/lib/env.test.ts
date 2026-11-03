@@ -120,8 +120,8 @@ describe("marketing env (Phase 9a)", () => {
   it("reads the kill switch, the cap and the public domain", () => {
     expect(testEnv({ DEMO_STT: "OFF" }).DEMO_STT).toBe("off");
     expect(testEnv({ DEMO_DAILY_CAP: "40" }).DEMO_DAILY_CAP).toBe(40);
-    expect(testEnv({ SITE_URL: "https://admitstory.example" }).SITE_URL).toBe(
-      "https://admitstory.example",
+    expect(testEnv({ SITE_URL: "https://admitstories.example" }).SITE_URL).toBe(
+      "https://admitstories.example",
     );
   });
 

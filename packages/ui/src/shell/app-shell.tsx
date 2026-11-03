@@ -3,7 +3,7 @@
 // all six of its weights; the dock's seven cost about 5.5 KB gz of each app route's first load
 // (spec §6.11: 160 KB per route). Import it from server components only, as (app)/layout does.
 
-import { MagnifyingGlassIcon } from "@phosphor-icons/react/ssr";
+import { GearSixIcon, MagnifyingGlassIcon, PlusIcon } from "@phosphor-icons/react/ssr";
 import type { ReactNode } from "react";
 import type { ThemePreference } from "../theme-preference";
 import type { AccountUser } from "./account-menu";
@@ -29,7 +29,12 @@ function dockIcons(): DockIcons {
     const ItemIcon = NAV_ICONS[item.id];
     nav[item.id] = <ItemIcon size={20} aria-hidden />;
   }
-  return { nav, search: <MagnifyingGlassIcon size={20} aria-hidden /> };
+  return {
+    nav,
+    search: <MagnifyingGlassIcon size={18} aria-hidden />,
+    settings: <GearSixIcon size={20} aria-hidden />,
+    newStory: <PlusIcon size={16} weight="bold" aria-hidden />,
+  };
 }
 
 /**

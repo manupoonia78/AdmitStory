@@ -24,7 +24,7 @@ export default async function SchoolPage({ params }: { params: Promise<{ schoolI
         <Link href="/admin/schools" className="text-sm text-text-soft hover:underline">
           Schools and cycles
         </Link>
-        <h1 className="text-display-sm text-text">{school.name}</h1>
+        <h1 className="text-display text-text">{school.name}</h1>
         <p className="text-sm text-text-soft">
           {school.slug} · {school.region}
         </p>

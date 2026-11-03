@@ -21,7 +21,7 @@ export function SessionSummaryCard({
   return (
     <section className="mx-auto flex w-full max-w-2xl flex-col gap-8 py-10">
       <div className="flex flex-col gap-3">
-        <h1 className="text-display-sm text-text">
+        <h1 className="text-display text-text">
           {stories === 0
             ? "Everything so far is saved."
             : `That's a strong start: ${stories} ${stories === 1 ? "story" : "stories"} and ${facts} ${facts === 1 ? "fact" : "facts"}.`}
@@ -36,7 +36,9 @@ export function SessionSummaryCard({
 
       {summary.thinLenses.length > 0 ? (
         <div className="flex flex-col gap-2">
-          <h2 className="text-lg font-semibold text-text">Still thin</h2>
+          <h2 className="font-display text-[1.625rem] leading-tight tracking-[-0.01em] text-text">
+            Still thin
+          </h2>
           <ul className="flex flex-col gap-1 text-text-soft">
             {summary.thinLenses.map((lens) => (
               <li key={lens.id}>{lens.label}</li>

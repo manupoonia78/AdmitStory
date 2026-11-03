@@ -76,8 +76,8 @@ const AA_NON_TEXT = 3;
 type Pair = [fg: string, bg: string, minimum: number, why: string];
 
 const PAIRS: Pair[] = [
-  ...["text", "text-soft", "signal", "silver", "verified", "needs", "risk"].flatMap((fg) =>
-    ["space", "depth"].map((bg): Pair => [fg, bg, AA_TEXT, "text"]),
+  ...["text", "text-soft", "signal", "accent", "silver", "verified", "needs", "risk"].flatMap(
+    (fg) => ["space", "depth"].map((bg): Pair => [fg, bg, AA_TEXT, "text"]),
   ),
   ["on-signal", "signal", AA_TEXT, "primary button text"],
   ["on-signal", "risk", AA_TEXT, "danger button text"],
@@ -132,11 +132,6 @@ describe("restricted uses", () => {
     expect(contrast(day.record!, day.space!)).toBeLessThan(AA_TEXT);
   });
 
-  it("Day status colours are below 4.5 on --veil, so they never sit on it", () => {
-    const veiled = over(day.veil!, day.space!);
-    expect(contrast(day.verified!, veiled)).toBeLessThan(AA_TEXT);
-  });
-
   it("--edge is decorative: below 3:1, so controls use --control-edge", () => {
     expect(contrast(day.edge!, day.depth!)).toBeLessThan(AA_NON_TEXT);
     expect(contrast(over(night.edge!, night.depth!), night.depth!)).toBeLessThan(AA_NON_TEXT);
@@ -177,30 +172,32 @@ describe("tokens.css structure", () => {
     expect(parseColour(THEME_COLORS.night)).toEqual(night.space);
   });
 
-  it("matches the spec §6.3 values exactly", () => {
+  it("matches the paper palette values exactly", () => {
     const spec: Record<"day" | "night", Record<string, string>> = {
       night: {
-        space: "#070A1F",
-        depth: "#0E1433",
-        text: "#EEF0FF",
-        "text-soft": "#9AA2CC",
-        signal: "#9DB1FF",
-        record: "#FF5A6E",
-        verified: "#5BE3A1",
-        needs: "#FFC46B",
-        risk: "#FF7A85",
+        space: "#12110F",
+        depth: "#1B1916",
+        text: "#F2EDE6",
+        "text-soft": "#A69F94",
+        signal: "#F2EDE6",
+        accent: "#D4AE6A",
+        record: "#F06A50",
+        verified: "#7FCB98",
+        needs: "#E3B467",
+        risk: "#F08A78",
       },
       day: {
-        space: "#F4F5FB",
-        depth: "#FFFFFF",
-        edge: "#DCE0EE",
-        text: "#141833",
-        "text-soft": "#5B6285",
-        signal: "#2E3FD1",
-        record: "#D92D45",
-        verified: "#13804F",
-        needs: "#A65A00",
-        risk: "#C42B3A",
+        space: "#F3EFE8",
+        depth: "#FBF9F5",
+        edge: "#E2DBCF",
+        text: "#1A1713",
+        "text-soft": "#625B50",
+        signal: "#1A1713",
+        accent: "#8A6420",
+        record: "#C8452F",
+        verified: "#2F6B45",
+        needs: "#8A5A12",
+        risk: "#A63A2A",
       },
     };
     for (const [name, value] of Object.entries(spec.night)) {
@@ -209,9 +206,9 @@ describe("tokens.css structure", () => {
     for (const [name, value] of Object.entries(spec.day)) {
       expect(day[name], name).toEqual(parseColour(value));
     }
-    expect(night.veil).toEqual([140, 160, 255, 0.08]);
-    expect(night.edge).toEqual([170, 185, 255, 0.14]);
-    expect(day.veil).toEqual([20, 30, 90, 0.05]);
+    expect(night.veil).toEqual([255, 240, 220, 0.06]);
+    expect(night.edge).toEqual([255, 240, 220, 0.11]);
+    expect(day.veil).toEqual([60, 40, 10, 0.05]);
   });
 
   it("keeps the default --voice hue equal to the first of the 12", () => {

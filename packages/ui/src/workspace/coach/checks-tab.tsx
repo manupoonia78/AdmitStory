@@ -140,7 +140,9 @@ export function CheckList({
   };
   return (
     <div className="flex flex-col gap-5">
-      <h2 className="text-lg font-semibold text-text">Checks</h2>
+      <h2 className="font-display text-[1.625rem] leading-tight tracking-[-0.01em] text-text">
+        Checks
+      </h2>
       {findings.length === 0 ? (
         <p className="inline-flex items-center gap-1 font-medium text-verified">
           <CheckCircleIcon size={16} aria-hidden />

@@ -13,13 +13,15 @@ export interface NavItem {
   href: string;
 }
 
-export type NavId = "home" | "studio" | "dossier" | "schools" | "interview" | "connect" | "tracker";
+export type NavId = "home" | "studio" | "schools" | "interview" | "connect" | "tracker";
 
-/** The destinations of the dock (spec §6.5), in the order of §4's journey. */
+/**
+ * The destinations of the sidebar, in the order of §4's journey. The Dossier is not here: it lives
+ * under Settings (SETTINGS_PATHS), reached from the Settings page and the account menu.
+ */
 export const NAV_ITEMS: readonly NavItem[] = [
   { id: "home", label: "Home", href: "/home" },
-  { id: "studio", label: "Story", href: "/studio" },
-  { id: "dossier", label: "Dossier", href: "/dossier" },
+  { id: "studio", label: "Story Studio", href: "/studio" },
   { id: "schools", label: "Schools", href: "/schools" },
   { id: "interview", label: "Interview", href: "/interview" },
   { id: "connect", label: "Connect", href: "/connect" },
@@ -29,3 +31,6 @@ export const NAV_ITEMS: readonly NavItem[] = [
 export function isActivePath(pathname: string, href: string): boolean {
   return pathname === href || pathname.startsWith(`${href}/`);
 }
+
+/** Routes that light the sidebar's Settings entry. */
+export const SETTINGS_PATHS = ["/settings", "/dossier"] as const;

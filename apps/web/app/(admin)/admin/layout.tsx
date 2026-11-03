@@ -31,9 +31,9 @@ const NAV = [
 export default async function AdminLayout({ children }: { children: ReactNode }) {
   await requireAdminPage();
   return (
-    <div className="min-h-dvh bg-space text-text">
+    <div className="min-h-dvh text-text">
       <SkipLink targetId="admin-main" />
-      <header className="border-b border-edge">
+      <header className="sticky top-0 z-20 border-b border-edge bg-depth">
         <nav
           aria-label="Admin"
           className="mx-auto flex max-w-[96rem] flex-wrap items-center gap-x-5 gap-y-1 px-4 py-2 text-sm"
@@ -58,7 +58,7 @@ export default async function AdminLayout({ children }: { children: ReactNode })
       <main
         id="admin-main"
         tabIndex={-1}
-        className="mx-auto flex max-w-[96rem] flex-col gap-6 px-4 py-6"
+        className="auth-main mx-auto flex max-w-[96rem] flex-col gap-6 px-4 py-6"
       >
         {children}
       </main>

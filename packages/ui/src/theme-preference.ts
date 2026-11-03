@@ -59,7 +59,7 @@ export function readThemeCookie(cookieHeader: string): ThemePreference {
  * The browser-chrome colour for each theme: `--space`, the app background. `contrast.test.ts`
  * keeps these equal to tokens.css.
  */
-export const THEME_COLORS = { day: "#f4f5fb", night: "#070a1f" } as const;
+export const THEME_COLORS = { day: "#f3efe8", night: "#12110f" } as const;
 
 export const LIGHT_SCHEME_MEDIA = "(prefers-color-scheme: light)";
 export const DARK_SCHEME_MEDIA = "(prefers-color-scheme: dark)";
@@ -79,7 +79,9 @@ export function themeColors(
   preference: ThemePreference,
   { immersive = false }: { immersive?: boolean } = {},
 ): ThemeColorTag[] {
-  const theme = immersive ? immersiveTheme(preference) : themeAttribute(preference);
+  // Immersive screens follow the page since the paper redesign; the option stays for callers.
+  void immersive;
+  const theme = themeAttribute(preference);
   return [
     { media: LIGHT_SCHEME_MEDIA, color: THEME_COLORS[theme ?? "day"] },
     { media: DARK_SCHEME_MEDIA, color: THEME_COLORS[theme ?? "night"] },

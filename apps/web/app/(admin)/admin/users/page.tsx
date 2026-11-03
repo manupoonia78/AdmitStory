@@ -17,7 +17,7 @@ export default async function UsersPage({
   const hits = q.trim() ? await findUsers(admin, q, 50) : [];
   return (
     <>
-      <h1 className="text-display-sm text-text">Users</h1>
+      <h1 className="text-display text-text">Users</h1>
       <form method="get" className="flex flex-wrap items-end gap-3">
         <label className="flex flex-col gap-1 text-sm text-text-soft">
           Email or user id

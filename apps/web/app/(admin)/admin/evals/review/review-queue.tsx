@@ -80,7 +80,10 @@ export function ReviewQueue({ items }: { items: RatingQueueItem[] }) {
       <p className="text-sm text-text-soft tabular-nums">
         {index + 1} of {items.length} · {rated.size} rated
       </p>
-      <h2 id="item-label" className="text-lg font-semibold text-text">
+      <h2
+        id="item-label"
+        className="font-display text-[1.625rem] leading-tight tracking-[-0.01em] text-text"
+      >
         {item.label}{" "}
         {rated.has(item.id) ? (
           <span className="text-sm font-normal text-text-soft">(rated)</span>

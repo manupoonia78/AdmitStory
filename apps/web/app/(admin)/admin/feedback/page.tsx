@@ -65,7 +65,7 @@ export default async function FeedbackPage({
 
   return (
     <>
-      <h1 className="text-display-sm text-text">Feedback</h1>
+      <h1 className="text-display text-text">Feedback</h1>
       <form method="get" className="flex flex-wrap items-end gap-3 text-sm">
         <label className="flex flex-col gap-1 text-text-soft">
           Status

@@ -169,7 +169,7 @@ export default async function ReviewPage({
         >
           {ref.school.name}
         </Link>
-        <h1 className="text-display-sm text-text">Review {label}</h1>
+        <h1 className="text-display text-text">Review {label}</h1>
         <p className="text-sm text-text-soft tabular-nums">
           {published[0]
             ? `Published version ${published[0].version}, ${formatDate(published[0].publishedAt)}`

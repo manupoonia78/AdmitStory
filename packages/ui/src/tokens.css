@@ -1,17 +1,18 @@
 /*
- * Design tokens (spec §6.3–6.6). Plain custom properties so they work with or without
- * Tailwind; theme.css maps them into Tailwind utilities.
+ * Design tokens. Plain custom properties so they work with or without Tailwind; theme.css maps
+ * them into Tailwind utilities.
  *
- * Two themes: Day (the :root default) and Night. Night applies when the system prefers dark
- * (unless the user chose Day), when the user chose Night, and inside <ImmersiveScope>, which
- * sets data-theme="night" on its subtree. Any element can carry data-theme, so a Day sheet can
- * sit inside a Night screen.
+ * Paper redesign (2026-11-03): warm paper and ink with one bronze accent (--accent), Newsreader
+ * display, Hanken Grotesk interface, JetBrains Mono metadata. Two themes: Day (the :root default)
+ * and Night (warm charcoal). Night applies when the system prefers dark (unless the user chose
+ * Day) or when the user chose Night. Any element can carry data-theme, so an ink panel can sit
+ * inside a Day page.
  *
  * Contrast rules these values were chosen under (asserted in contrast.test.ts):
- *  - --record is non-text only: Day --record on --space is 4.4:1.
- *  - Status colours (--verified, --needs, --risk) never sit on --veil: Day reaches only 4.2:1.
+ *  - Text colours, --accent and status colours meet 4.5:1 on --space and --depth.
+ *  - --record is non-text only.
  *  - Text on --signal and --risk fills (primary and danger buttons) is --on-signal.
- *  - --edge is decorative (1.3:1). Form-control borders use --control-edge (WCAG 1.4.11).
+ *  - --edge is decorative. Form-control borders use --control-edge (WCAG 1.4.11).
  *
  * The Night palette appears twice (system preference and explicit data-theme) because plain
  * CSS cannot share a declaration block between a media query and a selector, and the Day
@@ -22,57 +23,62 @@
 [data-theme="day"] {
   color-scheme: light;
 
-  /* Colour, Day (spec §6.3) */
-  --space: #f4f5fb;
-  --depth: #ffffff;
-  --veil: rgba(20, 30, 90, 0.05);
-  --edge: #dce0ee;
-  --text: #141833;
-  --text-soft: #5b6285;
-  --signal: #2e3fd1;
-  --record: #d92d45;
-  --verified: #13804f;
-  --needs: #a65a00;
-  --risk: #c42b3a;
+  /* Colour, Day: warm paper and ink with one bronze accent (paper redesign 2026-11-03) */
+  --space: #f3efe8;
+  --depth: #fbf9f5;
+  --veil: rgba(60, 40, 10, 0.05);
+  --edge: #e2dbcf;
+  --text: #1a1713;
+  --text-soft: #625b50;
+  --signal: #1a1713;
+  --record: #c8452f;
+  --verified: #2f6b45;
+  --needs: #8a5a12;
+  --risk: #a63a2a;
 
-  /* Additions, each because a spec token can't do the job: */
-  /* text on --signal and --risk fills; white on Night --signal would be 1.8:1 */
-  --on-signal: #ffffff;
-  /* form-control borders, 3:1 on --space and --depth (--edge is 1.3:1) */
-  --control-edge: #787faa;
-  /* the interviewer's colour in live mocks (spec §6.2 "neutral silver"); captions use it */
-  --silver: #5f6478;
-  /* modal scrim and the one soft shadow overlays may keep (spec §6.3: none on static planes) */
-  --scrim: rgba(20, 24, 51, 0.36);
-  --shadow-overlay: 0 24px 48px -16px rgb(20 24 51 / 0.24), 0 2px 8px rgb(20 24 51 / 0.08);
-  /* Night raised planes catch a 1px inner edge light; Day planes rely on --edge alone */
+  /* text on --signal and --risk fills (primary and danger buttons) */
+  --on-signal: #fbf9f5;
+  /* the one accent: eyebrows, italic emphasis, the current nav item's marker */
+  --accent: #8a6420;
+  /* form-control borders, 3:1 on --space and --depth (--edge is decorative) */
+  --control-edge: #8c8478;
+  /* the interviewer's colour in live mocks; captions use it */
+  --silver: #6a655c;
+  /* the sidebar sits a shade under the paper */
+  --rail: #ece7de;
+  --scrim: rgba(26, 23, 19, 0.32);
+  --shadow-overlay: 0 24px 48px -16px rgb(40 30 15 / 0.22), 0 2px 8px rgb(40 30 15 / 0.08);
+  --shadow-paper: 0 1px 1px rgb(40 30 15 / 0.03), 0 10px 30px -14px rgb(40 30 15 / 0.16);
   --plane-light: none;
-  /* film grain: Night only */
-  --grain: none;
+  /* paper grain: both themes, barely there */
+  --grain: var(--grain-image);
 }
 
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="day"]) {
     color-scheme: dark;
 
-    --space: #070a1f;
-    --depth: #0e1433;
-    --veil: rgba(140, 160, 255, 0.08);
-    --edge: rgba(170, 185, 255, 0.14);
-    --text: #eef0ff;
-    --text-soft: #9aa2cc;
-    --signal: #9db1ff;
-    --record: #ff5a6e;
-    --verified: #5be3a1;
-    --needs: #ffc46b;
-    --risk: #ff7a85;
+    --space: #12110f;
+    --depth: #1b1916;
+    --veil: rgba(255, 240, 220, 0.06);
+    --edge: rgba(255, 240, 220, 0.11);
+    --text: #f2ede6;
+    --text-soft: #a69f94;
+    --signal: #f2ede6;
+    --record: #f06a50;
+    --verified: #7fcb98;
+    --needs: #e3b467;
+    --risk: #f08a78;
 
-    --on-signal: #070a1f;
-    --control-edge: #646c99;
-    --silver: #c8ccdc;
-    --scrim: rgba(3, 5, 15, 0.72);
+    --on-signal: #12110f;
+    --accent: #d4ae6a;
+    --control-edge: #6f685e;
+    --silver: #c9c3b8;
+    --rail: #171513;
+    --scrim: rgba(0, 0, 0, 0.6);
     --shadow-overlay: 0 24px 64px -16px rgb(0 0 0 / 0.6), 0 2px 8px rgb(0 0 0 / 0.4);
-    --plane-light: inset 0 1px 0 0 rgb(200 210 255 / 0.08);
+    --shadow-paper: 0 1px 1px rgb(0 0 0 / 0.25), 0 12px 32px -16px rgb(0 0 0 / 0.55);
+    --plane-light: inset 0 1px 0 0 rgb(255 240 220 / 0.05);
     --grain: var(--grain-image);
   }
 }
@@ -80,24 +86,27 @@
 [data-theme="night"] {
   color-scheme: dark;
 
-  --space: #070a1f;
-  --depth: #0e1433;
-  --veil: rgba(140, 160, 255, 0.08);
-  --edge: rgba(170, 185, 255, 0.14);
-  --text: #eef0ff;
-  --text-soft: #9aa2cc;
-  --signal: #9db1ff;
-  --record: #ff5a6e;
-  --verified: #5be3a1;
-  --needs: #ffc46b;
-  --risk: #ff7a85;
+  --space: #12110f;
+  --depth: #1b1916;
+  --veil: rgba(255, 240, 220, 0.06);
+  --edge: rgba(255, 240, 220, 0.11);
+  --text: #f2ede6;
+  --text-soft: #a69f94;
+  --signal: #f2ede6;
+  --record: #f06a50;
+  --verified: #7fcb98;
+  --needs: #e3b467;
+  --risk: #f08a78;
 
-  --on-signal: #070a1f;
-  --control-edge: #646c99;
-  --silver: #c8ccdc;
-  --scrim: rgba(3, 5, 15, 0.72);
+  --on-signal: #12110f;
+  --accent: #d4ae6a;
+  --control-edge: #6f685e;
+  --silver: #c9c3b8;
+  --rail: #171513;
+  --scrim: rgba(0, 0, 0, 0.6);
   --shadow-overlay: 0 24px 64px -16px rgb(0 0 0 / 0.6), 0 2px 8px rgb(0 0 0 / 0.4);
-  --plane-light: inset 0 1px 0 0 rgb(200 210 255 / 0.08);
+  --shadow-paper: 0 1px 1px rgb(0 0 0 / 0.25), 0 12px 32px -16px rgb(0 0 0 / 0.55);
+  --plane-light: inset 0 1px 0 0 rgb(255 240 220 / 0.05);
   --grain: var(--grain-image);
 }
 
@@ -126,15 +135,16 @@
    * Film grain (spec §6.3): very fine static noise at 2% opacity, painted as a background
    * layer so it never takes pointer events or space. Night themes switch it on via --grain.
    */
-  --grain-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)' opacity='0.02'/%3E%3C/svg%3E");
+  --grain-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)' opacity='0.035'/%3E%3C/svg%3E");
 
   /* Focus (spec §6.12): a 2px --signal ring with an offset */
-  --focus-ring-color: var(--signal);
+  --focus-ring-color: var(--accent);
   --focus-ring-width: 2px;
   --focus-ring-offset: 2px;
 
-  /* Type families (spec §6.4). apps/web sets --font-geist-sans / --font-newsreader via next/font. */
-  --font-ui: var(--font-geist-sans, "Geist", ui-sans-serif, system-ui, sans-serif);
+  /* Type families. apps/web sets --font-hanken / --font-newsreader / --font-jetbrains via next/font. */
+  --font-ui: var(--font-hanken, "Hanken Grotesk", ui-sans-serif, system-ui, sans-serif);
+  --font-mono: var(--font-jetbrains, "JetBrains Mono", ui-monospace, "SF Mono", monospace);
   --font-reading: var(
     --font-newsreader,
     "Iowan Old Style",
@@ -161,21 +171,22 @@
   --measure-essay: 66ch;
 
   /*
-   * Display 40 / 64 / 96 / 144, fluid between the 640 and 1280 breakpoints with clamp().
-   * Display type is Geist 500–600, letter-spacing -0.04em, line-height 0.95.
+   * Display: Newsreader at a light weight, tight tracking. Fluid between 640 and 1280px.
+   * 28→36 / 36→52 / 44→76 / 56→104.
    */
-  --type-display-sm: clamp(2rem, 1.5rem + 1.25vw, 2.5rem); /* 32 → 40 */
-  --type-display: clamp(2.5rem, 1rem + 3.75vw, 4rem); /* 40 → 64 */
-  --type-display-lg: clamp(3rem, 0rem + 7.5vw, 6rem); /* 48 → 96 */
-  --type-display-xl: clamp(4rem, -1rem + 12.5vw, 9rem); /* 64 → 144 */
-  --type-display-leading: 0.95;
-  --type-display-tracking: -0.04em;
-  --type-display-weight: 600;
+  --font-display: var(--font-reading);
+  --type-display-sm: clamp(1.75rem, 1.35rem + 1vw, 2.25rem);
+  --type-display: clamp(2.25rem, 1.25rem + 2.5vw, 3.25rem);
+  --type-display-lg: clamp(2.75rem, 1.15rem + 4vw, 4.75rem);
+  --type-display-xl: clamp(3.5rem, 0.5rem + 7.5vw, 6.5rem);
+  --type-display-leading: 1.04;
+  --type-display-tracking: -0.022em;
+  --type-display-weight: 380;
 
   /* Radius hierarchy (spec §6.5): controls, planes, full-screen sheets, circles. Nothing else. */
-  --radius-control: 8px;
-  --radius-plane: 16px;
-  --radius-sheet: 28px;
+  --radius-control: 10px;
+  --radius-plane: 14px;
+  --radius-sheet: 20px;
   --radius-round: 9999px;
 
   /*

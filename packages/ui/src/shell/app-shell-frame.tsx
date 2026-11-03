@@ -60,12 +60,11 @@ export function AppShellFrame({
         icons={icons}
       />
 
-      {/* Room for the docks: the 64px side dock and its 12px float on each side from 640px, the
-          floating bottom dock below it. */}
+      {/* Room for the 256px sidebar from 1024px, and the bottom tab bar below it. */}
       <main
         id="main"
         tabIndex={-1}
-        className="min-w-0 pb-[calc(5.5rem+env(safe-area-inset-bottom))] outline-none sm:pb-0 sm:pl-22"
+        className="app-main min-w-0 pb-[calc(4.5rem+env(safe-area-inset-bottom))] outline-none lg:pb-0 lg:pl-64"
       >
         <RouteTransition>{children}</RouteTransition>
       </main>

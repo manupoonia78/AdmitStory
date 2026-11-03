@@ -26,6 +26,21 @@ const ALIGN: Record<EmptyStateAlign, string> = {
   center: "items-center text-center",
 };
 
+/** A blank sheet above an empty state: the page that is waiting to be written. */
+function Sheet() {
+  return (
+    <span
+      aria-hidden
+      className="mb-5 flex h-14 w-11 flex-col gap-1.5 rounded-[4px] border border-edge bg-depth px-2 pt-3 shadow-paper"
+    >
+      <span className="h-px w-full bg-edge" />
+      <span className="h-px w-full bg-edge" />
+      <span className="h-px w-2/3 bg-edge" />
+      <span className="mt-auto mb-2 h-px w-3 self-end bg-accent" />
+    </span>
+  );
+}
+
 export function EmptyState({
   title,
   description,
@@ -38,11 +53,16 @@ export function EmptyState({
   return (
     <div
       data-align={align}
-      className={cx("flex flex-col gap-2 px-4 py-12", ALIGN[align], className)}
+      className={cx(
+        "flex flex-col gap-2 rounded-plane border border-dashed border-edge px-8 py-12",
+        ALIGN[align],
+        className,
+      )}
     >
-      <Heading className="text-lg font-semibold text-text">{title}</Heading>
-      <p className="text-text-soft">{description}</p>
-      {action ? <div className="mt-4">{action}</div> : null}
+      <Sheet />
+      <Heading className="font-display text-[1.5rem] leading-tight text-text">{title}</Heading>
+      <p className="max-w-[52ch] text-text-soft">{description}</p>
+      {action ? <div className="mt-5">{action}</div> : null}
     </div>
   );
 }

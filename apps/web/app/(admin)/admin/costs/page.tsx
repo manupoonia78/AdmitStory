@@ -23,7 +23,7 @@ export default async function CostsPage({
   return (
     <>
       <div className="flex flex-wrap items-baseline justify-between gap-3">
-        <h1 className="text-display-sm text-text">Costs</h1>
+        <h1 className="text-display text-text">Costs</h1>
         <p className="text-sm text-text-soft">
           <Link href="/admin/routing" className="underline underline-offset-4">
             Routing

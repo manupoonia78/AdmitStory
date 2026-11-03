@@ -8,7 +8,6 @@ import { useSyncExternalStore } from "react";
 import {
   DARK_SCHEME_MEDIA,
   THEME_COLORS,
-  immersiveTheme,
   readThemeCookie,
   serializeThemeCookie,
   themeAttribute,
@@ -35,7 +34,7 @@ function subscribe(listener: () => void) {
  * pair with `themeColors()`; this keeps them in step after a manual change. A media-qualified tag
  * gets that query's colour from `themeColors()`, which is the media-based pair again for "system".
  * A tag without `media` gets the colour of the theme now showing. With no tags it adds the pair.
- * On a page with an immersive scope the pair is Night unless Day was chosen.
+ * Immersive scopes follow the page's theme (paper redesign), so they need no special case.
  */
 export function applyThemeColor(preference: ThemePreference) {
   const immersive = document.querySelector(`[${IMMERSIVE_ATTRIBUTE}]`) !== null;
@@ -56,7 +55,7 @@ export function applyThemeColor(preference: ThemePreference) {
     const tag = media ? tags.find((t) => t.media === media) : undefined;
     if (tag) meta.setAttribute("content", tag.color);
     else if (!media) {
-      const theme = immersive ? immersiveTheme(preference) : resolvedTheme(preference);
+      const theme = resolvedTheme(preference);
       meta.setAttribute("content", THEME_COLORS[theme]);
     }
   }

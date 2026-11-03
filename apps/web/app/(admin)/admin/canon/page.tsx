@@ -14,7 +14,7 @@ export default async function CanonPage() {
 
   return (
     <>
-      <h1 className="text-display-sm text-text">Canon</h1>
+      <h1 className="text-display text-text">Canon</h1>
       <p className="max-w-3xl text-sm text-text-soft">
         The files in knowledge/canon are version 1 of each document. A version published here
         replaces the file for every model call within a minute, and runs the eval suite once it

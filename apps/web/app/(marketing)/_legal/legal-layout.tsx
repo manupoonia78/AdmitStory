@@ -84,7 +84,9 @@ export function LegalLayout({ title, titleId, contentsLabel, sections, hero }: L
       </details>
 
       <div className="col-span-4 mt-6 sm:col-span-8 lg:col-span-12 xl:mt-16 xl:grid xl:grid-cols-12 xl:gap-x-6">
-        <nav aria-label={contentsLabel} className="hidden xl:col-span-2 xl:block">
+        {/* pt: the first section's rule and py-10 (41 px), less half the 36 px link minus half the
+            32 px heading, so the first link sits level with the first <h2>. */}
+        <nav aria-label={contentsLabel} className="hidden xl:col-span-2 xl:block xl:pt-[39px]">
           <div className="sticky top-28">
             <ContentsLinks sections={sections} />
           </div>

@@ -1,8 +1,8 @@
 "use client";
 
 import type { HTMLAttributes, Ref } from "react";
-import { immersiveTheme, type ThemePreference } from "../theme-preference";
-import { IMMERSIVE_ATTRIBUTE, useThemePreference } from "./theme-store";
+import type { ThemePreference } from "../theme-preference";
+import { IMMERSIVE_ATTRIBUTE } from "./theme-store";
 
 export interface ImmersiveScopeProps extends HTMLAttributes<HTMLDivElement> {
   /** The theme cookie as read on the server, so the first paint is already in the right theme. */
@@ -11,21 +11,10 @@ export interface ImmersiveScopeProps extends HTMLAttributes<HTMLDivElement> {
 }
 
 /**
- * Wraps an immersive screen (Story Studio, kit generation, live mocks; spec §6.3). Its subtree is
- * Night unless the user explicitly chose Day, whatever the system is set to, and it paints its
- * own --space background with film grain (theme.css). While it is on the page, the browser chrome
- * colour follows it too.
+ * Wraps an immersive screen (Story Studio, kit generation, live mocks; spec §6.3). Since the paper
+ * redesign it no longer forces Night: immersive screens sit on the same paper as the rest of the
+ * app, in whatever theme the user chose, so the Studio never feels like a different product.
  */
-export function ImmersiveScope({ serverValue, ref, ...rest }: ImmersiveScopeProps) {
-  const preference = useThemePreference(serverValue);
-  const theme = immersiveTheme(preference);
-  return (
-    <div
-      ref={ref}
-      {...rest}
-      {...{ [IMMERSIVE_ATTRIBUTE]: "" }}
-      // Day adds nothing: the subtree simply inherits the page's Day palette.
-      data-theme={theme === "night" ? "night" : undefined}
-    />
-  );
+export function ImmersiveScope({ serverValue: _serverValue, ref, ...rest }: ImmersiveScopeProps) {
+  return <div ref={ref} {...rest} {...{ [IMMERSIVE_ATTRIBUTE]: "" }} />;
 }

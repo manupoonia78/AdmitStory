@@ -46,7 +46,9 @@ export function OptionsTab({
 }: OptionsTabProps) {
   return (
     <div className="flex flex-col gap-4">
-      <h2 className="text-lg font-semibold text-text">Options</h2>
+      <h2 className="font-display text-[1.625rem] leading-tight tracking-[-0.01em] text-text">
+        Options
+      </h2>
       <ul className="flex flex-col divide-y divide-edge">
         {options.map((option) => {
           const name = `Option ${option.label}`;

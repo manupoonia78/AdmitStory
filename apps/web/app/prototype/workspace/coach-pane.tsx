@@ -96,7 +96,9 @@ export function CoachPane({
       </TabsList>
 
       <TabsContent value="why" className="flex flex-col gap-5 p-5">
-        <h2 className="text-lg font-semibold text-text">Why this draft</h2>
+        <h2 className="font-display text-[1.625rem] leading-tight tracking-[-0.01em] text-text">
+          Why this draft
+        </h2>
         <p className="text-text">
           Story: <span className="font-medium">The night-shift fix</span>. It shows you taking
           ownership without a title, which Northfield asks for directly. Essay 2 covers how you
@@ -121,7 +123,9 @@ export function CoachPane({
       </TabsContent>
 
       <TabsContent value="options" className="flex flex-col gap-4 p-5">
-        <h2 className="text-lg font-semibold text-text">Options</h2>
+        <h2 className="font-display text-[1.625rem] leading-tight tracking-[-0.01em] text-text">
+          Options
+        </h2>
         <ul className="flex flex-col divide-y divide-edge">
           {OPTIONS.map((option) => (
             <li key={option.label} className="flex flex-col gap-1 py-3">
@@ -139,7 +143,9 @@ export function CoachPane({
       </TabsContent>
 
       <TabsContent value="refine" className="flex flex-col gap-5 p-5">
-        <h2 className="text-lg font-semibold text-text">Refine</h2>
+        <h2 className="font-display text-[1.625rem] leading-tight tracking-[-0.01em] text-text">
+          Refine
+        </h2>
         <form onSubmit={ask} className="flex flex-col gap-3">
           <TextField
             label="Ask for a change"
@@ -173,7 +179,9 @@ export function CoachPane({
       </TabsContent>
 
       <TabsContent value="checks" className="flex flex-col gap-4 p-5">
-        <h2 className="text-lg font-semibold text-text">Checks</h2>
+        <h2 className="font-display text-[1.625rem] leading-tight tracking-[-0.01em] text-text">
+          Checks
+        </h2>
         <ul className="flex flex-col gap-3">
           {over > 0 ? (
             <li className="flex flex-col gap-0.5">
@@ -213,7 +221,9 @@ export function CoachPane({
       </TabsContent>
 
       <TabsContent value="verify" className="flex flex-col gap-4 p-5">
-        <h2 className="text-lg font-semibold text-text">Verify</h2>
+        <h2 className="font-display text-[1.625rem] leading-tight tracking-[-0.01em] text-text">
+          Verify
+        </h2>
         <p className="text-text-soft">Confirm these before you submit.</p>
         <ul className="flex flex-col gap-3">
           {VERIFY.map((item) => (

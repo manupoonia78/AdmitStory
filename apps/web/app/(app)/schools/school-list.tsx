@@ -52,7 +52,10 @@ export function SchoolList({ rows }: { rows: readonly StrategyRow[] }) {
   if (rows.length === 0) return null;
   return (
     <section aria-labelledby="list-heading" className="flex flex-col gap-4">
-      <h2 id="list-heading" className="text-lg font-semibold text-text">
+      <h2
+        id="list-heading"
+        className="font-display text-[1.625rem] leading-tight tracking-[-0.01em] text-text"
+      >
         Your list
       </h2>
       <StatusMessage message={status} />

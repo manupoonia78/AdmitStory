@@ -1,23 +1,32 @@
 import { APP_NAME } from "@admitstory/shared";
 import { THEME_COOKIE, parseThemePreference, themeAttribute, themeColors } from "@admitstory/ui";
 import type { Metadata, Viewport } from "next";
-import { GeistSans } from "geist/font/sans";
-import { Newsreader } from "next/font/google";
+import { Hanken_Grotesk, JetBrains_Mono, Newsreader } from "next/font/google";
 import { cookies } from "next/headers";
 import type { ReactNode } from "react";
 import "./globals.css";
 
-// Interface and display face (spec §6.4): Geist, one variable file (100–900) from the `geist`
-// package. GeistSans sets --font-geist-sans, which tokens.css reads into --font-ui.
+// Three faces, one job each (paper redesign): Hanken Grotesk for the interface, Newsreader for
+// display lines and reading, JetBrains Mono for eyebrows, figures and metadata. All variable.
+const hanken = Hanken_Grotesk({
+  subsets: ["latin"],
+  display: "swap",
+  variable: "--font-hanken",
+});
 
-// Reading face: a variable font with the optical-size axis (400 and 500 are used), roman and
-// italic. Not preloaded: the shell has no reading text yet, so it loads only where it is used.
+// Every page title is set in it, so it is preloaded. Optical-size axis, roman and italic.
 const newsreader = Newsreader({
   subsets: ["latin"],
   axes: ["opsz"],
   style: ["normal", "italic"],
   display: "swap",
   variable: "--font-newsreader",
+});
+
+const jetbrains = JetBrains_Mono({
+  subsets: ["latin"],
+  display: "swap",
+  variable: "--font-jetbrains",
   preload: false,
 });
 
@@ -52,7 +61,7 @@ export default async function RootLayout({ children }: { children: ReactNode }) 
     <html
       lang="en"
       data-theme={themeAttribute(theme)}
-      className={`${GeistSans.variable} ${newsreader.variable}`}
+      className={`${hanken.variable} ${newsreader.variable} ${jetbrains.variable}`}
       // ThemeToggle updates data-theme on the client without a reload.
       suppressHydrationWarning
     >

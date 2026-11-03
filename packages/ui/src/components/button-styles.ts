@@ -15,10 +15,11 @@ const BASE =
 // --control-edge so the control edge meets 3:1 (WCAG 1.4.11). Status colours never sit on
 // --veil, so danger hovers by deepening its own fill.
 const VARIANTS: Record<ButtonVariant, string> = {
-  primary: "bg-signal text-on-signal hover:bg-signal/90",
-  secondary: "border border-control bg-depth text-signal hover:bg-veil",
-  quiet: "bg-transparent text-signal hover:bg-veil",
-  danger: "bg-risk text-on-signal hover:bg-risk/90",
+  // Solid fills are flat ink (render.css `gloss`); secondary is an outlined sheet of paper.
+  primary: "gloss bg-signal text-on-signal",
+  secondary: "glass-control border border-edge bg-depth text-text hover:border-control",
+  quiet: "bg-transparent text-text hover:bg-veil",
+  danger: "gloss [--gloss:var(--risk)] bg-risk text-on-signal",
 };
 
 // Small controls stay 36px visually but get a 44px hit area (spec §6.12).
@@ -27,8 +28,8 @@ const HIT_AREA =
 
 const SIZES: Record<ButtonShape, Record<ButtonSize, string>> = {
   label: {
-    md: "min-h-11 px-4 text-base",
-    sm: `min-h-9 px-3 text-sm ${HIT_AREA}`,
+    md: "min-h-11 px-5 text-base",
+    sm: `min-h-9 px-4 text-sm ${HIT_AREA}`,
   },
   icon: {
     md: "size-11",

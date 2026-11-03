@@ -20,7 +20,7 @@ export default async function OrdersPage({
   const orders = email.includes("@") ? await adminFindOrders(admin, email).catch(() => []) : [];
   return (
     <>
-      <h1 className="text-display-sm text-text">Orders</h1>
+      <h1 className="text-display text-text">Orders</h1>
       <form className="flex flex-wrap items-end gap-3" method="get">
         <label className="flex flex-col gap-1 text-sm text-text-soft">
           Buyer&apos;s email

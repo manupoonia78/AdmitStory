@@ -75,22 +75,24 @@ export function StrategyScreen({
   }, [comparison, selected]);
 
   return (
-    <div className="mx-auto flex w-full max-w-6xl flex-col gap-12 px-4 py-8 sm:px-8 sm:py-12">
-      <header className="flex flex-col gap-3">
-        <h1 className="text-display-sm text-text">School Strategy</h1>
-        <p className="max-w-essay font-reading text-read-lg text-text">
-          {headline(rows, selected.length)}
-        </p>
+    <div className="mx-auto flex w-full max-w-6xl flex-col gap-12 px-5 py-10 sm:px-10 sm:py-14">
+      <header className="flex flex-col gap-4 border-b border-edge pb-8">
+        <p className="eyebrow">Where you will apply</p>
+        <h1 className="text-display text-text">School Strategy</h1>
+        <p className="max-w-essay text-lg text-text-soft">{headline(rows, selected.length)}</p>
       </header>
 
       <AddSchools inputRef={searchRef} autoFocus={rows.length === 0} />
 
       <section aria-labelledby="horizon-heading" className="flex flex-col gap-4">
-        <h2 id="horizon-heading" className="text-lg font-semibold text-text">
+        <h2
+          id="horizon-heading"
+          className="font-display text-[1.625rem] leading-tight tracking-[-0.01em] text-text"
+        >
           Your deadlines
         </h2>
         {rows.length === 0 ? (
-          <p className="text-text-soft">
+          <p className="placeholder">
             No schools yet. Search for one to see its rounds and what it asks for.
           </p>
         ) : (

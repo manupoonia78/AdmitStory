@@ -17,7 +17,7 @@ export default async function EvalsPage() {
   return (
     <>
       <div className="flex flex-wrap items-center justify-between gap-3">
-        <h1 className="text-display-sm text-text">Evals</h1>
+        <h1 className="text-display text-text">Evals</h1>
         <div className="flex items-center gap-4">
           <Link href="/admin/evals/review" className="text-sm underline underline-offset-4">
             This week&apos;s ratings

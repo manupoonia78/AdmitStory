@@ -264,7 +264,10 @@ export function VoiceprintLab() {
 function LabSection({ id, title, children }: { id: string; title: string; children: ReactNode }) {
   return (
     <section aria-labelledby={`${id}-title`} className="flex flex-col gap-4">
-      <h2 id={`${id}-title`} className="text-lg font-semibold text-text">
+      <h2
+        id={`${id}-title`}
+        className="font-display text-[1.625rem] leading-tight tracking-[-0.01em] text-text"
+      >
         {title}
       </h2>
       {children}
@@ -515,7 +518,10 @@ function HueGallery({
   return (
     <section aria-labelledby="hues-title" className="flex flex-col gap-6">
       <div className="flex flex-col gap-2">
-        <h2 id="hues-title" className="text-lg font-semibold text-text">
+        <h2
+          id="hues-title"
+          className="font-display text-[1.625rem] leading-tight tracking-[-0.01em] text-text"
+        >
           Twelve hues
         </h2>
         <p className="max-w-prose text-text-soft">

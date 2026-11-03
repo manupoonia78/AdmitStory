@@ -58,14 +58,9 @@ describe("theme preference", () => {
     expect(themeColors("day").map((t) => t.color)).toEqual([THEME_COLORS.day, THEME_COLORS.day]);
   });
 
-  it("gives immersive screens Night chrome unless Day was chosen", () => {
-    expect(themeColors("system", { immersive: true }).map((t) => t.color)).toEqual([
-      THEME_COLORS.night,
-      THEME_COLORS.night,
-    ]);
-    expect(themeColors("day", { immersive: true }).map((t) => t.color)).toEqual([
-      THEME_COLORS.day,
-      THEME_COLORS.day,
-    ]);
+  it("gives immersive screens the same chrome as the page", () => {
+    for (const preference of ["system", "day", "night"] as const) {
+      expect(themeColors(preference, { immersive: true })).toEqual(themeColors(preference));
+    }
   });
 });

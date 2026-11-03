@@ -1,15 +1,14 @@
 // The public marketing site (spec §16 Phase 9a; direction §2, §9; plan §2.1). No app shell, no
 // dock, no Radix: server markup with a handful of tiny client leaves.
 //
-// Theme: Night by default, Day only when the visitor chose Day (immersiveTheme). The hero and the
-// pinned sequence pin themselves to Night; essay sheets are Day paper in either theme.
+// Theme: Day paper by default, Night only when the visitor chose Night (marketingTheme). The hero
+// and the pinned sequence pin themselves to Night, so the page alternates ink and paper.
 
 import { APP_NAME } from "@admitstory/shared/brand";
 import {
   SkipLink,
   THEME_COOKIE,
   ViewTransitionStyles,
-  immersiveTheme,
   parseThemePreference,
   themeColors,
 } from "@admitstory/ui";
@@ -18,6 +17,7 @@ import { cookies } from "next/headers";
 import type { ReactNode } from "react";
 import { absoluteUrl, siteUrl } from "@/lib/marketing/site-url";
 import { PageTransition } from "./_chrome/page-transition";
+import { marketingTheme } from "./_chrome/marketing-theme";
 import { SiteFooter } from "./_chrome/site-footer";
 import { SiteNav } from "./_chrome/site-nav";
 import { TrackClicks } from "./_chrome/track-clicks";
@@ -43,7 +43,7 @@ export async function generateViewport(): Promise<Viewport> {
     width: "device-width",
     initialScale: 1,
     colorScheme: "light dark",
-    themeColor: themeColors(await themePreference(), { immersive: true }),
+    themeColor: themeColors(marketingTheme(await themePreference())),
   };
 }
 
@@ -64,7 +64,7 @@ export default async function MarketingLayout({ children }: { children: ReactNod
   return (
     <div
       data-marketing-theme=""
-      data-theme={immersiveTheme(preference)}
+      data-theme={marketingTheme(preference)}
       className="min-h-dvh bg-space text-text"
     >
       <SkipLink />

@@ -13,7 +13,7 @@ export default async function PromptsPage() {
 
   return (
     <>
-      <h1 className="text-display-sm text-text">Prompts</h1>
+      <h1 className="text-display text-text">Prompts</h1>
       <p className="max-w-3xl text-sm text-text-soft">
         With nothing active in the registry, an agent runs its newest file version on the routing
         table. Activating a version moves its traffic within a minute.

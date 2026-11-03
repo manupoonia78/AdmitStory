@@ -70,7 +70,7 @@ export function FollowSection() {
                 </MarginNote>
                 <h3
                   id={`follow-${chapter.id}`}
-                  className="follow-statement mt-5 font-ui text-display text-text"
+                  className="follow-statement mt-5 font-display text-display text-text"
                 >
                   {chapter.statement[0]} <br aria-hidden="true" />
                   {chapter.statement[1]}

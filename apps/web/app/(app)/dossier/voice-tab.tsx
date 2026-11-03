@@ -53,7 +53,9 @@ export function VoiceTab({
           <VoiceprintStill identity={voice.identity ?? DEFAULT_IDENTITY} size={96} label="" />
         </span>
         <div className="flex flex-col gap-1">
-          <h2 className="text-lg font-semibold text-text">Your Voiceprint</h2>
+          <h2 className="font-display text-[1.625rem] leading-tight tracking-[-0.01em] text-text">
+            Your Voiceprint
+          </h2>
           <p className="max-w-prose text-text-soft">
             {voice.identity === null
               ? "Drawn from a default for now. Once you've answered a few questions it becomes yours."
@@ -65,7 +67,9 @@ export function VoiceTab({
       </section>
 
       <section className="flex flex-col gap-3">
-        <h2 className="text-lg font-semibold text-text">How you sound</h2>
+        <h2 className="font-display text-[1.625rem] leading-tight tracking-[-0.01em] text-text">
+          How you sound
+        </h2>
         {voice.card ? (
           <p className="rounded-plane border border-edge bg-depth p-4 font-ui text-sm text-text">
             {voice.card}
@@ -94,7 +98,9 @@ export function VoiceTab({
       </section>
 
       <section className="flex flex-col gap-3">
-        <h2 className="text-lg font-semibold text-text">Tone</h2>
+        <h2 className="font-display text-[1.625rem] leading-tight tracking-[-0.01em] text-text">
+          Tone
+        </h2>
         <p className="max-w-prose text-text-soft">
           By default your drafts match how you actually talk. You can lean one way instead.
         </p>
@@ -129,7 +135,9 @@ export function VoiceTab({
 
       {goals && (goals.shortTerm || goals.longTerm || goals.planB) ? (
         <section className="flex flex-col gap-3">
-          <h2 className="text-lg font-semibold text-text">Your goals, as we have them</h2>
+          <h2 className="font-display text-[1.625rem] leading-tight tracking-[-0.01em] text-text">
+            Your goals, as we have them
+          </h2>
           <dl className="flex flex-col gap-3">
             {goals.shortTerm ? <Stat label="Short term" value={goals.shortTerm} stacked /> : null}
             {goals.longTerm ? <Stat label="Long term" value={goals.longTerm} stacked /> : null}

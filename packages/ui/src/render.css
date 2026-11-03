@@ -1,0 +1,184 @@
+/*
+ * The paper material system (redesign 2026-11-03, replacing the glass "rendered" look). Surfaces
+ * are sheets of paper on a warm desk: solid fills, hairline edges, soft contact shadows. Primary
+ * actions are flat ink. Display type is the serif; eyebrows are mono with a bronze rule. One
+ * accent colour (--accent), used sparingly. Imported by theme.css after tokens.css.
+ *
+ * The utility names (lit, gloss, glass-control, eyebrow, chrome) are kept from the old system so
+ * every screen picks up the new material without edits; only what they paint has changed.
+ */
+
+/* The old WebGL studio is retired. Any leftover stage element paints nothing. */
+.studio {
+  display: none;
+}
+
+/* Immersive screens no longer force a different world: they sit on the same paper. */
+[data-immersive] {
+  background: transparent;
+}
+
+/* ---------- Surfaces ---------- */
+
+/* The selected thing in a group (current nav item, chosen option): a darker sheet with an ink
+   hairline. No glow. */
+@utility lit {
+  background-color: color-mix(in srgb, var(--text) 6%, var(--depth));
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--text) 14%, transparent);
+}
+
+/* Solid buttons: flat ink with a 1px lighter top edge, so they read as pressed type, not plastic. */
+@utility gloss {
+  box-shadow:
+    inset 0 1px 0 0 rgb(255 255 255 / 0.12),
+    0 1px 2px rgb(20 15 5 / 0.18);
+  transition:
+    background-color var(--spring-snap-duration) var(--spring-snap),
+    box-shadow var(--spring-snap-duration) var(--spring-snap),
+    translate var(--spring-snap-duration) var(--spring-snap);
+  &:hover:not(:disabled, [aria-disabled="true"]) {
+    background-color: color-mix(in srgb, var(--gloss, var(--signal)) 86%, var(--space));
+  }
+  &:active:not(:disabled, [aria-disabled="true"]) {
+    translate: 0 1px;
+    box-shadow: none;
+  }
+}
+
+/* Outlined control on paper. */
+@utility glass-control {
+  background-color: var(--depth);
+  box-shadow: 0 1px 1px rgb(40 30 15 / 0.04);
+}
+
+/* Eyebrow: mono, tracked capitals, a short bronze rule before it. */
+@utility eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  line-height: 1rem;
+  font-weight: 400;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--text-soft);
+  &::before {
+    content: "";
+    width: 1.5rem;
+    height: 1px;
+    background: var(--accent);
+  }
+}
+
+/* Kept for old call sites: the accent italic, the one flourish display lines may carry. */
+@utility chrome {
+  color: var(--accent);
+  font-style: italic;
+}
+
+/* Small mono metadata: dates, counts, ids. */
+@utility meta {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  line-height: 1.125rem;
+  letter-spacing: 0.02em;
+  color: var(--text-soft);
+  font-variant-numeric: tabular-nums;
+}
+
+@layer base {
+  /* Emphasis inside a display line is the accent italic. */
+  :where(h1, [class*="text-display"]) :where(em, i) {
+    color: var(--accent);
+    font-style: italic;
+  }
+
+  /* Inputs: paper with an ink-soft border; focus draws a soft accent halo. */
+  :where(
+    input:not([type="checkbox"], [type="radio"], [type="range"], [type="file"], [type="color"]),
+    textarea,
+    select
+  ) {
+    background-color: var(--depth);
+    transition:
+      box-shadow var(--spring-snap-duration) var(--spring-snap),
+      border-color var(--spring-snap-duration) var(--spring-snap);
+  }
+  :where(
+    input:not([type="checkbox"], [type="radio"], [type="range"], [type="file"], [type="color"]),
+    textarea,
+    select
+  ):focus-visible {
+    outline: none;
+    border-color: var(--accent);
+    box-shadow: 0 0 0 4px color-mix(in srgb, var(--accent) 18%, transparent);
+  }
+  :where(input[type="checkbox"], input[type="radio"], input[type="range"], progress) {
+    accent-color: var(--text);
+  }
+
+  /* One orchestrated entrance per page: each top-level block rises in turn. */
+  :where([data-slot="route-content"]) > * > :where(*) {
+    animation: page-rise 720ms cubic-bezier(0.2, 0.7, 0.1, 1) backwards;
+  }
+  :where([data-slot="route-content"]) > * > :where(:nth-child(2)) {
+    animation-delay: 70ms;
+  }
+  :where([data-slot="route-content"]) > * > :where(:nth-child(3)) {
+    animation-delay: 140ms;
+  }
+  :where([data-slot="route-content"]) > * > :where(:nth-child(4)) {
+    animation-delay: 210ms;
+  }
+  :where([data-slot="route-content"]) > * > :where(:nth-child(5)) {
+    animation-delay: 280ms;
+  }
+  :where([data-slot="route-content"]) > * > :where(:nth-child(n + 6)) {
+    animation-delay: 340ms;
+  }
+
+  /* Toggle chips and option cards: chosen ones fill with ink. */
+  :where(button[aria-pressed], [role="radio"], [role="tab"]) {
+    transition:
+      box-shadow var(--spring-snap-duration) var(--spring-snap),
+      background-color var(--spring-snap-duration) var(--spring-snap),
+      border-color var(--spring-snap-duration) var(--spring-snap),
+      color var(--spring-snap-duration) var(--spring-snap);
+  }
+  :where(button[aria-pressed="true"], [role="radio"][aria-checked="true"]) {
+    border-color: var(--text);
+    box-shadow: inset 0 0 0 1px var(--text);
+  }
+
+  ::selection {
+    background-color: color-mix(in srgb, var(--accent) 26%, transparent);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    :where([data-slot="route-content"]) > * > :where(*) {
+      animation: none;
+    }
+  }
+}
+
+@keyframes page-rise {
+  from {
+    opacity: 0;
+    translate: 0 10px;
+  }
+}
+
+@keyframes orb-float {
+  50% {
+    translate: 0 -4px;
+  }
+}
+
+/* A section with nothing in it yet: a dashed sheet holding one quiet line. */
+@utility placeholder {
+  border: 1px dashed var(--edge);
+  border-radius: var(--radius-plane);
+  padding: 1.25rem 1.5rem;
+  color: var(--text-soft);
+}

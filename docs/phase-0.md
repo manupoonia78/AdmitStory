@@ -82,7 +82,7 @@ tests create and delete synthetic `test-…@example.test` users.
 ## The two placeholders you asked me to explain
 
 **`EMAIL_FROM` (item 4).** The sender shown on sign-in emails, for example
-`AdmitStory <hello@admitstory.com>`. Resend only sends from a domain you have verified with them,
+`AdmitStory <hello@admitstories.com>`. Resend only sends from a domain you have verified with them,
 which also depends on choosing the domain (spec §18, decision 1). Until both are set, sign-in works
 only on localhost, where emails go to `.outbox/`. It isn't in Section 17's list, so it sits under
 "Additions" in `.env.example`.

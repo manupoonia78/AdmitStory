@@ -103,8 +103,11 @@ export function AddSchools({ inputRef, autoFocus = false }: AddSchoolsProps) {
   }
 
   return (
-    <section aria-labelledby="add-heading" className="flex flex-col gap-4">
-      <h2 id="add-heading" className="text-lg font-semibold text-text">
+    <section aria-labelledby="add-heading" className="plane flex flex-col gap-4 p-6 sm:p-8">
+      <h2
+        id="add-heading"
+        className="font-display text-[1.625rem] leading-tight tracking-[-0.01em] text-text"
+      >
         Add schools
       </h2>
       <TextField

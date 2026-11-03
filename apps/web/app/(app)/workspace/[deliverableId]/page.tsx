@@ -51,7 +51,7 @@ export default async function WorkspacePage({
 function Closed({ message }: { message: string }) {
   return (
     <div className="mx-auto flex max-w-3xl flex-col gap-3 px-4 py-12 sm:px-8">
-      <h1 className="text-display-sm text-text">This kit is closed</h1>
+      <h1 className="text-display text-text">This kit is closed</h1>
       <p className="text-text-soft">{message} Your dossier and stories are still yours.</p>
     </div>
   );
@@ -60,7 +60,7 @@ function Closed({ message }: { message: string }) {
 function Waiting({ message }: { message: string }) {
   return (
     <div className="mx-auto flex max-w-3xl flex-col gap-3 px-4 py-12 sm:px-8">
-      <h1 className="text-display-sm text-text">Not ready yet</h1>
+      <h1 className="text-display text-text">Not ready yet</h1>
       <p className="text-text-soft">{message}</p>
     </div>
   );

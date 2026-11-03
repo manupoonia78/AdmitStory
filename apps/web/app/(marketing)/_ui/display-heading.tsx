@@ -27,20 +27,26 @@ export interface DisplayHeadingProps {
    * heading renders these lines on phones and `lines` from 640 px.
    */
   phoneLines?: readonly string[];
+  /** Set the last line in the accent italic. On by default. */
+  accent?: boolean;
   className?: string;
 }
 
-function withBreaks(lines: readonly string[], breakClass?: string): ReactNode[] {
-  return lines.flatMap((line, index) =>
-    index === 0
-      ? [line]
+// The last line of a multi-line heading is set in the accent italic (paper redesign): the turn in
+// the sentence, "Say one thing / *about yourself.*"
+function withBreaks(lines: readonly string[], accent: boolean): ReactNode[] {
+  const last = lines.length - 1;
+  return lines.flatMap((line, index) => {
+    const text = accent && index === last && last > 0 ? <em key={`em-${index}`}>{line}</em> : line;
+    return index === 0
+      ? [text]
       : [
           // The space keeps words apart in textContent; the <br> sets the visual line.
           " ",
-          <br key={`br-${index}`} className={breakClass} aria-hidden="true" />,
-          line,
-        ],
-  );
+          <br key={`br-${index}`} aria-hidden="true" />,
+          text,
+        ];
+  });
 }
 
 export function DisplayHeading({
@@ -49,18 +55,19 @@ export function DisplayHeading({
   id,
   lines,
   phoneLines,
+  accent = true,
   className,
 }: DisplayHeadingProps) {
   const Tag = `h${level}` as const;
   const classes = cx(
     SIZE[size],
-    "font-ui text-text [text-wrap:balance] [font-kerning:normal]",
+    "font-display text-text [text-wrap:balance] [font-kerning:normal]",
     className,
   );
   if (!phoneLines) {
     return (
       <Tag id={id} className={classes}>
-        {withBreaks(lines)}
+        {withBreaks(lines, accent)}
       </Tag>
     );
   }
@@ -68,8 +75,8 @@ export function DisplayHeading({
   // display:none (so it is out of the accessibility tree too).
   return (
     <Tag id={id} className={classes}>
-      <span className="sm:hidden">{withBreaks(phoneLines)}</span>
-      <span className="hidden sm:inline">{withBreaks(lines)}</span>
+      <span className="sm:hidden">{withBreaks(phoneLines, accent)}</span>
+      <span className="hidden sm:inline">{withBreaks(lines, accent)}</span>
     </Tag>
   );
 }
