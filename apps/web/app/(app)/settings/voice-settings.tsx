@@ -112,7 +112,10 @@ export function VoiceSettingsForm({
   return (
     <section aria-labelledby={`${id}-voice`} className="flex flex-col gap-6 plane p-6">
       <div className="flex flex-col gap-1">
-        <h2 id={`${id}-voice`} className="text-lg font-semibold">
+        <h2
+          id={`${id}-voice`}
+          className="font-display text-[1.625rem] leading-tight tracking-[-0.01em] text-text"
+        >
           Voice
         </h2>
         <p className="text-text-soft">

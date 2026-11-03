@@ -26,12 +26,17 @@ const ALIGN: Record<EmptyStateAlign, string> = {
   center: "items-center text-center",
 };
 
-/** A small rendered glass orb above an empty state: something lit is waiting here. */
-function Orb() {
+/** A blank sheet above an empty state: the page that is waiting to be written. */
+function Sheet() {
   return (
-    <span aria-hidden className="relative mb-4 inline-block size-14">
-      <span className="absolute inset-0 rounded-full bg-[radial-gradient(circle_at_32%_26%,rgb(255_255_255/0.9)_0_7%,transparent_22%),radial-gradient(circle_at_65%_75%,color-mix(in_srgb,var(--voice)_70%,transparent),transparent_60%),radial-gradient(circle_at_45%_40%,color-mix(in_srgb,var(--signal)_75%,white),color-mix(in_srgb,var(--signal)_35%,black)_85%)] shadow-[inset_0_-6px_12px_rgb(0_0_0/0.35),inset_0_2px_2px_rgb(255_255_255/0.5),0_0_36px_-4px_color-mix(in_srgb,var(--signal)_70%,transparent)] motion-safe:animate-[orb-float_6s_ease-in-out_infinite]" />
-      <span className="absolute -inset-x-3 top-1/2 h-4 -translate-y-1/2 -rotate-12 rounded-[50%] border border-[color-mix(in_srgb,var(--text)_45%,transparent)]" />
+    <span
+      aria-hidden
+      className="mb-5 flex h-14 w-11 flex-col gap-1.5 rounded-[4px] border border-edge bg-depth px-2 pt-3 shadow-paper"
+    >
+      <span className="h-px w-full bg-edge" />
+      <span className="h-px w-full bg-edge" />
+      <span className="h-px w-2/3 bg-edge" />
+      <span className="mt-auto mb-2 h-px w-3 self-end bg-accent" />
     </span>
   );
 }
@@ -48,12 +53,16 @@ export function EmptyState({
   return (
     <div
       data-align={align}
-      className={cx("flex flex-col gap-2 px-4 py-12", ALIGN[align], className)}
+      className={cx(
+        "flex flex-col gap-2 rounded-plane border border-dashed border-edge px-8 py-12",
+        ALIGN[align],
+        className,
+      )}
     >
-      <Orb />
-      <Heading className="text-lg font-semibold text-text">{title}</Heading>
-      <p className="text-text-soft">{description}</p>
-      {action ? <div className="mt-4">{action}</div> : null}
+      <Sheet />
+      <Heading className="font-display text-[1.5rem] leading-tight text-text">{title}</Heading>
+      <p className="max-w-[52ch] text-text-soft">{description}</p>
+      {action ? <div className="mt-5">{action}</div> : null}
     </div>
   );
 }

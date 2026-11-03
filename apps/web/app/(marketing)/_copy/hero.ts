@@ -2,6 +2,7 @@
 // own sentence is never praised (§6.9), and nothing here promises more than the page does.
 
 export const HERO_COPY = {
+  eyebrow: "MBA applications, told in your own voice",
   headingLines: ["Say one thing", "about yourself."],
   headingPhoneLines: ["Say one", "thing about", "yourself."],
   subline:

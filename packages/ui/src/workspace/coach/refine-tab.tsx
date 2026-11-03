@@ -81,7 +81,9 @@ export function RefineTab({
 
   return (
     <div className="flex flex-col gap-5">
-      <h2 className="text-lg font-semibold text-text">Refine</h2>
+      <h2 className="font-display text-[1.625rem] leading-tight tracking-[-0.01em] text-text">
+        Refine
+      </h2>
 
       {over && over.by > 0 ? (
         <div className="flex flex-col gap-2">

@@ -91,6 +91,7 @@ export {
 
 // AppShell renders the dock icons on the server; import it from server components only.
 export { AppShell, type AppShellProps } from "./shell/app-shell";
+export { BrandMark, Wordmark } from "./brand/wordmark";
 export { AccountMenu, type AccountMenuProps, type AccountUser } from "./shell/account-menu";
 export { NAV_ITEMS, isActivePath, type NavId, type NavItem } from "./shell/nav-items";
 export { NAV_ICONS } from "./shell/nav-icons";
@@ -134,4 +135,3 @@ export * from "./recommenders";
 export * from "./feedback";
 export * from "./privacy";
 // The rendered studio behind every app page: a CSS-lit fallback at first paint, WebGL on idle.
-export * from "./scene";

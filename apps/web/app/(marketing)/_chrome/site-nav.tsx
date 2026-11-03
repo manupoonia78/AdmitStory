@@ -6,7 +6,7 @@
 // changing on glide (marketing.css, .site-header). view-transition-name: site-header keeps it
 // still between pages.
 
-import { buttonStyles, cx } from "@admitstory/ui";
+import { Wordmark, buttonStyles, cx } from "@admitstory/ui";
 import Link from "next/link";
 import { NAV_COPY, NAV_LINKS, WORDMARK } from "../_copy/chrome";
 import { SIGN_IN, START_FREE } from "../_copy/shared";
@@ -25,9 +25,10 @@ export function SiteNav() {
         <Link
           href="/"
           aria-label={NAV_COPY.home}
-          className="inline-flex min-h-11 items-center text-lg font-semibold tracking-[-0.01em] text-text"
+          className="inline-flex min-h-11 items-center rounded-control"
         >
-          {WORDMARK}
+          <Wordmark size={24} />
+          <span className="sr-only">{WORDMARK}</span>
         </Link>
         <nav aria-label={NAV_COPY.label} className="ml-auto flex items-center gap-1">
           <ul className="hidden items-center gap-1 lg:flex" role="list">

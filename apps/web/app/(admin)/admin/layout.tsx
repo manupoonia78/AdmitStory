@@ -1,4 +1,4 @@
-import { SceneHost, SkipLink } from "@admitstory/ui";
+import { SkipLink } from "@admitstory/ui";
 import type { Metadata } from "next";
 import Link from "next/link";
 import type { ReactNode } from "react";
@@ -32,7 +32,6 @@ export default async function AdminLayout({ children }: { children: ReactNode })
   await requireAdminPage();
   return (
     <div className="min-h-dvh text-text">
-      <SceneHost pathname="/admin" />
       <SkipLink targetId="admin-main" />
       <header className="sticky top-0 z-20 border-b border-edge bg-depth">
         <nav

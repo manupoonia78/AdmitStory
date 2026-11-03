@@ -3,7 +3,7 @@
 // The account menu itself (Radix DropdownMenu + floating-ui, ~30 KB gz). Only account-menu.tsx
 // imports it, lazily, so it stays out of every route's first load (spec §6.11).
 
-import { CheckIcon, GearIcon, SignOutIcon } from "@phosphor-icons/react";
+import { CardsThreeIcon, CheckIcon, GearIcon, SignOutIcon } from "@phosphor-icons/react";
 import Link from "next/link";
 import { DropdownMenu } from "radix-ui";
 import { useEffect, useRef } from "react";
@@ -45,12 +45,12 @@ export function AccountMenuDropdown({
   return (
     <DropdownMenu.Root defaultOpen={defaultOpen}>
       <DropdownMenu.Trigger ref={triggerRef} className={cx(ACCOUNT_TRIGGER_CLASSES, className)}>
-        <AccountTriggerContent />
+        <AccountTriggerContent user={user} />
       </DropdownMenu.Trigger>
       <DropdownMenu.Portal>
         <DropdownMenu.Content
-          side="right"
-          align="end"
+          side="top"
+          align="start"
           sideOffset={8}
           collisionPadding={8}
           className="z-50 min-w-64 max-w-[calc(100vw-1rem)] rounded-plane border border-edge bg-depth p-1 text-text shadow-overlay"
@@ -64,6 +64,12 @@ export function AccountMenuDropdown({
             <Link href="/settings">
               <GearIcon size={20} aria-hidden />
               Settings
+            </Link>
+          </DropdownMenu.Item>
+          <DropdownMenu.Item asChild className={ITEM}>
+            <Link href="/dossier">
+              <CardsThreeIcon size={20} aria-hidden />
+              Your dossier
             </Link>
           </DropdownMenu.Item>
           <DropdownMenu.Separator className={SEPARATOR} />

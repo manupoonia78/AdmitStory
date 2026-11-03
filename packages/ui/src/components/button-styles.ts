@@ -6,7 +6,7 @@ export type ButtonSize = "md" | "sm";
 type ButtonShape = "label" | "icon";
 
 const BASE =
-  "relative inline-flex shrink-0 select-none items-center justify-center gap-2 whitespace-nowrap rounded-full font-medium " +
+  "relative inline-flex shrink-0 select-none items-center justify-center gap-2 whitespace-nowrap rounded-control font-medium " +
   // translate carries the magnetic pull (lib/magnetic): it eases on the snap spring too.
   "transition-[color,background-color,border-color,translate] duration-(--spring-snap-duration) ease-snap " +
   "disabled:cursor-not-allowed disabled:opacity-60 aria-disabled:cursor-not-allowed aria-disabled:opacity-60";
@@ -15,10 +15,10 @@ const BASE =
 // --control-edge so the control edge meets 3:1 (WCAG 1.4.11). Status colours never sit on
 // --veil, so danger hovers by deepening its own fill.
 const VARIANTS: Record<ButtonVariant, string> = {
-  // Solid fills are lit, glossy pills (render.css `gloss`); secondary is frosted glass.
+  // Solid fills are flat ink (render.css `gloss`); secondary is an outlined sheet of paper.
   primary: "gloss bg-signal text-on-signal",
-  secondary: "glass-control border border-control bg-depth text-signal hover:bg-veil",
-  quiet: "bg-transparent text-signal hover:bg-veil",
+  secondary: "glass-control border border-edge bg-depth text-text hover:border-control",
+  quiet: "bg-transparent text-text hover:bg-veil",
   danger: "gloss [--gloss:var(--risk)] bg-risk text-on-signal",
 };
 

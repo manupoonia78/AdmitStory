@@ -137,7 +137,9 @@ export function VerifyList({ items, onConfirm, onCorrect }: VerifyListProps) {
   const open = items.filter((item) => item.status === "open").length;
   return (
     <div className="flex flex-col gap-3">
-      <h2 className="text-lg font-semibold text-text">Verify</h2>
+      <h2 className="font-display text-[1.625rem] leading-tight tracking-[-0.01em] text-text">
+        Verify
+      </h2>
       <p className="text-text-soft tabular-nums" aria-live="polite">
         {items.length === 0
           ? "Nothing to confirm in this draft."

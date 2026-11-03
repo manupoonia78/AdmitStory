@@ -70,8 +70,7 @@
 @theme inline reference {
   --color-*: initial;
   --color-space: var(--space);
-  /* Glass (render.css): --depth let through, frosted. The solid token stays for overlays. */
-  --color-depth: var(--glass-fill);
+  --color-depth: var(--depth);
   --color-solid: var(--depth);
   --color-veil: var(--veil);
   --color-edge: var(--edge);
@@ -79,6 +78,8 @@
   --color-text: var(--text);
   --color-text-soft: var(--text-soft);
   --color-signal: var(--signal);
+  --color-accent: var(--accent);
+  --color-rail: var(--rail);
   --color-on-signal: var(--on-signal);
   --color-voice: var(--voice);
   --color-voice-glow: var(--voice-glow);
@@ -92,6 +93,8 @@
   --font-*: initial;
   --font-ui: var(--font-ui);
   --font-reading: var(--font-reading);
+  --font-display: var(--font-display);
+  --font-mono: var(--font-mono);
 
   --text-*: initial;
   --text-sm: var(--type-ui-sm);
@@ -132,6 +135,7 @@
   --shadow-*: initial;
   --shadow-overlay: var(--shadow-overlay);
   --shadow-plane: var(--plane-light);
+  --shadow-paper: var(--shadow-paper);
   --inset-shadow-*: initial;
   --drop-shadow-*: initial;
   --text-shadow-*: initial;
@@ -144,17 +148,14 @@
 }
 
 /*
- * A raised plane (spec §6.5): --depth, a 1px --edge, the 16px radius, and in Night a 1px inner
- * edge light instead of a shadow.
+ * A raised plane: a sheet of paper on the desk. Solid --depth, a hairline --edge, a soft
+ * contact shadow. No blur, no gloss.
  */
 @utility plane {
-  background-color: var(--glass-fill);
-  background-image: linear-gradient(180deg, rgb(255 255 255 / 0.045), transparent 38%);
+  background-color: var(--depth);
   border: 1px solid var(--edge);
   border-radius: var(--radius-plane);
-  box-shadow: var(--glass-rim), var(--glass-shadow);
-  -webkit-backdrop-filter: blur(24px) saturate(1.6);
-  backdrop-filter: blur(24px) saturate(1.6);
+  box-shadow: var(--plane-light), var(--shadow-paper);
 }
 
 /* Paints film grain on an element that has its own --space background (Night only). */
@@ -172,14 +173,36 @@
   body {
     min-height: 100dvh;
     background-color: var(--space);
-    background-image: var(--grain);
+    /* Atmosphere: paper grain under a faint warm light from the top of the page. */
+    background-image:
+      var(--grain),
+      radial-gradient(
+        120% 60% at 50% -10%,
+        color-mix(in srgb, var(--accent) 7%, transparent),
+        transparent 70%
+      );
+    background-attachment: scroll, fixed;
     color: var(--text);
     font-family: var(--font-ui);
     font-size: var(--type-ui);
     line-height: var(--type-ui-leading);
     -webkit-font-smoothing: antialiased;
-    /* Sentence case everywhere (spec §6.4): nothing in the system uppercases text. */
     text-transform: none;
+    font-feature-settings: "ss01", "cv11";
+  }
+
+  /* Display type is the serif, at a light weight. */
+  :where(h1, [class*="text-display"]) {
+    font-family: var(--font-display);
+    font-weight: var(--type-display-weight);
+    font-optical-sizing: auto;
+    text-wrap: balance;
+  }
+  :where(h2, h3) {
+    text-wrap: balance;
+  }
+  :where(p) {
+    text-wrap: pretty;
   }
 
   /* A theme scope inside the page (ImmersiveScope, a Day sheet) paints its own background. */

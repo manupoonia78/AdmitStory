@@ -79,7 +79,7 @@ export function AccountMenu(props: AccountMenuProps) {
       onKeyDown={onKeyDown}
       className={cx(ACCOUNT_TRIGGER_CLASSES, props.className)}
     >
-      <AccountTriggerContent />
+      <AccountTriggerContent user={props.user} />
     </button>
   );
 }

@@ -179,7 +179,7 @@ export function KitScreen({
   return (
     <div className="mx-auto flex w-full max-w-[90rem] flex-col gap-10 px-4 py-10 sm:px-8 sm:py-14">
       <header className="flex flex-col gap-3">
-        <h1 className="text-display text-text sm:text-display-lg">
+        <h1 className="text-display text-text">
           {starting
             ? "Payment confirmed, starting your kit"
             : view.status === "ready"

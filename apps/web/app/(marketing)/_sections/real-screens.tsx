@@ -7,6 +7,7 @@ import { SCREENS_COPY } from "../_copy/landing";
 import { availableScreens } from "../_data/screens";
 import { DisplayHeading } from "../_ui/display-heading";
 import { Section } from "../_ui/section";
+import { AppPreview } from "./app-preview";
 import { ScreensStepper } from "./screens-stepper";
 
 const SCROLLER_ID = "real-screens-row";
@@ -64,7 +65,11 @@ export function RealScreens() {
             next={SCREENS_COPY.next}
           />
         </div>
-      ) : null}
+      ) : (
+        <div className="col-span-4 mt-14 sm:col-span-8 lg:col-span-12 lg:mt-20">
+          <AppPreview />
+        </div>
+      )}
     </Section>
   );
 }

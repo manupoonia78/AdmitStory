@@ -45,7 +45,9 @@ export function WhyThisDraft({
   const id = useId();
   return (
     <div className="flex flex-col gap-5">
-      <h2 className="text-lg font-semibold text-text">Why this draft</h2>
+      <h2 className="font-display text-[1.625rem] leading-tight tracking-[-0.01em] text-text">
+        Why this draft
+      </h2>
       <section className="flex flex-col gap-1" aria-label="The story">
         <p className="text-text">
           {story ? (

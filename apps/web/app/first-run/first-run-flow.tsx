@@ -1,14 +1,6 @@
 "use client";
 
-import {
-  Button,
-  FieldHint,
-  ImmersiveScope,
-  SceneHost,
-  TextField,
-  VoiceprintStill,
-  cx,
-} from "@admitstory/ui";
+import { Button, FieldHint, ImmersiveScope, TextField, VoiceprintStill, cx } from "@admitstory/ui";
 import { DEFAULT_IDENTITY } from "@admitstory/shared";
 import { useEffect, useRef, useState, useSyncExternalStore, useTransition } from "react";
 import { KEEP_LINE_COPY } from "@/app/(marketing)/_copy/keep-line";
@@ -133,7 +125,6 @@ export function FirstRunFlow({ defaults }: FirstRunFlowProps) {
 
   return (
     <ImmersiveScope className="min-h-dvh bg-transparent bg-none">
-      <SceneHost pathname="/first-run" />
       <div className="auth-main mx-auto flex min-h-dvh w-full max-w-3xl flex-col gap-10 px-4 py-10 sm:px-8 sm:py-16 lg:mr-auto lg:ml-[12vw]">
         <Seed progress={progress} />
 

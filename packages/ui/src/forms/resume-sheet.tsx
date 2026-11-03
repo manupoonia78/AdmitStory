@@ -203,7 +203,10 @@ export function ResumeSheet({
       <header className="grid grid-cols-1 gap-8 lg:grid-cols-[minmax(0,1fr)_auto]">
         <div className="flex flex-col gap-8">
           <section aria-labelledby={`${uid}-priorities`} className="flex flex-col gap-3">
-            <h2 id={`${uid}-priorities`} className="text-lg font-semibold text-text">
+            <h2
+              id={`${uid}-priorities`}
+              className="font-display text-[1.625rem] leading-tight tracking-[-0.01em] text-text"
+            >
               {prioritiesHeading(review.priorities.length)}
             </h2>
             <ol className="flex flex-col gap-2">
@@ -218,7 +221,10 @@ export function ResumeSheet({
             </ol>
           </section>
           <section aria-labelledby={`${uid}-order`} className="flex flex-col gap-2">
-            <h2 id={`${uid}-order`} className="text-lg font-semibold text-text">
+            <h2
+              id={`${uid}-order`}
+              className="font-display text-[1.625rem] leading-tight tracking-[-0.01em] text-text"
+            >
               Section order
             </h2>
             <p className="text-text">

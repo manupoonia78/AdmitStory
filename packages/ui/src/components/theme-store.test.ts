@@ -63,14 +63,9 @@ describe("theme-color meta tags", () => {
     expect(contents()).toEqual({ "": THEME_COLORS.night });
   });
 
-  it("stay Night on a page with an immersive scope, unless Day was chosen", () => {
+  it("follow the page on a page with an immersive scope", () => {
     renderInitialTags();
-    document.body.innerHTML = '<div data-immersive data-theme="night"></div>';
-    setThemePreference("system");
-    expect(contents()).toEqual({
-      [LIGHT_SCHEME_MEDIA]: THEME_COLORS.night,
-      [DARK_SCHEME_MEDIA]: THEME_COLORS.night,
-    });
+    document.body.innerHTML = "<div data-immersive></div>";
     setThemePreference("day");
     expect(contents()).toEqual({
       [LIGHT_SCHEME_MEDIA]: THEME_COLORS.day,

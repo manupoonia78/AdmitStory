@@ -83,7 +83,9 @@ export default async function StoryPage({ params }: StoryPageProps) {
         <div className="flex max-w-essay flex-col gap-8">
           {sections.map((section) => (
             <section key={section.heading} className="flex flex-col gap-2">
-              <h2 className="text-lg font-semibold text-text">{section.heading}</h2>
+              <h2 className="font-display text-[1.625rem] leading-tight tracking-[-0.01em] text-text">
+                {section.heading}
+              </h2>
               <p className="font-reading text-read text-text">{section.body}</p>
             </section>
           ))}

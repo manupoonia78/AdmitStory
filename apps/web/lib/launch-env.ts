@@ -13,6 +13,10 @@ export interface ServiceCheck {
 const has = (env: Record<string, string | undefined>, key: string): boolean =>
   Boolean(env[key]?.trim());
 
+/** Cloudflare's published Turnstile test keys (1x…, 2x…, 3x… followed by zeros). */
+const turnstileTestKey = (value: string | undefined): boolean =>
+  /^[123]x0{10,}/.test(value?.trim() ?? "");
+
 /** One line per service: live, fake (dev only), missing or optional. */
 export function serviceChecks(env: Record<string, string | undefined>): ServiceCheck[] {
   const both = (a: string, b: string) => has(env, a) && has(env, b);
@@ -94,9 +98,15 @@ export function serviceChecks(env: Record<string, string | undefined>): ServiceC
     },
     {
       service: "Turnstile",
-      status: both("TURNSTILE_SITE_KEY", "TURNSTILE_SECRET_KEY") ? "live" : "optional",
-      detail: "TURNSTILE_SITE_KEY + TURNSTILE_SECRET_KEY",
-      required: false,
+      // Cloudflare's test keys always pass and show "Testing only" on the widget: dev only.
+      status: !both("TURNSTILE_SITE_KEY", "TURNSTILE_SECRET_KEY")
+        ? "missing"
+        : turnstileTestKey(env.TURNSTILE_SITE_KEY) || turnstileTestKey(env.TURNSTILE_SECRET_KEY)
+          ? "fake"
+          : "live",
+      detail: "TURNSTILE_SITE_KEY + TURNSTILE_SECRET_KEY (real keys, not Cloudflare's test keys)",
+      // lib/auth.ts already refuses to start without a secret on any host but localhost.
+      required: true,
     },
     {
       service: "Admin alerts",

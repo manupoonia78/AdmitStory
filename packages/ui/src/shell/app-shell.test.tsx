@@ -1,6 +1,6 @@
 // @vitest-environment jsdom
 import "../../test/dom";
-import { act, fireEvent, render, screen, within } from "@testing-library/react";
+import { fireEvent, render, screen, within } from "@testing-library/react";
 import { beforeAll, beforeEach, describe, expect, it, vi } from "vitest";
 
 const push = vi.fn();
@@ -28,7 +28,7 @@ const user = { name: "Asha Verma", email: "asha@example.test" };
 // 5 s budget, so it is loaded once up front; the shell's own lazy import then resolves at once.
 const LAZY = { timeout: 3000 };
 
-const DESTINATIONS = ["Home", "Story", "Dossier", "Schools", "Interview", "Connect", "Tracker"];
+const DESTINATIONS = ["Home", "Story Studio", "Schools", "Interview", "Connect", "Tracker"];
 
 function renderShell(onAction = vi.fn()) {
   return render(
@@ -47,12 +47,6 @@ function renderShell(onAction = vi.fn()) {
       <h1>Story Studio</h1>
     </AppShell>,
   );
-}
-
-function dock() {
-  const element = document.querySelector<HTMLElement>('[data-slot="dock"]');
-  if (!element) throw new Error("no dock");
-  return element;
 }
 
 describe("AppShell", () => {
@@ -101,21 +95,14 @@ describe("AppShell", () => {
     }
   });
 
-  it("glides one veil to the current destination, and rests it when none is current", () => {
-    const { unmount } = renderShell();
-    const track = screen.getByRole("navigation", { name: "Main" }).firstElementChild as HTMLElement;
-    expect(track.style.getPropertyValue("--dock-index")).toBe("1");
-    expect(track.style.getPropertyValue("--dock-count")).toBe(String(DESTINATIONS.length));
-    const veil = track.querySelector('[aria-hidden="true"]');
-    expect(veil?.hasAttribute("data-idle")).toBe(false);
-    unmount();
-
-    pathname = "/settings";
+  it("keeps the Dossier under Settings: no main destination is current there", () => {
+    pathname = "/dossier";
     renderShell();
-    const idleTrack = screen.getByRole("navigation", { name: "Main" })
-      .firstElementChild as HTMLElement;
-    expect(idleTrack.querySelector('[aria-hidden="true"]')?.hasAttribute("data-idle")).toBe(true);
-    expect(screen.queryByRole("link", { current: "page" })).toBeNull();
+    const nav = screen.getByRole("navigation", { name: "Main" });
+    expect(within(nav).queryByRole("link", { current: "page" })).toBeNull();
+    expect(screen.getByRole("link", { name: "Settings" }).getAttribute("aria-current")).toBe(
+      "page",
+    );
   });
 
   it("starts with a skip link to the main landmark", () => {
@@ -135,47 +122,20 @@ describe("AppShell", () => {
     expect(content?.querySelector("h1")?.textContent).toBe("Story Studio");
   });
 
-  it("keeps the dock reachable on short screens, with keyboard order down the dock", () => {
+  it("keeps keyboard order down the sidebar", () => {
     renderShell();
-    const classes = dock().className.split(" ");
-    // jsdom has no layout; apps/web's e2e checks a short landscape viewport (844×390).
-    expect(classes).toEqual(
-      expect.arrayContaining(["sm:overflow-y-auto", "sm:max-h-[calc(100dvh-1.5rem)]"]),
-    );
-    // Search first, then the destinations, then the account trigger at the bottom.
-    const focusable = [...dock().querySelectorAll("a, button")].map(
+    const dock = document.querySelector<HTMLElement>('[data-slot="dock"]');
+    if (!dock) throw new Error("no dock");
+    // jsdom has no layout; the sidebar scrolls its destinations on short screens.
+    expect(dock.querySelector("nav")?.className).toContain("lg:overflow-y-auto");
+    // Brand, New story, search, the destinations, Settings, then the account trigger.
+    const focusable = [...dock.querySelectorAll("a, button")].map(
       (el) => el.getAttribute("aria-label") ?? el.textContent,
     );
-    expect(focusable[0]).toBe("Search or jump to…");
-    expect(focusable.slice(1, 1 + DESTINATIONS.length)).toEqual(DESTINATIONS);
+    expect(focusable.slice(0, 3)).toEqual(["AdmitStory home", "New story", "Search or jump to…"]);
+    expect(focusable.slice(3, 3 + DESTINATIONS.length)).toEqual(DESTINATIONS);
+    expect(focusable.at(-2)).toBe("Settings");
     expect(focusable.at(-1)).toContain("Account");
-  });
-
-  it("opens with keyboard focus and folds away on Escape until focus leaves", () => {
-    renderShell();
-    const home = screen.getByRole("link", { name: "Home" });
-    act(() => home.focus());
-    expect(dock().className).toContain("sm:has-[:focus-visible]:w-52");
-
-    fireEvent.keyDown(document, { key: "Escape" });
-    expect(dock().hasAttribute("data-folded")).toBe(true);
-    // Moving within the dock keeps it folded…
-    fireEvent.blur(home, { relatedTarget: screen.getByRole("link", { name: "Story" }) });
-    expect(dock().hasAttribute("data-folded")).toBe(true);
-    // …leaving it lets it open again next time.
-    fireEvent.blur(home, { relatedTarget: screen.getByRole("main") });
-    expect(dock().hasAttribute("data-folded")).toBe(false);
-  });
-
-  it("leaves an Escape that closed something else alone", () => {
-    renderShell();
-    act(() => screen.getByRole("link", { name: "Home" }).focus());
-    const event = new KeyboardEvent("keydown", { key: "Escape", bubbles: true, cancelable: true });
-    event.preventDefault();
-    act(() => {
-      document.dispatchEvent(event);
-    });
-    expect(dock().hasAttribute("data-folded")).toBe(false);
   });
 
   it("opens the command palette with Ctrl K and lists destinations and actions", async () => {

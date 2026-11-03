@@ -1,5 +1,5 @@
 import { APP_NAME } from "@admitstory/shared";
-import { SceneHost, SkipLink } from "@admitstory/ui";
+import { SkipLink } from "@admitstory/ui";
 import { BrandMark } from "@/components/brand-mark";
 import type { ReactNode } from "react";
 
@@ -10,7 +10,6 @@ import type { ReactNode } from "react";
 export function PortalFrame({ children }: { children: ReactNode }) {
   return (
     <div className="flex min-h-dvh flex-col">
-      <SceneHost pathname="/r/" />
       <SkipLink targetId="main" />
       <header className="px-4 py-5 sm:px-8">
         <p className="flex items-center gap-2.5 text-sm font-medium text-text-soft">

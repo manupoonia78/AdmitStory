@@ -10,25 +10,27 @@ function scope(): HTMLElement {
   return screen.getByTestId("scope");
 }
 
+// Since the paper redesign, immersive screens follow the page's theme instead of forcing Night.
 describe("ImmersiveScope", () => {
-  it("is Night when the user follows the system", () => {
+  it("marks the subtree immersive without setting a theme of its own", () => {
     render(<ImmersiveScope data-testid="scope">Studio</ImmersiveScope>);
-    expect(scope().getAttribute("data-theme")).toBe("night");
     expect(scope().hasAttribute("data-immersive")).toBe(true);
+    expect(scope().hasAttribute("data-theme")).toBe(false);
   });
 
-  it("stays Night when Night was chosen, and steps aside for an explicit Day", () => {
+  it("keeps inheriting whichever theme the user picks", () => {
     render(<ImmersiveScope data-testid="scope">Studio</ImmersiveScope>);
     act(() => setThemePreference("night"));
-    expect(scope().getAttribute("data-theme")).toBe("night");
+    expect(scope().hasAttribute("data-theme")).toBe(false);
     act(() => setThemePreference("day"));
     expect(scope().hasAttribute("data-theme")).toBe(false);
   });
 
-  it("renders the server's preference on first paint, so there is no flash", () => {
-    const day = renderToString(<ImmersiveScope serverValue="day">Studio</ImmersiveScope>);
-    expect(day).not.toContain("data-theme");
-    const system = renderToString(<ImmersiveScope serverValue="system">Studio</ImmersiveScope>);
-    expect(system).toContain('data-theme="night"');
+  it("renders no theme attribute on the server either", () => {
+    for (const serverValue of ["day", "night", "system"] as const) {
+      expect(
+        renderToString(<ImmersiveScope serverValue={serverValue}>Studio</ImmersiveScope>),
+      ).not.toContain("data-theme");
+    }
   });
 });

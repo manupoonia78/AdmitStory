@@ -57,7 +57,10 @@ export function Section({
   return (
     <section aria-labelledby={id} className="flex flex-col gap-3 border-t border-edge pt-4">
       <div className="flex flex-wrap items-baseline justify-between gap-2">
-        <h2 id={id} className="text-lg font-semibold text-text">
+        <h2
+          id={id}
+          className="font-display text-[1.625rem] leading-tight tracking-[-0.01em] text-text"
+        >
           {title}
         </h2>
         {aside}

@@ -3,10 +3,9 @@
 // The Night / Day switch in the footer (direction §9): a 40 px segmented control built on native
 // radio buttons (so arrow keys, focus and the group's name come from the platform), with a 2 px
 // --signal indicator that slides on snap. It writes the theme cookie through setThemePreference
-// and also re-themes the marketing wrapper, which follows immersiveTheme() (Night unless Day).
+// and also re-themes the marketing wrapper, which follows marketingTheme() (Day unless Night).
 
 import {
-  immersiveTheme,
   setThemePreference,
   useThemePreference,
   type ThemeName,
@@ -14,6 +13,7 @@ import {
 } from "@admitstory/ui";
 import { useId } from "react";
 import { THEME_SWITCH } from "../_copy/chrome";
+import { marketingTheme } from "./marketing-theme";
 
 const OPTIONS: readonly { value: ThemeName; label: string }[] = [
   { value: "night", label: THEME_SWITCH.night },
@@ -22,7 +22,7 @@ const OPTIONS: readonly { value: ThemeName; label: string }[] = [
 
 export function ThemeSwitch({ initial }: { initial: ThemePreference }) {
   const preference = useThemePreference(initial);
-  const current = immersiveTheme(preference);
+  const current = marketingTheme(preference);
   const name = useId();
   const noteId = `${name}-note`;
 

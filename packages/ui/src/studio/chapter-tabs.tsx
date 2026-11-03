@@ -69,16 +69,19 @@ export function ChapterTabs<Id extends string>({
   };
 
   return (
-    // Scrolls sideways on phones instead of wrapping into three rows; the page itself never does.
+    // Scrolls sideways instead of wrapping onto a second row; the page itself never does.
     <div
-      className={cx("-mx-4 overflow-x-auto px-4 [scrollbar-width:none] sm:mx-0 sm:px-0", className)}
+      className={cx(
+        "-mx-5 overflow-x-auto border-b border-edge px-5 [scrollbar-width:none] sm:mx-0 sm:px-0",
+        className,
+      )}
     >
       <div
         ref={listRef}
         role="tablist"
         aria-label={label}
         onKeyDown={onKeyDown}
-        className="flex w-max gap-1 sm:w-auto sm:flex-wrap"
+        className="flex w-max gap-6"
       >
         {chapters.map((chapter) => {
           const selected = chapter.id === value;
@@ -93,11 +96,11 @@ export function ChapterTabs<Id extends string>({
               tabIndex={selected ? 0 : -1}
               onClick={() => onChange(chapter.id)}
               className={cx(
-                "min-h-11 shrink-0 rounded-control px-3 text-base whitespace-nowrap",
+                "-mb-px min-h-11 shrink-0 border-b-2 px-0.5 text-[15px] whitespace-nowrap",
                 "transition-colors duration-(--spring-snap-duration) ease-snap",
                 selected
-                  ? "bg-veil font-medium text-text"
-                  : "text-text-soft hover:bg-veil hover:text-text",
+                  ? "border-text font-medium text-text"
+                  : "border-transparent text-text-soft hover:text-text",
               )}
             >
               {chapter.label}

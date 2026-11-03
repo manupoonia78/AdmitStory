@@ -36,7 +36,9 @@ export function SessionSummaryCard({
 
       {summary.thinLenses.length > 0 ? (
         <div className="flex flex-col gap-2">
-          <h2 className="text-lg font-semibold text-text">Still thin</h2>
+          <h2 className="font-display text-[1.625rem] leading-tight tracking-[-0.01em] text-text">
+            Still thin
+          </h2>
           <ul className="flex flex-col gap-1 text-text-soft">
             {summary.thinLenses.map((lens) => (
               <li key={lens.id}>{lens.label}</li>

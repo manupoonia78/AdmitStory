@@ -22,21 +22,6 @@ function luminance(value: string): number {
   return 0.2126 * lin(r) + 0.7152 * lin(g) + 0.0722 * lin(b);
 }
 
-/** Hue angle in degrees (HSL). */
-function hueAngle(value: string): number {
-  const [r, g, b] = hex(value).map((c) => c / 255) as [number, number, number];
-  const max = Math.max(r, g, b);
-  const d = max - Math.min(r, g, b);
-  if (d === 0) return 0;
-  const h = max === r ? ((g - b) / d) % 6 : max === g ? (b - r) / d + 2 : (r - g) / d + 4;
-  return (h * 60 + 360) % 360;
-}
-
-const hueDistance = (a: string, b: string) => {
-  const d = Math.abs(hueAngle(a) - hueAngle(b));
-  return Math.min(d, 360 - d);
-};
-
 function contrast(a: string, b: string): number {
   const [hi, lo] = [luminance(a), luminance(b)].sort((x, y) => y - x) as [number, number];
   return (hi + 0.05) / (lo + 0.05);
@@ -77,12 +62,10 @@ describe("voice hues", () => {
     },
   );
 
-  it("keeps clear of --signal's hue, so the applicant's colour never reads as interactive", () => {
-    const night = token('[data-theme="night"]', "signal");
-    const day = token('[data-theme="day"]', "signal");
-    for (const hue of VOICE_HUES) {
-      expect(hueDistance(hue.night, night), hue.name).toBeGreaterThanOrEqual(20);
-      expect(hueDistance(hue.day, day), hue.name).toBeGreaterThanOrEqual(20);
+  it("keeps --signal a neutral ink, so no applicant colour reads as interactive", () => {
+    for (const theme of ['[data-theme="night"]', '[data-theme="day"]']) {
+      const [r, g, b] = hex(token(theme, "signal"));
+      expect(Math.max(r, g, b) - Math.min(r, g, b), theme).toBeLessThanOrEqual(16);
     }
   });
 
