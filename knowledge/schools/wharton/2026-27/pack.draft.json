@@ -1,0 +1,821 @@
+{
+  "school": {
+    "id": "wharton",
+    "name": "The Wharton School, University of Pennsylvania",
+    "short_name": "Wharton",
+    "country": "US",
+    "city": "Philadelphia, PA",
+    "website": "https://mba.wharton.upenn.edu",
+    "program": "full_time_mba"
+  },
+  "cycle": "2026-27",
+  "version": 1,
+  "status": "draft",
+  "_todo": [
+    "academics: verify majors, flexible core and named experiential programs (e.g. Leadership Ventures, Global Immersion) from the Wharton site",
+    "community.clubs: verify Wharton clubs, conferences and treks (WGA, Wharton Women in Business, Follies, Cluster Olympics)",
+    "class_profile: Wharton publishes averages, not medians",
+    "ai_policy: confirm the statement in the live portal"
+  ],
+  "k_high_water": 68,
+  "sources": [
+    {
+      "id": "wharton-guide",
+      "type": "official",
+      "title": "Wharton MBA: 2026-2027 Application Guide (essays, resume, recommendation, tests, fee, Tips from the Admissions Committee)",
+      "url": "https://mba.wharton.upenn.edu/application-guide/",
+      "trust": 5,
+      "retrieved_at": "2026-11-04",
+      "rights_note": null
+    },
+    {
+      "id": "wharton-deadlines",
+      "type": "official",
+      "title": "Wharton MBA: 2026-27 Application timeline and deadlines",
+      "url": "https://mba.wharton.upenn.edu/application-timeline-deadlines/",
+      "trust": 5,
+      "retrieved_at": "2026-11-04",
+      "rights_note": null
+    },
+    {
+      "id": "wharton-interview",
+      "type": "official",
+      "title": "Wharton MBA: Interview process (Team Based Discussion)",
+      "url": "https://mba.wharton.upenn.edu/interview-process/",
+      "trust": 5,
+      "retrieved_at": "2026-11-04",
+      "rights_note": null
+    },
+    {
+      "id": "wharton-open-2029",
+      "type": "official",
+      "title": "Wharton MBA admissions blog: Class of 2029 application now open",
+      "url": "https://mba.wharton.upenn.edu/mba-admissions/class-of-2029-application-now-open/",
+      "trust": 5,
+      "retrieved_at": "2026-11-04",
+      "rights_note": null
+    },
+    {
+      "id": "wharton-profile",
+      "type": "official",
+      "title": "Wharton MBA: Class profile (Class of 2027)",
+      "url": "https://mba.wharton.upenn.edu/class-profile/",
+      "trust": 5,
+      "retrieved_at": "2026-11-04",
+      "rights_note": null
+    },
+    {
+      "id": "wharton-career-2025",
+      "type": "official",
+      "title": "Wharton MBA Careers: 2025 Career Report (Class of 2025 full-time, Class of 2026 internships) (PDF)",
+      "url": "https://statistics.mbacareers.wharton.upenn.edu/wp-content/uploads/2025/12/2025-Career-Report.pdf",
+      "trust": 5,
+      "retrieved_at": "2026-11-04",
+      "rights_note": null
+    },
+    {
+      "id": "wharton-curriculum",
+      "type": "official",
+      "title": "Wharton MBA: Curriculum (fixed and flexible core, majors, electives, Pre-Term, learning teams)",
+      "url": "https://mba.wharton.upenn.edu/mba-curriculum/",
+      "trust": 5,
+      "retrieved_at": "2026-11-04",
+      "rights_note": null
+    },
+    {
+      "id": "pq-ai-2026",
+      "type": "press",
+      "title": "Poets&Quants (Fortuna, May 26, 2026): AI policies at top MBA programs, quoting each school's application materials",
+      "url": "https://poetsandquants.com/2026/05/26/the-mba-applicants-guide-to-ai-in-2026-whats-allowed-whats-risky-and-what-to-avoid/",
+      "trust": 2,
+      "retrieved_at": "2026-11-04",
+      "rights_note": null
+    },
+    {
+      "id": "al-wharton",
+      "type": "third_party_reference",
+      "title": "ApplicantLab — Wharton school tab",
+      "url": null,
+      "trust": 2,
+      "retrieved_at": "2026-11-04",
+      "rights_note": "Paid coaching platform material (ApplicantLab). Private reference; items are Admitstory rewrites approved by Manu 2026-11-04 (§9.6). Never name or quote."
+    },
+    {
+      "id": "admitstory-coach",
+      "type": "coach_notes",
+      "title": "Admitstory coaching canon and Manu's storytelling rules",
+      "url": null,
+      "trust": 4,
+      "retrieved_at": "2026-11-04",
+      "rights_note": null
+    }
+  ],
+  "official_urls": [
+    {
+      "kind": "prompts",
+      "url": "https://mba.wharton.upenn.edu/application-guide/"
+    },
+    {
+      "kind": "deadlines",
+      "url": "https://mba.wharton.upenn.edu/application-timeline-deadlines/"
+    },
+    {
+      "kind": "class_profile",
+      "url": "https://mba.wharton.upenn.edu/class-profile/"
+    },
+    {
+      "kind": "employment_report",
+      "url": "https://statistics.mbacareers.wharton.upenn.edu/wp-content/uploads/2025/12/2025-Career-Report.pdf"
+    }
+  ],
+  "rounds": [
+    {
+      "id": "K01",
+      "source_ids": ["wharton-deadlines"],
+      "verified_at": "2026-11-04",
+      "name": "Round 1",
+      "deadline": "2026-09-08",
+      "decision_date": "2026-12-17",
+      "interview_invites_window": "2026-10-28",
+      "notes": [
+        {
+          "id": "K02",
+          "text": "Due 5:00 pm ET. A late Round 1 or 2 application rolls into the next round; Round 1 deposit deadline 5 Feb 2027.",
+          "source_ids": ["wharton-deadlines"],
+          "verified_at": "2026-11-04",
+          "confidence": 0.85
+        },
+        {
+          "id": "K03",
+          "text": "Wharton encourages Round 1 or 2, especially if you need a US student visa; Lauder and Carey JD/MBA accept Rounds 1 and 2 only.",
+          "source_ids": ["wharton-deadlines"],
+          "verified_at": "2026-11-04",
+          "confidence": 0.85
+        }
+      ]
+    },
+    {
+      "id": "K04",
+      "source_ids": ["wharton-deadlines"],
+      "verified_at": "2026-11-04",
+      "name": "Round 2",
+      "deadline": "2027-01-05",
+      "decision_date": "2027-03-31",
+      "interview_invites_window": "2027-02-19",
+      "notes": [
+        {
+          "id": "K05",
+          "text": "Due 5:00 pm ET; deposit by 29 Apr 2027.",
+          "source_ids": ["wharton-deadlines"],
+          "verified_at": "2026-11-04",
+          "confidence": 0.85
+        }
+      ]
+    },
+    {
+      "id": "K06",
+      "source_ids": ["wharton-deadlines"],
+      "verified_at": "2026-11-04",
+      "name": "Round 3",
+      "deadline": "2027-03-31",
+      "decision_date": "2027-05-11",
+      "interview_invites_window": "2027-04-16",
+      "notes": [
+        {
+          "id": "K07",
+          "text": "Space is more limited, so Round 3 is more competitive; late Round 3 applications aren't accepted.",
+          "source_ids": ["wharton-deadlines"],
+          "verified_at": "2026-11-04",
+          "confidence": 0.85
+        }
+      ]
+    },
+    {
+      "id": "K08",
+      "source_ids": ["wharton-deadlines"],
+      "verified_at": "2026-11-04",
+      "name": "Deferred Admissions Round",
+      "deadline": "2027-04-21",
+      "decision_date": "2027-07-01",
+      "interview_invites_window": "2027-05-26",
+      "notes": [
+        {
+          "id": "K09",
+          "text": "Moelis Advance Access Program; due 11:59 pm ET; US$100 fee.",
+          "source_ids": ["wharton-deadlines", "wharton-guide"],
+          "verified_at": "2026-11-04",
+          "confidence": 0.85
+        }
+      ]
+    }
+  ],
+  "application": {
+    "essays": [
+      {
+        "id": "K10",
+        "source_ids": ["wharton-guide"],
+        "verified_at": "2026-11-04",
+        "key": "goals_immediate",
+        "prompt_verbatim": "Essay 1, first short answer: What is your immediate post-MBA professional goal?",
+        "limit": {
+          "kind": "words",
+          "value": 50
+        },
+        "required": true,
+        "archetypes": ["GOALBOX", "GOALS"],
+        "parts": ["the job right after Wharton: title, function, industry"],
+        "notes": [
+          {
+            "id": "K11",
+            "text": "Admissions: 'Be specific and direct. What job do you want right after Wharton? Think title, function, industry, etc. Don't worry about explaining why here, this is about clarity.'",
+            "source_ids": ["wharton-guide"],
+            "verified_at": "2026-11-04",
+            "confidence": 0.85
+          },
+          {
+            "id": "K12",
+            "text": "Pitch the level right: not 'a leadership role in industry' and not one exact title at one company; 'finance manager at an electric-vehicle maker' is the target. If the plan carries risk, a credible second role shows realism.",
+            "source_ids": ["al-wharton"],
+            "verified_at": "2026-11-04",
+            "confidence": 0.75,
+            "approved_rewrite": true
+          }
+        ]
+      },
+      {
+        "id": "K13",
+        "source_ids": ["wharton-guide"],
+        "verified_at": "2026-11-04",
+        "key": "goals_medium_long",
+        "prompt_verbatim": "Essay 1, second short answer: Describe your medium- and long-term professional goals after your Wharton MBA.",
+        "limit": {
+          "kind": "words",
+          "value": 150
+        },
+        "required": true,
+        "archetypes": ["GOALS"],
+        "parts": ["medium-term goals", "long-term goals"],
+        "notes": [
+          {
+            "id": "K14",
+            "text": "Admissions: 'This question isn't about precision, it's about context… Successful responses will show both focus and self-awareness. We simply want to know where you currently see yourself headed.' A clear vision or a general sense of the impact you want are both fine.",
+            "source_ids": ["wharton-guide"],
+            "verified_at": "2026-11-04",
+            "confidence": 0.85
+          },
+          {
+            "id": "K15",
+            "text": "Open with the why (what makes a stranger believe you care), then the long-term goal, then the medium-term role as the step toward it and what it will teach you. Avoid bouncing between time frames.",
+            "source_ids": ["al-wharton"],
+            "verified_at": "2026-11-04",
+            "confidence": 0.75,
+            "approved_rewrite": true
+          },
+          {
+            "id": "K16",
+            "text": "If space allows, one line of credibility from your current job ('this is what I'll build on') helps; skip Wharton resources unless the plan collapses without one.",
+            "source_ids": ["al-wharton"],
+            "verified_at": "2026-11-04",
+            "confidence": 0.75,
+            "approved_rewrite": true
+          }
+        ]
+      },
+      {
+        "id": "K17",
+        "source_ids": ["wharton-guide"],
+        "verified_at": "2026-11-04",
+        "key": "meaningful_value",
+        "prompt_verbatim": "Essay 2: Taking into consideration your background – personal, professional, and/or academic – how do you plan to add meaningful value to the Wharton community?",
+        "limit": {
+          "kind": "words",
+          "value": 350
+        },
+        "required": true,
+        "archetypes": ["CONTRIBUTION", "IDENTITY"],
+        "parts": [
+          "your background: personal, professional and/or academic",
+          "the value you will add to the community"
+        ],
+        "notes": [
+          {
+            "id": "K18",
+            "text": "Admissions: reflect 'not just how you'll get involved, but the unique value you'll add… focusing on the impact of your presence at Wharton, grounded in the experiences, values, or perspectives that shape who you are. Rather than focusing on what you'll do, focus on how you'll show up and why that matters.'",
+            "source_ids": ["wharton-guide"],
+            "verified_at": "2026-11-04",
+            "confidence": 0.85
+          },
+          {
+            "id": "K19",
+            "text": "Prove every promise with a past example: what you did for a community before and what it achieved, then the parallel contribution at Wharton, then why classmates benefit. Two or three strong pairings beat six shallow ones.",
+            "source_ids": ["al-wharton"],
+            "verified_at": "2026-11-04",
+            "confidence": 0.75,
+            "approved_rewrite": true
+          },
+          {
+            "id": "K20",
+            "text": "Make it concrete after real research: a role in a named club or conference, a panel topic missing from an agenda, a trek to a city you know, or something you'd start. 'I'll help the club grow' says nothing.",
+            "source_ids": ["al-wharton"],
+            "verified_at": "2026-11-04",
+            "confidence": 0.75,
+            "approved_rewrite": true
+          },
+          {
+            "id": "K21",
+            "text": "Order by impact on classmates: career help first, academic help next, social or hobby contributions last. Academic help is weak unless you've actually taught or mentored others.",
+            "source_ids": ["al-wharton"],
+            "verified_at": "2026-11-04",
+            "confidence": 0.75,
+            "approved_rewrite": true
+          },
+          {
+            "id": "K22",
+            "text": "Balance Wharton's 2026 emphasis on who you are with proof: let one value or perspective run through the essay, and show it in action rather than listing clubs.",
+            "source_ids": ["admitstory-coach"],
+            "verified_at": "2026-11-04",
+            "confidence": 0.85
+          }
+        ]
+      }
+    ],
+    "short_answers": [],
+    "goal_fields": [],
+    "video": [],
+    "reapplicant": {
+      "essay": {
+        "id": "K25",
+        "source_ids": ["wharton-guide"],
+        "verified_at": "2026-11-04",
+        "key": "reapplicant",
+        "prompt_verbatim": "Please use this space to share with the Admissions Committee how you have reflected and grown since your previous application and discuss any relevant updates to your candidacy (e.g., changes in your professional life, additional coursework, and extracurricular/volunteer engagements).",
+        "limit": {
+          "kind": "words",
+          "value": 250
+        },
+        "required": true,
+        "archetypes": ["REAPPLICANT"],
+        "parts": ["reflection and growth since the last application", "updates to your candidacy"],
+        "notes": [
+          {
+            "id": "K26",
+            "text": "Show mature reflection (perhaps the leadership evidence or career vision wasn't ready) and what you learned from the new experience; never blame the interview or imply Wharton erred. Say how classmates will now benefit.",
+            "source_ids": ["al-wharton"],
+            "verified_at": "2026-11-04",
+            "confidence": 0.75,
+            "approved_rewrite": true
+          }
+        ]
+      },
+      "policy": [
+        {
+          "id": "K27",
+          "text": "Required for all reapplicants.",
+          "source_ids": ["wharton-guide"],
+          "verified_at": "2026-11-04",
+          "confidence": 0.85
+        }
+      ]
+    },
+    "optional_essay": {
+      "id": "K23",
+      "source_ids": ["wharton-guide"],
+      "verified_at": "2026-11-04",
+      "key": "additional_information",
+      "prompt_verbatim": "Please use this space to share any additional information about yourself that cannot be found elsewhere in your application and that you would like to share with the Admissions Committee. This space can also be used to address any extenuating circumstances (e.g., unexplained gaps in work experience, choice of recommenders, inconsistent or questionable academic performance, areas of weakness, etc.) that you would like the Admissions Committee to consider.",
+      "limit": {
+        "kind": "words",
+        "value": 500
+      },
+      "required": false,
+      "archetypes": ["OPTIONAL"],
+      "parts": ["additional information or extenuating circumstances"],
+      "notes": [
+        {
+          "id": "K24",
+          "text": "Admissions: paragraphs or bullet points are fine; 'be straightforward and brief… just give us the facts. Acknowledging something you view as a weaker part of your application will not disadvantage you.'",
+          "source_ids": ["wharton-guide"],
+          "verified_at": "2026-11-04",
+          "confidence": 0.85
+        }
+      ]
+    },
+    "form_sections": [],
+    "recommendations": {
+      "id": "K28",
+      "source_ids": ["wharton-guide"],
+      "verified_at": "2026-11-04",
+      "count": 1,
+      "format": "gmac_common",
+      "questions": [],
+      "notes": [
+        {
+          "id": "K29",
+          "text": "One letter, through the GMAC Common Letter of Recommendation with its assessment, from someone who knows your work well, preferably a current or former supervisor (Carey JD/MBA needs two).",
+          "source_ids": ["wharton-guide", "wharton-open-2029"],
+          "verified_at": "2026-11-04",
+          "confidence": 0.85
+        },
+        {
+          "id": "K30",
+          "text": "Admissions: the recommender's title matters less than 'their ability to comment knowledgeably and specifically about you'. Give them your resume, essays and the projects to highlight. Entrepreneurs or family-business applicants can use a mentor, client or partner.",
+          "source_ids": ["wharton-guide"],
+          "verified_at": "2026-11-04",
+          "confidence": 0.85
+        }
+      ]
+    },
+    "resume": {
+      "id": "K31",
+      "source_ids": ["wharton-guide"],
+      "verified_at": "2026-11-04",
+      "page_limit": 1,
+      "notes": [
+        {
+          "id": "K32",
+          "text": "'We expect your resume to be one single page.' Bullets shouldn't read like a job description: show growth, progression, accomplishments and proof of analytical, communication, teamwork and leadership skills, with metrics. Add a one- or two-sentence description of any employer that isn't a household name. PDF, under 10 MB.",
+          "source_ids": ["wharton-guide"],
+          "verified_at": "2026-11-04",
+          "confidence": 0.85
+        }
+      ]
+    },
+    "test_policy": [
+      {
+        "id": "K33",
+        "text": "GMAT (legacy or Focus) or GRE required, at a centre or online; self-report allowed (list the highest first). No minimum and no preference. Test date windows: Round 1, 8 Sep 2021 – 8 Sep 2026; Round 2, 5 Jan 2022 – 5 Jan 2027; Round 3, 31 Mar 2022 – 31 Mar 2027. AWA not required.",
+        "source_ids": ["wharton-guide", "wharton-profile"],
+        "verified_at": "2026-11-04",
+        "confidence": 0.85
+      },
+      {
+        "id": "K34",
+        "text": "TOEFL iBT, PTE, IELTS or Duolingo required unless you studied where English was the language of instruction.",
+        "source_ids": ["wharton-guide"],
+        "verified_at": "2026-11-04",
+        "confidence": 0.85
+      }
+    ],
+    "fees_waivers": [
+      {
+        "id": "K35",
+        "text": "Application fee US$275; waived for US active-duty military and veterans.",
+        "source_ids": ["wharton-guide"],
+        "verified_at": "2026-11-04",
+        "confidence": 0.85
+      }
+    ]
+  },
+  "values": {
+    "stated": [
+      {
+        "id": "K36",
+        "text": "Readers ask three questions: 'What will you be able to achieve and contribute to the Wharton classroom, within the Wharton community, and throughout your post-MBA career?' They forecast success in an environment that is 'highly collaborative and analytically focused… where communication and teamwork are key.'",
+        "source_ids": ["wharton-guide"],
+        "verified_at": "2026-11-04",
+        "confidence": 0.85
+      },
+      {
+        "id": "K37",
+        "text": "Every application gets two independent reads, neither reader knowing the other's view.",
+        "source_ids": ["wharton-guide"],
+        "verified_at": "2026-11-04",
+        "confidence": 0.85
+      },
+      {
+        "id": "K38",
+        "text": "Essays: 'be introspective, candid, succinct, and most importantly… be yourself!'",
+        "source_ids": ["wharton-guide"],
+        "verified_at": "2026-11-04",
+        "confidence": 0.85
+      }
+    ],
+    "trait_map": [
+      {
+        "school_value": "collaborative; teamwork is key",
+        "admitstory_traits": ["brings_people_along", "community_builder"],
+        "note": {
+          "id": "K39",
+          "text": "Students work in as many as 20 teams over the program; show how you make a team better, not just that you led one.",
+          "source_ids": ["al-wharton"],
+          "verified_at": "2026-11-04",
+          "confidence": 0.75,
+          "approved_rewrite": true
+        }
+      },
+      {
+        "school_value": "analytically focused",
+        "admitstory_traits": ["analytical", "commercial_judgment"]
+      },
+      {
+        "school_value": "contribute to classroom and community",
+        "admitstory_traits": ["community_builder", "develops_people"]
+      }
+    ]
+  },
+  "culture_and_location": [
+    {
+      "id": "K42",
+      "text": "Philadelphia campus; a large, collaborative class that works in cohorts and learning teams.",
+      "source_ids": ["wharton-curriculum", "al-wharton"],
+      "verified_at": "2026-11-04",
+      "confidence": 0.75
+    }
+  ],
+  "academics": {
+    "courses": [],
+    "centers": [],
+    "experiential": [],
+    "structure": [
+      {
+        "id": "K43",
+        "text": "Three integrated interdisciplinary programs: Lauder MBA/MA in International Studies, Carey JD/MBA, and the MBA in Health Care Management, each with its own interview.",
+        "source_ids": ["wharton-profile", "wharton-interview"],
+        "verified_at": "2026-11-04",
+        "confidence": 0.85
+      },
+      {
+        "id": "K44",
+        "text": "19 credit units: six fixed core courses (including Foundations of Leadership and Teamwork, which opens with the Teamwork and Leadership Simulation, plus speaking and persuasive-writing courses) and a flexible core where more than half the core can be chosen and timed to fit an internship or venture.",
+        "source_ids": ["wharton-curriculum"],
+        "verified_at": "2026-11-04",
+        "confidence": 0.85
+      },
+      {
+        "id": "K45",
+        "text": "22 majors, usually five credit units each; courses can count toward two majors. Nearly 200 electives across 10 departments, and up to four courses from Penn's 11 other schools.",
+        "source_ids": ["wharton-curriculum"],
+        "verified_at": "2026-11-04",
+        "confidence": 0.85
+      },
+      {
+        "id": "K46",
+        "text": "Pre-Term opens the program; the first year runs through a learning team of five or six classmates.",
+        "source_ids": ["wharton-curriculum"],
+        "verified_at": "2026-11-04",
+        "confidence": 0.85
+      }
+    ]
+  },
+  "community": {
+    "clubs": [],
+    "traditions": [],
+    "treks_events": []
+  },
+  "careers": {
+    "employment_report": {
+      "id": "K48",
+      "source_ids": ["wharton-career-2025"],
+      "verified_at": "2026-11-04",
+      "class_year": 2025,
+      "currency": "USD",
+      "by_function": [
+        {
+          "function": "Financial Services",
+          "share": 0.382,
+          "median_base": 175000
+        },
+        {
+          "function": "Consulting",
+          "share": 0.282,
+          "median_base": 190000
+        },
+        {
+          "function": "Technology",
+          "share": 0.153,
+          "median_base": 164250
+        },
+        {
+          "function": "Health Care",
+          "share": 0.038,
+          "median_base": 155000
+        },
+        {
+          "function": "Legal & Professional Services",
+          "share": 0.025,
+          "median_base": 235000
+        },
+        {
+          "function": "Retail",
+          "share": 0.021,
+          "median_base": 162500
+        },
+        {
+          "function": "Real Estate",
+          "share": 0.019,
+          "median_base": 150000
+        },
+        {
+          "function": "Manufacturing",
+          "share": 0.019,
+          "median_base": 155000
+        }
+      ],
+      "top_employers": [
+        "Accenture",
+        "Amazon",
+        "Bain & Company",
+        "Boston Consulting Group",
+        "McKinsey & Company",
+        "Goldman Sachs",
+        "Blackstone",
+        "BlackRock",
+        "Apollo Global Management",
+        "Capital One"
+      ]
+    },
+    "recruiting_notes": [
+      {
+        "id": "K49",
+        "text": "Class of 2025: median base US$185,000; of 608 seeking jobs, 90.5% reported offers and 87.0% acceptances; 94% stayed in the US.",
+        "source_ids": ["wharton-career-2025"],
+        "verified_at": "2026-11-04",
+        "confidence": 0.85
+      },
+      {
+        "id": "K50",
+        "text": "Within financial services: private equity 13.4% (median US$200,000), investment banking 14.2% (US$175,000), investment management 5.3%, venture capital 2.8%.",
+        "source_ids": ["wharton-career-2025"],
+        "verified_at": "2026-11-04",
+        "confidence": 0.85
+      }
+    ]
+  },
+  "class_profile": {
+    "id": "K51",
+    "source_ids": ["wharton-profile"],
+    "verified_at": "2026-11-04",
+    "class_year": 2027,
+    "class_size": 888,
+    "gmat_focus_median": 676,
+    "gmat_classic_median": 735,
+    "gre_median": {
+      "verbal": 162,
+      "quant": 163
+    },
+    "gpa_median": 3.7,
+    "gpa_scale": 4.0,
+    "work_experience_years_median": 5,
+    "international_share": 0.26
+  },
+  "interview": {
+    "id": "K52",
+    "source_ids": ["wharton-interview"],
+    "verified_at": "2026-11-04",
+    "invitation": "invite_only",
+    "who": ["adcom"],
+    "blind": null,
+    "length_min": 30,
+    "location": ["virtual"],
+    "common_questions": [
+      {
+        "id": "K53",
+        "source_ids": ["wharton-interview"],
+        "verified_at": "2026-11-04",
+        "text": "Team Based Discussion: a prompt with a purpose, solved with 5–6 other applicants for a tangible outcome.",
+        "frequency_weight": 5
+      },
+      {
+        "id": "K54",
+        "source_ids": ["wharton-interview"],
+        "verified_at": "2026-11-04",
+        "text": "One-on-one: how did you think the discussion went, and how did you contribute?",
+        "frequency_weight": 5
+      }
+    ],
+    "format_notes": [
+      {
+        "id": "K55",
+        "text": "By invitation: a 20-minute virtual Team Based Discussion with 5–6 randomly assigned applicants, then a 10-minute one-on-one with an admissions team member to reflect on your TBD performance. Details arrive well before your slot.",
+        "source_ids": ["wharton-interview"],
+        "verified_at": "2026-11-04",
+        "confidence": 0.85
+      },
+      {
+        "id": "K56",
+        "text": "It looks at 'communication style, level of engagement, leadership skills, decision-making process'. Admissions' advice: use methods that have moved your teams forward, adapt to the group, be yourself ('There is no specific role that is expected of you'), and relax.",
+        "source_ids": ["wharton-interview"],
+        "verified_at": "2026-11-04",
+        "confidence": 0.85
+      },
+      {
+        "id": "K57",
+        "text": "Build on others' ideas by name, help the group reach the deliverable on time, and bring one prepared idea without hijacking the discussion; in the debrief, assess yourself honestly, including what you'd change.",
+        "source_ids": ["admitstory-coach"],
+        "verified_at": "2026-11-04",
+        "confidence": 0.75
+      }
+    ]
+  },
+  "ai_policy": {
+    "id": "K58",
+    "source_ids": ["pq-ai-2026"],
+    "verified_at": "2026-11-04",
+    "stance": "limited",
+    "applies_to": ["essays"],
+    "disclosure_text": null,
+    "notes": [
+      {
+        "id": "K59",
+        "text": "Wharton's application: 'Your work contained within this application must be your own… it is unacceptable to have AI substantially complete the task' (treat AI like another person's writing). 'Wharton may use its own proprietary and/or licensed AI solutions in order to identify AI-authored elements', and flagging triggers 'a more holistic investigation'.",
+        "source_ids": ["pq-ai-2026"],
+        "verified_at": "2026-11-04",
+        "confidence": 0.85
+      }
+    ]
+  },
+  "scholarships": [],
+  "insider_notes": [
+    {
+      "id": "K40",
+      "text": "Class of 2027: 888 students from 7,613 applications; 44% women; 26% international; 68 countries; 12% LGBTQ+; 11% first-generation; 6% military. Average GMAT Focus 676 (legacy 735); average GRE 163 quant, 162 verbal; average GPA 3.7; average work experience five years (no minimum or maximum).",
+      "source_ids": ["wharton-profile"],
+      "verified_at": "2026-11-04",
+      "confidence": 0.85
+    },
+    {
+      "id": "K41",
+      "text": "Wharton recently shortened its essays (a 50-word role, a 150-word medium/long-term answer, a 350-word essay), so career and fit evidence has to be tight.",
+      "source_ids": ["wharton-guide", "al-wharton"],
+      "verified_at": "2026-11-04",
+      "confidence": 0.85
+    },
+    {
+      "id": "K47",
+      "text": "For 'why Wharton' in an interview or the contribution essay: name a major (or two) and one cross-Penn course tied to a specific future situation, not 'world-class finance'.",
+      "source_ids": ["wharton-curriculum", "admitstory-coach"],
+      "verified_at": "2026-11-04",
+      "confidence": 0.85
+    }
+  ],
+  "avoid": [
+    {
+      "id": "K60",
+      "text": "A contribution essay of club names without proof from your past.",
+      "source_ids": ["al-wharton"],
+      "verified_at": "2026-11-04",
+      "confidence": 0.75,
+      "approved_rewrite": true
+    },
+    {
+      "id": "K61",
+      "text": "A two-page resume, or bullets that read like a job description.",
+      "source_ids": ["wharton-guide"],
+      "verified_at": "2026-11-04",
+      "confidence": 0.85
+    },
+    {
+      "id": "K62",
+      "text": "Explaining 'why' in the 50-word goal answer.",
+      "source_ids": ["wharton-guide"],
+      "verified_at": "2026-11-04",
+      "confidence": 0.85
+    },
+    {
+      "id": "K63",
+      "text": "Dominating the Team Based Discussion.",
+      "source_ids": ["wharton-interview", "admitstory-coach"],
+      "verified_at": "2026-11-04",
+      "confidence": 0.85
+    }
+  ],
+  "angles_that_work": [
+    {
+      "id": "K64",
+      "text": "Essay 2 built on one value shown in two past contributions, each mapped to a specific way classmates benefit.",
+      "source_ids": ["wharton-guide", "al-wharton"],
+      "verified_at": "2026-11-04",
+      "confidence": 0.85
+    },
+    {
+      "id": "K65",
+      "text": "A medium/long-term answer that shows self-awareness about what the applicant still needs to learn.",
+      "source_ids": ["wharton-guide"],
+      "verified_at": "2026-11-04",
+      "confidence": 0.85
+    }
+  ],
+  "glossary": [
+    {
+      "id": "K66",
+      "source_ids": ["wharton-interview"],
+      "verified_at": "2026-11-04",
+      "term": "TBD",
+      "plain_definition": "Team Based Discussion: Wharton's group interview, followed by a short one-on-one."
+    },
+    {
+      "id": "K67",
+      "source_ids": ["al-wharton"],
+      "verified_at": "2026-11-04",
+      "term": "Learning Team",
+      "plain_definition": "The small first-year team Wharton students work in throughout the core."
+    },
+    {
+      "id": "K68",
+      "source_ids": ["wharton-guide"],
+      "verified_at": "2026-11-04",
+      "term": "Moelis Advance Access",
+      "plain_definition": "Wharton's deferred-admission program for college seniors."
+    }
+  ]
+}

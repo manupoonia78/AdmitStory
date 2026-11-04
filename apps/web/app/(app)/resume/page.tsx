@@ -1,16 +1,17 @@
 import type { Metadata } from "next";
 import { requireOnboardedUser } from "@/lib/app-user";
-import { loadResumeView } from "@/lib/forms/resume-view";
-import { ResumeHost } from "./resume-host";
+import { loadResumeWork } from "@/lib/resume/view";
+import { ResumeWorkHost } from "./resume-work-host";
 
-export const metadata: Metadata = { title: "Your resume" };
+export const metadata: Metadata = { title: "Your résumé" };
 
 /**
- * The Résumé Pass (spec §5.10): the applicant's résumé as a page with its limit, each bullet's
- * feedback and rewrite to keep or not, the suggested section order and the Word export. One per
- * applicant, shared by every kit; it comes with the first School Kit.
+ * The Résumé (school workspace redesign): the narrative it tells, built from the applicant's
+ * stories, a pasted CV or their upload, then shaped by chat. One per applicant, shared by every
+ * school; each school's Résumé tab opens the same document. The line-by-line review of an
+ * uploaded résumé is at /resume/review.
  */
 export default async function ResumePage() {
   const { session } = await requireOnboardedUser();
-  return <ResumeHost initial={await loadResumeView(session.user.id)} />;
+  return <ResumeWorkHost initial={await loadResumeWork(session.user.id)} />;
 }

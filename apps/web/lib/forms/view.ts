@@ -51,6 +51,9 @@ export interface FormSectionView {
 
 export interface FormView {
   kitId: string;
+  /** For the school's tabs (school workspace redesign). */
+  userSchoolId: string;
+  cycle: string;
   school: string;
   heading: string;
   files: FileEntry[];
@@ -176,6 +179,8 @@ export async function formViewFor(
 
   return {
     kitId: kit.kit.id,
+    userSchoolId: kit.userSchoolId,
+    cycle: kit.cycle,
     school,
     heading: `${school} ${kit.cycle}`,
     files,

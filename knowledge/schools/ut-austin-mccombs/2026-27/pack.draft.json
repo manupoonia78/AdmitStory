@@ -1,0 +1,920 @@
+{
+  "school": {
+    "id": "ut-austin-mccombs",
+    "name": "The University of Texas at Austin McCombs School of Business",
+    "short_name": "McCombs",
+    "country": "US",
+    "city": "Austin, TX",
+    "website": "https://www.mccombs.utexas.edu",
+    "program": "full_time_mba"
+  },
+  "cycle": "2026-27",
+  "version": 1,
+  "status": "draft",
+  "_todo": [
+    "application.video[0].think_time_s: not published",
+    "application.fees_waivers: the application fee amount and waiver criteria",
+    "community.clubs: verify specific McCombs clubs",
+    "careers.employment_report.top_employers: from the full PDF"
+  ],
+  "k_high_water": 75,
+  "sources": [
+    {
+      "id": "mccombs-apply",
+      "type": "official",
+      "title": "Texas McCombs Full-Time MBA: Application process (essays, video assessment, interview, recommendation, tests, deadlines)",
+      "url": "https://www.mccombs.utexas.edu/graduate/mba/full-time-mba/admissions/application-process/",
+      "trust": 5,
+      "retrieved_at": "2026-11-04",
+      "rights_note": null
+    },
+    {
+      "id": "mccombs-waiver",
+      "type": "official",
+      "title": "Texas McCombs: Requesting a test waiver",
+      "url": "https://www.mccombs.utexas.edu/graduate/mba/requesting-a-test-waiver/",
+      "trust": 5,
+      "retrieved_at": "2026-11-04",
+      "rights_note": null
+    },
+    {
+      "id": "mccombs-profile",
+      "type": "official",
+      "title": "Texas McCombs Full-Time MBA: Class profile (Class of 2027)",
+      "url": "https://www.mccombs.utexas.edu/graduate/mba/full-time-mba/admissions/class-profile/",
+      "trust": 5,
+      "retrieved_at": "2026-11-04",
+      "rights_note": null
+    },
+    {
+      "id": "mccombs-employment-2025",
+      "type": "official",
+      "title": "Texas McCombs Full-Time MBA Employment Report, Class of 2025 (PDF)",
+      "url": "https://go.mccombs.utexas.edu/rs/503-KLY-263/images/FT%20MBA%20Employment%20Report%202025-26.pdf",
+      "trust": 5,
+      "retrieved_at": "2026-11-04",
+      "rights_note": null
+    },
+    {
+      "id": "mccombs-academics",
+      "type": "official",
+      "title": "Texas McCombs Full-Time MBA: concentrations, McCombs+, Hildebrand leadership, fellows, global studies",
+      "url": "https://www.mccombs.utexas.edu/graduate/mba/full-time-mba/academics/curriculum/concentrations/",
+      "trust": 5,
+      "retrieved_at": "2026-11-04",
+      "rights_note": null
+    },
+    {
+      "id": "mccombs-blog-essays",
+      "type": "adcom",
+      "title": "MBA Insider (Texas MBA Admissions): Successfully answering the Texas McCombs MBA essay prompts (Jul 1, 2025)",
+      "url": "https://blogs.mccombs.utexas.edu/mba-insider/successfully-answering-the-texas-mccombs-mba-essay-prompts/",
+      "trust": 4,
+      "retrieved_at": "2026-11-04",
+      "rights_note": null
+    },
+    {
+      "id": "mccombs-blog-video",
+      "type": "adcom",
+      "title": "MBA Insider (Texas MBA Admissions): Mastering the Texas McCombs video assessment (Jul 11, 2026)",
+      "url": "https://blogs.mccombs.utexas.edu/mba-insider/lights-camera-mba-mastering-the-texas-mccombs-video-assessment/",
+      "trust": 4,
+      "retrieved_at": "2026-11-04",
+      "rights_note": null
+    },
+    {
+      "id": "mccombs-blog-recipe",
+      "type": "adcom",
+      "title": "MBA Insider (Texas MBA Admissions): An admissions committee's recipe for a strong application (Aug 30, 2024)",
+      "url": "https://blogs.mccombs.utexas.edu/mba-insider/an-admissions-committees-recipe-for-a-strong-application/",
+      "trust": 4,
+      "retrieved_at": "2026-11-04",
+      "rights_note": null
+    },
+    {
+      "id": "mccombs-blog-interview",
+      "type": "adcom",
+      "title": "MBA Insider (Texas MBA Admissions): The value of the MBA admissions interview (Jul 15, 2025)",
+      "url": "https://blogs.mccombs.utexas.edu/mba-insider/value-of-the-mba-admissions-interview/",
+      "trust": 4,
+      "retrieved_at": "2026-11-04",
+      "rights_note": null
+    },
+    {
+      "id": "mccombs-blog-reapply",
+      "type": "adcom",
+      "title": "MBA Insider (Texas MBA Admissions): Complete guide to reapplying (Jul 5, 2025)",
+      "url": "https://blogs.mccombs.utexas.edu/mba-insider/complete-guide-reapplying-tips-success/",
+      "trust": 4,
+      "retrieved_at": "2026-11-04",
+      "rights_note": null
+    },
+    {
+      "id": "al-mccombs",
+      "type": "third_party_reference",
+      "title": "ApplicantLab — McCombs school tab",
+      "url": null,
+      "trust": 2,
+      "retrieved_at": "2026-11-04",
+      "rights_note": "Paid coaching platform material (ApplicantLab). Private reference; items are Admitstory rewrites approved by Manu 2026-11-04 (§9.6). Never name or quote."
+    },
+    {
+      "id": "admitstory-coach",
+      "type": "coach_notes",
+      "title": "Admitstory coaching canon and Manu's storytelling rules",
+      "url": null,
+      "trust": 4,
+      "retrieved_at": "2026-11-04",
+      "rights_note": null
+    }
+  ],
+  "official_urls": [
+    {
+      "kind": "prompts",
+      "url": "https://www.mccombs.utexas.edu/graduate/mba/full-time-mba/admissions/application-process/"
+    },
+    {
+      "kind": "deadlines",
+      "url": "https://www.mccombs.utexas.edu/graduate/mba/full-time-mba/admissions/application-process/"
+    },
+    {
+      "kind": "class_profile",
+      "url": "https://www.mccombs.utexas.edu/graduate/mba/full-time-mba/admissions/class-profile/"
+    },
+    {
+      "kind": "employment_report",
+      "url": "https://www.mccombs.utexas.edu/graduate/mba/full-time-mba/career/"
+    }
+  ],
+  "rounds": [
+    {
+      "id": "K01",
+      "source_ids": ["mccombs-apply"],
+      "verified_at": "2026-11-04",
+      "name": "Round 1",
+      "deadline": "2026-10-15",
+      "decision_date": "2026-12-17",
+      "notes": [
+        {
+          "id": "K02",
+          "text": "Due 11:59pm Central.",
+          "source_ids": ["mccombs-apply"],
+          "verified_at": "2026-11-04",
+          "confidence": 0.85
+        }
+      ]
+    },
+    {
+      "id": "K03",
+      "source_ids": ["mccombs-apply"],
+      "verified_at": "2026-11-04",
+      "name": "Round 2",
+      "deadline": "2027-01-15",
+      "decision_date": "2027-03-25",
+      "notes": []
+    },
+    {
+      "id": "K04",
+      "source_ids": ["mccombs-apply"],
+      "verified_at": "2026-11-04",
+      "name": "Round 3",
+      "deadline": "2027-04-01",
+      "decision_date": "2027-05-06",
+      "notes": []
+    }
+  ],
+  "application": {
+    "essays": [
+      {
+        "id": "K05",
+        "source_ids": ["mccombs-apply"],
+        "verified_at": "2026-11-04",
+        "key": "mba_journey",
+        "prompt_verbatim": "Imagine yourself at the completion of your MBA journey. Why was pursuing your MBA at Texas McCombs the right decision for your personal and professional growth? Reflect on how you made the most of your time in the program—academically, through hands-on learning opportunities, and within the McCombs community. Highlight how you contributed to the McCombs community and used its resources to grow both professionally and personally.",
+        "limit": {
+          "kind": "words",
+          "value": 250
+        },
+        "required": true,
+        "archetypes": ["GOALS", "WHY-SCHOOL", "CONTRIBUTION"],
+        "parts": [
+          "why McCombs was the right decision for personal and professional growth",
+          "academics",
+          "hands-on learning",
+          "the McCombs community: what you contributed and used"
+        ],
+        "notes": [
+          {
+            "id": "K06",
+            "text": "McCombs' own tip: 'Open with a specific scene from your imagined post-MBA life'. Avoid generic school praise and recycled content.",
+            "source_ids": ["mccombs-blog-essays"],
+            "verified_at": "2026-11-04",
+            "confidence": 0.85
+          },
+          {
+            "id": "K07",
+            "text": "Write it in the past tense, looking back from graduation or the eve of the first post-MBA job. The short-term role appears early; the long-term goal can be woven in later or land at the end.",
+            "source_ids": ["al-mccombs"],
+            "verified_at": "2026-11-04",
+            "confidence": 0.75,
+            "approved_rewrite": true
+          },
+          {
+            "id": "K08",
+            "text": "At 250 words, keep the most distinctive McCombs resources (a concentration, a fellows program, a McCombs+ project) and cut what any school offers. A global course belongs only if the career needs it.",
+            "source_ids": ["al-mccombs"],
+            "verified_at": "2026-11-04",
+            "confidence": 0.75,
+            "approved_rewrite": true
+          },
+          {
+            "id": "K09",
+            "text": "Hildebrand leadership coaching has two pillars, character and credibility; cite the credibility side so it doesn't read as a worry about your own character.",
+            "source_ids": ["al-mccombs"],
+            "verified_at": "2026-11-04",
+            "confidence": 0.65,
+            "approved_rewrite": true
+          },
+          {
+            "id": "K10",
+            "text": "Split contributions across the two essays: the one that matches your Essay 2 value goes there, the rest here.",
+            "source_ids": ["al-mccombs"],
+            "verified_at": "2026-11-04",
+            "confidence": 0.75,
+            "approved_rewrite": true
+          }
+        ]
+      },
+      {
+        "id": "K11",
+        "source_ids": ["mccombs-apply"],
+        "verified_at": "2026-11-04",
+        "key": "core_value",
+        "prompt_verbatim": "Reflect on a core value that defines you. Share a specific example of how it has guided your decisions and actions, and explain how it will shape your contributions and growth as a McCombs MBA student. Highlight how this value has influenced your leadership style and life path, and how it will shape your MBA experience.",
+        "limit": {
+          "kind": "words",
+          "value": 250
+        },
+        "required": true,
+        "archetypes": ["VALUES", "LEADERSHIP"],
+        "parts": [
+          "one core value",
+          "a specific example where it guided decisions and actions",
+          "how it influenced your leadership style and life path",
+          "how it will shape contributions and growth at McCombs"
+        ],
+        "notes": [
+          {
+            "id": "K12",
+            "text": "Work backwards from the leadership story you most want readers to know, ideally one where you questioned the status quo, then name the value it shows.",
+            "source_ids": ["al-mccombs"],
+            "verified_at": "2026-11-04",
+            "confidence": 0.75,
+            "approved_rewrite": true
+          },
+          {
+            "id": "K13",
+            "text": "Use one or two quick later examples to show the value recurs, then the McCombs contribution that matches it.",
+            "source_ids": ["al-mccombs"],
+            "verified_at": "2026-11-04",
+            "confidence": 0.75,
+            "approved_rewrite": true
+          },
+          {
+            "id": "K14",
+            "text": "Show the value through the decision it forced (what it cost, what the easy path was), never by defining the value.",
+            "source_ids": ["admitstory-coach"],
+            "verified_at": "2026-11-04",
+            "confidence": 0.85
+          }
+        ]
+      }
+    ],
+    "short_answers": [
+      {
+        "id": "K18",
+        "source_ids": ["mccombs-waiver"],
+        "verified_at": "2026-11-04",
+        "key": "test_waiver_petition",
+        "prompt_verbatim": "A brief statement highlighting the merits of your request (200 words or less)",
+        "limit": {
+          "kind": "words",
+          "value": 200
+        },
+        "required": false,
+        "archetypes": ["OPTIONAL"],
+        "parts": ["academic evidence", "analytical work evidence"],
+        "notes": [
+          {
+            "id": "K19",
+            "text": "Eligibility needs both strong performance in an analytical degree (ideally GPA 3.0+) and at least three years of progressive analytical work; submit at least 10 days before applying, with a resume and transcripts.",
+            "source_ids": ["mccombs-waiver"],
+            "verified_at": "2026-11-04",
+            "confidence": 0.85
+          },
+          {
+            "id": "K20",
+            "text": "Highlight a few strong quant courses (calculus, statistics, quant business) rather than listing every grade, and describe analytical work in plain business terms tied to MBA coursework, not jargon.",
+            "source_ids": ["al-mccombs"],
+            "verified_at": "2026-11-04",
+            "confidence": 0.75,
+            "approved_rewrite": true
+          },
+          {
+            "id": "K21",
+            "text": "A waiver may help admission but a strong score helps scholarships; admits without a valid score must take the paid one-week Accelerated Foundations Program.",
+            "source_ids": ["mccombs-waiver"],
+            "verified_at": "2026-11-04",
+            "confidence": 0.85
+          }
+        ]
+      }
+    ],
+    "goal_fields": [],
+    "video": [
+      {
+        "id": "K24",
+        "source_ids": ["mccombs-apply"],
+        "verified_at": "2026-11-04",
+        "format": "async_video",
+        "think_time_s": null,
+        "answer_time_s": 90,
+        "attempts": 1,
+        "question_types": [
+          {
+            "id": "K25",
+            "text": "Required for all applicants shortly after submitting, with seven days to complete: six prompts of up to 90 seconds each; two are viewed but not scored. Kira platform, desktop or laptop only; unlimited practice but one attempt per question.",
+            "source_ids": ["mccombs-apply"],
+            "verified_at": "2026-11-04",
+            "confidence": 0.85
+          },
+          {
+            "id": "K26",
+            "text": "Evaluated themes: communication, adaptability and resilience, leadership and ambition, clear goals, empathy and inclusivity, personal interests, professionalism and poise. Sample: 'Tell us about your most significant leadership experience.'",
+            "source_ids": ["mccombs-blog-video"],
+            "verified_at": "2026-11-04",
+            "confidence": 0.85
+          },
+          {
+            "id": "K27",
+            "text": "Prepare: long- and short-term goals plus a plan B; a failure or adapting-to-the-unexpected story; an empathy or inclusion story; a leadership story; a short resume walk-through with a hobby; why McCombs woven into why an MBA.",
+            "source_ids": ["al-mccombs"],
+            "verified_at": "2026-11-04",
+            "confidence": 0.75,
+            "approved_rewrite": true
+          }
+        ],
+        "scripting_allowed": false
+      }
+    ],
+    "reapplicant": {
+      "essay": null,
+      "policy": [
+        {
+          "id": "K22",
+          "text": "Reapplicants submit new essays, an updated resume, the current video assessment and the fee; a new recommendation is optional. The key question to answer: 'Since your previous application, what steps have you taken to enhance your candidacy?'",
+          "source_ids": ["mccombs-blog-reapply"],
+          "verified_at": "2026-11-04",
+          "confidence": 0.85
+        },
+        {
+          "id": "K23",
+          "text": "Show what changed and what it taught you; refine, don't reverse, the career vision.",
+          "source_ids": ["al-mccombs"],
+          "verified_at": "2026-11-04",
+          "confidence": 0.75,
+          "approved_rewrite": true
+        }
+      ]
+    },
+    "optional_essay": {
+      "id": "K15",
+      "source_ids": ["mccombs-apply"],
+      "verified_at": "2026-11-04",
+      "key": "optional",
+      "prompt_verbatim": "Please explain any gaps in work experience, choice of recommender, and/or academic performance issues that may help the admission committee in reviewing your application.",
+      "limit": {
+        "kind": "words",
+        "value": 250
+      },
+      "required": false,
+      "archetypes": ["OPTIONAL"],
+      "parts": ["gaps, recommender choice or academic issues"],
+      "notes": [
+        {
+          "id": "K16",
+          "text": "McCombs: it 'is not designed for you to tell us more about your extracurricular activities'. If your recommender isn't your direct supervisor, explain why here.",
+          "source_ids": ["mccombs-blog-essays"],
+          "verified_at": "2026-11-04",
+          "confidence": 0.85
+        },
+        {
+          "id": "K17",
+          "text": "Without coursework in calculus, statistics, accounting or finance, or with a weak score, say how you'll prepare for the quantitative rigour.",
+          "source_ids": ["al-mccombs"],
+          "verified_at": "2026-11-04",
+          "confidence": 0.75,
+          "approved_rewrite": true
+        }
+      ]
+    },
+    "form_sections": [],
+    "recommendations": {
+      "id": "K28",
+      "source_ids": ["mccombs-apply"],
+      "verified_at": "2026-11-04",
+      "count": 1,
+      "format": "school_specific",
+      "questions": [
+        {
+          "text_verbatim": "Please provide a brief description of your interaction with the applicant, and if applicable, the applicant's role in your organization.",
+          "limit": {
+            "kind": "words",
+            "value": 50
+          }
+        },
+        {
+          "text_verbatim": "How does the performance of the applicant compare to that of other well-qualified individuals in similar roles? For example, what are the applicant's principal strengths?",
+          "limit": {
+            "kind": "words",
+            "value": 500
+          }
+        },
+        {
+          "text_verbatim": "Describe the most important piece of constructive feedback you have given the applicant. Please detail the circumstances and the applicant's response.",
+          "limit": {
+            "kind": "words",
+            "value": 500
+          }
+        },
+        {
+          "text_verbatim": "Is there anything else we should know about the applicant?"
+        }
+      ],
+      "notes": [
+        {
+          "id": "K29",
+          "text": "One recommendation from someone who supervised or assessed your work; professional recommenders strongly recommended; competency ratings plus three questions (500-word limits are recommended).",
+          "source_ids": ["mccombs-apply"],
+          "verified_at": "2026-11-04",
+          "confidence": 0.85
+        }
+      ]
+    },
+    "resume": {
+      "id": "K30",
+      "source_ids": ["mccombs-apply"],
+      "verified_at": "2026-11-04",
+      "page_limit": 2,
+      "notes": [
+        {
+          "id": "K31",
+          "text": "No page limit is stated for the application resume (the waiver petition asks for one to two pages); typically two years of full-time post-bachelor's experience are required.",
+          "source_ids": ["mccombs-apply"],
+          "verified_at": "2026-11-04",
+          "confidence": 0.7
+        }
+      ]
+    },
+    "test_policy": [
+      {
+        "id": "K32",
+        "text": "GMAT, GMAT Focus, GRE or EA required unless waived (approved waiver, a 5+-year-old expired score, or dual degree); no minimum, no preferred test. Superscores considered for quant readiness.",
+        "source_ids": ["mccombs-apply"],
+        "verified_at": "2026-11-04",
+        "confidence": 0.85
+      }
+    ],
+    "fees_waivers": [
+      {
+        "id": "K33",
+        "text": "A separate US$85 Re Vera employment-verification fee is required; the fee invoice arrives one to two days after submission.",
+        "source_ids": ["mccombs-apply"],
+        "verified_at": "2026-11-04",
+        "confidence": 0.85
+      }
+    ]
+  },
+  "values": {
+    "stated": [
+      {
+        "id": "K34",
+        "text": "McCombs students 'navigate challenges with a growth mindset, embrace unique perspectives, and thrive in collaborative environments.'",
+        "source_ids": ["mccombs-apply"],
+        "verified_at": "2026-11-04",
+        "confidence": 0.85
+      },
+      {
+        "id": "K35",
+        "text": "The admissions committee weighs academic aptitude, work experience and leadership potential, motivation for choosing McCombs, and support network, with no fixed weights.",
+        "source_ids": ["mccombs-blog-recipe"],
+        "verified_at": "2026-11-04",
+        "confidence": 0.85
+      },
+      {
+        "id": "K36",
+        "text": "Traits McCombs names: brave and pioneering, innovative and enterprising, dynamic and resilient, open-minded and collaborative, down-to-earth and optimistic.",
+        "source_ids": ["mccombs-blog-recipe"],
+        "verified_at": "2026-11-04",
+        "confidence": 0.85
+      }
+    ],
+    "trait_map": [
+      {
+        "school_value": "brave and pioneering; innovative and enterprising",
+        "admitstory_traits": ["originates_ideas", "acts_unasked"]
+      },
+      {
+        "school_value": "dynamic and resilient",
+        "admitstory_traits": ["resilient", "steady_in_ambiguity"],
+        "note": {
+          "id": "K37",
+          "text": "Resilience is a distinctive emphasis: a setback you came back from is strong material.",
+          "source_ids": ["al-mccombs"],
+          "verified_at": "2026-11-04",
+          "confidence": 0.75,
+          "approved_rewrite": true
+        }
+      },
+      {
+        "school_value": "open-minded and collaborative",
+        "admitstory_traits": ["brings_people_along", "empathetic"]
+      },
+      {
+        "school_value": "down-to-earth and optimistic",
+        "admitstory_traits": ["community_builder", "self_aware"]
+      }
+    ]
+  },
+  "culture_and_location": [
+    {
+      "id": "K42",
+      "text": "Rowling Hall is ten blocks from downtown Austin, which McCombs calls one of the most dynamic and innovative US cities; 72% of the Class of 2025 stayed in Texas.",
+      "source_ids": ["mccombs-academics"],
+      "verified_at": "2026-11-04",
+      "confidence": 0.85
+    },
+    {
+      "id": "K43",
+      "text": "A small, team-based culture where you'll work in many group projects.",
+      "source_ids": ["al-mccombs"],
+      "verified_at": "2026-11-04",
+      "confidence": 0.6,
+      "approved_rewrite": true
+    }
+  ],
+  "academics": {
+    "courses": [],
+    "centers": [],
+    "experiential": [
+      {
+        "id": "K46",
+        "source_ids": ["mccombs-academics"],
+        "verified_at": "2026-11-04",
+        "name": "McCombs+",
+        "what_it_is": "Co-curricular experiential and global programs: 8–10-week micro-consulting projects, one-on-one professional coaches and workshops.",
+        "why_it_matters_for": ["career switchers", "hands-on proof"],
+        "url": "https://www.mccombs.utexas.edu/graduate/mba/full-time-mba/academics/experiential-learning/"
+      },
+      {
+        "id": "K47",
+        "source_ids": ["mccombs-academics"],
+        "verified_at": "2026-11-04",
+        "name": "Hildebrand leadership coaching",
+        "what_it_is": "Leadership framework with two pillars, character and credibility; Hildebrand Leadership Fellows (self-paced) and courses such as Leading People and Organizations.",
+        "why_it_matters_for": ["leadership growth"],
+        "url": "https://www.mccombs.utexas.edu/graduate/mba/full-time-mba/academics/hildebrand-leadership-coaching/"
+      },
+      {
+        "id": "K48",
+        "source_ids": ["mccombs-academics"],
+        "verified_at": "2026-11-04",
+        "name": "Fellows programs",
+        "what_it_is": "Health Innovation Fellows, CleanTech Fellows, Venture Fellows (VC/PE internships), Marketing, Operations and Sports Fellows, Golub Capital Nonprofit Board Fellows, Wall Street for McCombs.",
+        "why_it_matters_for": ["health care, climate, VC and finance goals"],
+        "url": "https://www.mccombs.utexas.edu/graduate/mba/full-time-mba/student-experience/fellows-groups-and-funds/"
+      },
+      {
+        "id": "K49",
+        "source_ids": ["mccombs-academics"],
+        "verified_at": "2026-11-04",
+        "name": "MBA Investment Fund",
+        "what_it_is": "About 40 student investors managing roughly US$17 million; also real estate funds.",
+        "why_it_matters_for": ["investment management goals"],
+        "url": "https://www.mccombs.utexas.edu/graduate/mba/full-time-mba/student-experience/fellows-groups-and-funds/"
+      },
+      {
+        "id": "K50",
+        "source_ids": ["mccombs-academics"],
+        "verified_at": "2026-11-04",
+        "name": "Global Connections and Patagonia leadership course",
+        "what_it_is": "Spring courses with a one-to-two-week trip abroad, a NOLS leadership course in Patagonia, short exchanges and semester exchanges with 13 partners.",
+        "why_it_matters_for": ["international goals"],
+        "url": "https://www.mccombs.utexas.edu/graduate/mba/full-time-mba/academics/global-studies/"
+      }
+    ],
+    "structure": [
+      {
+        "id": "K44",
+        "text": "20+ concentrations, 14 STEM-certified, including Artificial Intelligence, Healthcare, CleanTech, Entrepreneurship, Business Analytics, Brand & Product Management, High Tech Marketing and Strategy & Innovation; students can take more than one.",
+        "source_ids": ["mccombs-academics"],
+        "verified_at": "2026-11-04",
+        "confidence": 0.85
+      },
+      {
+        "id": "K45",
+        "text": "STEM designation through defined pathways (for example Financial Mathematics or Management Sciences/Quantitative Methods).",
+        "source_ids": ["mccombs-academics"],
+        "verified_at": "2026-11-04",
+        "confidence": 0.75
+      }
+    ]
+  },
+  "community": {
+    "clubs": [],
+    "traditions": [],
+    "treks_events": []
+  },
+  "careers": {
+    "employment_report": {
+      "id": "K51",
+      "source_ids": ["mccombs-employment-2025"],
+      "verified_at": "2026-11-04",
+      "class_year": 2025,
+      "currency": "USD",
+      "by_function": [
+        {
+          "function": "Consulting",
+          "share": 0.3,
+          "median_base": 189000
+        },
+        {
+          "function": "Investment Banking",
+          "share": 0.1,
+          "median_base": 175000
+        },
+        {
+          "function": "Operations & Logistics",
+          "share": 0.09,
+          "median_base": 140000
+        },
+        {
+          "function": "Other Marketing",
+          "share": 0.09,
+          "median_base": 140000
+        },
+        {
+          "function": "Product Management",
+          "share": 0.05,
+          "median_base": 178500
+        },
+        {
+          "function": "Corporate Finance",
+          "share": 0.05,
+          "median_base": 130000
+        },
+        {
+          "function": "Asset Management",
+          "share": 0.05,
+          "median_base": 150000
+        },
+        {
+          "function": "Product Marketing",
+          "share": 0.04,
+          "median_base": 145950
+        }
+      ],
+      "top_employers": [],
+      "intl_offer_rates": {
+        "id": "K52",
+        "text": "Non-permanent-work-authorization graduates: 68.6% had an offer by three months; international median base US$165,000.",
+        "source_ids": ["mccombs-employment-2025"],
+        "verified_at": "2026-11-04",
+        "confidence": 0.85
+      }
+    },
+    "recruiting_notes": [
+      {
+        "id": "K53",
+        "text": "Class of 2025: average base US$154,053, average signing bonus US$34,279; 74.6% had offers and 72.1% had accepted by three months.",
+        "source_ids": ["mccombs-employment-2025"],
+        "verified_at": "2026-11-04",
+        "confidence": 0.85
+      },
+      {
+        "id": "K54",
+        "text": "By industry: consulting 28%, technology 22%, financial services 19%, energy 6%, healthcare 6%, retail 5%. 56% of full-time offers came from internship conversions.",
+        "source_ids": ["mccombs-employment-2025"],
+        "verified_at": "2026-11-04",
+        "confidence": 0.85
+      }
+    ]
+  },
+  "class_profile": {
+    "id": "K55",
+    "source_ids": ["mccombs-profile"],
+    "verified_at": "2026-11-04",
+    "class_year": 2027,
+    "class_size": 235,
+    "gmat_focus_median": 655,
+    "gmat_classic_median": null,
+    "gre_median": null,
+    "gpa_median": 3.53,
+    "gpa_scale": 4.0,
+    "work_experience_years_median": null,
+    "international_share": 0.31
+  },
+  "interview": {
+    "id": "K56",
+    "source_ids": ["mccombs-blog-interview"],
+    "verified_at": "2026-11-04",
+    "invitation": "open",
+    "who": ["student"],
+    "blind": null,
+    "length_min": 30,
+    "location": ["virtual"],
+    "common_questions": [
+      {
+        "id": "K57",
+        "source_ids": ["mccombs-blog-video"],
+        "verified_at": "2026-11-04",
+        "text": "Tell us about your most significant leadership experience.",
+        "frequency_weight": 4
+      },
+      {
+        "id": "K58",
+        "source_ids": ["mccombs-blog-video"],
+        "verified_at": "2026-11-04",
+        "text": "Why an MBA, and why McCombs? (clear goals theme)",
+        "frequency_weight": 4
+      },
+      {
+        "id": "K59",
+        "source_ids": ["mccombs-blog-video"],
+        "verified_at": "2026-11-04",
+        "text": "Tell us about a time something did not go to plan and you had to adapt. (adaptability and resilience theme)",
+        "frequency_weight": 3
+      }
+    ],
+    "format_notes": [
+      {
+        "id": "K60",
+        "text": "All full-time applicants are encouraged but not required to complete a 20–30-minute virtual, behavioural interview with a student on the Ambassador Committee; it can be done after submitting, even after the deadline.",
+        "source_ids": ["mccombs-apply"],
+        "verified_at": "2026-11-04",
+        "confidence": 0.85
+      },
+      {
+        "id": "K61",
+        "text": "The interview assesses motivation, collaboration and preparedness.",
+        "source_ids": ["mccombs-blog-interview"],
+        "verified_at": "2026-11-04",
+        "confidence": 0.85
+      },
+      {
+        "id": "K62",
+        "text": "Treat the optional interview as required. Bring a 2–3-minute introduction, a strong story you couldn't fit elsewhere, and one positive question at the end.",
+        "source_ids": ["al-mccombs"],
+        "verified_at": "2026-11-04",
+        "confidence": 0.75,
+        "approved_rewrite": true
+      }
+    ]
+  },
+  "ai_policy": {
+    "id": "K63",
+    "source_ids": ["mccombs-blog-essays"],
+    "verified_at": "2026-11-04",
+    "stance": "limited",
+    "applies_to": ["essays"],
+    "disclosure_text": null,
+    "notes": [
+      {
+        "id": "K64",
+        "text": "'While you may use AI tools for research or grammar checking, all submitted text must be written by you and reflect your voice and experiences.'",
+        "source_ids": ["mccombs-blog-essays"],
+        "verified_at": "2026-11-04",
+        "confidence": 0.85
+      }
+    ]
+  },
+  "scholarships": [
+    {
+      "id": "K65",
+      "text": "Hildebrand Scholars receive significant scholarship support; Dean Lillian Mills: 'We're investing in future CEOs and founders.'",
+      "source_ids": ["mccombs-academics"],
+      "verified_at": "2026-11-04",
+      "confidence": 0.85
+    },
+    {
+      "id": "K66",
+      "text": "A test waiver may make you a weaker scholarship candidate, since awards often reward strong scores.",
+      "source_ids": ["al-mccombs"],
+      "verified_at": "2026-11-04",
+      "confidence": 0.75,
+      "approved_rewrite": true
+    }
+  ],
+  "insider_notes": [
+    {
+      "id": "K38",
+      "text": "Most applicants with under two years of work experience aren't competitive.",
+      "source_ids": ["mccombs-blog-recipe"],
+      "verified_at": "2026-11-04",
+      "confidence": 0.85
+    },
+    {
+      "id": "K39",
+      "text": "Class of 2027 (latest profile): 235 students; GMAT Focus median 655 (middle 80% 615–695), GRE median 319, EA median 155, GPA median 3.53; six years' average experience; 31% international; 15% military.",
+      "source_ids": ["mccombs-profile"],
+      "verified_at": "2026-11-04",
+      "confidence": 0.85
+    },
+    {
+      "id": "K40",
+      "text": "McCombs warns that admissions readers are skilled at spotting insincere, generic or AI-generated content.",
+      "source_ids": ["mccombs-blog-essays"],
+      "verified_at": "2026-11-04",
+      "confidence": 0.85
+    },
+    {
+      "id": "K41",
+      "text": "Start essays at least six to eight weeks before the deadline.",
+      "source_ids": ["mccombs-blog-essays"],
+      "verified_at": "2026-11-04",
+      "confidence": 0.85
+    }
+  ],
+  "avoid": [
+    {
+      "id": "K67",
+      "text": "Generic school praise or an essay recycled from another school.",
+      "source_ids": ["mccombs-blog-essays"],
+      "verified_at": "2026-11-04",
+      "confidence": 0.85
+    },
+    {
+      "id": "K68",
+      "text": "Using the optional statement for extracurriculars.",
+      "source_ids": ["mccombs-blog-essays"],
+      "verified_at": "2026-11-04",
+      "confidence": 0.85
+    },
+    {
+      "id": "K69",
+      "text": "Skipping the optional student interview.",
+      "source_ids": ["al-mccombs"],
+      "verified_at": "2026-11-04",
+      "confidence": 0.75,
+      "approved_rewrite": true
+    },
+    {
+      "id": "K70",
+      "text": "Jargon in the waiver petition (simulations and distributions) instead of business language.",
+      "source_ids": ["al-mccombs"],
+      "verified_at": "2026-11-04",
+      "confidence": 0.75,
+      "approved_rewrite": true
+    }
+  ],
+  "angles_that_work": [
+    {
+      "id": "K71",
+      "text": "Essay 1 opened as a scene on the eve of the first post-MBA job, looking back on one concentration, one fellows program or McCombs+ project, and one contribution.",
+      "source_ids": ["mccombs-blog-essays"],
+      "verified_at": "2026-11-04",
+      "confidence": 0.85
+    },
+    {
+      "id": "K72",
+      "text": "Essay 2 built from a leadership moment where the applicant challenged the status quo at a cost, with a later example showing the value holds.",
+      "source_ids": ["al-mccombs"],
+      "verified_at": "2026-11-04",
+      "confidence": 0.75,
+      "approved_rewrite": true
+    },
+    {
+      "id": "K73",
+      "text": "A resilience story in the video set, since resilience is one of McCombs' named traits.",
+      "source_ids": ["mccombs-blog-recipe"],
+      "verified_at": "2026-11-04",
+      "confidence": 0.85
+    }
+  ],
+  "glossary": [
+    {
+      "id": "K74",
+      "source_ids": ["mccombs-academics"],
+      "verified_at": "2026-11-04",
+      "term": "McCombs+",
+      "plain_definition": "McCombs' co-curricular experiential programs (micro-consulting, coaching, workshops)."
+    },
+    {
+      "id": "K75",
+      "source_ids": ["mccombs-academics"],
+      "verified_at": "2026-11-04",
+      "term": "Rowling Hall",
+      "plain_definition": "The McCombs graduate business building in Austin."
+    }
+  ]
+}

@@ -1,0 +1,814 @@
+{
+  "school": {
+    "id": "vanderbilt-owen",
+    "name": "Vanderbilt University Owen Graduate School of Management (Vanderbilt Business)",
+    "short_name": "Owen",
+    "country": "US",
+    "city": "Nashville, TN",
+    "website": "https://business.vanderbilt.edu",
+    "program": "full_time_mba"
+  },
+  "cycle": "2026-27",
+  "version": 1,
+  "status": "draft",
+  "_todo": [
+    "application.optional_essay.limit: the 2026-27 page states no limit; 300 words is the prior-cycle limit",
+    "application.reapplicant.essay: prompt wording and limit",
+    "application.video[0]: number of questions, think and answer times",
+    "community.clubs: verify specific Owen clubs",
+    "careers.employment_report: median base by function (full report is on issuu)",
+    "interview.length_min: not published; 30 is a placeholder"
+  ],
+  "k_high_water": 68,
+  "sources": [
+    {
+      "id": "owen-instructions",
+      "type": "official",
+      "title": "Vanderbilt MBA: Application instructions (statements, video, interview, recommendation, resume, tests, fee)",
+      "url": "https://business.vanderbilt.edu/mba/admissions/application-instructions/",
+      "trust": 5,
+      "retrieved_at": "2026-11-04",
+      "rights_note": null
+    },
+    {
+      "id": "owen-admissions",
+      "type": "official",
+      "title": "Vanderbilt MBA: Admissions (Fall 2027 deadlines)",
+      "url": "https://business.vanderbilt.edu/mba/admissions/",
+      "trust": 5,
+      "retrieved_at": "2026-11-04",
+      "rights_note": null
+    },
+    {
+      "id": "owen-profile",
+      "type": "official",
+      "title": "Vanderbilt MBA: Class of 2028 profile",
+      "url": "https://business.vanderbilt.edu/mba/class-profile/",
+      "trust": 5,
+      "retrieved_at": "2026-11-04",
+      "rights_note": null
+    },
+    {
+      "id": "owen-outcomes",
+      "type": "official",
+      "title": "Vanderbilt MBA: Outcomes (Class of 2025)",
+      "url": "https://business.vanderbilt.edu/mba/outcomes/",
+      "trust": 5,
+      "retrieved_at": "2026-11-04",
+      "rights_note": null
+    },
+    {
+      "id": "owen-scholarships",
+      "type": "official",
+      "title": "Vanderbilt MBA: Tuition, financing and scholarships; Dean's Scholars",
+      "url": "https://business.vanderbilt.edu/mba/admissions/tuition-financing-scholarships/",
+      "trust": 5,
+      "retrieved_at": "2026-11-04",
+      "rights_note": null
+    },
+    {
+      "id": "owen-academics",
+      "type": "official",
+      "title": "Vanderbilt MBA: curriculum, concentrations, Leadership Development Program",
+      "url": "https://business.vanderbilt.edu/mba/curriculum/",
+      "trust": 5,
+      "retrieved_at": "2026-11-04",
+      "rights_note": null
+    },
+    {
+      "id": "owen-about",
+      "type": "official",
+      "title": "About Vanderbilt Business (mission, values, Nashville)",
+      "url": "https://business.vanderbilt.edu/about/",
+      "trust": 5,
+      "retrieved_at": "2026-11-04",
+      "rights_note": null
+    },
+    {
+      "id": "ca-mcchesney-2025",
+      "type": "adcom",
+      "title": "Clear Admit Admissions Director Q&A: Bailey McChesney, Director of MBA Admissions, Vanderbilt Owen (Sep 3, 2025)",
+      "url": "https://www.clearadmit.com/2025/09/admissions-director-qa-bailey-mcchesney-of-vanderbilt-owen-3/",
+      "trust": 4,
+      "retrieved_at": "2026-11-04",
+      "rights_note": null
+    },
+    {
+      "id": "al-owen",
+      "type": "third_party_reference",
+      "title": "ApplicantLab — Vanderbilt Owen school tab",
+      "url": null,
+      "trust": 2,
+      "retrieved_at": "2026-11-04",
+      "rights_note": "Paid coaching platform material (ApplicantLab). Private reference; items are Admitstory rewrites approved by Manu 2026-11-04 (§9.6). Never name or quote."
+    },
+    {
+      "id": "admitstory-coach",
+      "type": "coach_notes",
+      "title": "Admitstory coaching canon and Manu's storytelling rules",
+      "url": null,
+      "trust": 4,
+      "retrieved_at": "2026-11-04",
+      "rights_note": null
+    }
+  ],
+  "official_urls": [
+    {
+      "kind": "prompts",
+      "url": "https://business.vanderbilt.edu/mba/admissions/application-instructions/"
+    },
+    {
+      "kind": "deadlines",
+      "url": "https://business.vanderbilt.edu/mba/admissions/"
+    },
+    {
+      "kind": "class_profile",
+      "url": "https://business.vanderbilt.edu/mba/class-profile/"
+    },
+    {
+      "kind": "employment_report",
+      "url": "https://business.vanderbilt.edu/mba/outcomes/"
+    }
+  ],
+  "rounds": [
+    {
+      "id": "K01",
+      "source_ids": ["owen-admissions"],
+      "verified_at": "2026-11-04",
+      "name": "Round 1",
+      "deadline": "2026-10-01",
+      "decision_date": "2026-12-18",
+      "notes": [
+        {
+          "id": "K02",
+          "text": "Deposit due 20 January 2027.",
+          "source_ids": ["owen-admissions"],
+          "verified_at": "2026-11-04",
+          "confidence": 0.85
+        },
+        {
+          "id": "K09",
+          "text": "Deadlines are 11:59pm Central; an application still incomplete a week after the deadline moves to the next round.",
+          "source_ids": ["owen-admissions"],
+          "verified_at": "2026-11-04",
+          "confidence": 0.85
+        }
+      ]
+    },
+    {
+      "id": "K03",
+      "source_ids": ["owen-admissions"],
+      "verified_at": "2026-11-04",
+      "name": "Round 2",
+      "deadline": "2027-01-06",
+      "decision_date": "2027-03-12",
+      "notes": [
+        {
+          "id": "K04",
+          "text": "Deposit due 21 April 2027.",
+          "source_ids": ["owen-admissions"],
+          "verified_at": "2026-11-04",
+          "confidence": 0.85
+        }
+      ]
+    },
+    {
+      "id": "K05",
+      "source_ids": ["owen-admissions"],
+      "verified_at": "2026-11-04",
+      "name": "Round 3",
+      "deadline": "2027-03-10",
+      "decision_date": "2027-04-23",
+      "notes": [
+        {
+          "id": "K06",
+          "text": "Deposit due 12 May 2027. International candidates must apply by 5 April 2027.",
+          "source_ids": ["owen-admissions"],
+          "verified_at": "2026-11-04",
+          "confidence": 0.85
+        }
+      ]
+    },
+    {
+      "id": "K07",
+      "source_ids": ["owen-admissions"],
+      "verified_at": "2026-11-04",
+      "name": "Round 4",
+      "deadline": "2027-05-05",
+      "notes": [
+        {
+          "id": "K08",
+          "text": "Rolling decisions; domestic applicants effectively (international cutoff 5 April).",
+          "source_ids": ["owen-admissions"],
+          "verified_at": "2026-11-04",
+          "confidence": 0.85
+        }
+      ]
+    }
+  ],
+  "application": {
+    "essays": [
+      {
+        "id": "K10",
+        "source_ids": ["owen-instructions"],
+        "verified_at": "2026-11-04",
+        "key": "career_journey",
+        "prompt_verbatim": "As you contemplate your post-MBA aspirations, walk us through your career journey thus far and share two post-MBA career paths you aim to explore during the Vanderbilt MBA program. Please articulate what in your career journey has led to your decision to pursue an MBA, and touch on skills you've developed that will help you achieve your post-MBA career plans.",
+        "limit": {
+          "kind": "words",
+          "value": 400
+        },
+        "required": true,
+        "archetypes": ["GOALS"],
+        "parts": [
+          "your career journey so far",
+          "two post-MBA career paths to explore",
+          "what in your journey led to the MBA decision",
+          "skills you've developed that will help"
+        ],
+        "notes": [
+          {
+            "id": "K11",
+            "text": "The prompt is framed by Owen's Career Management Center and notes that many students explore multiple industry paths at once.",
+            "source_ids": ["owen-instructions"],
+            "verified_at": "2026-11-04",
+            "confidence": 0.85
+          },
+          {
+            "id": "K12",
+            "text": "McChesney: essays should reflect on experiences and go beyond the resume, and 'fill in any potential unanswered questions'.",
+            "source_ids": ["ca-mcchesney-2025"],
+            "verified_at": "2026-11-04",
+            "confidence": 0.85
+          },
+          {
+            "id": "K13",
+            "text": "Keep one long-term destination (an impact, not necessarily a title) and show two different short-term paths that each build what that destination needs. Two unrelated destinations read as uncommitted.",
+            "source_ids": ["al-owen"],
+            "verified_at": "2026-11-04",
+            "confidence": 0.75,
+            "approved_rewrite": true
+          },
+          {
+            "id": "K14",
+            "text": "Derive the two paths from the two or three capabilities the long-term goal requires (for example, a large firm for best practice and a boutique for running a small business), then show which courses serve each.",
+            "source_ids": ["al-owen"],
+            "verified_at": "2026-11-04",
+            "confidence": 0.75,
+            "approved_rewrite": true
+          },
+          {
+            "id": "K15",
+            "text": "Don't pick 'consulting and banking' just because they're common. Spend roughly half the words on how your prior experience and skills are relevant to the paths.",
+            "source_ids": ["al-owen"],
+            "verified_at": "2026-11-04",
+            "confidence": 0.75,
+            "approved_rewrite": true
+          },
+          {
+            "id": "K16",
+            "text": "Use Owen's employment report to choose paths where Owen actually places people (consulting, financial services, healthcare and technology lead).",
+            "source_ids": ["owen-outcomes"],
+            "verified_at": "2026-11-04",
+            "confidence": 0.85
+          }
+        ]
+      },
+      {
+        "id": "K17",
+        "source_ids": ["owen-instructions"],
+        "verified_at": "2026-11-04",
+        "key": "challenge",
+        "prompt_verbatim": "Reflect on a challenge or stressful situation you have faced. How did you respond to this challenge, and what did you learn about yourself through the process?",
+        "limit": {
+          "kind": "words",
+          "value": 300
+        },
+        "required": true,
+        "archetypes": ["SETBACK"],
+        "parts": [
+          "a challenge or stressful situation",
+          "how you responded",
+          "what you learned about yourself"
+        ],
+        "notes": [
+          {
+            "id": "K18",
+            "text": "McChesney describes it as walking the committee through a stressful situation and what you learned in the process.",
+            "source_ids": ["ca-mcchesney-2025"],
+            "verified_at": "2026-11-04",
+            "confidence": 0.85
+          },
+          {
+            "id": "K19",
+            "text": "Pick something genuinely consequential where your own response is the story. Give the situation quickly, spend most words on what you did and how you changed, and end with a later moment that shows the change held. Never make someone else the villain.",
+            "source_ids": ["admitstory-coach"],
+            "verified_at": "2026-11-04",
+            "confidence": 0.85
+          }
+        ]
+      }
+    ],
+    "short_answers": [],
+    "goal_fields": [],
+    "video": [
+      {
+        "id": "K24",
+        "source_ids": ["owen-instructions"],
+        "verified_at": "2026-11-04",
+        "format": "async_video",
+        "think_time_s": null,
+        "answer_time_s": null,
+        "attempts": null,
+        "question_types": [
+          {
+            "id": "K25",
+            "text": "A required video response: easy 'small talk' questions with prep time, to glimpse your authentic self speaking without a script.",
+            "source_ids": ["owen-instructions"],
+            "verified_at": "2026-11-04",
+            "confidence": 0.85
+          },
+          {
+            "id": "K26",
+            "text": "McChesney: the video is meant to be like small talk (favourite vacation spots or hobbies) and shows who you are and how you communicate; the interview is the job-interview part.",
+            "source_ids": ["ca-mcchesney-2025"],
+            "verified_at": "2026-11-04",
+            "confidence": 0.85
+          }
+        ],
+        "scripting_allowed": false
+      }
+    ],
+    "reapplicant": {
+      "essay": null,
+      "policy": [
+        {
+          "id": "K22",
+          "text": "Reapplicants can complete a reapplicant essay on what has changed in their candidacy, plus an updated resume, statements, recommendation and any new test scores. Owen keeps applications for two years; use the same login.",
+          "source_ids": ["owen-instructions"],
+          "verified_at": "2026-11-04",
+          "confidence": 0.85
+        },
+        {
+          "id": "K23",
+          "text": "Say what changed and what it taught you, how the career vision sharpened, and how you've engaged more with Owen since.",
+          "source_ids": ["al-owen"],
+          "verified_at": "2026-11-04",
+          "confidence": 0.75,
+          "approved_rewrite": true
+        }
+      ]
+    },
+    "optional_essay": {
+      "id": "K20",
+      "source_ids": ["owen-instructions"],
+      "verified_at": "2026-11-04",
+      "key": "optional_explanatory",
+      "prompt_verbatim": "You may provide an additional statement to briefly explain anything that is not already addressed elsewhere in your application. This could include employment gaps, lack of recommendation from your current or most recent supervisor, violations of the law, academic misconduct, sub-par academic performance, or anything else that is relevant to your application. Bullet points are acceptable for this statement when appropriate.",
+      "limit": {
+        "kind": "words",
+        "value": 300
+      },
+      "required": false,
+      "archetypes": ["OPTIONAL"],
+      "parts": ["anything not addressed elsewhere"],
+      "notes": [
+        {
+          "id": "K21",
+          "text": "Bullets are acceptable. Brief, factual, mature; for grades or scores, point to better evidence. Don't say 'I don't test well': business school is full of exams.",
+          "source_ids": ["al-owen"],
+          "verified_at": "2026-11-04",
+          "confidence": 0.75,
+          "approved_rewrite": true
+        }
+      ]
+    },
+    "form_sections": [],
+    "recommendations": {
+      "id": "K27",
+      "source_ids": ["owen-instructions"],
+      "verified_at": "2026-11-04",
+      "count": 1,
+      "format": "school_specific",
+      "questions": [],
+      "notes": [
+        {
+          "id": "K28",
+          "text": "One letter, due on the round deadline, on the Vanderbilt form or as an attached GMAC Common LOR; ideally a direct supervisor, client or project manager. Non-English letters need a certified translation in the same upload.",
+          "source_ids": ["owen-instructions"],
+          "verified_at": "2026-11-04",
+          "confidence": 0.85
+        }
+      ]
+    },
+    "resume": {
+      "id": "K29",
+      "source_ids": ["owen-instructions"],
+      "verified_at": "2026-11-04",
+      "page_limit": 1,
+      "notes": [
+        {
+          "id": "K30",
+          "text": "A one-page resume should be sufficient; the application's work history section can hold more.",
+          "source_ids": ["owen-instructions"],
+          "verified_at": "2026-11-04",
+          "confidence": 0.85
+        }
+      ]
+    },
+    "test_policy": [
+      {
+        "id": "K31",
+        "text": "GMAT, GRE or Executive Assessment, or an approved waiver. Request a waiver at least two weeks before the round deadline, with an unofficial transcript; quant coursework, analytical work and CPA/CFA-type certifications help. One evaluation per cycle, no appeals, and not possible once a score is submitted.",
+        "source_ids": ["owen-instructions"],
+        "verified_at": "2026-11-04",
+        "confidence": 0.85
+      },
+      {
+        "id": "K32",
+        "text": "Owen warns that consulting and finance employers may ask for test scores even after a waiver.",
+        "source_ids": ["owen-instructions"],
+        "verified_at": "2026-11-04",
+        "confidence": 0.85
+      },
+      {
+        "id": "K33",
+        "text": "English proficiency is waived for degrees from English-official-language countries (Owen counts India), two years living and working in one, or a 90th-percentile verbal score.",
+        "source_ids": ["owen-instructions"],
+        "verified_at": "2026-11-04",
+        "confidence": 0.85
+      },
+      {
+        "id": "K34",
+        "text": "Three-year degrees need a WES four-year equivalency, a CA designation or a year of an M.Com.",
+        "source_ids": ["owen-instructions"],
+        "verified_at": "2026-11-04",
+        "confidence": 0.85
+      }
+    ],
+    "fees_waivers": [
+      {
+        "id": "K35",
+        "text": "Application fee US$200.",
+        "source_ids": ["owen-instructions"],
+        "verified_at": "2026-11-04",
+        "confidence": 0.85
+      }
+    ]
+  },
+  "values": {
+    "stated": [
+      {
+        "id": "K36",
+        "text": "Mission: 'Creating opportunities to discover, grow, and thrive in business and beyond.'",
+        "source_ids": ["owen-about"],
+        "verified_at": "2026-11-04",
+        "confidence": 0.85
+      },
+      {
+        "id": "K37",
+        "text": "Values: self-direction (choosing your own path), mastery (developing expertise), belonging (being meaningfully connected), and collaboration (challenging and supporting each other).",
+        "source_ids": ["owen-about"],
+        "verified_at": "2026-11-04",
+        "confidence": 0.85
+      }
+    ],
+    "trait_map": [
+      {
+        "school_value": "self-direction",
+        "admitstory_traits": ["acts_unasked", "self_aware"]
+      },
+      {
+        "school_value": "mastery",
+        "admitstory_traits": ["curious_learner", "measurable_impact"]
+      },
+      {
+        "school_value": "belonging",
+        "admitstory_traits": ["community_builder", "empathetic"]
+      },
+      {
+        "school_value": "collaboration",
+        "admitstory_traits": ["brings_people_along", "develops_people"]
+      }
+    ]
+  },
+  "culture_and_location": [
+    {
+      "id": "K42",
+      "text": "Nashville is pitched as one of the fastest-growing US metros and a hub for health care, finance, technology, real estate and music, with 500+ recruiting relationships. Nashville was the top destination for Class of 2025 hires.",
+      "source_ids": ["owen-about"],
+      "verified_at": "2026-11-04",
+      "confidence": 0.85
+    },
+    {
+      "id": "K43",
+      "text": "A small class (126) with a campus in midtown Nashville; 13,000+ alumni in 101 countries.",
+      "source_ids": ["owen-profile"],
+      "verified_at": "2026-11-04",
+      "confidence": 0.85
+    }
+  ],
+  "academics": {
+    "courses": [
+      {
+        "id": "K46",
+        "source_ids": ["owen-academics"],
+        "verified_at": "2026-11-04",
+        "name": "Healthcare concentration",
+        "what_it_is": "Owen says it requires more healthcare courses than comparable programs; includes a Healthcare Immersion course (surgeries, LifeFlight, research centers, community clinics) and quality-improvement projects at VUMC.",
+        "why_it_matters_for": ["health care and health-system goals"],
+        "url": "https://business.vanderbilt.edu/mba/curriculum/concentrations/"
+      }
+    ],
+    "centers": [
+      {
+        "id": "K48",
+        "source_ids": ["owen-academics"],
+        "verified_at": "2026-11-04",
+        "name": "Center for Entrepreneurship (C4E)",
+        "what_it_is": "Expanded with a US$20M gift in 2025; Venture Scout program, founder groups, accelerators and grants.",
+        "why_it_matters_for": ["founders"],
+        "url": "https://business.vanderbilt.edu/mba/curriculum/"
+      }
+    ],
+    "experiential": [
+      {
+        "id": "K47",
+        "source_ids": ["owen-academics"],
+        "verified_at": "2026-11-04",
+        "name": "Leadership Development Program",
+        "what_it_is": "Optional co-curricular program: Hogan assessment before arrival, one-on-one ICF coaching in year one, Mentor Circles and a Leadership Blueprint in year two.",
+        "why_it_matters_for": ["applicants naming a leadership gap"],
+        "url": "https://business.vanderbilt.edu/mba/leadership-development/"
+      },
+      {
+        "id": "K49",
+        "source_ids": ["owen-academics"],
+        "verified_at": "2026-11-04",
+        "name": "Max Adler Student Investment Fund (MASIF)",
+        "what_it_is": "Student-run investment fund.",
+        "why_it_matters_for": ["investment management goals"],
+        "url": "https://business.vanderbilt.edu/mba/curriculum/"
+      }
+    ],
+    "structure": [
+      {
+        "id": "K44",
+        "text": "Two seven-week 'mods' per semester; 11 required core courses in year one, mostly in the first two mods, so specialty courses start early. 62 credit hours; STEM-designated (36 months of OPT in total). Also requires an international course and an internship.",
+        "source_ids": ["owen-academics"],
+        "verified_at": "2026-11-04",
+        "confidence": 0.85
+      },
+      {
+        "id": "K45",
+        "text": "At least one concentration (12+ credit hours): Accounting, Entrepreneurship, Finance, General Management, Healthcare, Human & Organizational Performance, Marketing, Operations & Analytics, Strategy. Emphases (8 hours): Entrepreneurship, International Studies, Sustainability & Social Impact, Real Estate.",
+        "source_ids": ["owen-academics"],
+        "verified_at": "2026-11-04",
+        "confidence": 0.85
+      }
+    ]
+  },
+  "community": {
+    "clubs": [],
+    "traditions": [],
+    "treks_events": []
+  },
+  "careers": {
+    "employment_report": {
+      "id": "K50",
+      "source_ids": ["owen-outcomes"],
+      "verified_at": "2026-11-04",
+      "class_year": 2025,
+      "currency": "USD",
+      "by_function": [
+        {
+          "function": "Consulting",
+          "share": 0.34,
+          "median_base": null
+        },
+        {
+          "function": "Finance/Accounting",
+          "share": 0.22,
+          "median_base": null
+        },
+        {
+          "function": "Operations Management",
+          "share": 0.12,
+          "median_base": null
+        },
+        {
+          "function": "Marketing",
+          "share": 0.12,
+          "median_base": null
+        },
+        {
+          "function": "Business/Data Analytics",
+          "share": 0.07,
+          "median_base": null
+        },
+        {
+          "function": "General Management",
+          "share": 0.06,
+          "median_base": null
+        }
+      ],
+      "top_employers": [
+        "Amazon",
+        "Deloitte Consulting",
+        "Highspring Consulting",
+        "Wells Fargo CIB",
+        "BCG",
+        "EY",
+        "EY-Parthenon",
+        "UnitedHealth Group"
+      ]
+    },
+    "recruiting_notes": [
+      {
+        "id": "K51",
+        "text": "Class of 2025: average base US$148K+, average signing bonus US$36K, 87% had full-time offers within 90 days; by industry consulting 29%, financial services 21%, healthcare 16%, technology 13%.",
+        "source_ids": ["owen-outcomes"],
+        "verified_at": "2026-11-04",
+        "confidence": 0.85
+      },
+      {
+        "id": "K52",
+        "text": "Top metros: Nashville (35 hires), Atlanta, New York, Los Angeles, Charlotte; 79% said Vanderbilt resources connected them to their accepted offer.",
+        "source_ids": ["owen-outcomes"],
+        "verified_at": "2026-11-04",
+        "confidence": 0.85
+      }
+    ]
+  },
+  "class_profile": {
+    "id": "K53",
+    "source_ids": ["owen-profile"],
+    "verified_at": "2026-11-04",
+    "class_year": 2028,
+    "class_size": 126,
+    "gmat_focus_median": null,
+    "gmat_classic_median": null,
+    "gre_median": null,
+    "gpa_median": 3.5,
+    "gpa_scale": 4.0,
+    "work_experience_years_median": null,
+    "international_share": 0.28
+  },
+  "interview": {
+    "id": "K54",
+    "source_ids": ["owen-instructions"],
+    "verified_at": "2026-11-04",
+    "invitation": "invite_only",
+    "who": ["student", "adcom"],
+    "blind": true,
+    "length_min": 30,
+    "location": ["virtual", "campus"],
+    "common_questions": [],
+    "format_notes": [
+      {
+        "id": "K55",
+        "text": "By invitation after a complete application, on a rolling basis; run by second-year Recruiting & Admissions Fellows or staff; behavioural, with examples from work and how the MBA serves your goals.",
+        "source_ids": ["owen-instructions"],
+        "verified_at": "2026-11-04",
+        "confidence": 0.85
+      },
+      {
+        "id": "K56",
+        "text": "McChesney: the interviewer has seen only the resume, and the interview is an essential part of the application. In-person interviews are available at campus visits and Discover Vanderbilt Business days; no format preference.",
+        "source_ids": ["ca-mcchesney-2025"],
+        "verified_at": "2026-11-04",
+        "confidence": 0.85
+      }
+    ]
+  },
+  "ai_policy": {
+    "id": "K57",
+    "source_ids": ["owen-instructions"],
+    "verified_at": "2026-11-04",
+    "stance": "unknown",
+    "applies_to": [],
+    "disclosure_text": null,
+    "notes": [
+      {
+        "id": "K58",
+        "text": "No statement on applicant AI use was found on Owen's admissions pages.",
+        "source_ids": ["owen-instructions"],
+        "verified_at": "2026-11-04",
+        "confidence": 0.7
+      }
+    ]
+  },
+  "scholarships": [
+    {
+      "id": "K59",
+      "text": "All admits are automatically considered for merit aid (US$10,000 a year up to full tuition); the Dean's Scholars award is full tuition, based on academics, professional accomplishments, defined goals, communication and leadership, and commitment to the school's mission and values.",
+      "source_ids": ["owen-scholarships"],
+      "verified_at": "2026-11-04",
+      "confidence": 0.85
+    },
+    {
+      "id": "K60",
+      "text": "Forté and ROMBA fellowships are available; ROMBA requires an additional essay.",
+      "source_ids": ["owen-scholarships"],
+      "verified_at": "2026-11-04",
+      "confidence": 0.7
+    },
+    {
+      "id": "K61",
+      "text": "Only answer a ROMBA or similar identity-fellowship essay with a concrete record of action; promising future involvement with no history backfires. Tell one or two change-making examples in depth, never as a saviour.",
+      "source_ids": ["al-owen"],
+      "verified_at": "2026-11-04",
+      "confidence": 0.75,
+      "approved_rewrite": true
+    }
+  ],
+  "insider_notes": [
+    {
+      "id": "K38",
+      "text": "Owen used to publish six 'Owen Essentials' (trust, transparency, accountability, valuing diversity, collaborative community, innovation and learning) and a scholarship essay built on them; the current site uses the four values above instead.",
+      "source_ids": ["al-owen"],
+      "verified_at": "2026-11-04",
+      "confidence": 0.6,
+      "approved_rewrite": true
+    },
+    {
+      "id": "K39",
+      "text": "Every interested candidate gets an assigned Recruiting Manager who is their point of contact and advocate through enrolment.",
+      "source_ids": ["ca-mcchesney-2025"],
+      "verified_at": "2026-11-04",
+      "confidence": 0.85
+    },
+    {
+      "id": "K40",
+      "text": "Class of 2028: 126 students; average GMAT 666 (middle 80% 637–707), average GRE 159 verbal and 160 quant, median GPA 3.5, six years' average experience, 24% women, 28% international, 25% military.",
+      "source_ids": ["owen-profile"],
+      "verified_at": "2026-11-04",
+      "confidence": 0.85
+    },
+    {
+      "id": "K41",
+      "text": "McChesney highlights entrepreneurship: a new Center for Entrepreneurship push, over US$300,000 a year in non-dilutive grants to student founders, and the Convoy conference.",
+      "source_ids": ["ca-mcchesney-2025"],
+      "verified_at": "2026-11-04",
+      "confidence": 0.85
+    }
+  ],
+  "avoid": [
+    {
+      "id": "K62",
+      "text": "Two career paths with two different long-term destinations, or two paths chosen only because they're common.",
+      "source_ids": ["al-owen"],
+      "verified_at": "2026-11-04",
+      "confidence": 0.75,
+      "approved_rewrite": true
+    },
+    {
+      "id": "K63",
+      "text": "A scripted, rehearsed video; Owen designs it as small talk.",
+      "source_ids": ["owen-instructions"],
+      "verified_at": "2026-11-04",
+      "confidence": 0.85
+    },
+    {
+      "id": "K64",
+      "text": "Identity-fellowship essays without a history of action.",
+      "source_ids": ["al-owen"],
+      "verified_at": "2026-11-04",
+      "confidence": 0.75,
+      "approved_rewrite": true
+    }
+  ],
+  "angles_that_work": [
+    {
+      "id": "K65",
+      "text": "Two paths to one destination, each tied to a capability the destination needs, with Owen's concentrations and mods showing how both get explored.",
+      "source_ids": ["al-owen"],
+      "verified_at": "2026-11-04",
+      "confidence": 0.75,
+      "approved_rewrite": true
+    },
+    {
+      "id": "K66",
+      "text": "A healthcare goal anchored in Nashville's health-care cluster and Owen's healthcare concentration and immersion.",
+      "source_ids": ["owen-academics"],
+      "verified_at": "2026-11-04",
+      "confidence": 0.85
+    },
+    {
+      "id": "K67",
+      "text": "A challenge essay with a specific stressful moment, the applicant's own response, and a later moment showing what changed.",
+      "source_ids": ["admitstory-coach"],
+      "verified_at": "2026-11-04",
+      "confidence": 0.85
+    }
+  ],
+  "glossary": [
+    {
+      "id": "K68",
+      "source_ids": ["owen-academics"],
+      "verified_at": "2026-11-04",
+      "term": "Mod",
+      "plain_definition": "A seven-week term; Owen runs two per semester."
+    }
+  ]
+}

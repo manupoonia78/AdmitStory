@@ -10,20 +10,20 @@ const prefixOf = (id: string) => id.slice(0, id.indexOf("-"));
 
 const EXPECTED: Record<string, { file: string; count: number }> = {
   ARCH: { file: "prompt-archetypes", count: 16 },
-  CRAFT: { file: "story-craft", count: 23 },
-  DEC: { file: "decisions", count: 4 },
+  CRAFT: { file: "story-craft", count: 26 },
+  DEC: { file: "decisions", count: 5 },
   FILE: { file: "file-strategy", count: 10 },
-  FLAG: { file: "red-flags", count: 11 },
-  FORM: { file: "forms", count: 6 },
+  FLAG: { file: "red-flags", count: 13 },
+  FORM: { file: "forms", count: 8 },
   GOAL: { file: "career-vision", count: 11 },
   INT: { file: "interview", count: 10 },
   LENS: { file: "admissions-lens", count: 9 },
   LOR: { file: "lor", count: 10 },
-  RES: { file: "resume", count: 6 },
+  RES: { file: "resume", count: 8 },
   STU: { file: "studio-interviewing", count: 7 },
   TELL: { file: "anti-ai-tells", count: 3 },
   TRUTH: { file: "truth-discipline", count: 8 },
-  WHY: { file: "why-mba", count: 5 },
+  WHY: { file: "why-mba", count: 6 },
 };
 
 describe("canon v1 (spec Appendix A)", () => {
@@ -63,7 +63,7 @@ describe("canon v1 (spec Appendix A)", () => {
     expect(counts).toEqual(
       Object.fromEntries(Object.entries(EXPECTED).map(([p, e]) => [p, e.count])),
     );
-    expect(allRules).toHaveLength(139);
+    expect(allRules).toHaveLength(150);
   });
 
   it("has unique IDs and contiguous numbering", () => {
@@ -105,7 +105,7 @@ describe("canon v1 (spec Appendix A)", () => {
 
   it("keeps non-rule prose in the body without parsing it as rules", () => {
     const craft = canon.getDoc("story-craft");
-    expect(craft.rules).toHaveLength(23);
+    expect(craft.rules).toHaveLength(26);
     expect(craft.rules.some((rule) => rule.text.includes("Nobody had asked her anything"))).toBe(
       false,
     );
@@ -205,6 +205,7 @@ describe("compile", () => {
       "WHY-03",
       "WHY-04",
       "WHY-05",
+      "WHY-06",
       ...canon.getDoc("admissions-lens").rules.map((r) => r.id),
       "FLAG-02",
     ]);

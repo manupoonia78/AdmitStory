@@ -5,9 +5,9 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "../components/tabs";
 import { cx } from "../lib/cx";
 
 export const COACH_TABS = [
+  { id: "chat", label: "Chat" },
   { id: "why", label: "Why this" },
   { id: "options", label: "Options" },
-  { id: "refine", label: "Refine" },
   { id: "checks", label: "Checks" },
   { id: "verify", label: "Verify" },
 ] as const;
@@ -17,10 +17,10 @@ export type CoachTab = (typeof COACH_TABS)[number]["id"];
 export interface CoachSheetProps {
   value: CoachTab;
   onValueChange: (tab: CoachTab) => void;
-  /** Each tab's content: WhyThisDraft, OptionsTab, RefineTab, CheckList, VerifyList. */
+  /** Each tab's content: ChatPanel, WhyThisDraft, OptionsTab, CheckList, VerifyList. */
+  chat: ReactNode;
   why: ReactNode;
   options: ReactNode;
-  refine: ReactNode;
   checks: ReactNode;
   verify: ReactNode;
   /** Shown beside the tab name: must-fix checks and open Verify items. */
@@ -29,22 +29,23 @@ export interface CoachSheetProps {
 }
 
 /**
- * The Coach (spec §5.8, screen G): five tabs, quiet and typographic. A plane at 400px from 1280px;
+ * The Coach (spec §5.8, screen G): five tabs, quiet and typographic. Chat comes first: the
+ * applicant shapes the document by saying what to change (school workspace redesign). A plane at 400px from 1280px;
  * below that WorkspaceLayout puts it in a sheet (tablet) or a swipe view (phone). Tabs follow the
  * Radix pattern: arrow keys move between them.
  */
 export function CoachSheet({
   value,
   onValueChange,
+  chat,
   why,
   options,
-  refine,
   checks,
   verify,
   counts = {},
   className,
 }: CoachSheetProps) {
-  const content: Record<CoachTab, ReactNode> = { why, options, refine, checks, verify };
+  const content: Record<CoachTab, ReactNode> = { chat, why, options, checks, verify };
   return (
     <Tabs
       value={value}
@@ -63,7 +64,15 @@ export function CoachSheet({
         })}
       </TabsList>
       {COACH_TABS.map((tab) => (
-        <TabsContent key={tab.id} value={tab.id} className="min-h-0 flex-1 overflow-y-auto p-5">
+        <TabsContent
+          key={tab.id}
+          value={tab.id}
+          className={cx(
+            "min-h-0 flex-1",
+            // The chat scrolls its own thread and keeps the composer pinned.
+            tab.id === "chat" ? "flex flex-col overflow-hidden" : "overflow-y-auto p-5",
+          )}
+        >
           {content[tab.id]}
         </TabsContent>
       ))}

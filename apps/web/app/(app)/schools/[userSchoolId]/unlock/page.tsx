@@ -32,7 +32,7 @@ export default async function UnlockPage({
     getCycleWithSchool(db, row.schoolCycleId),
     latestPack(db, row.schoolCycleId),
   ]);
-  if (kit && kit.status !== "preview") redirect(`/kits/${kit.id}`);
+  if (kit && kit.status !== "preview") redirect(`/schools/${row.id}`);
   const school = cycle?.school.shortName || cycle?.school.name || "this school";
   return (
     <UnlockScreen

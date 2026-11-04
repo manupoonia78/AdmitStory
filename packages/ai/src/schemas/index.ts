@@ -84,6 +84,15 @@ export {
   ResumeReviewOutput,
 } from "./forms";
 export {
+  CHAT_REVISE_KINDS,
+  CHAT_ROLES,
+  ChatReviseInput,
+  ChatReviseOutput,
+  ResumeDocSchema,
+  ResumeWriteInput,
+  ResumeWriteOutput,
+} from "./chat";
+export {
   LorBriefInput,
   LorBriefOutput,
   LorExtractInput,

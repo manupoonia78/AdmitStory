@@ -7,6 +7,8 @@
 // finished and the form "wakes when you arrive".
 
 import { VoiceprintStill } from "@admitstory/ui";
+import { ModelSealMark } from "@/components/model-seal";
+import { MODEL_NAME, TRAINED_ON } from "@/lib/model-claims";
 import type { CSSProperties } from "react";
 import { HERO_COPY } from "../_copy/hero";
 import { SAMPLE_IDENTITY } from "../_data/sample";
@@ -48,6 +50,15 @@ export function Hero() {
           <div className="col-span-4 mt-6 sm:col-span-8 sm:mt-8 lg:col-span-8">
             <HeroStage />
           </div>
+          <a
+            href="#the-model"
+            className="hero-copy col-span-4 mt-8 inline-flex items-center gap-3 justify-self-start text-sm text-text-soft transition-colors hover:text-text sm:col-span-8"
+          >
+            <ModelSealMark size={28} />
+            <span>
+              <span className="text-text">{MODEL_NAME}</span> · trained on {TRAINED_ON}
+            </span>
+          </a>
         </div>
         <MarginNote className="absolute bottom-6 right-12 hidden max-w-[14rem] text-right lg:block">
           {HERO_COPY.scrollNote}

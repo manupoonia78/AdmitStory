@@ -110,6 +110,9 @@ describe("schema conventions (spec §10)", () => {
         "eval_samples",
         "feature_switches",
         "route_overrides",
+        // School workspace redesign: the chat beside each document and the working résumé.
+        "chat_messages",
+        "resumes",
       ].sort(),
     );
   });

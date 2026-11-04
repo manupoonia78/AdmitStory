@@ -121,6 +121,23 @@ const SAMPLES: Record<string, unknown> = {
   "lor.brief": LOR_BRIEF_REC1_INPUT,
   "lor.recommender_assist": ASSIST_INPUT,
   "eval.judge": EVAL_JUDGE_CLEAN_INPUT,
+  "chat.revise": {
+    kind: "form_entries",
+    title: "Halvorsen application form: Activities",
+    context: "Plain, outcome-first entries.",
+    fields: [
+      {
+        id: "activities/i1",
+        label: "Saturday coding class",
+        text: "Taught kids.",
+        limit_chars: 150,
+      },
+    ],
+    instruction: "Make it say how many students.",
+  },
+  "resume.write": {
+    narrative: { goal: "Product lead in health tech", thread: "Builds tools clinicians trust" },
+  },
 };
 
 let failures = 0;

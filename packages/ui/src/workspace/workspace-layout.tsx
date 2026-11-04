@@ -26,6 +26,8 @@ export function swipeTarget(view: WorkspaceView, dx: number, dy: number): Worksp
 }
 
 export interface WorkspaceLayoutProps {
+  /** Above the three planes: the school's name and its tabs (school workspace redesign). */
+  header?: ReactNode;
   files: ReactNode;
   document: ReactNode;
   /** The CoachSheet. */
@@ -46,6 +48,7 @@ export interface WorkspaceLayoutProps {
  * at every width through CSS; the media query only decides whether the Coach is a modal sheet.
  */
 export function WorkspaceLayout({
+  header,
   files,
   document,
   coach,
@@ -99,6 +102,7 @@ export function WorkspaceLayout({
       onPointerDown={onPointerDown}
       onPointerUp={onPointerUp}
     >
+      {header}
       <div role="group" aria-label="Views" className="flex gap-1 lg:hidden">
         {VIEWS.map((v) => (
           <button

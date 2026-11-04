@@ -1,0 +1,857 @@
+{
+  "school": {
+    "id": "cornell-johnson",
+    "name": "Cornell University SC Johnson Graduate School of Management",
+    "short_name": "Johnson",
+    "country": "US",
+    "city": "Ithaca, NY",
+    "website": "https://business.cornell.edu",
+    "program": "full_time_mba"
+  },
+  "cycle": "2026-27",
+  "version": 1,
+  "status": "draft",
+  "_todo": [
+    "application.short_answers.goals_leverage: the 350-word limit comes from coaching material; the FAQ doesn't state it. Confirm in the portal",
+    "application.recommendations: confirm the recommender questions and whether Johnson uses the GMAC common letter",
+    "academics: verify the full immersion list, leadership offerings and clubs (e.g. BR Venture Fund) from business.cornell.edu",
+    "class_profile: from a press summary; confirm on Johnson's class profile page",
+    "interview: length and whether interviewers read the full file aren't published",
+    "ai_policy: no published Johnson generative-AI policy found"
+  ],
+  "k_high_water": 74,
+  "sources": [
+    {
+      "id": "johnson-faq",
+      "type": "official",
+      "title": "Cornell MBA: Application requirements & FAQs (2026-2027 essay prompts, tests, waivers, Park essay)",
+      "url": "https://business.cornell.edu/admissions/graduate/mba/application-guide/mba-application-requirements-faqs/",
+      "trust": 5,
+      "retrieved_at": "2026-11-04",
+      "rights_note": null
+    },
+    {
+      "id": "johnson-guide",
+      "type": "official",
+      "title": "Cornell MBA: Admissions process & application guide (checklist, interviews, waitlist, scholarships, reapplicants)",
+      "url": "https://business.cornell.edu/admissions/graduate/mba/application-guide/",
+      "trust": 5,
+      "retrieved_at": "2026-11-04",
+      "rights_note": null
+    },
+    {
+      "id": "johnson-dates",
+      "type": "official",
+      "title": "Cornell MBA: Important dates (2026-27 rounds)",
+      "url": "https://business.cornell.edu/admissions/graduate/mba/application-guide/important-dates/",
+      "trust": 5,
+      "retrieved_at": "2026-11-04",
+      "rights_note": null
+    },
+    {
+      "id": "johnson-outcomes",
+      "type": "official",
+      "title": "Cornell MBA: Career outcomes, Class of 2025",
+      "url": "https://business.cornell.edu/admissions/graduate/mba/career-outcomes/",
+      "trust": 5,
+      "retrieved_at": "2026-11-04",
+      "rights_note": null
+    },
+    {
+      "id": "johnson-leadership",
+      "type": "official",
+      "title": "Cornell MBA: Our leadership framework (the 4Cs)",
+      "url": "https://business.cornell.edu/admissions/graduate/mba/leadership/our-leadership-framework/",
+      "trust": 5,
+      "retrieved_at": "2026-11-04",
+      "rights_note": null
+    },
+    {
+      "id": "johnson-immersions",
+      "type": "official",
+      "title": "Cornell MBA: Immersions & areas of focus",
+      "url": "https://business.cornell.edu/admissions/graduate/mba/immersion-learning/",
+      "trust": 5,
+      "retrieved_at": "2026-11-04",
+      "rights_note": null
+    },
+    {
+      "id": "ca-johnson-2027",
+      "type": "press",
+      "title": "Clear Admit: Cornell Johnson Two-Year MBA Class of 2027 profile (Sep 2025)",
+      "url": "https://www.clearadmit.com/2025/09/cornell-johnson-two-year-mba-class-of-2027-profile/",
+      "trust": 2,
+      "retrieved_at": "2026-11-04",
+      "rights_note": null
+    },
+    {
+      "id": "al-johnson",
+      "type": "third_party_reference",
+      "title": "ApplicantLab — Cornell Johnson school tab",
+      "url": null,
+      "trust": 2,
+      "retrieved_at": "2026-11-04",
+      "rights_note": "Paid coaching platform material (ApplicantLab). Private reference; items are Admitstory rewrites approved by Manu 2026-11-04 (§9.6). Never name or quote."
+    },
+    {
+      "id": "admitstory-coach",
+      "type": "coach_notes",
+      "title": "Admitstory coaching canon and Manu's storytelling rules",
+      "url": null,
+      "trust": 4,
+      "retrieved_at": "2026-11-04",
+      "rights_note": null
+    }
+  ],
+  "official_urls": [
+    {
+      "kind": "prompts",
+      "url": "https://business.cornell.edu/admissions/graduate/mba/application-guide/mba-application-requirements-faqs/"
+    },
+    {
+      "kind": "deadlines",
+      "url": "https://business.cornell.edu/admissions/graduate/mba/application-guide/important-dates/"
+    },
+    {
+      "kind": "employment_report",
+      "url": "https://business.cornell.edu/admissions/graduate/mba/career-outcomes/"
+    }
+  ],
+  "rounds": [
+    {
+      "id": "K01",
+      "source_ids": ["johnson-dates"],
+      "verified_at": "2026-11-04",
+      "name": "Round 1",
+      "deadline": "2026-09-17",
+      "decision_date": "2026-12-09",
+      "notes": [
+        {
+          "id": "K02",
+          "text": "Due 11:59 pm Eastern. Initial notification (interview invitation or waitlist/deny without interview) 27 Oct 2026; deposit and official documents due 29 Jan 2027.",
+          "source_ids": ["johnson-dates", "johnson-guide"],
+          "verified_at": "2026-11-04",
+          "confidence": 0.85
+        },
+        {
+          "id": "K03",
+          "text": "Decisions are released on a rolling basis up to the final notification date; admits often get a phone call.",
+          "source_ids": ["johnson-guide"],
+          "verified_at": "2026-11-04",
+          "confidence": 0.85
+        }
+      ]
+    },
+    {
+      "id": "K04",
+      "source_ids": ["johnson-dates"],
+      "verified_at": "2026-11-04",
+      "name": "Consortium early",
+      "deadline": "2026-10-15",
+      "decision_date": "2026-12-09",
+      "notes": []
+    },
+    {
+      "id": "K05",
+      "source_ids": ["johnson-dates"],
+      "verified_at": "2026-11-04",
+      "name": "Round 2",
+      "deadline": "2027-01-05",
+      "decision_date": "2027-03-26",
+      "notes": [
+        {
+          "id": "K06",
+          "text": "Initial notification 3 Mar 2027; deposit 30 Apr 2027. The Consortium traditional deadline is the same day.",
+          "source_ids": ["johnson-dates"],
+          "verified_at": "2026-11-04",
+          "confidence": 0.85
+        }
+      ]
+    },
+    {
+      "id": "K07",
+      "source_ids": ["johnson-dates"],
+      "verified_at": "2026-11-04",
+      "name": "Round 3",
+      "deadline": "2027-04-06",
+      "decision_date": "2027-05-21",
+      "notes": [
+        {
+          "id": "K08",
+          "text": "Initial notification 7 May 2027; deposit 4 Jun 2027.",
+          "source_ids": ["johnson-dates"],
+          "verified_at": "2026-11-04",
+          "confidence": 0.85
+        }
+      ]
+    }
+  ],
+  "application": {
+    "essays": [
+      {
+        "id": "K16",
+        "source_ids": ["johnson-faq"],
+        "verified_at": "2026-11-04",
+        "key": "impact",
+        "prompt_verbatim": "Essay 1: At Cornell, our students and alumni share a desire to positively impact the organizations and communities they serve. How do you intend to make a meaningful impact on the Johnson community?",
+        "limit": {
+          "kind": "words",
+          "value": 350
+        },
+        "required": false,
+        "archetypes": ["CONTRIBUTION"],
+        "parts": [
+          "choose this or the Table of Contents",
+          "the impact you will make on the Johnson community"
+        ],
+        "notes": [
+          {
+            "id": "K17",
+            "text": "One of two required options (choose this or Table of Contents).",
+            "source_ids": ["johnson-faq"],
+            "verified_at": "2026-11-04",
+            "confidence": 0.85
+          },
+          {
+            "id": "K18",
+            "text": "Every contribution needs a past parallel: what you did for a community before, then the specific club role, event or study group you'll bring to Johnson. Name the student, alum or admissions officer whose conversation shaped the idea; Johnson expects that outreach.",
+            "source_ids": ["al-johnson"],
+            "verified_at": "2026-11-04",
+            "confidence": 0.75,
+            "approved_rewrite": true
+          },
+          {
+            "id": "K19",
+            "text": "Strongest contributions: professional clubs (especially helping classmates into your current field), then identity, service and fun clubs. Keep career talk to a quarter or a third at most.",
+            "source_ids": ["al-johnson"],
+            "verified_at": "2026-11-04",
+            "confidence": 0.75,
+            "approved_rewrite": true
+          }
+        ]
+      },
+      {
+        "id": "K20",
+        "source_ids": ["johnson-faq"],
+        "verified_at": "2026-11-04",
+        "key": "table_of_contents",
+        "prompt_verbatim": "Essay 2: Table of Contents essay. You are the author of your Life Story. Please create the table of contents for the book in the space provided or upload it as an attachment. We value creativity and authenticity and encourage you to approach this essay with your unique style. Alternative submission formats may include a slide presentation, links to pre-existing media (personal website, digital portfolio, YouTube, etc.), as well as visually enhanced written submissions.",
+        "limit": {
+          "kind": "words",
+          "value": 350
+        },
+        "required": false,
+        "archetypes": ["IDENTITY"],
+        "parts": [
+          "choose this or the Impact essay",
+          "chapters of your life story",
+          "format: written, slides, media link or visual"
+        ],
+        "notes": [
+          {
+            "id": "K21",
+            "text": "Written versions up to 350 words; multimedia under 3 minutes; files up to 25 MB.",
+            "source_ids": ["johnson-faq"],
+            "verified_at": "2026-11-04",
+            "confidence": 0.85
+          },
+          {
+            "id": "K22",
+            "text": "A video in your own voice and face is the strongest format; then the impact essay if you have a strong community leadership story; a plain text list is the weakest. Don't build a website of clickable chapters.",
+            "source_ids": ["al-johnson"],
+            "verified_at": "2026-11-04",
+            "confidence": 0.75,
+            "approved_rewrite": true
+          },
+          {
+            "id": "K23",
+            "text": "Mix pivotal moments with charming, personal details, chronological or thematic; balance work with life and community; no bragging chapters. Slip in a hint of how you help others, since you're not writing the impact essay.",
+            "source_ids": ["al-johnson"],
+            "verified_at": "2026-11-04",
+            "confidence": 0.75,
+            "approved_rewrite": true
+          },
+          {
+            "id": "K24",
+            "text": "Each chapter title should carry a scene or a turn, not a label ('Chapter 4: Forgetting my lines, finding the debate team').",
+            "source_ids": ["admitstory-coach"],
+            "verified_at": "2026-11-04",
+            "confidence": 0.85
+          }
+        ]
+      }
+    ],
+    "short_answers": [
+      {
+        "id": "K12",
+        "source_ids": ["johnson-faq"],
+        "verified_at": null,
+        "key": "goals_leverage",
+        "prompt_verbatim": "Please share how you plan to leverage your unique qualities and utilize the resources available to you at Johnson to transition to your immediate post-MBA career goal.",
+        "limit": {
+          "kind": "words",
+          "value": 350
+        },
+        "required": true,
+        "archetypes": ["GOALS", "WHY-SCHOOL"],
+        "parts": [
+          "your unique qualities (relevant experience and skills)",
+          "Johnson resources you'll use",
+          "how they get you to the immediate goal"
+        ],
+        "notes": [
+          {
+            "id": "K13",
+            "text": "'Unique' means the specific experience and knowledge a post-MBA employer would value, not astronaut-level distinction. Treat it as a rehearsal for the job hunt.",
+            "source_ids": ["al-johnson"],
+            "verified_at": "2026-11-04",
+            "confidence": 0.75,
+            "approved_rewrite": true
+          },
+          {
+            "id": "K14",
+            "text": "Open with the long-term hook, say what the immediate job must teach you (role and company are already in the blanks), then spend at least half the essay proving you can get hired: transferable skills, informational interviews, and the immersion, electives or club that fill the gap. A plan B role is fine.",
+            "source_ids": ["al-johnson"],
+            "verified_at": "2026-11-04",
+            "confidence": 0.75,
+            "approved_rewrite": true
+          },
+          {
+            "id": "K15",
+            "text": "Don't force a Johnson resource into every paragraph; showing you understand what the target job needs matters more.",
+            "source_ids": ["al-johnson"],
+            "verified_at": "2026-11-04",
+            "confidence": 0.75,
+            "approved_rewrite": true
+          }
+        ]
+      }
+    ],
+    "goal_fields": [
+      {
+        "id": "K09",
+        "source_ids": ["johnson-faq"],
+        "verified_at": "2026-11-04",
+        "key": "goals_fill_in",
+        "prompt_verbatim": "Immediately post-MBA, my goal is to work as a(n) ____[Role]____ at ___[Company]___within___[Industry]___. In 5 – 10 years post-MBA, my goal is to work as a(n) ____[Role]____ at ___[Company]___within___[Industry]___.",
+        "limit": {
+          "kind": "words",
+          "value": 30
+        },
+        "required": true,
+        "archetypes": ["GOALBOX"],
+        "parts": ["immediate role, company, industry", "5–10 year role, company, industry"],
+        "notes": [
+          {
+            "id": "K10",
+            "text": "'A statement of your goals will begin a conversation that will last throughout the admissions process'; if invited to interview, expect to connect prior experience with these goals.",
+            "source_ids": ["johnson-faq"],
+            "verified_at": "2026-11-04",
+            "confidence": 0.85
+          },
+          {
+            "id": "K11",
+            "text": "A quick snapshot: Johnson is open to career switchers, but the switch should make sense at a glance.",
+            "source_ids": ["al-johnson"],
+            "verified_at": "2026-11-04",
+            "confidence": 0.75,
+            "approved_rewrite": true
+          }
+        ]
+      }
+    ],
+    "video": [],
+    "reapplicant": {
+      "essay": {
+        "id": "K28",
+        "source_ids": ["johnson-faq"],
+        "verified_at": "2026-11-04",
+        "key": "reapplicant",
+        "prompt_verbatim": "If you are reapplying for admission, please use this essay to indicate how you have strengthened your application and candidacy since the last time you applied for admission.",
+        "limit": {
+          "kind": "words",
+          "value": 350
+        },
+        "required": true,
+        "archetypes": ["REAPPLICANT"],
+        "parts": ["how you have strengthened your application and candidacy"],
+        "notes": [
+          {
+            "id": "K29",
+            "text": "Show what changed and what it taught you, not a list; nothing carries over from the old application.",
+            "source_ids": ["johnson-guide", "admitstory-coach"],
+            "verified_at": "2026-11-04",
+            "confidence": 0.85
+          }
+        ]
+      },
+      "policy": [
+        {
+          "id": "K30",
+          "text": "Reapplicants must write this essay and resubmit everything, including a new recommendation (it can be from the same person) and new scores if old ones expired.",
+          "source_ids": ["johnson-guide"],
+          "verified_at": "2026-11-04",
+          "confidence": 0.85
+        }
+      ]
+    },
+    "optional_essay": {
+      "id": "K25",
+      "source_ids": ["johnson-faq"],
+      "verified_at": "2026-11-04",
+      "key": "optional",
+      "prompt_verbatim": "You may use this essay to call attention to items needing clarification and to add additional details to any aspects of your application that do not accurately reflect your potential for success at Johnson.",
+      "limit": {
+        "kind": "words",
+        "value": 350
+      },
+      "required": false,
+      "archetypes": ["OPTIONAL"],
+      "parts": ["items needing clarification"],
+      "notes": [
+        {
+          "id": "K26",
+          "text": "Applicants with a previous MBA should use it to explain why they want a second one.",
+          "source_ids": ["johnson-faq"],
+          "verified_at": "2026-11-04",
+          "confidence": 0.85
+        },
+        {
+          "id": "K27",
+          "text": "Brief, factual and mature; leave it blank if there's nothing to clarify.",
+          "source_ids": ["admitstory-coach"],
+          "verified_at": "2026-11-04",
+          "confidence": 0.85
+        }
+      ]
+    },
+    "form_sections": [],
+    "recommendations": {
+      "id": "K31",
+      "source_ids": ["johnson-guide"],
+      "verified_at": "2026-11-04",
+      "count": 1,
+      "format": "school_specific",
+      "questions": [],
+      "notes": [
+        {
+          "id": "K32",
+          "text": "One professional letter of recommendation is required; a second is optional.",
+          "source_ids": ["johnson-guide"],
+          "verified_at": "2026-11-04",
+          "confidence": 0.85
+        },
+        {
+          "id": "K33",
+          "text": "Waitlisted candidates may send up to two additional letters to waitlist@johnson.cornell.edu.",
+          "source_ids": ["johnson-guide"],
+          "verified_at": "2026-11-04",
+          "confidence": 0.85
+        }
+      ]
+    },
+    "resume": {
+      "id": "K34",
+      "source_ids": ["johnson-faq"],
+      "verified_at": "2026-11-04",
+      "page_limit": 1,
+      "notes": [
+        {
+          "id": "K35",
+          "text": "Johnson wants 'a resume outlining notable professional accomplishments'; no page rule is published (1 is the default, not a Johnson rule).",
+          "source_ids": ["johnson-faq"],
+          "verified_at": "2026-11-04",
+          "confidence": 0.7
+        }
+      ]
+    },
+    "test_policy": [
+      {
+        "id": "K36",
+        "text": "GMAT (including 10th Edition), GRE or Executive Assessment, valid five years; no minimum, and the highest total is evaluated. The middle 80% of applicants submit GMAT 660–740.",
+        "source_ids": ["johnson-faq"],
+        "verified_at": "2026-11-04",
+        "confidence": 0.85
+      },
+      {
+        "id": "K37",
+        "text": "Test waiver requests (with a 100-word statement on why you'll flourish academically) are considered for a STEM, business or quantitative degree with a 3.0 GPA or equivalent, or full-time analytical work shown on the resume; not guaranteed.",
+        "source_ids": ["johnson-faq"],
+        "verified_at": "2026-11-04",
+        "confidence": 0.85
+      },
+      {
+        "id": "K38",
+        "text": "If your score is an outlier, Johnson encourages a retake or switching test types.",
+        "source_ids": ["johnson-guide"],
+        "verified_at": "2026-11-04",
+        "confidence": 0.85
+      }
+    ],
+    "fees_waivers": [
+      {
+        "id": "K39",
+        "text": "Non-refundable US$250 fee. Apply to only one Johnson full-time MBA (Ithaca two-year or the one-year Johnson Cornell Tech MBA). No pre-assessments.",
+        "source_ids": ["johnson-guide"],
+        "verified_at": "2026-11-04",
+        "confidence": 0.85
+      }
+    ]
+  },
+  "values": {
+    "stated": [
+      {
+        "id": "K40",
+        "text": "Johnson looks for a resume of notable accomplishments, 'thoughtful essays communicating your fit and potential contributions as a community member', competitive scores, 'the desire to make a positive impact', and 'the ability to clearly communicate their career goals and the role Johnson will play'.",
+        "source_ids": ["johnson-faq"],
+        "verified_at": "2026-11-04",
+        "confidence": 0.85
+      },
+      {
+        "id": "K41",
+        "text": "Leadership framework, the 4Cs: Character (values informing honest, fair decisions), Cognition (how you think through complex problems), Connection (respect and care for those you lead, so everyone belongs) and Courage (daring to do things differently and enact change).",
+        "source_ids": ["johnson-leadership"],
+        "verified_at": "2026-11-04",
+        "confidence": 0.85
+      }
+    ],
+    "trait_map": [
+      {
+        "school_value": "Character",
+        "admitstory_traits": ["principled_stands", "self_aware", "honest_about_limits"]
+      },
+      {
+        "school_value": "Cognition",
+        "admitstory_traits": ["analytical", "commercial_judgment"]
+      },
+      {
+        "school_value": "Connection",
+        "admitstory_traits": ["empathetic", "brings_people_along", "community_builder"]
+      },
+      {
+        "school_value": "Courage",
+        "admitstory_traits": ["acts_unasked", "originates_ideas"]
+      }
+    ]
+  },
+  "culture_and_location": [
+    {
+      "id": "K47",
+      "text": "A tight-knit two-year program in Ithaca, NY, with a one-year Johnson Cornell Tech MBA in New York City.",
+      "source_ids": ["johnson-guide", "al-johnson"],
+      "verified_at": "2026-11-04",
+      "confidence": 0.8
+    }
+  ],
+  "academics": {
+    "courses": [],
+    "centers": [],
+    "experiential": [],
+    "structure": [
+      {
+        "id": "K48",
+        "text": "The second semester of the two-year MBA is an immersion: semester-long, integrated learning centred on an industry or career path, with practitioner coaching, field trips, client projects and travel. Options include investment banking, consulting, digital technology and strategic operations.",
+        "source_ids": ["johnson-immersions"],
+        "verified_at": "2026-11-04",
+        "confidence": 0.85
+      },
+      {
+        "id": "K49",
+        "text": "Hundreds of electives across Cornell University can be added to the immersion.",
+        "source_ids": ["johnson-immersions"],
+        "verified_at": "2026-11-04",
+        "confidence": 0.85
+      }
+    ]
+  },
+  "community": {
+    "clubs": [],
+    "traditions": [],
+    "treks_events": []
+  },
+  "careers": {
+    "employment_report": {
+      "id": "K50",
+      "source_ids": ["johnson-outcomes"],
+      "verified_at": "2026-11-04",
+      "class_year": 2025,
+      "currency": "USD",
+      "by_function": [
+        {
+          "function": "Financial services",
+          "share": 0.41,
+          "median_base": 175000
+        },
+        {
+          "function": "Consulting",
+          "share": 0.28,
+          "median_base": 175000
+        },
+        {
+          "function": "Technology & Telecommunications",
+          "share": 0.11,
+          "median_base": 133700
+        },
+        {
+          "function": "Consumer Packaged Goods",
+          "share": 0.05,
+          "median_base": 126000
+        },
+        {
+          "function": "Healthcare/Pharma",
+          "share": 0.04,
+          "median_base": 137000
+        },
+        {
+          "function": "Manufacturing",
+          "share": 0.04,
+          "median_base": 135000
+        },
+        {
+          "function": "Energy/Utilities",
+          "share": 0.02,
+          "median_base": 150000
+        }
+      ],
+      "top_employers": [],
+      "intl_offer_rates": {
+        "id": "K51",
+        "text": "Graduates without US work authorization: 77% had offers within three months (91% with authorization); average base US$154,963.",
+        "source_ids": ["johnson-outcomes"],
+        "verified_at": "2026-11-04",
+        "confidence": 0.85
+      }
+    },
+    "recruiting_notes": [
+      {
+        "id": "K52",
+        "text": "Class of 2025: of 285 graduates, 239 sought jobs; 85% had offers and 83% accepted within three months. Median base US$175,000 (average US$158,426); average signing bonus US$39,795. 95% work in North America.",
+        "source_ids": ["johnson-outcomes"],
+        "verified_at": "2026-11-04",
+        "confidence": 0.85
+      },
+      {
+        "id": "K53",
+        "text": "Johnson 'punches above its weight' in banking hiring; financial services takes over 40% of the class.",
+        "source_ids": ["johnson-outcomes", "al-johnson"],
+        "verified_at": "2026-11-04",
+        "confidence": 0.75
+      }
+    ]
+  },
+  "class_profile": {
+    "id": "K54",
+    "source_ids": ["ca-johnson-2027"],
+    "verified_at": "2026-11-04",
+    "class_year": 2027,
+    "class_size": 276,
+    "gmat_focus_median": null,
+    "gmat_classic_median": 710,
+    "gre_median": null,
+    "gpa_median": 3.4,
+    "gpa_scale": 4.0,
+    "work_experience_years_median": 5.3,
+    "international_share": 0.42
+  },
+  "interview": {
+    "id": "K55",
+    "source_ids": ["johnson-guide"],
+    "verified_at": "2026-11-04",
+    "invitation": "invite_only",
+    "who": ["adcom", "student"],
+    "blind": null,
+    "length_min": 30,
+    "location": ["campus", "virtual"],
+    "common_questions": [
+      {
+        "id": "K56",
+        "source_ids": ["johnson-faq"],
+        "verified_at": "2026-11-04",
+        "text": "Walk me through your goals statement: how does your experience lead to your immediate post-MBA goal?",
+        "frequency_weight": 5
+      },
+      {
+        "id": "K57",
+        "source_ids": ["johnson-leadership"],
+        "verified_at": "2026-11-04",
+        "text": "Tell me about a time you showed courage or did something differently. (4Cs)",
+        "frequency_weight": 3
+      },
+      {
+        "id": "K58",
+        "source_ids": ["al-johnson"],
+        "verified_at": "2026-11-04",
+        "text": "How have you engaged with the Johnson community so far?",
+        "frequency_weight": 3
+      }
+    ],
+    "format_notes": [
+      {
+        "id": "K59",
+        "text": "Required for admission; by invitation after a preliminary review. In Ithaca or on Zoom, with no preference; schedule within seven days of the invitation and finish by the round's completion deadline.",
+        "source_ids": ["johnson-guide"],
+        "verified_at": "2026-11-04",
+        "confidence": 0.85
+      },
+      {
+        "id": "K60",
+        "text": "Interviewers are the admissions team, MBA program staff or trained second-years in the Johnson Admissions Group (JAG); all interviews are weighted equally.",
+        "source_ids": ["johnson-guide"],
+        "verified_at": "2026-11-04",
+        "confidence": 0.85
+      }
+    ]
+  },
+  "ai_policy": {
+    "id": "K74",
+    "stance": "unknown",
+    "applies_to": [],
+    "disclosure_text": null,
+    "notes": [],
+    "source_ids": [],
+    "verified_at": null
+  },
+  "scholarships": [
+    {
+      "id": "K61",
+      "text": "All admits are considered for merit scholarships, regardless of citizenship, with no separate application; awards come with the offer. Partners: Consortium, Forté and ROMBA fellowships. Students without first-year funding shouldn't expect second-year aid.",
+      "source_ids": ["johnson-guide"],
+      "verified_at": "2026-11-04",
+      "confidence": 0.85
+    },
+    {
+      "id": "K62",
+      "text": "Roy H. Park Leadership Fellowship: full tuition for up to 25 US citizens or permanent residents per year. Candidates are invited after the interview to a virtual L.E.A.D. event and write a 500-word essay: 'Describe a past formal or informal leadership experience and how it informs your goals for growth as a leader. How would the Park Leadership Fellowship assist with these goals?'",
+      "source_ids": ["johnson-faq"],
+      "verified_at": "2026-11-04",
+      "confidence": 0.85
+    },
+    {
+      "id": "K63",
+      "text": "For the Park essay: show the leadership skill you built, say you want to keep growing that same skill, and name the Johnson offering that develops it; avoid citing an ethics class unless the story was about ethics.",
+      "source_ids": ["al-johnson"],
+      "verified_at": "2026-11-04",
+      "confidence": 0.75,
+      "approved_rewrite": true
+    }
+  ],
+  "insider_notes": [
+    {
+      "id": "K42",
+      "text": "Class of 2027 (Two-Year): 276 students; median GMAT 710; median GPA 3.4; 38% women; 42% international from 34 countries; 5.3 years' average experience; average age 29.",
+      "source_ids": ["ca-johnson-2027"],
+      "verified_at": "2026-11-04",
+      "confidence": 0.85
+    },
+    {
+      "id": "K43",
+      "text": "Engagement matters: talk to student ambassadors, club leaders or staff office hours before applying and use what you learn in the essays, since Johnson worries about yield.",
+      "source_ids": ["al-johnson"],
+      "verified_at": "2026-11-04",
+      "confidence": 0.75,
+      "approved_rewrite": true
+    },
+    {
+      "id": "K44",
+      "text": "Ways Johnson offers to engage: the Ask Admissions online series, MBA fairs, student ambassadors matched by immersion or interests, class visits in Ithaca, and Johnson Means Business, a weekend admissions event and symposium on campus.",
+      "source_ids": ["johnson-guide"],
+      "verified_at": "2026-11-04",
+      "confidence": 0.85
+    },
+    {
+      "id": "K45",
+      "text": "Waitlisted with a low GPA? Johnson suggests MBA Math or an accounting or finance course to show academic readiness.",
+      "source_ids": ["johnson-guide"],
+      "verified_at": "2026-11-04",
+      "confidence": 0.85
+    },
+    {
+      "id": "K46",
+      "text": "A waitlist means potential with areas to strengthen; waitlisted candidates can send an action plan, an updated resume and extra letters.",
+      "source_ids": ["johnson-guide"],
+      "verified_at": "2026-11-04",
+      "confidence": 0.85
+    }
+  ],
+  "avoid": [
+    {
+      "id": "K64",
+      "text": "A contribution with no past evidence behind it.",
+      "source_ids": ["al-johnson"],
+      "verified_at": "2026-11-04",
+      "confidence": 0.75,
+      "approved_rewrite": true
+    },
+    {
+      "id": "K65",
+      "text": "A Table of Contents of bragging chapter titles.",
+      "source_ids": ["al-johnson"],
+      "verified_at": "2026-11-04",
+      "confidence": 0.75,
+      "approved_rewrite": true
+    },
+    {
+      "id": "K66",
+      "text": "A switch that needs paragraphs to make sense in the fill-in-the-blank goals.",
+      "source_ids": ["al-johnson"],
+      "verified_at": "2026-11-04",
+      "confidence": 0.75,
+      "approved_rewrite": true
+    },
+    {
+      "id": "K67",
+      "text": "Assuming a campus visit helps your candidacy; it doesn't directly, though it helps you learn the culture.",
+      "source_ids": ["johnson-guide"],
+      "verified_at": "2026-11-04",
+      "confidence": 0.85
+    }
+  ],
+  "angles_that_work": [
+    {
+      "id": "K68",
+      "text": "A Table of Contents video in the applicant's own voice that mixes career turns with personal chapters and a hint of community help.",
+      "source_ids": ["al-johnson"],
+      "verified_at": "2026-11-04",
+      "confidence": 0.75,
+      "approved_rewrite": true
+    },
+    {
+      "id": "K69",
+      "text": "A goals essay that cites informational interviews and maps one immersion to the exact gap the target job reveals.",
+      "source_ids": ["al-johnson"],
+      "verified_at": "2026-11-04",
+      "confidence": 0.75,
+      "approved_rewrite": true
+    }
+  ],
+  "glossary": [
+    {
+      "id": "K70",
+      "source_ids": ["johnson-immersions"],
+      "verified_at": "2026-11-04",
+      "term": "Immersion",
+      "plain_definition": "Johnson's semester-long, career-focused learning experience in the second semester."
+    },
+    {
+      "id": "K71",
+      "source_ids": ["johnson-guide"],
+      "verified_at": "2026-11-04",
+      "term": "JAG",
+      "plain_definition": "Johnson Admissions Group: trained second-year students who conduct some interviews."
+    },
+    {
+      "id": "K72",
+      "source_ids": ["johnson-leadership"],
+      "verified_at": "2026-11-04",
+      "term": "4Cs",
+      "plain_definition": "Johnson's leadership framework: Character, Cognition, Connection, Courage."
+    },
+    {
+      "id": "K73",
+      "source_ids": ["johnson-faq"],
+      "verified_at": "2026-11-04",
+      "term": "L.E.A.D.",
+      "plain_definition": "Leadership Exploration and Assessment Day, the virtual event for Park Fellowship candidates."
+    }
+  ]
+}

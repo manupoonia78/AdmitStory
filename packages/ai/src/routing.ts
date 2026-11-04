@@ -255,6 +255,20 @@ export const ROUTES = {
     visibleBudget: 5_000,
     note: "Resume critique; judgment, so adaptive.",
   }),
+  "chat.revise": route({
+    model: "sonnet",
+    effort: "low",
+    thinking: "adaptive",
+    visibleBudget: 2_500,
+    note: "The chat beside forms, video plans and briefs; small edits, adaptive at low effort.",
+  }),
+  "resume.write": route({
+    model: "sonnet",
+    effort: "medium",
+    thinking: "adaptive",
+    visibleBudget: 5_000,
+    note: "Builds or reshapes the whole résumé; judgment, so adaptive.",
+  }),
   "lor.brief": route({
     model: "sonnet",
     effort: "medium",

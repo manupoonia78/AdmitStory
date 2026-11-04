@@ -183,3 +183,68 @@ export type BulletDecision =
   | { status: "accepted"; answers: string[] }
   | { status: "rejected" }
   | { status: "edited"; text: string };
+
+/* The working résumé (the Résumé page's document) ---------------------------------------------- */
+
+/**
+ * What the applicant wants a reader to take from the résumé. Set on the Résumé page before it is
+ * built, and sent with every rebuild and chat change so the document keeps one story.
+ */
+export interface ResumeNarrative {
+  /** "Product lead in climate fintech". */
+  goal: string;
+  /** The one thread the reader should remember. */
+  thread: string;
+  /** What goes first, or anything to keep out. */
+  notes: string;
+}
+
+export interface ResumeDocBullet {
+  /** "b1", "b2"… unique across the résumé. */
+  id: string;
+  text: string;
+  /** F/S/L codes the bullet draws on; empty when it comes from the pasted CV. */
+  sources: string[];
+}
+
+export interface ResumeDocRole {
+  /** "r1", "r2"… */
+  id: string;
+  organisation: string;
+  title: string | null;
+  dates: string | null;
+  location: string | null;
+  bullets: ResumeDocBullet[];
+}
+
+export interface ResumeDocSection {
+  /** "s1", "s2"… in reading order. */
+  id: string;
+  heading: string;
+  kind: ResumeSectionKind;
+  roles: ResumeDocRole[];
+  /** Lines that are not bullets under a role (skills, languages, interests). */
+  lines: string[];
+}
+
+/** `resume.write` output's document: the applicant's résumé as it will be exported. */
+export interface ResumeDoc {
+  header: { name: string | null; lines: string[] };
+  sections: ResumeDocSection[];
+}
+
+/** `resume.write` output. */
+export interface ResumeWrite {
+  /** One or two plain sentences to the applicant: what changed and why. */
+  reply: string;
+  resume: ResumeDoc;
+  /** Details only the applicant knows that would make a bullet stronger. Never invented. */
+  asks: string[];
+}
+
+/** `chat.revise` output: a change asked in the chat beside a form, a video plan or a brief. */
+export interface ChatRevision {
+  reply: string;
+  /** Only the fields that changed, with their whole new text. */
+  edits: { id: string; text: string }[];
+}

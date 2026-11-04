@@ -1,7 +1,6 @@
 "use client";
 
 import { Button } from "@admitstory/ui";
-import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useId, useState } from "react";
 import { AlertMessage, StatusMessage } from "@/components/live-message";
@@ -9,8 +8,8 @@ import type { StrategyRow } from "@/lib/strategy/types";
 
 // The applicant's list (spec §5.5, §11 PATCH /user-schools/:id): the round they plan to apply in,
 // whether they applied before (it turns on the reapplicant questions in Story Studio and the
-// Strategist's reapplicant angle), and each school's "Preview kit". A school without a published
-// pack can't be previewed or bought, so it says "Pack coming soon" instead.
+// Strategist's reapplicant angle), and removing a school. Opening, previewing and unlocking live
+// on the school cards above.
 
 const control =
   "min-h-11 rounded-control border border-control bg-depth px-3 text-text focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-signal";
@@ -56,7 +55,7 @@ export function SchoolList({ rows }: { rows: readonly StrategyRow[] }) {
         id="list-heading"
         className="font-display text-[1.625rem] leading-tight tracking-[-0.01em] text-text"
       >
-        Your list
+        Rounds and details
       </h2>
       <StatusMessage message={status} />
       <AlertMessage message={error} />
@@ -175,15 +174,6 @@ function SchoolRow({
           </form>
         ) : null}
 
-        {row.pack === "published" ? (
-          <Button asChild size="sm">
-            <Link
-              href={`/schools/${row.userSchoolId}/preview`}
-            >{`Preview ${row.shortName} kit`}</Link>
-          </Button>
-        ) : (
-          <p className="min-h-11 content-center text-sm text-text-soft">Pack coming soon</p>
-        )}
         {locked ? null : (
           <Button size="sm" variant="quiet" onClick={onRemove}>
             {`Remove ${row.shortName}`}

@@ -1,0 +1,795 @@
+{
+  "school": {
+    "id": "mit-sloan",
+    "name": "MIT Sloan School of Management",
+    "short_name": "MIT Sloan",
+    "country": "US",
+    "city": "Cambridge, MA",
+    "website": "https://mitsloan.mit.edu",
+    "program": "full_time_mba"
+  },
+  "cycle": "2026-27",
+  "version": 1,
+  "status": "draft",
+  "_todo": [
+    "rounds: decision dates are published only as 'mid-December' and 'early April'",
+    "application.video[1]: the 10-second prep / 60-second answer timing comes from earlier cycles; confirm in the portal",
+    "application.form_sections.academic_concerns: the 1,000-character limit comes from coaching material; confirm in the portal",
+    "academics: verify Action Learning lab names (G-Lab, etc.), tracks/certificates and clubs from mitsloan.mit.edu",
+    "class_profile: from a press summary of Sloan's Class of 2028 profile; confirm on mitsloan.mit.edu",
+    "ai_policy: MIT Sloan had no published generative-AI admissions policy at last check; re-check the portal"
+  ],
+  "k_high_water": 69,
+  "sources": [
+    {
+      "id": "sloan-apply",
+      "type": "official",
+      "title": "MIT Sloan MBA: How to apply (cover letter, resume, recommendation, references, org chart, coursework, tests, videos, fee)",
+      "url": "https://mitsloan.mit.edu/mba/admissions/how-to-apply",
+      "trust": 5,
+      "retrieved_at": "2026-11-04",
+      "rights_note": null
+    },
+    {
+      "id": "sloan-admissions",
+      "type": "official",
+      "title": "MIT Sloan MBA: Admissions (what kind of leader thrives, deadlines)",
+      "url": "https://mitsloan.mit.edu/mba/admissions",
+      "trust": 5,
+      "retrieved_at": "2026-11-04",
+      "rights_note": null
+    },
+    {
+      "id": "sloan-faq",
+      "type": "official",
+      "title": "MIT Sloan MBA: Admissions FAQ (process, committee, interviews, waitlist)",
+      "url": "https://mitsloan.mit.edu/mba/admissions/frequently-asked-questions",
+      "trust": 5,
+      "retrieved_at": "2026-11-04",
+      "rights_note": null
+    },
+    {
+      "id": "sloan-employment-2025",
+      "type": "official",
+      "title": "MIT Sloan 2025-2026 MBA Employment Report (Class of 2025) (PDF)",
+      "url": "https://mitsloan.mit.edu/sites/default/files/2026-03/2025-2026-MBA-Employment-Report.pdf",
+      "trust": 5,
+      "retrieved_at": "2026-11-04",
+      "rights_note": null
+    },
+    {
+      "id": "ca-sloan-2028",
+      "type": "press",
+      "title": "Clear Admit: MIT Sloan MBA Class of 2028 profile (Sep 2026)",
+      "url": "https://www.clearadmit.com/2026/09/mit-sloan-mba-class-of-2028-profile/",
+      "trust": 2,
+      "retrieved_at": "2026-11-04",
+      "rights_note": null
+    },
+    {
+      "id": "al-sloan",
+      "type": "third_party_reference",
+      "title": "ApplicantLab — MIT Sloan school tab",
+      "url": null,
+      "trust": 2,
+      "retrieved_at": "2026-11-04",
+      "rights_note": "Paid coaching platform material (ApplicantLab). Private reference; items are Admitstory rewrites approved by Manu 2026-11-04 (§9.6). Never name or quote."
+    },
+    {
+      "id": "admitstory-coach",
+      "type": "coach_notes",
+      "title": "Admitstory coaching canon and Manu's storytelling rules",
+      "url": null,
+      "trust": 4,
+      "retrieved_at": "2026-11-04",
+      "rights_note": null
+    }
+  ],
+  "official_urls": [
+    {
+      "kind": "prompts",
+      "url": "https://mitsloan.mit.edu/mba/admissions/how-to-apply"
+    },
+    {
+      "kind": "deadlines",
+      "url": "https://mitsloan.mit.edu/mba/admissions"
+    },
+    {
+      "kind": "employment_report",
+      "url": "https://mitsloan.mit.edu/sites/default/files/2026-03/2025-2026-MBA-Employment-Report.pdf"
+    }
+  ],
+  "rounds": [
+    {
+      "id": "K01",
+      "source_ids": ["sloan-admissions"],
+      "verified_at": "2026-11-04",
+      "name": "Round 1",
+      "deadline": "2026-09-29",
+      "notes": [
+        {
+          "id": "K02",
+          "text": "Due 3:00 pm ET; decisions mid-December 2026, released early to candidates denied without an interview. Reapplicants may apply in either round.",
+          "source_ids": ["sloan-admissions"],
+          "verified_at": "2026-11-04",
+          "confidence": 0.85
+        },
+        {
+          "id": "K03",
+          "text": "Round 1 interviews run late October to early December.",
+          "source_ids": ["sloan-faq"],
+          "verified_at": "2026-11-04",
+          "confidence": 0.85
+        }
+      ]
+    },
+    {
+      "id": "K04",
+      "source_ids": ["sloan-admissions"],
+      "verified_at": "2026-11-04",
+      "name": "Round 2",
+      "deadline": "2027-01-12",
+      "notes": [
+        {
+          "id": "K05",
+          "text": "Decisions early April 2027; interviews typically February and March. MIT Sloan/Harvard Kennedy dual-degree applicants must apply in Round 2; LGO has its own round.",
+          "source_ids": ["sloan-admissions", "sloan-faq", "sloan-apply"],
+          "verified_at": "2026-11-04",
+          "confidence": 0.85
+        },
+        {
+          "id": "K06",
+          "text": "A waitlisted Round 1 applicant is automatically reconsidered in the next round.",
+          "source_ids": ["sloan-faq"],
+          "verified_at": "2026-11-04",
+          "confidence": 0.85
+        }
+      ]
+    }
+  ],
+  "application": {
+    "essays": [
+      {
+        "id": "K07",
+        "source_ids": ["sloan-apply"],
+        "verified_at": "2026-11-04",
+        "key": "cover_letter",
+        "prompt_verbatim": "MIT Sloan seeks students whose personal characteristics demonstrate that they will make the most of the incredible opportunities at MIT, both academic and non-academic. We are on a quest to find those whose presence will enhance the experience of other students. We seek thoughtful leaders with exceptional intellectual abilities and the drive and determination to put their stamp on the world. We welcome people who are independent, authentic, and fearlessly creative — true doers. We want people who can redefine solutions to conventional problems, and strive to preempt unconventional dilemmas with cutting-edge ideas. We demand integrity and respect passion. Taking the above into consideration, please submit a cover letter seeking a place in the MIT Sloan MBA program. Your letter should conform to a standard business correspondence, include one or more professional examples that illustrate why you meet the desired criteria above, and be addressed to the Admissions Committee.",
+        "limit": {
+          "kind": "words",
+          "value": 300
+        },
+        "required": true,
+        "archetypes": ["LEADERSHIP", "IDENTITY"],
+        "parts": [
+          "standard business letter addressed to the Admissions Committee",
+          "one or more professional examples",
+          "how they show the criteria (independent, creative doers who redefine solutions; integrity)"
+        ],
+        "notes": [
+          {
+            "id": "K08",
+            "text": "300 words excluding address and salutation, in full business-letter format (your address, date, the admissions office address, 'Dear Admissions Committee').",
+            "source_ids": ["sloan-apply"],
+            "verified_at": "2026-11-04",
+            "confidence": 0.85
+          },
+          {
+            "id": "K09",
+            "text": "Write the resume first. Skip the 'My name is… I am writing to apply' opener: open on a hook (the origin of your career passion or a reason to care), name the goal in a line, then spend most words on one to three examples.",
+            "source_ids": ["al-sloan"],
+            "verified_at": "2026-11-04",
+            "confidence": 0.75,
+            "approved_rewrite": true
+          },
+          {
+            "id": "K10",
+            "text": "Sloan wants the how behind the resume: how you persuaded, innovated or got a sceptic to change their mind. Two people with the same result led differently; show your way. A story where you challenged someone senior to get an idea adopted fits especially well.",
+            "source_ids": ["al-sloan"],
+            "verified_at": "2026-11-04",
+            "confidence": 0.75,
+            "approved_rewrite": true
+          },
+          {
+            "id": "K11",
+            "text": "'Why Sloan' is optional and brief at most (a track or certificate, an Action Learning Lab, a student you spoke to); prioritise the leadership story if you're over the limit.",
+            "source_ids": ["al-sloan"],
+            "verified_at": "2026-11-04",
+            "confidence": 0.75,
+            "approved_rewrite": true
+          },
+          {
+            "id": "K12",
+            "text": "End on a line that echoes the opening thread, not 'I look forward to hearing from you'.",
+            "source_ids": ["al-sloan"],
+            "verified_at": "2026-11-04",
+            "confidence": 0.75,
+            "approved_rewrite": true
+          }
+        ]
+      }
+    ],
+    "short_answers": [],
+    "goal_fields": [],
+    "video": [
+      {
+        "id": "K13",
+        "source_ids": ["sloan-apply"],
+        "verified_at": "2026-11-04",
+        "format": "async_video",
+        "think_time_s": null,
+        "answer_time_s": 90,
+        "attempts": 1,
+        "question_types": [
+          {
+            "id": "K14",
+            "text": "Video 1 (required, recorded and uploaded): 'Every applicant has a story that can't be captured in a resume. Take up to 90 seconds to share yours: who you are, where you come from, and what's shaped the person you are today. Be conversational, be yourself.' Speak directly to the camera; no music or subtitles; avoid reading a script.",
+            "source_ids": ["sloan-apply"],
+            "verified_at": "2026-11-04",
+            "confidence": 0.85
+          },
+          {
+            "id": "K15",
+            "text": "This video replaced the old written background essay and is required of everyone, so it needn't be about hardship. Start from what energises you today, then where it came from; every claim needs a concrete anchor (a scene, a habit), and 'where you come from' must appear.",
+            "source_ids": ["al-sloan"],
+            "verified_at": "2026-11-04",
+            "confidence": 0.75,
+            "approved_rewrite": true
+          },
+          {
+            "id": "K16",
+            "text": "Structures that work in 90 seconds: two or three quick facets then a deep dive on one; from/shaped/am beats; one vivid scene that carries everything; a short then-to-now arc. Practise from bullet points, not a script; a few 'ums' beat sounding memorised.",
+            "source_ids": ["al-sloan"],
+            "verified_at": "2026-11-04",
+            "confidence": 0.75,
+            "approved_rewrite": true
+          }
+        ],
+        "scripting_allowed": false
+      },
+      {
+        "id": "K17",
+        "source_ids": ["sloan-apply"],
+        "verified_at": "2026-11-04",
+        "format": "async_video",
+        "think_time_s": 10,
+        "answer_time_s": 60,
+        "attempts": 1,
+        "question_types": [
+          {
+            "id": "K18",
+            "text": "Video 2 (required): a randomly generated, open-ended question answered in the application; 'We want to hear how you think and communicate in your own words. No prior preparation is required.' Examples: 'What achievement are you most proud of and why?' 'Tell us about a time a classmate or colleague wasn't contributing to a group project. What did you do?'",
+            "source_ids": ["sloan-apply"],
+            "verified_at": "2026-11-04",
+            "confidence": 0.85
+          },
+          {
+            "id": "K19",
+            "text": "Reported prompts include a non-contributing teammate, the most important thing on your resume, creativity, inspiring a team, a failing team, change at work, presenting data clearly, upholding a principle, and office politics. Have flexible stories ready.",
+            "source_ids": ["al-sloan"],
+            "verified_at": "2026-11-04",
+            "confidence": 0.7,
+            "approved_rewrite": true
+          }
+        ],
+        "scripting_allowed": false
+      }
+    ],
+    "reapplicant": {
+      "essay": null,
+      "policy": [
+        {
+          "id": "K29",
+          "text": "Reapplicants may apply in either round and submit a full application.",
+          "source_ids": ["sloan-admissions"],
+          "verified_at": "2026-11-04",
+          "confidence": 0.85
+        }
+      ]
+    },
+    "optional_essay": null,
+    "form_sections": [
+      {
+        "id": "K20",
+        "source_ids": ["sloan-apply"],
+        "verified_at": "2026-11-04",
+        "key": "org_chart",
+        "label": "Organizational chart",
+        "guidance": [
+          {
+            "id": "K21",
+            "text": "Show the internal structure, where you sit, your line of reporting and anyone who reports to you; circle your role in red and highlight your recommender or references if they appear. Names and titles help, but redacting is fine. Consultants, entrepreneurs and military applicants should check the FAQ samples.",
+            "source_ids": ["sloan-apply"],
+            "verified_at": "2026-11-04",
+            "confidence": 0.85
+          },
+          {
+            "id": "K22",
+            "text": "Focus on your department and where it sits in the organisation; it tells readers how senior an 'analyst' really is at your firm.",
+            "source_ids": ["al-sloan"],
+            "verified_at": "2026-11-04",
+            "confidence": 0.75,
+            "approved_rewrite": true
+          }
+        ]
+      },
+      {
+        "id": "K23",
+        "source_ids": ["sloan-apply"],
+        "verified_at": "2026-11-04",
+        "key": "employment_history",
+        "label": "Employment history (up to three entries, with compensation)",
+        "item_count_max": 3,
+        "guidance": [
+          {
+            "id": "K24",
+            "text": "Starting with the current role: organisation, role and compensation; entrepreneurs add company formation, partnership and revenue model. Focus on impact.",
+            "source_ids": ["sloan-apply"],
+            "verified_at": "2026-11-04",
+            "confidence": 0.85
+          }
+        ]
+      },
+      {
+        "id": "K25",
+        "source_ids": ["sloan-apply"],
+        "verified_at": "2026-11-04",
+        "key": "coursework",
+        "label": "Relevant coursework and professional certifications",
+        "guidance": [
+          {
+            "id": "K26",
+            "text": "No prerequisites, but list courses (and grades) in the listed subject areas, plus certifications such as CFA, CPA or ACCA and graded non-degree work (MITx MicroMasters, CORe, edX, MBA Math).",
+            "source_ids": ["sloan-apply"],
+            "verified_at": "2026-11-04",
+            "confidence": 0.85
+          }
+        ]
+      },
+      {
+        "id": "K27",
+        "source_ids": ["sloan-apply"],
+        "verified_at": "2026-11-04",
+        "key": "academic_concerns",
+        "label": "Academic concerns and employment gaps (short explanation fields)",
+        "char_limit": 1000,
+        "limit_kind": "chars_incl_spaces",
+        "guidance": [
+          {
+            "id": "K28",
+            "text": "These short fields replace an optional essay: brief, factual, mature. Sloan has no place to explain a non-supervisor recommender, so have the recommender explain the relationship, and show their position on the org chart.",
+            "source_ids": ["al-sloan"],
+            "verified_at": "2026-11-04",
+            "confidence": 0.75,
+            "approved_rewrite": true
+          }
+        ]
+      }
+    ],
+    "recommendations": {
+      "id": "K30",
+      "source_ids": ["sloan-apply"],
+      "verified_at": "2026-11-04",
+      "count": 1,
+      "format": "school_specific",
+      "questions": [
+        {
+          "text_verbatim": "How long and in what capacity have you known the applicant?"
+        },
+        {
+          "text_verbatim": "How does the applicant stand out from others in a similar capacity?"
+        },
+        {
+          "text_verbatim": "Please give an example of the applicant's impact on a person, group, or organization."
+        },
+        {
+          "text_verbatim": "Please give a representative example of how the applicant interacts with other people."
+        },
+        {
+          "text_verbatim": "Please tell us anything else you think we should know about this applicant."
+        },
+        {
+          "text_verbatim": "Describe the most important piece of constructive feedback you have given the applicant. Please detail the circumstances and the applicant's response."
+        }
+      ],
+      "notes": [
+        {
+          "id": "K31",
+          "text": "One letter, ideally from a manager or supervisor; no family. Plus two additional professional references (different people) whom the committee may contact.",
+          "source_ids": ["sloan-apply"],
+          "verified_at": "2026-11-04",
+          "confidence": 0.85
+        },
+        {
+          "id": "K32",
+          "text": "Brief the recommender with persuasion and relationship stories (Sloan asks how you interact with people), not a drafted letter.",
+          "source_ids": ["al-sloan", "admitstory-coach"],
+          "verified_at": "2026-11-04",
+          "confidence": 0.85
+        }
+      ]
+    },
+    "resume": {
+      "id": "K33",
+      "source_ids": ["sloan-apply"],
+      "verified_at": "2026-11-04",
+      "page_limit": 1,
+      "notes": [
+        {
+          "id": "K34",
+          "text": "One page, reverse chronological, in this order: Education (awards, scholarships, societies); Work Experience (company, title, results-oriented bullets, dates); Additional Information (activities, community service, skills, certifications, interests, languages). 'Focus on your work results, not just your title.'",
+          "source_ids": ["sloan-apply"],
+          "verified_at": "2026-11-04",
+          "confidence": 0.85
+        },
+        {
+          "id": "K35",
+          "text": "Drop low-value skills lines if space is better used for an achievement.",
+          "source_ids": ["al-sloan"],
+          "verified_at": "2026-11-04",
+          "confidence": 0.75,
+          "approved_rewrite": true
+        }
+      ]
+    },
+    "test_policy": [
+      {
+        "id": "K36",
+        "text": "A valid GMAT (Focus or 10th Edition) or GRE is required by the deadline; self-reported scores accepted; no preference between online and test-centre exams. Single-attempt scores are evaluated this cycle; a GMAT Superscore on the report won't hurt.",
+        "source_ids": ["sloan-apply"],
+        "verified_at": "2026-11-04",
+        "confidence": 0.85
+      }
+    ],
+    "fees_waivers": [
+      {
+        "id": "K37",
+        "text": "Fee US$250; waivers for current Peace Corps members and US veterans or active-duty military. No retroactive waivers.",
+        "source_ids": ["sloan-apply"],
+        "verified_at": "2026-11-04",
+        "confidence": 0.85
+      }
+    ]
+  },
+  "values": {
+    "stated": [
+      {
+        "id": "K38",
+        "text": "Sloan brings together 'independent, authentic, and fearlessly creative thinkers who are determined to make ideas matter'. Those who thrive: lead collaboratively and inspire others; show intellectual curiosity and analytical strength; approach complex problems with persistence, creativity and ingenuity; show growth and achievement; act with integrity and contribute responsibly.",
+        "source_ids": ["sloan-admissions"],
+        "verified_at": "2026-11-04",
+        "confidence": 0.85
+      },
+      {
+        "id": "K39",
+        "text": "'Above all, we seek thoughtful leaders with exceptional intellectual abilities who value dignity and respect and are determined to make a meaningful impact.'",
+        "source_ids": ["sloan-apply"],
+        "verified_at": "2026-11-04",
+        "confidence": 0.85
+      },
+      {
+        "id": "K40",
+        "text": "No single component outweighs another; the committee is professional staff and current students aren't involved in evaluation.",
+        "source_ids": ["sloan-faq"],
+        "verified_at": "2026-11-04",
+        "confidence": 0.85
+      }
+    ],
+    "trait_map": [
+      {
+        "school_value": "fearlessly creative; redefine solutions to conventional problems",
+        "admitstory_traits": ["originates_ideas", "creative"]
+      },
+      {
+        "school_value": "true doers (mens et manus: mind and hand)",
+        "admitstory_traits": ["acts_unasked", "measurable_impact"]
+      },
+      {
+        "school_value": "lead collaboratively; persuade and build relationships",
+        "admitstory_traits": ["brings_people_along", "cross_functional_influence"],
+        "note": {
+          "id": "K41",
+          "text": "Sloan's interviews ask how you persuade others; persuasion stories are prime material across the cover letter, videos and interview.",
+          "source_ids": ["sloan-faq"],
+          "verified_at": "2026-11-04",
+          "confidence": 0.85
+        }
+      },
+      {
+        "school_value": "integrity; dignity and respect",
+        "admitstory_traits": ["principled_stands", "empathetic"]
+      }
+    ]
+  },
+  "culture_and_location": [
+    {
+      "id": "K46",
+      "text": "In Cambridge on the MIT campus; a collaborative community where 'varied experiences and perspectives strengthen learning'.",
+      "source_ids": ["sloan-admissions", "sloan-apply"],
+      "verified_at": "2026-11-04",
+      "confidence": 0.8
+    }
+  ],
+  "academics": {
+    "courses": [],
+    "centers": [],
+    "experiential": [],
+    "structure": [
+      {
+        "id": "K47",
+        "text": "Programs alongside the two-year MBA: LGO (MBA plus SM from the School of Engineering, applied to in its own round, with automatic MBA consideration), MBA Early deferred admission, and a three-year MIT Sloan/Harvard Kennedy dual degree.",
+        "source_ids": ["sloan-apply"],
+        "verified_at": "2026-11-04",
+        "confidence": 0.85
+      },
+      {
+        "id": "K48",
+        "text": "Certificates in Enterprise Management, Finance and other areas; Action Learning Labs bring 'mens et manus' into practice.",
+        "source_ids": ["sloan-employment-2025", "al-sloan"],
+        "verified_at": "2026-11-04",
+        "confidence": 0.75
+      }
+    ]
+  },
+  "community": {
+    "clubs": [],
+    "traditions": [],
+    "treks_events": []
+  },
+  "careers": {
+    "employment_report": {
+      "id": "K49",
+      "source_ids": ["sloan-employment-2025"],
+      "verified_at": "2026-11-04",
+      "class_year": 2025,
+      "currency": "USD",
+      "by_function": [
+        {
+          "function": "Consulting",
+          "share": 0.323,
+          "median_base": 190000
+        },
+        {
+          "function": "Technology",
+          "share": 0.233,
+          "median_base": 165000
+        },
+        {
+          "function": "Finance",
+          "share": 0.206,
+          "median_base": 175000
+        },
+        {
+          "function": "Healthcare/Pharma/Biotech",
+          "share": 0.081,
+          "median_base": 160000
+        },
+        {
+          "function": "Retail/CPG",
+          "share": 0.036,
+          "median_base": 145000
+        },
+        {
+          "function": "Energy",
+          "share": 0.031,
+          "median_base": 170000
+        },
+        {
+          "function": "Auto/Aerospace",
+          "share": 0.022,
+          "median_base": 160000
+        }
+      ],
+      "top_employers": [
+        "Boston Consulting Group",
+        "McKinsey & Company",
+        "Amazon",
+        "Bain & Company",
+        "Verizon",
+        "Strategy&"
+      ]
+    },
+    "recruiting_notes": [
+      {
+        "id": "K50",
+        "text": "Class of 2025: median base US$175,000 (mean US$173,132); median signing bonus US$30,000; 91.0% of job seekers had an offer within three months. Top functions: consulting/strategy 38.5%, finance 15.9%.",
+        "source_ids": ["sloan-employment-2025"],
+        "verified_at": "2026-11-04",
+        "confidence": 0.85
+      },
+      {
+        "id": "K51",
+        "text": "Class of 2026 internships: technology 31.0%, finance 29.6%, consulting 16.0%, healthcare 6.5%.",
+        "source_ids": ["sloan-employment-2025"],
+        "verified_at": "2026-11-04",
+        "confidence": 0.85
+      }
+    ]
+  },
+  "class_profile": {
+    "id": "K52",
+    "source_ids": ["ca-sloan-2028"],
+    "verified_at": "2026-11-04",
+    "class_year": 2028,
+    "class_size": 450,
+    "gmat_focus_median": 675,
+    "gmat_classic_median": null,
+    "gre_median": null,
+    "gpa_median": null,
+    "gpa_scale": null,
+    "work_experience_years_median": 5,
+    "international_share": 0.45
+  },
+  "interview": {
+    "id": "K53",
+    "source_ids": ["sloan-faq"],
+    "verified_at": "2026-11-04",
+    "invitation": "invite_only",
+    "who": ["adcom"],
+    "blind": null,
+    "length_min": 30,
+    "location": ["virtual"],
+    "common_questions": [
+      {
+        "id": "K54",
+        "source_ids": ["sloan-faq"],
+        "verified_at": "2026-11-04",
+        "text": "Tell me about a time you persuaded someone to adopt your idea.",
+        "frequency_weight": 5
+      },
+      {
+        "id": "K55",
+        "source_ids": ["sloan-faq"],
+        "verified_at": "2026-11-04",
+        "text": "Tell me about a time you worked as part of a team that faced a problem. What did you do?",
+        "frequency_weight": 4
+      },
+      {
+        "id": "K56",
+        "source_ids": ["sloan-faq"],
+        "verified_at": "2026-11-04",
+        "text": "Give an example of how you built a relationship that mattered to a result.",
+        "frequency_weight": 4
+      }
+    ],
+    "format_notes": [
+      {
+        "id": "K57",
+        "text": "One-on-one with a member of the Admissions Committee, about 30 minutes, all virtual. Behavioural: 'specific examples of your personal and professional behavior, such as how you persuade others, work as part of a team, and solve problems.'",
+        "source_ids": ["sloan-faq"],
+        "verified_at": "2026-11-04",
+        "confidence": 0.85
+      },
+      {
+        "id": "K58",
+        "text": "They look for 'how you have built relationships and demonstrated leadership', plus professional presentation, communication and English proficiency.",
+        "source_ids": ["sloan-faq"],
+        "verified_at": "2026-11-04",
+        "confidence": 0.85
+      },
+      {
+        "id": "K59",
+        "text": "Prepare four or five stories in situation-action-result form with the persuasion step spelled out; be ready for 'why Sloan' here, since the written application barely asks.",
+        "source_ids": ["al-sloan", "admitstory-coach"],
+        "verified_at": "2026-11-04",
+        "confidence": 0.85
+      }
+    ]
+  },
+  "ai_policy": {
+    "id": "K69",
+    "stance": "unknown",
+    "applies_to": [],
+    "disclosure_text": null,
+    "notes": [],
+    "source_ids": [],
+    "verified_at": null
+  },
+  "scholarships": [],
+  "insider_notes": [
+    {
+      "id": "K42",
+      "text": "Class of 2028: 450 students (including LGO); 43% women; 45% international from 65 countries; median GMAT Focus 675 (middle 80% 645–715); about five years' average experience.",
+      "source_ids": ["ca-sloan-2028"],
+      "verified_at": "2026-11-04",
+      "confidence": 0.85
+    },
+    {
+      "id": "K43",
+      "text": "Class of 2025 profile: 409 MBA candidates plus 53 LGO; median GMAT 730; average GPA 3.61; 40% international; 46% women.",
+      "source_ids": ["sloan-employment-2025"],
+      "verified_at": "2026-11-04",
+      "confidence": 0.85
+    },
+    {
+      "id": "K44",
+      "text": "Sloan cares less about precise post-MBA plans than other schools; the application is built around evidence of how you act.",
+      "source_ids": ["al-sloan"],
+      "verified_at": "2026-11-04",
+      "confidence": 0.7,
+      "approved_rewrite": true
+    },
+    {
+      "id": "K45",
+      "text": "Signal interest: sign up with admissions and talk to a student ambassador or club member in your field, so Sloan believes it isn't your backup.",
+      "source_ids": ["al-sloan"],
+      "verified_at": "2026-11-04",
+      "confidence": 0.75,
+      "approved_rewrite": true
+    }
+  ],
+  "avoid": [
+    {
+      "id": "K60",
+      "text": "A cover letter that opens 'My name is… and I am writing to apply'.",
+      "source_ids": ["al-sloan"],
+      "verified_at": "2026-11-04",
+      "confidence": 0.75,
+      "approved_rewrite": true
+    },
+    {
+      "id": "K61",
+      "text": "Retelling resume results without the how.",
+      "source_ids": ["al-sloan"],
+      "verified_at": "2026-11-04",
+      "confidence": 0.75,
+      "approved_rewrite": true
+    },
+    {
+      "id": "K62",
+      "text": "Spending cover-letter words on Sloan's culture of innovation, which everyone praises.",
+      "source_ids": ["al-sloan"],
+      "verified_at": "2026-11-04",
+      "confidence": 0.75,
+      "approved_rewrite": true
+    },
+    {
+      "id": "K63",
+      "text": "Reading a script in Video 1.",
+      "source_ids": ["sloan-apply"],
+      "verified_at": "2026-11-04",
+      "confidence": 0.85
+    }
+  ],
+  "angles_that_work": [
+    {
+      "id": "K64",
+      "text": "A cover letter built on one example where the applicant pushed an unconventional idea past a sceptical senior person, with the persuasion step shown.",
+      "source_ids": ["al-sloan"],
+      "verified_at": "2026-11-04",
+      "confidence": 0.75,
+      "approved_rewrite": true
+    },
+    {
+      "id": "K65",
+      "text": "A Video 1 anchored in one concrete scene from where the applicant comes from that explains what they do today.",
+      "source_ids": ["al-sloan"],
+      "verified_at": "2026-11-04",
+      "confidence": 0.75,
+      "approved_rewrite": true
+    }
+  ],
+  "glossary": [
+    {
+      "id": "K66",
+      "source_ids": ["al-sloan"],
+      "verified_at": "2026-11-04",
+      "term": "Mens et manus",
+      "plain_definition": "MIT's motto, 'mind and hand': ideas put into action."
+    },
+    {
+      "id": "K67",
+      "source_ids": ["sloan-apply"],
+      "verified_at": "2026-11-04",
+      "term": "LGO",
+      "plain_definition": "Leaders for Global Operations: Sloan's two-year MBA plus engineering SM program."
+    },
+    {
+      "id": "K68",
+      "source_ids": ["al-sloan"],
+      "verified_at": "2026-11-04",
+      "term": "Action Learning",
+      "plain_definition": "Sloan's hands-on lab courses where students work on real organisations' problems."
+    }
+  ]
+}

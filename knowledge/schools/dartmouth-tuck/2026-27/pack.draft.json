@@ -1,0 +1,1559 @@
+{
+  "school": {
+    "id": "dartmouth-tuck",
+    "name": "Tuck School of Business at Dartmouth",
+    "short_name": "Tuck",
+    "country": "US",
+    "city": "Hanover, NH",
+    "website": "https://tuck.dartmouth.edu",
+    "program": "full_time_mba"
+  },
+  "cycle": "2026-27",
+  "version": 1,
+  "status": "draft",
+  "_todo": [
+    "rounds: Consortium 1 and 2 application deadlines (the interview page gives invite windows, mid-October and early January, but no verbatim deadline)",
+    "application.goal_fields: confirm in the portal whether short-term and long-term are two 300-character boxes (prior cycles and coaching sources say yes) or one shared 300-character field",
+    "community.clubs: verify specific clubs on the official clubs page before any is offered as a citable specific",
+    "careers.employment_report: by-function shares, technology median base and top employers from the full employment statistics page",
+    "interview.common_questions: gather recent interview reports before adding weighted questions",
+    "scholarships: named fellowships and how merit aid is decided (no separate essay found)"
+  ],
+  "k_high_water": 148,
+  "sources": [
+    {
+      "id": "tuck-apply",
+      "type": "official",
+      "title": "Applying to Tuck (essays, goals, references, tests, fees, deadlines)",
+      "url": "https://tuck.dartmouth.edu/admissions/applying-to-tuck",
+      "trust": 5,
+      "retrieved_at": "2026-11-04",
+      "rights_note": null
+    },
+    {
+      "id": "tuck-launch-2026",
+      "type": "official",
+      "title": "Tuck Looks Ahead to the Class of 2029, Launches 2026–2027 MBA Application (Jul 1, 2026)",
+      "url": "https://tuck.dartmouth.edu/news/articles/tuck-looks-ahead-to-the-class-of-2029-launches-2026-2027-mba-application",
+      "trust": 5,
+      "retrieved_at": "2026-11-04",
+      "rights_note": null
+    },
+    {
+      "id": "tuck-interview",
+      "type": "official",
+      "title": "Tuck admissions: Interview",
+      "url": "https://tuck.dartmouth.edu/admissions/interview",
+      "trust": 5,
+      "retrieved_at": "2026-11-04",
+      "rights_note": null
+    },
+    {
+      "id": "tuck-criteria",
+      "type": "official",
+      "title": "Tuck admissions: Evaluation criteria",
+      "url": "https://tuck.dartmouth.edu/admissions/evaluation-criteria",
+      "trust": 5,
+      "retrieved_at": "2026-11-04",
+      "rights_note": null
+    },
+    {
+      "id": "tuck-faq",
+      "type": "official",
+      "title": "Tuck admissions FAQs",
+      "url": "https://tuck.dartmouth.edu/admissions/admissions-faqs",
+      "trust": 5,
+      "retrieved_at": "2026-11-04",
+      "rights_note": null
+    },
+    {
+      "id": "tuck-profile",
+      "type": "official",
+      "title": "Tuck Class of 2028 profile (results as of Aug 10, 2026)",
+      "url": "https://tuck.dartmouth.edu/admissions/class-profile",
+      "trust": 5,
+      "retrieved_at": "2026-11-04",
+      "rights_note": null
+    },
+    {
+      "id": "tuck-employment-2025",
+      "type": "official",
+      "title": "2025 Employment Outcomes Reflect Strength, Talent, and Versatility of Tuck MBAs (Dec 9, 2025)",
+      "url": "https://tuck.dartmouth.edu/news/articles/2025-employment-outcomes-reflect-strength-talent-and-versatility-of-tuck-mbas",
+      "trust": 5,
+      "retrieved_at": "2026-11-04",
+      "rights_note": null
+    },
+    {
+      "id": "tuck-academics",
+      "type": "official",
+      "title": "Tuck academic experience pages (core, electives, FYP, TuckGO, GIX, Term Exchange, STEM option, academic FAQs)",
+      "url": "https://www.tuck.dartmouth.edu/mba/academic-experience/required-curriculum",
+      "trust": 5,
+      "retrieved_at": "2026-11-04",
+      "rights_note": null
+    },
+    {
+      "id": "tuck-centers",
+      "type": "official",
+      "title": "Tuck research centers",
+      "url": "https://tuck.dartmouth.edu/faculty/research-centers",
+      "trust": 5,
+      "retrieved_at": "2026-11-04",
+      "rights_note": null
+    },
+    {
+      "id": "tuck-mission",
+      "type": "official",
+      "title": "Tuck mission, values and vision; facts and figures",
+      "url": "https://tuck.dartmouth.edu/about/mission-values-vision",
+      "trust": 5,
+      "retrieved_at": "2026-11-04",
+      "rights_note": null
+    },
+    {
+      "id": "tuck-blog-essays",
+      "type": "adcom",
+      "title": "Tuck Admissions Insights: 2026-2027 Application Essays — Patricia Harrison, Director of Admissions, Evaluation and Yield (Jul 1, 2026)",
+      "url": "https://tuck.dartmouth.edu/mba/blog/tuck-admissions-insights-application-essays",
+      "trust": 4,
+      "retrieved_at": "2026-11-04",
+      "rights_note": null
+    },
+    {
+      "id": "tuck-blog-goals",
+      "type": "adcom",
+      "title": "Tuck Admissions Insights: Your Short-Term and Long-Term Goals — Patricia Harrison (Jun 30, 2026)",
+      "url": "https://tuck.dartmouth.edu/mba/blog/tuck-admissions-insights-your-short-term-and-long-term-goals",
+      "trust": 4,
+      "retrieved_at": "2026-11-04",
+      "rights_note": null
+    },
+    {
+      "id": "tuck-blog-optional",
+      "type": "adcom",
+      "title": "Tuck Admissions Insights: Optional Information Section — Patricia Harrison (Jun 30, 2026)",
+      "url": "https://tuck.dartmouth.edu/mba/blog/tuck-admissions-insights-optional-information-section",
+      "trust": 4,
+      "retrieved_at": "2026-11-04",
+      "rights_note": null
+    },
+    {
+      "id": "tuck-blog-reapply",
+      "type": "adcom",
+      "title": "Reapplying to Tuck — Amy Mitson, Director of Admissions, Recruitment and Marketing (Jun 30, 2026)",
+      "url": "https://tuck.dartmouth.edu/mba/blog/reapplying-to-tuck",
+      "trust": 4,
+      "retrieved_at": "2026-11-04",
+      "rights_note": null
+    },
+    {
+      "id": "pq-tuck-2026",
+      "type": "press",
+      "title": "Poets&Quants: Dartmouth Tuck's MBA apps plunge 31.5%, acceptance rate soars to 42.5% (Oct 28, 2026), with Lawrence Mur'ray quotes",
+      "url": "https://poetsandquants.com/2026/10/28/dartmouth-tucks-mba-apps-plunge-31-5-acceptance-rate-soars-to-42-5/",
+      "trust": 2,
+      "retrieved_at": "2026-11-04",
+      "rights_note": null
+    },
+    {
+      "id": "pq-pena-2018",
+      "type": "adcom",
+      "title": "Poets&Quants: A candid interview with Tuck's head of MBA admissions, Luke Anthony Peña (Aug 5, 2018)",
+      "url": "https://poetsandquants.com/2018/08/05/a-candid-interview-with-tucks-head-of-mba-admissions/",
+      "trust": 4,
+      "retrieved_at": null,
+      "rights_note": null
+    },
+    {
+      "id": "al-tuck",
+      "type": "third_party_reference",
+      "title": "ApplicantLab — Tuck school tab",
+      "url": null,
+      "trust": 2,
+      "retrieved_at": "2026-11-04",
+      "rights_note": "Paid coaching platform material (ApplicantLab). Private reference; items are Admitstory rewrites approved by Manu 2026-11-04 (§9.6). Never name or quote."
+    },
+    {
+      "id": "admitstory-coach",
+      "type": "coach_notes",
+      "title": "Admitstory coaching canon and Manu's storytelling rules (knowledge/canon, mba-essays skill)",
+      "url": null,
+      "trust": 4,
+      "retrieved_at": "2026-11-04",
+      "rights_note": null
+    }
+  ],
+  "official_urls": [
+    {
+      "kind": "prompts",
+      "url": "https://tuck.dartmouth.edu/admissions/applying-to-tuck"
+    },
+    {
+      "kind": "deadlines",
+      "url": "https://tuck.dartmouth.edu/admissions/applying-to-tuck"
+    },
+    {
+      "kind": "class_profile",
+      "url": "https://tuck.dartmouth.edu/admissions/class-profile"
+    },
+    {
+      "kind": "employment_report",
+      "url": "https://tuck.dartmouth.edu/mba/career-services/employment-statistics"
+    },
+    {
+      "kind": "ai_policy",
+      "url": "https://tuck.dartmouth.edu/admissions/applying-to-tuck"
+    },
+    {
+      "kind": "other",
+      "url": "https://tuck.dartmouth.edu/admissions/interview"
+    }
+  ],
+  "rounds": [
+    {
+      "id": "K01",
+      "source_ids": ["tuck-apply"],
+      "verified_at": "2026-11-04",
+      "name": "Round 1",
+      "deadline": "2026-09-24",
+      "decision_date": "2026-12-10",
+      "interview_invites_window": "Late August 2026 to early December 2026",
+      "notes": [
+        {
+          "id": "K02",
+          "text": "A complete application (test scores and both references included) submitted by 5:00pm ET on 1 September 2026 is guaranteed an interview.",
+          "source_ids": ["tuck-apply"],
+          "verified_at": "2026-11-04",
+          "confidence": 0.85
+        },
+        {
+          "id": "K03",
+          "text": "Enrollment deposit due 1 February 2027.",
+          "source_ids": ["tuck-apply"],
+          "verified_at": "2026-11-04",
+          "confidence": 0.85
+        }
+      ]
+    },
+    {
+      "id": "K04",
+      "source_ids": ["tuck-apply"],
+      "verified_at": "2026-11-04",
+      "name": "Round 2",
+      "deadline": "2027-01-05",
+      "decision_date": "2027-03-18",
+      "interview_invites_window": "Early December 2026 to mid-March 2027",
+      "notes": [
+        {
+          "id": "K05",
+          "text": "A complete application submitted by 5:00pm ET on 1 December 2026 is guaranteed an interview.",
+          "source_ids": ["tuck-apply"],
+          "verified_at": "2026-11-04",
+          "confidence": 0.85
+        },
+        {
+          "id": "K06",
+          "text": "Enrollment deposit due 19 April 2027.",
+          "source_ids": ["tuck-apply"],
+          "verified_at": "2026-11-04",
+          "confidence": 0.85
+        }
+      ]
+    },
+    {
+      "id": "K07",
+      "source_ids": ["tuck-apply"],
+      "verified_at": "2026-11-04",
+      "name": "Round 3",
+      "deadline": "2027-03-24",
+      "decision_date": "2027-04-29",
+      "interview_invites_window": "Mid-March 2027 to late April 2027",
+      "notes": [
+        {
+          "id": "K08",
+          "text": "No guaranteed-interview date in Round 3; interviews are by invitation.",
+          "source_ids": ["tuck-apply"],
+          "verified_at": "2026-11-04",
+          "confidence": 0.85
+        },
+        {
+          "id": "K09",
+          "text": "Enrollment deposit due 14 May 2027.",
+          "source_ids": ["tuck-apply"],
+          "verified_at": "2026-11-04",
+          "confidence": 0.85
+        }
+      ]
+    }
+  ],
+  "application": {
+    "essays": [
+      {
+        "id": "K10",
+        "source_ids": ["tuck-apply"],
+        "verified_at": "2026-11-04",
+        "key": "goals_growth",
+        "prompt_verbatim": "Your professional goals are described elsewhere in your application. What led you to those goals and to your understanding of where you need to grow? Why is Tuck the right environment to support that growth and help you achieve your ambitions?",
+        "limit": {
+          "kind": "chars_incl_spaces",
+          "value": 2000
+        },
+        "required": true,
+        "archetypes": ["GOALS", "WHY-SCHOOL"],
+        "parts": [
+          "what led you to your goals (origin, not a restatement)",
+          "how you came to understand where you need to grow",
+          "why Tuck is the right environment for that growth"
+        ],
+        "notes": [
+          {
+            "id": "K11",
+            "text": "Maps to Tuck's 'aware' criterion. The goal boxes say what; this essay says why. Do not restate the goals.",
+            "source_ids": ["tuck-blog-essays"],
+            "verified_at": "2026-11-04",
+            "confidence": 0.85
+          },
+          {
+            "id": "K12",
+            "text": "Tuck replaced the old why-MBA question with 'where you need to grow': start from an honest self-assessment of gaps in experience, perspective or capability, not a catalogue of what an MBA offers.",
+            "source_ids": ["tuck-blog-essays"],
+            "verified_at": "2026-11-04",
+            "confidence": 0.85
+          },
+          {
+            "id": "K13",
+            "text": "Readers want a visible line from past experiences and present motivations to the goal; a goal with no link to the past reads as picked out of thin air. Career pivoters must fill in that bridge here.",
+            "source_ids": ["tuck-blog-essays"],
+            "verified_at": "2026-11-04",
+            "confidence": 0.85
+          },
+          {
+            "id": "K14",
+            "text": "Not every strong goal is a pivot. If staying in the field, say what about the work interests you and why you want to go further in it.",
+            "source_ids": ["tuck-blog-essays"],
+            "verified_at": "2026-11-04",
+            "confidence": 0.85
+          },
+          {
+            "id": "K15",
+            "text": "The why-Tuck part fails if the word 'Tuck' could be swapped for another school. Long lists of Tuckies spoken to are a named negative; say what you learned from those conversations instead.",
+            "source_ids": ["tuck-blog-essays"],
+            "verified_at": "2026-11-04",
+            "confidence": 0.85
+          },
+          {
+            "id": "K16",
+            "text": "Joint-degree applicants say how the second degree complements the MBA; holders of a similar graduate degree say why they still need a Tuck MBA.",
+            "source_ids": ["tuck-blog-essays"],
+            "verified_at": "2026-11-04",
+            "confidence": 0.85
+          },
+          {
+            "id": "K17",
+            "text": "Tell the journey on two lines: how the goal itself formed and evolved, and how the applicant decided an MBA was the way to pursue it (a mentor's nudge, watching someone with the degree, studying the backgrounds of people already on the path).",
+            "source_ids": ["al-tuck"],
+            "verified_at": "2026-11-04",
+            "confidence": 0.75,
+            "approved_rewrite": true
+          },
+          {
+            "id": "K18",
+            "text": "Make the awareness visible: show how each gap was discovered (feedback, a moment of falling short, advice from someone senior), then close that exact gap with a named Tuck resource and a concrete future use for it.",
+            "source_ids": ["al-tuck"],
+            "verified_at": "2026-11-04",
+            "confidence": 0.75,
+            "approved_rewrite": true
+          },
+          {
+            "id": "K19",
+            "text": "Tuck's admissions team checks goal realism with the career office. Explain why each step makes sense and, for a stretch goal, have a credible second path; a switch is most credible into a field Tuck is strong in.",
+            "source_ids": ["al-tuck"],
+            "verified_at": "2026-11-04",
+            "confidence": 0.75,
+            "approved_rewrite": true
+          },
+          {
+            "id": "K20",
+            "text": "Tuck has invested in global learning. If it truly serves the goal, name a TuckGO/GIX region or industry and the real reason it matters to the career, never 'I've never been there'.",
+            "source_ids": ["al-tuck"],
+            "verified_at": "2026-11-04",
+            "confidence": 0.75,
+            "approved_rewrite": true
+          },
+          {
+            "id": "K21",
+            "text": "Don't build the why-Tuck case on a short-lived course offering; anchor it on the core, the First-Year Project, centers, electives and coaching that will still exist.",
+            "source_ids": ["al-tuck"],
+            "verified_at": "2026-11-04",
+            "confidence": 0.75,
+            "approved_rewrite": true
+          },
+          {
+            "id": "K22",
+            "text": "2,000 characters is about 300–330 words. Keep context to two or three sentences, open on the moment the goal took hold, and give the gap-to-resource logic the middle; land on a forward beat, not a summary.",
+            "source_ids": ["admitstory-coach"],
+            "verified_at": "2026-11-04",
+            "confidence": 0.85
+          }
+        ]
+      },
+      {
+        "id": "K23",
+        "source_ids": ["tuck-apply"],
+        "verified_at": "2026-11-04",
+        "key": "aspect_of_self",
+        "prompt_verbatim": "People are often shaped by experiences that are not fully reflected in their resume. Tell us about an important aspect of who you are that has shaped you as a person. How will your perspective enrich the Tuck community?",
+        "limit": {
+          "kind": "chars_incl_spaces",
+          "value": 2000
+        },
+        "required": true,
+        "archetypes": ["IDENTITY", "CONTRIBUTION"],
+        "parts": [
+          "one important aspect of who you are, not on the resume",
+          "how it shaped you",
+          "how your perspective will enrich the Tuck community"
+        ],
+        "notes": [
+          {
+            "id": "K24",
+            "text": "Also maps to 'aware', through self-understanding. Tuck asks applicants to focus on one significant aspect of identity rather than the whole life story.",
+            "source_ids": ["tuck-blog-essays"],
+            "verified_at": "2026-11-04",
+            "confidence": 0.85
+          },
+          {
+            "id": "K25",
+            "text": "Tuck's own brainstorm list: upbringing, a community that matters to you, culture, relationships, challenges overcome, personal values, a defining moment; professional experience can count but is not the point.",
+            "source_ids": ["tuck-blog-essays"],
+            "verified_at": "2026-11-04",
+            "confidence": 0.85
+          },
+          {
+            "id": "K26",
+            "text": "Enrichment means the person who shows up and what classmates will learn from them, not the activities they will join. Naming a Tuck offering is fine; a list of classes and clubs is not.",
+            "source_ids": ["tuck-blog-essays"],
+            "verified_at": "2026-11-04",
+            "confidence": 0.85
+          },
+          {
+            "id": "K27",
+            "text": "Pick one root and let several qualities grow from it, never three topics stapled together. Small supporting details are fine if they trace back to the same root: if cutting a detail would not force the paragraph to be restructured, it is texture, not a second topic.",
+            "source_ids": ["al-tuck"],
+            "verified_at": "2026-11-04",
+            "confidence": 0.75,
+            "approved_rewrite": true
+          },
+          {
+            "id": "K28",
+            "text": "A practical route in: list two or three things the applicant would really do at Tuck, then find the lived experience that explains why. One specific, evidence-backed contribution beats a list of clubs or a vague promise of 'warmth in discussions'.",
+            "source_ids": ["al-tuck"],
+            "verified_at": "2026-11-04",
+            "confidence": 0.75,
+            "approved_rewrite": true
+          },
+          {
+            "id": "K29",
+            "text": "Achievements and awards don't answer this prompt; if a sport or award matters, write about what it does inside the person or for others, and leave the accolade for the resume.",
+            "source_ids": ["al-tuck"],
+            "verified_at": "2026-11-04",
+            "confidence": 0.75,
+            "approved_rewrite": true
+          },
+          {
+            "id": "K30",
+            "text": "Distinctive is good; uncomfortable, braggy or integrity-raising material is not. Specific memories, not the theme, are what make a common theme belong to one applicant.",
+            "source_ids": ["al-tuck"],
+            "verified_at": "2026-11-04",
+            "confidence": 0.75,
+            "approved_rewrite": true
+          }
+        ]
+      },
+      {
+        "id": "K31",
+        "source_ids": ["tuck-apply"],
+        "verified_at": "2026-11-04",
+        "key": "supporting_another",
+        "prompt_verbatim": "Describe a time when supporting another person was not easy or straightforward. What made it difficult, how did you respond, and what did you learn?",
+        "limit": {
+          "kind": "chars_incl_spaces",
+          "value": 2000
+        },
+        "required": true,
+        "archetypes": ["SUPPORT"],
+        "parts": [
+          "the situation: supporting one person (or a very small group)",
+          "what made it difficult or not straightforward",
+          "how you responded",
+          "what you learned"
+        ],
+        "notes": [
+          {
+            "id": "K32",
+            "text": "Maps to 'encouraging'. Tuck calls this a relationship essay, not a leadership essay: one discrete story about one person or a very small group.",
+            "source_ids": ["tuck-blog-essays"],
+            "verified_at": "2026-11-04",
+            "confidence": 0.85
+          },
+          {
+            "id": "K33",
+            "text": "Avoid normal supervision duties, routine teamwork and anything anyone in the role would be expected to do; Tuck wants investment beyond what was required.",
+            "source_ids": ["tuck-blog-essays"],
+            "verified_at": "2026-11-04",
+            "confidence": 0.85
+          },
+          {
+            "id": "K34",
+            "text": "Avoid hero or save-the-day stories and large-group examples. Big outcomes are not required; empathy and genuine investment in the other person are what count.",
+            "source_ids": ["tuck-blog-essays"],
+            "verified_at": "2026-11-04",
+            "confidence": 0.85
+          },
+          {
+            "id": "K35",
+            "text": "The learning is as important as the story: did it change how the applicant handles conflict, feedback, mentorship, advocacy or empathy?",
+            "source_ids": ["tuck-blog-essays"],
+            "verified_at": "2026-11-04",
+            "confidence": 0.85
+          },
+          {
+            "id": "K36",
+            "text": "Spell out the difficulty if the context doesn't already make it plain: a cost in time, political or reputational risk, a person who didn't want help, or no playbook for how to help.",
+            "source_ids": ["al-tuck"],
+            "verified_at": "2026-11-04",
+            "confidence": 0.75,
+            "approved_rewrite": true
+          },
+          {
+            "id": "K37",
+            "text": "Show the insight about the other person that made the help work, not only the steps taken. Explain any resistance through their position or background, never as a character flaw.",
+            "source_ids": ["al-tuck"],
+            "verified_at": "2026-11-04",
+            "confidence": 0.75,
+            "approved_rewrite": true
+          },
+          {
+            "id": "K38",
+            "text": "When two stories are equally strong, prefer the professional one, since helping each other professionally is what Tuck alumni do; a personal story can carry a brief later work example as proof the lesson stuck.",
+            "source_ids": ["al-tuck"],
+            "verified_at": "2026-11-04",
+            "confidence": 0.75,
+            "approved_rewrite": true
+          },
+          {
+            "id": "K39",
+            "text": "Close with a specific lesson and one later moment where it changed behaviour, not a platitude about patience or teamwork.",
+            "source_ids": ["admitstory-coach"],
+            "verified_at": "2026-11-04",
+            "confidence": 0.85
+          }
+        ]
+      }
+    ],
+    "short_answers": [],
+    "goal_fields": [
+      {
+        "id": "K44",
+        "source_ids": ["tuck-apply"],
+        "verified_at": "2026-11-04",
+        "key": "short_term",
+        "prompt_verbatim": "share your short-term and long-term post-MBA professional goals in 300 characters or less.",
+        "limit": {
+          "kind": "chars_incl_spaces",
+          "value": 300
+        },
+        "required": true,
+        "archetypes": ["GOALBOX"],
+        "parts": ["the role immediately after graduating", "the impact you hope to make in it"],
+        "notes": [
+          {
+            "id": "K45",
+            "text": "Short-term means immediately after graduating, not goals while at Tuck. Be factual and direct; strong answers name both the role and the intended impact.",
+            "source_ids": ["tuck-blog-goals"],
+            "verified_at": "2026-11-04",
+            "confidence": 0.85
+          },
+          {
+            "id": "K46",
+            "text": "Short-term goals should tilt toward realism. Tuck says it makes no value judgment about industry or function.",
+            "source_ids": ["tuck-blog-goals"],
+            "verified_at": "2026-11-04",
+            "confidence": 0.85
+          },
+          {
+            "id": "K47",
+            "text": "Draft the full career statement first, then decide what each box carries. Naming two viable short-term paths reads as adaptable, and the box should say why this step leads to the long-term goal.",
+            "source_ids": ["al-tuck"],
+            "verified_at": "2026-11-04",
+            "confidence": 0.75,
+            "approved_rewrite": true
+          },
+          {
+            "id": "K48",
+            "text": "Career switchers can use the box for proof the switch is realistic (transferable skills, a conversation with someone in the role). Everyone else can keep it lean and let Essay 1 carry the story.",
+            "source_ids": ["al-tuck"],
+            "verified_at": "2026-11-04",
+            "confidence": 0.75,
+            "approved_rewrite": true
+          }
+        ]
+      },
+      {
+        "id": "K49",
+        "source_ids": ["tuck-apply"],
+        "verified_at": "2026-11-04",
+        "key": "long_term",
+        "prompt_verbatim": "share your short-term and long-term post-MBA professional goals in 300 characters or less.",
+        "limit": {
+          "kind": "chars_incl_spaces",
+          "value": 300
+        },
+        "required": true,
+        "archetypes": ["GOALBOX"],
+        "parts": ["the role or impact you want years later"],
+        "notes": [
+          {
+            "id": "K50",
+            "text": "Tuck frames it as: what is your dream job, what legacy do you hope to leave? Long-term goals should tilt toward ambition: audacious in scope, grounded in reality.",
+            "source_ids": ["tuck-blog-goals"],
+            "verified_at": "2026-11-04",
+            "confidence": 0.85
+          },
+          {
+            "id": "K51",
+            "text": "Don't write what you think Tuck wants to hear; they want a logical line from today to right after Tuck to long-term impact.",
+            "source_ids": ["tuck-blog-goals"],
+            "verified_at": "2026-11-04",
+            "confidence": 0.85
+          },
+          {
+            "id": "K52",
+            "text": "Lead with the mission or problem, not a title. A short reference to the reason behind it can sit here if Essay 1 needs the space.",
+            "source_ids": ["al-tuck"],
+            "verified_at": "2026-11-04",
+            "confidence": 0.75,
+            "approved_rewrite": true
+          }
+        ]
+      }
+    ],
+    "video": [],
+    "reapplicant": {
+      "essay": {
+        "id": "K53",
+        "source_ids": ["tuck-apply"],
+        "verified_at": "2026-11-04",
+        "key": "reapplicant",
+        "prompt_verbatim": "How have you strengthened your candidacy since you last applied? Reflect on how you have grown personally and professionally and how your understanding of Tuck has developed.",
+        "limit": {
+          "kind": "chars_incl_spaces",
+          "value": 2000
+        },
+        "required": true,
+        "archetypes": ["REAPPLICANT"],
+        "parts": [
+          "how you strengthened your candidacy",
+          "personal and professional growth",
+          "how your understanding of Tuck has developed"
+        ],
+        "notes": [
+          {
+            "id": "K54",
+            "text": "Tuck views reapplicants positively, but expects every essay rewritten, not resubmitted.",
+            "source_ids": ["tuck-blog-reapply"],
+            "verified_at": "2026-11-04",
+            "confidence": 0.85
+          },
+          {
+            "id": "K55",
+            "text": "Name what changed and what it taught you: new scope, a new team or market, coursework, sharper goals. A list of more work is not enough.",
+            "source_ids": ["al-tuck"],
+            "verified_at": "2026-11-04",
+            "confidence": 0.75,
+            "approved_rewrite": true
+          },
+          {
+            "id": "K56",
+            "text": "Say how the new experience makes you a better classmate, and show deeper engagement with Tuck: what you learned from conversations, not a list of names.",
+            "source_ids": ["al-tuck"],
+            "verified_at": "2026-11-04",
+            "confidence": 0.75,
+            "approved_rewrite": true
+          }
+        ]
+      },
+      "policy": [
+        {
+          "id": "K57",
+          "text": "Reapplicants from the most recent cycle submit one new letter of reference, from someone who has not recommended them to Tuck before.",
+          "source_ids": ["tuck-apply"],
+          "verified_at": "2026-11-04",
+          "confidence": 0.85
+        },
+        {
+          "id": "K58",
+          "text": "A test waiver can't be reused: reapplicants who had a waiver last year must apply with a score.",
+          "source_ids": ["tuck-blog-reapply"],
+          "verified_at": "2026-11-04",
+          "confidence": 0.85
+        },
+        {
+          "id": "K59",
+          "text": "Below-average scores should be retaken; supplemental quant classes are not a substitute for a better score.",
+          "source_ids": ["tuck-blog-reapply"],
+          "verified_at": "2026-11-04",
+          "confidence": 0.85
+        },
+        {
+          "id": "K60",
+          "text": "Reapplicants who miss the guaranteed-interview deadlines may have their previous interview referred to.",
+          "source_ids": ["tuck-faq"],
+          "verified_at": "2026-11-04",
+          "confidence": 0.6
+        }
+      ]
+    },
+    "optional_essay": {
+      "id": "K40",
+      "source_ids": ["tuck-apply"],
+      "verified_at": "2026-11-04",
+      "key": "optional",
+      "prompt_verbatim": "Please provide any additional insight or information that you have not addressed elsewhere (e.g., atypical choice of references, factors affecting academic performance, unexplained job gaps or changes). Complete this question only if you feel your candidacy is not fully represented by this application.",
+      "limit": {
+        "kind": "chars_incl_spaces",
+        "value": 2000
+      },
+      "required": false,
+      "archetypes": ["OPTIONAL"],
+      "parts": ["context the rest of the application doesn't give"],
+      "notes": [
+        {
+          "id": "K41",
+          "text": "Most applicants don't need this section and leaving it blank carries no penalty. Bullet points are acceptable; stay objective and avoid excuses.",
+          "source_ids": ["tuck-blog-optional"],
+          "verified_at": "2026-11-04",
+          "confidence": 0.85
+        },
+        {
+          "id": "K42",
+          "text": "Good uses: reference situations the dropdown doesn't cover, weak academics paired with better evidence, test plans, career progression the resume doesn't make obvious.",
+          "source_ids": ["tuck-blog-optional"],
+          "verified_at": "2026-11-04",
+          "confidence": 0.85
+        },
+        {
+          "id": "K43",
+          "text": "Bad uses: extra accomplishments or leadership stories, more why-Tuck, or an essay recycled from another school, which Tuck says reflects poorly on awareness.",
+          "source_ids": ["tuck-blog-optional"],
+          "verified_at": "2026-11-04",
+          "confidence": 0.85
+        }
+      ]
+    },
+    "form_sections": [
+      {
+        "id": "K61",
+        "source_ids": ["tuck-apply"],
+        "verified_at": "2026-11-04",
+        "key": "reference_choice",
+        "label": "Letters of reference — explanation if not from a current direct supervisor",
+        "guidance": [
+          {
+            "id": "K62",
+            "text": "If one reference is not the current direct supervisor, the application asks for a short explanation; give the reason and why this person can speak to the applicant's work.",
+            "source_ids": ["tuck-apply"],
+            "verified_at": "2026-11-04",
+            "confidence": 0.85
+          },
+          {
+            "id": "K63",
+            "text": "If the reason doesn't fit the dropdown, use the optional section.",
+            "source_ids": ["tuck-blog-optional"],
+            "verified_at": "2026-11-04",
+            "confidence": 0.85
+          }
+        ]
+      }
+    ],
+    "recommendations": {
+      "id": "K64",
+      "source_ids": ["tuck-apply"],
+      "verified_at": "2026-11-04",
+      "count": 2,
+      "format": "gmac_common",
+      "questions": [
+        {
+          "text_verbatim": "Please provide a brief description of your interaction with the applicant and, if applicable, the applicant's role in your organization.",
+          "limit": {
+            "kind": "words",
+            "value": 50
+          }
+        },
+        {
+          "text_verbatim": "How does the applicant's performance compare to that of other well-qualified individuals in similar roles? Provide specific examples.",
+          "limit": {
+            "kind": "words",
+            "value": 500
+          }
+        },
+        {
+          "text_verbatim": "Describe the most important piece of constructive feedback you have given the applicant. Please detail the circumstances and the applicant's response.",
+          "limit": {
+            "kind": "words",
+            "value": 500
+          }
+        },
+        {
+          "text_verbatim": "Optional: Is there anything else we should know?"
+        }
+      ],
+      "notes": [
+        {
+          "id": "K65",
+          "text": "Tuck uses the GMAC Common Letter of Recommendation questions. One letter should come from the current direct supervisor if possible.",
+          "source_ids": ["tuck-apply"],
+          "verified_at": "2026-11-04",
+          "confidence": 0.85
+        },
+        {
+          "id": "K66",
+          "text": "The reference must be the sole author. Drafting, writing, translating or submitting your own letter, even if the reference asks, violates Tuck's admissions policies and Honor Principle.",
+          "source_ids": ["tuck-apply"],
+          "verified_at": "2026-11-04",
+          "confidence": 0.85
+        },
+        {
+          "id": "K67",
+          "text": "Letters from professors who didn't supervise professional work, friends, family or athletic coaches don't help and are discouraged.",
+          "source_ids": ["tuck-apply"],
+          "verified_at": "2026-11-04",
+          "confidence": 0.85
+        },
+        {
+          "id": "K68",
+          "text": "Letters are meant to evidence all four criteria. Brief recommenders with factual examples of encouraging others and of acting on feedback, never with draft text.",
+          "source_ids": ["admitstory-coach"],
+          "verified_at": "2026-11-04",
+          "confidence": 0.85
+        }
+      ]
+    },
+    "resume": {
+      "id": "K69",
+      "source_ids": ["tuck-apply"],
+      "verified_at": "2026-11-04",
+      "page_limit": 1,
+      "notes": [
+        {
+          "id": "K70",
+          "text": "Tuck encourages a one-page resume limited to experiences during and after undergraduate studies; it is encouraged, not stated as a hard limit.",
+          "source_ids": ["tuck-apply"],
+          "verified_at": "2026-11-04",
+          "confidence": 0.85
+        },
+        {
+          "id": "K71",
+          "text": "Tuck reads the resume as the evidence for 'accomplished', and TAA interviewers see only the resume, so every line must survive a behavioural follow-up.",
+          "source_ids": ["tuck-interview"],
+          "verified_at": "2026-11-04",
+          "confidence": 0.85
+        }
+      ]
+    },
+    "test_policy": [
+      {
+        "id": "K72",
+        "text": "GMAT (all versions) and GRE accepted with no preference; no minimum score; GMAT superscores not accepted; highest total and highest sub-scores considered.",
+        "source_ids": ["tuck-apply"],
+        "verified_at": "2026-11-04",
+        "confidence": 0.85
+      },
+      {
+        "id": "K73",
+        "text": "Test waivers on request for applicants with at least two years of post-graduate work experience who meet English-language conditions; request by 12 Aug 2026 (R1), 9 Nov 2026 (R2), 5 Mar 2027 (R3). Tuck applies a very critical screen and says no score may be a disadvantage for admission and merit scholarships.",
+        "source_ids": ["tuck-apply"],
+        "verified_at": "2026-11-04",
+        "confidence": 0.85
+      },
+      {
+        "id": "K74",
+        "text": "Executive Assessment is not listed among accepted tests on the 2026-27 pages.",
+        "source_ids": ["tuck-apply"],
+        "verified_at": "2026-11-04",
+        "confidence": 0.7
+      },
+      {
+        "id": "K75",
+        "text": "Non-native English speakers submit DET, IELTS Academic, PTE Academic or TOEFL iBT unless their bachelor's was taught solely in English.",
+        "source_ids": ["tuck-apply"],
+        "verified_at": "2026-11-04",
+        "confidence": 0.85
+      }
+    ],
+    "fees_waivers": [
+      {
+        "id": "K76",
+        "text": "Application fee: US$250, non-refundable.",
+        "source_ids": ["tuck-apply"],
+        "verified_at": "2026-11-04",
+        "confidence": 0.85
+      },
+      {
+        "id": "K77",
+        "text": "Automatic waivers include active US military and veterans, citizens of UN Least Developed Countries, first-generation college graduates, Tuck undergraduate program alumni and Discover Tuck visit attendees; documented waivers include Forté MBALaunch, MLT MBA Prep, Fulbright, Peace Corps and similar programs.",
+        "source_ids": ["tuck-apply"],
+        "verified_at": "2026-11-04",
+        "confidence": 0.85
+      }
+    ]
+  },
+  "values": {
+    "stated": [
+      {
+        "id": "K78",
+        "text": "Tuck evaluates every applicant on four criteria: smart, accomplished, aware and encouraging. Essays evidence aware and encouraging; the resume, accomplished; transcripts and tests, smart; references, all four.",
+        "source_ids": ["tuck-apply"],
+        "verified_at": "2026-11-04",
+        "confidence": 0.85
+      },
+      {
+        "id": "K79",
+        "text": "Smart: curious and engaged, aware you don't know it all, motivated to learn from others' knowledge and experience.",
+        "source_ids": ["tuck-criteria"],
+        "verified_at": "2026-11-04",
+        "confidence": 0.85
+      },
+      {
+        "id": "K80",
+        "text": "Accomplished: impactful and principled — results, progression and endorsements, while acting with conviction and seeking to win the right way.",
+        "source_ids": ["tuck-criteria"],
+        "verified_at": "2026-11-04",
+        "confidence": 0.85
+      },
+      {
+        "id": "K81",
+        "text": "Aware: ambitious and purposeful — knowing how your values and experiences shaped you, with coherent goals 'audacious in scope yet grounded in reality'.",
+        "source_ids": ["tuck-criteria"],
+        "verified_at": "2026-11-04",
+        "confidence": 0.85
+      },
+      {
+        "id": "K82",
+        "text": "Encouraging: collaborative and empathetic — actively celebrating and supporting others, believing your success and others' are interdependent, and acting with integrity when it isn't convenient.",
+        "source_ids": ["tuck-criteria"],
+        "verified_at": "2026-11-04",
+        "confidence": 0.85
+      },
+      {
+        "id": "K83",
+        "text": "Mission: Tuck develops wise, decisive leaders who better the world through business; it describes itself as personal, connected and transformative.",
+        "source_ids": ["tuck-mission"],
+        "verified_at": "2026-11-04",
+        "confidence": 0.85
+      }
+    ],
+    "trait_map": [
+      {
+        "school_value": "smart, curious, engaged",
+        "admitstory_traits": ["curious_learner"],
+        "note": {
+          "id": "K84",
+          "text": "Don't spend essay space proving intelligence; scores and transcripts do that. Curiosity can show through learning from or teaching others.",
+          "source_ids": ["al-tuck"],
+          "verified_at": "2026-11-04",
+          "confidence": 0.75,
+          "approved_rewrite": true
+        }
+      },
+      {
+        "school_value": "accomplished, impactful, principled",
+        "admitstory_traits": ["measurable_impact", "principled_stands"],
+        "note": {
+          "id": "K85",
+          "text": "Accomplishment belongs on the resume and in the letters; in essays it reads as bragging. 'Principled' rules out win-at-all-costs stories.",
+          "source_ids": ["al-tuck"],
+          "verified_at": "2026-11-04",
+          "confidence": 0.75,
+          "approved_rewrite": true
+        }
+      },
+      {
+        "school_value": "aware, ambitious, purposeful",
+        "admitstory_traits": ["self_aware", "acts_on_feedback", "honest_about_limits"],
+        "note": {
+          "id": "K86",
+          "text": "Awareness covers both self-knowledge and realistic goals; Tuck also wants evidence of taking direct feedback well.",
+          "source_ids": ["al-tuck"],
+          "verified_at": "2026-11-04",
+          "confidence": 0.75,
+          "approved_rewrite": true
+        }
+      },
+      {
+        "school_value": "encouraging, collaborative, empathetic",
+        "admitstory_traits": [
+          "empathetic",
+          "develops_people",
+          "brings_people_along",
+          "community_builder"
+        ],
+        "note": {
+          "id": "K87",
+          "text": "Tuck has described this as investing in the success of others; show it through actions in stories and in what recommenders say.",
+          "source_ids": ["al-tuck"],
+          "verified_at": "2026-11-04",
+          "confidence": 0.75,
+          "approved_rewrite": true
+        }
+      },
+      {
+        "school_value": "global perspective (institutional priority, not a formal criterion)",
+        "admitstory_traits": ["global_outlook"],
+        "note": {
+          "id": "K88",
+          "text": "Tuck has worked to strengthen its global reach, so international experience or perspective is worth surfacing where it is real.",
+          "source_ids": ["al-tuck"],
+          "verified_at": "2026-11-04",
+          "confidence": 0.6,
+          "approved_rewrite": true
+        }
+      }
+    ]
+  },
+  "culture_and_location": [
+    {
+      "id": "K89",
+      "text": "Tuck offers only a full-time, residential MBA in Hanover, New Hampshire, and calls itself a close-knit community built on trust, respect and learning from one another.",
+      "source_ids": ["tuck-academics"],
+      "verified_at": "2026-11-04",
+      "confidence": 0.85
+    },
+    {
+      "id": "K90",
+      "text": "Tuck claims the world's best and most responsive alumni network and says its alumni give back at the highest rate among peer schools.",
+      "source_ids": ["tuck-mission"],
+      "verified_at": "2026-11-04",
+      "confidence": 0.85
+    },
+    {
+      "id": "K91",
+      "text": "In a small, remote town almost nobody arrives with an existing circle, so the school needs people who join things, try new things and get past disagreements quickly. Show sociability through things you have actually done.",
+      "source_ids": ["al-tuck"],
+      "verified_at": "2026-11-04",
+      "confidence": 0.75,
+      "approved_rewrite": true
+    },
+    {
+      "id": "K92",
+      "text": "Tuck admissions staff have described joining Tuck as a lifetime commitment, so they look for people who will stay involved as alumni.",
+      "source_ids": ["al-tuck"],
+      "verified_at": "2026-11-04",
+      "confidence": 0.65,
+      "approved_rewrite": true
+    }
+  ],
+  "academics": {
+    "courses": [
+      {
+        "id": "K100",
+        "source_ids": ["tuck-academics"],
+        "verified_at": "2026-11-04",
+        "name": "Management Science and Quantitative Methods Option (STEM)",
+        "what_it_is": "Pass or exempt core Analytics 1 and 2 and take at least 15 qualifying elective credits; the STEM-designated MBA may give F-1 students an extra 24 months of OPT.",
+        "why_it_matters_for": [
+          "international applicants who want to work in the US after graduating",
+          "analytics, tech and product goals"
+        ],
+        "url": "https://www.tuck.dartmouth.edu/mba/academic-experience/management-science-and-quantitative-analysis"
+      }
+    ],
+    "centers": [
+      {
+        "id": "K102",
+        "source_ids": ["tuck-centers"],
+        "verified_at": "2026-11-04",
+        "name": "Center for Health Care",
+        "what_it_is": "Fosters learning, leadership and career aspirations in health care.",
+        "why_it_matters_for": ["health care and life sciences goals"],
+        "url": "https://tuck.dartmouth.edu/faculty/research-centers"
+      },
+      {
+        "id": "K103",
+        "source_ids": ["tuck-centers"],
+        "verified_at": "2026-11-04",
+        "name": "Glassmeyer/McNamee Center for Digital Strategies",
+        "what_it_is": "Focuses on how digital strategies create competitive advantage in companies and value chains.",
+        "why_it_matters_for": ["tech, product and digital strategy goals"],
+        "url": "https://tuck.dartmouth.edu/faculty/research-centers"
+      },
+      {
+        "id": "K104",
+        "source_ids": ["tuck-centers"],
+        "verified_at": "2026-11-04",
+        "name": "Center for Entrepreneurship",
+        "what_it_is": "Supports entrepreneurial aspirations of all sizes and stages.",
+        "why_it_matters_for": ["founders and early-stage goals"],
+        "url": "https://tuck.dartmouth.edu/faculty/research-centers"
+      },
+      {
+        "id": "K105",
+        "source_ids": ["tuck-centers"],
+        "verified_at": "2026-11-04",
+        "name": "Center for Private Equity and Venture Capital",
+        "what_it_is": "Experiential and academic preparation for PE and VC investors.",
+        "why_it_matters_for": ["PE and VC goals"],
+        "url": "https://tuck.dartmouth.edu/faculty/research-centers"
+      },
+      {
+        "id": "K106",
+        "source_ids": ["tuck-centers"],
+        "verified_at": "2026-11-04",
+        "name": "Revers Center for Energy, Sustainability and Innovation",
+        "what_it_is": "Shapes leaders in energy and engages the energy community.",
+        "why_it_matters_for": ["energy, climate and sustainability goals"],
+        "url": "https://tuck.dartmouth.edu/faculty/research-centers"
+      },
+      {
+        "id": "K107",
+        "source_ids": ["tuck-centers"],
+        "verified_at": "2026-11-04",
+        "name": "Center for Business, Government & Society",
+        "what_it_is": "Prepares leaders for the complexity of the global economy at the business–government boundary.",
+        "why_it_matters_for": ["policy, social impact and public-sector goals"],
+        "url": "https://tuck.dartmouth.edu/faculty/research-centers"
+      }
+    ],
+    "experiential": [
+      {
+        "id": "K96",
+        "source_ids": ["tuck-academics"],
+        "verified_at": "2026-11-04",
+        "name": "First-Year Project (FYP)",
+        "what_it_is": "A required spring-term course in which teams of Tuck students apply the first-year core to a strategic problem for a real client, from startups and nonprofits to global companies; an entrepreneurial version (eFYP) develops a student's own idea.",
+        "why_it_matters_for": [
+          "career switchers needing hands-on proof",
+          "entrepreneurs (eFYP)",
+          "the why-Tuck part of Essay 1"
+        ],
+        "url": "https://www.tuck.dartmouth.edu/mba/academic-experience/required-curriculum/first-year-project"
+      },
+      {
+        "id": "K97",
+        "source_ids": ["tuck-academics"],
+        "verified_at": "2026-11-04",
+        "name": "Bakala TuckGO global requirement",
+        "what_it_is": "Every student must take at least one TuckGO course in a country new to them during the program.",
+        "why_it_matters_for": ["global careers", "applicants with an international goal"],
+        "url": "https://www.tuck.dartmouth.edu/mba/academic-experience/required-curriculum/global-opportunities-requirement"
+      },
+      {
+        "id": "K98",
+        "source_ids": ["tuck-academics"],
+        "verified_at": "2026-11-04",
+        "name": "Global Insight Expeditions (GIX)",
+        "what_it_is": "Immersive, faculty-led courses that begin at Tuck and then travel abroad; destinations change every year (2026-27 includes Armenia, Colombia, Japan, Singapore, South Africa, Argentina and Vietnam).",
+        "why_it_matters_for": ["global careers", "industry or region exposure tied to the goal"],
+        "url": "https://tuck.dartmouth.edu/mba/academic-experience/elective-curriculum/global-insight-expeditions"
+      },
+      {
+        "id": "K99",
+        "source_ids": ["tuck-academics"],
+        "verified_at": "2026-11-04",
+        "name": "Term Exchange",
+        "what_it_is": "Second-year students can spend a term at a partner school abroad (for example LBS, HEC Paris, IESE, ISB, NUS, HKUST, Bocconi).",
+        "why_it_matters_for": ["applicants targeting a specific region"],
+        "url": "https://tuck.dartmouth.edu/mba/academic-experience/term-exchange"
+      },
+      {
+        "id": "K101",
+        "source_ids": ["tuck-academics"],
+        "verified_at": "2026-11-04",
+        "name": "Leadership development plan and coaching",
+        "what_it_is": "First-years compare how they see themselves with how others see them; that feeds a required leadership development plan with individual coaching, and second-year Leadership Fellows coach first-years.",
+        "why_it_matters_for": [
+          "Essay 1 'where you need to grow'",
+          "applicants naming a specific leadership gap"
+        ],
+        "url": "https://tuck.dartmouth.edu/mba/academic-experience/leadership-development"
+      }
+    ],
+    "structure": [
+      {
+        "id": "K93",
+        "text": "Year one is an integrated core (analytics, finance, economics, marketing, organisational behaviour, strategy, communication, operations), starting with the required two-week Tuck Launch; year two is electives, with more than 100 to choose from.",
+        "source_ids": ["tuck-academics"],
+        "verified_at": "2026-11-04",
+        "confidence": 0.85
+      },
+      {
+        "id": "K94",
+        "text": "Tuck has no majors; students may specialise informally (for example in finance or strategy). Graduation also requires the ethics and social responsibility requirement and the global requirement.",
+        "source_ids": ["tuck-academics"],
+        "verified_at": "2026-11-04",
+        "confidence": 0.85
+      },
+      {
+        "id": "K95",
+        "text": "Students with extensive background in a subject can exempt a core course and take an elective instead.",
+        "source_ids": ["tuck-academics"],
+        "verified_at": "2026-11-04",
+        "confidence": 0.85
+      }
+    ]
+  },
+  "community": {
+    "clubs": [],
+    "traditions": [],
+    "treks_events": [
+      {
+        "id": "K108",
+        "source_ids": ["tuck-academics"],
+        "verified_at": "2026-11-04",
+        "name": "Industry treks",
+        "what_it_is": "Tuck's industry specialists take groups of students to major cities to tour firms, meet industry leaders and Tuck alumni (examples: a Silicon Valley tech trek, an NYC ESG investing deep dive).",
+        "why_it_matters_for": [
+          "career switchers",
+          "contribution: helping organise a trek in your current industry or city"
+        ],
+        "url": "https://tuck.dartmouth.edu/mba/career-services/industry-treks"
+      }
+    ]
+  },
+  "careers": {
+    "employment_report": {
+      "id": "K109",
+      "source_ids": ["tuck-employment-2025"],
+      "verified_at": "2026-11-04",
+      "class_year": 2025,
+      "currency": "USD",
+      "by_function": [
+        {
+          "function": "Consulting (industry)",
+          "share": 0.41,
+          "median_base": 190000
+        },
+        {
+          "function": "Financial services (industry)",
+          "share": 0.27,
+          "median_base": 175000
+        },
+        {
+          "function": "Technology (industry)",
+          "share": 0.13,
+          "median_base": null
+        }
+      ],
+      "top_employers": [],
+      "intl_offer_rates": {
+        "id": "K110",
+        "text": "International students, three months after graduation: 92% received an offer and 88% accepted.",
+        "source_ids": ["tuck-employment-2025"],
+        "verified_at": "2026-11-04",
+        "confidence": 0.85
+      }
+    },
+    "recruiting_notes": [
+      {
+        "id": "K111",
+        "text": "Class of 2025: 90% had an offer and 87% accepted within three months; median base US$175,000, median signing bonus US$30,000; 70% found roles through school-facilitated activities.",
+        "source_ids": ["tuck-employment-2025"],
+        "verified_at": "2026-11-04",
+        "confidence": 0.85
+      },
+      {
+        "id": "K112",
+        "text": "Top locations for the Class of 2025: New York and Boston (27% each), then the San Francisco Bay Area (9%).",
+        "source_ids": ["tuck-employment-2025"],
+        "verified_at": "2026-11-04",
+        "confidence": 0.85
+      },
+      {
+        "id": "K113",
+        "text": "Pick at least one target employer that actually recruits at Tuck (from the employment report), since the career office reviews goal realism.",
+        "source_ids": ["al-tuck"],
+        "verified_at": "2026-11-04",
+        "confidence": 0.75,
+        "approved_rewrite": true
+      }
+    ]
+  },
+  "class_profile": {
+    "id": "K114",
+    "source_ids": ["tuck-profile"],
+    "verified_at": "2026-11-04",
+    "class_year": 2028,
+    "class_size": 282,
+    "gmat_focus_median": null,
+    "gmat_classic_median": null,
+    "gre_median": null,
+    "gpa_median": null,
+    "gpa_scale": null,
+    "work_experience_years_median": null,
+    "international_share": 0.39
+  },
+  "interview": {
+    "id": "K122",
+    "source_ids": ["tuck-interview"],
+    "verified_at": "2026-11-04",
+    "invitation": "guaranteed_if_by_date",
+    "who": ["student", "adcom"],
+    "blind": true,
+    "length_min": 45,
+    "location": ["virtual", "campus"],
+    "common_questions": [],
+    "format_notes": [
+      {
+        "id": "K123",
+        "text": "Every admitted applicant interviews. Most interviews are run by trained second-year Tuck Admissions Associates (TAAs); they last 30–45 minutes.",
+        "source_ids": ["tuck-interview"],
+        "verified_at": "2026-11-04",
+        "confidence": 0.85
+      },
+      {
+        "id": "K124",
+        "text": "The interviewer uses only the resume and asks behavioural questions aimed at evidence of the four criteria, so prepare one story per criterion.",
+        "source_ids": ["tuck-interview"],
+        "verified_at": "2026-11-04",
+        "confidence": 0.85
+      },
+      {
+        "id": "K125",
+        "text": "Guaranteed and invited, in-person and virtual interviews are valued equally; invitation timing doesn't signal interest.",
+        "source_ids": ["tuck-interview"],
+        "verified_at": "2026-11-04",
+        "confidence": 0.85
+      },
+      {
+        "id": "K126",
+        "text": "Prepare questions for the end that show you've done the student-conversation homework.",
+        "source_ids": ["tuck-interview"],
+        "verified_at": "2026-11-04",
+        "confidence": 0.85
+      }
+    ]
+  },
+  "ai_policy": {
+    "id": "K127",
+    "source_ids": ["tuck-apply"],
+    "verified_at": "2026-11-04",
+    "stance": "limited",
+    "applies_to": ["essays", "recommendations"],
+    "disclosure_text": null,
+    "notes": [
+      {
+        "id": "K128",
+        "text": "Tuck expects essays to be 'entirely accurate and exclusively yours'; using tools or professional services to create content that is not your own violates its admissions policies and Honor Principle. The page doesn't mention AI by name.",
+        "source_ids": ["tuck-apply"],
+        "verified_at": "2026-11-04",
+        "confidence": 0.85
+      },
+      {
+        "id": "K129",
+        "text": "Recommenders must be the sole authors of their letters.",
+        "source_ids": ["tuck-apply"],
+        "verified_at": "2026-11-04",
+        "confidence": 0.85
+      }
+    ]
+  },
+  "scholarships": [
+    {
+      "id": "K130",
+      "text": "Applicants without a test score may be at a disadvantage for competitive merit scholarships.",
+      "source_ids": ["tuck-faq"],
+      "verified_at": "2026-11-04",
+      "confidence": 0.85
+    }
+  ],
+  "insider_notes": [
+    {
+      "id": "K115",
+      "text": "Class of 2028 profile reports averages, not medians: GMAT Focus 682 (middle 80% 635–735), GRE 161 verbal and 161 quant, undergraduate GPA 3.5, six years of work experience (middle 80% 4–9). 59% submitted the GRE.",
+      "source_ids": ["tuck-profile"],
+      "verified_at": "2026-11-04",
+      "confidence": 0.85
+    },
+    {
+      "id": "K116",
+      "text": "Class of 2028: 46% women, 39% international including dual citizens and permanent residents (29% foreign nationals), 13% first-generation, 16% with a previous advanced degree; 18% came from nonprofit or government.",
+      "source_ids": ["tuck-profile"],
+      "verified_at": "2026-11-04",
+      "confidence": 0.85
+    },
+    {
+      "id": "K117",
+      "text": "For the Class of 2028, applications fell 31.5% to 2,237 and the acceptance rate rose to 42.5%; enrolment was 282.",
+      "source_ids": ["pq-tuck-2026"],
+      "verified_at": "2026-11-04",
+      "confidence": 0.85
+    },
+    {
+      "id": "K118",
+      "text": "Executive director Lawrence Mur'ray said what stood out was not one metric but 'the combination of accomplishment, curiosity, leadership potential, and a genuine desire to learn from one another', and that Tuck remains committed to international students while being candid about visa uncertainty.",
+      "source_ids": ["pq-tuck-2026"],
+      "verified_at": "2026-11-04",
+      "confidence": 0.85
+    },
+    {
+      "id": "K119",
+      "text": "Mur'ray on the 2026-27 essays: they let Tuck learn things that don't surface from a resume or test scores, and the refined questions are meant to let candidates 'earnestly show us who they are'.",
+      "source_ids": ["tuck-launch-2026"],
+      "verified_at": "2026-11-04",
+      "confidence": 0.85
+    },
+    {
+      "id": "K120",
+      "text": "Former executive director Luke Anthony Peña framed the 'nice' criterion (now 'encouraging') as being invested in others' success as well as your own, without being a pushover.",
+      "source_ids": ["pq-pena-2018"],
+      "verified_at": null,
+      "confidence": 0.6
+    },
+    {
+      "id": "K121",
+      "text": "Tuck admissions has said it looks for applicants who have gone out of their way to get to know Tuck students; ask the admissions office to connect you with a student, since they match thoughtfully.",
+      "source_ids": ["al-tuck"],
+      "verified_at": "2026-11-04",
+      "confidence": 0.65,
+      "approved_rewrite": true
+    }
+  ],
+  "avoid": [
+    {
+      "id": "K131",
+      "text": "Restating the goal boxes in Essay 1.",
+      "source_ids": ["tuck-blog-essays"],
+      "verified_at": "2026-11-04",
+      "confidence": 0.85
+    },
+    {
+      "id": "K132",
+      "text": "Long lists of Tuck students and alumni the applicant has spoken to.",
+      "source_ids": ["tuck-blog-essays"],
+      "verified_at": "2026-11-04",
+      "confidence": 0.85
+    },
+    {
+      "id": "K133",
+      "text": "Character-limit hacks such as running words together; Tuck says it views this negatively.",
+      "source_ids": ["tuck-blog-essays"],
+      "verified_at": "2026-11-04",
+      "confidence": 0.85
+    },
+    {
+      "id": "K134",
+      "text": "A list of clubs and classes as the answer to 'how will you enrich Tuck'.",
+      "source_ids": ["tuck-blog-essays"],
+      "verified_at": "2026-11-04",
+      "confidence": 0.85
+    },
+    {
+      "id": "K135",
+      "text": "Hero stories or large-group leadership stories in Essay 3.",
+      "source_ids": ["tuck-blog-essays"],
+      "verified_at": "2026-11-04",
+      "confidence": 0.85
+    },
+    {
+      "id": "K136",
+      "text": "Recycling another school's essay in the optional section.",
+      "source_ids": ["tuck-blog-optional"],
+      "verified_at": "2026-11-04",
+      "confidence": 0.85
+    },
+    {
+      "id": "K137",
+      "text": "Using essays to prove intelligence or list achievements; they read as bragging against the 'encouraging' bar.",
+      "source_ids": ["al-tuck"],
+      "verified_at": "2026-11-04",
+      "confidence": 0.75,
+      "approved_rewrite": true
+    },
+    {
+      "id": "K138",
+      "text": "Claiming you'll join or lead a hobby or affinity club with no history of doing anything like it, such as promising to learn ice hockey with no evidence.",
+      "source_ids": ["al-tuck"],
+      "verified_at": "2026-11-04",
+      "confidence": 0.75,
+      "approved_rewrite": true
+    }
+  ],
+  "angles_that_work": [
+    {
+      "id": "K139",
+      "text": "Essay 1 built on a discovered gap: the moment the applicant realised what they couldn't yet do, who or what showed them, and the specific Tuck resource that closes it.",
+      "source_ids": ["al-tuck"],
+      "verified_at": "2026-11-04",
+      "confidence": 0.75,
+      "approved_rewrite": true
+    },
+    {
+      "id": "K140",
+      "text": "Essay 2 reverse-engineered from a concrete contribution the applicant has already made elsewhere and would make again at Tuck (for example running mock interviews for the club they'd join), traced back to one formative root.",
+      "source_ids": ["al-tuck"],
+      "verified_at": "2026-11-04",
+      "confidence": 0.75,
+      "approved_rewrite": true
+    },
+    {
+      "id": "K141",
+      "text": "Essay 3 about helping one colleague through something hard where the applicant took a real cost, understood the person's position, and later changed how they support people.",
+      "source_ids": ["al-tuck"],
+      "verified_at": "2026-11-04",
+      "confidence": 0.75,
+      "approved_rewrite": true
+    },
+    {
+      "id": "K142",
+      "text": "Across the three essays, Tuck sees one person: the goal's origin, the identity root and the support story should each show a different side and never reuse a scene.",
+      "source_ids": ["admitstory-coach"],
+      "verified_at": "2026-11-04",
+      "confidence": 0.85
+    },
+    {
+      "id": "K143",
+      "text": "Open each essay inside a scene with a real person in it; at 2,000 characters there's room for one scene, the turn, and a closing forward beat.",
+      "source_ids": ["admitstory-coach"],
+      "verified_at": "2026-11-04",
+      "confidence": 0.85
+    }
+  ],
+  "glossary": [
+    {
+      "id": "K144",
+      "source_ids": ["tuck-interview"],
+      "verified_at": "2026-11-04",
+      "term": "TAA",
+      "plain_definition": "Tuck Admissions Associate: a trained second-year student who runs most admissions interviews."
+    },
+    {
+      "id": "K145",
+      "source_ids": ["tuck-academics"],
+      "verified_at": "2026-11-04",
+      "term": "TuckGO",
+      "plain_definition": "Tuck's global requirement: at least one course in a country new to the student."
+    },
+    {
+      "id": "K146",
+      "source_ids": ["tuck-academics"],
+      "verified_at": "2026-11-04",
+      "term": "GIX",
+      "plain_definition": "Global Insight Expedition: a faculty-led course that starts at Tuck and travels abroad."
+    },
+    {
+      "id": "K147",
+      "source_ids": ["tuck-academics"],
+      "verified_at": "2026-11-04",
+      "term": "FYP",
+      "plain_definition": "First-Year Project: the required spring consulting-style project for a real client."
+    },
+    {
+      "id": "K148",
+      "source_ids": ["tuck-employment-2025"],
+      "verified_at": "2026-11-04",
+      "term": "T'25",
+      "plain_definition": "How Tuck writes class years: T'25 is the Class of 2025."
+    }
+  ]
+}

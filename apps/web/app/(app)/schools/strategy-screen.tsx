@@ -13,11 +13,12 @@ import type { StrategyRow } from "@/lib/strategy/types";
 import { AddSchools } from "./add-schools";
 import { SchoolList } from "./school-list";
 
-// Screen E (spec §5.5, §6.10 E; docs/design/phase-3-4-direction.md). From top to bottom: the next
-// step as the headline, add schools, the horizon (the hero: selecting two morphs the lanes into
-// columns with the comparison beneath), honest flags, the round planner, and the list with each
-// school's round and "Preview kit". The horizon carries Motion, so it loads on its own behind a
-// placeholder of its exact shape.
+// Screen E (spec §5.5, §6.10 E; school workspace redesign). From top to bottom: the headline,
+// add schools, your schools as cards (a paid school opens into its tabs; the rest offer Unlock
+// and a free preview), then planning: the horizon (selecting two morphs the lanes into columns
+// with the comparison beneath), honest flags, the round planner, and each school's round and
+// reapplicant details. The horizon carries Motion, so it loads on its own behind a placeholder of
+// its exact shape.
 
 /** How many lanes the horizon will have, so its placeholder holds the exact shape. */
 const HorizonLanes = createContext(0);
@@ -36,23 +37,26 @@ export interface StrategyScreenProps {
   rows: StrategyRow[];
   horizon: HorizonSchool[];
   comparison: { columns: MatrixColumn[]; groups: MatrixGroup[] };
+  /** The school cards, already rendered on the server. */
+  cards: ReactNode;
   /** The honest flags and the round planner, already rendered on the server. */
   details: ReactNode;
   now: string;
   timeZone: string;
 }
 
-function headline(rows: readonly StrategyRow[], selected: number): string {
-  if (rows.length === 0) return "Add your first school to see its rounds and what it asks for";
-  if (rows.length === 1) return "Add a second school to compare them side by side";
-  if (selected < 2) return "Pick two schools to compare side by side";
-  return "Read down each column, then plan your rounds";
+function headline(rows: readonly StrategyRow[]): string {
+  if (rows.length === 0) return "Add your first school to see its rounds and what it asks for.";
+  if (rows.some((r) => r.kit?.status === "ready"))
+    return "Open a school to work on its essays, forms, briefs and résumé.";
+  return "Unlock a school and we draft everything it asks for from your stories.";
 }
 
 export function StrategyScreen({
   rows,
   horizon,
   comparison,
+  cards,
   details,
   now,
   timeZone,
@@ -78,11 +82,24 @@ export function StrategyScreen({
     <div className="mx-auto flex w-full max-w-6xl flex-col gap-12 px-5 py-10 sm:px-10 sm:py-14">
       <header className="flex flex-col gap-4 border-b border-edge pb-8">
         <p className="eyebrow">Where you will apply</p>
-        <h1 className="text-display text-text">School Strategy</h1>
-        <p className="max-w-essay text-lg text-text-soft">{headline(rows, selected.length)}</p>
+        <h1 className="text-display text-text">
+          Your <em>schools</em>
+        </h1>
+        <p className="max-w-essay text-lg text-text-soft">{headline(rows)}</p>
       </header>
 
+      {cards}
+
       <AddSchools inputRef={searchRef} autoFocus={rows.length === 0} />
+
+      <div className="flex flex-col gap-2 border-t border-edge pt-10">
+        <p className="eyebrow">Plan your rounds</p>
+        <p className="max-w-essay text-text-soft">
+          {selected.length < 2 && rows.length > 1
+            ? "Pick two schools on the timeline to compare them side by side."
+            : "Deadlines in your time zone, honest flags, and the round you plan for each school."}
+        </p>
+      </div>
 
       <section aria-labelledby="horizon-heading" className="flex flex-col gap-4">
         <h2

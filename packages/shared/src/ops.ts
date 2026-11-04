@@ -105,14 +105,14 @@ export const FEATURE_SWITCHES: Record<FeatureKey, FeatureSwitchDef> = {
     label: "Refinements",
     area: "Kits",
     userMessage: "Refining is paused for a few minutes. Your drafts are saved.",
-    tasks: ["draft.revise", "draft.need_fill"],
+    tasks: ["draft.revise", "draft.need_fill", "chat.revise"],
   },
   forms_resume: {
     key: "forms_resume",
     label: "Form advice and résumé pass",
     area: "Kits",
     userMessage: "Form advice and the résumé pass are paused for a few minutes.",
-    tasks: ["forms.advise", "resume.review"],
+    tasks: ["forms.advise", "resume.review", "resume.write"],
   },
   recommender_briefs: {
     key: "recommender_briefs",

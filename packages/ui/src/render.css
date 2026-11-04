@@ -175,6 +175,21 @@
   }
 }
 
+/* The model seal's ring of text: one turn every two minutes, still under reduced motion. */
+@keyframes seal-turn {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@utility seal-turn {
+  transform-origin: 100px 100px;
+  animation: seal-turn 120s linear infinite;
+  @media (prefers-reduced-motion: reduce) {
+    animation: none;
+  }
+}
+
 /* A section with nothing in it yet: a dashed sheet holding one quiet line. */
 @utility placeholder {
   border: 1px dashed var(--edge);

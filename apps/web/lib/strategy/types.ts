@@ -74,4 +74,10 @@ export interface StrategyRow {
   /** "Verified 12 Sep 2026" for a published pack. */
   verified: string | null;
   roundOptions: { value: string; label: string }[];
+  /** The paid kit, once there is one (school workspace redesign). */
+  kit?: { status: "pending" | "running" | "ready" | "failed"; done: number; total: number } | null;
+  /** The planned round's deadline, else the next one: "R2 · 6 Jan 2027". */
+  nextDeadline?: string | null;
+  /** How many essays and short answers the school asks for, from its pack. */
+  essays?: number;
 }

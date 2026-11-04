@@ -10,3 +10,4 @@ version: 1
 - **DEC-02** Scholarships are recruiting tools. Ask after admission, respectfully, citing a genuine competing offer from a peer school; never imply the school was a fallback.
 - **DEC-03** Choose on outcomes in the target function and location, net cost after aid, fit and specific resources — rankings as a tie-breaker.
 - **DEC-04** After a rejection, take the feedback call if offered; analyse academics, leadership evidence, goal credibility, school engagement and pool competitiveness; pick 1–2 verifiable changes.
+- **DEC-05** Financing statements are honest: borrowing is normal (name a pre-approval only if real); never claim funding they don't have or present a scholarship as the plan; real hardship can be stated factually.

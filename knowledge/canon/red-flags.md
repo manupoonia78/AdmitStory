@@ -21,5 +21,7 @@ Never leave a doubt unaddressed; reframe it with evidence, not excuses.
 | FLAG-09 | Very common profile for the pool | Lean into specific traits, an unusual angle, a distinctive goal rooted in lived experience |
 | FLAG-10 | Younger or older than the typical class | Younger: show maturity and scope. Older: show openness to learning and why now |
 | FLAG-11 | Career switcher | Name the switch in one sentence; spend the space on the connecting thread and the homework done to test the switch |
+| FLAG-12 | Employment gap, layoff or short final stint | One factual sentence; for a layoff, evidence it wasn't personal (scale of the cut, a manager who vouches); what they did with the time; then proof of employability since. Never lie about a dismissal, but don't volunteer one unprompted |
+| FLAG-13 | Requesting a test waiver | Don't disclose or explain a weak score; show quantitative readiness with strong grades in quant courses and analytical work described in plain business language, plus anything recently self-taught |
 
 Structure for addressing a flag directly (optional essay or a short paragraph): what happened (1–2 sentences, factual) → real context, not an excuse → what the applicant did about it → what's different now.

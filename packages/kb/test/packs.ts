@@ -1,5 +1,5 @@
-// Loads the six fictional fixture packs (fixtures/schools) and the Darden draft
-// (knowledge/schools) for the tests. Raw JSON: each test parses what it needs.
+// Loads the six fictional fixture packs (fixtures/schools) and the Appendix G Darden draft
+// (fixtures/drafts) for the tests. Raw JSON: each test parses what it needs.
 
 import { readFileSync, readdirSync } from "node:fs";
 import { join } from "node:path";
@@ -10,7 +10,7 @@ import type { SchoolPack } from "../src/types";
 const ROOT = fileURLToPath(new URL("../../../", import.meta.url));
 
 export const FIXTURE_DIR = join(ROOT, "fixtures/schools");
-export const DARDEN_DRAFT = join(ROOT, "knowledge/schools/darden/2026-27/pack.draft.json");
+export const DARDEN_DRAFT = join(ROOT, "fixtures/drafts/darden-appendix-g/pack.draft.json");
 
 export const FIXTURE_SLUGS = readdirSync(FIXTURE_DIR, { withFileTypes: true })
   .filter((entry) => entry.isDirectory())

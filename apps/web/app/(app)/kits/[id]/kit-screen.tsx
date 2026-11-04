@@ -13,11 +13,15 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useMemo, useState, type FormEvent } from "react";
 import { AlertMessage, StatusMessage } from "@/components/live-message";
+import { ModelCredit } from "@/components/model-seal";
 import type { KitView } from "@/lib/kit/view";
+import { schoolHref } from "@/lib/school/tabs";
+import { ENOUGH_STORIES, type SchoolPrep } from "@/lib/school/prep-types";
 
-// Screen F (spec §5.7, §6.7, §6.10 F; direction doc F). The Voiceprint on the left, the
-// deliverables on the right, threads from stories to deliverables as the file map lands, and first
-// lines arriving as drafts finish. Done stages offer "Read it now" so reading starts early.
+// The school page before its drafts are ready (spec §5.7 screen F, school workspace redesign).
+// Three steps, top to bottom: your stories (enough of them, or a nudge to Story Studio), the
+// school's own questions with what the school offers for your goal, and the drafts assembling
+// live. The moment the kit is ready the page opens the school's tabs.
 
 const READABLE = new Set(["positioning", "file_map", "drafts", "short_form", "checks", "verify"]);
 
@@ -58,12 +62,38 @@ function deliverablesOf(view: KitView): KitDeliverable[] {
   }));
 }
 
+function Step({
+  n,
+  title,
+  done,
+  children,
+}: {
+  n: number;
+  title: string;
+  done: boolean;
+  children: React.ReactNode;
+}) {
+  return (
+    <li className="grid gap-4 border-t border-edge py-8 md:grid-cols-[12rem_minmax(0,1fr)] md:gap-10">
+      <div className="flex items-baseline gap-3 md:flex-col md:gap-2">
+        <span className="meta text-accent">{done ? "Done" : `Step ${n}`}</span>
+        <h2 className="font-display text-[1.5rem] leading-tight tracking-[-0.01em] text-text">
+          {title}
+        </h2>
+      </div>
+      <div className="flex min-w-0 flex-col gap-4">{children}</div>
+    </li>
+  );
+}
+
 export function KitScreen({
   initial,
   identity,
+  prep,
 }: {
   initial: KitView;
   identity: VoiceprintIdentity;
+  prep: SchoolPrep;
 }) {
   const router = useRouter();
   const [view, setView] = useState(initial);
@@ -78,7 +108,10 @@ export function KitScreen({
     source.addEventListener("kit", (event) => {
       const next = JSON.parse((event as MessageEvent<string>).data) as KitView;
       setView(next);
-      if (next.status === "ready") setStatus(`Your ${next.school} kit is ready.`);
+      if (next.status === "ready") {
+        setStatus(`Your ${next.school} drafts are ready.`);
+        router.replace(schoolHref(prep.userSchoolId));
+      }
     });
     return () => source.close();
     // One stream per kit; it closes itself once the kit settles.
@@ -97,6 +130,9 @@ export function KitScreen({
   function read() {
     if (firstDeliverable) router.push(`/workspace/${firstDeliverable.id}`);
   }
+
+  const storiesReady = prep.stories >= ENOUGH_STORIES && prep.goalsSet;
+  const answered = gapMode === "done" || gapMode === "skipped" || gapCount === 0;
 
   async function retry(deliverableId: string) {
     setError("");
@@ -177,36 +213,115 @@ export function KitScreen({
   );
 
   return (
-    <div className="mx-auto flex w-full max-w-[90rem] flex-col gap-10 px-4 py-10 sm:px-8 sm:py-14">
-      <header className="flex flex-col gap-3">
+    <div className="mx-auto flex w-full max-w-6xl flex-col gap-6 px-5 py-10 sm:px-10 sm:py-14">
+      <header className="flex flex-col gap-4">
+        <Link
+          href="/schools"
+          className="meta text-text-soft underline-offset-4 hover:text-text hover:underline"
+        >
+          Schools / {view.school} {prep.cycle}
+        </Link>
         <h1 className="text-display text-text">
-          {starting
-            ? "Payment confirmed, starting your kit"
-            : view.status === "ready"
-              ? `Your ${view.school} kit`
-              : `Building your ${view.school} kit`}
+          {starting ? (
+            <>
+              Payment confirmed. <em>Let&apos;s get {view.school} ready.</em>
+            </>
+          ) : view.status === "ready" ? (
+            <>
+              Your {view.school} application is <em>ready</em>
+            </>
+          ) : (
+            <>
+              Getting <em>{view.school}</em> ready
+            </>
+          )}
         </h1>
+        <p className="max-w-essay text-lg text-text-soft">
+          We draft every essay, form entry, video plan and recommender brief from your stories and
+          what we know about {view.school}. Then you shape each one by chatting beside it.
+        </p>
         {view.error ? <p className="text-text">{view.error} Your other essays are ready.</p> : null}
         {view.status === "ready" && firstDeliverable ? (
           <div>
             <Button asChild>
-              <Link href={`/workspace/${firstDeliverable.id}`}>Open the workspace</Link>
+              <Link href={`/workspace/${firstDeliverable.id}`}>Open {view.school}</Link>
             </Button>
           </div>
         ) : null}
       </header>
       <StatusMessage message={status} />
       <AlertMessage message={error} />
-      <KitAssembly
-        identity={identity}
-        stories={stories}
-        deliverables={deliverablesOf(view)}
-        stages={stagesOf(view)}
-        deliverablesHeading={`What ${view.school} asks for`}
-        onStageAction={read}
-        onRetry={(key) => void retry(key)}
-        aside={aside}
-      />
+
+      <ol className="flex flex-col">
+        <Step n={1} title="Your stories" done={storiesReady && prep.storiesSinceKit === 0}>
+          <p className="text-text">
+            {prep.stories === 0
+              ? "You haven't told us any stories yet."
+              : `${prep.stories} ${prep.stories === 1 ? "story" : "stories"} told`}
+            {prep.goalsSet ? ", goals set." : ", and no goals yet."}
+          </p>
+          {storiesReady ? (
+            <p className="text-text-soft">
+              That&apos;s enough to draft from. More stories still make stronger drafts.
+            </p>
+          ) : (
+            <p className="max-w-essay text-text-soft">
+              Your drafts can only be as good as your stories. Tell Story Studio about your work,
+              the moments you&apos;re proud of and where you&apos;re headed, in plain words. It asks
+              the questions; you just talk.
+            </p>
+          )}
+          {prep.storiesSinceKit > 0 && view.status === "ready" ? (
+            <p className="text-text">
+              You&apos;ve told {prep.storiesSinceKit} new{" "}
+              {prep.storiesSinceKit === 1 ? "story" : "stories"} since these drafts were made. Ask
+              the chat beside any draft to use one.
+            </p>
+          ) : null}
+          <div>
+            <Button asChild variant={storiesReady ? "secondary" : "primary"}>
+              <Link href="/studio">
+                {storiesReady ? "Add more in Story Studio" : "Tell your stories in Story Studio"}
+              </Link>
+            </Button>
+          </div>
+        </Step>
+
+        <Step n={2} title={`Questions for ${view.school}`} done={answered}>
+          {prep.offers.length > 0 || prep.outcome ? (
+            <div className="flex flex-col gap-3 rounded-plane border border-edge bg-depth p-5">
+              <p className="eyebrow">What {view.school} offers for your goal</p>
+              <ul className="flex flex-col gap-3">
+                {prep.offers.map((o) => (
+                  <li key={o.value} className="flex flex-col gap-0.5">
+                    <span className="font-medium text-text">{o.value}</span>
+                    <span className="text-text-soft">{o.note}</span>
+                  </li>
+                ))}
+              </ul>
+              {prep.outcome ? <p className="text-text">{prep.outcome}</p> : null}
+              <p className="text-sm text-text-soft">
+                Name these in your why-{view.school} answers and your interview. Your drafts already
+                do.
+              </p>
+            </div>
+          ) : null}
+          {aside}
+        </Step>
+
+        <Step n={3} title="Your drafts" done={view.status === "ready"}>
+          <ModelCredit />
+          <KitAssembly
+            identity={identity}
+            stories={stories}
+            deliverables={deliverablesOf(view)}
+            stages={stagesOf(view)}
+            deliverablesHeading={`What ${view.school} asks for`}
+            onStageAction={read}
+            onRetry={(key) => void retry(key)}
+          />
+        </Step>
+      </ol>
     </div>
   );
 }

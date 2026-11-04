@@ -497,3 +497,15 @@ export {
   staffAccessFor,
   type AccountDeletionRow,
 } from "./account";
+export {
+  addChatMessage,
+  getChatMessage,
+  getResume,
+  listChatMessages,
+  markChatUndone,
+  saveResume,
+  type ChatMessageRow,
+  type ChatRole,
+  type ChatUndo,
+  type ResumeRow,
+} from "./chat";

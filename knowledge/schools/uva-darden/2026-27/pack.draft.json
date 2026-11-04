@@ -1,0 +1,1012 @@
+{
+  "school": {
+    "id": "uva-darden",
+    "name": "University of Virginia Darden School of Business",
+    "short_name": "Darden",
+    "country": "US",
+    "city": "Charlottesville, VA",
+    "website": "https://www.darden.virginia.edu",
+    "program": "full_time_mba"
+  },
+  "cycle": "2026-27",
+  "version": 1,
+  "status": "draft",
+  "_todo": [
+    "application.essays: confirm both short-answer prompts verbatim in the 2026-27 portal (public pages name only 'Relationships Matter Here'; wording here is from a June 2026 summary of Darden's announcement)",
+    "application.reapplicant.essay: prompt wording and limit",
+    "application.video[0].attempts: confirm (1 assumed from 'no pausing'; retakes not stated)",
+    "academics: health care offerings and core course list; community.clubs: verify specific clubs",
+    "class_profile: Class of 2028 numbers (the profile page loads them by script; still labelled Class of 2027)"
+  ],
+  "k_high_water": 86,
+  "sources": [
+    {
+      "id": "darden-guidelines",
+      "type": "official",
+      "title": "Darden Full-Time MBA: Application guidelines (format, video essay, recommendation, resume, tests, fee)",
+      "url": "https://www.darden.virginia.edu/mba/admissions/apply/guidelines",
+      "trust": 5,
+      "retrieved_at": "2026-11-04",
+      "rights_note": null
+    },
+    {
+      "id": "darden-deadlines",
+      "type": "official",
+      "title": "Darden Full-Time MBA: Deadlines (Class of 2029)",
+      "url": "https://www.darden.virginia.edu/mba/admissions/apply/deadlines",
+      "trust": 5,
+      "retrieved_at": "2026-11-04",
+      "rights_note": null
+    },
+    {
+      "id": "darden-ea",
+      "type": "official",
+      "title": "Darden Full-Time MBA: Early Action",
+      "url": "https://www.darden.virginia.edu/mba/admissions/apply/early-action",
+      "trust": 5,
+      "retrieved_at": "2026-11-04",
+      "rights_note": null
+    },
+    {
+      "id": "darden-interviews",
+      "type": "official",
+      "title": "Darden Full-Time MBA: Interviews",
+      "url": "https://www.darden.virginia.edu/mba/admissions/apply/interviews",
+      "trust": 5,
+      "retrieved_at": "2026-11-04",
+      "rights_note": null
+    },
+    {
+      "id": "darden-reapplicant",
+      "type": "official",
+      "title": "Darden Full-Time MBA: Reapplicants",
+      "url": "https://www.darden.virginia.edu/mba/admissions/apply/reapplicant",
+      "trust": 5,
+      "retrieved_at": "2026-11-04",
+      "rights_note": null
+    },
+    {
+      "id": "darden-faq",
+      "type": "official",
+      "title": "Darden Full-Time MBA: Admissions FAQ",
+      "url": "https://www.darden.virginia.edu/mba/admissions/faq",
+      "trust": 5,
+      "retrieved_at": "2026-11-04",
+      "rights_note": null
+    },
+    {
+      "id": "darden-employment-2025",
+      "type": "official",
+      "title": "UVA Darden Class of 2025 Full-Time MBA Employment Outcome Data (PDF)",
+      "url": "https://www.darden.virginia.edu/sites/default/files/2025-11/UVA%20Darden%20Class%20of%202025%20FT%20Employment%20Outcome%20Data_web.pdf",
+      "trust": 5,
+      "retrieved_at": "2026-11-04",
+      "rights_note": null
+    },
+    {
+      "id": "darden-careers",
+      "type": "official",
+      "title": "Darden: Employment data page (top hiring companies)",
+      "url": "https://www.darden.virginia.edu/mba/career-support/employment-data",
+      "trust": 5,
+      "retrieved_at": "2026-11-04",
+      "rights_note": null
+    },
+    {
+      "id": "darden-scholarships",
+      "type": "official",
+      "title": "Darden scholarships: Batten Scholars, Jefferson Fellowship, Worldwide Scholarship",
+      "url": "https://www.darden.virginia.edu/mba/tuition-financial-aid/scholarships",
+      "trust": 5,
+      "retrieved_at": "2026-11-04",
+      "rights_note": null
+    },
+    {
+      "id": "darden-academics",
+      "type": "official",
+      "title": "Darden: learning experience and concentrations",
+      "url": "https://www.darden.virginia.edu/mba/academics/learning-experience",
+      "trust": 5,
+      "retrieved_at": "2026-11-04",
+      "rights_note": null
+    },
+    {
+      "id": "darden-blog-video",
+      "type": "adcom",
+      "title": "Darden admissions blog: How to approach the Darden MBA video essay with confidence (Oct 1, 2026)",
+      "url": "https://www.darden.virginia.edu/programs/blog/how-approach-darden-mba-video-essay-confidence",
+      "trust": 4,
+      "retrieved_at": "2026-11-04",
+      "rights_note": null
+    },
+    {
+      "id": "darden-blog-dean",
+      "type": "official",
+      "title": "Darden blog: Why Darden — Dean Yael Grushka-Cockayne discusses our next chapter (Oct 22, 2026)",
+      "url": "https://www.darden.virginia.edu/programs/blog/why-darden-dean-yael-grushka-cockayne-discusses-our-next-chapter",
+      "trust": 5,
+      "retrieved_at": "2026-11-04",
+      "rights_note": null
+    },
+    {
+      "id": "sb-darden-2026",
+      "type": "press",
+      "title": "Stacy Blackman: Darden MBA Essays for the Class of 2029 (Jun 30, 2026), quoting Darden's 2026-27 application preview",
+      "url": "https://www.stacyblackman.com/blog/university-virginia-darden-mba-essays/",
+      "trust": 2,
+      "retrieved_at": "2026-11-04",
+      "rights_note": null
+    },
+    {
+      "id": "al-darden",
+      "type": "third_party_reference",
+      "title": "ApplicantLab — Darden school tab",
+      "url": null,
+      "trust": 2,
+      "retrieved_at": "2026-11-04",
+      "rights_note": "Paid coaching platform material (ApplicantLab). Private reference; items are Admitstory rewrites approved by Manu 2026-11-04 (§9.6). Never name or quote."
+    },
+    {
+      "id": "admitstory-coach",
+      "type": "coach_notes",
+      "title": "Admitstory coaching canon and Manu's storytelling rules",
+      "url": null,
+      "trust": 4,
+      "retrieved_at": "2026-11-04",
+      "rights_note": null
+    }
+  ],
+  "official_urls": [
+    {
+      "kind": "prompts",
+      "url": "https://www.darden.virginia.edu/mba/admissions/apply/guidelines"
+    },
+    {
+      "kind": "deadlines",
+      "url": "https://www.darden.virginia.edu/mba/admissions/apply/deadlines"
+    },
+    {
+      "kind": "class_profile",
+      "url": "https://www.darden.virginia.edu/mba/admissions/class-profile"
+    },
+    {
+      "kind": "employment_report",
+      "url": "https://www.darden.virginia.edu/mba/career-support/employment-data"
+    },
+    {
+      "kind": "other",
+      "url": "https://www.darden.virginia.edu/mba/admissions/apply/interviews"
+    }
+  ],
+  "rounds": [
+    {
+      "id": "K01",
+      "source_ids": ["darden-deadlines"],
+      "verified_at": "2026-11-04",
+      "name": "Early Action",
+      "deadline": "2026-09-09",
+      "decision_date": "2026-10-28",
+      "interview_invites_window": "Limited open interviews 24 Aug–8 Sep 2026; then by invitation 17 Sep–28 Oct",
+      "notes": [
+        {
+          "id": "K02",
+          "text": "Binding and non-binding Early Action. Darden says EA offers tend to be more generous, and every EA applicant is assessed for merit scholarships. Binding deposit US$6,000 by 30 Nov 2026; non-binding US$4,000 by 30 Nov plus US$2,000 by 8 Feb 2027.",
+          "source_ids": ["darden-ea"],
+          "verified_at": "2026-11-04",
+          "confidence": 0.85
+        },
+        {
+          "id": "K03",
+          "text": "Open EA interviews are virtual, first come first served and not guaranteed. Booking one needs a started EA application, resume, the 'Relationships Matter Here' answer and a verified test score; you can interview before submitting.",
+          "source_ids": ["darden-ea"],
+          "verified_at": "2026-11-04",
+          "confidence": 0.85
+        },
+        {
+          "id": "K04",
+          "text": "If Darden is your clear first choice, apply binding; if it's one of several top choices, use non-binding and be honest about it.",
+          "source_ids": ["al-darden"],
+          "verified_at": "2026-11-04",
+          "confidence": 0.75,
+          "approved_rewrite": true
+        },
+        {
+          "id": "K05",
+          "text": "International applicants should apply in EA to be considered for a Jefferson Fellowship nomination.",
+          "source_ids": ["darden-scholarships"],
+          "verified_at": "2026-11-04",
+          "confidence": 0.85
+        }
+      ]
+    },
+    {
+      "id": "K06",
+      "source_ids": ["darden-deadlines"],
+      "verified_at": "2026-11-04",
+      "name": "Round 1",
+      "deadline": "2026-10-07",
+      "decision_date": "2026-12-09",
+      "notes": [
+        {
+          "id": "K07",
+          "text": "Interviews by invitation; deposits US$2,000 by 15 Feb and US$2,000 by 19 Apr 2027. Jefferson Fellowship nominations come from EA and R1.",
+          "source_ids": ["darden-deadlines"],
+          "verified_at": "2026-11-04",
+          "confidence": 0.85
+        }
+      ]
+    },
+    {
+      "id": "K08",
+      "source_ids": ["darden-deadlines"],
+      "verified_at": "2026-11-04",
+      "name": "Round 2",
+      "deadline": "2027-01-07",
+      "decision_date": "2027-03-17",
+      "notes": [
+        {
+          "id": "K09",
+          "text": "Historically most applicants apply in Round 2. With each deadline, fewer seats and less scholarship money remain.",
+          "source_ids": ["darden-faq"],
+          "verified_at": "2026-11-04",
+          "confidence": 0.85
+        }
+      ]
+    },
+    {
+      "id": "K10",
+      "source_ids": ["darden-deadlines"],
+      "verified_at": "2026-11-04",
+      "name": "Round 3 – March",
+      "deadline": "2027-03-01",
+      "decision_date": "2027-04-02",
+      "notes": []
+    },
+    {
+      "id": "K11",
+      "source_ids": ["darden-deadlines"],
+      "verified_at": "2026-11-04",
+      "name": "Round 3 – April",
+      "deadline": "2027-04-01",
+      "decision_date": "2027-05-05",
+      "notes": []
+    },
+    {
+      "id": "K12",
+      "source_ids": ["darden-deadlines"],
+      "verified_at": "2026-11-04",
+      "name": "Round 3 – May",
+      "deadline": "2027-05-01",
+      "decision_date": "2027-05-28",
+      "notes": []
+    }
+  ],
+  "application": {
+    "essays": [
+      {
+        "id": "K13",
+        "source_ids": ["sb-darden-2026"],
+        "verified_at": "2026-11-04",
+        "key": "relationships_matter_here",
+        "prompt_verbatim": "What would you want your classmates to know about you that is not on your resume?",
+        "limit": {
+          "kind": "words",
+          "value": 200
+        },
+        "required": true,
+        "archetypes": ["IDENTITY"],
+        "parts": [
+          "something classmates should know",
+          "not on the resume",
+          "(implied) why it matters to them"
+        ],
+        "notes": [
+          {
+            "id": "K14",
+            "text": "Framed by 'At Darden, learning is personal': who you are — interests, passions, curiosities, ideas — matters in a case classroom where students teach each other.",
+            "source_ids": ["sb-darden-2026"],
+            "verified_at": "2026-11-04",
+            "confidence": 0.85
+          },
+          {
+            "id": "K15",
+            "text": "Darden's own advice: approach the application as storytelling, prioritise examples that show the authentic person, and 'show don't tell'.",
+            "source_ids": ["darden-faq"],
+            "verified_at": "2026-11-04",
+            "confidence": 0.85
+          },
+          {
+            "id": "K16",
+            "text": "One to three things under an umbrella, built around one key story; go below the surface: why you got involved, why it matters to you, and why classmates should care.",
+            "source_ids": ["al-darden"],
+            "verified_at": "2026-11-04",
+            "confidence": 0.75,
+            "approved_rewrite": true
+          },
+          {
+            "id": "K17",
+            "text": "With no explicit leadership essay this cycle, an extracurricular leadership story is the strongest material here: the resume has the numbers, this essay has the story behind them.",
+            "source_ids": ["al-darden"],
+            "verified_at": "2026-11-04",
+            "confidence": 0.75,
+            "approved_rewrite": true
+          },
+          {
+            "id": "K18",
+            "text": "Include at least one serious or significant thing, not only fun facts. Something mentioned on the resume can appear if this goes much deeper. The essay should show you invest in relationships for the long haul.",
+            "source_ids": ["al-darden"],
+            "verified_at": "2026-11-04",
+            "confidence": 0.75,
+            "approved_rewrite": true
+          },
+          {
+            "id": "K19",
+            "text": "A work-context story is fine if it's about people (a grieving team, a difficult client won over), never 'a project I managed'.",
+            "source_ids": ["al-darden"],
+            "verified_at": "2026-11-04",
+            "confidence": 0.75,
+            "approved_rewrite": true
+          }
+        ]
+      },
+      {
+        "id": "K20",
+        "source_ids": ["sb-darden-2026"],
+        "verified_at": "2026-11-04",
+        "key": "careers_with_purpose",
+        "prompt_verbatim": "At this time how would you describe your short-term, post-MBA goal in terms of industry, function, geography, company size and/or mission and how does it align with the long-term vision you have for your career?",
+        "limit": {
+          "kind": "words",
+          "value": 200
+        },
+        "required": true,
+        "archetypes": ["GOALS"],
+        "parts": [
+          "short-term goal: industry and function",
+          "geography, company size and/or mission",
+          "alignment with the long-term vision"
+        ],
+        "notes": [
+          {
+            "id": "K21",
+            "text": "Framed by Darden's Career Center: personalised coaching across industries, functions and geographies, and career support for life.",
+            "source_ids": ["sb-darden-2026"],
+            "verified_at": "2026-11-04",
+            "confidence": 0.85
+          },
+          {
+            "id": "K22",
+            "text": "Darden says the most compelling applications connect past decisions to future goals.",
+            "source_ids": ["darden-faq"],
+            "verified_at": "2026-11-04",
+            "confidence": 0.85
+          },
+          {
+            "id": "K23",
+            "text": "Open on the long-term 'why' rather than answering the prompt in order; then the role, the type of company defined by the problem it solves, and two example employers.",
+            "source_ids": ["al-darden"],
+            "verified_at": "2026-11-04",
+            "confidence": 0.75,
+            "approved_rewrite": true
+          },
+          {
+            "id": "K24",
+            "text": "Use the 'and/or': geography, size and mission aren't all mandatory, but include at least one. Make one target employer one that hires Darden graduates or sits in the Virginia–DC corridor. International students should be careful naming startups that can't sponsor visas.",
+            "source_ids": ["al-darden"],
+            "verified_at": "2026-11-04",
+            "confidence": 0.75,
+            "approved_rewrite": true
+          },
+          {
+            "id": "K25",
+            "text": "Say what the job will teach you, more than which title at which company. Switchers should show their transferable skills and, ideally, evidence from someone who made the same move.",
+            "source_ids": ["al-darden"],
+            "verified_at": "2026-11-04",
+            "confidence": 0.75,
+            "approved_rewrite": true
+          }
+        ]
+      }
+    ],
+    "short_answers": [],
+    "goal_fields": [],
+    "video": [
+      {
+        "id": "K30",
+        "source_ids": ["darden-guidelines"],
+        "verified_at": "2026-11-04",
+        "format": "async_video",
+        "think_time_s": 10,
+        "answer_time_s": 90,
+        "attempts": 1,
+        "question_types": [
+          {
+            "id": "K31",
+            "text": "New for 2026-27: one randomly drawn question from a pool written by the Admissions Committee; 10 seconds to prepare, 90 to record, no pausing. Darden says 'lead with authenticity'.",
+            "source_ids": ["darden-guidelines"],
+            "verified_at": "2026-11-04",
+            "confidence": 0.85
+          },
+          {
+            "id": "K32",
+            "text": "Merav Frazier, Senior Associate Director of Global Recruitment: 'make your main point, give a brief example, and end with a takeaway.'",
+            "source_ids": ["darden-blog-video"],
+            "verified_at": "2026-11-04",
+            "confidence": 0.85
+          },
+          {
+            "id": "K33",
+            "text": "Expect leadership, community or why-Darden questions; prepare talking points for each, not scripts.",
+            "source_ids": ["al-darden"],
+            "verified_at": "2026-11-04",
+            "confidence": 0.55,
+            "approved_rewrite": true
+          }
+        ],
+        "scripting_allowed": false
+      }
+    ],
+    "reapplicant": {
+      "essay": null,
+      "policy": [
+        {
+          "id": "K28",
+          "text": "Reapplicants complete the short answers, a reapplicant short answer, an updated resume and one new recommendation; 2025-26 reapplicants get a fee waiver.",
+          "source_ids": ["darden-reapplicant"],
+          "verified_at": "2026-11-04",
+          "confidence": 0.85
+        },
+        {
+          "id": "K29",
+          "text": "Name what changed and what it taught you; show the career vision is sharper and how you've engaged with Darden since.",
+          "source_ids": ["al-darden"],
+          "verified_at": "2026-11-04",
+          "confidence": 0.75,
+          "approved_rewrite": true
+        }
+      ]
+    },
+    "optional_essay": {
+      "id": "K26",
+      "source_ids": ["sb-darden-2026"],
+      "verified_at": "2026-11-04",
+      "key": "additional",
+      "prompt_verbatim": "If there is further information you believe would be helpful to the Admissions Committee, please provide it.",
+      "limit": {
+        "kind": "words",
+        "value": 250
+      },
+      "required": false,
+      "archetypes": ["OPTIONAL"],
+      "parts": ["further information"],
+      "notes": [
+        {
+          "id": "K27",
+          "text": "Darden calls Additional Comments 'not an additional essay, just a place to connect the dots': be brief, make the point and give action items where appropriate.",
+          "source_ids": ["darden-guidelines"],
+          "verified_at": "2026-11-04",
+          "confidence": 0.85
+        }
+      ]
+    },
+    "form_sections": [],
+    "recommendations": {
+      "id": "K34",
+      "source_ids": ["darden-guidelines"],
+      "verified_at": "2026-11-04",
+      "count": 1,
+      "format": "school_specific",
+      "questions": [
+        {
+          "text_verbatim": "Please provide a brief description of your interaction with the applicant and, if applicable, the applicant's role in your organization."
+        },
+        {
+          "text_verbatim": "How does the performance of the applicant compare to that of other well-qualified individuals in similar roles?"
+        },
+        {
+          "text_verbatim": "Describe the most important piece of constructive feedback you have given the applicant. Please detail the circumstances and the applicant's response."
+        }
+      ],
+      "notes": [
+        {
+          "id": "K35",
+          "text": "One required (a second optional if it adds new insight), from someone who has supervised you professionally; a competency ratings grid plus short answers. Academic letters are less helpful.",
+          "source_ids": ["darden-guidelines"],
+          "verified_at": "2026-11-04",
+          "confidence": 0.85
+        }
+      ]
+    },
+    "resume": {
+      "id": "K36",
+      "source_ids": ["darden-guidelines"],
+      "verified_at": "2026-11-04",
+      "page_limit": 1,
+      "notes": [
+        {
+          "id": "K37",
+          "text": "One page is sufficient under ten years' experience; quantify impact and leadership. Darden encourages personal items: hobbies, books, podcasts, countries visited.",
+          "source_ids": ["darden-guidelines"],
+          "verified_at": "2026-11-04",
+          "confidence": 0.85
+        },
+        {
+          "id": "K38",
+          "text": "Interviews are blind, but personal lines on the resume give classmates and recruiters something to talk about later.",
+          "source_ids": ["admitstory-coach"],
+          "verified_at": "2026-11-04",
+          "confidence": 0.6
+        }
+      ]
+    },
+    "test_policy": [
+      {
+        "id": "K39",
+        "text": "GMAT (any edition), GRE, EA, MCAT or LSAT, no preference; GMAT superscores accepted; report all valid scores; verified score due within a week of the deadline; no minimum GMAT, GRE or GPA.",
+        "source_ids": ["darden-guidelines"],
+        "verified_at": "2026-11-04",
+        "confidence": 0.85
+      },
+      {
+        "id": "K40",
+        "text": "Test waivers case by case, weighing academic and professional accomplishment; a 'strong' undergraduate record means above the class average (about 3.5); apply three to four weeks before the deadline.",
+        "source_ids": ["darden-faq"],
+        "verified_at": "2026-11-04",
+        "confidence": 0.75
+      },
+      {
+        "id": "K41",
+        "text": "In the waiver form's job description, emphasise quantitative work (messy data, analysis) and, for non-native speakers, communication — the opposite of the leadership emphasis in the main application.",
+        "source_ids": ["al-darden"],
+        "verified_at": "2026-11-04",
+        "confidence": 0.75,
+        "approved_rewrite": true
+      }
+    ],
+    "fees_waivers": [
+      {
+        "id": "K42",
+        "text": "US$250 non-refundable; US$100 off for Darden webinars or off-site events, US$150 off for events in Charlottesville or Rosslyn (1 May 2026–1 May 2027).",
+        "source_ids": ["darden-guidelines"],
+        "verified_at": "2026-11-04",
+        "confidence": 0.85
+      },
+      {
+        "id": "K43",
+        "text": "Full waivers: 2025-26 reapplicants, US military, current and recent government employees, national-service alumni, first-generation students, UVA alumni and graduate students, and alumni of Virginia colleges.",
+        "source_ids": ["darden-guidelines"],
+        "verified_at": "2026-11-04",
+        "confidence": 0.85
+      }
+    ]
+  },
+  "values": {
+    "stated": [
+      {
+        "id": "K44",
+        "text": "Darden evaluates academics, professional experience, and personal qualities and characteristics; at least two committee members read every file.",
+        "source_ids": ["darden-faq"],
+        "verified_at": "2026-11-04",
+        "confidence": 0.85
+      },
+      {
+        "id": "K45",
+        "text": "What makes an application stand out: 'a strong academic foundation, demonstrated leadership and a well-articulated narrative'.",
+        "source_ids": ["darden-faq"],
+        "verified_at": "2026-11-04",
+        "confidence": 0.85
+      },
+      {
+        "id": "K46",
+        "text": "Darden's 2026-27 refresh is built on 'Relationships are central to the Darden experience'.",
+        "source_ids": ["sb-darden-2026"],
+        "verified_at": "2026-11-04",
+        "confidence": 0.85
+      }
+    ],
+    "trait_map": [
+      {
+        "school_value": "relationships and community",
+        "admitstory_traits": [
+          "community_builder",
+          "brings_people_along",
+          "empathetic",
+          "develops_people"
+        ],
+        "note": {
+          "id": "K47",
+          "text": "A small, tight-knit class in learning teams of five or six; show you build and keep relationships.",
+          "source_ids": ["al-darden"],
+          "verified_at": "2026-11-04",
+          "confidence": 0.75,
+          "approved_rewrite": true
+        }
+      },
+      {
+        "school_value": "learning from others in the case method",
+        "admitstory_traits": ["curious_learner", "unusual_path"],
+        "note": {
+          "id": "K48",
+          "text": "Show you'll speak up with a perspective others lack and learn from theirs.",
+          "source_ids": ["al-darden"],
+          "verified_at": "2026-11-04",
+          "confidence": 0.75,
+          "approved_rewrite": true
+        }
+      },
+      {
+        "school_value": "leadership with initiative and courage",
+        "admitstory_traits": ["acts_unasked", "principled_stands"],
+        "note": {
+          "id": "K49",
+          "text": "Where a story involved risk (backing someone others shunned, challenging the room), say what was risky.",
+          "source_ids": ["al-darden"],
+          "verified_at": "2026-11-04",
+          "confidence": 0.75,
+          "approved_rewrite": true
+        }
+      }
+    ]
+  },
+  "culture_and_location": [
+    {
+      "id": "K50",
+      "text": "Charlottesville campus with a DC-area site in Rosslyn (UVA Darden DC Metro) for part-time and executive programs and admissions events.",
+      "source_ids": ["darden-academics"],
+      "verified_at": "2026-11-04",
+      "confidence": 0.85
+    },
+    {
+      "id": "K51",
+      "text": "Most students live close together and study in sections and learning teams, so the culture runs on supportiveness.",
+      "source_ids": ["al-darden"],
+      "verified_at": "2026-11-04",
+      "confidence": 0.6,
+      "approved_rewrite": true
+    }
+  ],
+  "academics": {
+    "courses": [
+      {
+        "id": "K59",
+        "source_ids": ["darden-blog-dean"],
+        "verified_at": "2026-11-04",
+        "name": "AI, Data Analytics and Decision Sciences concentration",
+        "what_it_is": "About 25 electives drawing on the Batten Institute and the LaCross AI Institute.",
+        "why_it_matters_for": ["tech, product and analytics goals"],
+        "url": "https://www.darden.virginia.edu/mba/academics/concentrations"
+      }
+    ],
+    "centers": [
+      {
+        "id": "K61",
+        "source_ids": ["darden-scholarships"],
+        "verified_at": "2026-11-04",
+        "name": "Batten Institute",
+        "what_it_is": "Darden's centre for entrepreneurship, innovation and technology; runs the Batten Scholars program.",
+        "why_it_matters_for": ["founders", "innovation and tech goals"],
+        "url": "https://www.darden.virginia.edu/mba/tuition-financial-aid/scholarships/competitive-scholarships/batten-scholars"
+      },
+      {
+        "id": "K62",
+        "source_ids": ["darden-blog-dean"],
+        "verified_at": "2026-11-04",
+        "name": "LaCross AI Institute",
+        "what_it_is": "Darden's AI institute, feeding the AI and analytics concentration.",
+        "why_it_matters_for": ["AI goals"],
+        "url": "https://www.darden.virginia.edu/mba/academics/concentrations"
+      }
+    ],
+    "experiential": [
+      {
+        "id": "K60",
+        "source_ids": ["darden-scholarships"],
+        "verified_at": "2026-11-04",
+        "name": "Darden Worldwide Courses (Batten Foundation Worldwide Scholarship)",
+        "what_it_is": "The scholarship covers the program fee for one Darden Worldwide Course for every full-time student (or travel for an exchange or Global Client Project).",
+        "why_it_matters_for": ["international goals"],
+        "url": "https://www.darden.virginia.edu/mba/tuition-financial-aid/scholarships/darden-worldwide-scholarship-program"
+      }
+    ],
+    "structure": [
+      {
+        "id": "K56",
+        "text": "Case method throughout: students teach each other while the professor conducts. First-years stay with a section and a learning team of five or six through the core, with spring electives before the internship.",
+        "source_ids": ["darden-academics"],
+        "verified_at": "2026-11-04",
+        "confidence": 0.85
+      },
+      {
+        "id": "K57",
+        "text": "Concentrations (unlimited, not on the transcript): career tracks in finance, entrepreneurship and innovation, marketing, real estate, strategy consulting, supply chain; theme tracks in AI, Data Analytics and Decision Sciences, and ESG.",
+        "source_ids": ["darden-academics"],
+        "verified_at": "2026-11-04",
+        "confidence": 0.85
+      },
+      {
+        "id": "K58",
+        "text": "The Management Science Specialization (12 credits) carries a STEM designation, giving eligible F-1 students up to 36 months of US work authorisation; it's the only one on the transcript.",
+        "source_ids": ["darden-academics"],
+        "verified_at": "2026-11-04",
+        "confidence": 0.85
+      }
+    ]
+  },
+  "community": {
+    "clubs": [],
+    "traditions": [],
+    "treks_events": []
+  },
+  "careers": {
+    "employment_report": {
+      "id": "K63",
+      "source_ids": ["darden-employment-2025"],
+      "verified_at": "2026-11-04",
+      "class_year": 2025,
+      "currency": "USD",
+      "by_function": [
+        {
+          "function": "Consulting",
+          "share": 0.394,
+          "median_base": 190000
+        },
+        {
+          "function": "Finance/Accounting",
+          "share": 0.305,
+          "median_base": 175000
+        },
+        {
+          "function": "General Management",
+          "share": 0.137,
+          "median_base": 135000
+        },
+        {
+          "function": "Marketing/Sales",
+          "share": 0.072,
+          "median_base": 141500
+        },
+        {
+          "function": "Operations/Logistics",
+          "share": 0.045,
+          "median_base": 143900
+        },
+        {
+          "function": "Information Technology",
+          "share": 0.031,
+          "median_base": 142800
+        }
+      ],
+      "top_employers": [
+        "Amazon",
+        "Barclays",
+        "BCG",
+        "J.P. Morgan Chase",
+        "McKinsey",
+        "PwC/Strategy&",
+        "American Express",
+        "Accenture",
+        "Emerson",
+        "Bain & Company"
+      ],
+      "intl_offer_rates": {
+        "id": "K64",
+        "text": "Non-permanent-work-authorization graduates: 87.6% had an offer by three months (70.5% by graduation), with the same US$175,000 median base.",
+        "source_ids": ["darden-employment-2025"],
+        "verified_at": "2026-11-04",
+        "confidence": 0.85
+      }
+    },
+    "recruiting_notes": [
+      {
+        "id": "K65",
+        "text": "Class of 2025: median base US$175,000, median signing bonus US$30,000; 90.2% had offers and 89.3% had accepted by three months.",
+        "source_ids": ["darden-employment-2025"],
+        "verified_at": "2026-11-04",
+        "confidence": 0.85
+      },
+      {
+        "id": "K66",
+        "text": "By industry: consulting 37.3% (US$190,000), financial services 26.0% (US$175,000), technology 16.1% (US$142,800), CPG 3.8%, healthcare 3.1%, retail 3.1%. 98% of jobs were in North America.",
+        "source_ids": ["darden-employment-2025"],
+        "verified_at": "2026-11-04",
+        "confidence": 0.85
+      },
+      {
+        "id": "K67",
+        "text": "70.5% of accepted jobs came through school-facilitated channels, 48.3% from internship conversions.",
+        "source_ids": ["darden-employment-2025"],
+        "verified_at": "2026-11-04",
+        "confidence": 0.85
+      }
+    ]
+  },
+  "class_profile": null,
+  "interview": {
+    "id": "K68",
+    "source_ids": ["darden-interviews"],
+    "verified_at": "2026-11-04",
+    "invitation": "invite_only",
+    "who": ["adcom", "student"],
+    "blind": true,
+    "length_min": 45,
+    "location": ["campus", "virtual"],
+    "common_questions": [],
+    "format_notes": [
+      {
+        "id": "K69",
+        "text": "Required before admission; up to 45 minutes; anonymous — the interviewer hasn't read the application or the resume. Admissions staff or second-years, weighted equally.",
+        "source_ids": ["darden-interviews"],
+        "verified_at": "2026-11-04",
+        "confidence": 0.85
+      },
+      {
+        "id": "K70",
+        "text": "Rounds 1–3 are by invitation after review, rolling until the decision date; timing carries no significance. Early Action has a limited open-interview window.",
+        "source_ids": ["darden-interviews"],
+        "verified_at": "2026-11-04",
+        "confidence": 0.85
+      },
+      {
+        "id": "K71",
+        "text": "Because the interviewer knows nothing, come ready to tell your whole story concisely and to give vivid examples on teamwork, leadership and why Darden.",
+        "source_ids": ["admitstory-coach"],
+        "verified_at": "2026-11-04",
+        "confidence": 0.85
+      }
+    ]
+  },
+  "ai_policy": {
+    "id": "K72",
+    "source_ids": ["darden-guidelines"],
+    "verified_at": "2026-11-04",
+    "stance": "unknown",
+    "applies_to": [],
+    "disclosure_text": null,
+    "notes": [
+      {
+        "id": "K73",
+        "text": "Darden's admissions pages don't address applicant AI use.",
+        "source_ids": ["darden-faq"],
+        "verified_at": "2026-11-04",
+        "confidence": 0.7
+      }
+    ]
+  },
+  "scholarships": [
+    {
+      "id": "K74",
+      "text": "Every admit is considered for merit scholarships with no separate application (from a stipend to full tuition and fees); AccessDarden is need-based.",
+      "source_ids": ["darden-scholarships"],
+      "verified_at": "2026-11-04",
+      "confidence": 0.85
+    },
+    {
+      "id": "K75",
+      "text": "Batten Scholars (up to full tuition and fees): a 500-word essay on how you meet one track — entrepreneurship, innovation or technology — how you'd contribute to Darden, and how the award furthers your career; finalists interview at decision time.",
+      "source_ids": ["darden-scholarships"],
+      "verified_at": "2026-11-04",
+      "confidence": 0.85
+    },
+    {
+      "id": "K76",
+      "text": "For Batten, spend most words proving you've driven innovation, technology or ventures; keep the contribution part short and concrete.",
+      "source_ids": ["al-darden"],
+      "verified_at": "2026-11-04",
+      "confidence": 0.75,
+      "approved_rewrite": true
+    },
+    {
+      "id": "K77",
+      "text": "Darden Jefferson Fellowship: full tuition and fees, health insurance and a US$20,000 stipend; nominees come from EA and R1 and attend a case discussion and panel interview.",
+      "source_ids": ["darden-scholarships"],
+      "verified_at": "2026-11-04",
+      "confidence": 0.85
+    }
+  ],
+  "insider_notes": [
+    {
+      "id": "K52",
+      "text": "Darden's admissions team suggests testing your answers on friends without telling them the prompts, to see whether they can guess them.",
+      "source_ids": ["darden-faq"],
+      "verified_at": "2026-11-04",
+      "confidence": 0.85
+    },
+    {
+      "id": "K53",
+      "text": "Willie Green leads admissions (titled both Senior Assistant Dean and Director of Admissions on Darden's site); the dean is Yael Grushka-Cockayne.",
+      "source_ids": ["darden-blog-dean"],
+      "verified_at": "2026-11-04",
+      "confidence": 0.7
+    },
+    {
+      "id": "K54",
+      "text": "Darden offers short calls with the admissions team; use them for a substantive question about how your background fits, not anything on the website. Contact one or two student ambassadors at most, chosen for a reason.",
+      "source_ids": ["al-darden"],
+      "verified_at": "2026-11-04",
+      "confidence": 0.65,
+      "approved_rewrite": true
+    },
+    {
+      "id": "K55",
+      "text": "If Darden is your first choice but you applied after Early Action, say so somewhere in the application, briefly.",
+      "source_ids": ["al-darden"],
+      "verified_at": "2026-11-04",
+      "confidence": 0.6,
+      "approved_rewrite": true
+    }
+  ],
+  "avoid": [
+    {
+      "id": "K78",
+      "text": "Answering the careers question point by point in the order asked; start with the purpose.",
+      "source_ids": ["al-darden"],
+      "verified_at": "2026-11-04",
+      "confidence": 0.75,
+      "approved_rewrite": true
+    },
+    {
+      "id": "K79",
+      "text": "Naming tech employers with unrelated business models ('Apple, Netflix or Google').",
+      "source_ids": ["al-darden"],
+      "verified_at": "2026-11-04",
+      "confidence": 0.75,
+      "approved_rewrite": true
+    },
+    {
+      "id": "K80",
+      "text": "Only fun facts in 'Relationships Matter Here', or a resume project dressed as a personal story.",
+      "source_ids": ["al-darden"],
+      "verified_at": "2026-11-04",
+      "confidence": 0.75,
+      "approved_rewrite": true
+    },
+    {
+      "id": "K81",
+      "text": "Using Additional Comments as another essay.",
+      "source_ids": ["darden-guidelines"],
+      "verified_at": "2026-11-04",
+      "confidence": 0.85
+    }
+  ],
+  "angles_that_work": [
+    {
+      "id": "K82",
+      "text": "'Relationships Matter Here' built on an extracurricular leadership story told through the people involved, closing on why classmates can count on you long after Charlottesville.",
+      "source_ids": ["al-darden"],
+      "verified_at": "2026-11-04",
+      "confidence": 0.75,
+      "approved_rewrite": true
+    },
+    {
+      "id": "K83",
+      "text": "A careers answer that opens on the purpose, defines the target company by the problem it solves, names two employers (one with Darden ties), and says what the job will teach.",
+      "source_ids": ["al-darden"],
+      "verified_at": "2026-11-04",
+      "confidence": 0.75,
+      "approved_rewrite": true
+    },
+    {
+      "id": "K84",
+      "text": "A video answer with one point, one short example and one takeaway, said conversationally.",
+      "source_ids": ["darden-blog-video"],
+      "verified_at": "2026-11-04",
+      "confidence": 0.85
+    }
+  ],
+  "glossary": [
+    {
+      "id": "K85",
+      "source_ids": ["darden-academics"],
+      "verified_at": "2026-11-04",
+      "term": "Learning team",
+      "plain_definition": "A group of five or six first-years from different sections who prepare cases together."
+    },
+    {
+      "id": "K86",
+      "source_ids": ["darden-interviews"],
+      "verified_at": "2026-11-04",
+      "term": "Grounds",
+      "plain_definition": "UVA's word for its campus."
+    }
+  ]
+}
