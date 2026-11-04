@@ -3,6 +3,7 @@
 // finds the visitor's own (they spoke or wrote in the hero), and it swaps in the same box, so
 // nothing shifts.
 
+import { ModelCredit } from "@/components/model-seal";
 import { FINAL_COPY } from "../_copy/landing";
 import { SIGN_IN, START_FREE } from "../_copy/shared";
 import { CtaLink, START_FREE_HREF } from "../_ui/cta-link";
@@ -25,6 +26,7 @@ export function FinalCall() {
           lines={[FINAL_COPY.heading]}
           className="mt-12 max-w-[14ch] sm:max-w-[18ch]"
         />
+        <ModelCredit className="mt-6 justify-center" />
         <div className="mt-10 flex flex-wrap items-center justify-center gap-4">
           <CtaLink href={START_FREE_HREF} track="final-call">
             {START_FREE}

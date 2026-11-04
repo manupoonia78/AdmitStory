@@ -3,7 +3,9 @@ import { Button, cx } from "@admitstory/ui";
 import { ArrowRightIcon, CheckIcon } from "@phosphor-icons/react/ssr";
 import type { Metadata } from "next";
 import Link from "next/link";
+import { ModelSeal } from "@/components/model-seal";
 import { requireOnboardedUser } from "@/lib/app-user";
+import { MODEL_CORPUS, MODEL_COPY, MODEL_NAME } from "@/lib/model-claims";
 import { STORIES_BEFORE_READ, nextStep } from "@/lib/home/next-step";
 import { loadHomeFacts } from "@/lib/home/server";
 import { recommenderSummary } from "@/lib/recommenders/summary";
@@ -211,6 +213,37 @@ export default async function HomePage() {
           </div>
         </section>
       ) : null}
+
+      <section
+        aria-labelledby="your-model"
+        className="plane grid items-center gap-8 p-7 sm:grid-cols-[9rem_1fr] sm:gap-10 sm:p-10"
+      >
+        <ModelSeal id="home-seal" className="w-32 sm:w-full" />
+        <div className="flex flex-col gap-5">
+          <div className="flex flex-col gap-2">
+            <p className="meta uppercase tracking-[0.16em]">Writing with you</p>
+            <h2
+              id="your-model"
+              className="font-display text-[clamp(1.4rem,1.1rem+0.8vw,1.8rem)] leading-[1.15] tracking-[-0.015em] text-text"
+            >
+              {MODEL_NAME},{" "}
+              <em className="text-accent">
+                {MODEL_COPY.headingLines.join(" ").replace(/^Trained/, "trained")}
+              </em>
+            </h2>
+          </div>
+          <ul className="grid gap-x-6 gap-y-3 sm:grid-cols-3" aria-label={MODEL_COPY.ledgerLabel}>
+            {MODEL_CORPUS.slice(0, 3).map((row) => (
+              <li key={row.title} className="flex flex-col gap-0.5">
+                <span className="font-display text-2xl font-light text-accent tabular-nums">
+                  {row.figure}
+                </span>
+                <span className="text-sm text-text-soft">{row.title}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </section>
     </div>
   );
 }

@@ -13,6 +13,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useMemo, useState, type FormEvent } from "react";
 import { AlertMessage, StatusMessage } from "@/components/live-message";
+import { ModelCredit } from "@/components/model-seal";
 import type { KitView } from "@/lib/kit/view";
 
 // Screen F (spec §5.7, §6.7, §6.10 F; direction doc F). The Voiceprint on the left, the
@@ -186,6 +187,7 @@ export function KitScreen({
               ? `Your ${view.school} kit`
               : `Building your ${view.school} kit`}
         </h1>
+        <ModelCredit />
         {view.error ? <p className="text-text">{view.error} Your other essays are ready.</p> : null}
         {view.status === "ready" && firstDeliverable ? (
           <div>

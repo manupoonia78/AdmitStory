@@ -29,6 +29,9 @@ version: 1
 - **CRAFT-21** **Don't use essays to prove intelligence or list accomplishments;** awards and numbers work in essays only through what they did to the applicant or for someone else.
 - **CRAFT-22** **Never throw anyone under the bus.** In conflict stories, the other person's behaviour gets a sympathetic explanation rooted in their position or background.
 - **CRAFT-23** **Good weird, not bad weird.** Endearing, revealing quirks are welcome; anything that makes a reader uncomfortable, questions integrity or seems unkind is not.
+- **CRAFT-24** **Outline before prose, in four or five beats:** the opening moment, the stakes, the applicant's own action, the result with some measure, the reflection. Essays fail at the outline, not at sentence polish, so fix structure before wording.
+- **CRAFT-25** **Edit in three separate passes:** content (every sentence advances the story, the character or the payoff), tone (would they say it out loud to a thoughtful colleague), then cutting (throat-clearing openers, stacked modifiers, restated points). Don't try to fix all three at once.
+- **CRAFT-26** **The texture test for one-topic essays:** a detail that can be removed without restructuring the paragraph is texture and may stay; one that needs its own paragraph is a second topic and goes.
 
 Synthetic before/after examples (for the Writer's few-shot block):
 

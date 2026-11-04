@@ -43,6 +43,7 @@ import {
   type ReactNode,
 } from "react";
 import { AlertMessage, StatusMessage } from "@/components/live-message";
+import { ModelCredit } from "@/components/model-seal";
 import type { WorkspaceView } from "@/lib/workspace/view";
 
 // Screen G (spec §5.8, §6.10 G; direction doc G). Files on the left, the document in the middle,
@@ -281,6 +282,7 @@ export function WorkspaceScreen({ initial }: { initial: WorkspaceView }) {
       <header className="flex flex-col gap-3">
         <h1 className="text-display text-text">{deliverable.title}</h1>
         <p className="font-reading text-lg text-text-soft">{deliverable.prompt}</p>
+        {draft && draft.paragraphs.length > 0 ? <ModelCredit /> : null}
         <div className="flex flex-wrap items-center gap-4">
           {deliverable.rule && draft ? (
             <LimitCounter

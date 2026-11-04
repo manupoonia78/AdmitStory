@@ -1,0 +1,643 @@
+{
+  "school": {
+    "id": "usc-marshall",
+    "name": "USC Marshall School of Business",
+    "short_name": "Marshall",
+    "country": "US",
+    "city": "Los Angeles, CA",
+    "website": "https://www.marshall.usc.edu",
+    "program": "full_time_mba"
+  },
+  "cycle": "2026-27",
+  "version": 1,
+  "status": "draft",
+  "_todo": [
+    "application.essays: confirm both prompts verbatim in the Liaison portal (Marshall doesn't publish them; wording from a dated August 2026 summary)",
+    "application.resume.page_limit: not published; 1 is a default",
+    "academics: core structure, concentrations, certificates, STEM option and cross-school elective rules from official pages",
+    "community.clubs: verify specific clubs",
+    "careers.employment_report: medians, industry and function shares, top employers",
+    "interview: verify invitation policy, interviewer, blind or not, length and common questions"
+  ],
+  "k_high_water": 55,
+  "sources": [
+    {
+      "id": "marshall-admissions",
+      "type": "official",
+      "title": "USC Marshall Full-Time MBA: Admissions (requirements, deadlines, FAQ)",
+      "url": "https://www.marshall.usc.edu/programs/graduate-programs/mba-programs/full-time-mba/admissions",
+      "trust": 5,
+      "retrieved_at": "2026-11-04",
+      "rights_note": null
+    },
+    {
+      "id": "marshall-profile",
+      "type": "official",
+      "title": "USC Marshall Full-Time MBA: Class profile (entering 2025) and Class of 2025 outcomes",
+      "url": "https://www.marshall.usc.edu/programs/graduate-programs/mba-programs/full-time-mba/class-profile",
+      "trust": 5,
+      "retrieved_at": "2026-11-04",
+      "rights_note": null
+    },
+    {
+      "id": "marshall-program",
+      "type": "official",
+      "title": "USC Marshall Full-Time MBA: program overview, tuition and fees",
+      "url": "https://www.marshall.usc.edu/programs/graduate-programs/mba-programs/full-time-mba",
+      "trust": 5,
+      "retrieved_at": "2026-11-04",
+      "rights_note": null
+    },
+    {
+      "id": "marshall-global",
+      "type": "official",
+      "title": "USC Marshall: Global opportunities (PRIME)",
+      "url": "https://www.marshall.usc.edu/why-marshall/global-opportunities",
+      "trust": 5,
+      "retrieved_at": "2026-11-04",
+      "rights_note": null
+    },
+    {
+      "id": "mbamission-marshall-2026",
+      "type": "press",
+      "title": "mbaMission: USC Marshall essay tips 2026-2027 (Aug 17, 2026), quoting the prompts",
+      "url": "https://www.mbamission.com/blog/how-to-get-into-marshall-school-of-business-usc-marshall-essay-tips-and-examples/",
+      "trust": 2,
+      "retrieved_at": "2026-11-04",
+      "rights_note": null
+    },
+    {
+      "id": "ca-marshall-reports",
+      "type": "interview_reports",
+      "title": "Clear Admit USC Marshall interview reports",
+      "url": "https://www.clearadmit.com/interview-reports/usc-marshall-interview-questions-report-round-1-adcom-zoom/",
+      "trust": 3,
+      "retrieved_at": null,
+      "rights_note": null
+    },
+    {
+      "id": "al-marshall",
+      "type": "third_party_reference",
+      "title": "ApplicantLab — USC Marshall school tab",
+      "url": null,
+      "trust": 2,
+      "retrieved_at": "2026-11-04",
+      "rights_note": "Paid coaching platform material (ApplicantLab). Private reference; items are Admitstory rewrites approved by Manu 2026-11-04 (§9.6). Never name or quote."
+    },
+    {
+      "id": "admitstory-coach",
+      "type": "coach_notes",
+      "title": "Admitstory coaching canon and Manu's storytelling rules",
+      "url": null,
+      "trust": 4,
+      "retrieved_at": "2026-11-04",
+      "rights_note": null
+    }
+  ],
+  "official_urls": [
+    {
+      "kind": "prompts",
+      "url": "https://www.marshall.usc.edu/programs/graduate-programs/mba-programs/full-time-mba/admissions"
+    },
+    {
+      "kind": "deadlines",
+      "url": "https://www.marshall.usc.edu/programs/graduate-programs/mba-programs/full-time-mba/admissions"
+    },
+    {
+      "kind": "class_profile",
+      "url": "https://www.marshall.usc.edu/programs/graduate-programs/mba-programs/full-time-mba/class-profile"
+    }
+  ],
+  "rounds": [
+    {
+      "id": "K01",
+      "source_ids": ["marshall-admissions"],
+      "verified_at": "2026-11-04",
+      "name": "Round 1",
+      "deadline": "2026-10-15",
+      "decision_date": "2026-12-15",
+      "notes": []
+    },
+    {
+      "id": "K02",
+      "source_ids": ["marshall-admissions"],
+      "verified_at": "2026-11-04",
+      "name": "Round 2",
+      "deadline": "2027-01-05",
+      "decision_date": "2027-03-31",
+      "notes": []
+    },
+    {
+      "id": "K03",
+      "source_ids": ["marshall-admissions"],
+      "verified_at": "2026-11-04",
+      "name": "Round 3",
+      "deadline": "2027-03-01",
+      "decision_date": "2027-05-15",
+      "notes": []
+    },
+    {
+      "id": "K04",
+      "source_ids": ["marshall-admissions"],
+      "verified_at": "2026-11-04",
+      "name": "Round 4",
+      "deadline": "2027-04-15",
+      "decision_date": "2027-06-15",
+      "notes": [
+        {
+          "id": "K05",
+          "text": "After 15 April 2027 applications are reviewed first come, first served, as space allows.",
+          "source_ids": ["marshall-admissions"],
+          "verified_at": "2026-11-04",
+          "confidence": 0.85
+        }
+      ]
+    }
+  ],
+  "application": {
+    "essays": [
+      {
+        "id": "K06",
+        "source_ids": ["mbamission-marshall-2026"],
+        "verified_at": "2026-11-04",
+        "key": "career_goals",
+        "prompt_verbatim": "What are your short-term and long-term career goals, and how will an MBA from USC Marshall help you achieve those goals? Short-term career goals should be those you want to achieve within 3-5 years post-MBA, whereas long-term goals may span a decade or more and encompass broader professional aspirations.",
+        "limit": {
+          "kind": "words",
+          "value": 400
+        },
+        "required": true,
+        "archetypes": ["GOALS", "WHY-SCHOOL"],
+        "parts": [
+          "short-term goals (3–5 years post-MBA)",
+          "long-term goals (a decade or more)",
+          "how a Marshall MBA helps you achieve them"
+        ],
+        "notes": [
+          {
+            "id": "K07",
+            "text": "Note the unusual definition: 'short-term' means three to five years after the MBA, not the first job, so describe a stage of career rather than a single title.",
+            "source_ids": ["admitstory-coach"],
+            "verified_at": "2026-11-04",
+            "confidence": 0.85
+          },
+          {
+            "id": "K08",
+            "text": "A standard statement of purpose: the long-term hook and why it matters to you, the short-term role and the experience that makes you hireable, then why Marshall fills the gap.",
+            "source_ids": ["al-marshall"],
+            "verified_at": "2026-11-04",
+            "confidence": 0.75,
+            "approved_rewrite": true
+          },
+          {
+            "id": "K09",
+            "text": "Name about three electives, each with a specific future use; generic lines like 'consumer marketing will help me market to consumers' could come from anyone. Certificates need a separate application, so say you'd apply.",
+            "source_ids": ["al-marshall"],
+            "verified_at": "2026-11-04",
+            "confidence": 0.75,
+            "approved_rewrite": true
+          },
+          {
+            "id": "K10",
+            "text": "Name one club where you'd contribute something concrete (for example running the budget as VP of Finance), not 'seek a leadership role'. Marshall's alumni culture, the Trojan Family, prizes energetic, lifelong involvement.",
+            "source_ids": ["al-marshall"],
+            "verified_at": "2026-11-04",
+            "confidence": 0.75,
+            "approved_rewrite": true
+          },
+          {
+            "id": "K11",
+            "text": "Mention PRIME by region and real career reason, not a specific destination, since trips change each year. Students can take electives at other USC graduate schools (engineering, film) if they truly serve the goal.",
+            "source_ids": ["al-marshall"],
+            "verified_at": "2026-11-04",
+            "confidence": 0.7,
+            "approved_rewrite": true
+          },
+          {
+            "id": "K12",
+            "text": "At 400 words there's room for one opening scene; keep background under about 15% and land on what the goal means for people, not a summary.",
+            "source_ids": ["admitstory-coach"],
+            "verified_at": "2026-11-04",
+            "confidence": 0.85
+          }
+        ]
+      }
+    ],
+    "short_answers": [],
+    "goal_fields": [],
+    "video": [],
+    "reapplicant": {
+      "essay": null,
+      "policy": [
+        {
+          "id": "K17",
+          "text": "Reapplicants use the additional-information essay to explain what has changed since the previous submission.",
+          "source_ids": ["marshall-admissions"],
+          "verified_at": "2026-11-04",
+          "confidence": 0.85
+        },
+        {
+          "id": "K18",
+          "text": "Say what changed and what it taught you, how the goal sharpened, and how you'll now add more to classmates.",
+          "source_ids": ["al-marshall"],
+          "verified_at": "2026-11-04",
+          "confidence": 0.75,
+          "approved_rewrite": true
+        }
+      ]
+    },
+    "optional_essay": {
+      "id": "K13",
+      "source_ids": ["mbamission-marshall-2026"],
+      "verified_at": "2026-11-04",
+      "key": "additional_information",
+      "prompt_verbatim": "Please use this space to share any additional information about yourself that cannot be found elsewhere in your application and that you would like the Admissions Committee to consider when reviewing your candidacy for the MBA program. Reapplicants should provide any profile updates since your previous application.",
+      "limit": {
+        "kind": "words",
+        "value": 500
+      },
+      "required": false,
+      "archetypes": ["OPTIONAL", "IDENTITY"],
+      "parts": [
+        "additional information not elsewhere in the application",
+        "reapplicants: profile updates since the last application"
+      ],
+      "notes": [
+        {
+          "id": "K14",
+          "text": "Optional for new applicants, required for reapplicants. Marshall's FAQ also asks second-MBA applicants to explain why here.",
+          "source_ids": ["marshall-admissions"],
+          "verified_at": "2026-11-04",
+          "confidence": 0.85
+        },
+        {
+          "id": "K15",
+          "text": "With only one required essay and no recommendations, 500 words is the one place to show the person and how you work with others. A short, real story about collaboration or character can earn its place, as long as it isn't repeated elsewhere.",
+          "source_ids": ["admitstory-coach"],
+          "verified_at": "2026-11-04",
+          "confidence": 0.85
+        },
+        {
+          "id": "K16",
+          "text": "Use it first for anything that needs explaining (grades, gaps, scores), briefly and factually, with the better evidence.",
+          "source_ids": ["al-marshall"],
+          "verified_at": "2026-11-04",
+          "confidence": 0.75,
+          "approved_rewrite": true
+        }
+      ]
+    },
+    "form_sections": [
+      {
+        "id": "K22",
+        "source_ids": ["marshall-admissions"],
+        "verified_at": "2026-11-04",
+        "key": "recommendations_none",
+        "label": "Letters of recommendation",
+        "guidance": [
+          {
+            "id": "K23",
+            "text": "Marshall neither requires nor accepts letters of recommendation, so the resume and essays carry the evidence a recommender usually would.",
+            "source_ids": ["marshall-admissions"],
+            "verified_at": "2026-11-04",
+            "confidence": 0.85
+          }
+        ]
+      }
+    ],
+    "recommendations": null,
+    "resume": {
+      "id": "K24",
+      "source_ids": ["marshall-admissions"],
+      "verified_at": "2026-11-04",
+      "page_limit": 1,
+      "notes": [
+        {
+          "id": "K25",
+          "text": "A professional resume is required; no length rule is published, so one page is the safe default. Marshall recommends at least two years of work experience.",
+          "source_ids": ["marshall-admissions"],
+          "verified_at": "2026-11-04",
+          "confidence": 0.7
+        }
+      ]
+    },
+    "test_policy": [
+      {
+        "id": "K19",
+        "text": "Test optional: GMAT or GRE scores may be submitted but aren't required; no minimum; either accepted.",
+        "source_ids": ["marshall-admissions"],
+        "verified_at": "2026-11-04",
+        "confidence": 0.85
+      },
+      {
+        "id": "K20",
+        "text": "TOEFL or IELTS is required for most international applicants (US permanent residents and English-medium bachelor's degrees exempt).",
+        "source_ids": ["marshall-admissions"],
+        "verified_at": "2026-11-04",
+        "confidence": 0.75
+      }
+    ],
+    "fees_waivers": [
+      {
+        "id": "K21",
+        "text": "No application fee: Marshall says it wants to assess every serious candidate regardless of ability to pay.",
+        "source_ids": ["marshall-admissions"],
+        "verified_at": "2026-11-04",
+        "confidence": 0.85
+      }
+    ]
+  },
+  "values": {
+    "stated": [
+      {
+        "id": "K26",
+        "text": "Marshall's admissions page emphasises a serious interest in the program and the Trojan network; with no recommendations, the essays and resume are the main evidence of fit.",
+        "source_ids": ["marshall-admissions"],
+        "verified_at": "2026-11-04",
+        "confidence": 0.6
+      }
+    ],
+    "trait_map": [
+      {
+        "school_value": "Trojan Family: energetic lifelong community",
+        "admitstory_traits": ["community_builder", "brings_people_along"],
+        "note": {
+          "id": "K27",
+          "text": "Show you'll contribute to clubs as a student and stay involved as an alum.",
+          "source_ids": ["al-marshall"],
+          "verified_at": "2026-11-04",
+          "confidence": 0.75,
+          "approved_rewrite": true
+        }
+      },
+      {
+        "school_value": "collaboration",
+        "admitstory_traits": ["brings_people_along", "empathetic"],
+        "note": {
+          "id": "K28",
+          "text": "Marshall recently ran a teamwork essay; collaboration still matters even though the prompt was dropped for 2026-27.",
+          "source_ids": ["al-marshall"],
+          "verified_at": "2026-11-04",
+          "confidence": 0.6,
+          "approved_rewrite": true
+        }
+      }
+    ]
+  },
+  "culture_and_location": [
+    {
+      "id": "K31",
+      "text": "A two-year, in-person program in Los Angeles that starts with Career Launchpad, a week-long immersion; it uses a practice-group career model and a Leadership Fellows program.",
+      "source_ids": ["marshall-program"],
+      "verified_at": "2026-11-04",
+      "confidence": 0.75
+    }
+  ],
+  "academics": {
+    "courses": [],
+    "centers": [
+      {
+        "id": "K33",
+        "source_ids": ["marshall-program"],
+        "verified_at": "2026-11-04",
+        "name": "Lloyd Greif Center for Entrepreneurial Studies",
+        "what_it_is": "A USC Marshall center or institute listed on the school's site.",
+        "why_it_matters_for": [],
+        "url": "https://www.marshall.usc.edu"
+      },
+      {
+        "id": "K34",
+        "source_ids": ["marshall-program"],
+        "verified_at": "2026-11-04",
+        "name": "Brittingham Social Enterprise Lab",
+        "what_it_is": "A USC Marshall center or institute listed on the school's site.",
+        "why_it_matters_for": [],
+        "url": "https://www.marshall.usc.edu"
+      },
+      {
+        "id": "K35",
+        "source_ids": ["marshall-program"],
+        "verified_at": "2026-11-04",
+        "name": "Center for Global Innovation",
+        "what_it_is": "A USC Marshall center or institute listed on the school's site.",
+        "why_it_matters_for": [],
+        "url": "https://www.marshall.usc.edu"
+      },
+      {
+        "id": "K36",
+        "source_ids": ["marshall-program"],
+        "verified_at": "2026-11-04",
+        "name": "Center for Investment Studies",
+        "what_it_is": "A USC Marshall center or institute listed on the school's site.",
+        "why_it_matters_for": [],
+        "url": "https://www.marshall.usc.edu"
+      },
+      {
+        "id": "K37",
+        "source_ids": ["marshall-program"],
+        "verified_at": "2026-11-04",
+        "name": "Neely Center for Ethical Leadership and Decision Making",
+        "what_it_is": "A USC Marshall center or institute listed on the school's site.",
+        "why_it_matters_for": [],
+        "url": "https://www.marshall.usc.edu"
+      },
+      {
+        "id": "K38",
+        "source_ids": ["marshall-program"],
+        "verified_at": "2026-11-04",
+        "name": "Randall R. Kendrick Global Supply Chain Institute",
+        "what_it_is": "A USC Marshall center or institute listed on the school's site.",
+        "why_it_matters_for": [],
+        "url": "https://www.marshall.usc.edu"
+      },
+      {
+        "id": "K39",
+        "source_ids": ["marshall-program"],
+        "verified_at": "2026-11-04",
+        "name": "Andrew Tavakoli Center for Real Estate",
+        "what_it_is": "A USC Marshall center or institute listed on the school's site.",
+        "why_it_matters_for": [],
+        "url": "https://www.marshall.usc.edu"
+      },
+      {
+        "id": "K40",
+        "source_ids": ["marshall-program"],
+        "verified_at": "2026-11-04",
+        "name": "Initiative on Digital Competition",
+        "what_it_is": "A USC Marshall center or institute listed on the school's site.",
+        "why_it_matters_for": [],
+        "url": "https://www.marshall.usc.edu"
+      }
+    ],
+    "experiential": [
+      {
+        "id": "K32",
+        "source_ids": ["marshall-global"],
+        "verified_at": "2026-11-04",
+        "name": "PRIME (GSBA 580, Global Context of Business)",
+        "what_it_is": "A mandatory first-year course applying international business frameworks to a specific country, with consulting projects for multinational companies and government institutions.",
+        "why_it_matters_for": ["international goals", "the why-Marshall paragraph"],
+        "url": "https://www.marshall.usc.edu/why-marshall/global-opportunities"
+      }
+    ],
+    "structure": []
+  },
+  "community": {
+    "clubs": [],
+    "traditions": [],
+    "treks_events": []
+  },
+  "careers": {
+    "employment_report": null,
+    "recruiting_notes": [
+      {
+        "id": "K41",
+        "text": "Class of 2025: 71% employed within 90 days; average salary US$142,184 and average signing bonus US$35,896 (averages, not medians).",
+        "source_ids": ["marshall-profile"],
+        "verified_at": "2026-11-04",
+        "confidence": 0.85
+      },
+      {
+        "id": "K42",
+        "text": "Average starting salary by industry: consulting US$167,211, financial services US$148,744, technology US$136,056, entertainment US$117,667.",
+        "source_ids": ["marshall-profile"],
+        "verified_at": "2026-11-04",
+        "confidence": 0.85
+      }
+    ]
+  },
+  "class_profile": {
+    "id": "K43",
+    "source_ids": ["marshall-profile"],
+    "verified_at": "2026-11-04",
+    "class_year": 2027,
+    "class_size": 176,
+    "gmat_focus_median": null,
+    "gmat_classic_median": null,
+    "gre_median": null,
+    "gpa_median": null,
+    "gpa_scale": null,
+    "work_experience_years_median": null,
+    "international_share": 0.43
+  },
+  "interview": {
+    "id": "K44",
+    "source_ids": ["ca-marshall-reports"],
+    "verified_at": null,
+    "invitation": "invite_only",
+    "who": ["adcom"],
+    "blind": null,
+    "length_min": 30,
+    "location": ["virtual", "campus"],
+    "common_questions": [],
+    "format_notes": [
+      {
+        "id": "K45",
+        "text": "Applicants report interviews with admissions staff, on Zoom or on campus.",
+        "source_ids": ["ca-marshall-reports"],
+        "verified_at": null,
+        "confidence": 0.5
+      }
+    ]
+  },
+  "ai_policy": {
+    "id": "K46",
+    "source_ids": ["marshall-admissions"],
+    "verified_at": "2026-11-04",
+    "stance": "unknown",
+    "applies_to": [],
+    "disclosure_text": null,
+    "notes": [
+      {
+        "id": "K47",
+        "text": "No statement on applicant AI use was found on Marshall's admissions pages.",
+        "source_ids": ["marshall-admissions"],
+        "verified_at": "2026-11-04",
+        "confidence": 0.7
+      }
+    ]
+  },
+  "scholarships": [
+    {
+      "id": "K48",
+      "text": "Every admit is automatically considered for merit scholarships; Consortium, Schoen veterans and ROMBA awards also exist.",
+      "source_ids": ["marshall-program"],
+      "verified_at": "2026-11-04",
+      "confidence": 0.85
+    }
+  ],
+  "insider_notes": [
+    {
+      "id": "K29",
+      "text": "Entering class of 2025 (Class of 2027): 1,914 applications, 31% accepted, 176 enrolled; average GMAT 742, average GRE 322, average GPA 3.55; six years' average experience; 31% women; 43% international.",
+      "source_ids": ["marshall-profile"],
+      "verified_at": "2026-11-04",
+      "confidence": 0.85
+    },
+    {
+      "id": "K30",
+      "text": "Marshall gives no pre-application feedback, accepts international GPAs without conversion, and needs both original and translated transcripts.",
+      "source_ids": ["marshall-admissions"],
+      "verified_at": "2026-11-04",
+      "confidence": 0.85
+    }
+  ],
+  "avoid": [
+    {
+      "id": "K49",
+      "text": "Generic elective lines any applicant could write.",
+      "source_ids": ["al-marshall"],
+      "verified_at": "2026-11-04",
+      "confidence": 0.75,
+      "approved_rewrite": true
+    },
+    {
+      "id": "K50",
+      "text": "'I will seek a leadership role in X club' with no concrete contribution.",
+      "source_ids": ["al-marshall"],
+      "verified_at": "2026-11-04",
+      "confidence": 0.75,
+      "approved_rewrite": true
+    },
+    {
+      "id": "K51",
+      "text": "Treating 'short-term' as only the first job after graduation.",
+      "source_ids": ["admitstory-coach"],
+      "verified_at": "2026-11-04",
+      "confidence": 0.85
+    }
+  ],
+  "angles_that_work": [
+    {
+      "id": "K52",
+      "text": "A goals essay where each Marshall resource (an elective, PRIME, a center) is tied to a specific future task, plus one concrete club contribution from your past.",
+      "source_ids": ["al-marshall"],
+      "verified_at": "2026-11-04",
+      "confidence": 0.75,
+      "approved_rewrite": true
+    },
+    {
+      "id": "K53",
+      "text": "A collaboration story in the additional-information essay, since nothing else in the file shows how you work with people.",
+      "source_ids": ["admitstory-coach"],
+      "verified_at": "2026-11-04",
+      "confidence": 0.85
+    }
+  ],
+  "glossary": [
+    {
+      "id": "K54",
+      "source_ids": ["marshall-admissions"],
+      "verified_at": "2026-11-04",
+      "term": "Trojan Family",
+      "plain_definition": "USC's name for its alumni network."
+    },
+    {
+      "id": "K55",
+      "source_ids": ["marshall-global"],
+      "verified_at": "2026-11-04",
+      "term": "PRIME",
+      "plain_definition": "Marshall's required first-year global course with an international project."
+    }
+  ]
+}

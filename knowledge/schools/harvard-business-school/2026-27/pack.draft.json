@@ -1,0 +1,920 @@
+{
+  "school": {
+    "id": "harvard-business-school",
+    "name": "Harvard Business School",
+    "short_name": "HBS",
+    "country": "US",
+    "city": "Boston, MA",
+    "website": "https://www.hbs.edu",
+    "program": "full_time_mba"
+  },
+  "cycle": "2026-27",
+  "version": 1,
+  "status": "draft",
+  "_todo": [
+    "application.form_sections: confirm the career-aspirations field and its limit in the 2026-27 portal",
+    "application.optional_essay: the 75-word limit comes from coaching material; confirm in the portal",
+    "application.reapplicant.essay: prompt wording and limit come from coaching material; confirm in the portal",
+    "application.resume.page_limit: HBS states no limit; 1 is the conventional default, not an HBS rule",
+    "academics.experiential and community.clubs: verify FIELD, electives and clubs from hbs.edu",
+    "careers.employment_report: replace the press summary with HBS's own recruiting data page and add top employers",
+    "class_profile: HBS no longer shows GMAT/GRE medians on the profile page; GPA and experience are averages",
+    "ai_policy: confirm the AI question in the live portal"
+  ],
+  "k_high_water": 83,
+  "sources": [
+    {
+      "id": "hbs-process",
+      "type": "official",
+      "title": "HBS MBA: Application process (essays, recommendations, resume, tests, interview, post-interview reflection, FAQs)",
+      "url": "https://www.hbs.edu/mba/admissions/application-process",
+      "trust": 5,
+      "retrieved_at": "2026-11-04",
+      "rights_note": null
+    },
+    {
+      "id": "hbs-dates",
+      "type": "official",
+      "title": "HBS MBA: Application dates (Class of 2029)",
+      "url": "https://www.hbs.edu/mba/admissions/application-dates",
+      "trust": 5,
+      "retrieved_at": "2026-11-04",
+      "rights_note": null
+    },
+    {
+      "id": "hbs-who",
+      "type": "official",
+      "title": "HBS MBA: Who are we looking for? (business-minded, leadership-focused, growth-oriented)",
+      "url": "https://www.hbs.edu/mba/admissions/who-are-we-looking-for",
+      "trust": 5,
+      "retrieved_at": "2026-11-04",
+      "rights_note": null
+    },
+    {
+      "id": "hbs-profile",
+      "type": "official",
+      "title": "HBS MBA: Class profile (Class of 2027)",
+      "url": "https://www.hbs.edu/mba/admissions/class-profile",
+      "trust": 5,
+      "retrieved_at": "2026-11-04",
+      "rights_note": null
+    },
+    {
+      "id": "hbs-portal",
+      "type": "official",
+      "title": "HBS online application (applicant portal; not read)",
+      "url": "https://apply.hbs.edu/apply/",
+      "trust": 5,
+      "retrieved_at": null,
+      "rights_note": null
+    },
+    {
+      "id": "ca-hbs-2025",
+      "type": "press",
+      "title": "Clear Admit: HBS MBA Class of 2025 employment report (Dec 1, 2025)",
+      "url": "https://www.clearadmit.com/2025/12/hbs-mba-class-of-2025-employment-report/",
+      "trust": 2,
+      "retrieved_at": "2026-11-04",
+      "rights_note": null
+    },
+    {
+      "id": "pq-ai-2026",
+      "type": "press",
+      "title": "Poets&Quants (Fortuna, May 26, 2026): AI policies at top MBA programs, quoting each school's application materials",
+      "url": "https://poetsandquants.com/2026/05/26/the-mba-applicants-guide-to-ai-in-2026-whats-allowed-whats-risky-and-what-to-avoid/",
+      "trust": 2,
+      "retrieved_at": "2026-11-04",
+      "rights_note": null
+    },
+    {
+      "id": "al-hbs",
+      "type": "third_party_reference",
+      "title": "ApplicantLab — HBS school tab",
+      "url": null,
+      "trust": 2,
+      "retrieved_at": "2026-11-04",
+      "rights_note": "Paid coaching platform material (ApplicantLab). Private reference; items are Admitstory rewrites approved by Manu 2026-11-04 (§9.6). Never name or quote."
+    },
+    {
+      "id": "admitstory-coach",
+      "type": "coach_notes",
+      "title": "Admitstory coaching canon and Manu's storytelling rules",
+      "url": null,
+      "trust": 4,
+      "retrieved_at": "2026-11-04",
+      "rights_note": null
+    }
+  ],
+  "official_urls": [
+    {
+      "kind": "prompts",
+      "url": "https://www.hbs.edu/mba/admissions/application-process"
+    },
+    {
+      "kind": "deadlines",
+      "url": "https://www.hbs.edu/mba/admissions/application-dates"
+    },
+    {
+      "kind": "class_profile",
+      "url": "https://www.hbs.edu/mba/admissions/class-profile"
+    }
+  ],
+  "rounds": [
+    {
+      "id": "K01",
+      "source_ids": ["hbs-dates"],
+      "verified_at": "2026-11-04",
+      "name": "Round 1",
+      "deadline": "2026-09-09",
+      "decision_date": "2026-12-10",
+      "notes": [
+        {
+          "id": "K02",
+          "text": "Submit by 12:00 pm ET. Applications received after the Round 1 deadline are considered in Round 2; one application per year.",
+          "source_ids": ["hbs-dates"],
+          "verified_at": "2026-11-04",
+          "confidence": 0.85
+        },
+        {
+          "id": "K03",
+          "text": "Interview invitations come about four to six weeks after the deadline; the process takes about three months from deadline to decision.",
+          "source_ids": ["hbs-process"],
+          "verified_at": "2026-11-04",
+          "confidence": 0.85
+        }
+      ]
+    },
+    {
+      "id": "K04",
+      "source_ids": ["hbs-dates"],
+      "verified_at": "2026-11-04",
+      "name": "Round 2",
+      "deadline": "2027-01-05",
+      "decision_date": "2027-03-25",
+      "notes": [
+        {
+          "id": "K05",
+          "text": "Submit by 12:00 pm ET. Applications after the Round 2 deadline are not considered (there is no Round 3).",
+          "source_ids": ["hbs-dates"],
+          "verified_at": "2026-11-04",
+          "confidence": 0.85
+        }
+      ]
+    },
+    {
+      "id": "K06",
+      "source_ids": ["hbs-dates"],
+      "verified_at": "2026-11-04",
+      "name": "2+2 Round",
+      "deadline": "2027-04-28",
+      "decision_date": "2027-06-30",
+      "notes": [
+        {
+          "id": "K07",
+          "text": "For college seniors and full-time master's students graduating between 1 Oct 2026 and 30 Sep 2027; reduced US$100 fee.",
+          "source_ids": ["hbs-process"],
+          "verified_at": "2026-11-04",
+          "confidence": 0.85
+        }
+      ]
+    }
+  ],
+  "application": {
+    "essays": [
+      {
+        "id": "K08",
+        "source_ids": ["hbs-process"],
+        "verified_at": "2026-11-04",
+        "key": "business_minded",
+        "prompt_verbatim": "Business-Minded Essay: Please reflect on how your choices have influenced your career path and aspirations.",
+        "limit": {
+          "kind": "words",
+          "value": 300
+        },
+        "required": true,
+        "archetypes": ["GOALS", "IDENTITY"],
+        "parts": ["the choices you made", "how they shaped your career path", "your aspirations"],
+        "notes": [
+          {
+            "id": "K09",
+            "text": "HBS on business-minded: 'passionate about using business as a force for good'; in the application they look for 'interpersonal skills, quantitative abilities, and the ways in which you plan to create impact through business in the future'.",
+            "source_ids": ["hbs-who"],
+            "verified_at": "2026-11-04",
+            "confidence": 0.85
+          },
+          {
+            "id": "K10",
+            "text": "A narrated resume fails here. Fill the employment boxes and the short career-aspirations field first so they carry the facts and the plan, then spend the essay on one or two real choices: a risky decision, the reasoning behind it, the person you had to convince.",
+            "source_ids": ["al-hbs"],
+            "verified_at": "2026-11-04",
+            "confidence": 0.75,
+            "approved_rewrite": true
+          },
+          {
+            "id": "K11",
+            "text": "The future is the least interesting part; keep aspirations short and let past choices show judgment and values.",
+            "source_ids": ["al-hbs"],
+            "verified_at": "2026-11-04",
+            "confidence": 0.75,
+            "approved_rewrite": true
+          },
+          {
+            "id": "K12",
+            "text": "No 'why HBS': flattery wastes words at a school that knows its appeal. Every word should sell you.",
+            "source_ids": ["al-hbs"],
+            "verified_at": "2026-11-04",
+            "confidence": 0.75,
+            "approved_rewrite": true
+          },
+          {
+            "id": "K13",
+            "text": "You may write under the limit but not over it.",
+            "source_ids": ["hbs-process"],
+            "verified_at": "2026-11-04",
+            "confidence": 0.85
+          }
+        ]
+      },
+      {
+        "id": "K14",
+        "source_ids": ["hbs-process"],
+        "verified_at": "2026-11-04",
+        "key": "leadership_focused",
+        "prompt_verbatim": "Leadership-Focused Essay: What experiences have shaped how you invest in others and how you lead?",
+        "limit": {
+          "kind": "words",
+          "value": 250
+        },
+        "required": true,
+        "archetypes": ["LEADERSHIP", "SUPPORT"],
+        "parts": [
+          "experiences that shaped you",
+          "how you invest in others",
+          "how you lead (present tense)"
+        ],
+        "notes": [
+          {
+            "id": "K15",
+            "text": "HBS on leadership-focused: you don't need a formal role; they build a class of 'different kinds of leaders, from the front-line manager to the startup founder to the behind-the-scenes thought leader', and leadership 'may be most evident in extracurriculars, community initiatives, or your professional work'.",
+            "source_ids": ["hbs-who"],
+            "verified_at": "2026-11-04",
+            "confidence": 0.85
+          },
+          {
+            "id": "K16",
+            "text": "Spend most words on how you invest in others, not on the shaping experience: readers recognise the familiar shapers (a coach, a hard childhood, a bad boss) quickly. What sets you apart is what you did with it.",
+            "source_ids": ["al-hbs"],
+            "verified_at": "2026-11-04",
+            "confidence": 0.75,
+            "approved_rewrite": true
+          },
+          {
+            "id": "K17",
+            "text": "A backstory alone isn't the point; the outsized leadership impact it propelled is. Misjudging how hard your story was reads as low self-awareness.",
+            "source_ids": ["al-hbs"],
+            "verified_at": "2026-11-04",
+            "confidence": 0.75,
+            "approved_rewrite": true
+          },
+          {
+            "id": "K18",
+            "text": "'Community' can be broad: first-generation colleagues, a struggling teammate, a support group. If you use a work story, make sure part of it shows you investing in someone.",
+            "source_ids": ["al-hbs"],
+            "verified_at": "2026-11-04",
+            "confidence": 0.75,
+            "approved_rewrite": true
+          },
+          {
+            "id": "K19",
+            "text": "Dramatise rather than label: show the moment you chose to help and what it cost you, then the lesson in one plain line.",
+            "source_ids": ["admitstory-coach"],
+            "verified_at": "2026-11-04",
+            "confidence": 0.85
+          }
+        ]
+      },
+      {
+        "id": "K20",
+        "source_ids": ["hbs-process"],
+        "verified_at": "2026-11-04",
+        "key": "growth_oriented",
+        "prompt_verbatim": "Growth-Oriented Essay: Curiosity can be seen in many ways. Please share an example of how you have demonstrated curiosity and how that has influenced your growth.",
+        "limit": {
+          "kind": "words",
+          "value": 250
+        },
+        "required": true,
+        "archetypes": ["IDENTITY", "SETBACK"],
+        "parts": ["one example of curiosity", "how it influenced your growth"],
+        "notes": [
+          {
+            "id": "K21",
+            "text": "HBS on growth-oriented: people who 'broaden their perspectives through creative problem solving, active listening, and lively discussion'; the case method depends on 'curious students who are excited to listen and learn'. They look for 'the ways in which you have grown, developed, and how you engage with the world'.",
+            "source_ids": ["hbs-who"],
+            "verified_at": "2026-11-04",
+            "confidence": 0.85
+          },
+          {
+            "id": "K22",
+            "text": "Not a brain-size essay: scores and transcripts show intelligence. Show curiosity that went beyond the expected: taking another person's view seriously (the heart of the case method), looking somewhere unexpected, or persuading someone to share what you needed.",
+            "source_ids": ["al-hbs"],
+            "verified_at": "2026-11-04",
+            "confidence": 0.75,
+            "approved_rewrite": true
+          },
+          {
+            "id": "K23",
+            "text": "Curiosity about a person's motives (why a colleague resisted a change) can turn into a leadership story; the growth can be one line plus a brief later example.",
+            "source_ids": ["al-hbs"],
+            "verified_at": "2026-11-04",
+            "confidence": 0.75,
+            "approved_rewrite": true
+          },
+          {
+            "id": "K24",
+            "text": "Strongest move: reverse-engineer a curiosity angle into one of your best leadership stories, ideally where you changed your mind because of someone else's insight.",
+            "source_ids": ["al-hbs"],
+            "verified_at": "2026-11-04",
+            "confidence": 0.75,
+            "approved_rewrite": true
+          }
+        ]
+      }
+    ],
+    "short_answers": [],
+    "goal_fields": [],
+    "video": [],
+    "reapplicant": {
+      "essay": {
+        "id": "K33",
+        "source_ids": ["hbs-portal"],
+        "verified_at": null,
+        "key": "reapplicant",
+        "prompt_verbatim": "Please use this space to share with the Admissions Committee how you have reflected and grown since your previous application and discuss any relevant updates to your candidacy (e.g., changes in your professional life, additional coursework, and extracurricular/volunteer engagements).",
+        "limit": {
+          "kind": "words",
+          "value": 250
+        },
+        "required": true,
+        "archetypes": ["REAPPLICANT"],
+        "parts": ["reflection and growth", "professional, academic and extracurricular updates"],
+        "notes": [
+          {
+            "id": "K34",
+            "text": "A quick 'delta' between then and now, not a hidden extra leadership essay: what the new scope taught you, any refined career thinking with the homework behind it, academic updates in a line, continued (not newly started) volunteering.",
+            "source_ids": ["al-hbs"],
+            "verified_at": "2026-11-04",
+            "confidence": 0.75,
+            "approved_rewrite": true
+          }
+        ]
+      },
+      "policy": [
+        {
+          "id": "K35",
+          "text": "HBS is 'reapplicant friendly': about 10% of a class previously applied; reapplying 'often signals genuine commitment'. The Board can see prior materials but focuses on the current application, which must be complete; scores must still be valid.",
+          "source_ids": ["hbs-process"],
+          "verified_at": "2026-11-04",
+          "confidence": 0.85
+        }
+      ]
+    },
+    "optional_essay": {
+      "id": "K30",
+      "source_ids": ["hbs-portal"],
+      "verified_at": null,
+      "key": "additional_information",
+      "prompt_verbatim": "Please enter important information that you want the Board to know in the Additional Information section of the application.",
+      "limit": {
+        "kind": "words",
+        "value": 75
+      },
+      "required": false,
+      "archetypes": ["OPTIONAL"],
+      "parts": ["special circumstances only"],
+      "notes": [
+        {
+          "id": "K31",
+          "text": "HBS: use the Additional Information section for important information, including special circumstances.",
+          "source_ids": ["hbs-process"],
+          "verified_at": "2026-11-04",
+          "confidence": 0.85
+        },
+        {
+          "id": "K32",
+          "text": "Short, factual, mature; never a fourth essay.",
+          "source_ids": ["al-hbs", "admitstory-coach"],
+          "verified_at": "2026-11-04",
+          "confidence": 0.85
+        }
+      ]
+    },
+    "form_sections": [
+      {
+        "id": "K25",
+        "source_ids": ["hbs-portal"],
+        "verified_at": null,
+        "key": "career_aspirations",
+        "label": "Career aspirations (short text field, about 500 characters)",
+        "char_limit": 500,
+        "limit_kind": "chars_incl_spaces",
+        "guidance": [
+          {
+            "id": "K26",
+            "text": "Use it for the plain plan (target role, industry, the impact you want) so the business-minded essay can tell a story instead of restating goals.",
+            "source_ids": ["al-hbs"],
+            "verified_at": "2026-11-04",
+            "confidence": 0.75,
+            "approved_rewrite": true
+          }
+        ]
+      },
+      {
+        "id": "K27",
+        "source_ids": ["hbs-portal"],
+        "verified_at": null,
+        "key": "employment",
+        "label": "Employment section (job descriptions, accomplishments, challenges, reasons for leaving)",
+        "guidance": [
+          {
+            "id": "K28",
+            "text": "The most important form section: interviewers draw on it. Pack in motivations, results, a challenge overcome and investing in others, so the essays don't have to carry everything. Leave 'reason for leaving' blank or N/A for the current job.",
+            "source_ids": ["al-hbs"],
+            "verified_at": "2026-11-04",
+            "confidence": 0.75,
+            "approved_rewrite": true
+          },
+          {
+            "id": "K29",
+            "text": "Entrepreneurial or self-employed roles are welcome; tell HBS about the company here, on the resume or through recommenders. Employment gaps of two months or more can be explained in the resume section.",
+            "source_ids": ["hbs-process"],
+            "verified_at": "2026-11-04",
+            "confidence": 0.85
+          }
+        ]
+      }
+    ],
+    "recommendations": {
+      "id": "K36",
+      "source_ids": ["hbs-process"],
+      "verified_at": "2026-11-04",
+      "count": 2,
+      "format": "school_specific",
+      "questions": [
+        {
+          "text_verbatim": "Please provide specific examples of how the applicant's performance, potential, background, or personal qualities compare to those of other well-qualified individuals in similar roles.",
+          "limit": {
+            "kind": "words",
+            "value": 300
+          }
+        },
+        {
+          "text_verbatim": "Please describe the most important piece of constructive feedback you have given the applicant. Please detail the circumstances and the applicant's response.",
+          "limit": {
+            "kind": "words",
+            "value": 250
+          }
+        }
+      ],
+      "notes": [
+        {
+          "id": "K37",
+          "text": "Recommenders also fill in a personal qualities and skills grid. One should ideally be a current or recent supervisor, but HBS won't have you jeopardise your job: 'How well a person knows you should take priority over level of seniority or HBS alumni status.'",
+          "source_ids": ["hbs-process"],
+          "verified_at": "2026-11-04",
+          "confidence": 0.85
+        },
+        {
+          "id": "K38",
+          "text": "Recommenders submit separately by the round deadline; don't wait for them before submitting.",
+          "source_ids": ["hbs-process"],
+          "verified_at": "2026-11-04",
+          "confidence": 0.85
+        }
+      ]
+    },
+    "resume": {
+      "id": "K39",
+      "source_ids": ["hbs-process"],
+      "verified_at": "2026-11-04",
+      "page_limit": 1,
+      "notes": [
+        {
+          "id": "K40",
+          "text": "'This can be your standard business resume or CV'; no format preference. HBS recommends at least two years of full-time work before enrolling.",
+          "source_ids": ["hbs-process"],
+          "verified_at": "2026-11-04",
+          "confidence": 0.85
+        }
+      ]
+    },
+    "test_policy": [
+      {
+        "id": "K41",
+        "text": "GRE or GMAT (including GMAT Focus/10th Edition) required, no waivers 'under any circumstances'; no minimum, no preference. Scores must be dated between 9 Sep 2021 and 9 Sep 2026 for Round 1, or 5 Jan 2022 and 5 Jan 2027 for Round 2. Unofficial scores can be self-reported at submission.",
+        "source_ids": ["hbs-process"],
+        "verified_at": "2026-11-04",
+        "confidence": 0.85
+      },
+      {
+        "id": "K42",
+        "text": "TOEFL iBT, IELTS, PTE or Duolingo required without an English-only undergraduate degree; HBS discourages applying below TOEFL 5 (new scale) or 109, IELTS 7.5, PTE 75, Duolingo 145.",
+        "source_ids": ["hbs-process"],
+        "verified_at": "2026-11-04",
+        "confidence": 0.85
+      }
+    ],
+    "fees_waivers": [
+      {
+        "id": "K43",
+        "text": "US$250 fee (US$100 for 2+2); waived for active-duty military; need-based waivers by request after starting an application.",
+        "source_ids": ["hbs-process"],
+        "verified_at": "2026-11-04",
+        "confidence": 0.85
+      },
+      {
+        "id": "K44",
+        "text": "HBS says you don't need a paid consultant and runs Application Help Sessions for applicants (sign-up in the portal).",
+        "source_ids": ["hbs-process"],
+        "verified_at": "2026-11-04",
+        "confidence": 0.85
+      }
+    ]
+  },
+  "values": {
+    "stated": [
+      {
+        "id": "K45",
+        "text": "'Our students are: business-minded, leadership-focused, and growth-oriented.' A class of 900+ students 'who bring as many different experiences and perspectives as possible'.",
+        "source_ids": ["hbs-who"],
+        "verified_at": "2026-11-04",
+        "confidence": 0.85
+      },
+      {
+        "id": "K46",
+        "text": "Leadership-focused: people 'who aspire to lead others toward making a difference in the world' and who recognise they 'must develop and nurture diverse teams'.",
+        "source_ids": ["hbs-who"],
+        "verified_at": "2026-11-04",
+        "confidence": 0.85
+      }
+    ],
+    "trait_map": [
+      {
+        "school_value": "business-minded: business as a force for good",
+        "admitstory_traits": ["commercial_judgment", "analytical", "measurable_impact"]
+      },
+      {
+        "school_value": "leadership-focused: develop and nurture teams",
+        "admitstory_traits": ["brings_people_along", "develops_people"],
+        "note": {
+          "id": "K47",
+          "text": "Investing in others is the emphasis: show someone you developed, not just a team you ran.",
+          "source_ids": ["al-hbs"],
+          "verified_at": "2026-11-04",
+          "confidence": 0.75,
+          "approved_rewrite": true
+        }
+      },
+      {
+        "school_value": "growth-oriented: listening, discussion, broadened perspectives",
+        "admitstory_traits": ["curious_learner", "acts_on_feedback", "self_aware"]
+      }
+    ]
+  },
+  "culture_and_location": [
+    {
+      "id": "K53",
+      "text": "A residential campus in Boston across the river from Cambridge; Boston is a major US start-up hub. Daily case discussion in sections is the core experience.",
+      "source_ids": ["hbs-process"],
+      "verified_at": "2026-11-04",
+      "confidence": 0.85
+    }
+  ],
+  "academics": {
+    "courses": [],
+    "centers": [],
+    "experiential": [],
+    "structure": [
+      {
+        "id": "K54",
+        "text": "Case method: read a 10–20 page case ending in a decision, discuss it in a morning discussion group, then debate in class, where students do most of the talking.",
+        "source_ids": ["hbs-process"],
+        "verified_at": "2026-11-04",
+        "confidence": 0.85
+      },
+      {
+        "id": "K55",
+        "text": "Required Curriculum includes Finance 1, Leadership & Organizational Behavior, Leadership & Corporate Accountability, and Data Science & AI for Leaders.",
+        "source_ids": ["hbs-process"],
+        "verified_at": "2026-11-04",
+        "confidence": 0.85
+      },
+      {
+        "id": "K56",
+        "text": "Joint degrees with Harvard Medical, Dental, Law and Kennedy schools; MS/MBA Biotechnology: Life Sciences and MS/MBA Engineering Sciences apply through the HBS application with an extra essay.",
+        "source_ids": ["hbs-process"],
+        "verified_at": "2026-11-04",
+        "confidence": 0.85
+      }
+    ]
+  },
+  "community": {
+    "clubs": [],
+    "traditions": [],
+    "treks_events": []
+  },
+  "careers": {
+    "employment_report": {
+      "id": "K57",
+      "source_ids": ["ca-hbs-2025"],
+      "verified_at": "2026-11-04",
+      "class_year": 2025,
+      "currency": "USD",
+      "by_function": [
+        {
+          "function": "Financial Services",
+          "share": 0.34,
+          "median_base": null
+        },
+        {
+          "function": "Technology",
+          "share": 0.22,
+          "median_base": null
+        },
+        {
+          "function": "Consulting",
+          "share": 0.21,
+          "median_base": 190000
+        },
+        {
+          "function": "Health Care",
+          "share": 0.06,
+          "median_base": null
+        },
+        {
+          "function": "Manufacturing",
+          "share": 0.05,
+          "median_base": null
+        }
+      ],
+      "top_employers": []
+    },
+    "recruiting_notes": [
+      {
+        "id": "K58",
+        "text": "Class of 2025: median base US$184,500; 58% received a signing bonus (median US$30,000). Of the 65% seeking jobs, 90% had an offer within three months; 35% didn't seek employment (17% of them started a business).",
+        "source_ids": ["ca-hbs-2025"],
+        "verified_at": "2026-11-04",
+        "confidence": 0.85
+      },
+      {
+        "id": "K59",
+        "text": "Financial services 34% (private equity 14%, investment management 7%, investment banking 6%, VC 4%); 92% stayed in the US, mostly the Northeast (48%) and West (24%).",
+        "source_ids": ["ca-hbs-2025"],
+        "verified_at": "2026-11-04",
+        "confidence": 0.85
+      }
+    ]
+  },
+  "class_profile": {
+    "id": "K60",
+    "source_ids": ["hbs-profile"],
+    "verified_at": "2026-11-04",
+    "class_year": 2027,
+    "class_size": 943,
+    "gmat_focus_median": null,
+    "gmat_classic_median": null,
+    "gre_median": null,
+    "gpa_median": 3.76,
+    "gpa_scale": 4.0,
+    "work_experience_years_median": 4.9,
+    "international_share": 0.37
+  },
+  "interview": {
+    "id": "K61",
+    "source_ids": ["hbs-process"],
+    "verified_at": "2026-11-04",
+    "invitation": "invite_only",
+    "who": ["adcom"],
+    "blind": false,
+    "length_min": 30,
+    "location": ["campus", "hub", "virtual"],
+    "common_questions": [
+      {
+        "id": "K62",
+        "source_ids": ["al-hbs"],
+        "verified_at": "2026-11-04",
+        "text": "Questions built from your own application, especially the employment section and essays.",
+        "frequency_weight": 5
+      },
+      {
+        "id": "K63",
+        "source_ids": ["admitstory-coach"],
+        "verified_at": "2026-11-04",
+        "text": "Walk me through a decision you made and why.",
+        "frequency_weight": 3
+      }
+    ],
+    "format_notes": [
+      {
+        "id": "K64",
+        "text": "30 minutes with an MBA Admissions Board member who has reviewed your application; 'tailored to you'. By invitation only; on campus, in hub cities or on Zoom; timing and format imply nothing.",
+        "source_ids": ["hbs-process"],
+        "verified_at": "2026-11-04",
+        "confidence": 0.85
+      },
+      {
+        "id": "K65",
+        "text": "Within 24 hours of the interview, submit the required Post-Interview Reflection through the application system; instructions go to interviewees.",
+        "source_ids": ["hbs-process"],
+        "verified_at": "2026-11-04",
+        "confidence": 0.85
+      },
+      {
+        "id": "K66",
+        "text": "Know every line of your file; the interviewer will probe the form boxes as much as the essays. A second person may take notes.",
+        "source_ids": ["al-hbs"],
+        "verified_at": "2026-11-04",
+        "confidence": 0.7,
+        "approved_rewrite": true
+      },
+      {
+        "id": "K67",
+        "text": "For the reflection, add something new the interview didn't reach and show self-awareness about the conversation, rather than a thank-you note or a polished essay.",
+        "source_ids": ["admitstory-coach"],
+        "verified_at": "2026-11-04",
+        "confidence": 0.7
+      }
+    ]
+  },
+  "ai_policy": {
+    "id": "K68",
+    "source_ids": ["pq-ai-2026"],
+    "verified_at": "2026-11-04",
+    "stance": "permitted_with_disclosure",
+    "applies_to": ["essays"],
+    "disclosure_text": "If 'yes' to using AI: 'In accordance with HBS student policy, you must cite your sources. Please indicate below in what manner you have utilized AI in completing this application, and in which sections.' (75 words max)",
+    "notes": [
+      {
+        "id": "K69",
+        "text": "HBS application: 'the use of AI is permitted; however, you should not claim AI output as your own independent work, and you should always verify the quality of concepts and content that you develop through the use of generative AI tools.'",
+        "source_ids": ["pq-ai-2026"],
+        "verified_at": "2026-11-04",
+        "confidence": 0.85
+      }
+    ]
+  },
+  "scholarships": [
+    {
+      "id": "K70",
+      "text": "Need-based: about 50% of students receive HBS scholarships, averaging about US$100k over two years; 10% receive full-tuition scholarships. Awards assume you'll take a loan.",
+      "source_ids": ["hbs-profile", "hbs-process"],
+      "verified_at": "2026-11-04",
+      "confidence": 0.85
+    },
+    {
+      "id": "K71",
+      "text": "Named fellowships include Forward (lower-income backgrounds), RISE (under-resourced communities), Goldsmith (nonprofit leadership), Junior Achievement and the McArthur Canadian Fellowship.",
+      "source_ids": ["hbs-process"],
+      "verified_at": "2026-11-04",
+      "confidence": 0.8
+    }
+  ],
+  "insider_notes": [
+    {
+      "id": "K48",
+      "text": "Class of 2027: 943 students from 9,409 applications (2024-25); average GPA 3.76; average 4.9 years' experience (middle 80% 3–7); 44% women; 37% international; 62 countries; 283 universities; 10% first-generation.",
+      "source_ids": ["hbs-profile"],
+      "verified_at": "2026-11-04",
+      "confidence": 0.85
+    },
+    {
+      "id": "K49",
+      "text": "44% of the Class of 2027 submitted the GRE, 34% the GMAT and 28% the GMAT 10th Edition.",
+      "source_ids": ["hbs-profile"],
+      "verified_at": "2026-11-04",
+      "confidence": 0.85
+    },
+    {
+      "id": "K50",
+      "text": "Persuasion stories land especially well at HBS (its teaching is built on discussion): an insight into what a sceptic cared about, used to win them over.",
+      "source_ids": ["al-hbs"],
+      "verified_at": "2026-11-04",
+      "confidence": 0.75,
+      "approved_rewrite": true
+    },
+    {
+      "id": "K51",
+      "text": "The 'story behind the bullet point': never retell what the resume says or what any MBA reader would assume (analysis, a pitch, status meetings). Tell the hidden obstacle and the interpersonal move that overcame it.",
+      "source_ids": ["al-hbs"],
+      "verified_at": "2026-11-04",
+      "confidence": 0.75,
+      "approved_rewrite": true
+    },
+    {
+      "id": "K52",
+      "text": "Readers are trained admissions staff who often stay for years, not students.",
+      "source_ids": ["al-hbs"],
+      "verified_at": "2026-11-04",
+      "confidence": 0.65,
+      "approved_rewrite": true
+    }
+  ],
+  "avoid": [
+    {
+      "id": "K72",
+      "text": "A narrated resume in the business-minded essay.",
+      "source_ids": ["al-hbs"],
+      "verified_at": "2026-11-04",
+      "confidence": 0.75,
+      "approved_rewrite": true
+    },
+    {
+      "id": "K73",
+      "text": "Any 'why HBS' praise (case method, faculty, classmates).",
+      "source_ids": ["al-hbs"],
+      "verified_at": "2026-11-04",
+      "confidence": 0.75,
+      "approved_rewrite": true
+    },
+    {
+      "id": "K74",
+      "text": "Bragging about intelligence, especially in the curiosity essay.",
+      "source_ids": ["al-hbs"],
+      "verified_at": "2026-11-04",
+      "confidence": 0.75,
+      "approved_rewrite": true
+    },
+    {
+      "id": "K75",
+      "text": "Over-telling a hard backstory without the leadership impact it led to.",
+      "source_ids": ["al-hbs"],
+      "verified_at": "2026-11-04",
+      "confidence": 0.75,
+      "approved_rewrite": true
+    },
+    {
+      "id": "K76",
+      "text": "Peer recommenders; HBS discourages them.",
+      "source_ids": ["hbs-process"],
+      "verified_at": "2026-11-04",
+      "confidence": 0.85
+    }
+  ],
+  "angles_that_work": [
+    {
+      "id": "K77",
+      "text": "A choice story where the applicant took a risk against advice and explains the reasoning, with goals kept to a sentence.",
+      "source_ids": ["al-hbs"],
+      "verified_at": "2026-11-04",
+      "confidence": 0.75,
+      "approved_rewrite": true
+    },
+    {
+      "id": "K78",
+      "text": "A leadership essay centred on developing one specific person, with the shaping experience in two lines.",
+      "source_ids": ["al-hbs"],
+      "verified_at": "2026-11-04",
+      "confidence": 0.75,
+      "approved_rewrite": true
+    },
+    {
+      "id": "K79",
+      "text": "A curiosity essay where the applicant changed their mind because of someone else's insight and led better for it.",
+      "source_ids": ["al-hbs"],
+      "verified_at": "2026-11-04",
+      "confidence": 0.75,
+      "approved_rewrite": true
+    }
+  ],
+  "glossary": [
+    {
+      "id": "K80",
+      "source_ids": ["hbs-process"],
+      "verified_at": "2026-11-04",
+      "term": "Admissions Board",
+      "plain_definition": "HBS's admissions committee; Board members conduct the interviews."
+    },
+    {
+      "id": "K81",
+      "source_ids": ["hbs-process"],
+      "verified_at": "2026-11-04",
+      "term": "Post-Interview Reflection",
+      "plain_definition": "A written reflection every interviewee must submit within 24 hours of the HBS interview."
+    },
+    {
+      "id": "K82",
+      "source_ids": ["hbs-process"],
+      "verified_at": "2026-11-04",
+      "term": "2+2",
+      "plain_definition": "HBS deferred admission for final-year students: two to four years of work, then the two-year MBA."
+    },
+    {
+      "id": "K83",
+      "source_ids": ["al-hbs"],
+      "verified_at": "2026-11-04",
+      "term": "Section",
+      "plain_definition": "The cohort of about 90 students who take the first-year Required Curriculum together."
+    }
+  ]
+}

@@ -7,6 +7,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useCallback, useEffect, useState } from "react";
 import { AlertMessage, StatusMessage } from "@/components/live-message";
+import { ModelCredit } from "@/components/model-seal";
 import { INTERVIEW_COMING_SOON } from "@/lib/interview/coming-soon";
 
 // Unlock (spec §5.6, §6.9 copy). One button names the exact action and price. With Paddle the
@@ -136,6 +137,7 @@ export function UnlockScreen({
 
       {!waiting ? (
         <section className="flex flex-col gap-6 border-t border-edge pt-6">
+          <ModelCredit />
           <ul className="flex flex-col gap-2 text-text">
             <li>Positioning and a file map for {school}</li>
             <li>Every essay, short answer and goals field, in your words where you said them</li>

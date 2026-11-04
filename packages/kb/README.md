@@ -39,6 +39,11 @@ implements the `ChunkStore` contract, and the admin console and kit pipeline cal
 
 ## Data
 
-- `knowledge/schools/darden/2026-27/pack.draft.json` holds the Appendix G draft. Nothing in it is
-  verified, and `_todo` lists every field still to fill.
+- `knowledge/schools/<seed-slug>/2026-27/pack.draft.json` holds the researched draft packs, one per
+  school (official pages, admissions-director statements, and coaching notes rewritten in our own
+  words). The admin review screen imports them; `_todo` lists what is still unconfirmed.
+  `pnpm --filter @admitstory/kb exec tsx scripts/validate-drafts.ts [slug…]` checks each against the
+  schema and reports its compiled size.
+- `fixtures/drafts/darden-appendix-g/pack.draft.json` keeps the original Appendix G draft, with nothing
+  verified, for the schema and compiler tests.
 - `fixtures/schools/<slug>/pack.json` holds six fictional, complete packs for the eval harness.

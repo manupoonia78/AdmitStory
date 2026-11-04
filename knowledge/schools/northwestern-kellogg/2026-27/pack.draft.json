@@ -1,0 +1,942 @@
+{
+  "school": {
+    "id": "northwestern-kellogg",
+    "name": "Northwestern University Kellogg School of Management",
+    "short_name": "Kellogg",
+    "country": "US",
+    "city": "Evanston, IL",
+    "website": "https://www.kellogg.northwestern.edu",
+    "program": "full_time_mba"
+  },
+  "cycle": "2026-27",
+  "version": 1,
+  "status": "draft",
+  "_todo": [
+    "application.form_sections.career_goals_boxes: two 500-character career boxes existed in earlier cycles; a 2026-27 guide says career content now lives in the one essay. Confirm in the portal or delete",
+    "application.video[0].think_time_s: 'a brief moment' officially; about 20 seconds per one guide",
+    "academics: verify current majors, pathways, labs and GIM details on the Kellogg site (the academics page didn't render them)",
+    "community.clubs: verify specific Kellogg clubs and conferences",
+    "class_profile: Kellogg publishes averages, not medians",
+    "interview: confirm who interviews (alumni, second-year students, admissions), whether interviewers see more than the resume, and typical length",
+    "ai_policy: confirm the statement in the live portal"
+  ],
+  "k_high_water": 80,
+  "sources": [
+    {
+      "id": "kellogg-apply",
+      "type": "official",
+      "title": "Kellogg: How to apply to a Full-Time MBA (essays, video essays, recommendations, tests, fee, interview)",
+      "url": "https://www.kellogg.northwestern.edu/admissions/ft-admissions/ft-how-to-apply/",
+      "trust": 5,
+      "retrieved_at": "2026-11-04",
+      "rights_note": null
+    },
+    {
+      "id": "kellogg-admissions",
+      "type": "official",
+      "title": "Kellogg: Full-Time MBA admissions (deadlines, what we look for)",
+      "url": "https://www.kellogg.northwestern.edu/admissions/ft-admissions/",
+      "trust": 5,
+      "retrieved_at": "2026-11-04",
+      "rights_note": null
+    },
+    {
+      "id": "kellogg-live-2026",
+      "type": "official",
+      "title": "Kellogg blog: Full-Time MBA application is now live — here's what's new (Jun 10, 2026)",
+      "url": "https://www.kellogg.northwestern.edu/news/blog/2026/06/10/full-time-mba-application-live/",
+      "trust": 5,
+      "retrieved_at": "2026-11-04",
+      "rights_note": null
+    },
+    {
+      "id": "kellogg-tips-2026",
+      "type": "adcom",
+      "title": "Kellogg blog: Top 5 tips when applying to Kellogg (Jul 16, 2026)",
+      "url": "https://www.kellogg.northwestern.edu/news/blog/2026/07/16/application-tips/",
+      "trust": 4,
+      "retrieved_at": "2026-11-04",
+      "rights_note": null
+    },
+    {
+      "id": "kellogg-profile",
+      "type": "official",
+      "title": "Kellogg: Class profile, Class of 2027 (Two-Year MBA)",
+      "url": "https://www.kellogg.northwestern.edu/programs/full-time-mba/class-profile/",
+      "trust": 5,
+      "retrieved_at": "2026-11-04",
+      "rights_note": null
+    },
+    {
+      "id": "kellogg-outcomes",
+      "type": "official",
+      "title": "Kellogg: Full-Time MBA career outcomes, Class of 2025 (Two-Year MBA)",
+      "url": "https://www.kellogg.northwestern.edu/programs/full-time-mba/career-services/career-outcomes/",
+      "trust": 5,
+      "retrieved_at": "2026-11-04",
+      "rights_note": null
+    },
+    {
+      "id": "kellogg-academics",
+      "type": "official",
+      "title": "Kellogg: Full-Time MBA academics",
+      "url": "https://www.kellogg.northwestern.edu/programs/full-time-mba/academics/",
+      "trust": 5,
+      "retrieved_at": "2026-11-04",
+      "rights_note": null
+    },
+    {
+      "id": "kellogg-portal",
+      "type": "official",
+      "title": "Kellogg online application (applicant portal; not read)",
+      "url": "https://admissions.kellogg.northwestern.edu/apply",
+      "trust": 5,
+      "retrieved_at": null,
+      "rights_note": null
+    },
+    {
+      "id": "sb-kellogg-2026",
+      "type": "press",
+      "title": "Stacy Blackman: Kellogg MBA essays for the Class of 2029 (2026-27), quoting the application",
+      "url": "https://www.stacyblackman.com/blog/northwestern-kellogg-mba-essays/",
+      "trust": 2,
+      "retrieved_at": "2026-11-04",
+      "rights_note": null
+    },
+    {
+      "id": "pq-ai-2026",
+      "type": "press",
+      "title": "Poets&Quants (Fortuna, May 26, 2026): AI policies at top MBA programs, quoting each school's application materials",
+      "url": "https://poetsandquants.com/2026/05/26/the-mba-applicants-guide-to-ai-in-2026-whats-allowed-whats-risky-and-what-to-avoid/",
+      "trust": 2,
+      "retrieved_at": "2026-11-04",
+      "rights_note": null
+    },
+    {
+      "id": "aringo-kellogg-2026",
+      "type": "press",
+      "title": "Aringo: 5 videos, 1 essay — the Kellogg MBA application 2026-2027",
+      "url": "https://aringo.com/5-videos-1-essay-the-new-rules-of-the-northwestern-kellogg-mba-application-2026-2027/",
+      "trust": 2,
+      "retrieved_at": "2026-11-04",
+      "rights_note": null
+    },
+    {
+      "id": "al-kellogg",
+      "type": "third_party_reference",
+      "title": "ApplicantLab — Kellogg school tab",
+      "url": null,
+      "trust": 2,
+      "retrieved_at": "2026-11-04",
+      "rights_note": "Paid coaching platform material (ApplicantLab). Private reference; items are Admitstory rewrites approved by Manu 2026-11-04 (§9.6). Never name or quote."
+    },
+    {
+      "id": "admitstory-coach",
+      "type": "coach_notes",
+      "title": "Admitstory coaching canon and Manu's storytelling rules",
+      "url": null,
+      "trust": 4,
+      "retrieved_at": "2026-11-04",
+      "rights_note": null
+    }
+  ],
+  "official_urls": [
+    {
+      "kind": "prompts",
+      "url": "https://www.kellogg.northwestern.edu/admissions/ft-admissions/ft-how-to-apply/"
+    },
+    {
+      "kind": "deadlines",
+      "url": "https://www.kellogg.northwestern.edu/admissions/ft-admissions/"
+    },
+    {
+      "kind": "class_profile",
+      "url": "https://www.kellogg.northwestern.edu/programs/full-time-mba/class-profile/"
+    },
+    {
+      "kind": "employment_report",
+      "url": "https://www.kellogg.northwestern.edu/programs/full-time-mba/career-services/career-outcomes/"
+    }
+  ],
+  "rounds": [
+    {
+      "id": "K01",
+      "source_ids": ["kellogg-admissions"],
+      "verified_at": "2026-11-04",
+      "name": "Round 1",
+      "deadline": "2026-09-09",
+      "decision_date": "2026-12-09",
+      "notes": [
+        {
+          "id": "K02",
+          "text": "Video essays are due 96 hours after the round deadline.",
+          "source_ids": ["kellogg-apply"],
+          "verified_at": "2026-11-04",
+          "confidence": 0.85
+        },
+        {
+          "id": "K03",
+          "text": "Deadlines are reported as 5:00 pm Central.",
+          "source_ids": ["aringo-kellogg-2026"],
+          "verified_at": "2026-11-04",
+          "confidence": 0.7
+        }
+      ]
+    },
+    {
+      "id": "K04",
+      "source_ids": ["kellogg-admissions"],
+      "verified_at": "2026-11-04",
+      "name": "Round 2",
+      "deadline": "2027-01-06",
+      "decision_date": "2027-03-24",
+      "notes": []
+    },
+    {
+      "id": "K05",
+      "source_ids": ["kellogg-admissions"],
+      "verified_at": "2026-11-04",
+      "name": "Round 3",
+      "deadline": "2027-03-31",
+      "decision_date": "2027-05-12",
+      "notes": []
+    }
+  ],
+  "application": {
+    "essays": [
+      {
+        "id": "K06",
+        "source_ids": ["kellogg-apply"],
+        "verified_at": "2026-11-04",
+        "key": "pivotal_and_contribution",
+        "prompt_verbatim": "Part I: An MBA is a significant investment of time, energy and resources, and the decision to pursue one deserves serious reflection. Tell us about the pivotal experiences and decisions that have brought you to this moment in your career, how they have shaped your ambitions, and why now is the right time to take this next step. Part II: Now turn the lens outward: beyond what you hope to gain, what do you hope to contribute to the students who will learn alongside you?",
+        "limit": {
+          "kind": "words",
+          "value": 550
+        },
+        "required": true,
+        "archetypes": ["GOALS", "LEADERSHIP", "CONTRIBUTION"],
+        "parts": [
+          "pivotal experiences and decisions that brought you here",
+          "how they shaped your ambitions",
+          "why now",
+          "what you will contribute to classmates"
+        ],
+        "notes": [
+          {
+            "id": "K07",
+            "text": "New for 2026-27: one written essay for all programs plus five 60-second video essays, 'a more focused' application meant for 'authentic, in-the-moment reflection'.",
+            "source_ids": ["kellogg-live-2026"],
+            "verified_at": "2026-11-04",
+            "confidence": 0.85
+          },
+          {
+            "id": "K08",
+            "text": "Kellogg's own framing: 'The written and video essays are your chance to tell us your story and why Kellogg is the right next chapter for you.' Admissions wants 'moments that highlight your leadership, resilience and growth'.",
+            "source_ids": ["kellogg-apply", "kellogg-tips-2026"],
+            "verified_at": "2026-11-04",
+            "confidence": 0.85
+          },
+          {
+            "id": "K09",
+            "text": "Part I: tell the career vision through a development-as-a-leader arc: one or two pivotal decisions (ideally a short leadership story with Kellogg traits: brave, collaborative, proactive, empathetic) that show why growing further now needs an MBA. Not a chronological resume recap.",
+            "source_ids": ["al-kellogg", "aringo-kellogg-2026"],
+            "verified_at": "2026-11-04",
+            "confidence": 0.85
+          },
+          {
+            "id": "K10",
+            "text": "Part II is the part nothing else in the file can carry: one specific, evidence-backed contribution (a club initiative, trek, practicum, or something you'd start), built from what you've done before and researched with current students. Not a club list, not 'my warm nature'.",
+            "source_ids": ["al-kellogg", "admitstory-coach"],
+            "verified_at": "2026-11-04",
+            "confidence": 0.85
+          },
+          {
+            "id": "K11",
+            "text": "Kellogg prizes a student-driven, flexible culture: combining two or three majors or an unusual pathway reads as eagerness here, not as being scattered.",
+            "source_ids": ["al-kellogg"],
+            "verified_at": "2026-11-04",
+            "confidence": 0.75,
+            "approved_rewrite": true
+          },
+          {
+            "id": "K12",
+            "text": "When naming courses, pick offerings that set Kellogg apart from the schools it fears you prefer (often Booth, or the top school in your field): one function course for the first job and one leadership or general-management course or experiential lab for later.",
+            "source_ids": ["al-kellogg"],
+            "verified_at": "2026-11-04",
+            "confidence": 0.75,
+            "approved_rewrite": true
+          },
+          {
+            "id": "K13",
+            "text": "Roughly half the words each way works; answer both parts explicitly and keep context under 15% of the count.",
+            "source_ids": ["aringo-kellogg-2026", "admitstory-coach"],
+            "verified_at": "2026-11-04",
+            "confidence": 0.85
+          }
+        ]
+      }
+    ],
+    "short_answers": [],
+    "goal_fields": [],
+    "video": [
+      {
+        "id": "K23",
+        "source_ids": ["kellogg-apply"],
+        "verified_at": "2026-11-04",
+        "format": "async_video",
+        "think_time_s": null,
+        "answer_time_s": 60,
+        "attempts": 1,
+        "question_types": [
+          {
+            "id": "K24",
+            "text": "Five questions, each with a brief moment to think and up to one minute to answer; no re-dos. The link appears on the Application Status Page after you submit and pay; due 96 hours after the round deadline; about 30 minutes including setup; computer with webcam and microphone. Unlimited practice questions.",
+            "source_ids": ["kellogg-apply"],
+            "verified_at": "2026-11-04",
+            "confidence": 0.85
+          },
+          {
+            "id": "K25",
+            "text": "'We've read your essays, we've read your resume — now we want you to bring all that to life in a video. Show us the person behind all those carefully crafted words.'",
+            "source_ids": ["kellogg-apply"],
+            "verified_at": "2026-11-04",
+            "confidence": 0.85
+          },
+          {
+            "id": "K26",
+            "text": "Reported categories: an icebreaker beyond the resume, why Kellogg or a pathway, teamwork or conflict, failure or resilience, values or community impact. About 20 seconds to think.",
+            "source_ids": ["aringo-kellogg-2026"],
+            "verified_at": "2026-11-04",
+            "confidence": 0.7
+          },
+          {
+            "id": "K27",
+            "text": "Past cycles mixed 'introduce yourself', behavioural leadership or teamwork questions, and a why-Kellogg/career question; prepare all of them rather than guessing.",
+            "source_ids": ["al-kellogg"],
+            "verified_at": "2026-11-04",
+            "confidence": 0.75,
+            "approved_rewrite": true
+          },
+          {
+            "id": "K28",
+            "text": "Prepare six flexible stories, not scripts: leadership, failure, impact, risk, teamwork, and a hobby. Look at the lens; if you stumble, recover calmly and finish.",
+            "source_ids": ["aringo-kellogg-2026", "admitstory-coach"],
+            "verified_at": "2026-11-04",
+            "confidence": 0.85
+          }
+        ],
+        "scripting_allowed": false
+      }
+    ],
+    "reapplicant": {
+      "essay": {
+        "id": "K20",
+        "source_ids": ["kellogg-apply"],
+        "verified_at": "2026-11-04",
+        "key": "reapplicant",
+        "prompt_verbatim": "How have you grown or changed personally and professionally since you previously applied and what steps have you taken to become the strongest candidate you can be?",
+        "limit": {
+          "kind": "words",
+          "value": 250
+        },
+        "required": true,
+        "archetypes": ["REAPPLICANT"],
+        "parts": [
+          "personal and professional growth since applying",
+          "steps taken to strengthen the candidacy"
+        ],
+        "notes": [
+          {
+            "id": "K21",
+            "text": "With only 250 words, put the strongest new story in the main essay and refer to it here, adding one or two new examples and saying plainly why they make you stronger.",
+            "source_ids": ["al-kellogg"],
+            "verified_at": "2026-11-04",
+            "confidence": 0.75,
+            "approved_rewrite": true
+          }
+        ]
+      },
+      "policy": [
+        {
+          "id": "K22",
+          "text": "Reapplicants answer the growth prompt in addition to the main essay.",
+          "source_ids": ["kellogg-apply"],
+          "verified_at": "2026-11-04",
+          "confidence": 0.85
+        }
+      ]
+    },
+    "optional_essay": {
+      "id": "K14",
+      "source_ids": ["sb-kellogg-2026"],
+      "verified_at": "2026-11-04",
+      "key": "additional_information",
+      "prompt_verbatim": "We know that life is full of extenuating circumstances. Whether you want to explain gaps in work experience, your choice of recommenders, inconsistent or questionable academic performance or something else, you can use this section to briefly tell us anything we need to know about your application.",
+      "limit": {
+        "kind": "words",
+        "value": 280
+      },
+      "required": false,
+      "archetypes": ["OPTIONAL"],
+      "parts": ["extenuating circumstances only"],
+      "notes": [
+        {
+          "id": "K15",
+          "text": "Brief, factual and mature; a 'silver lining' only if it's real. For a weak score: point to other evidence of ability at peer level. For a non-supervisor recommender: why, and why this person can judge your leadership.",
+          "source_ids": ["al-kellogg"],
+          "verified_at": "2026-11-04",
+          "confidence": 0.75,
+          "approved_rewrite": true
+        },
+        {
+          "id": "K16",
+          "text": "Kellogg wants one letter from a current supervisor, so a different choice needs a sentence here.",
+          "source_ids": ["kellogg-apply"],
+          "verified_at": "2026-11-04",
+          "confidence": 0.85
+        }
+      ]
+    },
+    "form_sections": [
+      {
+        "id": "K17",
+        "source_ids": ["kellogg-portal"],
+        "verified_at": null,
+        "key": "career_goals_boxes",
+        "label": "Career plan text boxes: short-term and five-years-out goals (about 500 characters each)",
+        "char_limit": 500,
+        "limit_kind": "chars_incl_spaces",
+        "guidance": [
+          {
+            "id": "K18",
+            "text": "Draft the full career rationale first, then pull out the boxes: a plan A and plan B short-term role, the function electives, and the long-term or leadership courses. That frees essay space for the leadership story and contribution.",
+            "source_ids": ["al-kellogg"],
+            "verified_at": "2026-11-04",
+            "confidence": 0.75,
+            "approved_rewrite": true
+          },
+          {
+            "id": "K19",
+            "text": "For the short-term role, choose a field or employer that hires Kellogg graduates (check the employment report) or ask a professional club whether people with your background land it.",
+            "source_ids": ["al-kellogg"],
+            "verified_at": "2026-11-04",
+            "confidence": 0.75,
+            "approved_rewrite": true
+          }
+        ]
+      }
+    ],
+    "recommendations": {
+      "id": "K29",
+      "source_ids": ["kellogg-apply"],
+      "verified_at": "2026-11-04",
+      "count": 2,
+      "format": "school_specific",
+      "questions": [
+        {
+          "text_verbatim": "Share an example of how the candidate has engaged with colleagues, clients, or stakeholders who held perspectives different from their own. How did they navigate the situation, and what does this demonstrate about their ability to lead or collaborate in complex environments?",
+          "limit": {
+            "kind": "words",
+            "value": 300
+          }
+        },
+        {
+          "text_verbatim": "How does the candidate's performance compare to those of other well-qualified individuals in similar roles? Please provide specific examples.",
+          "limit": {
+            "kind": "words",
+            "value": 300
+          }
+        },
+        {
+          "text_verbatim": "Describe the most important piece of constructive feedback you have given the candidate. Please detail the circumstances and the applicant's response.",
+          "limit": {
+            "kind": "words",
+            "value": 250
+          }
+        }
+      ],
+      "notes": [
+        {
+          "id": "K30",
+          "text": "Ideally one from a current supervisor; the second from someone who can evaluate your performance and managerial or leadership potential (former supervisor, previous employer, client). Additional letters are 'neither required nor encouraged'.",
+          "source_ids": ["kellogg-apply"],
+          "verified_at": "2026-11-04",
+          "confidence": 0.85
+        },
+        {
+          "id": "K31",
+          "text": "The Kellogg-specific question means each recommender needs a different story of you working across differing perspectives; brief both early so they don't overlap.",
+          "source_ids": ["al-kellogg", "admitstory-coach"],
+          "verified_at": "2026-11-04",
+          "confidence": 0.85
+        }
+      ]
+    },
+    "resume": {
+      "id": "K32",
+      "source_ids": ["kellogg-apply"],
+      "verified_at": "2026-11-04",
+      "page_limit": 2,
+      "notes": [
+        {
+          "id": "K33",
+          "text": "No required format or length; like a job-application resume but written for a general audience, so a reader can quickly understand your background and accomplishments. A separate employment section asks for transitions and promotions; keep it consistent with the resume.",
+          "source_ids": ["kellogg-apply"],
+          "verified_at": "2026-11-04",
+          "confidence": 0.85
+        },
+        {
+          "id": "K34",
+          "text": "'Your resume should highlight your impact and leadership.'",
+          "source_ids": ["kellogg-tips-2026"],
+          "verified_at": "2026-11-04",
+          "confidence": 0.85
+        }
+      ]
+    },
+    "test_policy": [
+      {
+        "id": "K35",
+        "text": "GMAT or GRE required, from a single sitting (no superscores); no preference and no minimum. Valid five years.",
+        "source_ids": ["kellogg-apply"],
+        "verified_at": "2026-11-04",
+        "confidence": 0.85
+      },
+      {
+        "id": "K36",
+        "text": "Non-native English speakers may need TOEFL, IELTS or the Duolingo English Test.",
+        "source_ids": ["kellogg-apply"],
+        "verified_at": "2026-11-04",
+        "confidence": 0.85
+      },
+      {
+        "id": "K37",
+        "text": "Without calculus and statistics, Kellogg encourages introductory courses before enrolling.",
+        "source_ids": ["kellogg-apply"],
+        "verified_at": "2026-11-04",
+        "confidence": 0.85
+      }
+    ],
+    "fees_waivers": [
+      {
+        "id": "K38",
+        "text": "Application fee US$250. Waivers for active-duty US military and veterans, and for Teach For America, Title 1 schools, AmeriCorps or Peace Corps employees within the past three years.",
+        "source_ids": ["kellogg-apply"],
+        "verified_at": "2026-11-04",
+        "confidence": 0.85
+      },
+      {
+        "id": "K39",
+        "text": "One full-time Kellogg program per year; after submitting you may name one alternate full-time program and/or the Evening & Weekend MBA, with a short paragraph on why.",
+        "source_ids": ["kellogg-apply"],
+        "verified_at": "2026-11-04",
+        "confidence": 0.85
+      }
+    ]
+  },
+  "values": {
+    "stated": [
+      {
+        "id": "K40",
+        "text": "'Are you an empathetic collaborator who can bring everyone to the table? Are you an innovator with a clear vision and entrepreneurial spirit?'",
+        "source_ids": ["kellogg-admissions"],
+        "verified_at": "2026-11-04",
+        "confidence": 0.85
+      },
+      {
+        "id": "K41",
+        "text": "Kellogg looks for 'the ability to push past comfort zones and question the norm', and people 'who are not afraid to question the status quo, can motivate a team to drive impact, and are eager to dive in and collaborate'.",
+        "source_ids": ["kellogg-apply"],
+        "verified_at": "2026-11-04",
+        "confidence": 0.85
+      },
+      {
+        "id": "K42",
+        "text": "Kellogg aims for 'a special combination of analytical, creative and social intelligence' in each student; collaboration and community are 'at the heart of everything we do'.",
+        "source_ids": ["kellogg-tips-2026"],
+        "verified_at": "2026-11-04",
+        "confidence": 0.85
+      }
+    ],
+    "trait_map": [
+      {
+        "school_value": "question the status quo; push past comfort zones (brave)",
+        "admitstory_traits": ["principled_stands", "originates_ideas", "acts_unasked"]
+      },
+      {
+        "school_value": "empathetic collaborator who brings everyone to the table",
+        "admitstory_traits": ["empathetic", "brings_people_along"],
+        "note": {
+          "id": "K43",
+          "text": "The recommendation question on differing perspectives shows how much Kellogg weighs this; show it in an essay and a video answer too.",
+          "source_ids": ["kellogg-apply"],
+          "verified_at": "2026-11-04",
+          "confidence": 0.85
+        }
+      },
+      {
+        "school_value": "motivate a team to drive impact (high impact, low ego)",
+        "admitstory_traits": ["brings_people_along", "measurable_impact"]
+      },
+      {
+        "school_value": "eager to dive in; community",
+        "admitstory_traits": ["community_builder", "curious_learner"]
+      }
+    ]
+  },
+  "culture_and_location": [
+    {
+      "id": "K48",
+      "text": "A collaborative, student-driven culture ('curiosity, warmth and collaborative spirit') in Evanston, just north of Chicago, in the Global Hub building on Lake Michigan.",
+      "source_ids": ["kellogg-live-2026", "al-kellogg"],
+      "verified_at": "2026-11-04",
+      "confidence": 0.75
+    }
+  ],
+  "academics": {
+    "courses": [],
+    "centers": [],
+    "experiential": [
+      {
+        "id": "K52",
+        "source_ids": ["al-kellogg"],
+        "verified_at": "2026-11-04",
+        "name": "Global Initiatives in Management (GIM)",
+        "what_it_is": "A student-started course combining classroom study with an international research trip; one of Kellogg's signature global offerings.",
+        "why_it_matters_for": ["international goals", "evidence Kellogg acts on student ideas"],
+        "url": null
+      },
+      {
+        "id": "K53",
+        "source_ids": ["al-kellogg"],
+        "verified_at": "2026-11-04",
+        "name": "Experiential labs and practicums",
+        "what_it_is": "Hands-on courses where students work on live company problems; Kellogg lists experiential learning prominently.",
+        "why_it_matters_for": ["career switchers", "a 'learning by doing' contribution"],
+        "url": null
+      }
+    ],
+    "structure": [
+      {
+        "id": "K49",
+        "text": "Six full-time programs: One-Year (skips the core; needs prior business study), Two-Year, MBAi (with McCormick engineering, business plus AI), MMM (MBA plus MS in Design Innovation), JD-MBA and MD-MBA.",
+        "source_ids": ["kellogg-live-2026", "kellogg-apply"],
+        "verified_at": "2026-11-04",
+        "confidence": 0.85
+      },
+      {
+        "id": "K50",
+        "text": "A general-management philosophy with more than 200 electives on top of the core.",
+        "source_ids": ["kellogg-academics"],
+        "verified_at": "2026-11-04",
+        "confidence": 0.85
+      },
+      {
+        "id": "K51",
+        "text": "Students often take two or three majors and follow pathways (unofficial elective roadmaps across majors); Managing Organizations is a flexible second major for almost any plan. Independent studies with faculty are possible.",
+        "source_ids": ["al-kellogg"],
+        "verified_at": "2026-11-04",
+        "confidence": 0.7,
+        "approved_rewrite": true
+      }
+    ]
+  },
+  "community": {
+    "clubs": [],
+    "traditions": [],
+    "treks_events": []
+  },
+  "careers": {
+    "employment_report": {
+      "id": "K54",
+      "source_ids": ["kellogg-outcomes"],
+      "verified_at": "2026-11-04",
+      "class_year": 2025,
+      "currency": "USD",
+      "by_function": [
+        {
+          "function": "Consulting",
+          "share": 0.38,
+          "median_base": 190000
+        },
+        {
+          "function": "Financial Services",
+          "share": 0.21,
+          "median_base": 175000
+        },
+        {
+          "function": "Technology",
+          "share": 0.19,
+          "median_base": 151500
+        },
+        {
+          "function": "Consumer Packaged Goods",
+          "share": 0.09,
+          "median_base": 128000
+        },
+        {
+          "function": "Healthcare",
+          "share": 0.06,
+          "median_base": 142500
+        },
+        {
+          "function": "Manufacturing",
+          "share": 0.03,
+          "median_base": 159500
+        }
+      ],
+      "top_employers": [
+        "McKinsey & Company",
+        "Bain & Company",
+        "Boston Consulting Group",
+        "PwC Strategy&",
+        "Deloitte Consulting",
+        "Accenture Strategy",
+        "J.P. Morgan",
+        "KKR",
+        "Warburg Pincus",
+        "Evercore"
+      ]
+    },
+    "recruiting_notes": [
+      {
+        "id": "K55",
+        "text": "Class of 2025 (Two-Year): median total compensation US$205,000, median base US$175,000, median signing bonus US$30,000; 90% accepted an offer within six months; a record 20 graduates launched ventures, including search funds.",
+        "source_ids": ["kellogg-outcomes"],
+        "verified_at": "2026-11-04",
+        "confidence": 0.85
+      },
+      {
+        "id": "K56",
+        "text": "Top target industries of the Class of 2027: consulting, financial services, technology, healthcare/biopharma and consumer products.",
+        "source_ids": ["kellogg-profile"],
+        "verified_at": "2026-11-04",
+        "confidence": 0.85
+      }
+    ]
+  },
+  "class_profile": {
+    "id": "K57",
+    "source_ids": ["kellogg-profile"],
+    "verified_at": "2026-11-04",
+    "class_year": 2027,
+    "class_size": 534,
+    "gmat_focus_median": 687,
+    "gmat_classic_median": 733,
+    "gre_median": null,
+    "gpa_median": 3.68,
+    "gpa_scale": 4.0,
+    "work_experience_years_median": 5.1,
+    "international_share": 0.37
+  },
+  "interview": {
+    "id": "K58",
+    "source_ids": ["kellogg-apply"],
+    "verified_at": "2026-11-04",
+    "invitation": "invite_only",
+    "who": ["alum", "student", "adcom"],
+    "blind": null,
+    "length_min": 45,
+    "location": ["virtual"],
+    "common_questions": [
+      {
+        "id": "K59",
+        "source_ids": ["kellogg-tips-2026"],
+        "verified_at": "2026-11-04",
+        "text": "Walk me through your background.",
+        "frequency_weight": 4
+      },
+      {
+        "id": "K60",
+        "source_ids": ["kellogg-tips-2026"],
+        "verified_at": "2026-11-04",
+        "text": "What are your career goals, and why is Kellogg the right fit?",
+        "frequency_weight": 5
+      },
+      {
+        "id": "K61",
+        "source_ids": ["kellogg-tips-2026"],
+        "verified_at": "2026-11-04",
+        "text": "Tell me about a time you led a team or a project. (STAR)",
+        "frequency_weight": 4
+      },
+      {
+        "id": "K62",
+        "source_ids": ["kellogg-apply"],
+        "verified_at": "2026-11-04",
+        "text": "Tell me about working with someone whose perspective differed from yours.",
+        "frequency_weight": 3
+      }
+    ],
+    "format_notes": [
+      {
+        "id": "K63",
+        "text": "All interviews are virtual; invitations go out on a rolling basis until decision release, and timing says nothing about your status. Scheduled times can't be changed.",
+        "source_ids": ["kellogg-apply"],
+        "verified_at": "2026-11-04",
+        "confidence": 0.85
+      },
+      {
+        "id": "K64",
+        "text": "The interview evaluates 'interpersonal and communication skills, career focus and motivations for pursuing a Kellogg MBA'.",
+        "source_ids": ["kellogg-apply"],
+        "verified_at": "2026-11-04",
+        "confidence": 0.85
+      },
+      {
+        "id": "K65",
+        "text": "Admissions' tips: one-on-one with a member of the Kellogg community; use STAR stories; be ready for career goals and why Kellogg; 'be yourself… demonstrate how you engage as a peer and learner'.",
+        "source_ids": ["kellogg-tips-2026"],
+        "verified_at": "2026-11-04",
+        "confidence": 0.85
+      },
+      {
+        "id": "K66",
+        "text": "Keep answers consistent with the essay and videos, and bring a specific contribution idea and a question that shows you've talked to students.",
+        "source_ids": ["admitstory-coach"],
+        "verified_at": "2026-11-04",
+        "confidence": 0.85
+      }
+    ]
+  },
+  "ai_policy": {
+    "id": "K67",
+    "source_ids": ["pq-ai-2026"],
+    "verified_at": "2026-11-04",
+    "stance": "permitted_with_disclosure",
+    "applies_to": ["essays"],
+    "disclosure_text": "Cite the use of generative AI by referencing the tool at the conclusion of the essay (Name of Tool, URL).",
+    "notes": [
+      {
+        "id": "K68",
+        "text": "Kellogg's application: 'Generative AI can be a powerful aid in crafting an essay, but it should be used as a supplementary tool rather than a replacement for your own effort and creativity.'",
+        "source_ids": ["pq-ai-2026"],
+        "verified_at": "2026-11-04",
+        "confidence": 0.85
+      },
+      {
+        "id": "K69",
+        "text": "The move to five unscripted videos is widely read as a check on AI-polished writing; the voice in the essay must match the voice on camera.",
+        "source_ids": ["aringo-kellogg-2026", "admitstory-coach"],
+        "verified_at": "2026-11-04",
+        "confidence": 0.7
+      }
+    ]
+  },
+  "scholarships": [],
+  "insider_notes": [
+    {
+      "id": "K44",
+      "text": "Class of 2027 (Two-Year MBA): 534 students; average GPA 3.68 (range 2.7–4.0); average GMAT Focus 687, legacy GMAT 733; 37% international; 9% US veterans; 5.1 years' average experience.",
+      "source_ids": ["kellogg-profile"],
+      "verified_at": "2026-11-04",
+      "confidence": 0.85
+    },
+    {
+      "id": "K45",
+      "text": "Kellogg recommends at least two years of full-time work experience at matriculation.",
+      "source_ids": ["kellogg-apply"],
+      "verified_at": "2026-11-04",
+      "confidence": 0.85
+    },
+    {
+      "id": "K46",
+      "text": "Admissions: 'think of each section like a puzzle piece'; be genuine, avoid generic responses, 'there are no right or wrong answers'.",
+      "source_ids": ["kellogg-tips-2026"],
+      "verified_at": "2026-11-04",
+      "confidence": 0.85
+    },
+    {
+      "id": "K47",
+      "text": "Updates (new job, grades, scores) can be added after submitting on the supplemental information page.",
+      "source_ids": ["kellogg-apply"],
+      "verified_at": "2026-11-04",
+      "confidence": 0.85
+    }
+  ],
+  "avoid": [
+    {
+      "id": "K70",
+      "text": "A chronological resume recap in Part I.",
+      "source_ids": ["aringo-kellogg-2026"],
+      "verified_at": "2026-11-04",
+      "confidence": 0.85
+    },
+    {
+      "id": "K71",
+      "text": "A club list or vague personality claim in Part II.",
+      "source_ids": ["al-kellogg", "admitstory-coach"],
+      "verified_at": "2026-11-04",
+      "confidence": 0.85
+    },
+    {
+      "id": "K72",
+      "text": "Scripted, memorised video answers; Kellogg wants 'the person behind all those carefully crafted words'.",
+      "source_ids": ["kellogg-apply"],
+      "verified_at": "2026-11-04",
+      "confidence": 0.85
+    },
+    {
+      "id": "K73",
+      "text": "Extra recommendation letters.",
+      "source_ids": ["kellogg-apply"],
+      "verified_at": "2026-11-04",
+      "confidence": 0.85
+    },
+    {
+      "id": "K74",
+      "text": "Generic responses.",
+      "source_ids": ["kellogg-tips-2026"],
+      "verified_at": "2026-11-04",
+      "confidence": 0.85
+    }
+  ],
+  "angles_that_work": [
+    {
+      "id": "K75",
+      "text": "Part I built on one pivotal decision where the applicant questioned the norm and brought a team along, leading naturally to why now.",
+      "source_ids": ["kellogg-apply", "al-kellogg"],
+      "verified_at": "2026-11-04",
+      "confidence": 0.85
+    },
+    {
+      "id": "K76",
+      "text": "Part II naming one concrete thing the applicant would start or run for classmates, drawn from something they've already built.",
+      "source_ids": ["al-kellogg"],
+      "verified_at": "2026-11-04",
+      "confidence": 0.75,
+      "approved_rewrite": true
+    },
+    {
+      "id": "K77",
+      "text": "A video set showing warmth and humour that the essay couldn't.",
+      "source_ids": ["kellogg-apply"],
+      "verified_at": "2026-11-04",
+      "confidence": 0.85
+    }
+  ],
+  "glossary": [
+    {
+      "id": "K78",
+      "source_ids": ["al-kellogg"],
+      "verified_at": "2026-11-04",
+      "term": "Global Hub",
+      "plain_definition": "Kellogg's main building on the Evanston lakefront."
+    },
+    {
+      "id": "K79",
+      "source_ids": ["kellogg-live-2026"],
+      "verified_at": "2026-11-04",
+      "term": "MBAi",
+      "plain_definition": "Kellogg's full-time MBA run with Northwestern's McCormick School of Engineering, focused on business and AI."
+    },
+    {
+      "id": "K80",
+      "source_ids": ["kellogg-live-2026"],
+      "verified_at": "2026-11-04",
+      "term": "MMM",
+      "plain_definition": "Kellogg's dual degree: MBA plus an MS in Design Innovation from the Segal Design Institute."
+    }
+  ]
+}

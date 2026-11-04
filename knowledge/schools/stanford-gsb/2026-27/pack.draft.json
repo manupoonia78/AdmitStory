@@ -1,0 +1,905 @@
+{
+  "school": {
+    "id": "stanford-gsb",
+    "name": "Stanford Graduate School of Business",
+    "short_name": "Stanford GSB",
+    "country": "US",
+    "city": "Stanford, CA",
+    "website": "https://www.gsb.stanford.edu",
+    "program": "full_time_mba"
+  },
+  "cycle": "2026-27",
+  "version": 1,
+  "status": "draft",
+  "_todo": [
+    "application.essays.msx_community: word limit not shown on the essays page; confirm in the portal",
+    "application.optional_essay: no limit published on the essays page (300 is a placeholder); confirm in the portal",
+    "academics: verify course names, the Global Experience Requirement and clubs from gsb.stanford.edu before citing",
+    "careers.employment_report: replace with GSB's own positions-and-compensation data (the page renders by script)",
+    "class_profile: figures are averages from a press summary of GSB's profile; verify on the GSB page"
+  ],
+  "k_high_water": 73,
+  "sources": [
+    {
+      "id": "gsb-essays",
+      "type": "official",
+      "title": "Stanford GSB MBA: Essays (prompts, word limits, feedback vs coaching, Additional Information)",
+      "url": "https://www.gsb.stanford.edu/programs/mba/admission/application/essays",
+      "trust": 5,
+      "retrieved_at": "2026-11-04",
+      "rights_note": null
+    },
+    {
+      "id": "gsb-short",
+      "type": "official",
+      "title": "Stanford GSB MBA: Optional short answer question",
+      "url": "https://www.gsb.stanford.edu/programs/mba/admission/application/optional-short-answer-question",
+      "trust": 5,
+      "retrieved_at": "2026-11-04",
+      "rights_note": null
+    },
+    {
+      "id": "gsb-deadlines",
+      "type": "official",
+      "title": "Stanford GSB MBA: Deadlines for applying",
+      "url": "https://www.gsb.stanford.edu/programs/mba/admission/deadlines",
+      "trust": 5,
+      "retrieved_at": "2026-11-04",
+      "rights_note": null
+    },
+    {
+      "id": "gsb-recs",
+      "type": "official",
+      "title": "Stanford GSB MBA: Letters of recommendation (policy and recommender questions)",
+      "url": "https://www.gsb.stanford.edu/programs/mba/admission/application/letters-recommendation",
+      "trust": 5,
+      "retrieved_at": "2026-11-04",
+      "rights_note": null
+    },
+    {
+      "id": "gsb-interviews",
+      "type": "official",
+      "title": "Stanford GSB MBA: Interviews",
+      "url": "https://www.gsb.stanford.edu/programs/mba/admission/interviews",
+      "trust": 5,
+      "retrieved_at": "2026-11-04",
+      "rights_note": null
+    },
+    {
+      "id": "gsb-criteria",
+      "type": "official",
+      "title": "Stanford GSB MBA: Evaluation criteria",
+      "url": "https://www.gsb.stanford.edu/programs/mba/admission/evaluation-criteria",
+      "trust": 5,
+      "retrieved_at": "2026-11-04",
+      "rights_note": null
+    },
+    {
+      "id": "gsb-reapply",
+      "type": "official",
+      "title": "Stanford GSB MBA: Reapplication",
+      "url": "https://www.gsb.stanford.edu/programs/mba/admission/application/reapplication",
+      "trust": 5,
+      "retrieved_at": "2026-11-04",
+      "rights_note": null
+    },
+    {
+      "id": "gsb-personal",
+      "type": "official",
+      "title": "Stanford GSB MBA: Personal information, activities & awards (optional background question)",
+      "url": "https://www.gsb.stanford.edu/programs/mba/admission/application/personal-information-activities-awards",
+      "trust": 5,
+      "retrieved_at": "2026-11-04",
+      "rights_note": null
+    },
+    {
+      "id": "gsb-fee",
+      "type": "official",
+      "title": "Stanford GSB MBA: Application fee and waivers",
+      "url": "https://www.gsb.stanford.edu/programs/mba/admission/application/fee",
+      "trust": 5,
+      "retrieved_at": "2026-11-04",
+      "rights_note": null
+    },
+    {
+      "id": "gsb-experience",
+      "type": "official",
+      "title": "Stanford GSB MBA: Professional experience and resume",
+      "url": "https://www.gsb.stanford.edu/programs/mba/admission/application/professional-experience",
+      "trust": 5,
+      "retrieved_at": "2026-11-04",
+      "rights_note": null
+    },
+    {
+      "id": "ca-gsb-2027",
+      "type": "press",
+      "title": "Clear Admit: Stanford GSB MBA Class of 2027 profile (Nov 2025)",
+      "url": "https://www.clearadmit.com/2025/11/stanford-gsb-mba-class-of-2027-profile/",
+      "trust": 2,
+      "retrieved_at": "2026-11-04",
+      "rights_note": null
+    },
+    {
+      "id": "ca-gsb-2025",
+      "type": "press",
+      "title": "Clear Admit: Stanford GSB employment report, MBA Class of 2025 (Dec 2025)",
+      "url": "https://www.clearadmit.com/2025/12/stanford-gsb-employment-report-mba-class-of-2025/",
+      "trust": 2,
+      "retrieved_at": "2026-11-04",
+      "rights_note": null
+    },
+    {
+      "id": "pq-ai-2026",
+      "type": "press",
+      "title": "Poets&Quants (Fortuna, May 26, 2026): AI policies at top MBA programs, quoting each school's application materials",
+      "url": "https://poetsandquants.com/2026/05/26/the-mba-applicants-guide-to-ai-in-2026-whats-allowed-whats-risky-and-what-to-avoid/",
+      "trust": 2,
+      "retrieved_at": "2026-11-04",
+      "rights_note": null
+    },
+    {
+      "id": "al-stanford",
+      "type": "third_party_reference",
+      "title": "ApplicantLab — Stanford school tab",
+      "url": null,
+      "trust": 2,
+      "retrieved_at": "2026-11-04",
+      "rights_note": "Paid coaching platform material (ApplicantLab). Private reference; items are Admitstory rewrites approved by Manu 2026-11-04 (§9.6). Never name or quote."
+    },
+    {
+      "id": "admitstory-coach",
+      "type": "coach_notes",
+      "title": "Admitstory coaching canon and Manu's storytelling rules",
+      "url": null,
+      "trust": 4,
+      "retrieved_at": "2026-11-04",
+      "rights_note": null
+    }
+  ],
+  "official_urls": [
+    {
+      "kind": "prompts",
+      "url": "https://www.gsb.stanford.edu/programs/mba/admission/application/essays"
+    },
+    {
+      "kind": "deadlines",
+      "url": "https://www.gsb.stanford.edu/programs/mba/admission/deadlines"
+    },
+    {
+      "kind": "class_profile",
+      "url": "https://www.gsb.stanford.edu/programs/mba/admission/class-profile"
+    },
+    {
+      "kind": "employment_report",
+      "url": "https://www.gsb.stanford.edu/programs/mba/career-impact/positions-compensation"
+    }
+  ],
+  "rounds": [
+    {
+      "id": "K01",
+      "source_ids": ["gsb-deadlines"],
+      "verified_at": "2026-11-04",
+      "name": "Round 1",
+      "deadline": "2026-09-09",
+      "decision_date": "2026-12-09",
+      "notes": [
+        {
+          "id": "K02",
+          "text": "Due 4:00 pm Pacific, including both recommendation letters and the fee. One application per year, in any one round.",
+          "source_ids": ["gsb-deadlines"],
+          "verified_at": "2026-11-04",
+          "confidence": 0.85
+        },
+        {
+          "id": "K03",
+          "text": "Partners applying the same year are strongly encouraged to apply in the same round.",
+          "source_ids": ["gsb-deadlines"],
+          "verified_at": "2026-11-04",
+          "confidence": 0.85
+        }
+      ]
+    },
+    {
+      "id": "K04",
+      "source_ids": ["gsb-deadlines"],
+      "verified_at": "2026-11-04",
+      "name": "Round 2",
+      "deadline": "2027-01-06",
+      "decision_date": "2027-04-01",
+      "notes": []
+    },
+    {
+      "id": "K05",
+      "source_ids": ["gsb-deadlines"],
+      "verified_at": "2026-11-04",
+      "name": "Round 3",
+      "deadline": "2027-04-07",
+      "decision_date": "2027-05-27",
+      "notes": []
+    }
+  ],
+  "application": {
+    "essays": [
+      {
+        "id": "K06",
+        "source_ids": ["gsb-essays"],
+        "verified_at": "2026-11-04",
+        "key": "what_matters_most",
+        "prompt_verbatim": "Essay A: What matters most to you, and why? For this essay, we would like you to reflect deeply and write from the heart. Once you've identified what matters most to you, help us understand why. You might consider, for example, what makes this so important to you? What people, insights, or experiences have shaped your perspectives?",
+        "limit": {
+          "kind": "words",
+          "value": 650
+        },
+        "required": true,
+        "archetypes": ["VALUES", "IDENTITY"],
+        "parts": [
+          "what matters most to you",
+          "why",
+          "the people, insights or experiences that shaped it"
+        ],
+        "notes": [
+          {
+            "id": "K07",
+            "text": "GSB: 'Essays help us learn about who you are rather than solely what you have done… the essays reveal the person behind those achievements.' 'There is no right answer… the best answer is the one that is truest for you.' Up to 650 words; 'we often read effective essays that are written in fewer words.'",
+            "source_ids": ["gsb-essays"],
+            "verified_at": "2026-11-04",
+            "confidence": 0.85
+          },
+          {
+            "id": "K08",
+            "text": "The 'what' matters least; the 'why' and the proof matter most. Start from your big, ambiguous decisions, find the thread that ran through them, and show the value through choices it forced, ideally ones a reasonable person would have made differently.",
+            "source_ids": ["al-stanford"],
+            "verified_at": "2026-11-04",
+            "confidence": 0.75,
+            "approved_rewrite": true
+          },
+          {
+            "id": "K09",
+            "text": "Use a 'ladder of whys' on each major decision until you reach something core; test whether the value has ever cost you something. A value everyone shares, or one only shown in easy times, isn't deep enough.",
+            "source_ids": ["al-stanford"],
+            "verified_at": "2026-11-04",
+            "confidence": 0.75,
+            "approved_rewrite": true
+          },
+          {
+            "id": "K10",
+            "text": "Never: bragging (not an atom of arrogance), a resume in prose, a philosophy lecture, famous quotes, a noble cause with no history behind it, or a pity party. Humility is the tone.",
+            "source_ids": ["al-stanford"],
+            "verified_at": "2026-11-04",
+            "confidence": 0.75,
+            "approved_rewrite": true
+          },
+          {
+            "id": "K11",
+            "text": "Write it so you'd be slightly embarrassed if a colleague found it on the printer; vivid, specific details only you could give. Friends and family should recognise your voice.",
+            "source_ids": ["al-stanford", "gsb-essays"],
+            "verified_at": "2026-11-04",
+            "confidence": 0.85
+          }
+        ]
+      },
+      {
+        "id": "K12",
+        "source_ids": ["gsb-essays"],
+        "verified_at": "2026-11-04",
+        "key": "why_stanford",
+        "prompt_verbatim": "Essay B: Describe your aspirations and how your Stanford GSB experience will help you realize them. If you are applying to both the MBA and MSx programs, use this essay to address your interest in both programs.",
+        "limit": {
+          "kind": "words",
+          "value": 350
+        },
+        "required": true,
+        "archetypes": ["GOALS", "WHY-SCHOOL"],
+        "parts": [
+          "your aspirations",
+          "how the GSB experience will help realise them",
+          "MBA+MSx applicants: interest in both"
+        ],
+        "notes": [
+          {
+            "id": "K13",
+            "text": "GSB lets you dream big, but a bold vision is only credible with receipts: past impact that shows you have the raw ingredients to drive that change. It must still be plausible and clearly yours.",
+            "source_ids": ["al-stanford"],
+            "verified_at": "2026-11-04",
+            "confidence": 0.75,
+            "approved_rewrite": true
+          },
+          {
+            "id": "K14",
+            "text": "Be specific about GSB: name the leadership skill you've struggled with and the course that addresses it (not just 'Interpersonal Dynamics will make me a better leader'), cross-university courses or a dual degree, the global experience requirement, a club with what you'd give it.",
+            "source_ids": ["al-stanford"],
+            "verified_at": "2026-11-04",
+            "confidence": 0.75,
+            "approved_rewrite": true
+          },
+          {
+            "id": "K15",
+            "text": "Location and weather are not reasons. The small class and personal attention can be, briefly.",
+            "source_ids": ["al-stanford"],
+            "verified_at": "2026-11-04",
+            "confidence": 0.75,
+            "approved_rewrite": true
+          },
+          {
+            "id": "K16",
+            "text": "Now 350 words (down from 400), so keep why-GSB to two or three strong, specific links.",
+            "source_ids": ["gsb-essays", "admitstory-coach"],
+            "verified_at": "2026-11-04",
+            "confidence": 0.85
+          }
+        ]
+      },
+      {
+        "id": "K17",
+        "source_ids": ["gsb-essays"],
+        "verified_at": null,
+        "key": "msx_community",
+        "prompt_verbatim": "How will you enhance the MSx community? For this essay, describe how you plan to support and enhance the experience of your classmates and the learning community at Stanford GSB.",
+        "limit": {
+          "kind": "words",
+          "value": 250
+        },
+        "required": false,
+        "archetypes": ["CONTRIBUTION"],
+        "parts": ["how you will support classmates and the learning community"],
+        "notes": [
+          {
+            "id": "K18",
+            "text": "Only for applicants to both the MBA and MSx. Say you prefer the two-year MBA (internship, breadth of electives) but would gladly take the MSx; anything else reads as not valuing the community.",
+            "source_ids": ["al-stanford"],
+            "verified_at": "2026-11-04",
+            "confidence": 0.75,
+            "approved_rewrite": true
+          }
+        ]
+      }
+    ],
+    "short_answers": [
+      {
+        "id": "K19",
+        "source_ids": ["gsb-short"],
+        "verified_at": "2026-11-04",
+        "key": "impact_examples",
+        "prompt_verbatim": "We believe that leadership comes through in different shapes and forms and look for examples of when you have taken initiative, persisted through challenges, engaged others in your efforts, or supported those around you. Think about a time in the last five years when you've created a significant impact, whether in professional, extracurricular, civic, or academic settings. What was the situation, what did you do, and what was the impact?",
+        "limit": {
+          "kind": "chars_incl_spaces",
+          "value": 1200
+        },
+        "required": false,
+        "archetypes": ["LEADERSHIP", "MICRO"],
+        "parts": ["the situation", "what you did", "the impact"],
+        "list_count": 3,
+        "notes": [
+          {
+            "id": "K20",
+            "text": "Optional; up to three examples of up to 1,200 characters (about 200 words) each. GSB suggests expanding a resume bullet with 'the how or why behind the what', or an impact that doesn't fit elsewhere. If you've covered your contributions already, 'congratulations, you're done!'",
+            "source_ids": ["gsb-short"],
+            "verified_at": "2026-11-04",
+            "confidence": 0.85
+          },
+          {
+            "id": "K21",
+            "text": "Fewer is fine: what you leave out tests judgment. Don't inflate a modest story; pick ones where you persuaded, persisted or did the right thing with people, and say why it was significant for others or you, not the bonus.",
+            "source_ids": ["al-stanford"],
+            "verified_at": "2026-11-04",
+            "confidence": 0.75,
+            "approved_rewrite": true
+          },
+          {
+            "id": "K22",
+            "text": "Each example: the challenge in plain English, the interpersonal barrier, the actions and the insight behind them, the result in a line, the meaning in more. Keep the values consistent with Essay A.",
+            "source_ids": ["al-stanford"],
+            "verified_at": "2026-11-04",
+            "confidence": 0.75,
+            "approved_rewrite": true
+          }
+        ]
+      }
+    ],
+    "goal_fields": [],
+    "video": [],
+    "reapplicant": {
+      "essay": null,
+      "policy": [
+        {
+          "id": "K28",
+          "text": "Reapplying is 'not a negative factor'; every year GSB admits reapplicants. Complete a new application; the reviewer likely hasn't seen the old one, though GSB may consult it. No feedback on denials. 'Approach your application with a fresh outlook. We will!' Reusing recommenders is fine if they write a current letter.",
+          "source_ids": ["gsb-reapply"],
+          "verified_at": "2026-11-04",
+          "confidence": 0.85
+        }
+      ]
+    },
+    "optional_essay": {
+      "id": "K26",
+      "source_ids": ["gsb-essays"],
+      "verified_at": null,
+      "key": "additional_information",
+      "prompt_verbatim": "If there is any information that is critical for us to know and is not captured elsewhere, include it in the Additional Information section of the application.",
+      "limit": {
+        "kind": "words",
+        "value": 300
+      },
+      "required": false,
+      "archetypes": ["OPTIONAL"],
+      "parts": [
+        "extenuating circumstances",
+        "academic experience not noted elsewhere",
+        "why no current supervisor recommends you",
+        "founders: company transition plan"
+      ],
+      "notes": [
+        {
+          "id": "K27",
+          "text": "GSB examples: extenuating academic, work or test circumstances; unlisted academic experience such as research; why you aren't using a current supervisor; founders' plans for handing over day-to-day leadership. 'This section should not be used as an additional essay.'",
+          "source_ids": ["gsb-essays"],
+          "verified_at": "2026-11-04",
+          "confidence": 0.85
+        }
+      ]
+    },
+    "form_sections": [
+      {
+        "id": "K23",
+        "source_ids": ["gsb-personal"],
+        "verified_at": "2026-11-04",
+        "key": "background_shaped",
+        "label": "Personal information: how your life experiences have shaped how you see the world (optional)",
+        "char_limit": 800,
+        "limit_kind": "chars_incl_spaces",
+        "guidance": [
+          {
+            "id": "K24",
+            "text": "GSB: 'We know that each person is more than a list of facts or predefined categories. Please feel free to elaborate on how your life experiences have helped shape how you see the world (up to 800 characters, or approximately 150 words).'",
+            "source_ids": ["gsb-personal"],
+            "verified_at": "2026-11-04",
+            "confidence": 0.85
+          },
+          {
+            "id": "K25",
+            "text": "Name something relatively distinctive in your background (a prior field, an upbringing, a personality trait among a different team) and one real action it led to, ideally where your perspective changed a group's conclusion. Don't repeat Essay A.",
+            "source_ids": ["al-stanford"],
+            "verified_at": "2026-11-04",
+            "confidence": 0.75,
+            "approved_rewrite": true
+          }
+        ]
+      }
+    ],
+    "recommendations": {
+      "id": "K29",
+      "source_ids": ["gsb-recs"],
+      "verified_at": "2026-11-04",
+      "count": 2,
+      "format": "school_specific",
+      "questions": [
+        {
+          "text_verbatim": "How does the applicant's performance compare to that of other well-qualified individuals in similar roles? Please provide specific examples.",
+          "limit": {
+            "kind": "words",
+            "value": 500
+          }
+        },
+        {
+          "text_verbatim": "Describe the most important piece of constructive feedback you have given the applicant. Please detail the circumstances and the applicant's response.",
+          "limit": {
+            "kind": "words",
+            "value": 500
+          }
+        },
+        {
+          "text_verbatim": "(Optional) Is there anything else we should know? Please be concise."
+        }
+      ],
+      "notes": [
+        {
+          "id": "K30",
+          "text": "One from your current direct supervisor (or next best alternative) and one from someone else who has supervised you, within the last three years; no family or direct reports. Recommenders also rate leadership competencies.",
+          "source_ids": ["gsb-recs"],
+          "verified_at": "2026-11-04",
+          "confidence": 0.85
+        },
+        {
+          "id": "K31",
+          "text": "Recommenders must be the sole authors: drafting, editing, translating or submitting your own letter, or letting anyone review it, violates the terms, and letters can't be sent from your devices.",
+          "source_ids": ["gsb-recs"],
+          "verified_at": "2026-11-04",
+          "confidence": 0.85
+        },
+        {
+          "id": "K32",
+          "text": "Letters run two to four double-spaced pages; recommenders choose whether to answer the optional third question.",
+          "source_ids": ["gsb-recs"],
+          "verified_at": "2026-11-04",
+          "confidence": 0.85
+        },
+        {
+          "id": "K33",
+          "text": "GSB is 'impressed by what a recommendation letter says, not by the title or background of the individual who wrote it'.",
+          "source_ids": ["gsb-recs"],
+          "verified_at": "2026-11-04",
+          "confidence": 0.85
+        },
+        {
+          "id": "K34",
+          "text": "Brief recommenders with facts and stories only, never wording; read the GSB competency grid (innovative, determined when things go badly, persuasive, willing to take risks) to see the Stanford flavour of leadership.",
+          "source_ids": ["al-stanford", "admitstory-coach"],
+          "verified_at": "2026-11-04",
+          "confidence": 0.85
+        }
+      ]
+    },
+    "resume": {
+      "id": "K35",
+      "source_ids": ["gsb-experience"],
+      "verified_at": "2026-11-04",
+      "page_limit": 1,
+      "notes": [
+        {
+          "id": "K36",
+          "text": "One page unless there's a compelling reason such as 10+ years' experience; no photos. GSB cares about 'the impact you have had in your workplace' more than the organisation's name; no industry or function is preferred.",
+          "source_ids": ["gsb-experience"],
+          "verified_at": "2026-11-04",
+          "confidence": 0.85
+        }
+      ]
+    },
+    "test_policy": [
+      {
+        "id": "K37",
+        "text": "GMAT or GRE required (interviews aren't granted without valid scores); TOEFL, IELTS or PTE for English proficiency where required. Scores valid for the round carry over for reapplicants.",
+        "source_ids": ["gsb-interviews", "gsb-reapply"],
+        "verified_at": "2026-11-04",
+        "confidence": 0.85
+      }
+    ],
+    "fees_waivers": [
+      {
+        "id": "K38",
+        "text": "Fee US$275; US$100 for defer-eligible applicants; waived for US active-duty military, honourably discharged veterans and reservists. Need-based waivers by request, due 18 Dec 2026, first come first served.",
+        "source_ids": ["gsb-fee"],
+        "verified_at": "2026-11-04",
+        "confidence": 0.85
+      }
+    ]
+  },
+  "values": {
+    "stated": [
+      {
+        "id": "K39",
+        "text": "Mission: 'to develop principled, insightful, and innovative leaders.' The application seeks 'how you think, how you lead, and how you see the world'.",
+        "source_ids": ["gsb-criteria"],
+        "verified_at": "2026-11-04",
+        "confidence": 0.85
+      },
+      {
+        "id": "K40",
+        "text": "Leadership 'at all levels': 'when you have taken initiative, persisted through challenges, engaged others in your efforts, and supported those around you.' Past actions are 'the best predictor of future actions'.",
+        "source_ids": ["gsb-criteria"],
+        "verified_at": "2026-11-04",
+        "confidence": 0.85
+      },
+      {
+        "id": "K41",
+        "text": "How you think: GSB wants times 'you have taken the initiative to learn new things, solve challenging problems, or develop new insights. What have you discovered? How did you share what you learned? Why does it matter to you and others?'",
+        "source_ids": ["gsb-criteria"],
+        "verified_at": "2026-11-04",
+        "confidence": 0.85
+      },
+      {
+        "id": "K42",
+        "text": "How you see the world: 'Your values, beliefs, identity, and ambitions will help shape your journey and enrich the perspectives of your classmates… We are interested in how your background has shaped your path so far.'",
+        "source_ids": ["gsb-criteria"],
+        "verified_at": "2026-11-04",
+        "confidence": 0.85
+      },
+      {
+        "id": "K43",
+        "text": "'There is neither an ideal candidate nor a typical Stanford MBA student. In your application, we would like you, quite simply, to be yourself.'",
+        "source_ids": ["gsb-criteria"],
+        "verified_at": "2026-11-04",
+        "confidence": 0.85
+      }
+    ],
+    "trait_map": [
+      {
+        "school_value": "take initiative; innovative",
+        "admitstory_traits": ["acts_unasked", "originates_ideas"]
+      },
+      {
+        "school_value": "persist through challenges",
+        "admitstory_traits": ["resilient", "delivers_under_pressure"]
+      },
+      {
+        "school_value": "engage others; support those around you",
+        "admitstory_traits": ["brings_people_along", "develops_people", "empathetic"]
+      },
+      {
+        "school_value": "principled",
+        "admitstory_traits": ["principled_stands", "honest_about_limits"],
+        "note": {
+          "id": "K44",
+          "text": "Humility is non-negotiable: a whiff of arrogance anywhere in the file is fatal.",
+          "source_ids": ["al-stanford"],
+          "verified_at": "2026-11-04",
+          "confidence": 0.75,
+          "approved_rewrite": true
+        }
+      }
+    ]
+  },
+  "culture_and_location": [
+    {
+      "id": "K48",
+      "text": "An intentionally small class (about 430) on the Stanford campus in Silicon Valley; collaborative learning that draws on everyone's background.",
+      "source_ids": ["ca-gsb-2027", "gsb-criteria"],
+      "verified_at": "2026-11-04",
+      "confidence": 0.8
+    }
+  ],
+  "academics": {
+    "courses": [],
+    "centers": [],
+    "experiential": [],
+    "structure": [
+      {
+        "id": "K49",
+        "text": "Joint degrees include MS Computer Science/MBA, MS Electrical Engineering/MBA and MS Environment and Resources (E-IPER)/MBA; the MSx is a one-year program for experienced professionals.",
+        "source_ids": ["gsb-essays"],
+        "verified_at": "2026-11-04",
+        "confidence": 0.85
+      },
+      {
+        "id": "K50",
+        "text": "Quarter system with many short electives; the required first-year Leadership Labs; famous 'Touchy Feely' (Interpersonal Dynamics) and other OB electives; a global experience requirement.",
+        "source_ids": ["al-stanford"],
+        "verified_at": "2026-11-04",
+        "confidence": 0.7,
+        "approved_rewrite": true
+      }
+    ]
+  },
+  "community": {
+    "clubs": [],
+    "traditions": [],
+    "treks_events": []
+  },
+  "careers": {
+    "employment_report": {
+      "id": "K51",
+      "source_ids": ["ca-gsb-2025"],
+      "verified_at": "2026-11-04",
+      "class_year": 2025,
+      "currency": "USD",
+      "by_function": [
+        {
+          "function": "Technology",
+          "share": 0.35,
+          "median_base": null
+        },
+        {
+          "function": "Finance",
+          "share": 0.33,
+          "median_base": null
+        },
+        {
+          "function": "Consulting",
+          "share": 0.11,
+          "median_base": null
+        }
+      ],
+      "top_employers": []
+    },
+    "recruiting_notes": [
+      {
+        "id": "K52",
+        "text": "Class of 2025: median base US$185,000; 90% of job seekers had offers within three months and 81% accepted; 63% sought jobs; 16% launched ventures.",
+        "source_ids": ["ca-gsb-2025"],
+        "verified_at": "2026-11-04",
+        "confidence": 0.85
+      }
+    ]
+  },
+  "class_profile": {
+    "id": "K53",
+    "source_ids": ["ca-gsb-2027"],
+    "verified_at": "2026-11-04",
+    "class_year": 2027,
+    "class_size": 434,
+    "gmat_focus_median": 689,
+    "gmat_classic_median": 738,
+    "gre_median": {
+      "verbal": 164,
+      "quant": 164
+    },
+    "gpa_median": 3.76,
+    "gpa_scale": 4.0,
+    "work_experience_years_median": null,
+    "international_share": 0.38
+  },
+  "interview": {
+    "id": "K54",
+    "source_ids": ["gsb-interviews"],
+    "verified_at": "2026-11-04",
+    "invitation": "invite_only",
+    "who": ["alum", "adcom"],
+    "blind": null,
+    "length_min": 45,
+    "location": ["virtual", "hub"],
+    "common_questions": [
+      {
+        "id": "K55",
+        "source_ids": ["gsb-interviews"],
+        "verified_at": "2026-11-04",
+        "text": "Tell me about a time you had a significant impact on your organisation. What did you do, and how?",
+        "frequency_weight": 5
+      },
+      {
+        "id": "K56",
+        "source_ids": ["al-stanford"],
+        "verified_at": "2026-11-04",
+        "text": "Describe a time you identified an opportunity that others had missed.",
+        "frequency_weight": 4
+      },
+      {
+        "id": "K57",
+        "source_ids": ["admitstory-coach"],
+        "verified_at": "2026-11-04",
+        "text": "Tell me about a time you had to persuade someone who disagreed with you.",
+        "frequency_weight": 4
+      }
+    ],
+    "format_notes": [
+      {
+        "id": "K58",
+        "text": "By invitation, with a trained alum or an admissions team member; required before any offer. GSB interviews two to three candidates per seat. Remote or in person; no on-campus requests; location and date don't affect your candidacy. Business attire recommended.",
+        "source_ids": ["gsb-interviews"],
+        "verified_at": "2026-11-04",
+        "confidence": 0.85
+      },
+      {
+        "id": "K59",
+        "text": "A structured behavioural interview on 'what you have done and how you have done it': past actions, not hypotheticals, from the past few years. Expect follow-ups probing your thinking, feelings and the reactions of others.",
+        "source_ids": ["gsb-interviews", "admitstory-coach"],
+        "verified_at": "2026-11-04",
+        "confidence": 0.85
+      }
+    ]
+  },
+  "ai_policy": {
+    "id": "K60",
+    "source_ids": ["pq-ai-2026"],
+    "verified_at": "2026-11-04",
+    "stance": "prohibited",
+    "applies_to": ["essays"],
+    "disclosure_text": null,
+    "notes": [
+      {
+        "id": "K61",
+        "text": "GSB: 'It is improper and a violation of the terms of this application process to have another person or tool write your essays. Such behavior may result in denial of your application or revocation of your admission.'",
+        "source_ids": ["gsb-essays"],
+        "verified_at": "2026-11-04",
+        "confidence": 0.85
+      },
+      {
+        "id": "K62",
+        "text": "Recommendation letters must be written by recommenders alone, with no applicant or outside edits.",
+        "source_ids": ["gsb-recs"],
+        "verified_at": "2026-11-04",
+        "confidence": 0.85
+      }
+    ]
+  },
+  "scholarships": [
+    {
+      "id": "K63",
+      "text": "Knight-Hennessy Scholars is a separate Stanford-wide graduate scholarship with its own application and essays.",
+      "source_ids": ["gsb-essays", "al-stanford"],
+      "verified_at": "2026-11-04",
+      "confidence": 0.75
+    }
+  ],
+  "insider_notes": [
+    {
+      "id": "K45",
+      "text": "Class of 2027: 434 students; average GPA 3.76; average GMAT Focus 689 (range 615–785), GMAT 10th edition 738; average GRE 164 quant and verbal; 45% women; 38% international from 64 countries.",
+      "source_ids": ["ca-gsb-2027"],
+      "verified_at": "2026-11-04",
+      "confidence": 0.85
+    },
+    {
+      "id": "K46",
+      "text": "Strong admits have usually changed at least one life deeply, often an organisation, and sometimes shown the capacity for change at scale (GSB's motto: 'Change lives. Change organizations. Change the world.').",
+      "source_ids": ["al-stanford"],
+      "verified_at": "2026-11-04",
+      "confidence": 0.7,
+      "approved_rewrite": true
+    },
+    {
+      "id": "K47",
+      "text": "'Feedback' versus 'coaching': the line is crossed when any part of the application stops being exclusively yours in thought or word. 'It is improper… to have another person or tool write your essays.'",
+      "source_ids": ["gsb-essays"],
+      "verified_at": "2026-11-04",
+      "confidence": 0.85
+    }
+  ],
+  "avoid": [
+    {
+      "id": "K64",
+      "text": "Any trace of arrogance or a list of accomplishments in Essay A.",
+      "source_ids": ["al-stanford"],
+      "verified_at": "2026-11-04",
+      "confidence": 0.75,
+      "approved_rewrite": true
+    },
+    {
+      "id": "K65",
+      "text": "A grand vision with no past impact to back it up.",
+      "source_ids": ["al-stanford"],
+      "verified_at": "2026-11-04",
+      "confidence": 0.75,
+      "approved_rewrite": true
+    },
+    {
+      "id": "K66",
+      "text": "Using Additional Information as another essay.",
+      "source_ids": ["gsb-essays"],
+      "verified_at": "2026-11-04",
+      "confidence": 0.85
+    },
+    {
+      "id": "K67",
+      "text": "Touching your recommendation letters in any way.",
+      "source_ids": ["gsb-recs"],
+      "verified_at": "2026-11-04",
+      "confidence": 0.85
+    },
+    {
+      "id": "K68",
+      "text": "Letting anyone or any tool write any part of your essays.",
+      "source_ids": ["gsb-essays"],
+      "verified_at": "2026-11-04",
+      "confidence": 0.85
+    }
+  ],
+  "angles_that_work": [
+    {
+      "id": "K69",
+      "text": "Essay A built from two or three hard decisions that reveal one value, with its origin and the cost it carried.",
+      "source_ids": ["al-stanford"],
+      "verified_at": "2026-11-04",
+      "confidence": 0.75,
+      "approved_rewrite": true
+    },
+    {
+      "id": "K70",
+      "text": "Short-answer examples that show the 'how and why' behind a resume line, with an interpersonal turn.",
+      "source_ids": ["gsb-short"],
+      "verified_at": "2026-11-04",
+      "confidence": 0.85
+    }
+  ],
+  "glossary": [
+    {
+      "id": "K71",
+      "source_ids": ["gsb-essays"],
+      "verified_at": "2026-11-04",
+      "term": "What Matters Most",
+      "plain_definition": "GSB's Essay A: what matters most to you, and why."
+    },
+    {
+      "id": "K72",
+      "source_ids": ["gsb-essays"],
+      "verified_at": "2026-11-04",
+      "term": "MSx",
+      "plain_definition": "Stanford GSB's one-year master's for experienced professionals; some applicants apply jointly to MBA and MSx."
+    },
+    {
+      "id": "K73",
+      "source_ids": ["al-stanford"],
+      "verified_at": "2026-11-04",
+      "term": "Touchy Feely",
+      "plain_definition": "Nickname for GSB's Interpersonal Dynamics elective."
+    }
+  ]
+}

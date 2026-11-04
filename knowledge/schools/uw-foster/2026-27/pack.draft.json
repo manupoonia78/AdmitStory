@@ -1,0 +1,1046 @@
+{
+  "school": {
+    "id": "uw-foster",
+    "name": "University of Washington Michael G. Foster School of Business",
+    "short_name": "Foster",
+    "country": "US",
+    "city": "Seattle, WA",
+    "website": "https://foster.uw.edu",
+    "program": "full_time_mba"
+  },
+  "cycle": "2026-27",
+  "version": 1,
+  "status": "draft",
+  "_todo": [
+    "application.reapplicant: Foster publishes no reapplicant essay; confirm whether the form asks reapplicants anything",
+    "application.video[0]: number of questions, think time and answer time (not published)",
+    "application.recommendations.questions: the short-answer questions verbatim",
+    "community.clubs: verify specific Foster MBA clubs and treks on the official site",
+    "class_profile.gmat: confirm whether the 655 median is GMAT Focus or classic before filling a GMAT field",
+    "insider_notes: a recent (2024–2026) interview or blog post from Erin Town on what Foster looks for",
+    "scholarships: verify Foster's merit scholarship process and named fellowships"
+  ],
+  "k_high_water": 91,
+  "sources": [
+    {
+      "id": "foster-admissions",
+      "type": "official",
+      "title": "Foster Full-time MBA: Admissions (essays, deadlines, interview, recommendations, resume, tests, fee, AI FAQ)",
+      "url": "https://foster.uw.edu/academics/degree-programs/full-time-mba/admissions/",
+      "trust": 5,
+      "retrieved_at": "2026-11-04",
+      "rights_note": null
+    },
+    {
+      "id": "foster-profile",
+      "type": "official",
+      "title": "Foster Full-time MBA: Class profile (Class of 2028)",
+      "url": "https://foster.uw.edu/academics/degree-programs/full-time-mba/class-profile/",
+      "trust": 5,
+      "retrieved_at": "2026-11-04",
+      "rights_note": null
+    },
+    {
+      "id": "foster-employment-2025",
+      "type": "official",
+      "title": "Foster Full-time MBA Employment Report, Class of 2025 (PDF, Apr 2026)",
+      "url": "https://foster.uw.edu/wp-content/uploads/2026/04/2026-Full-Time-MBA-Employment-Report-4.29.26-r2.pdf",
+      "trust": 5,
+      "retrieved_at": "2026-11-04",
+      "rights_note": null
+    },
+    {
+      "id": "foster-careers",
+      "type": "official",
+      "title": "Foster Full-time MBA: Career management",
+      "url": "https://foster.uw.edu/academics/degree-programs/full-time-mba/career-management/",
+      "trust": 5,
+      "retrieved_at": "2026-11-04",
+      "rights_note": null
+    },
+    {
+      "id": "foster-curriculum",
+      "type": "official",
+      "title": "Foster Full-time MBA: Curriculum, Applied Strategy, certificates and specializations",
+      "url": "https://foster.uw.edu/academics/degree-programs/full-time-mba/curriculum/",
+      "trust": 5,
+      "retrieved_at": "2026-11-04",
+      "rights_note": null
+    },
+    {
+      "id": "foster-centers",
+      "type": "official",
+      "title": "Foster centers",
+      "url": "https://foster.uw.edu/centers/",
+      "trust": 5,
+      "retrieved_at": "2026-11-04",
+      "rights_note": null
+    },
+    {
+      "id": "foster-about",
+      "type": "official",
+      "title": "About the Foster School (purpose and shared commitments)",
+      "url": "https://foster.uw.edu/about-foster-school/",
+      "trust": 5,
+      "retrieved_at": "2026-11-04",
+      "rights_note": null
+    },
+    {
+      "id": "foster-contact",
+      "type": "official",
+      "title": "Foster Full-time MBA: Contact us (admissions team)",
+      "url": "https://foster.uw.edu/academics/degree-programs/full-time-mba/contact-us/",
+      "trust": 5,
+      "retrieved_at": "2026-11-04",
+      "rights_note": null
+    },
+    {
+      "id": "touch-town-2015",
+      "type": "adcom",
+      "title": "Touch MBA podcast #79: Erin Town, then Director of MBA Admissions, 'Take the Reins' (c. 2015)",
+      "url": "https://touchmba.com/foster-mba-admissions-interview/",
+      "trust": 4,
+      "retrieved_at": "2026-11-04",
+      "rights_note": null
+    },
+    {
+      "id": "ca-foster-reports",
+      "type": "interview_reports",
+      "title": "Clear Admit Foster interview reports (2024–2026)",
+      "url": "https://www.clearadmit.com/interview-reports/school/foster",
+      "trust": 3,
+      "retrieved_at": "2026-11-04",
+      "rights_note": null
+    },
+    {
+      "id": "al-foster",
+      "type": "third_party_reference",
+      "title": "ApplicantLab — Foster school tab",
+      "url": null,
+      "trust": 2,
+      "retrieved_at": "2026-11-04",
+      "rights_note": "Paid coaching platform material (ApplicantLab). Private reference; items are Admitstory rewrites approved by Manu 2026-11-04 (§9.6). Never name or quote."
+    },
+    {
+      "id": "admitstory-coach",
+      "type": "coach_notes",
+      "title": "Admitstory coaching canon and Manu's storytelling rules",
+      "url": null,
+      "trust": 4,
+      "retrieved_at": "2026-11-04",
+      "rights_note": null
+    }
+  ],
+  "official_urls": [
+    {
+      "kind": "prompts",
+      "url": "https://foster.uw.edu/academics/degree-programs/full-time-mba/admissions/"
+    },
+    {
+      "kind": "deadlines",
+      "url": "https://foster.uw.edu/academics/degree-programs/full-time-mba/admissions/"
+    },
+    {
+      "kind": "class_profile",
+      "url": "https://foster.uw.edu/academics/degree-programs/full-time-mba/class-profile/"
+    },
+    {
+      "kind": "employment_report",
+      "url": "https://foster.uw.edu/wp-content/uploads/2026/04/2026-Full-Time-MBA-Employment-Report-4.29.26-r2.pdf"
+    },
+    {
+      "kind": "ai_policy",
+      "url": "https://foster.uw.edu/academics/degree-programs/full-time-mba/admissions/"
+    }
+  ],
+  "rounds": [
+    {
+      "id": "K01",
+      "source_ids": ["foster-admissions"],
+      "verified_at": "2026-11-04",
+      "name": "Round 1",
+      "deadline": "2026-10-01",
+      "decision_date": "2026-12-18",
+      "notes": [
+        {
+          "id": "K02",
+          "text": "Deadline 11:59pm Pacific; enrollment deadline 4 February 2027.",
+          "source_ids": ["foster-admissions"],
+          "verified_at": "2026-11-04",
+          "confidence": 0.85
+        }
+      ]
+    },
+    {
+      "id": "K03",
+      "source_ids": ["foster-admissions"],
+      "verified_at": "2026-11-04",
+      "name": "Round 2",
+      "deadline": "2027-01-05",
+      "decision_date": "2027-03-26",
+      "notes": [
+        {
+          "id": "K04",
+          "text": "Final deadline for international applicants; enrollment deadline 29 April 2027.",
+          "source_ids": ["foster-admissions"],
+          "verified_at": "2026-11-04",
+          "confidence": 0.85
+        }
+      ]
+    },
+    {
+      "id": "K05",
+      "source_ids": ["foster-admissions"],
+      "verified_at": "2026-11-04",
+      "name": "Round 3",
+      "deadline": "2027-03-23",
+      "decision_date": "2027-05-14",
+      "notes": [
+        {
+          "id": "K06",
+          "text": "Domestic applicants only in practice (R2 is the international deadline); enrollment deadline 2 June 2027.",
+          "source_ids": ["foster-admissions"],
+          "verified_at": "2026-11-04",
+          "confidence": 0.8
+        }
+      ]
+    }
+  ],
+  "application": {
+    "essays": [
+      {
+        "id": "K07",
+        "source_ids": ["foster-admissions"],
+        "verified_at": "2026-11-04",
+        "key": "post_mba_plans",
+        "prompt_verbatim": "Tell us your ideas about what lies ahead in your career. What are the gaps or deficiencies currently preventing you from pursuing these potential career paths? How do you plan to use your time in the Foster MBA program to fill these gaps and advance your career?",
+        "limit": {
+          "kind": "words",
+          "value": 750
+        },
+        "required": true,
+        "archetypes": ["GOALS", "WHY-SCHOOL"],
+        "parts": [
+          "what lies ahead in your career (potential paths)",
+          "the gaps or deficiencies holding you back",
+          "how you'll use the Foster MBA to fill them"
+        ],
+        "notes": [
+          {
+            "id": "K08",
+            "text": "Foster recommends 550–750 words, double-spaced, 10- or 12-point professional font, with your full name and the essay title on each page; it uploads as the 'Statement of Purpose'.",
+            "source_ids": ["foster-admissions"],
+            "verified_at": "2026-11-04",
+            "confidence": 0.85
+          },
+          {
+            "id": "K09",
+            "text": "Foster says its most successful applicants use essays to share genuine motivations, stories and goals that create context around their MBA journey.",
+            "source_ids": ["foster-admissions"],
+            "verified_at": "2026-11-04",
+            "confidence": 0.85
+          },
+          {
+            "id": "K10",
+            "text": "The prompt says 'potential career paths', plural: a main path and a credible alternative read as realistic, as long as both sit in the same lane.",
+            "source_ids": ["admitstory-coach"],
+            "verified_at": "2026-11-04",
+            "confidence": 0.85
+          },
+          {
+            "id": "K11",
+            "text": "Name each gap honestly, show how you found it, and match it to one specific Foster resource (Applied Strategy, a certificate or specialization, a center) with a concrete use. Seattle employers in the goal make the location part of the answer.",
+            "source_ids": ["admitstory-coach"],
+            "verified_at": "2026-11-04",
+            "confidence": 0.85
+          },
+          {
+            "id": "K12",
+            "text": "Open on the moment the career direction took hold, keep background under about 15% of the words, and land on a forward beat rather than a summary.",
+            "source_ids": ["admitstory-coach"],
+            "verified_at": "2026-11-04",
+            "confidence": 0.85
+          }
+        ]
+      },
+      {
+        "id": "K13",
+        "source_ids": ["foster-admissions"],
+        "verified_at": "2026-11-04",
+        "key": "mission_statement",
+        "prompt_verbatim": "TOGETHER – WE FOSTER LEADERS, WE FOSTER INSIGHTS, WE FOSTER PROGRESS – TO BETTER HUMANITY. This is the Foster School's mission statement, and it serves as the north star for how we do business here. Please select one part of our mission statement and describe how it resonates with you in your personal or professional life. Please describe a specific experience in which you put this into practice.",
+        "limit": {
+          "kind": "words",
+          "value": 550
+        },
+        "required": true,
+        "archetypes": ["LEADERSHIP", "VALUES"],
+        "parts": [
+          "choose one part: leaders, insights or progress",
+          "how it resonates with you",
+          "a specific experience where you put it into practice"
+        ],
+        "notes": [
+          {
+            "id": "K14",
+            "text": "Foster recommends 350–550 words; uploads as the 'Personal Statement'. The 2026-27 wording adds the explicit 'specific experience' requirement.",
+            "source_ids": ["foster-admissions"],
+            "verified_at": "2026-11-04",
+            "confidence": 0.85
+          },
+          {
+            "id": "K15",
+            "text": "Work backwards: start from the strongest leadership story, then choose the part of the mission it most plausibly shows. 'Leaders' fits most leadership stories; 'Insights' fits a story turned by reading people or by analysis (a test, a survey, data that moved a decision); 'Progress' fits an innovation or getting a stalled effort moving.",
+            "source_ids": ["al-foster"],
+            "verified_at": "2026-11-04",
+            "confidence": 0.75,
+            "approved_rewrite": true
+          },
+          {
+            "id": "K16",
+            "text": "The best stories show more than one part in practice even though only one is named, for example an innovation that also depended on an insight into a colleague.",
+            "source_ids": ["al-foster"],
+            "verified_at": "2026-11-04",
+            "confidence": 0.75,
+            "approved_rewrite": true
+          },
+          {
+            "id": "K17",
+            "text": "Structure: the problem before you acted, the barriers (usually interpersonal), your actions and the insight behind them, a short result, then why this part of the mission is yours. Spell out that connection rather than assuming the reader sees it.",
+            "source_ids": ["al-foster"],
+            "verified_at": "2026-11-04",
+            "confidence": 0.75,
+            "approved_rewrite": true
+          },
+          {
+            "id": "K18",
+            "text": "Prove the value lasted with a brief later example where you acted on it again.",
+            "source_ids": ["al-foster"],
+            "verified_at": "2026-11-04",
+            "confidence": 0.75,
+            "approved_rewrite": true
+          }
+        ]
+      },
+      {
+        "id": "K19",
+        "source_ids": ["foster-admissions"],
+        "verified_at": "2026-11-04",
+        "key": "nurturing_community",
+        "prompt_verbatim": "At the Foster School of Business, we embrace inclusion and belonging as two of the foundations of both successful business strategy and a world-class educational experience. We share the University's dedication to promoting the understanding and appreciation of human differences, and the constructive expression of ideas. We welcome you to share some of the ways you have practiced inclusion and promoted belonging.",
+        "limit": {
+          "kind": "words",
+          "value": 550
+        },
+        "required": false,
+        "archetypes": ["CONTRIBUTION"],
+        "parts": ["ways you have practiced inclusion", "ways you have promoted belonging"],
+        "notes": [
+          {
+            "id": "K20",
+            "text": "Optional 'Nurturing Our Community' essay; Foster recommends 350–550 words.",
+            "source_ids": ["foster-admissions"],
+            "verified_at": "2026-11-04",
+            "confidence": 0.85
+          },
+          {
+            "id": "K21",
+            "text": "Inclusion doesn't have to mean demographics: drawing out dissenting views, bringing in a sidelined colleague, or helping a newcomer adapt all count.",
+            "source_ids": ["al-foster"],
+            "verified_at": "2026-11-04",
+            "confidence": 0.75,
+            "approved_rewrite": true
+          },
+          {
+            "id": "K22",
+            "text": "Show the before state, why it mattered, what you did, and the insight into others' perspectives that guided you. If people resisted, explain their position with empathy rather than blame. The result matters least; what you learned matters most.",
+            "source_ids": ["al-foster"],
+            "verified_at": "2026-11-04",
+            "confidence": 0.75,
+            "approved_rewrite": true
+          }
+        ]
+      }
+    ],
+    "short_answers": [
+      {
+        "id": "K23",
+        "source_ids": ["foster-admissions"],
+        "verified_at": "2026-11-04",
+        "key": "test_optional",
+        "prompt_verbatim": "Please detail the specific evidence in your academic and/or professional experience that supports your analytical and quantitative preparedness for success in the program. (150 words maximum)",
+        "limit": {
+          "kind": "words",
+          "value": 150
+        },
+        "required": false,
+        "archetypes": ["OPTIONAL"],
+        "parts": [
+          "specific academic evidence",
+          "specific professional evidence of analytical and quantitative work"
+        ],
+        "notes": [
+          {
+            "id": "K24",
+            "text": "Required only for applicants applying test optional. Foster names strong quant GPA, a STEM or business degree, quantitative work experience and four or more years of progressive work experience as signs of a competitive test-optional candidate.",
+            "source_ids": ["foster-admissions"],
+            "verified_at": "2026-11-04",
+            "confidence": 0.75
+          },
+          {
+            "id": "K25",
+            "text": "List concrete evidence (courses and grades, models built, budgets owned) in plain business language, not jargon.",
+            "source_ids": ["admitstory-coach"],
+            "verified_at": "2026-11-04",
+            "confidence": 0.85
+          }
+        ]
+      }
+    ],
+    "goal_fields": [],
+    "video": [
+      {
+        "id": "K29",
+        "source_ids": ["foster-admissions"],
+        "verified_at": "2026-11-04",
+        "format": "async_video",
+        "think_time_s": null,
+        "answer_time_s": null,
+        "attempts": null,
+        "question_types": [
+          {
+            "id": "K30",
+            "text": "All applicants receive the video interview by email one to three business days after their round deadline and have about a week to complete it; it assesses communication and thinking on your feet. Practice questions are available in the system.",
+            "source_ids": ["foster-admissions"],
+            "verified_at": "2026-11-04",
+            "confidence": 0.85
+          },
+          {
+            "id": "K31",
+            "text": "Because the written essay already covers goals, expect behavioural 'tell me about a time' questions. Prepare talking points, not scripts.",
+            "source_ids": ["al-foster"],
+            "verified_at": "2026-11-04",
+            "confidence": 0.6,
+            "approved_rewrite": true
+          }
+        ],
+        "scripting_allowed": false
+      }
+    ],
+    "reapplicant": null,
+    "optional_essay": {
+      "id": "K26",
+      "source_ids": ["foster-admissions"],
+      "verified_at": "2026-11-04",
+      "key": "optional",
+      "prompt_verbatim": "Include this essay if you have additional information you believe would be helpful to the admissions committee in considering your application.",
+      "limit": {
+        "kind": "words",
+        "value": 500
+      },
+      "required": false,
+      "archetypes": ["OPTIONAL"],
+      "parts": ["context the rest of the application doesn't give"],
+      "notes": [
+        {
+          "id": "K27",
+          "text": "Keep it brief, factual and mature: what happened, the context, what you did about it, what is different now. If a hard life event is already in a main essay, this can stay blank.",
+          "source_ids": ["al-foster"],
+          "verified_at": "2026-11-04",
+          "confidence": 0.75,
+          "approved_rewrite": true
+        },
+        {
+          "id": "K28",
+          "text": "For a recommender who isn't your boss, say why and why this person is qualified. For weak grades or scores, state the reason plainly and point to other evidence of academic ability.",
+          "source_ids": ["al-foster"],
+          "verified_at": "2026-11-04",
+          "confidence": 0.75,
+          "approved_rewrite": true
+        }
+      ]
+    },
+    "form_sections": [],
+    "recommendations": {
+      "id": "K32",
+      "source_ids": ["foster-admissions"],
+      "verified_at": "2026-11-04",
+      "count": 2,
+      "format": "school_specific",
+      "questions": [],
+      "notes": [
+        {
+          "id": "K33",
+          "text": "Two letters required, up to three allowed; professional recommenders preferred over academic or personal ones. Due by the round deadline.",
+          "source_ids": ["foster-admissions"],
+          "verified_at": "2026-11-04",
+          "confidence": 0.85
+        },
+        {
+          "id": "K34",
+          "text": "The form is short-answer questions plus a rating of strengths, areas to improve, leadership, interpersonal skills, motivation and initiative, accomplishments and managerial potential.",
+          "source_ids": ["foster-admissions"],
+          "verified_at": "2026-11-04",
+          "confidence": 0.85
+        }
+      ]
+    },
+    "resume": {
+      "id": "K35",
+      "source_ids": ["foster-admissions"],
+      "verified_at": "2026-11-04",
+      "page_limit": 3,
+      "notes": [
+        {
+          "id": "K36",
+          "text": "Up to three pages allowed: reverse chronological, with each company's name and a short description or web address, title and responsibilities, all significant work since high school, education, activities and community involvement.",
+          "source_ids": ["foster-admissions"],
+          "verified_at": "2026-11-04",
+          "confidence": 0.85
+        },
+        {
+          "id": "K37",
+          "text": "Three pages is a ceiling, not a target; most strong resumes stay at one or two.",
+          "source_ids": ["admitstory-coach"],
+          "verified_at": "2026-11-04",
+          "confidence": 0.85
+        }
+      ]
+    },
+    "test_policy": [
+      {
+        "id": "K38",
+        "text": "GMAT (10th Edition or Focus) or GRE, no preference; scores valid five years; highest total used; no GMAT superscore for this cycle.",
+        "source_ids": ["foster-admissions"],
+        "verified_at": "2026-11-04",
+        "confidence": 0.85
+      },
+      {
+        "id": "K39",
+        "text": "Foster doesn't waive requirements but lets applicants apply test optional, with the 150-word evidence answer; a minimum 3.0 GPA is reported for that route.",
+        "source_ids": ["foster-admissions"],
+        "verified_at": "2026-11-04",
+        "confidence": 0.7
+      },
+      {
+        "id": "K40",
+        "text": "English proficiency: TOEFL 5 (100 iBT before 21 Jan 2026), IELTS 7.0 or Duolingo 130.",
+        "source_ids": ["foster-admissions"],
+        "verified_at": "2026-11-04",
+        "confidence": 0.85
+      }
+    ],
+    "fees_waivers": [
+      {
+        "id": "K41",
+        "text": "Application fee US$90, non-refundable, managed by the UW Graduate School; Foster itself offers no fee waivers (limited need-based Graduate School waivers may exist).",
+        "source_ids": ["foster-admissions"],
+        "verified_at": "2026-11-04",
+        "confidence": 0.8
+      }
+    ]
+  },
+  "values": {
+    "stated": [
+      {
+        "id": "K42",
+        "text": "Foster's purpose statement: 'Together – we foster leaders, we foster insights, we foster progress – to better humanity.'",
+        "source_ids": ["foster-about"],
+        "verified_at": "2026-11-04",
+        "confidence": 0.85
+      },
+      {
+        "id": "K43",
+        "text": "Shared commitments: careful analysis and evidence-based decision-making; collaboration across perspectives and disciplines; curiosity about how organizations and markets evolve; responsibility to the communities business serves.",
+        "source_ids": ["foster-about"],
+        "verified_at": "2026-11-04",
+        "confidence": 0.85
+      },
+      {
+        "id": "K44",
+        "text": "The program says it prepares ambitious, globally minded professionals to lead with impact.",
+        "source_ids": ["foster-admissions"],
+        "verified_at": "2026-11-04",
+        "confidence": 0.85
+      }
+    ],
+    "trait_map": [
+      {
+        "school_value": "we foster leaders",
+        "admitstory_traits": ["originates_ideas", "acts_unasked", "brings_people_along"]
+      },
+      {
+        "school_value": "we foster insights",
+        "admitstory_traits": ["analytical", "empathetic"],
+        "note": {
+          "id": "K45",
+          "text": "An 'insight' can be analytical or emotional, so a story that turns on understanding someone counts as much as one that turns on data.",
+          "source_ids": ["al-foster"],
+          "verified_at": "2026-11-04",
+          "confidence": 0.75,
+          "approved_rewrite": true
+        }
+      },
+      {
+        "school_value": "we foster progress",
+        "admitstory_traits": ["originates_ideas", "measurable_impact"]
+      },
+      {
+        "school_value": "inclusion and belonging",
+        "admitstory_traits": ["community_builder", "empathetic"]
+      }
+    ]
+  },
+  "culture_and_location": [
+    {
+      "id": "K46",
+      "text": "A small cohort (77 in the Class of 2028) in Seattle; Foster stresses individual attention, team-based learning and access to Seattle employers.",
+      "source_ids": ["foster-profile"],
+      "verified_at": "2026-11-04",
+      "confidence": 0.85
+    },
+    {
+      "id": "K47",
+      "text": "Erin Town, then admissions director, described Seattle's business leaders as approachable and keen to learn from students, and highlighted Foster's mentorship program (c. 2015).",
+      "source_ids": ["touch-town-2015"],
+      "verified_at": "2026-11-04",
+      "confidence": 0.6
+    }
+  ],
+  "academics": {
+    "courses": [
+      {
+        "id": "K53",
+        "source_ids": ["foster-curriculum"],
+        "verified_at": "2026-11-04",
+        "name": "Product Marketing specialization",
+        "what_it_is": "At least three of four designated product-marketing electives.",
+        "why_it_matters_for": ["tech product and marketing goals"],
+        "url": "https://foster.uw.edu/academics/degree-programs/full-time-mba/curriculum/certificates-concurrent-degrees/"
+      },
+      {
+        "id": "K54",
+        "source_ids": ["foster-curriculum"],
+        "verified_at": "2026-11-04",
+        "name": "Marketing Analytics specialization",
+        "what_it_is": "At least three of four designated marketing-analytics electives.",
+        "why_it_matters_for": ["analytics and marketing goals"],
+        "url": "https://foster.uw.edu/academics/degree-programs/full-time-mba/curriculum/certificates-concurrent-degrees/"
+      },
+      {
+        "id": "K55",
+        "source_ids": ["foster-curriculum"],
+        "verified_at": "2026-11-04",
+        "name": "ESG Leadership specialization",
+        "what_it_is": "Twelve credits plus the Ethical Leadership course.",
+        "why_it_matters_for": ["sustainability and impact goals"],
+        "url": "https://foster.uw.edu/academics/degree-programs/full-time-mba/curriculum/certificates-concurrent-degrees/"
+      }
+    ],
+    "centers": [
+      {
+        "id": "K56",
+        "source_ids": ["foster-centers"],
+        "verified_at": "2026-11-04",
+        "name": "Arthur W. Buerk Center for Entrepreneurship",
+        "what_it_is": "Courses, real-world experience and links to Seattle's startup community; runs the Dempsey Startup Competition and the Hollomon Health Innovation Challenge.",
+        "why_it_matters_for": ["founders", "health innovation"],
+        "url": "https://foster.uw.edu/centers/buerk-ctr-entrepreneurship/"
+      },
+      {
+        "id": "K57",
+        "source_ids": ["foster-centers"],
+        "verified_at": "2026-11-04",
+        "name": "Center for Leadership and Strategic Thinking (CLST)",
+        "what_it_is": "Leadership research and education, including the Fritzky Leadership Fellows.",
+        "why_it_matters_for": ["leadership development goals"],
+        "url": "https://foster.uw.edu/centers/leadership/"
+      },
+      {
+        "id": "K58",
+        "source_ids": ["foster-centers"],
+        "verified_at": "2026-11-04",
+        "name": "Consulting and Business Development Center (CBDC)",
+        "what_it_is": "Student consulting that helps grow businesses owned by under-represented entrepreneurs in under-served communities.",
+        "why_it_matters_for": ["consulting", "community impact"],
+        "url": "https://foster.uw.edu/centers/consulting-and-business-development-center/"
+      },
+      {
+        "id": "K59",
+        "source_ids": ["foster-centers"],
+        "verified_at": "2026-11-04",
+        "name": "Global Business Center (GBC)",
+        "what_it_is": "Global business opportunities in Seattle and abroad, including study abroad and the Global Business certificate.",
+        "why_it_matters_for": ["international careers"],
+        "url": "https://foster.uw.edu/centers/gbc/"
+      },
+      {
+        "id": "K60",
+        "source_ids": ["foster-centers"],
+        "verified_at": "2026-11-04",
+        "name": "Creative Destruction Lab – Seattle",
+        "what_it_is": "Pairs seed-stage science and technology startups with experienced mentors; initial focus on computational health and AI applications.",
+        "why_it_matters_for": ["health tech and AI ventures"],
+        "url": "https://foster.uw.edu/centers/creative-destruction-lab/"
+      },
+      {
+        "id": "K61",
+        "source_ids": ["foster-centers"],
+        "verified_at": "2026-11-04",
+        "name": "Center for Sales and Marketing Strategy",
+        "what_it_is": "Applies academic research to sales and marketing operations.",
+        "why_it_matters_for": ["marketing and sales goals"],
+        "url": "https://foster.uw.edu/centers/center-for-sales-and-marketing-strategy/"
+      }
+    ],
+    "experiential": [
+      {
+        "id": "K52",
+        "source_ids": ["foster-curriculum"],
+        "verified_at": "2026-11-04",
+        "name": "Applied Strategy",
+        "what_it_is": "Required first-year consulting-style course: MBA teams solve a challenge set by a company sponsor (past clients include Amazon, Microsoft, Starbucks, Boeing, Costco and Nike).",
+        "why_it_matters_for": [
+          "career switchers needing hands-on proof",
+          "consulting and tech goals"
+        ],
+        "url": "https://foster.uw.edu/academics/degree-programs/full-time-mba/curriculum/applied-strategy-projects/"
+      }
+    ],
+    "structure": [
+      {
+        "id": "K48",
+        "text": "88 credits over two years, in person in Seattle. Year one is the core, including Leadership Development & Building Effective Teams, Leading Teams and Organizations, Applied Strategy and Professional Communications; electives begin in the third quarter of year one.",
+        "source_ids": ["foster-curriculum"],
+        "verified_at": "2026-11-04",
+        "confidence": 0.85
+      },
+      {
+        "id": "K49",
+        "text": "No formal concentrations. Students can take up to 16 credits elsewhere at UW, earn certificates (Entrepreneurship, Global Business) or specializations (ESG Leadership, Marketing Analytics, Product Marketing).",
+        "source_ids": ["foster-curriculum"],
+        "verified_at": "2026-11-04",
+        "confidence": 0.85
+      },
+      {
+        "id": "K50",
+        "text": "Degree activities also include professional development, a core case competition, a summer internship or project, and international-perspective and practical-experience activities.",
+        "source_ids": ["foster-curriculum"],
+        "verified_at": "2026-11-04",
+        "confidence": 0.85
+      },
+      {
+        "id": "K51",
+        "text": "Concurrent degrees: MBA/JD, MBA/MHA, MBA/MPAcc and MBA/MAIS.",
+        "source_ids": ["foster-curriculum"],
+        "verified_at": "2026-11-04",
+        "confidence": 0.85
+      }
+    ]
+  },
+  "community": {
+    "clubs": [],
+    "traditions": [],
+    "treks_events": []
+  },
+  "careers": {
+    "employment_report": {
+      "id": "K62",
+      "source_ids": ["foster-employment-2025"],
+      "verified_at": "2026-11-04",
+      "class_year": 2025,
+      "currency": "USD",
+      "by_function": [
+        {
+          "function": "Consulting",
+          "share": 0.297,
+          "median_base": 175000
+        },
+        {
+          "function": "Marketing/Sales",
+          "share": 0.27,
+          "median_base": 135000
+        },
+        {
+          "function": "General Management",
+          "share": 0.176,
+          "median_base": 142800
+        },
+        {
+          "function": "Finance/Accounting",
+          "share": 0.135,
+          "median_base": 135000
+        },
+        {
+          "function": "Operations/Logistics",
+          "share": 0.095,
+          "median_base": 142650
+        },
+        {
+          "function": "Information Technology",
+          "share": 0.027,
+          "median_base": null
+        }
+      ],
+      "top_employers": [
+        "Amazon",
+        "Microsoft",
+        "Google",
+        "Apple",
+        "Adobe",
+        "Deloitte",
+        "McKinsey & Company",
+        "The Boston Consulting Group",
+        "Kearney",
+        "Accenture",
+        "Ernst & Young",
+        "PwC",
+        "ZS Associates",
+        "Boeing",
+        "Blue Origin",
+        "Nike",
+        "Nestle",
+        "P&G",
+        "Goldman Sachs",
+        "Zscaler"
+      ],
+      "intl_offer_rates": {
+        "id": "K63",
+        "text": "Class of 2025: of international graduates seeking work, 72.7% had an offer by three months after graduation, against 85% of those with permanent work authorization.",
+        "source_ids": ["foster-employment-2025"],
+        "verified_at": "2026-11-04",
+        "confidence": 0.85
+      }
+    },
+    "recruiting_notes": [
+      {
+        "id": "K64",
+        "text": "Class of 2025 by industry: technology 40.5% (median base US$142,800), consulting 25.7% (US$175,000), retail 10.8%, financial services 5.4%, manufacturing 5.4%.",
+        "source_ids": ["foster-employment-2025"],
+        "verified_at": "2026-11-04",
+        "confidence": 0.85
+      },
+      {
+        "id": "K65",
+        "text": "Overall median base US$142,800 (mean US$144,411); 77.9% of graduates seeking work had an offer within three months, and Foster reports 86% at six months.",
+        "source_ids": ["foster-employment-2025"],
+        "verified_at": "2026-11-04",
+        "confidence": 0.85
+      },
+      {
+        "id": "K66",
+        "text": "51.4% of jobs came through school-facilitated activities, including 35.1% from converted internships, so the summer internship matters a great deal.",
+        "source_ids": ["foster-employment-2025"],
+        "verified_at": "2026-11-04",
+        "confidence": 0.85
+      }
+    ]
+  },
+  "class_profile": {
+    "id": "K67",
+    "source_ids": ["foster-profile"],
+    "verified_at": "2026-11-04",
+    "class_year": 2028,
+    "class_size": 77,
+    "gmat_focus_median": null,
+    "gmat_classic_median": null,
+    "gre_median": {
+      "verbal": 160,
+      "quant": 163
+    },
+    "gpa_median": 3.34,
+    "gpa_scale": 4.0,
+    "work_experience_years_median": null,
+    "international_share": 0.48
+  },
+  "interview": {
+    "id": "K71",
+    "source_ids": ["foster-admissions"],
+    "verified_at": "2026-11-04",
+    "invitation": "invite_only",
+    "who": ["adcom"],
+    "blind": null,
+    "length_min": 45,
+    "location": ["virtual"],
+    "common_questions": [
+      {
+        "id": "K72",
+        "source_ids": ["ca-foster-reports"],
+        "verified_at": "2026-11-04",
+        "text": "Why an MBA, and why Foster?",
+        "frequency_weight": 5
+      },
+      {
+        "id": "K73",
+        "source_ids": ["ca-foster-reports"],
+        "verified_at": "2026-11-04",
+        "text": "Walk me through your resume.",
+        "frequency_weight": 4
+      },
+      {
+        "id": "K74",
+        "source_ids": ["ca-foster-reports"],
+        "verified_at": "2026-11-04",
+        "text": "Tell me about a time you received negative (or positive) feedback.",
+        "frequency_weight": 4
+      },
+      {
+        "id": "K75",
+        "source_ids": ["ca-foster-reports"],
+        "verified_at": "2026-11-04",
+        "text": "Tell me about a time you fostered a diverse community or culture of belonging; how will you contribute to belonging at Foster?",
+        "frequency_weight": 4
+      },
+      {
+        "id": "K76",
+        "source_ids": ["ca-foster-reports"],
+        "verified_at": "2026-11-04",
+        "text": "What will you bring to your learning team?",
+        "frequency_weight": 3
+      },
+      {
+        "id": "K77",
+        "source_ids": ["ca-foster-reports"],
+        "verified_at": "2026-11-04",
+        "text": "Tell me about a time you led without formal authority, or handled a disagreement.",
+        "frequency_weight": 3
+      }
+    ],
+    "format_notes": [
+      {
+        "id": "K78",
+        "text": "Interviews are by invitation, sent three to five weeks after the deadline, run by Foster MBA admissions staff over Zoom; an invited applicant must interview to stay in consideration.",
+        "source_ids": ["foster-admissions"],
+        "verified_at": "2026-11-04",
+        "confidence": 0.85
+      },
+      {
+        "id": "K79",
+        "text": "Applicants report a conversational style, 15 to 45 minutes, and some interviewers have read the essays, so be ready for questions about anything in the file.",
+        "source_ids": ["ca-foster-reports"],
+        "verified_at": "2026-11-04",
+        "confidence": 0.7
+      }
+    ]
+  },
+  "ai_policy": {
+    "id": "K80",
+    "source_ids": ["foster-admissions"],
+    "verified_at": "2026-11-04",
+    "stance": "permitted_with_disclosure",
+    "applies_to": ["essays"],
+    "disclosure_text": "The use of any AI tools on our application must be disclosed in the Foster Integrity Statement.",
+    "notes": [
+      {
+        "id": "K81",
+        "text": "AI isn't prohibited for essays but should 'only assist in refining content, not creating it'; applicants are expected to generate their own ideas.",
+        "source_ids": ["foster-admissions"],
+        "verified_at": "2026-11-04",
+        "confidence": 0.85
+      },
+      {
+        "id": "K82",
+        "text": "Foster warns that candidates who lean too heavily on AI do themselves a disservice.",
+        "source_ids": ["foster-admissions"],
+        "verified_at": "2026-11-04",
+        "confidence": 0.85
+      }
+    ]
+  },
+  "scholarships": [
+    {
+      "id": "K83",
+      "text": "Foster's admissions page has no separate scholarship essay; merit aid is considered with the application.",
+      "source_ids": ["foster-admissions"],
+      "verified_at": "2026-11-04",
+      "confidence": 0.6
+    }
+  ],
+  "insider_notes": [
+    {
+      "id": "K68",
+      "text": "Class of 2028: median GMAT 655 (middle 80% 571–705), median GRE 160 verbal and 163 quant, median GPA 3.34, average work experience six years, 41% women, 48% international, 18% US military among US students.",
+      "source_ids": ["foster-profile"],
+      "verified_at": "2026-11-04",
+      "confidence": 0.85
+    },
+    {
+      "id": "K69",
+      "text": "Admissions leadership listed on the site: Erin E. Town, Assistant Dean of MBA Admissions and Enrollment Strategy; Brent Nagamine, Director.",
+      "source_ids": ["foster-contact"],
+      "verified_at": "2026-11-04",
+      "confidence": 0.85
+    },
+    {
+      "id": "K70",
+      "text": "Foster's admissions team has long described its approach as counselling-style and encourages applicants to get in touch before and during their application.",
+      "source_ids": ["touch-town-2015"],
+      "verified_at": "2026-11-04",
+      "confidence": 0.55
+    }
+  ],
+  "avoid": [
+    {
+      "id": "K84",
+      "text": "Treating the mission essay as a values statement with no story: the 2026-27 prompt explicitly asks for a specific experience.",
+      "source_ids": ["foster-admissions"],
+      "verified_at": "2026-11-04",
+      "confidence": 0.85
+    },
+    {
+      "id": "K85",
+      "text": "Using AI to generate content rather than refine it, or failing to disclose its use in the Integrity Statement.",
+      "source_ids": ["foster-admissions"],
+      "verified_at": "2026-11-04",
+      "confidence": 0.85
+    },
+    {
+      "id": "K86",
+      "text": "Picking the mission phrase first and forcing a story to fit it.",
+      "source_ids": ["al-foster"],
+      "verified_at": "2026-11-04",
+      "confidence": 0.75,
+      "approved_rewrite": true
+    }
+  ],
+  "angles_that_work": [
+    {
+      "id": "K87",
+      "text": "A leadership story with an innovation in it, told under 'Progress' or 'Insights', that also shows the applicant reading what a colleague needed.",
+      "source_ids": ["al-foster"],
+      "verified_at": "2026-11-04",
+      "confidence": 0.75,
+      "approved_rewrite": true
+    },
+    {
+      "id": "K88",
+      "text": "A post-MBA plan with Seattle-anchored targets (cloud, retail, aerospace, health) and a named second path, tied to Applied Strategy and a specialization.",
+      "source_ids": ["admitstory-coach"],
+      "verified_at": "2026-11-04",
+      "confidence": 0.85
+    },
+    {
+      "id": "K89",
+      "text": "Each essay keeps its own story: the plans essay carries the career origin, the mission essay a leadership moment, the inclusion essay a different relationship story.",
+      "source_ids": ["admitstory-coach"],
+      "verified_at": "2026-11-04",
+      "confidence": 0.85
+    }
+  ],
+  "glossary": [
+    {
+      "id": "K90",
+      "source_ids": ["foster-curriculum"],
+      "verified_at": "2026-11-04",
+      "term": "Applied Strategy",
+      "plain_definition": "Foster's required first-year consulting project for a company sponsor."
+    },
+    {
+      "id": "K91",
+      "source_ids": ["foster-admissions"],
+      "verified_at": "2026-11-04",
+      "term": "Foster Integrity Statement",
+      "plain_definition": "The application statement where applicants must disclose any AI tool use."
+    }
+  ]
+}

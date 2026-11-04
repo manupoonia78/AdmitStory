@@ -1,0 +1,987 @@
+{
+  "school": {
+    "id": "cmu-tepper",
+    "name": "Carnegie Mellon University Tepper School of Business",
+    "short_name": "Tepper",
+    "country": "US",
+    "city": "Pittsburgh, PA",
+    "website": "https://www.cmu.edu/tepper",
+    "program": "full_time_mba"
+  },
+  "cycle": "2026-27",
+  "version": 1,
+  "status": "draft",
+  "_todo": [
+    "application.essays: Tepper asks for one of two options; the kit should treat essay_option_1 and essay_option_2 as a choice of one",
+    "application.video[0]: prep time and number of attempts",
+    "application.short_answers[key=interesting_fact]: confirm this question and its limit exist in the 2026-27 portal (only seen in coaching material; not on public pages)",
+    "application.optional_essay.limit: no limit is published; 500 words is a placeholder",
+    "application.recommendations.questions: GMAC Common LOR questions verbatim",
+    "community.clubs: verify Tepper clubs and treks"
+  ],
+  "k_high_water": 90,
+  "sources": [
+    {
+      "id": "tepper-apply",
+      "type": "official",
+      "title": "Tepper: Apply to the Full-Time MBA (essays, video essay, deadlines, interview, recommendation, resume, tests, fee)",
+      "url": "https://www.cmu.edu/tepper/programs/mba/admissions/apply-full-time-mba",
+      "trust": 5,
+      "retrieved_at": "2026-11-04",
+      "rights_note": null
+    },
+    {
+      "id": "tepper-profile",
+      "type": "official",
+      "title": "Tepper Full-Time MBA class profile (Class of 2027)",
+      "url": "https://www.cmu.edu/tepper/programs/mba/admissions/ft-class-profile",
+      "trust": 5,
+      "retrieved_at": "2026-11-04",
+      "rights_note": null
+    },
+    {
+      "id": "tepper-employment-2025",
+      "type": "official",
+      "title": "Tepper 2025 MBA Employment Report Summary (PDF)",
+      "url": "https://cmu.edu/sites/default/files/cmu-tepper-site-files/documents/2025%20MCC%20MBA%20Employment%20Summary%20Report_Web.pdf",
+      "trust": 5,
+      "retrieved_at": "2026-11-04",
+      "rights_note": null
+    },
+    {
+      "id": "tepper-curriculum",
+      "type": "official",
+      "title": "Tepper MBA curriculum, concentrations, capstones and full-time program pages",
+      "url": "https://www.cmu.edu/tepper/programs/mba/curriculum",
+      "trust": 5,
+      "retrieved_at": "2026-11-04",
+      "rights_note": null
+    },
+    {
+      "id": "tepper-mba",
+      "type": "official",
+      "title": "Tepper MBA overview",
+      "url": "https://www.cmu.edu/tepper/programs/mba",
+      "trust": 5,
+      "retrieved_at": "2026-11-04",
+      "rights_note": null
+    },
+    {
+      "id": "tepper-team",
+      "type": "official",
+      "title": "Tepper Masters Admissions team",
+      "url": "https://www.cmu.edu/tepper/programs/masters-admissions/masters-admissions-team",
+      "trust": 5,
+      "retrieved_at": "2026-11-04",
+      "rights_note": null
+    },
+    {
+      "id": "ca-mcgrath-2026",
+      "type": "adcom",
+      "title": "Clear Admit Admissions Director Q&A: J.R. McGrath, Executive Director of Masters Admissions, Tepper (Jun 22, 2026)",
+      "url": "https://www.clearadmit.com/2026/06/admission-director-qa-carnegie-mellon-tepper-mba/",
+      "trust": 4,
+      "retrieved_at": "2026-11-04",
+      "rights_note": null
+    },
+    {
+      "id": "ca-mcgrath-2025",
+      "type": "adcom",
+      "title": "Clear Admit Admissions Director Q&A: J.R. McGrath, Tepper (Jul 29, 2025)",
+      "url": "https://www.clearadmit.com/2025/07/admission-director-qa-mcgrath-carnegie-mellon-tepper-2/",
+      "trust": 4,
+      "retrieved_at": "2026-11-04",
+      "rights_note": null
+    },
+    {
+      "id": "al-tepper",
+      "type": "third_party_reference",
+      "title": "ApplicantLab — Tepper school tab",
+      "url": null,
+      "trust": 2,
+      "retrieved_at": "2026-11-04",
+      "rights_note": "Paid coaching platform material (ApplicantLab). Private reference; items are Admitstory rewrites approved by Manu 2026-11-04 (§9.6). Never name or quote."
+    },
+    {
+      "id": "admitstory-coach",
+      "type": "coach_notes",
+      "title": "Admitstory coaching canon and Manu's storytelling rules",
+      "url": null,
+      "trust": 4,
+      "retrieved_at": "2026-11-04",
+      "rights_note": null
+    }
+  ],
+  "official_urls": [
+    {
+      "kind": "prompts",
+      "url": "https://www.cmu.edu/tepper/programs/mba/admissions/apply-full-time-mba"
+    },
+    {
+      "kind": "deadlines",
+      "url": "https://www.cmu.edu/tepper/programs/mba/admissions/apply-full-time-mba"
+    },
+    {
+      "kind": "class_profile",
+      "url": "https://www.cmu.edu/tepper/programs/mba/admissions/ft-class-profile"
+    },
+    {
+      "kind": "employment_report",
+      "url": "https://www.cmu.edu/tepper/programs/mba/careers/compensation-highlights"
+    }
+  ],
+  "rounds": [
+    {
+      "id": "K01",
+      "source_ids": ["tepper-apply"],
+      "verified_at": "2026-11-04",
+      "name": "Round 1",
+      "deadline": "2026-09-30",
+      "decision_date": "2026-12-09",
+      "notes": [
+        {
+          "id": "K02",
+          "text": "Deposit due 9 February 2027.",
+          "source_ids": ["tepper-apply"],
+          "verified_at": "2026-11-04",
+          "confidence": 0.85
+        },
+        {
+          "id": "K11",
+          "text": "McGrath: international applicants have the best chance of admission and a competitive scholarship in Rounds 1 or 2.",
+          "source_ids": ["ca-mcgrath-2026"],
+          "verified_at": "2026-11-04",
+          "confidence": 0.85
+        }
+      ]
+    },
+    {
+      "id": "K03",
+      "source_ids": ["tepper-apply"],
+      "verified_at": "2026-11-04",
+      "name": "Round 2",
+      "deadline": "2027-01-08",
+      "decision_date": "2027-03-10",
+      "notes": [
+        {
+          "id": "K04",
+          "text": "Deposit due 20 April 2027 (the site prints 2026, apparently a typo).",
+          "source_ids": ["tepper-apply"],
+          "verified_at": "2026-11-04",
+          "confidence": 0.8
+        }
+      ]
+    },
+    {
+      "id": "K05",
+      "source_ids": ["tepper-apply"],
+      "verified_at": "2026-11-04",
+      "name": "Round 3",
+      "deadline": "2027-03-03",
+      "decision_date": "2027-04-22",
+      "notes": [
+        {
+          "id": "K06",
+          "text": "Final round for international applicants; deposit due 13 May 2027.",
+          "source_ids": ["tepper-apply"],
+          "verified_at": "2026-11-04",
+          "confidence": 0.85
+        }
+      ]
+    },
+    {
+      "id": "K07",
+      "source_ids": ["tepper-apply"],
+      "verified_at": "2026-11-04",
+      "name": "Round 4",
+      "deadline": "2027-05-05",
+      "notes": [
+        {
+          "id": "K08",
+          "text": "Rolling decisions; domestic applicants only.",
+          "source_ids": ["tepper-apply"],
+          "verified_at": "2026-11-04",
+          "confidence": 0.85
+        }
+      ]
+    },
+    {
+      "id": "K09",
+      "source_ids": ["tepper-apply"],
+      "verified_at": "2026-11-04",
+      "name": "Round 4 Final",
+      "deadline": "2027-06-15",
+      "notes": [
+        {
+          "id": "K10",
+          "text": "Rolling decisions; domestic applicants only.",
+          "source_ids": ["tepper-apply"],
+          "verified_at": "2026-11-04",
+          "confidence": 0.85
+        }
+      ]
+    }
+  ],
+  "application": {
+    "essays": [
+      {
+        "id": "K12",
+        "source_ids": ["tepper-apply"],
+        "verified_at": "2026-11-04",
+        "key": "essay_option_1_uncertainty",
+        "prompt_verbatim": "At the Tepper School, we value leaders who can make confident decisions when facing complexity and uncertainty. Tell us about a time when you had to take action without having all of the answers. How did you navigate the situation and what was the outcome?",
+        "limit": {
+          "kind": "words",
+          "value": 500
+        },
+        "required": false,
+        "archetypes": ["LEADERSHIP"],
+        "parts": [
+          "a time you had to act without all the answers",
+          "how you navigated it",
+          "the outcome"
+        ],
+        "notes": [
+          {
+            "id": "K13",
+            "text": "Applicants answer one of two options (500 words); Tepper says it has no preference.",
+            "source_ids": ["tepper-apply"],
+            "verified_at": "2026-11-04",
+            "confidence": 0.85
+          },
+          {
+            "id": "K14",
+            "text": "This option gives more room to show leadership than the transformation option, which reads like a recycled statement of purpose; goals can still come through in the video and interview.",
+            "source_ids": ["al-tepper"],
+            "verified_at": "2026-11-04",
+            "confidence": 0.75,
+            "approved_rewrite": true
+          },
+          {
+            "id": "K15",
+            "text": "Tepper's pool is full of innovators, so persuasion, initiative and teamwork make a candidate stand out more than innovation alone: show people you brought along, not just the clever fix.",
+            "source_ids": ["al-tepper"],
+            "verified_at": "2026-11-04",
+            "confidence": 0.75,
+            "approved_rewrite": true
+          },
+          {
+            "id": "K16",
+            "text": "McGrath: the best essays answer the question straightforwardly and then give context; 'the why' behind each choice is the most important part.",
+            "source_ids": ["ca-mcgrath-2026"],
+            "verified_at": "2026-11-04",
+            "confidence": 0.85
+          },
+          {
+            "id": "K17",
+            "text": "Make the uncertainty concrete: what you didn't know, what you couldn't wait for, the call you made and how you hedged it. Credit others; make your own decisions unmistakable.",
+            "source_ids": ["admitstory-coach"],
+            "verified_at": "2026-11-04",
+            "confidence": 0.85
+          }
+        ]
+      },
+      {
+        "id": "K18",
+        "source_ids": ["tepper-apply"],
+        "verified_at": "2026-11-04",
+        "key": "essay_option_2_transformation",
+        "prompt_verbatim": "The Tepper School of Business is committed to helping students reach their full potential by supporting their professional and personal transformation. How do you hope to transform, both professionally and personally, during your time in the program? Please describe your development goals and steps you plan to achieve them.",
+        "limit": {
+          "kind": "words",
+          "value": 500
+        },
+        "required": false,
+        "archetypes": ["GOALS", "WHY-SCHOOL"],
+        "parts": [
+          "professional transformation hoped for",
+          "personal transformation hoped for",
+          "development goals and the steps to achieve them"
+        ],
+        "notes": [
+          {
+            "id": "K19",
+            "text": "The alternative to option 1; one essay only, 500 words.",
+            "source_ids": ["tepper-apply"],
+            "verified_at": "2026-11-04",
+            "confidence": 0.85
+          },
+          {
+            "id": "K20",
+            "text": "If chosen, make it more than a why-Tepper list: name the specific gaps (professional and personal), how you discovered them, and the Tepper mechanism for each, such as Accelerate Leadership Center coaching or a concentration.",
+            "source_ids": ["al-tepper"],
+            "verified_at": "2026-11-04",
+            "confidence": 0.75,
+            "approved_rewrite": true
+          },
+          {
+            "id": "K21",
+            "text": "McGrath warns against recycling another school's essay; reuse your points, not your paragraphs.",
+            "source_ids": ["ca-mcgrath-2026"],
+            "verified_at": "2026-11-04",
+            "confidence": 0.85
+          }
+        ]
+      }
+    ],
+    "short_answers": [
+      {
+        "id": "K27",
+        "source_ids": ["al-tepper"],
+        "verified_at": null,
+        "key": "interesting_fact",
+        "prompt_verbatim": "One more question from the Admission Committee - just for fun! List an interesting fact about yourself that you'd like to share with your future Tepper classmates (P.S. - 1 or 2 sentences will be just fine):",
+        "limit": {
+          "kind": "words",
+          "value": 50
+        },
+        "required": false,
+        "archetypes": ["MICRO"],
+        "parts": ["one interesting fact for classmates"],
+        "notes": [
+          {
+            "id": "K28",
+            "text": "Keep it delightful and likeable. Prefer the most surprising option (a coder who paints beats a coder who codes games) or one that quietly shows warmth.",
+            "source_ids": ["al-tepper"],
+            "verified_at": "2026-11-04",
+            "confidence": 0.75,
+            "approved_rewrite": true
+          },
+          {
+            "id": "K29",
+            "text": "Hint at what it says about you through a detail, never by spelling out the lesson. Skip anything that raises questions about ethics, maturity or comfort, and anything braggy.",
+            "source_ids": ["al-tepper"],
+            "verified_at": "2026-11-04",
+            "confidence": 0.75,
+            "approved_rewrite": true
+          }
+        ]
+      }
+    ],
+    "goal_fields": [],
+    "video": [
+      {
+        "id": "K22",
+        "source_ids": ["tepper-apply"],
+        "verified_at": "2026-11-04",
+        "format": "async_video",
+        "think_time_s": null,
+        "answer_time_s": 120,
+        "attempts": null,
+        "question_types": [
+          {
+            "id": "K23",
+            "text": "Video Essay: Goals — 'Please describe your post-MBA career goals.' Up to two minutes; be specific; it's fine not to name companies yet; say what appeals about the industry, company or role, your criteria for choosing, and how it relates to the long-term plan.",
+            "source_ids": ["tepper-apply"],
+            "verified_at": "2026-11-04",
+            "confidence": 0.85
+          },
+          {
+            "id": "K24",
+            "text": "McGrath: the video isn't impromptu and isn't a test of reading on camera; it exists to get to know you and the content of your answer — 'frame your response and talk to us'. Career outcome is the main driver of student satisfaction.",
+            "source_ids": ["ca-mcgrath-2026"],
+            "verified_at": "2026-11-04",
+            "confidence": 0.85
+          },
+          {
+            "id": "K25",
+            "text": "Use a few key points on a sticky note, not a script; Tepper says it doesn't want stiff, scripted answers. Follow webcam basics on lighting and framing.",
+            "source_ids": ["al-tepper"],
+            "verified_at": "2026-11-04",
+            "confidence": 0.75,
+            "approved_rewrite": true
+          },
+          {
+            "id": "K26",
+            "text": "Suggested beats in two minutes: the target role and why it appeals, your criteria, the bridge from current experience, how it serves the long-term plan, and what Tepper adds.",
+            "source_ids": ["admitstory-coach"],
+            "verified_at": "2026-11-04",
+            "confidence": 0.85
+          }
+        ],
+        "scripting_allowed": false
+      }
+    ],
+    "reapplicant": {
+      "essay": null,
+      "policy": [
+        {
+          "id": "K34",
+          "text": "Reapplicants use the optional essay to explain how their candidacy has strengthened since the last application.",
+          "source_ids": ["tepper-apply"],
+          "verified_at": "2026-11-04",
+          "confidence": 0.85
+        },
+        {
+          "id": "K35",
+          "text": "Reapplicants within a year log in to the same account, some information carries over, and the fee is waived; interviews remain by invitation.",
+          "source_ids": ["tepper-apply"],
+          "verified_at": "2026-11-04",
+          "confidence": 0.85
+        },
+        {
+          "id": "K36",
+          "text": "Name what changed (new scope, results, a sharper goal, a better score) and what it taught you, briefly, inside the optional essay.",
+          "source_ids": ["al-tepper"],
+          "verified_at": "2026-11-04",
+          "confidence": 0.75,
+          "approved_rewrite": true
+        }
+      ]
+    },
+    "optional_essay": {
+      "id": "K30",
+      "source_ids": ["tepper-apply"],
+      "verified_at": null,
+      "key": "optional",
+      "prompt_verbatim": "There also is an optional essay for additional information about your candidacy that you may wish to share with the admissions committee. Use this essay to convey important information that you may not have otherwise been able to convey. This may include unexplained resume gaps, context for recommender selection, etc. However, do not feel obligated to complete the optional essay.",
+      "limit": {
+        "kind": "words",
+        "value": 500
+      },
+      "required": false,
+      "archetypes": ["OPTIONAL"],
+      "parts": ["important information not conveyed elsewhere"],
+      "notes": [
+        {
+          "id": "K31",
+          "text": "No word limit is published; keep it brief and factual.",
+          "source_ids": ["tepper-apply"],
+          "verified_at": "2026-11-04",
+          "confidence": 0.85
+        },
+        {
+          "id": "K32",
+          "text": "McGrath asks international applicants to explain context such as company size, normal promotion speed and how their grades compare locally: 'It is your story to tell'.",
+          "source_ids": ["ca-mcgrath-2026"],
+          "verified_at": "2026-11-04",
+          "confidence": 0.85
+        },
+        {
+          "id": "K33",
+          "text": "Explain gaps, grades or an unusual recommender plainly and point to better evidence; no apology, no excuses.",
+          "source_ids": ["al-tepper"],
+          "verified_at": "2026-11-04",
+          "confidence": 0.75,
+          "approved_rewrite": true
+        }
+      ]
+    },
+    "form_sections": [],
+    "recommendations": {
+      "id": "K37",
+      "source_ids": ["tepper-apply"],
+      "verified_at": "2026-11-04",
+      "count": 1,
+      "format": "gmac_common",
+      "questions": [],
+      "notes": [
+        {
+          "id": "K38",
+          "text": "One recommendation via the GMAC Common LOR; ideally a current or previous supervisor, or anyone who can speak in detail to your professional work.",
+          "source_ids": ["tepper-apply"],
+          "verified_at": "2026-11-04",
+          "confidence": 0.85
+        }
+      ]
+    },
+    "resume": {
+      "id": "K39",
+      "source_ids": ["tepper-apply"],
+      "verified_at": "2026-11-04",
+      "page_limit": 2,
+      "notes": [
+        {
+          "id": "K40",
+          "text": "One to two pages in a standard 12-point font such as Times New Roman or Arial, with month and year for every start and end date; missing dates trigger a request for a new resume.",
+          "source_ids": ["tepper-apply"],
+          "verified_at": "2026-11-04",
+          "confidence": 0.85
+        },
+        {
+          "id": "K41",
+          "text": "Tepper looks for career advancement, so list every title held at a company; stacking titles makes promotions obvious. One page is preferred where possible, and relevant summer internships can stay.",
+          "source_ids": ["al-tepper"],
+          "verified_at": "2026-11-04",
+          "confidence": 0.7,
+          "approved_rewrite": true
+        }
+      ]
+    },
+    "test_policy": [
+      {
+        "id": "K42",
+        "text": "GMAT, GMAT Focus, GRE or Executive Assessment required (online or in person); no superscore; highest single test date reported; scores valid five years.",
+        "source_ids": ["tepper-apply"],
+        "verified_at": "2026-11-04",
+        "confidence": 0.85
+      },
+      {
+        "id": "K43",
+        "text": "EA submitters are expected to have extensive quantitative coursework or STEM experience.",
+        "source_ids": ["tepper-apply"],
+        "verified_at": "2026-11-04",
+        "confidence": 0.85
+      },
+      {
+        "id": "K44",
+        "text": "Test waivers case by case on academic readiness, with a response within 10 business days of the deadline; a waiver doesn't affect scholarship eligibility.",
+        "source_ids": ["tepper-apply"],
+        "verified_at": "2026-11-04",
+        "confidence": 0.85
+      },
+      {
+        "id": "K45",
+        "text": "One semester of college calculus with a B or better, or Tepper's Calculus Fundamentals course before matriculating.",
+        "source_ids": ["tepper-apply"],
+        "verified_at": "2026-11-04",
+        "confidence": 0.85
+      },
+      {
+        "id": "K46",
+        "text": "English test (TOEFL, IELTS or Duolingo) unless a degree was taught entirely in English.",
+        "source_ids": ["tepper-apply"],
+        "verified_at": "2026-11-04",
+        "confidence": 0.85
+      }
+    ],
+    "fees_waivers": [
+      {
+        "id": "K47",
+        "text": "US$200 application fee; waived for attending a Tepper event and for reapplicants within a year. Admits are verified by Re Vera.",
+        "source_ids": ["tepper-apply"],
+        "verified_at": "2026-11-04",
+        "confidence": 0.85
+      }
+    ]
+  },
+  "values": {
+    "stated": [
+      {
+        "id": "K48",
+        "text": "Tepper describes itself as rigorous and quantitative and says it values 'leaders who can make confident decisions when facing complexity and uncertainty'.",
+        "source_ids": ["tepper-apply"],
+        "verified_at": "2026-11-04",
+        "confidence": 0.85
+      },
+      {
+        "id": "K49",
+        "text": "McGrath: Tepper students are 'more than innovative problem solvers'; success depends on emotional intelligence, communication and leading diverse groups, which the program develops.",
+        "source_ids": ["ca-mcgrath-2026"],
+        "verified_at": "2026-11-04",
+        "confidence": 0.85
+      },
+      {
+        "id": "K50",
+        "text": "Tepper takes a holistic approach, reviewing goals, background and accomplishments to judge fit.",
+        "source_ids": ["tepper-apply"],
+        "verified_at": "2026-11-04",
+        "confidence": 0.85
+      }
+    ],
+    "trait_map": [
+      {
+        "school_value": "confident decisions under uncertainty",
+        "admitstory_traits": ["steady_in_ambiguity", "acts_unasked", "commercial_judgment"]
+      },
+      {
+        "school_value": "analytical rigour",
+        "admitstory_traits": ["analytical"],
+        "note": {
+          "id": "K51",
+          "text": "Analytical strength is common in this pool; pair it with persuasion and teamwork to stand out.",
+          "source_ids": ["al-tepper"],
+          "verified_at": "2026-11-04",
+          "confidence": 0.75,
+          "approved_rewrite": true
+        }
+      },
+      {
+        "school_value": "people skills: EQ, communication, leading diverse groups",
+        "admitstory_traits": ["brings_people_along", "empathetic", "cross_functional_influence"]
+      }
+    ]
+  },
+  "culture_and_location": [
+    {
+      "id": "K56",
+      "text": "Full-time students take classes Monday to Thursday; the Tepper Quad is a university-wide collaboration hub; the program targets people with two to eight years' experience.",
+      "source_ids": ["tepper-curriculum"],
+      "verified_at": "2026-11-04",
+      "confidence": 0.85
+    }
+  ],
+  "academics": {
+    "courses": [
+      {
+        "id": "K60",
+        "source_ids": ["tepper-curriculum"],
+        "verified_at": "2026-11-04",
+        "name": "Business Technologies concentration",
+        "what_it_is": "Solving business problems with data and technology, drawing on courses from the School of Computer Science, the Software Engineering Institute and Heinz College.",
+        "why_it_matters_for": ["product management and tech goals"],
+        "url": "https://www.cmu.edu/tepper/programs/mba/curriculum/concentrations"
+      },
+      {
+        "id": "K61",
+        "source_ids": ["tepper-curriculum"],
+        "verified_at": "2026-11-04",
+        "name": "AI for Business concentration",
+        "what_it_is": "From machine learning to the legal and ethical considerations of AI.",
+        "why_it_matters_for": ["AI product and strategy goals"],
+        "url": "https://www.cmu.edu/tepper/programs/mba/curriculum/concentrations"
+      },
+      {
+        "id": "K62",
+        "source_ids": ["tepper-curriculum"],
+        "verified_at": "2026-11-04",
+        "name": "Health Care Analytics concentration",
+        "what_it_is": "Analytics applied to health care.",
+        "why_it_matters_for": ["health data and health tech goals"],
+        "url": "https://www.cmu.edu/tepper/programs/mba/curriculum/concentrations"
+      }
+    ],
+    "centers": [
+      {
+        "id": "K64",
+        "source_ids": ["tepper-curriculum"],
+        "verified_at": "2026-11-04",
+        "name": "Accelerate Leadership Center",
+        "what_it_is": "Personalised coaching from day one to strengthen communication, influence and decision-making.",
+        "why_it_matters_for": ["applicants naming a leadership or communication gap"],
+        "url": "https://www.cmu.edu/tepper/programs/mba/curriculum"
+      },
+      {
+        "id": "K65",
+        "source_ids": ["tepper-curriculum"],
+        "verified_at": "2026-11-04",
+        "name": "Swartz Center for Entrepreneurship",
+        "what_it_is": "More than 100 entrepreneur events a year plus funding, mentorship and workspace; more than 260 companies launched since 2008.",
+        "why_it_matters_for": ["founders"],
+        "url": "https://www.cmu.edu/tepper/programs/mba/full-time"
+      }
+    ],
+    "experiential": [
+      {
+        "id": "K63",
+        "source_ids": ["tepper-curriculum"],
+        "verified_at": "2026-11-04",
+        "name": "Strategic Management of the Enterprise capstone",
+        "what_it_is": "On-campus capstone run with Kearney and sponsor companies on consulting projects (past clients include Costco, P&G, PNC, Siemens, UPMC and Walmart).",
+        "why_it_matters_for": ["consulting and strategy goals"],
+        "url": "https://www.cmu.edu/tepper/programs/mba/curriculum/capstones"
+      }
+    ],
+    "structure": [
+      {
+        "id": "K57",
+        "text": "21 months, STEM-designated (F-1 graduates may qualify for 24-month STEM OPT), in a four-mini-semester format with analytics from day one: optimisation, prescriptive and predictive modelling.",
+        "source_ids": ["tepper-mba"],
+        "verified_at": "2026-11-04",
+        "confidence": 0.85
+      },
+      {
+        "id": "K58",
+        "text": "One concentration is required and most students earn three or four, automatically, by taking three or more electives in an area; 14 concentrations including AI for Business, Business Technologies, Health Care Analytics and Operations Research.",
+        "source_ids": ["tepper-curriculum"],
+        "verified_at": "2026-11-04",
+        "confidence": 0.85
+      },
+      {
+        "id": "K59",
+        "text": "Tracks include Technology Strategy and Product Management, Business Analytics, Management of Innovation and Product Development, Energy and Sustainability, and Entrepreneurship in Organizations.",
+        "source_ids": ["tepper-curriculum"],
+        "verified_at": "2026-11-04",
+        "confidence": 0.85
+      }
+    ]
+  },
+  "community": {
+    "clubs": [],
+    "traditions": [],
+    "treks_events": []
+  },
+  "careers": {
+    "employment_report": {
+      "id": "K66",
+      "source_ids": ["tepper-employment-2025"],
+      "verified_at": "2026-11-04",
+      "class_year": 2025,
+      "currency": "USD",
+      "by_function": [
+        {
+          "function": "Consulting",
+          "share": 0.351,
+          "median_base": 188000
+        },
+        {
+          "function": "Finance",
+          "share": 0.198,
+          "median_base": 135000
+        },
+        {
+          "function": "General Management",
+          "share": 0.126,
+          "median_base": 135000
+        },
+        {
+          "function": "Marketing",
+          "share": 0.126,
+          "median_base": 170050
+        },
+        {
+          "function": "Production and Operations Management",
+          "share": 0.117,
+          "median_base": 142800
+        },
+        {
+          "function": "Information Systems/Technology",
+          "share": 0.036,
+          "median_base": 160000
+        }
+      ],
+      "top_employers": [
+        "Amazon",
+        "PwC",
+        "McKinsey & Company",
+        "Deloitte",
+        "Boston Consulting Group",
+        "Republic Services",
+        "Google",
+        "Jefferies",
+        "Ford Motor Co.",
+        "Kearney"
+      ],
+      "intl_offer_rates": {
+        "id": "K67",
+        "text": "Of non-permanent-work-authorization graduates seeking work, 83.8% had an offer by three months after graduation (63.2% by graduation).",
+        "source_ids": ["tepper-employment-2025"],
+        "verified_at": "2026-11-04",
+        "confidence": 0.85
+      }
+    },
+    "recruiting_notes": [
+      {
+        "id": "K68",
+        "text": "Class of 2025: median base US$160,000, average total compensation US$186,043; 83% had an offer within three months and 89% within six.",
+        "source_ids": ["tepper-employment-2025"],
+        "verified_at": "2026-11-04",
+        "confidence": 0.85
+      },
+      {
+        "id": "K69",
+        "text": "Consulting (35.7%) and technology (25.1%) took 60% of graduates; financial services 9.9%. Marketing medians are pulled up by B2B product roles (US$170,050).",
+        "source_ids": ["tepper-employment-2025"],
+        "verified_at": "2026-11-04",
+        "confidence": 0.85
+      },
+      {
+        "id": "K70",
+        "text": "Function medians: management/strategy consulting US$188,000; corporate finance US$135,000; operations management US$142,800; product/industrial B2B marketing US$170,050; general management/LDPs US$135,000. Medians in the by-function table are for the largest sub-function.",
+        "source_ids": ["tepper-employment-2025"],
+        "verified_at": "2026-11-04",
+        "confidence": 0.8
+      },
+      {
+        "id": "K71",
+        "text": "73% of accepted full-time offers came through school-facilitated sources.",
+        "source_ids": ["tepper-employment-2025"],
+        "verified_at": "2026-11-04",
+        "confidence": 0.85
+      }
+    ]
+  },
+  "class_profile": {
+    "id": "K72",
+    "source_ids": ["tepper-profile"],
+    "verified_at": "2026-11-04",
+    "class_year": 2027,
+    "class_size": 144,
+    "gmat_focus_median": 655,
+    "gmat_classic_median": 710,
+    "gre_median": {
+      "verbal": 159,
+      "quant": 164
+    },
+    "gpa_median": 3.38,
+    "gpa_scale": 4.0,
+    "work_experience_years_median": 5,
+    "international_share": 0.38
+  },
+  "interview": {
+    "id": "K73",
+    "source_ids": ["ca-mcgrath-2026"],
+    "verified_at": "2026-11-04",
+    "invitation": "invite_only",
+    "who": ["adcom"],
+    "blind": false,
+    "length_min": 45,
+    "location": ["virtual", "campus"],
+    "common_questions": [],
+    "format_notes": [
+      {
+        "id": "K74",
+        "text": "Tepper calls the interview 'the most important component of the admissions process'. Admissions staff interview after reading the full application and then present the candidate to the committee.",
+        "source_ids": ["ca-mcgrath-2026"],
+        "verified_at": "2026-11-04",
+        "confidence": 0.85
+      },
+      {
+        "id": "K75",
+        "text": "Behavioural: background, goals and how you make decisions, then teamwork, leadership and work examples of success and learning; end with your questions.",
+        "source_ids": ["ca-mcgrath-2026"],
+        "verified_at": "2026-11-04",
+        "confidence": 0.85
+      },
+      {
+        "id": "K76",
+        "text": "Invitations start within a week of the deadline and can come any time before the decision date; the interview is required.",
+        "source_ids": ["tepper-apply"],
+        "verified_at": "2026-11-04",
+        "confidence": 0.85
+      },
+      {
+        "id": "K77",
+        "text": "Tepper's prep advice: reflect on short-term goals and the transition plan, and have examples of teamwork, leading, being challenged, succeeding and learning something new.",
+        "source_ids": ["tepper-apply"],
+        "verified_at": "2026-11-04",
+        "confidence": 0.85
+      }
+    ]
+  },
+  "ai_policy": {
+    "id": "K78",
+    "source_ids": ["tepper-apply"],
+    "verified_at": "2026-11-04",
+    "stance": "unknown",
+    "applies_to": [],
+    "disclosure_text": null,
+    "notes": [
+      {
+        "id": "K79",
+        "text": "Tepper's admissions pages and director Q&As say nothing about applicants using AI; check the application's certification statement.",
+        "source_ids": ["tepper-apply"],
+        "verified_at": "2026-11-04",
+        "confidence": 0.7
+      }
+    ]
+  },
+  "scholarships": [
+    {
+      "id": "K80",
+      "text": "All admitted applicants are considered for merit scholarships; applying with a test waiver doesn't affect eligibility; international applicants should apply in R1 or R2 for the best scholarship chances.",
+      "source_ids": ["ca-mcgrath-2026"],
+      "verified_at": "2026-11-04",
+      "confidence": 0.75
+    }
+  ],
+  "insider_notes": [
+    {
+      "id": "K52",
+      "text": "McGrath: 'There is this myth about top MBA programs that you must be perfect to get it. That is simply not true.'",
+      "source_ids": ["ca-mcgrath-2026"],
+      "verified_at": "2026-11-04",
+      "confidence": 0.85
+    },
+    {
+      "id": "K53",
+      "text": "Every application is read to decide interview invitations; the interviewer reads the full file and the committee discusses every interviewed candidate.",
+      "source_ids": ["ca-mcgrath-2026"],
+      "verified_at": "2026-11-04",
+      "confidence": 0.85
+    },
+    {
+      "id": "K54",
+      "text": "Class of 2027 (latest profile): 144 students, 38% international, 14% US military; GMAT Focus median 655 (middle 80% 595–715), GMAT 10th edition median 710, GRE median 164 quant and 159 verbal, GPA median 3.38, five years' median work experience.",
+      "source_ids": ["tepper-profile"],
+      "verified_at": "2026-11-04",
+      "confidence": 0.85
+    },
+    {
+      "id": "K55",
+      "text": "Admissions leadership: J.R. McGrath, Executive Director of Masters Admissions (since 2021).",
+      "source_ids": ["tepper-team"],
+      "verified_at": "2026-11-04",
+      "confidence": 0.85
+    }
+  ],
+  "avoid": [
+    {
+      "id": "K81",
+      "text": "Recycling another school's essay: McGrath names it as the most common mistake.",
+      "source_ids": ["ca-mcgrath-2026"],
+      "verified_at": "2026-11-04",
+      "confidence": 0.85
+    },
+    {
+      "id": "K82",
+      "text": "Writing what you think Tepper wants to hear instead of your own thinking on the question.",
+      "source_ids": ["ca-mcgrath-2026"],
+      "verified_at": "2026-11-04",
+      "confidence": 0.85
+    },
+    {
+      "id": "K83",
+      "text": "Reading a script in the video essay.",
+      "source_ids": ["al-tepper"],
+      "verified_at": "2026-11-04",
+      "confidence": 0.75,
+      "approved_rewrite": true
+    },
+    {
+      "id": "K84",
+      "text": "An innovation story with no people in it; the pool already shows plenty of innovation.",
+      "source_ids": ["al-tepper"],
+      "verified_at": "2026-11-04",
+      "confidence": 0.75,
+      "approved_rewrite": true
+    },
+    {
+      "id": "K85",
+      "text": "Resume dates without months.",
+      "source_ids": ["tepper-apply"],
+      "verified_at": "2026-11-04",
+      "confidence": 0.85
+    }
+  ],
+  "angles_that_work": [
+    {
+      "id": "K86",
+      "text": "Option 1 told as a decision under real uncertainty where the applicant also had to persuade sceptical colleagues, with the reasoning behind each call made explicit.",
+      "source_ids": ["al-tepper"],
+      "verified_at": "2026-11-04",
+      "confidence": 0.75,
+      "approved_rewrite": true
+    },
+    {
+      "id": "K87",
+      "text": "A video that names a target role and the criteria behind it in plain, conversational language, connecting to a long-term plan.",
+      "source_ids": ["tepper-apply"],
+      "verified_at": "2026-11-04",
+      "confidence": 0.85
+    },
+    {
+      "id": "K88",
+      "text": "A technical applicant who shows people skills: translating for non-technical stakeholders, bringing a team along, coaching a colleague.",
+      "source_ids": ["ca-mcgrath-2026"],
+      "verified_at": "2026-11-04",
+      "confidence": 0.85
+    }
+  ],
+  "glossary": [
+    {
+      "id": "K89",
+      "source_ids": ["tepper-curriculum"],
+      "verified_at": "2026-11-04",
+      "term": "Mini",
+      "plain_definition": "A half-semester term; Tepper runs four minis a year."
+    },
+    {
+      "id": "K90",
+      "source_ids": ["tepper-curriculum"],
+      "verified_at": "2026-11-04",
+      "term": "Accelerate Leadership Center",
+      "plain_definition": "Tepper's leadership coaching center."
+    }
+  ]
+}

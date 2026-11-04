@@ -10,6 +10,7 @@ import {
   KIT_PLAN,
   TAX_AND_REFUND_LINE,
 } from "../_data/pricing";
+import { ModelCredit } from "@/components/model-seal";
 import { PRICING_COPY } from "../_copy/landing";
 import { START_FREE } from "../_copy/shared";
 import { CtaLink, START_FREE_HREF } from "../_ui/cta-link";
@@ -53,6 +54,7 @@ export function PricingSection() {
             <span className="text-lg text-text-soft">{KIT_PLAN.unit}</span>
           </p>
           <p className="mt-6 font-reading text-read-lg text-text">{KIT_PLAN.line}</p>
+          <ModelCredit className="mt-4" />
           <FeatureList items={KIT_FEATURES} label={PRICING_COPY.kitListLabel} />
           <p className="mt-6 border-t border-edge pt-5 text-base text-text-soft">
             <span className="mr-2 rounded-control border border-edge px-1.5 py-0.5 text-sm text-text">
