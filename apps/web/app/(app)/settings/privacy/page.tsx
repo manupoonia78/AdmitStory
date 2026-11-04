@@ -60,7 +60,7 @@ export default async function PrivacyPage() {
           Staff access
         </h2>
         {view.staffAccess.length === 0 ? (
-          <p className="text-text-soft">No one at AdmitStory has opened your account.</p>
+          <p className="text-text-soft">No one at AdmitStories has opened your account.</p>
         ) : (
           <>
             <p className="text-text-soft">

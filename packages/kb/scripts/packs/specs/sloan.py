@@ -2,7 +2,7 @@ import os, sys; sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..")
 from packlib import Pack
 
 P = Pack("mit-sloan", "MIT Sloan School of Management", "MIT Sloan", "US", "Cambridge, MA", "https://mitsloan.mit.edu")
-AL = "Paid coaching platform material (ApplicantLab). Private reference; items are Admitstory rewrites approved by Manu 2026-11-04 (§9.6). Never name or quote."
+AL = "Paid coaching platform material (ApplicantLab). Private reference; items are AdmitStories rewrites approved by Manu 2026-11-04 (§9.6). Never name or quote."
 M = "https://mitsloan.mit.edu/mba"
 P.source("sloan-apply", "official", "MIT Sloan MBA: How to apply (cover letter, resume, recommendation, references, org chart, coursework, tests, videos, fee)", M + "/admissions/how-to-apply")
 P.source("sloan-admissions", "official", "MIT Sloan MBA: Admissions (what kind of leader thrives, deadlines)", M + "/admissions")
@@ -10,7 +10,7 @@ P.source("sloan-faq", "official", "MIT Sloan MBA: Admissions FAQ (process, commi
 P.source("sloan-employment-2025", "official", "MIT Sloan 2025-2026 MBA Employment Report (Class of 2025) (PDF)", "https://mitsloan.mit.edu/sites/default/files/2026-03/2025-2026-MBA-Employment-Report.pdf")
 P.source("ca-sloan-2028", "press", "Clear Admit: MIT Sloan MBA Class of 2028 profile (Sep 2026)", "https://www.clearadmit.com/2026/09/mit-sloan-mba-class-of-2028-profile/")
 P.source("al-sloan", "third_party_reference", "ApplicantLab — MIT Sloan school tab", None, rights=AL)
-P.source("admitstory-coach", "coach_notes", "Admitstory coaching canon and Manu's storytelling rules", None)
+P.source("admitstory-coach", "coach_notes", "AdmitStories coaching canon and Manu's storytelling rules", None)
 
 P.url("prompts", M + "/admissions/how-to-apply"); P.url("deadlines", M + "/admissions")
 P.url("employment_report", "https://mitsloan.mit.edu/sites/default/files/2026-03/2025-2026-MBA-Employment-Report.pdf")

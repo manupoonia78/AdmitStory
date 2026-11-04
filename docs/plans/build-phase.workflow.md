@@ -8,7 +8,7 @@ into the Workflow tool with `args` = `{ phase, title, date, sections, brief, dec
 ```text
 export const meta = {
   name: 'build-phase',
-  description: 'Plan, build, integrate, adversarially review, fix and document one AdmitStory build phase',
+  description: 'Plan, build, integrate, adversarially review, fix and document one AdmitStories build phase',
   phases: [
     { title: 'Plan', detail: 'one architect reads spec + code, writes plan with disjoint work packages' },
     { title: 'Foundation', detail: 'shared layer: migration, schema, repos, types, AI tasks, barrels' },
@@ -22,10 +22,10 @@ export const meta = {
 }
 
 const A = args
-const ROOT = '/Users/manu/Desktop/AdmitStory'
+const ROOT = '/Users/manu/Desktop/AdmitStories'
 
 const COMMON = `
-You are working in the AdmitStory monorepo at ${ROOT} (pnpm + Turborepo; Next.js 16 app in apps/web; React 19; Drizzle + Neon Postgres; Inngest; Better Auth; Motion; Tailwind 4; Vitest). The product spec is ${ROOT}/AdmitStory_Build_Spec.md. We are building **Phase ${A.phase}: ${A.title}**. Spec sections for this phase: ${A.sections}.
+You are working in the AdmitStories monorepo at ${ROOT} (pnpm + Turborepo; Next.js 16 app in apps/web; React 19; Drizzle + Neon Postgres; Inngest; Better Auth; Motion; Tailwind 4; Vitest). The product spec is ${ROOT}/AdmitStories_Build_Spec.md. We are building **Phase ${A.phase}: ${A.title}**. Spec sections for this phase: ${A.sections}.
 
 Ground rules (from the project owner, Manu; non-negotiable):
 - Learn the conventions from what exists before writing. Read docs/phase-5.md and docs/phase-4.md (how prior phases were layered and documented). Phase 5 is the best template: packages/shared/src/kit/forms.ts (Zod-free plain types), packages/db/src/schema/forms.ts + repos/forms.ts + migrations/0006_*.sql (ownership-scoped repos), packages/ai/src/tasks/forms.ts + prompts/forms.advise/v1.md + schemas + replays (record:phase5 --synthetic), apps/web/lib/forms/*, apps/web/app/api/kits/[id]/forms/**, packages/ui/src/forms/*, and the next/dynamic host pattern (apps/web/app/(app)/resume/resume-host.tsx).

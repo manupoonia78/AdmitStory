@@ -91,7 +91,7 @@ Mine (each is a gap the spec leaves open or a deviation; recorded in `docs/phase
 12. **The debrief lives at `/interview/expert/[bookingId]`** and is listed on `/interview`, which keeps
     AI practice marked "Coming soon". The debrief form uses Appendix E's eight criteria (1–5 each,
     "Not covered" allowed), top 3 strengths, top 3 fixes, free notes.
-13. **AdmitStory never records sessions.** Both sides see "Recording only if you both agree at the
+13. **AdmitStories never records sessions.** Both sides see "Recording only if you both agree at the
     start of the call, using the meeting tool." The applicant's advance answer is stored.
 14. **Experts are added by admin** (by the email of an existing account), not by self sign-up. Admin
     sets price ($50–$100), payout share (default 80% of the price, `payout_share_bps = 8000`),
@@ -124,7 +124,7 @@ Mine (each is a gap the spec leaves open or a deviation; recorded in `docs/phase
     packs and every existing replay are unchanged.
 20. **Waitlist instructions** come from a new optional pack field `waitlist: PackItem[]` (also not
     compiled). Without it, the waitlist plan says the school publishes none and shows DEC-01.
-21. **Outreach is never sent by AdmitStory.** Drafts have "Copy message" only. Outreach drafts and
+21. **Outreach is never sent by AdmitStories.** Drafts have "Copy message" only. Outreach drafts and
     conversation insights are free for every signed-in user (Haiku; 10 of each per day), counted
     against the §12.4 free-user AI cap like any call.
 22. **After decisions lives at `/decisions`** (not a dock item). The decision matrix, the waitlist
@@ -581,7 +581,7 @@ Email templates (`packages/emails`, React Email, inline Day palette like the mag
 | Template            | Use                                                                                                                                                                                                                                                   |
 | ------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `NotificationEmail` | every single notification: title (Newsreader), line, optional detail rows (label, value, tabular dates), one button named by `notificationCopy().cta.label`, footer with "Change what we email you" and, when not transactional, the unsubscribe line |
-| `DigestEmail`       | "Today in AdmitStory": grouped notification lines plus "Questions waiting: 3 in Halvorsen" computed at send time; nothing when empty                                                                                                                  |
+| `DigestEmail`       | "Today in AdmitStories": grouped notification lines plus "Questions waiting: 3 in Halvorsen" computed at send time; nothing when empty                                                                                                                |
 
 `renderNotificationEmail(input) → { subject, html, text }` and `renderDigestEmail(input)` are the
 exported renderers (foundation stubs, E implements). C's guide verification and intro emails and A's
@@ -629,7 +629,7 @@ a date stepper.
 - **Matrix**: a dense table (schools as rows, components as columns, sticky first column, sideways
   scroll in its own focusable region). Cells: icon + word ("Done", "2 of 3", "Not needed",
   "Invited 12 Oct"); "Marked by you" in `--text-soft` for overrides. Activating a cell opens a
-  `Sheet` with the four statuses as radio rows, a note (≤ 200), "Use what AdmitStory sees" (clears the
+  `Sheet` with the four statuses as radio rows, a note (≤ 200), "Use what AdmitStories sees" (clears the
   override), and a link to where the work lives (the kit, `/recommenders`, `/resume`). The last
   column is "Ready to submit": `--verified` check + "Ready", or "Not yet" with the blocking list in
   the sheet. Deadline cells take an inline date field with "Use the school's date".
@@ -667,7 +667,7 @@ things you learned added to Halvorsen."
 - **Outreach**: a form (who, their role, where you found them, what you want to learn) → "Draft my
   message" → a paper sheet: subject, body (Newsreader 19/32), proof points listed under it with
   "from The night-shift fix", "Copy message" (toast "Message copied"), "Draft it again". The line
-  "AdmitStory never sends messages for you." stays under the button.
+  "AdmitStories never sends messages for you." stays under the button.
 - **Official**: per school, the channels (ambassador programme, admissions contact) and upcoming
   events (date and time in the applicant's zone, tabular; kind as a word), each with "Add to
   calendar" and "Remind me". "Admissions staff are reached only through these official channels."

@@ -1,6 +1,6 @@
 // Admin › Feedback (spec §5.18, §15): the thumbs and notes applicants leave on drafts, Profile Read
 // and the résumé pass. A draft excerpt is shown only when its owner switched on "Help improve
-// AdmitStory", and reading one is audited.
+// AdmitStories", and reading one is audited.
 
 import {
   AUDIT_ACTIONS,

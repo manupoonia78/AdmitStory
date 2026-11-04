@@ -39,7 +39,7 @@ import { UnlockPreviewIsland } from "./_unlock-island";
 export const metadata = pageMetadata({
   title: "Pricing",
   description:
-    "AdmitStory is free to talk to. Each school's kit is $100, with everything that school asks for, built from your own words.",
+    "AdmitStories is free to talk to. Each school's kit is $100, with everything that school asks for, built from your own words.",
   path: "/pricing",
 });
 

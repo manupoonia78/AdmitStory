@@ -2,7 +2,7 @@ import { getDb, updateProfile } from "@admitstory/db";
 import { PrivacyPrefsPatch } from "@admitstory/shared/schemas";
 import { checkRateLimit, handle, readJson, requireUser, RATE_LIMITS } from "@/lib/api";
 
-// PATCH /api/account/privacy (spec §11): "Help improve AdmitStory". Off by default; on, staff may
+// PATCH /api/account/privacy (spec §11): "Help improve AdmitStories". Off by default; on, staff may
 // read a draft the applicant rated, and include it in the weekly quality review. Never training.
 
 export async function PATCH(request: Request): Promise<Response> {

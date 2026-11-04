@@ -2,7 +2,7 @@ import os, sys; sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..")
 from packlib import Pack
 
 P = Pack("ut-austin-mccombs", "The University of Texas at Austin McCombs School of Business", "McCombs", "US", "Austin, TX", "https://www.mccombs.utexas.edu")
-AL = "Paid coaching platform material (ApplicantLab). Private reference; items are Admitstory rewrites approved by Manu 2026-11-04 (§9.6). Never name or quote."
+AL = "Paid coaching platform material (ApplicantLab). Private reference; items are AdmitStories rewrites approved by Manu 2026-11-04 (§9.6). Never name or quote."
 G = "https://www.mccombs.utexas.edu/graduate/mba/full-time-mba"
 BL = "https://blogs.mccombs.utexas.edu/mba-insider"
 P.source("mccombs-apply", "official", "Texas McCombs Full-Time MBA: Application process (essays, video assessment, interview, recommendation, tests, deadlines)", G + "/admissions/application-process/")
@@ -16,7 +16,7 @@ P.source("mccombs-blog-recipe", "adcom", "MBA Insider (Texas MBA Admissions): An
 P.source("mccombs-blog-interview", "adcom", "MBA Insider (Texas MBA Admissions): The value of the MBA admissions interview (Jul 15, 2025)", BL + "/value-of-the-mba-admissions-interview/")
 P.source("mccombs-blog-reapply", "adcom", "MBA Insider (Texas MBA Admissions): Complete guide to reapplying (Jul 5, 2025)", BL + "/complete-guide-reapplying-tips-success/")
 P.source("al-mccombs", "third_party_reference", "ApplicantLab — McCombs school tab", None, rights=AL)
-P.source("admitstory-coach", "coach_notes", "Admitstory coaching canon and Manu's storytelling rules", None)
+P.source("admitstory-coach", "coach_notes", "AdmitStories coaching canon and Manu's storytelling rules", None)
 
 P.url("prompts", G + "/admissions/application-process/"); P.url("deadlines", G + "/admissions/application-process/")
 P.url("class_profile", G + "/admissions/class-profile/"); P.url("employment_report", G + "/career/")

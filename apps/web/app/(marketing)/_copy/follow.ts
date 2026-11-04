@@ -6,7 +6,7 @@
 
 import { COMING_SOON } from "./shared";
 
-export const FOLLOW_HEADING = "Follow one sentence through AdmitStory";
+export const FOLLOW_HEADING = "Follow one sentence through AdmitStories";
 
 export interface FollowChapter {
   id: "studio" | "story" | "essay" | "interview";

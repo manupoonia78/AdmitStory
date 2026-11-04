@@ -2,7 +2,7 @@ import os, sys; sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..")
 from packlib import Pack
 
 P = Pack("ucla-anderson", "UCLA Anderson School of Management", "Anderson", "US", "Los Angeles, CA", "https://www.anderson.ucla.edu")
-AL = "Paid coaching platform material (ApplicantLab). Private reference; items are Admitstory rewrites approved by Manu 2026-11-04 (§9.6). Never name or quote."
+AL = "Paid coaching platform material (ApplicantLab). Private reference; items are AdmitStories rewrites approved by Manu 2026-11-04 (§9.6). Never name or quote."
 REQ = "https://www.anderson.ucla.edu/degrees/full-time-mba/admissions/requirements"
 P.source("anderson-req", "official", "UCLA Anderson Full-Time MBA: Application requirements (essays, interview, recommendations, resume, tests, reapplicants)", REQ)
 P.source("anderson-admissions", "official", "UCLA Anderson Full-Time MBA: Admissions (deadlines, what we look for)", "https://www.anderson.ucla.edu/degrees/full-time-mba/admissions")
@@ -13,7 +13,7 @@ P.source("anderson-academics", "official", "UCLA Anderson Full-Time MBA: academi
 P.source("anderson-team", "official", "UCLA Anderson Full-Time MBA: Meet our team", "https://www.anderson.ucla.edu/degrees/full-time-mba/meet-our-team")
 P.source("ca-lawrence-2024", "adcom", "Clear Admit Live Admissions Q&A: Alex Lawrence, UCLA Anderson (Aug 2024)", "https://www.clearadmit.com/2024/08/live-admissions-qa-alex-lawrence-of-ucla-anderson/", read=False)
 P.source("al-anderson", "third_party_reference", "ApplicantLab — UCLA Anderson school tab", None, rights=AL)
-P.source("admitstory-coach", "coach_notes", "Admitstory coaching canon and Manu's storytelling rules", None)
+P.source("admitstory-coach", "coach_notes", "AdmitStories coaching canon and Manu's storytelling rules", None)
 
 P.url("prompts", REQ); P.url("deadlines", "https://www.anderson.ucla.edu/degrees/full-time-mba/admissions")
 P.url("class_profile", "https://www.anderson.ucla.edu/degrees/full-time-mba/admissions/class-profile")

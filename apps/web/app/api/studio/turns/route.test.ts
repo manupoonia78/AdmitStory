@@ -65,6 +65,7 @@ vi.mock("@admitstory/db", async (importOriginal) => ({
   updateStudioSession: vi.fn(async () => null),
   upsertSlotState: vi.fn(async () => {}),
   countUserTurns: vi.fn(async () => 1),
+  isPaidUser: vi.fn(async () => true),
   getLatestSnapshot: vi.fn(async () => null),
   recentTurns: vi.fn(async () => []),
   listSourceTexts: vi.fn(async () => []),

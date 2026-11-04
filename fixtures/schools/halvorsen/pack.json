@@ -80,7 +80,7 @@
     {
       "id": "halvorsen-coach",
       "type": "coach_notes",
-      "title": "Admitstory coaching notes on Halvorsen (synthetic)",
+      "title": "AdmitStories coaching notes on Halvorsen (synthetic)",
       "url": null,
       "trust": 4,
       "retrieved_at": "2026-09-05",
@@ -652,7 +652,7 @@
   "insider_notes": [
     {
       "id": "K51",
-      "text": "Admitstory note: applicants who over-explain the Venture Studio tend to read as unfocused; one concrete link is enough.",
+      "text": "AdmitStories note: applicants who over-explain the Venture Studio tend to read as unfocused; one concrete link is enough.",
       "source_ids": ["halvorsen-guide-notes"],
       "verified_at": "2026-09-05",
       "confidence": 0.6,

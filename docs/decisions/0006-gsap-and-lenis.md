@@ -10,7 +10,7 @@ Both are pinned exactly in `apps/web`.
 (https://gsap.com/standard-license) was re-read on this date. Since the Webflow acquisition GSAP
 and all of its plugins, ScrollTrigger and SplitText included, are free for commercial use. The one
 restriction is on products that let their users build no-code visual animations in competition
-with Webflow. AdmitStory is not such a tool, so the licence fits. Re-check the page whenever GSAP
+with Webflow. AdmitStories is not such a tool, so the licence fits. Re-check the page whenever GSAP
 is upgraded (spec §6.11). Lenis is MIT.
 
 **Where they may be imported.** Only `apps/web/app/(marketing)/_follow/follow-sequence.ts`

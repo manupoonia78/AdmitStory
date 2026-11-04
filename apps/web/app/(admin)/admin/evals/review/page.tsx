@@ -7,7 +7,7 @@ export const metadata: Metadata = { title: "Ratings" };
 
 /**
  * The weekly human rating queue (spec §8.11): ten items, one at a time, scored 1–5. Synthetic eval
- * outputs, plus drafts of applicants who switched on "Help improve AdmitStory"; nobody else's.
+ * outputs, plus drafts of applicants who switched on "Help improve AdmitStories"; nobody else's.
  */
 export default async function ReviewPage() {
   const admin = await requireAdminPage();

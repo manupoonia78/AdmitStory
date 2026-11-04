@@ -39,7 +39,7 @@ Manu's (2 Nov, requirements):
 2. The product never writes a letter for the applicant. The portal assistant works only from the
    recommender's own notes and speech.
 3. Reminder emails go only after the applicant has previewed and switched each one on. From:
-   `EMAIL_FROM` (display name "{Applicant} via AdmitStory"), Reply-To: the applicant.
+   `EMAIL_FROM` (display name "{Applicant} via AdmitStories"), Reply-To: the applicant.
 4. Portal links expire 14 days after the latest deadline among the recommender's schools, at most
    180 days after issue; the applicant can revoke and reissue.
 5. No raw audio retention, the portal included.

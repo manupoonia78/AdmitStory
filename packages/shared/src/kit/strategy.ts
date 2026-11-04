@@ -23,6 +23,8 @@ export const RED_FLAG_IDS = [
   "FLAG-09",
   "FLAG-10",
   "FLAG-11",
+  "FLAG-12",
+  "FLAG-13",
 ] as const;
 export type RedFlagId = (typeof RED_FLAG_IDS)[number];
 

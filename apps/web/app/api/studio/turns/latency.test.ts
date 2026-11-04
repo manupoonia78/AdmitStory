@@ -72,6 +72,7 @@ vi.mock("@admitstory/db", async (importOriginal) => {
     createSource: query(() => ({ id: randomUUID() })),
     appendStudioTurn: query(() => ({ turn: { id: randomUUID() }, created: true })),
     countUserTurns: query(() => 1),
+    isPaidUser: query(() => true),
     getLatestSnapshot: query(() => null),
     recentTurns: query(() => []),
     listSourceTexts: query(() => []),

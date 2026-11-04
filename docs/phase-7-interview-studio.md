@@ -5,7 +5,7 @@ shows as **"Coming soon"** in the app and on the marketing site. The **expert mo
 spec §5.13) is _not_ part of this deferral: it ships in Phase 8.
 
 This document is everything needed to build Phase 7 later without re-reading the whole spec. It
-collects the requirements from `AdmitStory_Build_Spec.md` (§5.12, §6.7, §6.10 I/J/K, §7.5, §8.3,
+collects the requirements from `AdmitStories_Build_Spec.md` (§5.12, §6.7, §6.10 I/J/K, §7.5, §8.3,
 §8.5.13–15, §10, §11, §12, Appendix A12, Appendix E). It lists what already exists in the repo, the
 decisions already made, the data model, routes, AI tasks, UI, acceptance criteria, tests, work
 packages, and the arguments to feed the build workflow.

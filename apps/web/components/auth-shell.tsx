@@ -13,7 +13,7 @@ export function AuthShell({ children }: { children: ReactNode; backdrop?: ReactN
       <div className="flex flex-col px-5 py-6 sm:px-12 sm:py-9">
         <header>
           {/* A plain anchor: next/link would add its client chunk to /sign-in's first load. */}
-          <a href="/" className="inline-flex rounded-control" aria-label="AdmitStory home">
+          <a href="/" className="inline-flex rounded-control" aria-label="AdmitStories home">
             <Wordmark size={24} />
           </a>
         </header>

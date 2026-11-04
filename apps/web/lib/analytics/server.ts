@@ -15,7 +15,9 @@ export type ProductEvent =
   | "studio_turn"
   | "story_detected"
   | "studio_session_ended"
-  | "document_imported";
+  | "document_imported"
+  // Connect (2026-11-04).
+  | "connect_thread_started";
 
 export type EventProperties = Record<string, string | number | boolean | null>;
 

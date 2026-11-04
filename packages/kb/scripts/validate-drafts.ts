@@ -25,7 +25,8 @@ for (const slug of readdirSync(root).sort()) {
       const reasons = new Map<string, number>();
       for (const e of compiled.excluded) reasons.set(e.reason, (reasons.get(e.reason) ?? 0) + 1);
       const inRange =
-        compiled.tokenCount >= PACK_TOKEN_TARGET.min && compiled.tokenCount <= PACK_TOKEN_TARGET.max;
+        compiled.tokenCount >= PACK_TOKEN_TARGET.min &&
+        compiled.tokenCount <= PACK_TOKEN_TARGET.max;
       console.log(
         `ok    ${slug}/${cycle}: ${compiled.tokenCount} tokens${inRange ? "" : " (outside target)"}, ` +
           `${Object.keys(compiled.itemIndex).length} citable, excluded ${JSON.stringify(Object.fromEntries(reasons))}`,

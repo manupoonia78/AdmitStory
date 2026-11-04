@@ -63,7 +63,7 @@ own section markers.
 
 - `/settings/privacy` (linked from Settings): "What we keep" inventory (counts settle in once,
   still under reduced motion); "Your data (JSON)" and "Your drafts (Word)" downloads, streamed,
-  3 an hour; "Help improve AdmitStory" opt-in; staff access list; delete with type-to-confirm,
+  3 an hour; "Help improve AdmitStories" opt-in; staff access list; delete with type-to-confirm,
   a 15-minute fresh session (else "Sign in again"), and what goes and what stays.
 - `POST /api/account/delete` signs the user out everywhere, records the deletion and starts
   `account/delete`: confirmation email, then the users row goes (everything cascades; the ledger

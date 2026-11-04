@@ -2,7 +2,7 @@ import os, sys; sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..")
 from packlib import Pack
 
 P = Pack("cmu-tepper", "Carnegie Mellon University Tepper School of Business", "Tepper", "US", "Pittsburgh, PA", "https://www.cmu.edu/tepper")
-AL = "Paid coaching platform material (ApplicantLab). Private reference; items are Admitstory rewrites approved by Manu 2026-11-04 (§9.6). Never name or quote."
+AL = "Paid coaching platform material (ApplicantLab). Private reference; items are AdmitStories rewrites approved by Manu 2026-11-04 (§9.6). Never name or quote."
 APPLY = "https://www.cmu.edu/tepper/programs/mba/admissions/apply-full-time-mba"
 P.source("tepper-apply", "official", "Tepper: Apply to the Full-Time MBA (essays, video essay, deadlines, interview, recommendation, resume, tests, fee)", APPLY)
 P.source("tepper-profile", "official", "Tepper Full-Time MBA class profile (Class of 2027)", "https://www.cmu.edu/tepper/programs/mba/admissions/ft-class-profile")
@@ -13,7 +13,7 @@ P.source("tepper-team", "official", "Tepper Masters Admissions team", "https://w
 P.source("ca-mcgrath-2026", "adcom", "Clear Admit Admissions Director Q&A: J.R. McGrath, Executive Director of Masters Admissions, Tepper (Jun 22, 2026)", "https://www.clearadmit.com/2026/06/admission-director-qa-carnegie-mellon-tepper-mba/")
 P.source("ca-mcgrath-2025", "adcom", "Clear Admit Admissions Director Q&A: J.R. McGrath, Tepper (Jul 29, 2025)", "https://www.clearadmit.com/2025/07/admission-director-qa-mcgrath-carnegie-mellon-tepper-2/")
 P.source("al-tepper", "third_party_reference", "ApplicantLab — Tepper school tab", None, rights=AL)
-P.source("admitstory-coach", "coach_notes", "Admitstory coaching canon and Manu's storytelling rules", None)
+P.source("admitstory-coach", "coach_notes", "AdmitStories coaching canon and Manu's storytelling rules", None)
 
 P.url("prompts", APPLY); P.url("deadlines", APPLY)
 P.url("class_profile", "https://www.cmu.edu/tepper/programs/mba/admissions/ft-class-profile")

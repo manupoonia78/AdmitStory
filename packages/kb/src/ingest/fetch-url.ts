@@ -215,7 +215,7 @@ const httpsTransport: Transport = ({ url, address, signal, maxBytes }) =>
         headers: {
           accept: "text/html,application/pdf,text/plain;q=0.9,*/*;q=0.5",
           "accept-encoding": "identity",
-          "user-agent": "AdmitstoryKnowledgeBot/1.0 (admin source ingestion)",
+          "user-agent": "AdmitStoriesKnowledgeBot/1.0 (admin source ingestion)",
         },
         lookup: (_hostname, options, callback) => {
           if ((options as { all?: boolean }).all)

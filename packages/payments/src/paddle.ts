@@ -103,7 +103,7 @@ export function createPaddlePayments(options: PaddleOptions): PaymentsProvider {
               name: "School kit",
               unit_price: { amount: String(input.priceCents), currency_code: input.currency },
               product: {
-                name: input.label ?? "AdmitStory School Kit",
+                name: input.label ?? "AdmitStories School Kit",
                 tax_category: SCHOOL_KIT_TAX_CATEGORY,
               },
             },

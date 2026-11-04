@@ -12,6 +12,7 @@
     "migrate": "tsx src/migrate.ts",
     "check": "drizzle-kit check",
     "admin:grant": "tsx scripts/grant-admin.ts",
+    "connect:import": "tsx scripts/connect-import.ts",
     "seed:schools": "tsx scripts/seed-schools.ts"
   },
   "dependencies": {

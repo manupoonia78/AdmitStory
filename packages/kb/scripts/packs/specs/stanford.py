@@ -2,7 +2,7 @@ import os, sys; sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..")
 from packlib import Pack
 
 P = Pack("stanford-gsb", "Stanford Graduate School of Business", "Stanford GSB", "US", "Stanford, CA", "https://www.gsb.stanford.edu")
-AL = "Paid coaching platform material (ApplicantLab). Private reference; items are Admitstory rewrites approved by Manu 2026-11-04 (§9.6). Never name or quote."
+AL = "Paid coaching platform material (ApplicantLab). Private reference; items are AdmitStories rewrites approved by Manu 2026-11-04 (§9.6). Never name or quote."
 G = "https://www.gsb.stanford.edu/programs/mba/admission"
 P.source("gsb-essays", "official", "Stanford GSB MBA: Essays (prompts, word limits, feedback vs coaching, Additional Information)", G + "/application/essays")
 P.source("gsb-short", "official", "Stanford GSB MBA: Optional short answer question", G + "/application/optional-short-answer-question")
@@ -18,7 +18,7 @@ P.source("ca-gsb-2027", "press", "Clear Admit: Stanford GSB MBA Class of 2027 pr
 P.source("ca-gsb-2025", "press", "Clear Admit: Stanford GSB employment report, MBA Class of 2025 (Dec 2025)", "https://www.clearadmit.com/2025/12/stanford-gsb-employment-report-mba-class-of-2025/")
 P.source("pq-ai-2026", "press", "Poets&Quants (Fortuna, May 26, 2026): AI policies at top MBA programs, quoting each school's application materials", "https://poetsandquants.com/2026/05/26/the-mba-applicants-guide-to-ai-in-2026-whats-allowed-whats-risky-and-what-to-avoid/")
 P.source("al-stanford", "third_party_reference", "ApplicantLab — Stanford school tab", None, rights=AL)
-P.source("admitstory-coach", "coach_notes", "Admitstory coaching canon and Manu's storytelling rules", None)
+P.source("admitstory-coach", "coach_notes", "AdmitStories coaching canon and Manu's storytelling rules", None)
 
 P.url("prompts", G + "/application/essays"); P.url("deadlines", G + "/deadlines")
 P.url("class_profile", G + "/class-profile"); P.url("employment_report", "https://www.gsb.stanford.edu/programs/mba/career-impact/positions-compensation")

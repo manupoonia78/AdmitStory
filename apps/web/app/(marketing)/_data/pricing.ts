@@ -35,7 +35,7 @@ export const KIT_PLAN = {
 } as const;
 
 export const FREE_FEATURES = [
-  "Story Studio, by voice or typing",
+  "Story Studio, by voice or typing: the first half free",
   "Your Story Bank and Fact Sheet",
   "Profile Read: how admissions will likely see you",
   "School Strategy and the round planner",
@@ -48,6 +48,8 @@ export const KIT_FEATURES = [
   "Refinement until you're happy (fair use)",
   "Form entries and a résumé pass",
   "Briefs for your recommenders",
+  "The rest of Story Studio",
+  "Connect: message alumni, students and admissions readers from that school",
 ] as const;
 
 /** Shown under the kit list, labelled, never as an included feature. */

@@ -51,7 +51,7 @@ export const FOOTER_CONTACT = {
   coverSchoolSubject: "Please cover a school",
 } as const;
 
-export const FOOTER_LEGAL = `AdmitStory is not affiliated with any school. School names are used only to describe which applications we support.`;
+export const FOOTER_LEGAL = `AdmitStories is not affiliated with any school. School names are used only to describe which applications we support.`;
 
 export function copyrightLine(year: number): string {
   return `© ${year} ${LEGAL_ENTITY}.`;

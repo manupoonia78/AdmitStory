@@ -5,7 +5,7 @@ P = Pack("dartmouth-tuck", "Tuck School of Business at Dartmouth", "Tuck", "US",
          "https://tuck.dartmouth.edu")
 
 # Sources ---------------------------------------------------------------------------------------
-AL = "Paid coaching platform material (ApplicantLab). Private reference; items are Admitstory rewrites approved by Manu 2026-11-04 (§9.6). Never name or quote."
+AL = "Paid coaching platform material (ApplicantLab). Private reference; items are AdmitStories rewrites approved by Manu 2026-11-04 (§9.6). Never name or quote."
 P.source("tuck-apply", "official", "Applying to Tuck (essays, goals, references, tests, fees, deadlines)", "https://tuck.dartmouth.edu/admissions/applying-to-tuck")
 P.source("tuck-launch-2026", "official", "Tuck Looks Ahead to the Class of 2029, Launches 2026–2027 MBA Application (Jul 1, 2026)", "https://tuck.dartmouth.edu/news/articles/tuck-looks-ahead-to-the-class-of-2029-launches-2026-2027-mba-application")
 P.source("tuck-interview", "official", "Tuck admissions: Interview", "https://tuck.dartmouth.edu/admissions/interview")
@@ -23,7 +23,7 @@ P.source("tuck-blog-reapply", "adcom", "Reapplying to Tuck — Amy Mitson, Direc
 P.source("pq-tuck-2026", "press", "Poets&Quants: Dartmouth Tuck's MBA apps plunge 31.5%, acceptance rate soars to 42.5% (Oct 28, 2026), with Lawrence Mur'ray quotes", "https://poetsandquants.com/2026/10/28/dartmouth-tucks-mba-apps-plunge-31-5-acceptance-rate-soars-to-42-5/")
 P.source("pq-pena-2018", "adcom", "Poets&Quants: A candid interview with Tuck's head of MBA admissions, Luke Anthony Peña (Aug 5, 2018)", "https://poetsandquants.com/2018/08/05/a-candid-interview-with-tucks-head-of-mba-admissions/", read=False)
 P.source("al-tuck", "third_party_reference", "ApplicantLab — Tuck school tab", None, rights=AL)
-P.source("admitstory-coach", "coach_notes", "Admitstory coaching canon and Manu's storytelling rules (knowledge/canon, mba-essays skill)", None)
+P.source("admitstory-coach", "coach_notes", "AdmitStories coaching canon and Manu's storytelling rules (knowledge/canon, mba-essays skill)", None)
 
 P.url("prompts", "https://tuck.dartmouth.edu/admissions/applying-to-tuck")
 P.url("deadlines", "https://tuck.dartmouth.edu/admissions/applying-to-tuck")

@@ -1,4 +1,4 @@
-// Server-safe: no hooks, no client code. The AdmitStory mark and wordmark (paper redesign).
+// Server-safe: no hooks, no client code. The AdmitStories mark and wordmark (paper redesign).
 
 /**
  * The mark: an ink tile holding a serif italic "a", the first letter of the story. Decorative;
@@ -16,7 +16,7 @@ export function BrandMark({ size = 24 }: { size?: number }) {
   );
 }
 
-/** "AdmitStory" set in the display serif, "Story" in the accent italic. */
+/** "AdmitStories" set in the display serif, "Stories" in the accent italic. */
 export function Wordmark({ size = 24, className }: { size?: number; className?: string }) {
   return (
     <span className={`inline-flex items-center gap-2 ${className ?? ""}`}>
@@ -25,7 +25,7 @@ export function Wordmark({ size = 24, className }: { size?: number; className?: 
         className="font-display tracking-[-0.01em] text-text"
         style={{ fontSize: size * 0.82, lineHeight: 1 }}
       >
-        Admit<em className="text-accent">Story</em>
+        Admit<em className="text-accent">Stories</em>
       </span>
     </span>
   );

@@ -20,7 +20,7 @@ import { ENGINEER_DOSSIER, HALVORSEN_PACK, HALVORSEN_RETRIEVAL } from "./phase3"
 import { KIT_POSITIONING_REPLIES } from "./phase3-replies";
 
 const root = findRepoRoot(process.cwd());
-if (!root) throw new Error("Run from inside the AdmitStory repo");
+if (!root) throw new Error("Run from inside the AdmitStories repo");
 
 /** L1 for the short items: the Kestrel Lake pack as compiled for cycle 2026-27. */
 export const KESTREL_PACK = readFileSync(

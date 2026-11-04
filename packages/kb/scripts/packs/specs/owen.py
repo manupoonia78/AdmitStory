@@ -2,7 +2,7 @@ import os, sys; sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..")
 from packlib import Pack
 
 P = Pack("vanderbilt-owen", "Vanderbilt University Owen Graduate School of Management (Vanderbilt Business)", "Owen", "US", "Nashville, TN", "https://business.vanderbilt.edu")
-AL = "Paid coaching platform material (ApplicantLab). Private reference; items are Admitstory rewrites approved by Manu 2026-11-04 (§9.6). Never name or quote."
+AL = "Paid coaching platform material (ApplicantLab). Private reference; items are AdmitStories rewrites approved by Manu 2026-11-04 (§9.6). Never name or quote."
 INS = "https://business.vanderbilt.edu/mba/admissions/application-instructions/"
 P.source("owen-instructions", "official", "Vanderbilt MBA: Application instructions (statements, video, interview, recommendation, resume, tests, fee)", INS)
 P.source("owen-admissions", "official", "Vanderbilt MBA: Admissions (Fall 2027 deadlines)", "https://business.vanderbilt.edu/mba/admissions/")
@@ -13,7 +13,7 @@ P.source("owen-academics", "official", "Vanderbilt MBA: curriculum, concentratio
 P.source("owen-about", "official", "About Vanderbilt Business (mission, values, Nashville)", "https://business.vanderbilt.edu/about/")
 P.source("ca-mcchesney-2025", "adcom", "Clear Admit Admissions Director Q&A: Bailey McChesney, Director of MBA Admissions, Vanderbilt Owen (Sep 3, 2025)", "https://www.clearadmit.com/2025/09/admissions-director-qa-bailey-mcchesney-of-vanderbilt-owen-3/")
 P.source("al-owen", "third_party_reference", "ApplicantLab — Vanderbilt Owen school tab", None, rights=AL)
-P.source("admitstory-coach", "coach_notes", "Admitstory coaching canon and Manu's storytelling rules", None)
+P.source("admitstory-coach", "coach_notes", "AdmitStories coaching canon and Manu's storytelling rules", None)
 
 P.url("prompts", INS); P.url("deadlines", "https://business.vanderbilt.edu/mba/admissions/")
 P.url("class_profile", "https://business.vanderbilt.edu/mba/class-profile/"); P.url("employment_report", "https://business.vanderbilt.edu/mba/outcomes/")

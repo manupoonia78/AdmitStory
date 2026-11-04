@@ -128,7 +128,7 @@ export interface PackItem {
   confidence: number;
   /**
    * §9.6: an item whose only sources are `third_party_reference` enters the compiled pack only
-   * when an admin has rewritten it in Admitstory's own words and approved it.
+   * when an admin has rewritten it in AdmitStories' own words and approved it.
    */
   approved_rewrite?: boolean;
 }

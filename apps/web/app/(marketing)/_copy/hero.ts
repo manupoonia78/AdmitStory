@@ -6,11 +6,11 @@ export const HERO_COPY = {
   headingLines: ["Say one thing", "about yourself."],
   headingPhoneLines: ["Say one", "thing about", "yourself."],
   subline:
-    "AdmitStory listens to your life story and turns it into your MBA application, one school at a time, in your own words.",
+    "AdmitStories listens to your life story and turns it into your MBA application, one school at a time, in your own words.",
   privacy:
     "Fifteen seconds. Your audio is turned into text and not kept, and neither is the text unless you sign up.",
   formLabel: "A Voiceprint: a form drawn from the way someone speaks",
-  scrollNote: "Scroll to follow one sentence through AdmitStory",
+  scrollNote: "Scroll to follow one sentence through AdmitStories",
 } as const;
 
 export const HERO_ACTIONS = {
@@ -24,9 +24,9 @@ export const HERO_ACTIONS = {
   ownLine: "Say your own line",
 } as const;
 
-/** The microphone explainer (§6.9, verbatim, cased "AdmitStory"). */
+/** The microphone explainer (§6.9, verbatim, cased "AdmitStories"). */
 export const MIC_EXPLAINER = {
-  text: "AdmitStory needs your microphone to hear your answers. Audio is turned into text and not kept unless you choose to.",
+  text: "AdmitStories needs your microphone to hear your answers. Audio is turned into text and not kept unless you choose to.",
   allow: "Allow microphone",
   write: "Write instead",
 } as const;
@@ -42,10 +42,10 @@ export const SHEET_COPY = {
 } as const;
 
 export const CAPTION_COPY = {
-  line: "Word for word, that’s your line. In AdmitStory every essay is built around sentences like it, and each one links back to the moment you said it.",
-  voiceprint: "That’s your Voiceprint, drawn from how you spoke. It’s yours across AdmitStory.",
+  line: "Word for word, that’s your line. In AdmitStories every essay is built around sentences like it, and each one links back to the moment you said it.",
+  voiceprint: "That’s your Voiceprint, drawn from how you spoke. It’s yours across AdmitStories.",
   sample:
-    "The sample applicant’s line, word for word. In AdmitStory every essay is built around sentences like it, and each one links back to the moment it was said.",
+    "The sample applicant’s line, word for word. In AdmitStories every essay is built around sentences like it, and each one links back to the moment it was said.",
 } as const;
 
 export function fillersLine(count: number): string {

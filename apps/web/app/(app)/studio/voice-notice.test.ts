@@ -117,7 +117,7 @@ describe("the copy (§6.9)", () => {
 
   it("explains the microphone the way §6.9 does, without promising a recording choice", () => {
     expect(VOICE_COPY.ask).toBe(
-      "Admitstory needs your microphone to hear your answers. Audio is turned into text and not kept.",
+      "AdmitStories needs your microphone to hear your answers. Audio is turned into text and not kept.",
     );
     expect(VOICE_COPY.denied).toBe(
       "Microphone is blocked in your browser settings. You can keep going by typing.",

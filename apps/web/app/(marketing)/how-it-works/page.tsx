@@ -22,7 +22,7 @@ import { KIT_DURATION_MS, finishedRows, kitStateAt } from "./_data";
 export const metadata = pageMetadata({
   title: "How it works",
   description:
-    "From one conversation to every school: how AdmitStory turns what you say into each school's essays, form and briefs.",
+    "From one conversation to every school: how AdmitStories turns what you say into each school's essays, form and briefs.",
   path: "/how-it-works",
 });
 

@@ -3,7 +3,7 @@
 // AI_POLICY_FALLBACK instead (the caller decides where). Stance and mode are in words, never colour.
 //
 // compact  school, stance, verified date (the landing page, limited to six rows)
-// full     adds what AdmitStory does for that stance and a link to the school's own page
+// full     adds what AdmitStories does for that stance and a link to the school's own page
 //          (/how-it-works#ai-policies)
 
 import { cx } from "@admitstory/ui";
@@ -20,7 +20,7 @@ export const STANCE_WORDS: Record<Stance, string> = {
 };
 
 /**
- * What AdmitStory does for each stance, as apps/web/lib/kit/authorship.ts decides it for written
+ * What AdmitStories does for each stance, as apps/web/lib/kit/authorship.ts decides it for written
  * deliverables: limited and prohibited coach; everything else drafts from your own words, with the
  * disclosure helper where a school asks for disclosure.
  */
@@ -70,7 +70,7 @@ export function AiPolicyTable({ rows, limit, variant, className }: AiPolicyTable
             </th>
             {full ? (
               <th scope="col" className="py-2 pr-4 font-normal">
-                What AdmitStory does
+                What AdmitStories does
               </th>
             ) : null}
             <th scope="col" className="py-2 pr-4 font-normal">

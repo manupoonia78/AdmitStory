@@ -8,6 +8,7 @@ export * from "./commerce";
 export * from "./kits";
 export * from "./forms";
 export * from "./chat";
+export * from "./connect";
 export * from "./recommenders";
 export * from "./ops";
 export * from "./relations";

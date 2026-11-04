@@ -2,7 +2,7 @@ import os, sys; sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..")
 from packlib import Pack
 
 P = Pack("duke-fuqua", "Duke University's Fuqua School of Business", "Fuqua", "US", "Durham, NC", "https://www.fuqua.duke.edu")
-AL = "Paid coaching platform material (ApplicantLab). Private reference; items are Admitstory rewrites approved by Manu 2026-11-04 (§9.6). Never name or quote."
+AL = "Paid coaching platform material (ApplicantLab). Private reference; items are AdmitStories rewrites approved by Manu 2026-11-04 (§9.6). Never name or quote."
 AI_URL = "https://www.fuqua.duke.edu/programs/daytime-mba/application-instructions"
 P.source("fuqua-instructions", "official", "Fuqua Daytime MBA: Application instructions (essays, interviews, recommendations, endorsements, resume, tests, fee, honor code and AI)", AI_URL)
 P.source("fuqua-dates", "official", "Fuqua Daytime MBA: Admissions facts and dates", "https://www.fuqua.duke.edu/programs/daytime-mba/admissions-facts-dates")
@@ -15,7 +15,7 @@ P.source("fuqua-about", "official", "About Fuqua (Team Fuqua) and student networ
 P.source("ca-hubert-2025", "adcom", "Clear Admit Admissions Director Q&A: Shari Hubert, Associate Dean of Admissions, Duke Fuqua (Jul 2, 2025)", "https://www.clearadmit.com/2025/07/admissions-director-qa-shari-hubert-of-duke-fuqua-3/")
 P.source("ca-hubert-2024", "adcom", "Clear Admit Admissions Director Q&A: Shari Hubert, Duke Fuqua (Jul 15, 2024)", "https://www.clearadmit.com/2024/07/admissions-director-qa-shari-hubert-of-duke-fuqua-2/")
 P.source("al-fuqua", "third_party_reference", "ApplicantLab — Duke Fuqua school tab", None, rights=AL)
-P.source("admitstory-coach", "coach_notes", "Admitstory coaching canon and Manu's storytelling rules", None)
+P.source("admitstory-coach", "coach_notes", "AdmitStories coaching canon and Manu's storytelling rules", None)
 
 P.url("prompts", AI_URL); P.url("deadlines", "https://www.fuqua.duke.edu/programs/daytime-mba/admissions-facts-dates")
 P.url("class_profile", "https://www.fuqua.duke.edu/programs/daytime-mba/class-profile")

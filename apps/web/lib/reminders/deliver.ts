@@ -6,7 +6,7 @@ import { type RecommenderEmailContext } from "./context";
 import { fromNameFor } from "./preview";
 
 // Sending one recommender email (Phase 6 decision 3): the address stays EMAIL_FROM's with the
-// display name "{Applicant} via AdmitStory", and Reply-To is the applicant, so a recommender who
+// display name "{Applicant} via AdmitStories", and Reply-To is the applicant, so a recommender who
 // replies reaches the person who asked them and never us. Without RESEND_API_KEY the email lands
 // in .outbox/ (docs/decisions/0002), which is how the whole flow runs locally.
 

@@ -1,4 +1,4 @@
-// The trait taxonomy (spec Appendix D), Admitstory's own. Used for brand, the file map, the critic
+// The trait taxonomy (spec Appendix D), AdmitStories' own. Used for brand, the file map, the critic
 // and analytics. Every trait names the lenses it evidences, so a story's lenses can be derived
 // from its traits rather than guessed twice.
 

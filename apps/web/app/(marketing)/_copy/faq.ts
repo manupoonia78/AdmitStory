@@ -18,7 +18,7 @@ export const FAQ_HEADING = "Questions.";
 const BEFORE_SCHOOLS: readonly FaqEntry[] = [
   {
     id: "writes-essays",
-    question: "Does AdmitStory write my essays?",
+    question: "Does AdmitStories write my essays?",
     answer:
       "It depends on the school. Where AI help is allowed, it drafts from your own words and shows which sentences are yours. Where it isn’t, it coaches: questions, structure and critique, with no written answer. You can always choose the stricter mode.",
   },
@@ -26,7 +26,7 @@ const BEFORE_SCHOOLS: readonly FaqEntry[] = [
     id: "allowed",
     question: "Is that allowed?",
     answer:
-      "Schools differ, so AdmitStory follows each one’s published policy and shows it beside every essay with the date we checked. When a school asks you to disclose AI use, it drafts an honest disclosure for you to edit. Following the rules is still your responsibility, and we make it easy.",
+      "Schools differ, so AdmitStories follows each one’s published policy and shows it beside every essay with the date we checked. When a school asks you to disclose AI use, it drafts an honest disclosure for you to edit. Following the rules is still your responsibility, and we make it easy.",
   },
   {
     id: "impressive",

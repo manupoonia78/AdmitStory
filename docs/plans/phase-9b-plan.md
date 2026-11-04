@@ -102,7 +102,7 @@ Mine:
     and `audit_log` keep anonymised rows by `SET NULL`). Deletion is **blocked while a paid expert
     session is upcoming** ("cancel it first, free up to 24 hours before"), and **for expert
     accounts** (Phase 8's `experts.user_id → users restrict`): 409 "Expert accounts are closed by
-    the AdmitStory team. Email us and we'll do it." Admin closes them by hand. Backups expire within
+    the AdmitStories team. Email us and we'll do it." Admin closes them by hand. Backups expire within
     35 days (Neon PITR 7 days; §7.6). PostHog events are pseudonymous (user id, no content) and are
     not deleted by the app; the privacy page says so.
 14. **Export is two streamed downloads, no zip, no R2**: "Your data (JSON)" (every row the
@@ -115,7 +115,7 @@ Mine:
     Privacy ("Staff access to your account"), which is §14.4's "visible to the user on request",
     shown without asking.
 16. **Human rating queue** samples only synthetic eval outputs and drafts of users who switched on
-    "Help improve AdmitStory" (`improve_product_opt_in`). Ten per ISO week (§8.11).
+    "Help improve AdmitStories" (`improve_product_opt_in`). Ten per ISO week (§8.11).
 17. **The eval gate has two modes.** CI (`eval:gate`, replay): every recorded reply is re-run
     through its task's schema + `check()`, the golden invented-fact check and the linters; metrics
     are compared with `fixtures/evals/baseline.json`. Live (nightly GitHub workflow when the
@@ -707,10 +707,10 @@ The foundation registers all three function files (stubs) in `apps/web/inngest/i
 
 Emails (`packages/emails`, React Email, Day palette, render → `{ subject, html, text }`):
 
-| Template              | Subject                                    | Owner                                  |
-| --------------------- | ------------------------------------------ | -------------------------------------- |
-| `AccountDeletedEmail` | "Your AdmitStory account has been deleted" | D                                      |
-| `AdminAlertEmail`     | "[AdmitStory] Spend is running high today" | Foundation (used by `raiseAdminAlert`) |
+| Template              | Subject                                      | Owner                                  |
+| --------------------- | -------------------------------------------- | -------------------------------------- |
+| `AccountDeletedEmail` | "Your AdmitStories account has been deleted" | D                                      |
+| `AdminAlertEmail`     | "[AdmitStories] Spend is running high today" | Foundation (used by `raiseAdminAlert`) |
 
 ---
 
@@ -771,10 +771,10 @@ Everything else quiet:
 - **Download**: "Your data (JSON)" and "Your drafts (Word)" as two buttons; while streaming, the
   button reads "Preparing your file…" and is disabled; error toast "That download didn't finish.
   Try again."; 429 copy "You've downloaded three times this hour. Try again later."
-- **Help improve AdmitStory**: a switch with one paragraph: "Let us read your drafts when you rate
+- **Help improve AdmitStories**: a switch with one paragraph: "Let us read your drafts when you rate
   them, and include them in our weekly quality review. We never train models on them. Off by
   default."
-- **Staff access**: "No one at AdmitStory has opened your account." or a list ("2 Nov, 14:05:
+- **Staff access**: "No one at AdmitStories has opened your account." or a list ("2 Nov, 14:05:
   opened your drafts to look into a report. Reason: 'You reported that a draft wasn't true'").
 - **Delete your account**: a `--needs`-toned (icon + words, not colour alone) section, "Delete my
   account" → dialog: what goes ("Everything you've written and said, your kits, your recommenders'

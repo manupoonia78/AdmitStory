@@ -2,7 +2,7 @@
 
 Built 1 November 2026 on branch `phase-0`, on top of the Phase 3–4 commit. The build spanned two
 sessions: the first ran out of usage partway through the app layer, and the second finished it.
-Spec: `AdmitStory_Build_Spec.md`, §16 Phase 5, with §5.7 (stage 9), §5.8, §5.10, §6, §8.5.12,
+Spec: `AdmitStories_Build_Spec.md`, §16 Phase 5, with §5.7 (stage 9), §5.8, §5.10, §6, §8.5.12,
 §9.2, §10, §11, §14.2, canon A9 (FORM-01) and A10 (RES-01).
 
 Decisions you made for this phase (1 November):

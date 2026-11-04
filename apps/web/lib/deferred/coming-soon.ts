@@ -4,9 +4,9 @@
 //
 // Phase 7 (Interview Studio) is deferred with a promise attached — kit owners get it at no extra
 // cost when it opens — and keeps its own copy in lib/interview/coming-soon.ts.
-// Phase 8 (Experts, Connect, Tracker, Notifications, After decisions) is deferred without a
-// promise: it is not sold at launch, so the copy below describes what is coming and nothing more
-// (docs/phase-8-experts-connect-tracker.md).
+// Phase 8 (Experts, Tracker, Notifications, After decisions) is deferred without a
+// promise (Connect shipped on its own, 2026-11-04): it is not sold at launch, so the copy below
+// describes what is coming and nothing more (docs/phase-8-experts-connect-tracker.md).
 
 export const COMING_SOON = "Coming soon";
 
@@ -20,31 +20,6 @@ export interface ComingSoonCopy {
   note: string;
   parts: readonly { name: string; line: string }[];
 }
-
-export const CONNECT_COMING_SOON: ComingSoonCopy = {
-  title: "Connect",
-  headline: "Talk to people who are already there, and keep what they tell you.",
-  status: COMING_SOON,
-  note: "Connect is not open yet. Nothing here is part of your kit today.",
-  parts: [
-    {
-      name: "Who to ask",
-      line: "The school's own channels, and the kind of person worth an hour of your time.",
-    },
-    {
-      name: "A message you'd actually send",
-      line: "A short draft in your words, to copy and send yourself.",
-    },
-    {
-      name: "What you heard",
-      line: "Notes from a conversation, by voice or typing, kept with your stories.",
-    },
-    {
-      name: "Where it shows up",
-      line: "What you learn can show in that school's essays, only if you say so.",
-    },
-  ],
-};
 
 export const TRACKER_COMING_SOON: ComingSoonCopy = {
   title: "Tracker",

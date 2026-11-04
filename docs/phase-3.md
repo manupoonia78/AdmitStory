@@ -1,7 +1,7 @@
 # Phase 3: Schools, knowledge base and strategy
 
 Built 31 October – 1 November 2026 on branch `phase-0`, together with Phase 4 (see
-`docs/phase-4.md`). Spec: `AdmitStory_Build_Spec.md`, §16 Phase 3, with §5.4 (Profile Read),
+`docs/phase-4.md`). Spec: `AdmitStories_Build_Spec.md`, §16 Phase 3, with §5.4 (Profile Read),
 §5.5 (School Strategy), §5.18 (admin), §8.5.4–8.5.5, §8.9, §9 (knowledge base), §10, §11, §14.2,
 §14.5 and Appendices G and H.
 

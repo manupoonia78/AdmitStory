@@ -237,7 +237,8 @@ describe("Paddle event mapping (§13)", () => {
       type: "ignored",
       eventType: "transaction.completed",
       alertAdmin: true,
-      reason: "Completed transaction txn_01jbx7f0a1b2c3d4e5f6g7h8j9 has no AdmitStory custom data.",
+      reason:
+        "Completed transaction txn_01jbx7f0a1b2c3d4e5f6g7h8j9 has no AdmitStories custom data.",
     });
   });
 

@@ -9,7 +9,7 @@ import { pageMetadata } from "../_lib/seo";
 export const metadata = pageMetadata({
   title: "Terms",
   description:
-    "The terms for using AdmitStory: your story must be true, schools' rules come first, and recommenders write their own letters.",
+    "The terms for using AdmitStories: your story must be true, schools' rules come first, and recommenders write their own letters.",
   path: "/terms",
 });
 

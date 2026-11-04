@@ -157,7 +157,7 @@ test.describe("Story Studio prototype", () => {
     await page.keyboard.press("Space");
     await expect(
       page.getByText(
-        "AdmitStory needs your microphone to hear your answers. Audio is turned into text and not kept unless you choose to.",
+        "AdmitStories needs your microphone to hear your answers. Audio is turned into text and not kept unless you choose to.",
       ),
     ).toBeVisible();
     const allow = page.getByRole("button", { name: "Allow microphone" });

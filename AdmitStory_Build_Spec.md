@@ -1,6 +1,6 @@
-# Admitstory — Build Specification v1.0
+# AdmitStories — Build Specification v1.0
 
-> Working name: **Admitstory** (rename later; the name lives in one constant, `APP_NAME`, in `packages/shared/src/brand.ts`).
+> Working name: **AdmitStories** (rename later; the name lives in one constant, `APP_NAME`, in `packages/shared/src/brand.ts`).
 > Author: Manu (product owner). Written 24 October 2026 for Claude Opus 5.5 in VS Code.
 > Status: complete v1 spec. Build it phase by phase (Section 16).
 
@@ -36,13 +36,13 @@ You are building a production web application from an empty repository. This doc
 
 **What this product is not**
 
-It does not copy, imitate or borrow flows, information architecture or UI from any existing admissions platform. Existing tools in this space make applicants fill in dozens of disconnected boxes across a long module tree, read walls of advice, and then write everything themselves. Admitstory starts from the opposite premise: the applicant talks, the product listens, organises, decides with them, and drafts — and shows its reasoning.
+It does not copy, imitate or borrow flows, information architecture or UI from any existing admissions platform. Existing tools in this space make applicants fill in dozens of disconnected boxes across a long module tree, read walls of advice, and then write everything themselves. AdmitStories starts from the opposite premise: the applicant talks, the product listens, organises, decides with them, and drafts — and shows its reasoning.
 
 ---
 
 ## 1. The product on one page
 
-**One sentence:** Tell your story once — out loud or in writing — and Admitstory turns it into a complete, school-by-school MBA application in your own voice: positioning, essays with reasoned alternatives, short answers, form entries, recommender briefs and live interview practice.
+**One sentence:** Tell your story once — out loud or in writing — and AdmitStories turns it into a complete, school-by-school MBA application in your own voice: positioning, essays with reasoned alternatives, short answers, form entries, recommender briefs and live interview practice.
 
 **Who it is for:** People applying to full-time MBA programs (and later: EMBA, MiM, other master's), worldwide. Many are international, most are time-poor professionals aged 25–33, many are career switchers or reapplicants. A meaningful share are applying within weeks of a deadline.
 
@@ -87,7 +87,7 @@ These decide every ambiguous call. When in doubt, re-read these.
 
 ---
 
-## 3. Users and the jobs they hire Admitstory for
+## 3. Users and the jobs they hire AdmitStories for
 
 | Persona | Situation | Job to be done | What they need most |
 |---|---|---|---|
@@ -410,7 +410,7 @@ The applicant spends most of their paid time here. Three panes: **Files** (left)
 
 ### 5.11 Recommender Kit
 
-**Stance (non-negotiable):** Admitstory never produces a letter for the applicant to hand to a recommender. Many schools prohibit applicant-written letters and compare writing styles; it is the single easiest way to sink an application. Instead, Admitstory produces the most complete *briefing pack* possible, and offers the recommender their own private workspace.
+**Stance (non-negotiable):** AdmitStories never produces a letter for the applicant to hand to a recommender. Many schools prohibit applicant-written letters and compare writing styles; it is the single easiest way to sink an application. Instead, AdmitStories produces the most complete *briefing pack* possible, and offers the recommender their own private workspace.
 
 **Applicant side:**
 
@@ -476,10 +476,10 @@ answered the question asked; structure (brief context, clear action, result, ref
 The goal: help applicants have real conversations with students and alumni — which strengthen both their understanding and their essays — without scraping anyone or spamming anyone.
 
 - **School Guides network (opt-in):** current students and alumni sign up as Guides (verified by school email domain or a manual check), choose free or paid chats, set availability. Applicants request a chat; the Guide accepts or declines. Initially seeded by Manu's network.
-- **Outreach assistant:** applicants find people themselves (LinkedIn, school ambassador programs, club officers). Admitstory drafts the message: subject line, one-line why-me, 2–3 concrete proof points, a brief ask for a 15-minute call — short, specific, human. The applicant sends it themselves. Admitstory never sends messages on their behalf.
-- **Conversation log:** after a chat, the applicant records a 2-minute voice note ("what did you learn?"). Admitstory extracts insights (clubs, courses, culture, recruiting reality) into the dossier as *school engagement evidence*, with the person's name and whether they're comfortable being named.
+- **Outreach assistant:** applicants find people themselves (LinkedIn, school ambassador programs, club officers). AdmitStories drafts the message: subject line, one-line why-me, 2–3 concrete proof points, a brief ask for a 15-minute call — short, specific, human. The applicant sends it themselves. AdmitStories never sends messages on their behalf.
+- **Conversation log:** after a chat, the applicant records a 2-minute voice note ("what did you learn?"). AdmitStories extracts insights (clubs, courses, culture, recruiting reality) into the dossier as *school engagement evidence*, with the person's name and whether they're comfortable being named.
 - **How conversations enter essays (canon rule):** woven in as natural story flow showing what the person taught the applicant — never as a listed achievement, and never framed as the person choosing the applicant's goal (they can test or sharpen it).
-- **Official channels:** each school's info sessions, ambassador programs, admissions events and official contact routes (from the pack, with links and dates), with add-to-calendar. Admitstory does not facilitate contacting admissions staff outside official channels.
+- **Official channels:** each school's info sessions, ambassador programs, admissions events and official contact routes (from the pack, with links and dates), with add-to-calendar. AdmitStories does not facilitate contacting admissions staff outside official channels.
 
 ---
 
@@ -538,7 +538,7 @@ Email (Resend) and in-app: kit ready; questions waiting (`[NEED]` count); recomm
 **Audience:** ambitious, anxious, time-poor professionals across many countries, who judge quality in seconds.
 **Primary job of the interface:** make talking feel effortless, make it obvious that the words on the page are *theirs*, and keep them calm and moving under deadline pressure.
 
-**Concept: "Your voice becomes light."** Admitstory listens to you, and your voice is the brand. Every applicant gets a living **Voiceprint** (6.2), a luminous form generated from the way they actually speak. It breathes while they talk, it glows behind every sentence that came from their own words, and it becomes their personal mark across the app and on every export. Futuristic, but personal, never generic sci-fi.
+**Concept: "Your voice becomes light."** AdmitStories listens to you, and your voice is the brand. Every applicant gets a living **Voiceprint** (6.2), a luminous form generated from the way they actually speak. It breathes while they talk, it glows behind every sentence that came from their own words, and it becomes their personal mark across the app and on every export. Futuristic, but personal, never generic sci-fi.
 
 **Cinematic where it matters, frictionless everywhere else.** Each screen gets exactly one hero moment (6.7), designed and choreographed like an award site. Everything around that moment stays quiet, precise and fast. Inside the essay editor, the effects step back: nobody wants particles while cutting 14 words at 1 a.m. Restraint around the hero moment is what makes it land, and it's what award juries reward.
 
@@ -662,7 +662,7 @@ Implement as tokens in `packages/ui/src/motion.ts` and use nothing else.
 
 ### 6.8 Core components (`packages/ui`)
 
-Built on Radix primitives for accessible behaviour, styled entirely with the Admitstory tokens.
+Built on Radix primitives for accessible behaviour, styled entirely with the AdmitStories tokens.
 
 - `Voiceprint` (R3F/OGL shader, SVG fallback), `VoiceprintStill` (for avatars and exports).
 - `RecordButton`: idle / listening (ring reacts to amplitude) / processing / error. Built in Rive as a state machine; Space to talk.
@@ -684,7 +684,7 @@ Plain, warm, direct. Sentence case. Buttons name the exact action; the toast rep
 | Context | Copy |
 |---|---|
 | Studio first question | "Let's start before your first job. Where did you grow up, and what was home like?" |
-| Mic permission | "Admitstory needs your microphone to hear your answers. Audio is turned into text and not kept unless you choose to." Buttons: "Allow microphone" / "Write instead" |
+| Mic permission | "AdmitStories needs your microphone to hear your answers. Audio is turned into text and not kept unless you choose to." Buttons: "Allow microphone" / "Write instead" |
 | Mic denied | "Microphone is blocked in your browser settings. You can keep going by typing." |
 | Skip | "Skip for now" (never "Skip" alone) |
 | Story detected (screen reader) | "New story added to your shelf: The night-shift fix." |
@@ -887,7 +887,7 @@ These define structure and content, not visual style; the visual treatment comes
 | Language | TypeScript everywhere (strict) | One language across web, workers and voice agent |
 | Monorepo | pnpm workspaces + Turborepo | Shared packages for AI, DB, UI, linters |
 | Web app | Next.js (latest stable, App Router, React Server Components), React 19 | Streaming UI, server actions, edge-friendly |
-| Styling | Tailwind CSS v4 with Admitstory tokens; Radix UI primitives | Accessible behaviour, fully custom look |
+| Styling | Tailwind CSS v4 with AdmitStories tokens; Radix UI primitives | Accessible behaviour, fully custom look |
 | Motion and graphics | Motion (`motion`), View Transitions API, React Three Fiber + GLSL (or OGL), Rive, `detect-gpu`; GSAP + ScrollTrigger + Lenis on marketing routes only | The fluid, award-grade layer (Section 6.6, 6.11) |
 | Editor | TipTap (ProseMirror) | Custom marks for provenance, NEED chips, diffs, locks |
 | Client state | TanStack Query (server state), Zustand (local UI state) | Simple, predictable |
@@ -1010,7 +1010,7 @@ These define structure and content, not visual style; the visual treatment comes
 
 ### 8.1 The shape of the brain
 
-Admitstory's quality comes from three things working together, not from one giant prompt:
+AdmitStories' quality comes from three things working together, not from one giant prompt:
 
 1. **A written methodology (the Canon)** — how admissions readers think, how great application stories are built, what to never do. Versioned files (Appendix A). Shared by every applicant.
 2. **A curated School Pack per school per cycle** — prompts, limits, values, culture, programs, interview format, AI policy, outcomes, insider notes. Versioned, sourced (Section 9). Shared by every applicant to that school.
@@ -1130,7 +1130,7 @@ Responsibilities, in order:
 5. Call the API (streaming if `ctx.stream`), with retries and fallback.
 6. Validate with Zod. On failure: one repair attempt with the validation errors; then fail.
 7. Write a `usage_ledger` row: task, model, input/cached-read/cache-write/output tokens, cost (computed from `pricing.ts`), latency, prompt version, trace ID.
-8. Emit a Langfuse trace (inputs redacted of sensitive fields by default; content logging off in production unless the user opted into "help improve Admitstory").
+8. Emit a Langfuse trace (inputs redacted of sensitive fields by default; content logging off in production unless the user opted into "help improve AdmitStories").
 
 `pricing.ts` holds per-model token prices and cache multipliers as config (update when pricing changes). Current published prices (USD per million tokens, Oct 2026): Opus 5.5 $4 input / $20 output, cache hits $0.20; Sonnet 5.5 $2 / $10, cache hits $0.10; Haiku 5.5 (≤100K prompt) $0.10 / $0.50, cache hits $0.01; 5-minute cache writes 1.25× input, 1-hour writes 2×; Batch API −50%. Verify at build time.
 
@@ -1143,7 +1143,7 @@ Each agent has: a canon subset, a prompt template (`packages/ai/src/prompts/<age
 Canon subset: `story-craft` (sections on what makes material usable), `truth-discipline`, `studio-interviewing`.
 
 ```
-You are Admitstory's interviewer. You help an MBA applicant tell their life and work story out loud so it can later become their application. You are warm, curious and brief.
+You are AdmitStories' interviewer. You help an MBA applicant tell their life and work story out loud so it can later become their application. You are warm, curious and brief.
 
 Each turn you receive: the current chapter, the target evidence slot chosen by the system, the applicant's last answer, the last few turns, and what is already known (compact dossier).
 
@@ -1437,7 +1437,7 @@ Add source ──► extract text (PDF text / OCR / audio→STT / URL fetch)
 ### 9.6 Content rights (read carefully)
 
 - School-published facts (prompts, deadlines, statistics) can be used freely with attribution.
-- Paid third-party material (coaching platforms, guides, courses) is **reference for Manu's own thinking only**. Do not ingest it into packs verbatim, do not display it to users, and do not quote more than a short phrase. Packs and canon are written as Admitstory's own notes in Admitstory's own words. The `third_party_reference` source type exists so the admin can keep private notes with attribution; the compiler excludes its raw text from the compiled pack and only uses admin-approved, rewritten items.
+- Paid third-party material (coaching platforms, guides, courses) is **reference for Manu's own thinking only**. Do not ingest it into packs verbatim, do not display it to users, and do not quote more than a short phrase. Packs and canon are written as AdmitStories' own notes in AdmitStories' own words. The `third_party_reference` source type exists so the admin can keep private notes with attribution; the compiler excludes its raw text from the compiled pack and only uses admin-approved, rewritten items.
 - Conversations with admissions staff, students and alumni are used only with their permission; names appear only if they agreed.
 
 ---
@@ -1634,11 +1634,11 @@ Assumptions: canon subset ≈ 10K tokens, compiled pack ≈ 8K, compact dossier 
 
 ### 14.1 Integrity principles
 
-1. Admitstory helps applicants tell *their own* story well. Every draft is built from their own material, and every factual claim traces back to them.
-2. Admitstory follows each school's rules on AI use, automatically.
-3. Recommenders write their own letters. Admitstory prepares them; it never ghost-writes them for the applicant.
-4. Admitstory never invents experiences, numbers, quotes or school details.
-5. Admitstory never promises admission or shows admission odds.
+1. AdmitStories helps applicants tell *their own* story well. Every draft is built from their own material, and every factual claim traces back to them.
+2. AdmitStories follows each school's rules on AI use, automatically.
+3. Recommenders write their own letters. AdmitStories prepares them; it never ghost-writes them for the applicant.
+4. AdmitStories never invents experiences, numbers, quotes or school details.
+5. AdmitStories never promises admission or shows admission odds.
 
 ### 14.2 AI policy registry and authorship modes
 
@@ -1647,7 +1647,7 @@ Each `school_cycle` has an `ai_policy` (Section 9.2) maintained in admin with so
 | Stance | Essays and short answers | Video / interview | Disclosure |
 |---|---|---|---|
 | `permitted` / `unknown` | Draft mode | Talking points only | — |
-| `permitted_with_disclosure` | Draft mode | Talking points only | Admitstory pre-fills an honest disclosure describing how it was used, for the applicant to edit |
+| `permitted_with_disclosure` | Draft mode | Talking points only | AdmitStories pre-fills an honest disclosure describing how it was used, for the applicant to edit |
 | `limited` (e.g., ideation and editing allowed, complete AI responses not) | Coach mode by default; light line-editing of the applicant's own text allowed | Talking points only | As required |
 | `prohibited` | Coach mode, no generated prose, no rewriting of the applicant's sentences — questions, structure, and critique only | Talking points only | — |
 
@@ -1659,7 +1659,7 @@ Admin can override defaults per school; the user can always choose a *stricter* 
 
 - The Extractor flags sensitive disclosures (health, bereavement, identity, family hardship, abuse, legal, finances). Such stories are private by default (`consent_to_use = false`) and excluded from the dossier snapshot used for drafting until the applicant opts in, story by story.
 - People named by the applicant appear in drafts only if `may_name = true`.
-- Recommender portal content is never visible to the applicant or to Admitstory staff without break-glass access.
+- Recommender portal content is never visible to the applicant or to AdmitStories staff without break-glass access.
 - Expert briefs are shared per booking only with explicit consent.
 
 ### 14.4 Data protection
@@ -1902,7 +1902,7 @@ CONTENT_ENCRYPTION_KEYS=   # JSON map of key id → base64 key, from the secret 
 
 ## Appendix A — The Canon (v1)
 
-Create each section below as its own file in `knowledge/canon/`. Rule IDs are stable; never renumber, only add or deprecate. This is Admitstory's own methodology, distilled from a full cycle of real application work. Examples are synthetic.
+Create each section below as its own file in `knowledge/canon/`. Rule IDs are stable; never renumber, only add or deprecate. This is AdmitStories' own methodology, distilled from a full cycle of real application work. Examples are synthetic.
 
 ### A1. `admissions-lens.md` — how admissions readers think
 
@@ -2248,7 +2248,7 @@ A slot is **filled** when it is linked to at least one `confirmed` story (or con
 
 ## Appendix D — Trait taxonomy (v1)
 
-`packages/shared/src/traits.ts`. Admitstory's own taxonomy, used for brand, mapping, critic and analytics. Each trait maps to the lenses it evidences.
+`packages/shared/src/traits.ts`. AdmitStories' own taxonomy, used for brand, mapping, critic and analytics. Each trait maps to the lenses it evidences.
 
 | Group | Trait ID | Plain label | Lenses |
 |---|---|---|---|

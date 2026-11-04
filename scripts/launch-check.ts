@@ -19,7 +19,7 @@ const WORDS = {
   optional: "not set (optional)",
 } as const;
 
-console.log(`AdmitStory launch check (VERCEL_ENV=${env.VERCEL_ENV ?? "unset"})\n`);
+console.log(`AdmitStories launch check (VERCEL_ENV=${env.VERCEL_ENV ?? "unset"})\n`);
 for (const check of serviceChecks(env)) {
   const status =
     check.required && check.status !== "live" && isProductionDeploy(env) ? "missing" : check.status;

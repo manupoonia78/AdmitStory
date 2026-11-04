@@ -22,6 +22,7 @@ export const FEATURE_KEYS = [
   "recommender_emails",
   "landing_demo",
   "evals",
+  "connect",
 ] as const;
 export type FeatureKey = (typeof FEATURE_KEYS)[number];
 
@@ -151,6 +152,14 @@ export const FEATURE_SWITCHES: Record<FeatureKey, FeatureSwitchDef> = {
     userMessage: "Evaluation runs are paused.",
     tasks: ["eval.judge", "eval.applicant_simulator"],
     checkpoint: "evals/run",
+  },
+  connect: {
+    key: "connect",
+    label: "Connect messages",
+    area: "Kits",
+    userMessage: "Messaging is paused for a few minutes. Your conversations are saved.",
+    tasks: [],
+    checkpoint: "/api/connect/*",
   },
 };
 

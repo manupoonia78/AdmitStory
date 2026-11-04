@@ -43,7 +43,7 @@ export function pageCsp({ nonce, dev, local, posthogHost, reportUri }: CspOption
       ...(dev ? ["'unsafe-eval'"] : []),
     ],
     "style-src": ["'self'", "'unsafe-inline'"],
-    "img-src": ["'self'", "data:", "blob:", "https://*.paddle.com"],
+    "img-src": ["'self'", "data:", "blob:", "https://*.paddle.com", "https://media.licdn.com"],
     "font-src": ["'self'"],
     "connect-src": [
       "'self'",

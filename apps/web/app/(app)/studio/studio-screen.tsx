@@ -81,6 +81,18 @@ function StudioButton({
   return <button type="button" className={cx(buttonStyles({ variant }), className)} {...rest} />;
 }
 
+/** Only shown once the free half is used up, so it is not part of the Studio's first load. */
+const StudioGate = dynamic(() => import("./studio-gate").then((mod) => mod.StudioGate), {
+  loading: () => <div className="h-96" />,
+});
+
+/** "3 free answers left", from `warnAt` answers left down to one. */
+function allowanceLine(left: number): string {
+  return left === 1
+    ? "One free answer left in Story Studio. Everything you’ve said stays saved."
+    : `${left} free answers left in Story Studio. Everything you’ve said stays saved.`;
+}
+
 /** Only ever shown after a session ends, so it is not part of the Studio's first load. */
 const SessionSummaryCard = dynamic(
   () => import("./session-summary").then((mod) => mod.SessionSummaryCard),
@@ -111,6 +123,11 @@ export interface StudioScreenProps {
   initialStories: StoryCardData[];
   initialCoverage: CoverageBarDto[];
   initialFactCount: number;
+  /**
+   * The free half (lib/studio/allowance.ts): answers left and when to start saying so. Null for
+   * an account with a school pack, which has no limit.
+   */
+  allowance: { limit: number; left: number; warnAt: number } | null;
 }
 
 export function StudioScreen(props: StudioScreenProps) {
@@ -128,6 +145,7 @@ function Interview({
   initialStories,
   initialCoverage,
   initialFactCount,
+  allowance,
 }: StudioScreenProps) {
   const panelId = useId();
   const answerId = useId();
@@ -152,6 +170,8 @@ function Interview({
   const [hurried, setHurried] = useState(mode === "express");
   const [summary, setSummary] = useState<SummaryDto | null>(null);
   const [digs, setDigs] = useState(0);
+  /** Set once the free half is used up (lib/studio/allowance.ts): the halfway prompt replaces the Studio. */
+  const [gate, setGate] = useState<{ used: number; limit: number } | null>(null);
 
   // An answer waiting in the composer to be sent once the connection is back (spec §5.2 states:
   // "answers queue locally and sync"). Kept in memory only: nothing the applicant said is written
@@ -159,7 +179,9 @@ function Interview({
   const queued = useRef(false);
 
   const apply = useCallback((outcome: SessionOutcome) => {
-    if (outcome.error !== undefined) {
+    if (outcome.limit) {
+      setGate(outcome.limit);
+    } else if (outcome.error !== undefined) {
       setError(outcome.error);
     } else if (outcome.session) {
       setSessionId(outcome.session.id);
@@ -214,7 +236,18 @@ function Interview({
           ...fields,
         }),
       });
-      const result = (await response.json()) as { error?: string; question?: QuestionDto | null };
+      const result = (await response.json()) as {
+        error?: string;
+        code?: string;
+        question?: QuestionDto | null;
+        allowance?: { used: number; limit: number | null; left: number | null };
+      };
+      if (result.code === "studio_limit" && result.allowance?.limit != null) {
+        // Refused before it was stored, so it is kept in the composer for after an unlock.
+        if (!skip) dispatch({ type: "send-failed", text, fields });
+        setGate({ used: result.allowance.used, limit: result.allowance.limit });
+        return;
+      }
       if (!response.ok) {
         setError(result.error ?? "That answer didn't save. It's still here — try again.");
         if (!skip) dispatch({ type: "send-failed", text, fields });
@@ -225,10 +258,17 @@ function Interview({
       setQuestion(result.question ?? null);
       setDigs(result.question?.move === "DIG" ? digs + 1 : 0);
       if (result.question) setChapter(result.question.chapter);
+      const left = result.allowance?.left ?? null;
+      if (left === 0 && result.allowance?.limit != null) {
+        setGate({ used: result.allowance.used, limit: result.allowance.limit });
+        return;
+      }
       setStatus(
-        result.question
-          ? ""
-          : "That's everything we need for now. Your Dossier has the whole picture.",
+        left !== null && allowance && left <= allowance.warnAt
+          ? allowanceLine(left)
+          : result.question
+            ? ""
+            : "That's everything we need for now. Your Dossier has the whole picture.",
       );
       if (flow.mode === "write") composerRef.current?.focus();
     } catch {
@@ -311,6 +351,8 @@ function Interview({
       question={<PlainQuestion text={question?.question ?? null} waiting={waiting} />}
     />
   );
+
+  if (gate) return <StudioGate used={gate.used} limit={gate.limit} />;
 
   if (summary)
     return (
@@ -460,6 +502,8 @@ function Interview({
 
 interface SessionOutcome {
   error?: string;
+  /** The free half was already used up (a 402 "studio_limit"). */
+  limit?: { used: number; limit: number };
   session?: { id: string; chapter: ChapterId; resumed: boolean };
   question?: QuestionDto | null;
 }
@@ -472,7 +516,12 @@ async function openSession(options: { fresh?: boolean; mode?: string }): Promise
       headers: { "content-type": "application/json" },
       body: JSON.stringify({ fresh: options.fresh ?? false, mode: options.mode }),
     });
-    const result = (await response.json()) as SessionOutcome;
+    const result = (await response.json()) as SessionOutcome & {
+      code?: string;
+      allowance?: { used: number; limit: number };
+    };
+    if (result.code === "studio_limit" && result.allowance)
+      return { limit: { used: result.allowance.used, limit: result.allowance.limit } };
     if (!response.ok || !result.session)
       return { error: result.error ?? "The session didn't start. Try again." };
     return result;

@@ -409,3 +409,60 @@ html.lenis body {
     display: none;
   }
 }
+
+/* How it works, in three steps (_sections/how-it-works-lines.tsx). On wide screens one hairline
+   runs behind the three numbered stops, so the steps read as a sequence; on phones each stop has
+   its own short rule. The sheets rise 24px into place as they enter, where scroll-driven
+   animations exist; elsewhere, and under reduced motion, they are simply there. */
+.steps-rail::after {
+  content: "";
+  position: absolute;
+  inset-inline: 2.25rem 0;
+  top: 50%;
+  height: 1px;
+  background: var(--edge);
+  z-index: 0;
+}
+.steps-rail > :not([aria-hidden]) {
+  position: relative;
+  z-index: 1;
+  padding-inline: 0.5rem;
+  background: var(--space);
+}
+@media (min-width: 1024px) {
+  .steps-step:not(:last-child) .steps-rail::after {
+    inset-inline-end: -2rem;
+  }
+}
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .steps-sheet {
+      animation: steps-rise linear both;
+      animation-timeline: view();
+      animation-range: entry 0% entry 70%;
+    }
+    .steps-step:nth-child(2) .steps-sheet {
+      animation-range: entry 10% entry 80%;
+    }
+    .steps-step:nth-child(3) .steps-sheet {
+      animation-range: entry 20% entry 90%;
+    }
+    .steps-bar {
+      transform-origin: 50% 50%;
+      animation: steps-bar linear both;
+      animation-timeline: view();
+      animation-range: entry 40% cover 45%;
+    }
+  }
+}
+@keyframes steps-rise {
+  from {
+    opacity: 0;
+    translate: 0 24px;
+  }
+}
+@keyframes steps-bar {
+  from {
+    scale: 1 0.2;
+  }
+}

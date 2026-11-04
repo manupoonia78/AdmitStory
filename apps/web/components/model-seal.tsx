@@ -116,7 +116,7 @@ export function ModelSealMark({ size = 22, className }: { size?: number; classNa
   );
 }
 
-/** "Drafted by the AdmitStory model, trained on …" with the small seal. */
+/** "Drafted by the AdmitStories model, trained on …" with the small seal. */
 export function ModelCredit({
   className,
   text = MODEL_CREDIT,

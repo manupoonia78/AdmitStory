@@ -1,4 +1,4 @@
-// What the AdmitStory model is trained on (Manu, 4 Nov 2026: "we're selling a model"). Every
+// What the AdmitStories model is trained on (Manu, 4 Nov 2026: "we're selling a model"). Every
 // surface that names the model reads these strings, on the landing page and in the app, so the
 // story stays one story and changes in one place.
 //
@@ -15,7 +15,7 @@ export const ADMITTED_ESSAYS = { count: 500, inCorpus: false } as const;
 const ESSAYS = `${ADMITTED_ESSAYS.count}+ admitted MBA essays`;
 const ON = ADMITTED_ESSAYS.inCorpus;
 
-export const MODEL_NAME = "The AdmitStory model";
+export const MODEL_NAME = "The AdmitStories model";
 
 /** What it's trained on, as a phrase: "Trained on …". */
 export const TRAINED_ON = ON ? ESSAYS : "what gets people admitted";
@@ -87,4 +87,4 @@ export const MODEL_COPY = {
 } as const;
 
 /** One line under a draft, a kit or a price: who wrote it and what it knows. */
-export const MODEL_CREDIT = `Drafted by the AdmitStory model, trained on ${TRAINED_ON}`;
+export const MODEL_CREDIT = `Drafted by the AdmitStories model, trained on ${TRAINED_ON}`;
