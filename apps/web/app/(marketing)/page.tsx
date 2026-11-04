@@ -10,6 +10,7 @@ import { FinalCall } from "./_sections/final-call";
 import { HowItWorksLines } from "./_sections/how-it-works-lines";
 import { PricingSection } from "./_sections/pricing";
 import { RealScreens } from "./_sections/real-screens";
+import { SchoolsStrip } from "./_sections/schools-strip";
 import { TheModelSection } from "./_sections/the-model";
 import { WontDoSection } from "./_sections/wont-do";
 import { YourWordsSection } from "./_sections/your-words";
@@ -24,6 +25,7 @@ export default function Home() {
   return (
     <>
       <Hero /> {/* ./_hero/hero (A) */}
+      <SchoolsStrip /> {/* ./_sections/schools-strip: every school with a verified pack */}
       <FollowSection /> {/* ./_follow/follow-section (B) */}
       <HowItWorksLines /> {/* ./_sections/how-it-works-lines (C) */}
       <TheModelSection /> {/* ./_sections/the-model: what the model is trained on */}

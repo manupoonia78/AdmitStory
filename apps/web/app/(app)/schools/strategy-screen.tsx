@@ -11,7 +11,6 @@ import dynamic from "next/dynamic";
 import { createContext, useContext, useMemo, useRef, useState, type ReactNode } from "react";
 import type { StrategyRow } from "@/lib/strategy/types";
 import { AddSchools } from "./add-schools";
-import { SchoolList } from "./school-list";
 
 // Screen E (spec §5.5, §6.10 E; school workspace redesign). From top to bottom: the headline,
 // add schools, your schools as cards (a paid school opens into its tabs; the rest offer Unlock
@@ -97,7 +96,7 @@ export function StrategyScreen({
         <p className="max-w-essay text-text-soft">
           {selected.length < 2 && rows.length > 1
             ? "Pick two schools on the timeline to compare them side by side."
-            : "Deadlines in your time zone, honest flags, and the round you plan for each school."}
+            : "Deadlines in your time zone and honest flags. Choose a school's round on its preview page."}
         </p>
       </div>
 
@@ -136,8 +135,6 @@ export function StrategyScreen({
 
       {/* Rendered on the server and passed in, so their code never ships (spec §6.11). */}
       {details}
-
-      <SchoolList rows={rows} />
     </div>
   );
 }

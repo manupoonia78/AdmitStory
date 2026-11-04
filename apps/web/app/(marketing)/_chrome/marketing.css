@@ -371,3 +371,41 @@ html.lenis body {
     animation: none;
   }
 }
+
+/* The schools strip (_sections/schools-strip.tsx): one row drawn twice, slid by half its width. */
+.schools-strip {
+  overflow: hidden;
+  mask-image: linear-gradient(to right, transparent, #000 8%, #000 92%, transparent);
+}
+.schools-track {
+  animation: schools-slide 80s linear infinite;
+}
+.schools-strip:hover .schools-track,
+.schools-strip:focus-within .schools-track {
+  animation-play-state: paused;
+}
+@keyframes schools-slide {
+  to {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .schools-strip {
+    mask-image: none;
+  }
+  .schools-track {
+    animation: none;
+    display: block;
+    width: auto;
+  }
+  .schools-roll {
+    flex-wrap: wrap;
+    flex-shrink: 1;
+    justify-content: center;
+    row-gap: 1rem;
+    width: 100%;
+  }
+  .schools-roll[aria-hidden] {
+    display: none;
+  }
+}

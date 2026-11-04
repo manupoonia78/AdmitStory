@@ -5,7 +5,7 @@ import type { CheckoutClientConfig } from "@admitstory/payments/client";
 import dynamic from "next/dynamic";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useState, type ReactNode } from "react";
 import { AlertMessage, StatusMessage } from "@/components/live-message";
 import { ModelCredit } from "@/components/model-seal";
 import { INTERVIEW_COMING_SOON } from "@/lib/interview/coming-soon";
@@ -36,6 +36,8 @@ export interface UnlockScreenProps {
   available: boolean;
   paid: boolean;
   email: string;
+  /** The round and reapplicant choices, rendered on the server. */
+  setup?: ReactNode;
 }
 
 export function UnlockScreen({
@@ -46,6 +48,7 @@ export function UnlockScreen({
   available,
   paid,
   email,
+  setup,
 }: UnlockScreenProps) {
   const router = useRouter();
   const [waiting, setWaiting] = useState(paid);
@@ -122,7 +125,7 @@ export function UnlockScreen({
   return (
     <div className="mx-auto flex w-full max-w-3xl flex-col gap-8 px-4 py-8 sm:px-8 sm:py-12">
       <Link href="/schools" className="text-sm text-text-soft underline-offset-2 hover:underline">
-        Back to School Strategy
+        Your schools
       </Link>
       <header className="flex flex-col gap-3">
         <h1 className="text-display text-text">
@@ -134,6 +137,8 @@ export function UnlockScreen({
             : `Everything for ${school}${cycle ? ` ${cycle}` : ""}: every essay and short answer drafted from your stories, checked, with a Verify list. One payment, no subscription.`}
         </p>
       </header>
+
+      {!waiting ? setup : null}
 
       {!waiting ? (
         <section className="flex flex-col gap-6 border-t border-edge pt-6">
