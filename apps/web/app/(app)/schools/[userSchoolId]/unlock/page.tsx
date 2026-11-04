@@ -5,6 +5,8 @@ import { z } from "zod";
 import { requireOnboardedUser } from "@/lib/app-user";
 import { SCHOOL_KIT_PRICE_CENTS } from "@/lib/payments/server";
 import { latestPack } from "@/lib/strategy/server";
+import { loadSchoolPageFacts } from "@/lib/strategy/setup";
+import { ApplicationSetup } from "../application-setup";
 import { UnlockScreen } from "./unlock-screen";
 
 export const metadata: Metadata = { title: "Unlock School Kit" };
@@ -27,10 +29,11 @@ export default async function UnlockPage({
   const db = getDb();
   const row = await getUserSchool(db, session.user.id, id.data);
   if (!row) notFound();
-  const [kit, cycle, published] = await Promise.all([
+  const [kit, cycle, published, facts] = await Promise.all([
     getKitForUserSchool(db, session.user.id, row.id),
     getCycleWithSchool(db, row.schoolCycleId),
     latestPack(db, row.schoolCycleId),
+    loadSchoolPageFacts(session.user.id, row.id),
   ]);
   if (kit && kit.status !== "preview") redirect(`/schools/${row.id}`);
   const school = cycle?.school.shortName || cycle?.school.name || "this school";
@@ -43,6 +46,7 @@ export default async function UnlockPage({
       available={published !== null}
       paid={(await searchParams).paid === "1"}
       email={session.user.email}
+      setup={published && facts ? <ApplicationSetup setup={facts.setup} /> : null}
     />
   );
 }

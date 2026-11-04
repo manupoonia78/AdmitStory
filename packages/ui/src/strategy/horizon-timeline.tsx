@@ -23,6 +23,7 @@
 import { CheckIcon } from "@phosphor-icons/react";
 import { LayoutGroup, motion, useReducedMotion } from "motion/react";
 import {
+  useEffect,
   useId,
   useRef,
   useState,
@@ -36,9 +37,11 @@ import { REDUCED_FADE, spring } from "../motion";
 import {
   COMPARE_AT,
   horizonModel,
+  labelSlots,
   laneSummary,
   moveIndex,
   selectionAnnouncement,
+  tickLabelEvery,
   toggleSelection,
   visualOrder,
   type HorizonLane,
@@ -89,6 +92,21 @@ export function HorizonTimeline({
   const [rover, setRover] = useState<string | null>(null);
   const [announcement, setAnnouncement] = useState("");
   const laneRefs = useRef(new Map<string, HTMLLIElement>());
+  const scrollRef = useRef<HTMLDivElement>(null);
+  const [trackPx, setTrackPx] = useState(DEFAULT_TRACK_PX);
+
+  // The axis track's width, so labels can be spaced in real pixels (a lane with eleven deadlines,
+  // HEC's, would otherwise print every name on top of the next).
+  useEffect(() => {
+    const node = scrollRef.current;
+    if (!node || typeof ResizeObserver === "undefined") return;
+    const observer = new ResizeObserver(([entry]) => {
+      const width = entry?.contentRect.width ?? 0;
+      if (width > 0) setTrackPx(Math.max(160, width - NAME_COLUMN_PX));
+    });
+    observer.observe(node);
+    return () => observer.disconnect();
+  }, []);
 
   const model = horizonModel(schools, { now, timeZone, locale });
   const ids = model.lanes.map((lane) => lane.id);
@@ -159,8 +177,14 @@ export function HorizonTimeline({
         {HORIZON_HINT}
       </p>
       <LayoutGroup id={uid}>
-        <motion.div layoutScroll className="min-w-0 overflow-x-auto">
-          {comparing ? null : <HorizonAxis ticks={model.ticks} today={model.today} />}
+        <motion.div ref={scrollRef} layoutScroll className="min-w-0 overflow-x-auto">
+          {comparing ? null : (
+            <HorizonAxis
+              ticks={model.ticks}
+              today={model.today}
+              labelEvery={tickLabelEvery(model.ticks, trackPx)}
+            />
+          )}
           <ul
             role="listbox"
             aria-multiselectable="true"
@@ -218,6 +242,7 @@ export function HorizonTimeline({
                     reduced={reduced}
                     transition={transition}
                     today={model.today}
+                    trackPx={trackPx}
                   />
                 </motion.li>
               );
@@ -245,6 +270,11 @@ export function HorizonTimeline({
 }
 
 type LaneShape = "lane" | "column" | "folded";
+
+/** The track's width before it is measured. */
+const DEFAULT_TRACK_PX = 640;
+/** The name column (12rem), the gap beside it and the lane's side padding, in px. */
+const NAME_COLUMN_PX = 192 + 16 + 24;
 
 interface LanePartProps {
   lane: HorizonLane;
@@ -294,7 +324,8 @@ function LaneBody({
   reduced,
   transition,
   today,
-}: LanePartProps & { uid: string; reduced: boolean; today: number }) {
+  trackPx,
+}: LanePartProps & { uid: string; reduced: boolean; today: number; trackPx: number }) {
   const markId = (mark: HorizonMark) => (reduced ? undefined : `${uid}-${lane.id}-${mark.id}`);
 
   if (lane.pack !== "published") {
@@ -310,7 +341,9 @@ function LaneBody({
   if (shape === "folded") {
     return (
       <span className="text-sm tabular-nums text-text-soft">
-        {lane.marks.map((mark) => `${mark.short} ${mark.day}`).join(", ")}
+        {upcoming(lane.marks)
+          .map((mark) => `${mark.code} ${mark.day}`)
+          .join(", ")}
       </span>
     );
   }
@@ -339,9 +372,10 @@ function LaneBody({
     );
   }
 
+  const slots = labelSlots(lane.marks, trackPx);
   return (
     <>
-      {/* From 640px: marks on the shared axis. */}
+      {/* From 640px: marks on the shared axis, labels spaced so none overlap. */}
       <span aria-hidden="true" className="relative hidden h-10 sm:block">
         <span className="absolute inset-x-0 top-1/2 h-px bg-edge" />
         <span
@@ -349,32 +383,53 @@ function LaneBody({
           style={{ left: `${today * 100}%` }}
           data-today=""
         />
-        {lane.marks.map((mark) => (
-          <span
-            key={mark.id}
-            className="absolute top-1/2 flex -translate-x-1/2 -translate-y-1/2 flex-col items-center"
-            style={{ left: `${mark.at * 100}%` }}
-          >
-            <MarkDot mark={mark} layoutId={markId(mark)} transition={transition} />
-            <span className="absolute top-4 whitespace-nowrap text-sm tabular-nums text-text-soft">
-              {mark.short}
+        {lane.marks.map((mark, index) => {
+          const slot = slots[index] ?? "hidden";
+          return (
+            <span
+              key={mark.id}
+              title={`${mark.label}, ${mark.day}`}
+              className="absolute top-1/2 flex -translate-x-1/2 -translate-y-1/2 flex-col items-center"
+              style={{ left: `${mark.at * 100}%` }}
+            >
+              <MarkDot mark={mark} layoutId={markId(mark)} transition={transition} />
+              {slot === "hidden" ? null : (
+                <span
+                  className={cx(
+                    "absolute whitespace-nowrap text-xs tabular-nums",
+                    slot === "below" ? "top-3.5" : "bottom-3.5",
+                    mark.planned ? "font-medium text-text" : "text-text-soft",
+                  )}
+                >
+                  {mark.code}
+                </span>
+              )}
             </span>
-          </span>
-        ))}
+          );
+        })}
       </span>
       {/* Below 640px a week can't be told apart on an axis: the rounds are dated items. */}
       <span
         aria-hidden="true"
         className="flex flex-col text-sm tabular-nums text-text-soft sm:hidden"
       >
-        {lane.marks.map((mark) => (
+        {upcoming(lane.marks).map((mark) => (
           <span key={mark.id}>
-            {mark.short} {mark.day}, {mark.daysLeftText}
+            {mark.code} {mark.day}, {mark.daysLeftText}
           </span>
         ))}
       </span>
     </>
   );
+}
+
+/**
+ * The rounds worth listing in words: the ones still to come (and the planned one), or every round
+ * when all have passed. A school with eleven deadlines would otherwise fill the lane with history.
+ */
+function upcoming(marks: readonly HorizonMark[]): readonly HorizonMark[] {
+  const ahead = marks.filter((mark) => !mark.past || mark.planned);
+  return ahead.length > 0 ? ahead : marks;
 }
 
 /** A round's mark. With a layoutId it travels from the axis into the column's list. */

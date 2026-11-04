@@ -36,11 +36,13 @@ export interface HorizonAxisProps {
   ticks: readonly MonthTick[];
   /** Today, 0 to 1 along the axis. */
   today: number;
+  /** Label every nth month (the first always), so crowded months never overlap. Default 1. */
+  labelEvery?: number;
   className?: string;
 }
 
 /** Month ticks and the "Today" label above the lanes. Decorative: every date is also in words. */
-export function HorizonAxis({ ticks, today, className }: HorizonAxisProps) {
+export function HorizonAxis({ ticks, today, labelEvery = 1, className }: HorizonAxisProps) {
   return (
     <div
       aria-hidden="true"
@@ -48,13 +50,17 @@ export function HorizonAxis({ ticks, today, className }: HorizonAxisProps) {
     >
       <span />
       <span className="relative h-full border-b border-edge">
-        {ticks.map((tick) => (
+        {ticks.map((tick, index) => (
           <span
             key={`${tick.at}-${tick.label}`}
-            className="absolute bottom-1 whitespace-nowrap text-sm tabular-nums text-text-soft"
+            className="absolute bottom-0 h-2 w-px bg-edge"
             style={{ left: `${tick.at * 100}%` }}
           >
-            {tick.label}
+            {index % labelEvery === 0 ? (
+              <span className="absolute bottom-2.5 left-1 whitespace-nowrap text-sm tabular-nums text-text-soft">
+                {tick.label}
+              </span>
+            ) : null}
           </span>
         ))}
         <span

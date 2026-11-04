@@ -5,7 +5,7 @@ import type { StrategyRow } from "@/lib/strategy/types";
 // "Your schools" (school workspace redesign): one card per school on the list. A school you've
 // paid for opens straight into its tabs (essays, application, video, recommenders, résumé). One
 // you haven't shows its next deadline and what it asks for, with Unlock and a free preview. No
-// controls here: rounds and reapplicant details live in the planning section below.
+// controls here: the round and reapplicant choices live on the school's preview and unlock pages.
 
 type CardState = "ready" | "building" | "failed" | "locked" | "coming_soon";
 
