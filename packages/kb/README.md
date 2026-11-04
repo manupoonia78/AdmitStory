@@ -44,6 +44,11 @@ implements the `ChunkStore` contract, and the admin console and kit pipeline cal
   words). The admin review screen imports them; `_todo` lists what is still unconfirmed.
   `pnpm --filter @admitstory/kb exec tsx scripts/validate-drafts.ts [slug…]` checks each against the
   schema and reports its compiled size.
+- `scripts/packs/` builds those drafts: one Python spec per school in `specs/`, using
+  `packlib.py`. Edit a spec, run `python3 scripts/packs/specs/<school>.py`, then
+  `prettier --write knowledge/schools` and validate. `packlib.py` stamps `verified_at` with its
+  `TODAY`, so move that date forward when you re-check sources. The ApplicantLab source text isn't
+  in the repo; the specs hold our rewrites only.
 - `fixtures/drafts/darden-appendix-g/pack.draft.json` keeps the original Appendix G draft, with nothing
   verified, for the schema and compiler tests.
 - `fixtures/schools/<slug>/pack.json` holds six fictional, complete packs for the eval harness.
