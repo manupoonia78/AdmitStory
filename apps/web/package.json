@@ -12,6 +12,7 @@
     "lighthouse": "tsx scripts/lighthouse.ts",
     "bundle:check": "tsx scripts/bundle-size.ts",
     "seed:fixtures": "tsx scripts/seed-fixture-schools.ts",
+    "packs:publish": "tsx scripts/publish-school-packs.ts",
     "marketing:sample": "tsx scripts/marketing-sample.ts",
     "capture:screens": "tsx scripts/capture-marketing-screens.ts",
     "routes:audit": "tsx scripts/routes-audit.ts"
