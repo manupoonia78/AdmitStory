@@ -35,7 +35,9 @@ export function serviceChecks(env: Record<string, string | undefined>): ServiceC
       service: "Anthropic (AI_MODE=live)",
       status: aiLive ? "live" : "fake",
       detail: "AI_MODE=live + ANTHROPIC_API_KEY (else replay fixtures)",
-      required: true,
+      // Not blocking (2026-11-04): without a key, AI features fail per request (no fixture
+      // matches real input) instead of the whole app refusing to boot.
+      required: false,
     },
     {
       service: "Voyage embeddings",
@@ -64,7 +66,9 @@ export function serviceChecks(env: Record<string, string | undefined>): ServiceC
           ? "live"
           : "fake",
       detail: "PADDLE_API_KEY + PADDLE_WEBHOOK_SECRET + PADDLE_CLIENT_TOKEN",
-      required: true,
+      // Not blocking (2026-11-04): the fake provider refuses non-localhost hosts, so checkout
+      // shows as unavailable until the keys are set (packages/payments/src/select.ts).
+      required: false,
     },
     {
       service: "Deepgram dictation",
