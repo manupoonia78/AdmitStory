@@ -14,10 +14,11 @@ const hanken = Hanken_Grotesk({
   variable: "--font-hanken",
 });
 
-// Every page title is set in it, so it is preloaded. Optical-size axis, roman and italic.
+// Every page title is set in it, so it is preloaded: roman and italic, weight axis only. The
+// optical-size axis more than doubled the files (279 KB to 123 KB for the pair), which is most of
+// what a first visit waited on before the hero could paint in its own face.
 const newsreader = Newsreader({
   subsets: ["latin"],
-  axes: ["opsz"],
   style: ["normal", "italic"],
   display: "swap",
   variable: "--font-newsreader",

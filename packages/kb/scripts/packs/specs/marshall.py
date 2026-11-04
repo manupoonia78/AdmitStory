@@ -2,7 +2,7 @@ import os, sys; sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..")
 from packlib import Pack
 
 P = Pack("usc-marshall", "USC Marshall School of Business", "Marshall", "US", "Los Angeles, CA", "https://www.marshall.usc.edu")
-AL = "Paid coaching platform material (ApplicantLab). Private reference; items are Admitstory rewrites approved by Manu 2026-11-04 (§9.6). Never name or quote."
+AL = "Paid coaching platform material (ApplicantLab). Private reference; items are AdmitStories rewrites approved by Manu 2026-11-04 (§9.6). Never name or quote."
 F = "https://www.marshall.usc.edu/programs/graduate-programs/mba-programs/full-time-mba"
 P.source("marshall-admissions", "official", "USC Marshall Full-Time MBA: Admissions (requirements, deadlines, FAQ)", F + "/admissions")
 P.source("marshall-profile", "official", "USC Marshall Full-Time MBA: Class profile (entering 2025) and Class of 2025 outcomes", F + "/class-profile")
@@ -11,7 +11,7 @@ P.source("marshall-global", "official", "USC Marshall: Global opportunities (PRI
 P.source("mbamission-marshall-2026", "press", "mbaMission: USC Marshall essay tips 2026-2027 (Aug 17, 2026), quoting the prompts", "https://www.mbamission.com/blog/how-to-get-into-marshall-school-of-business-usc-marshall-essay-tips-and-examples/")
 P.source("ca-marshall-reports", "interview_reports", "Clear Admit USC Marshall interview reports", "https://www.clearadmit.com/interview-reports/usc-marshall-interview-questions-report-round-1-adcom-zoom/", read=False)
 P.source("al-marshall", "third_party_reference", "ApplicantLab — USC Marshall school tab", None, rights=AL)
-P.source("admitstory-coach", "coach_notes", "Admitstory coaching canon and Manu's storytelling rules", None)
+P.source("admitstory-coach", "coach_notes", "AdmitStories coaching canon and Manu's storytelling rules", None)
 
 P.url("prompts", F + "/admissions"); P.url("deadlines", F + "/admissions"); P.url("class_profile", F + "/class-profile")
 

@@ -30,6 +30,9 @@ export const RATE_LIMITS = {
   accountDelete: { limit: 5, windowMs: 60 * 60_000 },
   feedback: { limit: 20, windowMs: 60 * 60_000 },
   privacyPrefs: { limit: 30, windowMs: 60 * 60_000 },
+  /** Connect (2026-11-04): directory searches and messages. */
+  connectSearch: { limit: 60, windowMs: 60_000 },
+  connectMessages: { limit: 20, windowMs: 60_000 },
 } as const satisfies Record<string, RateLimit>;
 
 const TOO_FAST = "That's faster than we can keep up with. Try again in a moment.";

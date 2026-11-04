@@ -124,7 +124,11 @@ export function Dock({
           "lg:static lg:h-auto lg:flex-col lg:items-stretch lg:gap-3 lg:border-0 lg:bg-transparent lg:px-3 lg:pb-2 lg:pt-5 lg:backdrop-blur-none",
         )}
       >
-        <Link href="/home" className="rounded-control lg:mb-3 lg:px-2" aria-label="AdmitStory home">
+        <Link
+          href="/home"
+          className="rounded-control lg:mb-3 lg:px-2"
+          aria-label="AdmitStories home"
+        >
           <Wordmark size={22} />
         </Link>
         <Link

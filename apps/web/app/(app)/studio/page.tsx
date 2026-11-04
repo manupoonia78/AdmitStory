@@ -4,8 +4,10 @@ import { VoiceprintStill, paramsFromIdentity, voiceHueStyle } from "@admitstory/
 import type { Metadata } from "next";
 import { redirect } from "next/navigation";
 import { requireOnboardedUser } from "@/lib/app-user";
+import { STUDIO_ALLOWANCE_WARNING, answersLeft, studioAllowance } from "@/lib/studio/allowance";
 import { loadKnowledge } from "@/lib/studio/state";
 import { remainingVoiceSeconds, voiceSettingsOf } from "@/lib/voice/server";
+import { StudioGate } from "./studio-gate";
 import { StudioScreen } from "./studio-screen";
 import { toCard } from "./types";
 
@@ -25,12 +27,17 @@ export default async function StudioPage() {
 
   const userId = session.user.id;
   const db = getDb();
-  const [knowledge, open, stories, remainingSeconds] = await Promise.all([
+  const [knowledge, open, stories, remainingSeconds, allowance] = await Promise.all([
     loadKnowledge(userId),
     getResumableSession(db, userId),
     listStories(db, userId),
     remainingVoiceSeconds(userId),
+    studioAllowance(userId),
   ]);
+  // The free half is used up (lib/studio/allowance.ts): the halfway prompt instead of a question.
+  const left = answersLeft(allowance);
+  if (left === 0 && allowance.limit !== null)
+    return <StudioGate used={allowance.used} limit={allowance.limit} />;
   const identity = profile.voiceprint ?? DEFAULT_IDENTITY;
 
   return (
@@ -72,6 +79,11 @@ export default async function StudioPage() {
         )}
       initialCoverage={knowledge.coverage}
       initialFactCount={knowledge.factCount}
+      allowance={
+        allowance.limit === null
+          ? null
+          : { limit: allowance.limit, left: left ?? 0, warnAt: STUDIO_ALLOWANCE_WARNING }
+      }
     />
   );
 }

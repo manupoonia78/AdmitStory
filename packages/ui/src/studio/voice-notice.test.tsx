@@ -6,7 +6,7 @@ import { VoiceNotice } from "./voice-notice";
 
 const ASK = {
   tone: "info" as const,
-  message: "Admitstory needs your microphone to hear your answers.",
+  message: "AdmitStories needs your microphone to hear your answers.",
 };
 
 describe("VoiceNotice", () => {

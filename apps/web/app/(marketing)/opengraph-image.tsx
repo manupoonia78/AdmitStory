@@ -12,7 +12,7 @@ import { THEME_COLORS, paramsFromIdentity, voiceHueAt, voiceprintStillSvg } from
 import { ImageResponse } from "next/og";
 import { SAMPLE_IDENTITY } from "./_data/sample";
 
-export const alt = "AdmitStory: say one thing about yourself.";
+export const alt = "AdmitStories: say one thing about yourself.";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 

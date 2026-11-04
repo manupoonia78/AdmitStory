@@ -73,10 +73,10 @@ describe("splitAnswers", () => {
 
 describe("microphoneMessage", () => {
   it("uses the spec's permission and denied copy with the product name", () => {
-    expect(microphoneMessage("idle", "AdmitStory")).toBe(
-      "AdmitStory needs your microphone to hear your answers. Audio is turned into text and not kept unless you choose to.",
+    expect(microphoneMessage("idle", "AdmitStories")).toBe(
+      "AdmitStories needs your microphone to hear your answers. Audio is turned into text and not kept unless you choose to.",
     );
-    expect(microphoneMessage("denied", "AdmitStory")).toBe(
+    expect(microphoneMessage("denied", "AdmitStories")).toBe(
       "Microphone is blocked in your browser settings. You can keep going by typing.",
     );
   });
@@ -90,7 +90,7 @@ describe("microphoneMessage", () => {
       "unsupported",
       "error",
     ] as const) {
-      expect(microphoneMessage(status, "AdmitStory")).not.toMatch(/!|Oops|Something went wrong/);
+      expect(microphoneMessage(status, "AdmitStories")).not.toMatch(/!|Oops|Something went wrong/);
     }
   });
 });

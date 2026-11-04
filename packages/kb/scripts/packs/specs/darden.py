@@ -2,7 +2,7 @@ import os, sys; sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..")
 from packlib import Pack
 
 P = Pack("uva-darden", "University of Virginia Darden School of Business", "Darden", "US", "Charlottesville, VA", "https://www.darden.virginia.edu")
-AL = "Paid coaching platform material (ApplicantLab). Private reference; items are Admitstory rewrites approved by Manu 2026-11-04 (§9.6). Never name or quote."
+AL = "Paid coaching platform material (ApplicantLab). Private reference; items are AdmitStories rewrites approved by Manu 2026-11-04 (§9.6). Never name or quote."
 B = "https://www.darden.virginia.edu"
 P.source("darden-guidelines", "official", "Darden Full-Time MBA: Application guidelines (format, video essay, recommendation, resume, tests, fee)", B + "/mba/admissions/apply/guidelines")
 P.source("darden-deadlines", "official", "Darden Full-Time MBA: Deadlines (Class of 2029)", B + "/mba/admissions/apply/deadlines")
@@ -18,7 +18,7 @@ P.source("darden-blog-video", "adcom", "Darden admissions blog: How to approach 
 P.source("darden-blog-dean", "official", "Darden blog: Why Darden — Dean Yael Grushka-Cockayne discusses our next chapter (Oct 22, 2026)", B + "/programs/blog/why-darden-dean-yael-grushka-cockayne-discusses-our-next-chapter")
 P.source("sb-darden-2026", "press", "Stacy Blackman: Darden MBA Essays for the Class of 2029 (Jun 30, 2026), quoting Darden's 2026-27 application preview", "https://www.stacyblackman.com/blog/university-virginia-darden-mba-essays/")
 P.source("al-darden", "third_party_reference", "ApplicantLab — Darden school tab", None, rights=AL)
-P.source("admitstory-coach", "coach_notes", "Admitstory coaching canon and Manu's storytelling rules", None)
+P.source("admitstory-coach", "coach_notes", "AdmitStories coaching canon and Manu's storytelling rules", None)
 
 P.url("prompts", B + "/mba/admissions/apply/guidelines"); P.url("deadlines", B + "/mba/admissions/apply/deadlines")
 P.url("class_profile", B + "/mba/admissions/class-profile"); P.url("employment_report", B + "/mba/career-support/employment-data")

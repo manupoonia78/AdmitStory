@@ -1,7 +1,7 @@
 # Phase 4: Payments, the kit pipeline and the Workspace
 
 Built 31 October – 1 November 2026 on branch `phase-0`, together with Phase 3 (see
-`docs/phase-3.md`). Spec: `AdmitStory_Build_Spec.md`, §16 Phase 4, with §5.6–5.9, §6.7, §6.9,
+`docs/phase-3.md`). Spec: `AdmitStories_Build_Spec.md`, §16 Phase 4, with §5.6–5.9, §6.7, §6.9,
 §6.10 (screens F and G), §7.4, §8.3, §8.5.5–8.5.11, §8.6–8.8, §8.10, §10, §11, §12.2, §12.4, §13,
 §14.2 and Appendices I and J.
 

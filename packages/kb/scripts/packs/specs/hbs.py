@@ -2,7 +2,7 @@ import os, sys; sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..")
 from packlib import Pack
 
 P = Pack("harvard-business-school", "Harvard Business School", "HBS", "US", "Boston, MA", "https://www.hbs.edu")
-AL = "Paid coaching platform material (ApplicantLab). Private reference; items are Admitstory rewrites approved by Manu 2026-11-04 (§9.6). Never name or quote."
+AL = "Paid coaching platform material (ApplicantLab). Private reference; items are AdmitStories rewrites approved by Manu 2026-11-04 (§9.6). Never name or quote."
 H = "https://www.hbs.edu/mba/admissions"
 P.source("hbs-process", "official", "HBS MBA: Application process (essays, recommendations, resume, tests, interview, post-interview reflection, FAQs)", H + "/application-process")
 P.source("hbs-dates", "official", "HBS MBA: Application dates (Class of 2029)", H + "/application-dates")
@@ -12,7 +12,7 @@ P.source("hbs-portal", "official", "HBS online application (applicant portal; no
 P.source("ca-hbs-2025", "press", "Clear Admit: HBS MBA Class of 2025 employment report (Dec 1, 2025)", "https://www.clearadmit.com/2025/12/hbs-mba-class-of-2025-employment-report/")
 P.source("pq-ai-2026", "press", "Poets&Quants (Fortuna, May 26, 2026): AI policies at top MBA programs, quoting each school's application materials", "https://poetsandquants.com/2026/05/26/the-mba-applicants-guide-to-ai-in-2026-whats-allowed-whats-risky-and-what-to-avoid/")
 P.source("al-hbs", "third_party_reference", "ApplicantLab — HBS school tab", None, rights=AL)
-P.source("admitstory-coach", "coach_notes", "Admitstory coaching canon and Manu's storytelling rules", None)
+P.source("admitstory-coach", "coach_notes", "AdmitStories coaching canon and Manu's storytelling rules", None)
 
 P.url("prompts", H + "/application-process"); P.url("deadlines", H + "/application-dates")
 P.url("class_profile", H + "/class-profile")

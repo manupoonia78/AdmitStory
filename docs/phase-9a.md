@@ -1,6 +1,6 @@
 # Phase 9a: the marketing site
 
-Built 2 and 3 November 2026 in the worktree `../AdmitStory-marketing` (branch `marketing-site`)
+Built 2 and 3 November 2026 in the worktree `../AdmitStories-marketing` (branch `marketing-site`)
 and applied to the main tree as `marketing.patch`. The direction is
 `docs/design/marketing-direction.md` and the plan is `docs/plans/marketing-plan.md` (both carry
 the launch-scope override at the top: interview practice is "Coming soon", and Phase 8 isn't sold).

@@ -20,7 +20,7 @@ import type { RunContext, TaskInput } from "../../src";
 import { findRepoRoot } from "../../src/paths";
 
 const root = findRepoRoot(process.cwd());
-if (!root) throw new Error("Run from inside the AdmitStory repo");
+if (!root) throw new Error("Run from inside the AdmitStories repo");
 
 /** L1: the Halvorsen pack as compiled for cycle 2026-27 (see the module comment). */
 export const HALVORSEN_PACK = readFileSync(

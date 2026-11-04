@@ -15,7 +15,7 @@
 # Implementation plan: the marketing site (Phase 9a)
 
 Written 2 November 2026 for the `marketing-site` branch in the worktree
-`/Users/manu/Desktop/AdmitStory-marketing`. It turns `docs/design/marketing-direction.md` (the
+`/Users/manu/Desktop/AdmitStories-marketing`. It turns `docs/design/marketing-direction.md` (the
 brief, called **the direction** below) into work that can be built. The spec references are
 §6 (design system), §6.7, §6.11, §6.13, §13, §14.5 and §14.7, and §16 Phase 9.
 
@@ -62,12 +62,12 @@ Order of work:
 
 Checked on npm on 2 November 2026:
 
-| Package                                                                  | Version (exact)                                       | Licence                                                                                                                                                                                                                                                                                                                       | Size (min + gzip -9)                                    | Decision                                                                                                                                                                                      |
-| ------------------------------------------------------------------------ | ----------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `gsap`                                                                   | **3.15.0** (latest; published 13 Apr 2026)            | GSAP "Standard 'no charge' license" (gsap.com/standard-license, re-read 2 Nov 2026). Free for commercial use, all plugins included (ScrollTrigger, SplitText). The one restriction is on tools that let users build no-code visual animations competing with Webflow. AdmitStory isn't one. Record this in `docs/decisions/`. | core 27.7 KB, ScrollTrigger 17.6 KB, SplitText 3.6 KB   | **Add** to `apps/web` dependencies. Import `gsap`, `gsap/ScrollTrigger` and `gsap/SplitText` only inside `_follow/follow-sequence.ts`.                                                        |
-| `lenis`                                                                  | **1.3.27** (latest; 15 Oct 2026). Skip `2.0.0-dev.*`. | MIT                                                                                                                                                                                                                                                                                                                           | about 5 KB gz minified (8 KB for the unminified `.mjs`) | **Add** to `apps/web`. Import `lenis` (the core, not `lenis/react`) only inside `_motion/smooth-scroll.ts`. Its peer dependencies (react, vue, @nuxt/kit) are all optional.                   |
-| `@gsap/react`                                                            | 2.1.2 (verified; peer `gsap ^3.12.5`)                 | GSAP standard licence                                                                                                                                                                                                                                                                                                         | about 1 KB                                              | **Not added.** The pinned sequence drives existing server-rendered DOM from a plain module (`gsap.matchMedia()` and `ctx.revert()` in an effect's cleanup), so no React tree needs `useGSAP`. |
-| `motion`, `ogl`, `detect-gpu`, `@marsidev/react-turnstile`, `posthog-js` | installed                                             | —                                                                                                                                                                                                                                                                                                                             | —                                                       | Reused. The hero loads Turnstile's `api.js` itself rather than through `@marsidev/react-turnstile`, to keep that wrapper out of the hero chunk.                                               |
+| Package                                                                  | Version (exact)                                       | Licence                                                                                                                                                                                                                                                                                                                         | Size (min + gzip -9)                                    | Decision                                                                                                                                                                                      |
+| ------------------------------------------------------------------------ | ----------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `gsap`                                                                   | **3.15.0** (latest; published 13 Apr 2026)            | GSAP "Standard 'no charge' license" (gsap.com/standard-license, re-read 2 Nov 2026). Free for commercial use, all plugins included (ScrollTrigger, SplitText). The one restriction is on tools that let users build no-code visual animations competing with Webflow. AdmitStories isn't one. Record this in `docs/decisions/`. | core 27.7 KB, ScrollTrigger 17.6 KB, SplitText 3.6 KB   | **Add** to `apps/web` dependencies. Import `gsap`, `gsap/ScrollTrigger` and `gsap/SplitText` only inside `_follow/follow-sequence.ts`.                                                        |
+| `lenis`                                                                  | **1.3.27** (latest; 15 Oct 2026). Skip `2.0.0-dev.*`. | MIT                                                                                                                                                                                                                                                                                                                             | about 5 KB gz minified (8 KB for the unminified `.mjs`) | **Add** to `apps/web`. Import `lenis` (the core, not `lenis/react`) only inside `_motion/smooth-scroll.ts`. Its peer dependencies (react, vue, @nuxt/kit) are all optional.                   |
+| `@gsap/react`                                                            | 2.1.2 (verified; peer `gsap ^3.12.5`)                 | GSAP standard licence                                                                                                                                                                                                                                                                                                           | about 1 KB                                              | **Not added.** The pinned sequence drives existing server-rendered DOM from a plain module (`gsap.matchMedia()` and `ctx.revert()` in an effect's cleanup), so no React tree needs `useGSAP`. |
+| `motion`, `ogl`, `detect-gpu`, `@marsidev/react-turnstile`, `posthog-js` | installed                                             | —                                                                                                                                                                                                                                                                                                                               | —                                                       | Reused. The hero loads Turnstile's `api.js` itself rather than through `@marsidev/react-turnstile`, to keep that wrapper out of the hero chunk.                                               |
 
 Install with `pnpm --filter @admitstory/web add gsap@3.15.0 lenis@1.3.27 --save-exact` (Foundation
 only). The combined follow chunk (GSAP core, ScrollTrigger, SplitText, Lenis and our code) is
@@ -148,8 +148,8 @@ Underscore folders are private in the App Router, so none of them become routes.
   `generateViewport()` returns `themeColors(pref, { immersive: true })`.
 - **Metadata.** `robots: { index: true, follow: true }` overrides the root's noindex.
   `metadataBase: siteUrl()`. Each page sets `alternates.canonical`. The `/` title is absolute:
-  "AdmitStory: your MBA application, in your own words". The other pages use the root template
-  (`%s | AdmitStory`).
+  "AdmitStories: your MBA application, in your own words". The other pages use the root template
+  (`%s | AdmitStories`).
 - **Structure.** `SkipLink` (server-safe), `<SiteNav/>`, `<main id="main">` holding the page in a
   `<ViewTransition>` (the `route` class, cross-fade on glide), `<SiteFooter/>`, then
   `<OrganizationJsonLd/>`, `<ViewTransitionStyles/>` plus the marketing VT rule
@@ -225,7 +225,7 @@ line), so `saveFirstLine` refuses it.
 - `JsonLd`: `<script type="application/ld+json">` with `JSON.stringify(...).replace(/</g, "\\u003c")`.
 - `AiPolicyTable`: a server component. Props: `rows` (from `public-data.ts`), `limit?`,
   `variant: "compact" | "full"`. It returns **null** when `rows` is empty. Full adds "What
-  AdmitStory does" (Draft mode, Coach mode or Disclosure helper, mapped from the stance as in
+  AdmitStories does" (Draft mode, Coach mode or Disclosure helper, mapped from the stance as in
   `packages/ui` `AUTHORSHIP_ORDER` and `modeExplanation`) and the school's own link.
 - `Deferred` (client, `_ui/deferred.tsx`): see 3.4.
 
@@ -597,7 +597,7 @@ and "Keeping the line") and §10. This plan's §0 (F2, F4–F8), §3.2, §3.4–
      readers. It's the LCP element: no animation, opacity or transform at first paint, ever.
    - **Subline.** Newsreader 21/32 (19/32 on phones), `--text-soft`.
    - **`<HeroStage/>`** (below).
-   - **Margin note.** Bottom-right, 13 px: "Scroll to follow one sentence through AdmitStory".
+   - **Margin note.** Bottom-right, 13 px: "Scroll to follow one sentence through AdmitStories".
    - **Sentinel.** `<div id="hero-end">` at the bottom edge (the nav compacts after it).
    - **Phone layout.** The record control is a full-width 56 px bar with the circle on its left,
      then "Play a sample" and "Write instead" side by side, all in the thumb zone.
@@ -648,7 +648,7 @@ and "Keeping the line") and §10. This plan's §0 (F2, F4–F8), §3.2, §3.4–
 4. **`_hero/hero-demo.ts` (`import()` inside the Speak handler).** Implements this plan's §4
    client side.
    - **Explainer.** The plane opens under the button (its height is reserved) with the §6.9 copy,
-     cased "AdmitStory", and the buttons "Allow microphone" and "Write instead".
+     cased "AdmitStories", and the buttons "Allow microphone" and "Write instead".
    - **Microphone.** `getUserMedia` is called only after "Allow microphone".
    - **Turnstile.** Load the explicit-render script yourself, in the explainer, with action
      `hero_demo`. Skip it when `process.env.TURNSTILE_SITE_KEY` is empty.

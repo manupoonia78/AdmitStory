@@ -24,7 +24,7 @@ export const OutgoingEmail = z.object({
   /** Where replies go (Phase 6: a recommender's reply reaches the applicant directly). */
   replyTo: z.email().optional(),
   /**
-   * The From display name, e.g. "Asha Varma via AdmitStory". The address stays EMAIL_FROM's
+   * The From display name, e.g. "Asha Varma via AdmitStories". The address stays EMAIL_FROM's
    * (decision 3), so only the name changes.
    */
   fromName: z
@@ -78,7 +78,7 @@ function slug(value: string): string {
     .slice(0, 80);
 }
 
-/** EMAIL_FROM with its display name replaced: `"Asha via AdmitStory" <hello@…>`. */
+/** EMAIL_FROM with its display name replaced: `"Asha via AdmitStories" <hello@…>`. */
 export function fromWithName(from: string, name: string | undefined): string {
   if (!name) return from;
   const address = /<([^>]+)>/.exec(from)?.[1]?.trim() ?? from.trim();

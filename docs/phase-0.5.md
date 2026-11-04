@@ -1,6 +1,6 @@
 # Phase 0.5: Look and feel prototype
 
-Built 29–30 October 2026 on branch `phase-0`. Spec: `AdmitStory_Build_Spec.md`, §16 Phase 0.5,
+Built 29–30 October 2026 on branch `phase-0`. Spec: `AdmitStories_Build_Spec.md`, §16 Phase 0.5,
 against the revised §6 design system (Night/Day, Geist, the dock, `motion.ts`, the Voiceprint).
 
 Phase 0 was built on the earlier §6 (paper/ink, Schibsted Grotesk, a left rail). The spec was

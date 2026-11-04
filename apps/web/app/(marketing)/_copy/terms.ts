@@ -36,7 +36,7 @@ export const TERMS_SECTIONS: readonly LegalSection[] = [
     summary:
       "You confirm that everything you tell us, and everything you submit, describes your own experiences truthfully.",
     body: [
-      "AdmitStory drafts from what you tell it and never invents a story, a number or a quote. That only works if what you tell it is true.",
+      "AdmitStories drafts from what you tell it and never invents a story, a number or a quote. That only works if what you tell it is true.",
       "You're responsible for checking every draft before you use it, and for everything you submit to a school.",
     ],
   },
@@ -46,7 +46,7 @@ export const TERMS_SECTIONS: readonly LegalSection[] = [
     summary:
       "We show each school’s AI policy and help you follow it. Submitting within the rules is your responsibility.",
     body: [
-      "Where a school limits or forbids AI-written answers, AdmitStory coaches instead of drafting. Where a school asks you to disclose AI help, it drafts an honest disclosure for you to edit.",
+      "Where a school limits or forbids AI-written answers, AdmitStories coaches instead of drafting. Where a school asks you to disclose AI help, it drafts an honest disclosure for you to edit.",
       "Schools change their rules. We check each school’s policy every cycle and show the date we checked it, but the school’s own rules are the ones that count.",
     ],
   },
@@ -55,7 +55,7 @@ export const TERMS_SECTIONS: readonly LegalSection[] = [
     title: "Recommenders write their own letters",
     summary: "Briefs help them. The letter is theirs.",
     body: [
-      "AdmitStory prepares briefs for your recommenders and a private page for each of them. It never writes a recommendation letter, and you must not write or edit one on a recommender’s behalf.",
+      "AdmitStories prepares briefs for your recommenders and a private page for each of them. It never writes a recommendation letter, and you must not write or edit one on a recommender’s behalf.",
       "Invite only people who have agreed to recommend you.",
     ],
   },
@@ -65,7 +65,7 @@ export const TERMS_SECTIONS: readonly LegalSection[] = [
     summary:
       "We don’t guarantee admission, interviews or scholarships, and we don’t estimate your odds.",
     body: [
-      "Admissions decisions are made by schools. Nothing in AdmitStory is a prediction of, or a promise about, any outcome.",
+      "Admissions decisions are made by schools. Nothing in AdmitStories is a prediction of, or a promise about, any outcome.",
     ],
   },
   {
@@ -75,8 +75,8 @@ export const TERMS_SECTIONS: readonly LegalSection[] = [
       "Your stories, transcripts and drafts are yours. You give us the licence we need to process them for you, and nothing more.",
     body: [
       "You keep every right in what you tell us and in the drafts we make with you.",
-      "You give us a licence to store and process that content only to provide AdmitStory to you. It ends when you delete the content or your account.",
-      "The AdmitStory software, design and name are ours.",
+      "You give us a licence to store and process that content only to provide AdmitStories to you. It ends when you delete the content or your account.",
+      "The AdmitStories software, design and name are ours.",
     ],
   },
   {
@@ -92,12 +92,12 @@ export const TERMS_SECTIONS: readonly LegalSection[] = [
   {
     id: "acceptable-use",
     title: "Acceptable use",
-    summary: "Use AdmitStory for your own application, honestly and gently.",
+    summary: "Use AdmitStories for your own application, honestly and gently.",
     body: [
       {
         list: [
           "Don’t upload other people’s essays as your own.",
-          "Don’t scrape, copy or resell AdmitStory or its content.",
+          "Don’t scrape, copy or resell AdmitStories or its content.",
           "Don’t misuse the voice features, for example by recording someone without their consent.",
           "Don’t try to break, overload or get around the security of the service.",
         ],
@@ -110,8 +110,8 @@ export const TERMS_SECTIONS: readonly LegalSection[] = [
     title: "Availability, liability, termination, governing law",
     summary: "The legal small print, which counsel is finishing.",
     body: [
-      "We work to keep AdmitStory available but can’t promise it will never be interrupted.",
-      "You can stop using AdmitStory and delete your account at any time from Settings.",
+      "We work to keep AdmitStories available but can’t promise it will never be interrupted.",
+      "You can stop using AdmitStories and delete your account at any time from Settings.",
       `${LIABILITY_TERMS}.`,
       `${GOVERNING_LAW}.`,
       `Questions about these terms: ${HELLO_EMAIL}.`,

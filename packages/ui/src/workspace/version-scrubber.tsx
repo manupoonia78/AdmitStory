@@ -34,7 +34,7 @@ export interface VersionScrubberProps {
 const CROSSFADE = { duration: 0.24, ease: "linear" } as const;
 
 function versionName(version: DraftVersion): string {
-  const who = version.author === "user" ? "your edits" : "Admitstory";
+  const who = version.author === "user" ? "your edits" : "AdmitStories";
   return `v${version.number}, ${version.label ?? who}, ${verifiedDate(version.createdAt)}`;
 }
 

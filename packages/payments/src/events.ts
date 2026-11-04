@@ -33,7 +33,7 @@ type Owner = { userId: string; schoolCycleId: string; productKey: ProductKey };
 /** Our custom data, or why the transaction can't be attributed to a user and school. */
 function ours(transaction: TransactionData): Owner | { problem: string } {
   const custom = OurCustomData.safeParse(transaction.custom_data ?? {});
-  if (!custom.success) return { problem: "has no AdmitStory custom data" };
+  if (!custom.success) return { problem: "has no AdmitStories custom data" };
   const product = parseProductKey(custom.data.product_key);
   // A product key that disagrees with its own school cycle means the data was edited after we
   // created the transaction; refuse it rather than grant the wrong school.

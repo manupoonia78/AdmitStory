@@ -6,10 +6,10 @@ import { APP_NAME } from "@admitstory/shared/brand";
 import type { Metadata } from "next";
 import type { MarketingRoute } from "@/lib/marketing/routes";
 
-/** The landing page's title, used as is (not through the "%s | AdmitStory" template). */
+/** The landing page's title, used as is (not through the "%s | AdmitStories" template). */
 export const HOME_TITLE = `${APP_NAME}: your MBA application, in your own words`;
 export const HOME_DESCRIPTION =
-  "Talk about your life and work, and AdmitStory turns it into your MBA application, school by school, in your own words.";
+  "Talk about your life and work, and AdmitStories turns it into your MBA application, school by school, in your own words.";
 
 export interface PageMetadataInput {
   /** A page title ("Pricing"), or `{ absolute }` for the landing page. */

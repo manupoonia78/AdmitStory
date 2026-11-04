@@ -15,6 +15,12 @@ import { RATE_LIMITS, checkRateLimit, handle, notFound, readJson, requireUser } 
 import { ai } from "@/lib/ai";
 import { LanguageTag, MAX_VOICE_SECONDS_PER_ANSWER } from "@/lib/voice/schemas";
 import { meterDictation, voiceSettingsOf } from "@/lib/voice/server";
+import {
+  answersLeft,
+  studioAllowance,
+  studioLimitError,
+  studioLimitReached,
+} from "@/lib/studio/allowance";
 import { extractFromAnswer } from "@/lib/studio/extract";
 import { loadKnowledge } from "@/lib/studio/state";
 import {
@@ -91,9 +97,16 @@ export async function POST(request: Request): Promise<Response> {
     await checkRateLimit("studioTurns", userId, RATE_LIMITS.studioTurns);
 
     const db = getDb();
-    const session = await getStudioSession(db, userId, body.sessionId);
+    // The free half of the Studio (lib/studio/allowance.ts), read alongside the session so it
+    // adds no round trip. Checked before the answer is stored, so a refused answer stays in the
+    // composer rather than being half-recorded.
+    const [session, allowance] = await Promise.all([
+      getStudioSession(db, userId, body.sessionId),
+      studioAllowance(userId),
+    ]);
     if (!session) notFound("That session");
     if (session.status === "ended") notFound("That session");
+    if (studioLimitReached(allowance)) throw studioLimitError(allowance);
 
     // "I'm short on time" switches the session to Express, which is what hurry mode is (§5.2).
     if (body.hurry && session.mode !== "express")
@@ -139,13 +152,20 @@ export async function POST(request: Request): Promise<Response> {
 
     const chapter = body.chapter ?? session.currentChapter;
     const mode = body.hurry ? "express" : session.mode;
-    const next = await askNextQuestion(userId, {
-      session: { ...session, currentChapter: chapter, mode },
-      lastAnswer: answer,
-      possibleConflicts: conflicts,
-      digsUsedOnStory: body.digsUsedOnStory,
-      knowledge,
-    });
+    // This answer was the last free one: it is stored and extracted, but no next question is
+    // asked, since it couldn't be answered.
+    const spent = { ...allowance, used: allowance.used + 1 };
+    const left = answersLeft(spent);
+    const next =
+      left === 0
+        ? null
+        : await askNextQuestion(userId, {
+            session: { ...session, currentChapter: chapter, mode },
+            lastAnswer: answer,
+            possibleConflicts: conflicts,
+            digsUsedOnStory: body.digsUsedOnStory,
+            knowledge,
+          });
 
     const turnCount = await countUserTurns(db, userId, session.id);
 
@@ -192,6 +212,7 @@ export async function POST(request: Request): Promise<Response> {
       recorded: true,
       turnId: turn.id,
       question: next,
+      allowance: { used: spent.used, limit: spent.limit, left },
     });
   });
 }

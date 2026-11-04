@@ -1,6 +1,6 @@
 // The evaluation harness's records (spec §8.11, §9.4): runs, their synthetic samples, approvals of
 // a cost rise, and the weekly human ratings. The rating queue mixes synthetic samples with drafts
-// of applicants who switched on "Help improve AdmitStory"; nobody else's draft is ever queued.
+// of applicants who switched on "Help improve AdmitStories"; nobody else's draft is ever queued.
 
 import {
   AUDIT_ACTIONS,

@@ -3,7 +3,7 @@ from packlib import Pack
 
 P = Pack("uw-foster", "University of Washington Michael G. Foster School of Business", "Foster", "US", "Seattle, WA",
          "https://foster.uw.edu")
-AL = "Paid coaching platform material (ApplicantLab). Private reference; items are Admitstory rewrites approved by Manu 2026-11-04 (§9.6). Never name or quote."
+AL = "Paid coaching platform material (ApplicantLab). Private reference; items are AdmitStories rewrites approved by Manu 2026-11-04 (§9.6). Never name or quote."
 ADM = "https://foster.uw.edu/academics/degree-programs/full-time-mba/admissions/"
 P.source("foster-admissions", "official", "Foster Full-time MBA: Admissions (essays, deadlines, interview, recommendations, resume, tests, fee, AI FAQ)", ADM)
 P.source("foster-profile", "official", "Foster Full-time MBA: Class profile (Class of 2028)", "https://foster.uw.edu/academics/degree-programs/full-time-mba/class-profile/")
@@ -16,7 +16,7 @@ P.source("foster-contact", "official", "Foster Full-time MBA: Contact us (admiss
 P.source("touch-town-2015", "adcom", "Touch MBA podcast #79: Erin Town, then Director of MBA Admissions, 'Take the Reins' (c. 2015)", "https://touchmba.com/foster-mba-admissions-interview/")
 P.source("ca-foster-reports", "interview_reports", "Clear Admit Foster interview reports (2024–2026)", "https://www.clearadmit.com/interview-reports/school/foster")
 P.source("al-foster", "third_party_reference", "ApplicantLab — Foster school tab", None, rights=AL)
-P.source("admitstory-coach", "coach_notes", "Admitstory coaching canon and Manu's storytelling rules", None)
+P.source("admitstory-coach", "coach_notes", "AdmitStories coaching canon and Manu's storytelling rules", None)
 
 P.url("prompts", ADM); P.url("deadlines", ADM)
 P.url("class_profile", "https://foster.uw.edu/academics/degree-programs/full-time-mba/class-profile/")

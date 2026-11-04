@@ -7,6 +7,7 @@ import { FollowSection } from "./_follow/follow-section";
 import { Hero } from "./_hero/hero";
 import { FaqSection } from "./_sections/faq";
 import { FinalCall } from "./_sections/final-call";
+import { ConnectPeopleSection } from "./_sections/connect-people";
 import { HowItWorksLines } from "./_sections/how-it-works-lines";
 import { PricingSection } from "./_sections/pricing";
 import { RealScreens } from "./_sections/real-screens";
@@ -28,6 +29,7 @@ export default function Home() {
       <SchoolsStrip /> {/* ./_sections/schools-strip: every school with a verified pack */}
       <FollowSection /> {/* ./_follow/follow-section (B) */}
       <HowItWorksLines /> {/* ./_sections/how-it-works-lines (C) */}
+      <ConnectPeopleSection /> {/* ./_sections/connect-people: people from each school */}
       <TheModelSection /> {/* ./_sections/the-model: what the model is trained on */}
       <RealScreens /> {/* ./_sections/real-screens (C) */}
       <YourWordsSection /> {/* ./_sections/your-words (C) */}

@@ -2,7 +2,7 @@ import os, sys; sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..")
 from packlib import Pack
 
 P = Pack("northwestern-kellogg", "Northwestern University Kellogg School of Management", "Kellogg", "US", "Evanston, IL", "https://www.kellogg.northwestern.edu")
-AL = "Paid coaching platform material (ApplicantLab). Private reference; items are Admitstory rewrites approved by Manu 2026-11-04 (§9.6). Never name or quote."
+AL = "Paid coaching platform material (ApplicantLab). Private reference; items are AdmitStories rewrites approved by Manu 2026-11-04 (§9.6). Never name or quote."
 K = "https://www.kellogg.northwestern.edu"
 P.source("kellogg-apply", "official", "Kellogg: How to apply to a Full-Time MBA (essays, video essays, recommendations, tests, fee, interview)", K + "/admissions/ft-admissions/ft-how-to-apply/")
 P.source("kellogg-admissions", "official", "Kellogg: Full-Time MBA admissions (deadlines, what we look for)", K + "/admissions/ft-admissions/")
@@ -16,7 +16,7 @@ P.source("sb-kellogg-2026", "press", "Stacy Blackman: Kellogg MBA essays for the
 P.source("pq-ai-2026", "press", "Poets&Quants (Fortuna, May 26, 2026): AI policies at top MBA programs, quoting each school's application materials", "https://poetsandquants.com/2026/05/26/the-mba-applicants-guide-to-ai-in-2026-whats-allowed-whats-risky-and-what-to-avoid/")
 P.source("aringo-kellogg-2026", "press", "Aringo: 5 videos, 1 essay — the Kellogg MBA application 2026-2027", "https://aringo.com/5-videos-1-essay-the-new-rules-of-the-northwestern-kellogg-mba-application-2026-2027/")
 P.source("al-kellogg", "third_party_reference", "ApplicantLab — Kellogg school tab", None, rights=AL)
-P.source("admitstory-coach", "coach_notes", "Admitstory coaching canon and Manu's storytelling rules", None)
+P.source("admitstory-coach", "coach_notes", "AdmitStories coaching canon and Manu's storytelling rules", None)
 
 P.url("prompts", K + "/admissions/ft-admissions/ft-how-to-apply/"); P.url("deadlines", K + "/admissions/ft-admissions/")
 P.url("class_profile", K + "/programs/full-time-mba/class-profile/"); P.url("employment_report", K + "/programs/full-time-mba/career-services/career-outcomes/")

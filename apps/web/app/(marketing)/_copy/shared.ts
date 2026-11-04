@@ -17,7 +17,7 @@ export { COMING_SOON };
 export const INTERVIEW_COMING_SOON_LINE =
   "Interview practice is coming soon. Kit owners get it at no extra cost when it opens.";
 
-/** What AdmitStory won't do (direction §4.7), used on /, /how-it-works and /terms. */
+/** What AdmitStories won't do (direction §4.7), used on /, /how-it-works and /terms. */
 export const INTEGRITY_LINES = [
   "It won't invent a story, a number or a quote. If something's missing, it asks you.",
   "It won't promise admission, or tell you your odds.",

@@ -1,1 +1,1 @@
-# AdmitStory
+# AdmitStories

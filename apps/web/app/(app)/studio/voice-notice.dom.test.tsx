@@ -59,7 +59,7 @@ describe("the Studio's microphone notices", () => {
     const write = vi.fn();
     renderNotice({}, { write });
     expect(container.querySelector("[role=status]")?.textContent).toBe(
-      "Admitstory needs your microphone to hear your answers. Audio is turned into text and not kept.",
+      "AdmitStories needs your microphone to hear your answers. Audio is turned into text and not kept.",
     );
     expect(buttons()).toEqual(["Allow microphone", "Write instead"]);
     act(() => container.querySelectorAll("button")[1]!.click());

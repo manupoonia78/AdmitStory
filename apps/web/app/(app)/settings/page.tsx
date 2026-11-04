@@ -18,7 +18,7 @@ export default async function SettingsPage() {
     <Page
       eyebrow="Make it yours"
       title="Settings"
-      lede="Your dossier, how AdmitStory looks and sounds, and your account."
+      lede="Your dossier, how AdmitStories looks and sounds, and your account."
     >
       <Link
         href="/dossier"

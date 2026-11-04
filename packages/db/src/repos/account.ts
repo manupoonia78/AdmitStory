@@ -1,4 +1,4 @@
-// Settings › Privacy and data (spec §11 Account, §14.4): what we keep, who at AdmitStory has looked,
+// Settings › Privacy and data (spec §11 Account, §14.4): what we keep, who at AdmitStories has looked,
 // the full export and account deletion.
 //
 // The export walks every table with a `user_id` column, so a table added later is exported without

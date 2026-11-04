@@ -17,7 +17,7 @@ export const LONG_SILENCE_MS = 20_000;
 
 export const VOICE_COPY = {
   // §6.9, without "unless you choose to": keeping recordings is not offered yet (Phase 2 skips it).
-  ask: "Admitstory needs your microphone to hear your answers. Audio is turned into text and not kept.",
+  ask: "AdmitStories needs your microphone to hear your answers. Audio is turned into text and not kept.",
   denied: "Microphone is blocked in your browser settings. You can keep going by typing.",
   unsupported:
     "This browser can't share a microphone with this page. You can keep going by typing.",

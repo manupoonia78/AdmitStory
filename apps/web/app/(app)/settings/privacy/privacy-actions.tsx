@@ -6,7 +6,7 @@ import dynamic from "next/dynamic";
 import { useState } from "react";
 import { AlertMessage, StatusMessage } from "@/components/live-message";
 
-// The quiet half of Settings › Privacy: the two downloads, "Help improve AdmitStory", and the way
+// The quiet half of Settings › Privacy: the two downloads, "Help improve AdmitStories", and the way
 // to delete the account. The delete dialog (Radix) loads only when it's opened (§6.11).
 
 const DeleteDialog = dynamic(() => import("./delete-dialog").then((m) => m.DeleteDialog), {
@@ -113,7 +113,7 @@ export function PrivacyActions({
           id="improve"
           className="font-display text-[1.625rem] leading-tight tracking-[-0.01em] text-text"
         >
-          Help improve AdmitStory
+          Help improve AdmitStories
         </h2>
         <label className="flex min-h-11 items-start gap-3">
           <input

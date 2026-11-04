@@ -20,7 +20,7 @@ const STATUSES: FeedbackStatus[] = ["new", "read", "done"];
 
 /**
  * Feedback (spec §5.18, §15): thumbs, reasons and notes from drafts, Profile Read and the résumé
- * pass. A draft excerpt shows only when its owner switched on "Help improve AdmitStory"; reading
+ * pass. A draft excerpt shows only when its owner switched on "Help improve AdmitStories"; reading
  * one is audited.
  */
 export default async function FeedbackPage({

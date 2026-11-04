@@ -140,7 +140,7 @@ describe("AppShell", () => {
     const focusable = [...dock.querySelectorAll("a, button")].map(
       (el) => el.getAttribute("aria-label") ?? el.textContent,
     );
-    expect(focusable.slice(0, 3)).toEqual(["AdmitStory home", "New story", "Search or jump to…"]);
+    expect(focusable.slice(0, 3)).toEqual(["AdmitStories home", "New story", "Search or jump to…"]);
     expect(focusable.slice(3, 3 + DESTINATIONS.length)).toEqual(DESTINATIONS);
     expect(focusable.at(-2)).toBe("Settings");
     expect(focusable.at(-1)).toContain("Account");

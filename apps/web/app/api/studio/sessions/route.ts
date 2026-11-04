@@ -1,6 +1,7 @@
 import { createStudioSession, getDb, getResumableSession, updateProfile } from "@admitstory/db";
 import { z } from "zod";
 import { handle, readJson, requireUser } from "@/lib/api";
+import { studioAllowance, studioLimitError, studioLimitReached } from "@/lib/studio/allowance";
 import { askNextQuestion } from "@/lib/studio/turn";
 import { captureServerEvent } from "@/lib/analytics/server";
 
@@ -20,6 +21,9 @@ export async function POST(request: Request): Promise<Response> {
     const body = await readJson(request, Body);
     const db = getDb();
     const userId = auth.user.id;
+    // Opening a session asks a question, so the free half applies here too.
+    const allowance = await studioAllowance(userId);
+    if (studioLimitReached(allowance)) throw studioLimitError(allowance);
 
     const mode = body.mode ?? profile.studioMode ?? "standard";
     if (body.mode && body.mode !== profile.studioMode)

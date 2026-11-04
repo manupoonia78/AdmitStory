@@ -164,7 +164,7 @@ masks. View Transitions get `::view-transition-group(*) { animation: none }`.
 | 4.4  | How it works, in three lines | About 0.8 viewport                     | No                                           |
 | 4.5  | Real screens                 | About 1 viewport                       | Native sideways scroll only                  |
 | 4.6  | Your words, lit (the toy)    | About 0.9 viewport                     | Only when the visitor uses the switch        |
-| 4.7  | What AdmitStory won't do     | About 1 viewport                       | No                                           |
+| 4.7  | What AdmitStories won't do   | About 1 viewport                       | No                                           |
 | 4.8  | Pricing                      | About 0.9 viewport                     | No                                           |
 | 4.9  | Questions                    | Content height                         | The `<details>` open on `glide`              |
 | 4.10 | Start free, and footer       | About 0.9 viewport                     | No (the theme switch on `snap`)              |
@@ -180,7 +180,7 @@ Northfield."
 
 ### 4.1 Nav
 
-**Desktop.** A floating plane 16 px from the top. The wordmark "AdmitStory" (Geist 600, 17 px) is
+**Desktop.** A floating plane 16 px from the top. The wordmark "AdmitStories" (Geist 600, 17 px) is
 on the left. On the right are "How it works", "Pricing", "Sign in" (text links, UI 15) and "Start
 free" (primary, solid `--signal`, `--on-signal` text, 8 px radius, 40 px tall). Over the hero the
 plane is transparent with no edge. Once the hero has scrolled past, it compacts to `--depth` at
@@ -213,7 +213,7 @@ your words, unchanged, become the line an essay is built on.
   - "Play a sample" is a secondary button: a ghost with a `--control-edge` border.
   - "Write instead" is a text link.
 - The privacy line under the actions is UI 13, `--text-soft`.
-- Bottom-right, a 13 px margin note: "Scroll to follow one sentence through AdmitStory". There's
+- Bottom-right, a 13 px margin note: "Scroll to follow one sentence through AdmitStories". There's
   no bouncing chevron.
 
 **Layout, phone (0–639).** The same stage. The Voiceprint is a `120vw` box centred in the top 55%
@@ -227,14 +227,14 @@ the type scale's own clamp.
 **Copy.**
 
 - H1: "Say one thing about yourself."
-- Subline: "AdmitStory listens to your life story and turns it into your MBA application, one
+- Subline: "AdmitStories listens to your life story and turns it into your MBA application, one
   school at a time, in your own words."
 - Privacy line: "Fifteen seconds. Your audio is turned into text and not kept, and neither is
   the text unless you sign up."
-- Mic explainer (§6.9, verbatim): "Admitstory needs your microphone to hear your answers. Audio is
+- Mic explainer (§6.9, verbatim): "AdmitStories needs your microphone to hear your answers. Audio is
   turned into text and not kept unless you choose to." Buttons: "Allow microphone" / "Write
-  instead". (Fix the casing to "AdmitStory" in `microphone-copy.ts` when this ships. Both
-  spellings appear in the spec; `APP_NAME` is "AdmitStory".)
+  instead". (Fix the casing to "AdmitStories" in `microphone-copy.ts` when this ships. Both
+  spellings appear in the spec; `APP_NAME` is "AdmitStories".)
 - Sample label: "Sample voice, synthesised. The applicant is fictional."
 
 **The choreography.** The H1 is never hidden, moved or re-rendered: it's the LCP element. The
@@ -250,7 +250,7 @@ moment lives in the Voiceprint and the words.
 | 5. Words become light | Each word of the final line takes a `--voice` text glow, left to right, 40 ms apart. The form takes one bright breath (the synthetic signal spikes amplitude for 300 ms).                                                                                                                                                                                                                                                                                                                                                                                                                  | Glow on `snap`; breath on `settle`                                                       |
 | 6. The sheet rises    | An essay sheet (Day paper, `--depth`, 28 px radius, max 720 px wide, Newsreader 19/32) rises from below the fold into the lower 58% of the stage. Its header (UI 13) reads "Essay 1 · first draft". Below the reserved first line are five faint ruled lines, the kit preview's locked-line treatment, so the sheet promises the rest without faking it.                                                                                                                                                                                                                                   | `drift` (translate and opacity)                                                          |
 | 7. The line lands     | The words fly from the transcript into the sheet's first line along the Studio's curved flight path (`packages/ui/src/studio/flight-path.ts`), 40 ms apart, shrinking from 32 to 19 px. Each lands slightly blurred (2 px) and sharpens, and in its last 120 ms the Geist word cross-fades into the same word in Newsreader (the sheet's own text, waiting at opacity 0 in the reserved line), so the spoken line becomes written type as it lands. Then the whole line takes `--voice-glow`, which is the Workspace's your-words treatment. The transcript copy fades as its words leave. | Flight on `drift`; blur and glow on `glide`                                              |
-| 8. The caption        | Under the sheet: "Word for word, that's your line. In AdmitStory every essay is built around sentences like it, and each one links back to the moment you said it." If fillers were removed: "We removed 2 filler words. Nothing else changed." Buttons: "Sign up and keep this line" (primary) and "Say it again" (ghost).                                                                                                                                                                                                                                                                | Opacity on `glide`                                                                       |
+| 8. The caption        | Under the sheet: "Word for word, that's your line. In AdmitStories every essay is built around sentences like it, and each one links back to the moment you said it." If fillers were removed: "We removed 2 filler words. Nothing else changed." Buttons: "Sign up and keep this line" (primary) and "Say it again" (ghost).                                                                                                                                                                                                                                                              | Opacity on `glide`                                                                       |
 
 The whole moment from stop to caption is about 1.6 s, and every step can be interrupted. "Say it
 again" or Escape reverses the sheet on `glide` and returns the form to `idle`, from wherever the
@@ -271,7 +271,7 @@ filler step.
 **The visitor's own Voiceprint.** `IDENTITY_MIN_SECONDS` is 10, so a 12–15 s answer is enough for
 a usable identity. When the accumulator reports `usable`, the form's hue, filaments and swirl
 re-seed to the visitor's own on the `drift` spring, and the caption adds: "That's your
-Voiceprint, drawn from how you spoke. It's yours across AdmitStory." A written answer uses
+Voiceprint, drawn from how you spoke. It's yours across AdmitStories." A written answer uses
 `identityFromText`. If the speech is too short to be usable, the sample form stays and no claim
 is made.
 
@@ -428,7 +428,7 @@ No motion.
 **Job.** Prove the product is real and calm. No illustrations and no mock-ups of mock-ups.
 
 **Layout.** A heading in `--type-display` (64 px): "Quiet where you work." A paragraph (UI 17):
-"The cinematic part ends at the door. Inside, AdmitStory is still, fast and keyboard-first,
+"The cinematic part ends at the door. Inside, AdmitStories is still, fast and keyboard-first,
 because nobody wants particles while cutting fourteen words at 1 a.m." This is §6.1, and the
 section's one line of dry humour.
 
@@ -489,7 +489,7 @@ within one viewport.
 
 **Reduced motion.** The glow switches with no fade.
 
-### 4.7 What AdmitStory won't do
+### 4.7 What AdmitStories won't do
 
 **Job.** Trust. This is the section a sceptical applicant (or their consultant) reads twice.
 
@@ -561,8 +561,8 @@ default, and several can be open. `FAQPage` JSON-LD comes from the same data.
 
 | Question                                  | Answer                                                                                                                                                                                                                                                                                            |
 | ----------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| "Does AdmitStory write my essays?"        | "It depends on the school. Where AI help is allowed, it drafts from your own words and shows which sentences are yours. Where it isn't, it coaches: questions, structure and critique, with no written answer. You can always choose the stricter mode."                                          |
-| "Is that allowed?"                        | "Schools differ, so AdmitStory follows each one's published policy and shows it beside every essay with the date we checked. When a school asks you to disclose AI use, it drafts an honest disclosure for you to edit. Following the rules is still your responsibility, and we make it easy."   |
+| "Does AdmitStories write my essays?"      | "It depends on the school. Where AI help is allowed, it drafts from your own words and shows which sentences are yours. Where it isn't, it coaches: questions, structure and critique, with no written answer. You can always choose the stricter mode."                                          |
+| "Is that allowed?"                        | "Schools differ, so AdmitStories follows each one's published policy and shows it beside every essay with the date we checked. When a school asks you to disclose AI use, it drafts an honest disclosure for you to edit. Following the rules is still your responsibility, and we make it easy." |
 | "Will it make my story sound impressive?" | "It will make it sound like you on a good day. It never adds achievements, numbers or quotes. When a sentence needs a detail you haven't given, it asks for it."                                                                                                                                  |
 | "What happens to my voice?"               | "Your audio is turned into text and discarded. We don't keep recordings. Your transcripts and documents are encrypted, never used to train AI models, and deleted within 30 days if you delete your account."                                                                                     |
 | "Can it tell me my chances?"              | "No. Nobody can honestly, and we won't pretend to. The Profile Read tells you what helps, what may raise doubts and what to do about it."                                                                                                                                                         |
@@ -588,7 +588,7 @@ and two on phones:
 - **Contact:** an email address (Manu provides it), and "Ask us to cover a school"
 - **The theme switch** (see §9)
 
-At the bottom (UI 13, `--text-soft`): "© 2026 {legal entity}. AdmitStory is not affiliated with
+At the bottom (UI 13, `--text-soft`): "© 2026 {legal entity}. AdmitStories is not affiliated with
 any school. School names are used only to describe which applications we support." No social
 icons until accounts exist.
 
@@ -684,7 +684,7 @@ On phones, the capture goes under the text.
    wrote, plus a report you can scrub through. (In your kit. An expert mock is $100.)
 
 **AI policies** (`#ai-policies`). The same registry table as §4.7, in full, with the stance in
-words, what AdmitStory does for that stance (Draft mode / Coach mode / Disclosure helper), the
+words, what AdmitStories does for that stance (Draft mode / Coach mode / Disclosure helper), the
 verified date and a link to the school's own page. It has the same rule: only verified entries,
 and not shown at all until Manu verifies them.
 
@@ -793,7 +793,7 @@ landing → sign-in line flight is described in §4.2.
 - The marketing layout overrides the root `robots` to `index: true` on these five pages only.
 - `metadataBase` comes from the production domain (Manu provides it).
 - Titles:
-  - `/`: "AdmitStory: your MBA application, in your own words"
+  - `/`: "AdmitStories: your MBA application, in your own words"
   - `/pricing`: "Pricing"
   - `/how-it-works`: "How it works"
   - `/privacy`: "Privacy"

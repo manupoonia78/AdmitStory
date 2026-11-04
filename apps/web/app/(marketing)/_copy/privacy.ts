@@ -148,9 +148,9 @@ export const PRIVACY_SECTIONS: readonly LegalSection[] = [
   {
     id: "age",
     title: "Age",
-    summary: "AdmitStory is for people aged 18 and over.",
+    summary: "AdmitStories is for people aged 18 and over.",
     body: [
-      "You must be 18 or older to use AdmitStory. If we learn that an account belongs to someone younger, we delete it.",
+      "You must be 18 or older to use AdmitStories. If we learn that an account belongs to someone younger, we delete it.",
     ],
   },
   {

@@ -1,6 +1,6 @@
 # Launch: accounts, keys and the go-live checklist
 
-Everything Manu has to set up before AdmitStory takes real users, in the order to do it. Nothing
+Everything Manu has to set up before AdmitStories takes real users, in the order to do it. Nothing
 here is needed to build or run the app locally: every service below falls back to a fake or an
 in-process version in development. `pnpm launch:check` shows, per service, whether it is live, a
 dev fake, or missing, and exits 1 under `VERCEL_ENV=production` if production would refuse to boot.
@@ -32,10 +32,10 @@ Cartesia, ElevenLabs.
      `CONTENT_ENCRYPTION_KEY_ID=k2026`. **Keep a copy in a password
      manager**: without it every story and draft is unreadable. Rotate yearly.
 5. **Resend** → verify the sending domain (SPF, DKIM, DMARC) → `RESEND_API_KEY`, `EMAIL_FROM`
-   (e.g. `AdmitStory <hello@admitstories.com>`).
+   (e.g. `AdmitStories <hello@admitstories.com>`).
 6. **Google sign-in** (required at launch) → `GOOGLE_CLIENT_ID`, `GOOGLE_CLIENT_SECRET`. The
    button is already built and appears on `/sign-in` once both are set.
-   - console.cloud.google.com → new project "AdmitStory".
+   - console.cloud.google.com → new project "AdmitStories".
    - Google Auth Platform → Branding: app name, support email, logo, `admitstories.com` under
      "Authorized domains", links to `/privacy` and `/terms`. Audience: External. Data access:
      scopes `openid`, `email`, `profile` only (no Google verification review needed for these).

@@ -2,7 +2,7 @@ import os, sys; sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..")
 from packlib import Pack
 
 P = Pack("cornell-johnson", "Cornell University SC Johnson Graduate School of Management", "Johnson", "US", "Ithaca, NY", "https://business.cornell.edu")
-AL = "Paid coaching platform material (ApplicantLab). Private reference; items are Admitstory rewrites approved by Manu 2026-11-04 (§9.6). Never name or quote."
+AL = "Paid coaching platform material (ApplicantLab). Private reference; items are AdmitStories rewrites approved by Manu 2026-11-04 (§9.6). Never name or quote."
 B = "https://business.cornell.edu/admissions/graduate/mba"
 P.source("johnson-faq", "official", "Cornell MBA: Application requirements & FAQs (2026-2027 essay prompts, tests, waivers, Park essay)", B + "/application-guide/mba-application-requirements-faqs/")
 P.source("johnson-guide", "official", "Cornell MBA: Admissions process & application guide (checklist, interviews, waitlist, scholarships, reapplicants)", B + "/application-guide/")
@@ -12,7 +12,7 @@ P.source("johnson-leadership", "official", "Cornell MBA: Our leadership framewor
 P.source("johnson-immersions", "official", "Cornell MBA: Immersions & areas of focus", B + "/immersion-learning/")
 P.source("ca-johnson-2027", "press", "Clear Admit: Cornell Johnson Two-Year MBA Class of 2027 profile (Sep 2025)", "https://www.clearadmit.com/2025/09/cornell-johnson-two-year-mba-class-of-2027-profile/")
 P.source("al-johnson", "third_party_reference", "ApplicantLab — Cornell Johnson school tab", None, rights=AL)
-P.source("admitstory-coach", "coach_notes", "Admitstory coaching canon and Manu's storytelling rules", None)
+P.source("admitstory-coach", "coach_notes", "AdmitStories coaching canon and Manu's storytelling rules", None)
 
 P.url("prompts", B + "/application-guide/mba-application-requirements-faqs/"); P.url("deadlines", B + "/application-guide/important-dates/")
 P.url("employment_report", B + "/career-outcomes/")

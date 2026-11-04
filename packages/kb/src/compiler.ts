@@ -8,7 +8,7 @@
 //   - `unverified`: `verified_at` is null (a draft). Nothing unverified reaches a user (§0).
 //   - `unsourced`: no source at all. Every school fact shown to a user carries one (§0).
 //   - `third_party_only`: every source is `third_party_reference` and no admin has approved a
-//     rewrite in Admitstory's own words (§9.6). Third-party sources are also never named in the
+//     rewrite in AdmitStories' own words (§9.6). Third-party sources are also never named in the
 //     index, so the UI can't show them.
 //   - `future_dated`: verified after `now`, which only bad data produces.
 //   - `stale_specific`: a course, centre, club or event verified before the current cycle. These

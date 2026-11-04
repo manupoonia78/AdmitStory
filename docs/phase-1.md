@@ -1,6 +1,6 @@
 # Phase 1: Story Studio (text) and the Dossier
 
-Built 30 October 2026 on branch `phase-0`. Spec: `AdmitStory_Build_Spec.md`, §16 Phase 1, plus
+Built 30 October 2026 on branch `phase-0`. Spec: `AdmitStories_Build_Spec.md`, §16 Phase 1, plus
 first-run onboarding (§5.1), which the spec assigns to no phase and which ends in the Studio.
 
 ## What was built

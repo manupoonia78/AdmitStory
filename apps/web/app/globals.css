@@ -1,2 +1,32 @@
 @import "tailwindcss";
 @import "@admitstory/ui/theme.css";
+
+/* The Connect carousel (components/people-carousel.tsx): one row drawn twice, slid by half. */
+.people-strip {
+  overflow: hidden;
+  mask-image: linear-gradient(to right, transparent, #000 6%, #000 94%, transparent);
+}
+.people-track {
+  animation: people-slide 90s linear infinite;
+}
+.people-strip:hover .people-track,
+.people-strip:focus-within .people-track {
+  animation-play-state: paused;
+}
+@keyframes people-slide {
+  to {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .people-strip {
+    mask-image: none;
+    overflow-x: auto;
+  }
+  .people-track {
+    animation: none;
+  }
+  .people-row[aria-hidden] {
+    display: none;
+  }
+}

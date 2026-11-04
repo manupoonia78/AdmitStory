@@ -2,7 +2,7 @@ import os, sys; sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..")
 from packlib import Pack
 
 P = Pack("hec-paris", "HEC Paris", "HEC Paris", "FR", "Jouy-en-Josas (Paris region)", "https://www.hec.edu")
-AL = "Paid coaching platform material (ApplicantLab). Private reference; items are Admitstory rewrites approved by Manu 2026-11-04 (§9.6). Never name or quote."
+AL = "Paid coaching platform material (ApplicantLab). Private reference; items are AdmitStories rewrites approved by Manu 2026-11-04 (§9.6). Never name or quote."
 B = "https://www.hec.edu/en/mba-executive-mba/mba"
 P.source("hec-requirements", "official", "HEC Paris MBA: Requirements (checklist, tests, English, fee)", B + "/admissions/requirements")
 P.source("hec-deadlines", "official", "HEC Paris MBA: Application deadlines (January 2027 and September 2027 intakes)", B + "/admissions/application-deadlines")
@@ -24,7 +24,7 @@ P.source("sb-hec-2026", "press", "Stacy Blackman: HEC Paris essays for 2026-2027
 P.source("ca-hec-recs", "press", "Clear Admit: HEC Paris MBA recommendation questions 2026-2027", "https://www.clearadmit.com/mba-admissions-recommendation-questions/hec-paris-mba-recommendation-questions")
 P.source("ca-hec-ir-2016", "interview_reports", "Clear Admit interview report: HEC Paris, rolling admissions, alumni, off-campus (admitted applicant, Mar 2016)", "https://www.clearadmit.com/interview-reports/hec-paris-mba-interview-report-rolling-admissions-alumni-off-campus/")
 P.source("al-hec", "third_party_reference", "ApplicantLab — HEC school tab", None, rights=AL)
-P.source("admitstory-coach", "coach_notes", "Admitstory coaching canon and Manu's storytelling rules", None)
+P.source("admitstory-coach", "coach_notes", "AdmitStories coaching canon and Manu's storytelling rules", None)
 
 P.url("prompts", "https://hecparis.my.site.com/mba"); P.url("deadlines", B + "/admissions/application-deadlines")
 P.url("class_profile", B + "/class-profile"); P.url("employment_report", B + "/careers/employment-statistics")

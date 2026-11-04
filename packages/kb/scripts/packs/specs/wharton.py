@@ -2,7 +2,7 @@ import os, sys; sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..")
 from packlib import Pack
 
 P = Pack("wharton", "The Wharton School, University of Pennsylvania", "Wharton", "US", "Philadelphia, PA", "https://mba.wharton.upenn.edu")
-AL = "Paid coaching platform material (ApplicantLab). Private reference; items are Admitstory rewrites approved by Manu 2026-11-04 (§9.6). Never name or quote."
+AL = "Paid coaching platform material (ApplicantLab). Private reference; items are AdmitStories rewrites approved by Manu 2026-11-04 (§9.6). Never name or quote."
 W = "https://mba.wharton.upenn.edu"
 P.source("wharton-guide", "official", "Wharton MBA: 2026-2027 Application Guide (essays, resume, recommendation, tests, fee, Tips from the Admissions Committee)", W + "/application-guide/")
 P.source("wharton-deadlines", "official", "Wharton MBA: 2026-27 Application timeline and deadlines", W + "/application-timeline-deadlines/")
@@ -13,7 +13,7 @@ P.source("wharton-career-2025", "official", "Wharton MBA Careers: 2025 Career Re
 P.source("wharton-curriculum", "official", "Wharton MBA: Curriculum (fixed and flexible core, majors, electives, Pre-Term, learning teams)", W + "/mba-curriculum/")
 P.source("pq-ai-2026", "press", "Poets&Quants (Fortuna, May 26, 2026): AI policies at top MBA programs, quoting each school's application materials", "https://poetsandquants.com/2026/05/26/the-mba-applicants-guide-to-ai-in-2026-whats-allowed-whats-risky-and-what-to-avoid/")
 P.source("al-wharton", "third_party_reference", "ApplicantLab — Wharton school tab", None, rights=AL)
-P.source("admitstory-coach", "coach_notes", "Admitstory coaching canon and Manu's storytelling rules", None)
+P.source("admitstory-coach", "coach_notes", "AdmitStories coaching canon and Manu's storytelling rules", None)
 
 P.url("prompts", W + "/application-guide/"); P.url("deadlines", W + "/application-timeline-deadlines/")
 P.url("class_profile", W + "/class-profile/"); P.url("employment_report", "https://statistics.mbacareers.wharton.upenn.edu/wp-content/uploads/2025/12/2025-Career-Report.pdf")

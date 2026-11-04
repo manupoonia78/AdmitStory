@@ -16,7 +16,7 @@ test.describe("prototype index", () => {
     for (const route of ROUTES) {
       await expect(main.locator(`a[href="/prototype/${route}"]`)).toHaveCount(1);
     }
-    await expect(page.getByRole("link", { name: "AdmitStory prototypes" })).toHaveAttribute(
+    await expect(page.getByRole("link", { name: "AdmitStories prototypes" })).toHaveAttribute(
       "href",
       "/prototype",
     );

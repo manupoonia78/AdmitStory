@@ -10,7 +10,7 @@ import { pageMetadata } from "../_lib/seo";
 export const metadata = pageMetadata({
   title: "Privacy",
   description:
-    "What AdmitStory collects, what happens to your voice, and how to export or delete everything.",
+    "What AdmitStories collects, what happens to your voice, and how to export or delete everything.",
   path: "/privacy",
 });
 

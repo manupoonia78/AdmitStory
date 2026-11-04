@@ -71,6 +71,13 @@
       "when": 1793796449239,
       "tag": "0009_chat_and_resume",
       "breakpoints": true
+    },
+    {
+      "idx": 10,
+      "version": "7",
+      "when": 1793816520530,
+      "tag": "0010_connect",
+      "breakpoints": true
     }
   ]
 }

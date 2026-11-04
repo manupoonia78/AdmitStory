@@ -1,6 +1,6 @@
 # Phase 2: Voice in Studio
 
-Built 31 October 2026 on branch `phase-0`. Spec: `AdmitStory_Build_Spec.md`, §16 Phase 2, with
+Built 31 October 2026 on branch `phase-0`. Spec: `AdmitStories_Build_Spec.md`, §16 Phase 2, with
 §5.1 (voice settings), §5.2 (input modes and states), §6.2 (Voiceprint), §7.5 (dictation),
 §12.4 (voice guardrails) and §14.4.
 

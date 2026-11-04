@@ -51,7 +51,7 @@ test.describe("Voiceprint lab", () => {
     expect(Math.abs((box?.width ?? 0) - (box?.height ?? 0))).toBeLessThan(1);
 
     await expect(
-      page.getByText("AdmitStory needs your microphone to hear your answers."),
+      page.getByText("AdmitStories needs your microphone to hear your answers."),
     ).toBeVisible();
     await expect(page.getByRole("button", { name: "Allow microphone" })).toBeVisible();
     await expect(page.getByRole("button", { name: "Write instead" })).toBeVisible();

@@ -138,7 +138,7 @@ export function AuthorshipBanner({
             Your AI disclosure
           </label>
           <p id={`${id}-disclosure-hint`} className="text-sm text-text-soft">
-            Drafted from how you used Admitstory. Edit it so it’s true in your words.
+            Drafted from how you used AdmitStories. Edit it so it’s true in your words.
           </p>
           <textarea
             id={`${id}-disclosure`}

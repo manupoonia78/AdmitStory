@@ -367,7 +367,7 @@ export const KB_NORMALIZE_THIRD_PARTY_REPLIES: TaskOutput<"kb.normalize">[] = [
         confidence: 0.4,
         source_span: THIRD_PARTY_SPAN,
         rewritten_in_own_words: true,
-        note: "Admitstory's own wording of a third-party observation; needs a first-hand source before publishing.",
+        note: "AdmitStories' own wording of a third-party observation; needs a first-hand source before publishing.",
       },
     ],
   },
