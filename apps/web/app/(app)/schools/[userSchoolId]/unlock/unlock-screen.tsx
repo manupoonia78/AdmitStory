@@ -58,7 +58,7 @@ export function UnlockScreen({
     const response = await fetch(`/api/user-schools/${userSchoolId}/kit`).catch(() => null);
     if (!response?.ok) return;
     const body = (await response.json()) as { kitId: string | null };
-    if (body.kitId) router.replace(`/kits/${body.kitId}`);
+    if (body.kitId) router.replace(`/schools/${userSchoolId}`);
   }, [router, userSchoolId]);
 
   useEffect(() => {

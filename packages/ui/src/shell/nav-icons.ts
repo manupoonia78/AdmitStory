@@ -4,6 +4,7 @@ import type { Icon } from "@phosphor-icons/react";
 import {
   BookOpenTextIcon,
   ChatsCircleIcon,
+  FileTextIcon,
   GraduationCapIcon,
   HouseIcon,
   ListChecksIcon,
@@ -19,6 +20,7 @@ export const NAV_ICONS: Readonly<Record<NavId, Icon>> = {
   home: HouseIcon,
   studio: BookOpenTextIcon,
   schools: GraduationCapIcon,
+  resume: FileTextIcon,
   interview: ChatsCircleIcon,
   connect: UsersThreeIcon,
   tracker: ListChecksIcon,

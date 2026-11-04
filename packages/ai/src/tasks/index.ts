@@ -9,6 +9,7 @@ import {
   studioInterviewer,
 } from "./studio";
 import { kbNormalize, kbRefreshCheck } from "./kb";
+import { chatRevise, resumeWrite } from "./chat";
 import { draftNeedFill, draftRevise, utilClassify } from "./draft";
 import { evalJudge } from "./evals";
 import { formsAdvise, resumeReview } from "./forms";
@@ -44,6 +45,8 @@ export const TASKS = {
   "util.classify": utilClassify,
   "forms.advise": formsAdvise,
   "resume.review": resumeReview,
+  "chat.revise": chatRevise,
+  "resume.write": resumeWrite,
   "lor.extract": lorExtract,
   "lor.plan": lorPlan,
   "lor.brief": lorBrief,

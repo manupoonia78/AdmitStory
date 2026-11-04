@@ -30,8 +30,13 @@ function Frame({ children }: { children: React.ReactNode }) {
   return (
     <div className="mx-auto flex w-full max-w-6xl flex-col gap-8 px-4 py-10 sm:px-8 sm:py-16">
       <div className="flex flex-col gap-4">
-        <p className="eyebrow">Résumé Pass</p>
-        <h1 className="text-display text-text">Your résumé</h1>
+        <Link
+          href="/resume"
+          className="meta text-text-soft underline-offset-4 hover:text-text hover:underline"
+        >
+          Résumé / Line by line
+        </Link>
+        <h1 className="text-display text-text">Your uploaded résumé, line by line</h1>
       </div>
       {children}
     </div>

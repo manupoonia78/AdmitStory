@@ -201,7 +201,11 @@ export default async function HomePage() {
                     <td className="py-4 text-right">
                       <Link
                         className="text-sm text-text underline-offset-2 hover:underline"
-                        href={s.kit ? `/kits/${s.kit.id}` : `/schools/${s.userSchoolId}/preview`}
+                        href={
+                          s.kit
+                            ? `/schools/${s.userSchoolId}`
+                            : `/schools/${s.userSchoolId}/preview`
+                        }
                       >
                         Open <span className="sr-only">{s.name}</span>
                       </Link>

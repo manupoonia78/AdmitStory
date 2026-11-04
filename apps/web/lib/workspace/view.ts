@@ -68,6 +68,9 @@ function fileStatus(d: Deliverable, failed: boolean): FileStatus {
 
 export interface WorkspaceView {
   kitId: string;
+  /** For the school's tabs (school workspace redesign). */
+  userSchoolId: string;
+  cycle: string;
   /** Résumé, form and essay mismatches touching this deliverable (§5.10), for the Checks tab. */
   consistency: ConsistencyFinding[];
   school: string;
@@ -297,6 +300,8 @@ export async function loadWorkspaceView(
 
   return {
     kitId: kit.kit.id,
+    userSchoolId: kit.userSchoolId,
+    cycle: kit.cycle,
     consistency: findingsFor(report, new Set([deliverable.id])),
     school: kit.school.shortName || kit.school.name,
     heading: `${kit.school.shortName || kit.school.name} ${kit.cycle}`,

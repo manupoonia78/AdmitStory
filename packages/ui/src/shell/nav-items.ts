@@ -13,7 +13,7 @@ export interface NavItem {
   href: string;
 }
 
-export type NavId = "home" | "studio" | "schools" | "interview" | "connect" | "tracker";
+export type NavId = "home" | "studio" | "schools" | "resume" | "interview" | "connect" | "tracker";
 
 /**
  * The destinations of the sidebar, in the order of §4's journey. The Dossier is not here: it lives
@@ -23,6 +23,7 @@ export const NAV_ITEMS: readonly NavItem[] = [
   { id: "home", label: "Home", href: "/home" },
   { id: "studio", label: "Story Studio", href: "/studio" },
   { id: "schools", label: "Schools", href: "/schools" },
+  { id: "resume", label: "Résumé", href: "/resume" },
   { id: "interview", label: "Interview", href: "/interview" },
   { id: "connect", label: "Connect", href: "/connect" },
   { id: "tracker", label: "Tracker", href: "/tracker" },

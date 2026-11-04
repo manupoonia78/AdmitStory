@@ -28,7 +28,15 @@ const user = { name: "Asha Verma", email: "asha@example.test" };
 // 5 s budget, so it is loaded once up front; the shell's own lazy import then resolves at once.
 const LAZY = { timeout: 3000 };
 
-const DESTINATIONS = ["Home", "Story Studio", "Schools", "Interview", "Connect", "Tracker"];
+const DESTINATIONS = [
+  "Home",
+  "Story Studio",
+  "Schools",
+  "Résumé",
+  "Interview",
+  "Connect",
+  "Tracker",
+];
 
 function renderShell(onAction = vi.fn()) {
   return render(

@@ -1,6 +1,6 @@
 import "server-only";
 
-import { getDb } from "@admitstory/db";
+import { getDb, getKitForUserSchool } from "@admitstory/db";
 import type { HorizonSchool } from "@admitstory/ui";
 import type { RateLimit } from "@/lib/api";
 import type { StrategyApplicant } from "./applicant";
@@ -55,15 +55,24 @@ export function safeComparison(model: ComparisonModel): ComparisonModel {
   };
 }
 
+type RowKit = NonNullable<StrategyRow["kit"]>;
+
 export function strategyModel(
   schools: readonly StrategySchool[],
   applicant: StrategyApplicant,
   now: Date,
+  kits: ReadonlyMap<string, RowKit> = new Map(),
 ): Omit<StrategyData, "applicant" | "now"> {
   const timeZone = applicant.timeZone;
+  const today = now.toISOString().slice(0, 10);
   const rows: StrategyRow[] = schools.map((s) => {
     const rounds = s.pack ? packRounds(s.pack, timeZone) : [];
+    const next =
+      rounds.find((r) => r.short === s.row.round) ?? rounds.find((r) => r.date >= today) ?? null;
     return {
+      kit: kits.get(s.row.id) ?? null,
+      nextDeadline: next ? `${next.short} · ${shortDate(next.date)}` : null,
+      essays: s.pack?.application.essays?.length ?? 0,
       userSchoolId: s.row.id,
       schoolId: s.row.school.id,
       name: s.row.school.name,
@@ -128,5 +137,18 @@ export async function loadStrategy(userId: string, now = new Date()): Promise<St
     loadApplicant(userId),
     loadUserSchools(getDb(), userId),
   ]);
-  return { applicant, now: now.toISOString(), ...strategyModel(schools, applicant, now) };
+  const db = getDb();
+  const kits = new Map<string, RowKit>();
+  await Promise.all(
+    schools.map(async (s) => {
+      const kit = await getKitForUserSchool(db, userId, s.row.id);
+      if (!kit || kit.status === "preview") return;
+      kits.set(s.row.id, {
+        status: kit.status,
+        done: kit.stage?.done ?? 0,
+        total: kit.stage?.total ?? 10,
+      });
+    }),
+  );
+  return { applicant, now: now.toISOString(), ...strategyModel(schools, applicant, now, kits) };
 }

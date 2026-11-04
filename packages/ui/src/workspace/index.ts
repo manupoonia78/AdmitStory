@@ -52,6 +52,7 @@ export {
   type FilesPaneProps,
 } from "./files-pane";
 export { COACH_TABS, CoachSheet, type CoachSheetProps, type CoachTab } from "./coach-sheet";
+export { ChatPanel, type ChatPanelProps, type ChatPanelTurn } from "./chat-panel";
 export { WhyThisDraft, type WhyThisDraftProps } from "./coach/why-this-draft";
 export { OptionsTab, type OptionSummary, type OptionsTabProps } from "./coach/options-tab";
 export {

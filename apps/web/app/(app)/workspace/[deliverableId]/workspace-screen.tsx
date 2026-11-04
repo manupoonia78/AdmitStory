@@ -3,6 +3,7 @@
 import {
   AuthorshipBanner,
   Button,
+  ChatPanel,
   CheckList,
   CoachSheet,
   ConsistencyList,
@@ -15,7 +16,6 @@ import {
   NeedComposer,
   OptionSplit,
   OptionsTab,
-  RefineTab,
   VerifyList,
   VersionScrubber,
   WhyThisDraft,
@@ -44,17 +44,27 @@ import {
 } from "react";
 import { AlertMessage, StatusMessage } from "@/components/live-message";
 import { ModelCredit } from "@/components/model-seal";
+import { SchoolHeader } from "@/components/school-header";
+import { useChat } from "@/lib/chat/use-chat";
+import { filesForTab, schoolHref, schoolTabs, tabOfGroup } from "@/lib/school/tabs";
 import type { WorkspaceView } from "@/lib/workspace/view";
 
-// Screen G (spec §5.8, §6.10 G; direction doc G). Files on the left, the document in the middle,
-// the Coach on the right. Edits save as the applicant's own version a moment after they stop
-// typing; a refinement comes back as a new version with "Keep change" or "Undo".
+// Screen G (spec §5.8, §6.10 G; direction doc G), inside the school's tabs. The tab's items on
+// the left, the document in the middle, the chat on the right: say what to change and the draft
+// changes, with Undo on every change. Edits save as the applicant's own version a moment after
+// they stop typing.
 
 const SAVE_DEBOUNCE_MS = 1_500;
 
-/** The résumé entry in Files opens the Résumé page; every other entry is a deliverable. */
-const fileHref = (key: string) =>
-  key === "resume" ? "/resume" : key === "recommenders" ? "/recommenders" : `/workspace/${key}`;
+/** One-tap requests in the chat, by kind of document. */
+const ESSAY_ASKS = [
+  "Make the opening stronger",
+  "Cut it to the limit",
+  "Sound more like me",
+  "Make the reflection deeper",
+  "Try a different story",
+];
+const VIDEO_ASKS = ["Make the points shorter", "Add a point about my goals", "Less formal"];
 
 /** What the canvas shows before TipTap arrives: the same draft, as text, in the same place. */
 const CanvasStandIn = createContext<ReactNode>(null);
@@ -86,12 +96,11 @@ async function errorOf(response: Response | null, fallback: string): Promise<str
 export function WorkspaceScreen({ initial }: { initial: WorkspaceView }) {
   const router = useRouter();
   const [view, setView] = useState(initial);
-  const [tab, setTab] = useState<CoachTab>("why");
+  const [tab, setTab] = useState<CoachTab>("chat");
   const [yourWords, setYourWords] = useState(false);
   const [need, setNeed] = useState<WorkspaceView["needs"][number] | null>(null);
   const [needStatus, setNeedStatus] = useState<"idle" | "saving">("idle");
-  const [refineStatus, setRefineStatus] = useState<"idle" | "working" | "failed">("idle");
-  const [lastRefine, setLastRefine] = useState<RefineRequest | null>(null);
+  const [, setRefineStatus] = useState<"idle" | "working" | "failed">("idle");
   const [undo, setUndo] = useState<{ previousId: string; summary: string } | null>(null);
   const [compare, setCompare] = useState<{
     label: string;
@@ -109,6 +118,24 @@ export function WorkspaceScreen({ initial }: { initial: WorkspaceView }) {
     const response = await send(`/api/deliverables/${deliverable.id}`, "GET");
     if (response?.ok) setView((await response.json()) as WorkspaceView);
   }, [deliverable.id]);
+
+  const chat = useChat(`deliverable:${deliverable.id}`, {
+    onChanged: async () => {
+      await flush();
+      await reload();
+    },
+  });
+  const fileHref = (key: string) =>
+    key === "resume"
+      ? schoolHref(view.userSchoolId, "resume")
+      : key === "recommenders"
+        ? schoolHref(view.userSchoolId, "recommenders")
+        : `/workspace/${key}`;
+  const activeTab = tabOfGroup(view.files.find((f) => f.key === deliverable.id)?.group ?? "essays");
+  const tabs = schoolTabs(
+    { userSchoolId: view.userSchoolId, school: view.school, cycle: view.cycle },
+    view.files,
+  );
 
   // While an option drafts in the background, look again every few seconds until it lands.
   const optionLanded =
@@ -149,7 +176,6 @@ export function WorkspaceScreen({ initial }: { initial: WorkspaceView }) {
 
   async function refine(request: RefineRequest) {
     if (!draft) return;
-    setLastRefine(request);
     setRefineStatus("working");
     setError("");
     await flush();
@@ -514,19 +540,26 @@ export function WorkspaceScreen({ initial }: { initial: WorkspaceView }) {
           }}
         />
       }
-      refine={
-        <RefineTab
-          onRefine={(r) => void refine(r)}
-          status={refineStatus}
-          {...(lastRefine ? { onRetry: () => void refine(lastRefine) } : {})}
-          over={
-            deliverable.rule && counted > deliverable.rule.limit
-              ? {
-                  by: counted - deliverable.rule.limit,
-                  limit: deliverable.rule.limit,
-                  unit: deliverable.rule.unit,
-                }
-              : null
+      chat={
+        <ChatPanel
+          turns={chat.turns}
+          busy={chat.busy}
+          onSend={chat.send}
+          onUndo={(id) => void chat.undo(id)}
+          subject={draft?.video ? "these talking points" : `"${deliverable.title}"`}
+          suggestions={
+            draft?.video
+              ? VIDEO_ASKS
+              : counted > (deliverable.rule?.limit ?? Infinity)
+                ? ["Cut it to the limit", ...ESSAY_ASKS.slice(0, 1), ...ESSAY_ASKS.slice(2)]
+                : ESSAY_ASKS
+          }
+          notice={
+            chat.error ? (
+              <span className="text-risk">{chat.error}</span>
+            ) : draft?.coach ? (
+              `${view.school} asks you to write this one yourself, so the chat can't rewrite it.`
+            ) : null
           }
         />
       }
@@ -581,10 +614,11 @@ export function WorkspaceScreen({ initial }: { initial: WorkspaceView }) {
   return (
     <>
       <WorkspaceLayout
+        header={<SchoolHeader view={tabs} active={activeTab} />}
         files={
           <FilesPane
-            heading={view.heading}
-            files={view.files}
+            heading={tabs.tabs.find((t) => t.id === activeTab)?.label ?? view.heading}
+            files={filesForTab(view.files, activeTab)}
             selectedKey={deliverable.id}
             onSelect={(key) => router.push(fileHref(key))}
             hrefFor={fileHref}

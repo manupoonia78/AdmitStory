@@ -40,12 +40,12 @@ export default async function WorkspacePage({
     const view = await loadFormView(userId, id.data).catch(notOpen);
     if ("closed" in view) return <Closed message={view.closed} />;
     if ("waiting" in view) return <Waiting message={view.waiting} />;
-    return <FormHost initial={view} />;
+    return <FormHost key={id.data} initial={view} />;
   }
   const view = await loadWorkspaceView(userId, id.data).catch(notOpen);
   if ("closed" in view) return <Closed message={view.closed} />;
   if ("waiting" in view) return <Waiting message={view.waiting} />;
-  return <WorkspaceHost initial={view} />;
+  return <WorkspaceHost key={id.data} initial={view} />;
 }
 
 function Closed({ message }: { message: string }) {

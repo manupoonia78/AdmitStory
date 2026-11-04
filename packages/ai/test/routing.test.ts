@@ -31,6 +31,8 @@ const SPEC: Record<RouteTask, [RoutableModelKey, Effort, number]> = {
   "draft.need_fill": ["sonnet", "low", 1_200],
   "forms.advise": ["sonnet", "medium", 5_000],
   "resume.review": ["sonnet", "medium", 5_000],
+  "chat.revise": ["sonnet", "low", 2_500],
+  "resume.write": ["sonnet", "medium", 5_000],
   "lor.brief": ["sonnet", "medium", 5_000],
   "lor.recommender_assist": ["sonnet", "medium", 3_000],
   "interview.plan": ["sonnet", "medium", 6_000],

@@ -31,7 +31,13 @@ export const KIT_GENERATION_TYPICAL_USD = 1.8;
 export const KIT_GENERATION_RANGE_USD = { low: 0.9, high: 2.7 } as const;
 
 /** §12.2 refinements and NEED answers run after generation. */
-const AFTER_GENERATION = new Set(["draft.revise", "draft.need_fill", "util.classify"]);
+const AFTER_GENERATION = new Set([
+  "draft.revise",
+  "draft.need_fill",
+  "util.classify",
+  "chat.revise",
+  "resume.write",
+]);
 
 export interface KitLedgerRow {
   task: string;
