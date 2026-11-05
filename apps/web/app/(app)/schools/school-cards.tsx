@@ -1,11 +1,13 @@
 import { ArrowRightIcon } from "@phosphor-icons/react/ssr";
 import Link from "next/link";
+import { SCHOOL_PLANS, dollars } from "@/lib/payments/plans";
 import type { StrategyRow } from "@/lib/strategy/types";
 
 // "Your schools" (school workspace redesign): one card per school on the list. A school you've
 // paid for opens straight into its tabs (essays, application, video, recommenders, résumé). One
 // you haven't shows its next deadline and what it asks for, with Unlock and a free preview. No
 // controls here: the round and reapplicant choices live on the school's preview and unlock pages.
+// With pack credits left (Manu, 5 Nov 2026), Unlock says it costs a credit, not a price.
 
 type CardState = "ready" | "building" | "failed" | "locked" | "coming_soon";
 
@@ -115,8 +117,21 @@ function Card({ row, price }: { row: StrategyRow; price: string }) {
   );
 }
 
-export function SchoolCards({ rows, price }: { rows: readonly StrategyRow[]; price: string }) {
+const PACK5 = SCHOOL_PLANS.school_pack5;
+const PACK10 = SCHOOL_PLANS.school_pack10;
+
+export function SchoolCards({
+  rows,
+  price,
+  credits,
+}: {
+  rows: readonly StrategyRow[];
+  price: string;
+  /** Unused schools from packs already bought. */
+  credits: number;
+}) {
   if (rows.length === 0) return null;
+  const locked = rows.filter((row) => stateOf(row) === "locked").length;
   // Paid schools first, in the order they were added; then the rest.
   const order: CardState[] = ["ready", "building", "failed", "locked", "coming_soon"];
   const sorted = [...rows].sort((a, b) => order.indexOf(stateOf(a)) - order.indexOf(stateOf(b)));
@@ -128,10 +143,19 @@ export function SchoolCards({ rows, price }: { rows: readonly StrategyRow[]; pri
       >
         Your schools
       </h2>
+      {credits > 0 ? (
+        <p className="text-base text-text">
+          {`You have ${credits} school ${credits === 1 ? "credit" : "credits"} from your pack. Each one unlocks a school, essays and all.`}
+        </p>
+      ) : locked > 1 ? (
+        <p className="text-base text-text-soft">
+          {`Unlocking more than one? ${PACK5.schools} schools for ${dollars(PACK5.priceCents)}, or ${PACK10.schools} for ${dollars(PACK10.priceCents)}, every essay drafted. Choose a pack on any school's unlock page.`}
+        </p>
+      ) : null}
       <ul className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
         {sorted.map((row) => (
           <li key={row.userSchoolId}>
-            <Card row={row} price={price} />
+            <Card row={row} price={credits > 0 ? "1 credit" : price} />
           </li>
         ))}
       </ul>

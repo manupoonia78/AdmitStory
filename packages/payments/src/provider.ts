@@ -6,22 +6,44 @@
 export type PaymentsProviderName = "paddle" | "fake";
 export type PaddleEnvironment = "sandbox" | "live";
 
-/** One-time product per school per cycle (§5.6). Expert sessions arrive in Phase 8. */
-export type ProductKey = `school_kit:${string}`;
+/**
+ * One-time products (§5.6): a kit for one school per cycle, or a pack of 5 or 10 schools (Manu,
+ * 5 Nov 2026). A pack is bought from one school's unlock page, so its key still names that school's
+ * cycle: the purchase unlocks it at once, and the rest of the pack becomes school credits.
+ */
+export type ProductKind = "school_kit" | "school_pack5" | "school_pack10";
+export type ProductKey = `${ProductKind}:${string}`;
 
-export const schoolKitProductKey = (schoolCycleId: string): ProductKey =>
-  `school_kit:${schoolCycleId}`;
+/** How many schools each product unlocks. */
+export const PRODUCT_SCHOOLS: Record<ProductKind, number> = {
+  school_kit: 1,
+  school_pack5: 5,
+  school_pack10: 10,
+};
 
-/** The school cycle a product key names, or null when it is not a school kit key. */
-export function parseProductKey(key: string): { kind: "school_kit"; schoolCycleId: string } | null {
-  const match = /^school_kit:([A-Za-z0-9_-]{1,64})$/.exec(key);
-  return match?.[1] ? { kind: "school_kit", schoolCycleId: match[1] } : null;
+export const schoolKitProductKey = (
+  schoolCycleId: string,
+  kind: ProductKind = "school_kit",
+): ProductKey => `${kind}:${schoolCycleId}`;
+
+/** The product and school cycle a key names, or null when it is not one of ours. */
+export function parseProductKey(
+  key: string,
+): { kind: ProductKind; schoolCycleId: string; schools: number } | null {
+  const match = /^(school_kit|school_pack5|school_pack10):([A-Za-z0-9_-]{1,64})$/.exec(key);
+  const kind = match?.[1] as ProductKind | undefined;
+  return kind && match?.[2]
+    ? { kind, schoolCycleId: match[2], schools: PRODUCT_SCHOOLS[kind] }
+    : null;
 }
 
 export interface CheckoutInput {
   userId: string;
   productKey: ProductKey;
-  /** Smallest currency unit. Ignored by Paddle when PADDLE_PRICE_SCHOOL_KIT names a catalog price. */
+  /**
+   * Smallest currency unit. For a single school kit, ignored by Paddle when PADDLE_PRICE_SCHOOL_KIT
+   * names a catalog price; packs always use this amount.
+   */
   priceCents: number;
   /** ISO 4217, upper case. */
   currency: string;

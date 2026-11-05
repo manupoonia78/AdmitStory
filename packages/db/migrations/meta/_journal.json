@@ -78,6 +78,13 @@
       "when": 1793816520530,
       "tag": "0010_connect",
       "breakpoints": true
+    },
+    {
+      "idx": 11,
+      "version": "7",
+      "when": 1793866724529,
+      "tag": "0011_school_packs",
+      "breakpoints": true
     }
   ]
 }

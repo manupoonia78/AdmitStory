@@ -8,8 +8,8 @@ import {
   LEDGER_COPY,
   NO_CHARGE_COPY,
   PRICING_PAGE_COPY,
+  PAYMENT_COPY,
   PRICING_QUESTIONS_HEADING,
-  REFUNDS_COPY,
   pricingQuestions,
   type LedgerCell,
   type LedgerGroup,
@@ -20,9 +20,11 @@ import {
   FREE_PRICE_USD,
   KIT_PLAN,
   KIT_PRICE_USD,
-  REFUND_RULE,
+  PLAN_CARDS,
+  SALES_FINAL_RULE,
   TAX_LINE,
 } from "../_data/pricing";
+import { SchoolPacks } from "../_sections/school-packs";
 import { FaqTracking } from "../_sections/faq-tracking";
 import { pageMetadata } from "../_lib/seo";
 import { CtaLink, START_FREE_HREF } from "../_ui/cta-link";
@@ -39,11 +41,11 @@ import { UnlockPreviewIsland } from "./_unlock-island";
 export const metadata = pageMetadata({
   title: "Pricing",
   description:
-    "AdmitStories is free to talk to. Each school's kit is $100, with everything that school asks for, built from your own words.",
+    "AdmitStories is free to talk to. Five schools for $349 or ten for $699, with every essay drafted from your own words, not just guidelines. Or $100 for one school.",
   path: "/pricing",
 });
 
-/** Product JSON-LD (direction §9): two offers, free and $100 per school. */
+/** Product JSON-LD (direction §9): free, $100 per school, and the 5- and 10-school packs. */
 function productJsonLd(): JsonLdValue {
   return {
     "@context": "https://schema.org",
@@ -70,6 +72,12 @@ function productJsonLd(): JsonLdValue {
           unitText: "school",
         },
       },
+      ...PLAN_CARDS.filter((plan) => plan.was !== null).map((plan) => ({
+        "@type": "Offer",
+        name: `${plan.name} pack`,
+        price: plan.priceUsd,
+        priceCurrency: CURRENCY,
+      })),
     ],
   };
 }
@@ -187,7 +195,7 @@ function LedgerStack({ groups }: { groups: readonly LedgerGroup[] }) {
 const QUESTIONS_ID = "pricing-questions";
 
 export default function PricingPage() {
-  const questions = pricingQuestions(REFUND_RULE);
+  const questions = pricingQuestions();
   return (
     <>
       <Section labelledBy="pricing-page-title" spacing="compact">
@@ -206,6 +214,10 @@ export default function PricingPage() {
             {START_FREE}
           </CtaLink>
         </div>
+      </Section>
+
+      <Section labelledBy="packs-title" spacing="compact">
+        <SchoolPacks headingId="packs-title" />
       </Section>
 
       <Section labelledBy="kit-preview-title" spacing="compact">
@@ -261,15 +273,15 @@ export default function PricingPage() {
         </div>
       </Section>
 
-      <Section labelledBy="refunds-title" spacing="compact">
+      <Section labelledBy="payment-title" spacing="compact">
         <div className="col-span-4 sm:col-span-4 lg:col-span-6">
-          <h2 id="refunds-title" className="text-display-sm text-text">
-            {REFUNDS_COPY.heading}
+          <h2 id="payment-title" className="text-display-sm text-text">
+            {PAYMENT_COPY.heading}
           </h2>
           <div className="mt-6 flex max-w-[40rem] flex-col gap-4 text-lg text-text-soft">
-            <p className="text-text">{REFUND_RULE}</p>
-            <p>{REFUNDS_COPY.paddle}</p>
-            <p>{REFUNDS_COPY.noSubscription}</p>
+            <p>{PAYMENT_COPY.paddle}</p>
+            <p>{PAYMENT_COPY.noSubscription}</p>
+            <p className="text-text">{SALES_FINAL_RULE}</p>
             <p className="text-base">{TAX_LINE}</p>
           </div>
         </div>

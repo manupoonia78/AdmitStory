@@ -105,7 +105,9 @@ landing page's speaking demo, hard off).
 - [ ] In Chrome and Safari, with the browser console open, check there are no CSP violations:
       dictation (the capture worklet) records, read-aloud plays, Paddle checkout opens, Turnstile
       renders on sign-in and the landing demo, the Voiceprint shader runs.
-- [ ] One real purchase at $100 on production Paddle, then a refund from `/admin/orders`.
+- [ ] One real purchase at $100 and one 5-school pack at $349 on production Paddle: the pack
+      unlocks its school at once and shows 4 credits; spend one from another school's unlock page.
+      All sales are final (no refund policy), so test with your own card.
 - [ ] Kill switches: in `/admin/switches`, pause `read_aloud`, check Studio shows "Reading
       questions aloud is paused", then turn it back on.
 - [ ] Three complete kits for real schools, read and signed off (spec Phase 9 acceptance).

@@ -1,14 +1,13 @@
+import { countSchoolCredits, getDb } from "@admitstory/db";
 import type { Metadata } from "next";
 import { requireOnboardedUser } from "@/lib/app-user";
-import { SCHOOL_KIT_PRICE_CENTS } from "@/lib/payments/server";
+import { SCHOOL_KIT_PRICE_CENTS, dollars } from "@/lib/payments/plans";
 import { loadStrategy } from "@/lib/strategy/page-data";
 import { SchoolCards } from "./school-cards";
 import { StrategyDetails } from "./strategy-details";
 import { StrategyHost } from "./strategy-host";
 
 export const metadata: Metadata = { title: "Your schools" };
-
-const price = (cents: number) => `$${(cents / 100).toFixed(cents % 100 === 0 ? 0 : 2)}`;
 
 /**
  * Your schools (spec §5.5 screen E, school workspace redesign): each school as a card that opens
@@ -18,13 +17,18 @@ const price = (cents: number) => `$${(cents / 100).toFixed(cents % 100 === 0 ? 0
  */
 export default async function SchoolsPage() {
   const { session } = await requireOnboardedUser();
-  const data = await loadStrategy(session.user.id);
+  const [data, credits] = await Promise.all([
+    loadStrategy(session.user.id),
+    countSchoolCredits(getDb(), session.user.id),
+  ]);
   return (
     <StrategyHost
       rows={data.rows}
       horizon={data.horizon}
       comparison={data.comparison}
-      cards={<SchoolCards rows={data.rows} price={price(SCHOOL_KIT_PRICE_CENTS)} />}
+      cards={
+        <SchoolCards rows={data.rows} price={dollars(SCHOOL_KIT_PRICE_CENTS)} credits={credits} />
+      }
       details={
         <StrategyDetails
           flags={data.flags}

@@ -6,7 +6,7 @@
 // The input shapes mirror packages/payments' `PaymentEvent` structurally; packages/db does not
 // depend on packages/payments.
 
-import { and, desc, eq, gt, isNull, or, sql } from "drizzle-orm";
+import { and, desc, eq, gt, inArray, isNull, or, sql } from "drizzle-orm";
 import { z } from "zod";
 import type { DbExecutor } from "../client";
 import {
@@ -34,7 +34,19 @@ export type Checkout = typeof checkouts.$inferSelect;
 export type Purchase = typeof purchases.$inferSelect;
 export type Entitlement = typeof entitlements.$inferSelect;
 
-const productKeyFor = (schoolCycleId: string) => `school_kit:${schoolCycleId}`;
+/** The products a checkout can be for, and how many schools each unlocks (Manu, 5 Nov 2026). */
+export const PRODUCT_SCHOOLS = { school_kit: 1, school_pack5: 5, school_pack10: 10 } as const;
+export type ProductKind = keyof typeof PRODUCT_SCHOOLS;
+const ProductKindSchema = z.enum(["school_kit", "school_pack5", "school_pack10"]);
+
+const productKeyFor = (schoolCycleId: string, kind: ProductKind = "school_kit") =>
+  `${kind}:${schoolCycleId}`;
+
+/** How many schools a product key unlocks; 1 for anything that isn't a pack. */
+function schoolsIn(productKey: string): number {
+  const kind = ProductKindSchema.safeParse(productKey.split(":")[0]);
+  return kind.success ? PRODUCT_SCHOOLS[kind.data] : 1;
+}
 
 /** Active: not revoked and not expired. */
 const isActive = () =>
@@ -49,6 +61,8 @@ export const NewCheckout = z.strictObject({
   provider: z.string().trim().min(1).max(40),
   providerCheckoutId: z.string().trim().min(1).max(200),
   userSchoolId: z.guid(),
+  /** Defaults to a single school kit. */
+  product: ProductKindSchema.optional(),
   amountCents: z.int().nonnegative(),
   currency: z.string().trim().length(3),
 });
@@ -78,7 +92,7 @@ export async function recordCheckout(
       userId: ownerId,
       provider: values.provider,
       providerCheckoutId: values.providerCheckoutId,
-      productKey: productKeyFor(owned.schoolCycleId),
+      productKey: productKeyFor(owned.schoolCycleId, values.product),
       schoolCycleId: owned.schoolCycleId,
       userSchoolId: owned.id,
       amountCents: values.amountCents,
@@ -201,8 +215,10 @@ export type PurchaseOutcome =
       kitId: string;
       /** The preview's positioning and file map were kept (dossier unchanged since the preview). */
       keptPreview: boolean;
-      /** The user already held an active entitlement for this school; admin should refund. */
+      /** The user already held an active entitlement for this school; admin should look. */
       alreadyEntitled: boolean;
+      /** Schools the purchase covers: 1, or 5 or 10 for a pack (the rest become credits). */
+      schools: number;
     }
   | { outcome: "duplicate"; created: false; purchaseId: string | null; kitId: string | null }
   | { outcome: "mismatch"; created: false; reason: string };
@@ -269,6 +285,7 @@ export async function applyPurchaseCompleted(
         provider: event.provider,
         providerTxnId: event.providerTxnId,
         productKey: event.productKey,
+        schools: schoolsIn(checkout.productKey),
         amountCents: event.amountCents,
         currency: event.currency.toUpperCase(),
         discountId: event.discountId ?? null,
@@ -337,6 +354,122 @@ export async function applyPurchaseCompleted(
       kitId,
       keptPreview,
       alreadyEntitled,
+      schools: schoolsIn(checkout.productKey),
+    };
+  });
+}
+
+/* School credits (packs) --------------------------------------------------------------------- */
+
+/** Purchases whose schools still count: completed, or only partly refunded. */
+const creditable = () =>
+  or(eq(purchases.status, "completed"), eq(purchases.status, "partially_refunded"));
+
+/**
+ * The caller's live packs, oldest first, with the schools each has left: its size less the schools
+ * already unlocked with it (revoked ones included, so an admin revoke never hands a credit back).
+ * Pass `lock` inside a transaction to hold the pack rows until it ends.
+ */
+async function packsWithRoom(db: DbExecutor, ownerId: string, lock = false) {
+  const query = db
+    .select({ id: purchases.id, schools: purchases.schools })
+    .from(purchases)
+    .where(and(eq(purchases.userId, ownerId), gt(purchases.schools, 1), creditable()))
+    .orderBy(purchases.createdAt);
+  const packs = lock ? await query.for("update") : await query;
+  if (packs.length === 0) return [];
+  const used = await db
+    .select({ purchaseId: entitlements.purchaseId, n: sql<number>`count(*)::int` })
+    .from(entitlements)
+    .where(
+      inArray(
+        entitlements.purchaseId,
+        packs.map((pack) => pack.id),
+      ),
+    )
+    .groupBy(entitlements.purchaseId);
+  const usedBy = new Map(used.map((row) => [row.purchaseId, row.n]));
+  return packs.map((pack) => ({
+    id: pack.id,
+    left: Math.max(0, pack.schools - (usedBy.get(pack.id) ?? 0)),
+  }));
+}
+
+/** Pack schools the caller hasn't used yet. */
+export async function countSchoolCredits(db: DbExecutor, userId: string): Promise<number> {
+  const packs = await packsWithRoom(db, assertId(userId, "userId"));
+  return packs.reduce((sum, pack) => sum + pack.left, 0);
+}
+
+export type RedeemOutcome =
+  | {
+      outcome: "redeemed";
+      kitId: string;
+      entitlementId: string;
+      userSchoolId: string;
+      left: number;
+    }
+  | { outcome: "no_credits" }
+  | { outcome: "not_found" }
+  | { outcome: "already_unlocked" };
+
+/**
+ * Unlocks one of the caller's schools with a pack credit, in one transaction: the caller's pack
+ * purchases are locked first, so two clicks can never spend the same credit. The oldest pack with
+ * room is used. The caller checks that the school has a published pack.
+ */
+export async function redeemSchoolCredit(
+  db: DbExecutor,
+  userId: string,
+  userSchoolId: string,
+  options: { limits?: EntitlementLimits } = {},
+): Promise<RedeemOutcome> {
+  const ownerId = assertId(userId, "userId");
+  const id = assertId(userSchoolId, "userSchoolId");
+  const limits = options.limits ?? DEFAULT_KIT_LIMITS;
+  return db.transaction(async (tx) => {
+    const packs = await packsWithRoom(tx, ownerId, true);
+    const [school] = await tx
+      .select({
+        id: userSchools.id,
+        status: userSchools.status,
+        schoolCycleId: userSchools.schoolCycleId,
+      })
+      .from(userSchools)
+      .where(and(eq(userSchools.userId, ownerId), eq(userSchools.id, id)))
+      .limit(1)
+      .for("update");
+    if (!school) return { outcome: "not_found" };
+    if (school.status !== "considering" && school.status !== "preview")
+      return { outcome: "already_unlocked" };
+    if (await getActiveEntitlement(tx, ownerId, "school_kit", school.schoolCycleId))
+      return { outcome: "already_unlocked" };
+
+    // The oldest pack with room pays for this school.
+    const pack = packs.find((candidate) => candidate.left > 0)?.id ?? null;
+    const left = packs.reduce((sum, candidate) => sum + candidate.left, 0) - 1;
+    if (!pack) return { outcome: "no_credits" };
+
+    const [granted] = await tx
+      .insert(entitlements)
+      .values({
+        userId: ownerId,
+        kind: "school_kit",
+        refId: school.schoolCycleId,
+        purchaseId: pack,
+        limits,
+        used: {},
+      })
+      .returning({ id: entitlements.id });
+    if (!granted) throw new Error("Failed to grant the entitlement");
+    await tx.update(userSchools).set({ status: "unlocked" }).where(eq(userSchools.id, school.id));
+    const { kitId } = await unlockKit(tx, ownerId, school.id);
+    return {
+      outcome: "redeemed",
+      kitId,
+      entitlementId: granted.id,
+      userSchoolId: school.id,
+      left,
     };
   });
 }
@@ -454,8 +587,9 @@ export type RefundOutcome =
   | { outcome: "unknown_purchase" };
 
 /**
- * Applies an approved refund or chargeback (§13): revokes the entitlement and returns the school to
- * `preview`. The applicant's dossier, kit and drafts are kept; access to the kit follows the
+ * Applies an approved refund or chargeback (§13): revokes the entitlement (every school, for a
+ * pack) and returns the school to `preview`. All sales are final (Manu, 5 Nov 2026), so this runs
+ * for chargebacks and the merchant of record's own refunds, not a refund policy. The applicant's dossier, kit and drafts are kept; access to the kit follows the
  * entitlement. Idempotent on the event id.
  */
 export async function applyRefund(db: DbExecutor, event: RefundInput): Promise<RefundOutcome> {
@@ -485,19 +619,21 @@ export async function applyRefund(db: DbExecutor, event: RefundInput): Promise<R
       .update(purchases)
       .set({ status: event.kind === "chargeback" ? "chargeback" : "refunded" })
       .where(eq(purchases.id, purchase.id));
-    const [revoked] = await tx
+    // A pack backs one entitlement per school it unlocked: all of them go with it.
+    const revoked = await tx
       .update(entitlements)
       .set({ revokedAt: new Date(), revokeReason: `${event.kind}:${event.adjustmentId}` })
       .where(and(eq(entitlements.purchaseId, purchase.id), isNull(entitlements.revokedAt)))
       .returning({ id: entitlements.id, refId: entitlements.refId, kind: entitlements.kind });
-    if (revoked?.kind === "school_kit")
+    const cycles = revoked.filter((r) => r.kind === "school_kit").map((r) => r.refId);
+    if (cycles.length > 0)
       await tx
         .update(userSchools)
         .set({ status: "preview" })
         .where(
           and(
             eq(userSchools.userId, purchase.userId),
-            eq(userSchools.schoolCycleId, revoked.refId),
+            inArray(userSchools.schoolCycleId, cycles),
             eq(userSchools.status, "unlocked"),
           ),
         );
@@ -506,7 +642,7 @@ export async function applyRefund(db: DbExecutor, event: RefundInput): Promise<R
       outcome: "revoked",
       userId: purchase.userId,
       purchaseId: purchase.id,
-      entitlementId: revoked?.id ?? null,
+      entitlementId: revoked[0]?.id ?? null,
     };
   });
 }

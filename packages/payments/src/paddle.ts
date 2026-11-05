@@ -94,20 +94,23 @@ export function createPaddlePayments(options: PaddleOptions): PaymentsProvider {
 
     async createCheckout(input) {
       const product = checkCheckoutInput(input);
-      const item = schoolKitPriceId
-        ? { price_id: schoolKitPriceId, quantity: 1 }
-        : {
-            quantity: 1,
-            price: {
-              description: input.productKey,
-              name: "School kit",
-              unit_price: { amount: String(input.priceCents), currency_code: input.currency },
-              product: {
-                name: input.label ?? "AdmitStories School Kit",
-                tax_category: SCHOOL_KIT_TAX_CATEGORY,
+      // The catalog price is the $100 single kit; a pack is always priced here.
+      const item =
+        schoolKitPriceId && product.kind === "school_kit"
+          ? { price_id: schoolKitPriceId, quantity: 1 }
+          : {
+              quantity: 1,
+              price: {
+                description: input.productKey,
+                name:
+                  product.kind === "school_kit" ? "School kit" : `${product.schools}-school pack`,
+                unit_price: { amount: String(input.priceCents), currency_code: input.currency },
+                product: {
+                  name: input.label ?? "AdmitStories School Kit",
+                  tax_category: SCHOOL_KIT_TAX_CATEGORY,
+                },
               },
-            },
-          };
+            };
       const created = await call("POST", "/transactions", CreatedTransactionResponse, {
         items: [item],
         currency_code: input.currency,
@@ -151,7 +154,7 @@ export function createPaddlePayments(options: PaddleOptions): PaymentsProvider {
           `/transactions/${encodeURIComponent(input.providerTxnId)}`,
           TransactionLineItemsResponse,
         );
-        // A school kit transaction has exactly one line item (the schema requires at least one).
+        // A school kit or pack transaction has exactly one line item (the schema requires at least one).
         const [item] = transaction.data.details.line_items;
         if (!item) throw new PaymentsApiError("The transaction has no line items.", 200, null);
         return item.id;
@@ -163,7 +166,9 @@ export function createPaddlePayments(options: PaddleOptions): PaymentsProvider {
 }
 
 /** Validates a checkout request; returns the parsed product key. Shared with the fake. */
-export function checkCheckoutInput(input: CheckoutInput): { schoolCycleId: string } {
+export function checkCheckoutInput(
+  input: CheckoutInput,
+): NonNullable<ReturnType<typeof parseProductKey>> {
   const product = parseProductKey(input.productKey);
   if (!product) throw new PaymentsConfigError(`Unknown product key "${input.productKey}".`);
   if (!Number.isInteger(input.priceCents) || input.priceCents <= 0)

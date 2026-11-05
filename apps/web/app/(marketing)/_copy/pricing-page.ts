@@ -5,14 +5,23 @@
 // Phase 8 (expert mocks, the tracker, after decisions) isn't sold at launch, so the expert-mock
 // plane and the "After decisions" ledger group are left out. There are no coupon or referral codes
 // in the app yet, so the pricing questions don't mention them.
+//
+// School packs and no refunds (Manu, 5 Nov 2026): the page leads with the 5-school pack and the
+// drafted-essays-versus-guidelines contrast (lib/payments/pitch.ts); all sales are final, and no
+// refund is offered or mentioned.
 
+import { SCHOOL_PLANS, dollars } from "@/lib/payments/plans";
 import { COMING_SOON, INTERVIEW_COMING_SOON_LINE } from "./shared";
 
+const PACK5 = SCHOOL_PLANS.school_pack5;
+const PACK10 = SCHOOL_PLANS.school_pack10;
+const KIT = SCHOOL_PLANS.school_kit;
+
 export const PRICING_PAGE_COPY = {
-  heading: "$100 per school.",
-  phoneHeading: ["$100", "per school."],
-  subline:
-    "Everything one school asks for, built from what you’ve told us. Talking, your Profile Read and your school strategy are free.",
+  heading: `${PACK5.schools} schools. ${dollars(PACK5.priceCents)}.`,
+  phoneHeading: [`${PACK5.schools} schools.`, `${dollars(PACK5.priceCents)}.`],
+  subline: `Every essay drafted for five schools, not just guidelines. Or ${dollars(KIT.priceCents)} for one school, ${dollars(PACK10.priceCents)} for ten. Talking, your Profile Read and your school strategy are free.`,
+  packsLabel: "Ways to buy",
   kitLabel: "A sample kit preview for Northfield",
   positioningHeading: "Positioning",
   fileMapHeading: "Which story goes where",
@@ -128,11 +137,12 @@ export const LEDGER: readonly LedgerGroup[] = [
   },
 ];
 
-export const REFUNDS_COPY = {
-  heading: "Refunds and tax",
+export const PAYMENT_COPY = {
+  heading: "Payment and tax",
   paddle:
     "Payments are processed by Paddle, our merchant of record, which adds tax where it applies and issues your receipt.",
-  noSubscription: "No subscription. You pay once per school, for that application cycle.",
+  noSubscription:
+    "No subscription. You pay once per school or once per pack, and each school is unlocked for that application cycle.",
 } as const;
 
 export const NO_CHARGE_COPY = {
@@ -148,9 +158,13 @@ export interface PricingQuestion {
   answer: string;
 }
 
-export function pricingQuestions(refundRule: string): readonly PricingQuestion[] {
+export function pricingQuestions(): readonly PricingQuestion[] {
   return [
-    { id: "refund", question: "Can I get a refund?", answer: refundRule },
+    {
+      id: "packs",
+      question: "How does a pack work?",
+      answer: `Buy it from any school’s unlock page. That school unlocks at once, and the rest of the pack waits as credits. Use a credit on any other school whenever you’re ready; credits don’t expire.`,
+    },
     {
       id: "subscription",
       question: "Why not a subscription?",
@@ -165,8 +179,7 @@ export function pricingQuestions(refundRule: string): readonly PricingQuestion[]
     {
       id: "more-schools",
       question: "What if I apply to five schools?",
-      answer:
-        "Each school’s kit is $100. Your stories, facts and Profile Read carry over, so every new school starts from everything you’ve already said.",
+      answer: `Take the ${PACK5.schools}-school pack: ${dollars(PACK5.priceCents)} instead of ${dollars(KIT.priceCents * PACK5.schools)}. Your stories, facts and Profile Read carry over, so every new school starts from everything you’ve already said.`,
     },
   ];
 }

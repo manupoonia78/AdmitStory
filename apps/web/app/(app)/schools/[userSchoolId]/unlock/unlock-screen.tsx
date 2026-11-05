@@ -9,8 +9,13 @@ import { useCallback, useEffect, useState, type ReactNode } from "react";
 import { AlertMessage, StatusMessage } from "@/components/live-message";
 import { ModelCredit } from "@/components/model-seal";
 import { INTERVIEW_COMING_SOON } from "@/lib/interview/coming-soon";
+import { FEATURED_PLAN, SCHOOL_PLANS, dollars, type PlanId } from "@/lib/payments/plans";
+import { FINAL_SALE, PACK_PITCH } from "@/lib/payments/pitch";
+import { PlanPicker } from "./plan-picker";
 
-// Unlock (spec §5.6, §6.9 copy). One button names the exact action and price. With Paddle the
+// Unlock (spec §5.6, §6.9 copy). Three ways to pay (Manu, 5 Nov 2026): this school, or a 5- or
+// 10-school pack that unlocks it now and keeps the rest as credits; the pack story sits above them.
+// With credits left, one button spends one instead. One button names the exact action and price. With Paddle the
 // provider's overlay opens; locally (no Paddle keys) a calm test checkout stands in for it and
 // sends a correctly signed webhook. Either way the page then waits for the webhook to create the
 // kit, holding the same layout, and moves to the kit as soon as it exists.
@@ -24,15 +29,12 @@ const FakeCheckout = dynamic(() => import("./fake-checkout").then((mod) => mod.F
 
 type FakeConfig = Extract<CheckoutClientConfig, { provider: "fake" }>;
 
-function dollars(cents: number): string {
-  return `$${(cents / 100).toFixed(cents % 100 === 0 ? 0 : 2)}`;
-}
-
 export interface UnlockScreenProps {
   userSchoolId: string;
   school: string;
   cycle: string;
-  priceCents: number;
+  /** Unused schools from packs already bought. */
+  credits: number;
   available: boolean;
   paid: boolean;
   email: string;
@@ -44,7 +46,7 @@ export function UnlockScreen({
   userSchoolId,
   school,
   cycle,
-  priceCents,
+  credits,
   available,
   paid,
   email,
@@ -55,7 +57,13 @@ export function UnlockScreen({
   const [busy, setBusy] = useState(false);
   const [fake, setFake] = useState<FakeConfig | null>(null);
   const [error, setError] = useState("");
-  const price = dollars(priceCents);
+  const [planId, setPlanId] = useState<PlanId>(FEATURED_PLAN);
+  const plan = SCHOOL_PLANS[planId];
+  const price = dollars(plan.priceCents);
+  const payLabel =
+    plan.schools === 1
+      ? `Pay ${price} and unlock ${school}`
+      : `Pay ${price} for ${plan.schools} schools, starting with ${school}`;
 
   const poll = useCallback(async () => {
     const response = await fetch(`/api/user-schools/${userSchoolId}/kit`).catch(() => null);
@@ -77,7 +85,7 @@ export function UnlockScreen({
     const response = await fetch("/api/checkout/session", {
       method: "POST",
       headers: { "Content-Type": "application/json", "Idempotency-Key": crypto.randomUUID() },
-      body: JSON.stringify({ userSchoolId }),
+      body: JSON.stringify({ userSchoolId, plan: planId }),
     }).catch(() => null);
     if (!response?.ok) {
       setBusy(false);
@@ -99,6 +107,21 @@ export function UnlockScreen({
       setError("Checkout didn't open. Check your connection and try again.");
     }
     setBusy(false);
+  }
+
+  async function redeem() {
+    setBusy(true);
+    setError("");
+    const response = await fetch(`/api/user-schools/${userSchoolId}/redeem`, {
+      method: "POST",
+    }).catch(() => null);
+    if (!response?.ok) {
+      setBusy(false);
+      const body = response ? ((await response.json()) as { error?: string }) : null;
+      setError(body?.error ?? "That didn't go through. Check your connection and try again.");
+      return;
+    }
+    router.replace(`/schools/${userSchoolId}`);
   }
 
   async function payFake(outcome: "paid" | "declined") {
@@ -142,25 +165,58 @@ export function UnlockScreen({
 
       {!waiting ? (
         <section className="flex flex-col gap-6 border-t border-edge pt-6">
+          {credits > 0 ? (
+            <div className="flex flex-col items-start gap-2">
+              <p className="text-lg text-text">
+                {`You have ${credits} school ${credits === 1 ? "credit" : "credits"} from your pack.`}
+              </p>
+              <Button onClick={() => void redeem()} disabled={busy || !available}>
+                Use 1 credit and unlock {school}
+              </Button>
+              <p className="text-sm text-text-soft">
+                {available
+                  ? `${credits - 1} left after this. No payment needed.`
+                  : `${school}'s pack is coming soon. It can't be unlocked yet.`}
+              </p>
+            </div>
+          ) : (
+            <>
+              <div className="flex flex-col gap-2">
+                <p className="eyebrow">{PACK_PITCH.eyebrow}</p>
+                <p className="font-reading text-read-lg text-text-soft">{PACK_PITCH.others}</p>
+                <p className="font-display text-display-sm text-text">{PACK_PITCH.ours}</p>
+                <p className="max-w-[40rem] text-base text-text-soft">{PACK_PITCH.detail}</p>
+              </div>
+              <PlanPicker value={planId} onChange={setPlanId} school={school} disabled={busy} />
+              {plan.schools > 1 ? (
+                <p className="text-sm text-text-soft">{PACK_PITCH.credits}</p>
+              ) : null}
+            </>
+          )}
           <ModelCredit />
           <ul className="flex flex-col gap-2 text-text">
-            <li>Positioning and a file map for {school}</li>
-            <li>Every essay, short answer and goals field, in your words where you said them</li>
+            <li className="text-sm text-text-soft">For each school:</li>
+            <li>Positioning and a file map for that school</li>
+            <li>
+              Every essay, short answer and goals field, drafted in your words where you said them
+            </li>
             <li>Checks against the portal&apos;s limits and the school&apos;s rules</li>
             <li>The form advisor, a résumé pass and a brief for each of your recommenders</li>
             <li>150 refinements and a version history</li>
             <li className="text-text-soft">{INTERVIEW_COMING_SOON.promise}</li>
           </ul>
-          <div className="flex flex-col items-start gap-2">
-            <Button onClick={() => void checkout()} disabled={busy || !available}>
-              Pay {price} and unlock {school}
-            </Button>
-            <p className="text-sm text-text-soft">
-              {available
-                ? `Receipt to ${email}. Prices include tax where it applies.`
-                : `${school}'s pack is coming soon. It can't be bought yet.`}
-            </p>
-          </div>
+          {credits > 0 ? null : (
+            <div className="flex flex-col items-start gap-2">
+              <Button onClick={() => void checkout()} disabled={busy || !available}>
+                {payLabel}
+              </Button>
+              <p className="text-sm text-text-soft">
+                {available
+                  ? `Receipt to ${email}. Prices include tax where it applies. ${FINAL_SALE}`
+                  : `${school}'s pack is coming soon. It can't be bought yet.`}
+              </p>
+            </div>
+          )}
         </section>
       ) : (
         <StatusMessage message="Payment confirmed. Starting your kit." />
@@ -169,7 +225,11 @@ export function UnlockScreen({
 
       {fake ? (
         <FakeCheckout
-          school={school}
+          item={
+            plan.schools === 1
+              ? `${school} School Kit`
+              : `${plan.schools}-school pack, starting with ${school}`
+          }
           price={price}
           amount={`${dollars(fake.amountCents)} ${fake.currency}`}
           busy={busy}

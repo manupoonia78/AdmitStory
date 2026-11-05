@@ -84,7 +84,7 @@ export const checkouts = pgTable(
     provider: text("provider").notNull(),
     /** Paddle's transaction id: our server creates the transaction, so it is also the checkout id. */
     providerCheckoutId: text("provider_checkout_id").notNull().unique(),
-    /** `school_kit:{school_cycle_id}` (§5.6). */
+    /** `school_kit:{school_cycle_id}`, or `school_pack5:`/`school_pack10:` for a pack (§5.6). */
     productKey: text("product_key").notNull(),
     schoolCycleId: uuid("school_cycle_id")
       .notNull()
@@ -110,6 +110,11 @@ export const purchases = pgTable(
     provider: text("provider").notNull(),
     providerTxnId: text("provider_txn_id").notNull().unique(),
     productKey: text("product_key").notNull(),
+    /**
+     * How many schools this purchase unlocks: 1 for a school kit, 5 or 10 for a pack (Manu, 5 Nov
+     * 2026). Each unlocked school is one entitlement pointing back here; the rest are credits.
+     */
+    schools: integer("schools").notNull().default(1),
     amountCents: integer("amount_cents").notNull(),
     currency: text("currency").notNull(),
     status: purchaseStatusEnum("status").notNull().default("completed"),
@@ -130,9 +135,8 @@ export const entitlements = pgTable(
     kind: entitlementKindEnum("kind").notNull(),
     /** For `school_kit`, the school_cycle_id. */
     refId: uuid("ref_id").notNull(),
-    purchaseId: uuid("purchase_id")
-      .references(() => purchases.id, { onDelete: "set null" })
-      .unique(),
+    /** The purchase behind it; a pack purchase backs one entitlement per school it unlocked. */
+    purchaseId: uuid("purchase_id").references(() => purchases.id, { onDelete: "set null" }),
     limits: jsonb("limits").$type<EntitlementLimits>().notNull(),
     used: jsonb("used").$type<EntitlementUsage>().notNull().default({}),
     expiresAt: timestamptz("expires_at"),
@@ -141,6 +145,7 @@ export const entitlements = pgTable(
   },
   (t) => [
     index("entitlements_user_id_idx").on(t.userId),
+    index("entitlements_purchase_id_idx").on(t.purchaseId),
     // One live entitlement per product; a refunded one may be followed by a new purchase.
     uniqueIndex("entitlements_one_active")
       .on(t.userId, t.kind, t.refId)
