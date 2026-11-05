@@ -1,5 +1,5 @@
 // /terms (direction §8): plain terms that encode the integrity rules (spec §14.7). A structured
-// draft for counsel, not legal advice. Prices and the refund rule come from _data/pricing.ts and
+// draft for counsel, not legal advice. Prices and the final-sale rule come from _data/pricing.ts and
 // ./shared.ts verbatim, so the terms can't drift from what the pricing page says.
 //
 // Launch scope (Manu, 2 Nov 2026): expert sessions (Phase 8) aren't sold, so their section from the
@@ -7,9 +7,13 @@
 // charged) is left out until they are. Section 10 is placeholders for counsel.
 
 import type { LegalSection } from "../_legal/legal-types";
-import { KIT_PRICE_DISPLAY } from "../_data/pricing";
+import { KIT_PRICE_DISPLAY, PLAN_CARDS } from "../_data/pricing";
 import { HELLO_EMAIL, LEGAL_ENTITY } from "./chrome";
-import { REFUND_RULE } from "./shared";
+import { SALES_FINAL_RULE } from "./shared";
+
+const PACKS = PLAN_CARDS.filter((plan) => plan.was !== null)
+  .map((plan) => `${plan.name} for ${plan.price}`)
+  .join(" or ");
 
 /** TODO(Manu): counsel fills these in before launch. */
 export const GOVERNING_LAW = "TODO(Manu): governing law and courts, from counsel";
@@ -82,10 +86,11 @@ export const TERMS_SECTIONS: readonly LegalSection[] = [
   {
     id: "payments",
     title: "Payments",
-    summary: `${KIT_PRICE_DISPLAY} per school per cycle through Paddle, our merchant of record.`,
+    summary: `${KIT_PRICE_DISPLAY} per school per cycle, or a pack, through Paddle, our merchant of record. All sales are final.`,
     body: [
       `A school kit costs ${KIT_PRICE_DISPLAY} per school for one application cycle. Paddle sells it to you as merchant of record, adds tax where it applies and issues your receipt. There is no subscription.`,
-      REFUND_RULE,
+      `A school pack (${PACKS}) unlocks the school you buy it from at once. Each remaining school is a credit that unlocks one more school, for one application cycle, whenever you choose. Credits don’t expire and can’t be exchanged for money.`,
+      SALES_FINAL_RULE,
       "Refinement is unlimited within fair use: rework a draft as often as you need for your own application. Automated or bulk use isn’t fair use.",
     ],
   },

@@ -73,10 +73,10 @@ const AFTER_SCHOOLS: readonly FaqEntry[] = [
     answer: INTERVIEW_COMING_SOON_LINE,
   },
   {
-    id: "refund",
-    question: "Can I get a refund?",
+    id: "packs",
+    question: "Is it cheaper for several schools?",
     answer:
-      "Yes, in full within 7 days of buying a kit, if you haven’t marked any deliverable final and have used fewer than 3 refinements.",
+      "Yes. One school is $100. Five are $349 and ten are $699, with every essay drafted for each, where most services charge about $349 for guidelines alone. A pack unlocks your first school straight away and keeps the rest as credits for whenever you’re ready.",
   },
 ];
 

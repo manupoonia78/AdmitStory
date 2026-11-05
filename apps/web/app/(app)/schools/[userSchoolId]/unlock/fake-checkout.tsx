@@ -7,14 +7,14 @@ import { Button, Dialog, DialogContent } from "@admitstory/ui";
 // the real webhook handler, so local purchases take the same path as real ones.
 
 export function FakeCheckout({
-  school,
+  item,
   price,
   amount,
   busy,
   onPay,
   onClose,
 }: {
-  school: string;
+  item: string;
   price: string;
   amount: string;
   busy: boolean;
@@ -29,7 +29,7 @@ export function FakeCheckout({
       >
         <div className="flex flex-col gap-4">
           <p className="text-text">
-            {school} School Kit · {amount}
+            {item} · {amount}
           </p>
           <div className="flex flex-wrap gap-3">
             <Button onClick={() => onPay("paid")} disabled={busy}>

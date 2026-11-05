@@ -1,6 +1,8 @@
-// Pricing on the landing page (direction §4.8). One plane split by a hairline (vertical on desktop,
-// horizontal on phones), not two cards. No badges, no strikethrough, no "limited time". The prices
-// and lists come from _data/pricing.ts, which /pricing and /terms read too.
+// Pricing on the landing page (direction §4.8). It opens with the school packs (Manu, 5 Nov 2026):
+// the drafted-essays-versus-guidelines contrast and the three ways to buy, the 5-school pack
+// featured. Below, what's free and what each school gets: one plane split by a hairline (vertical
+// on desktop, horizontal on phones). No "limited time". The prices and lists come from
+// _data/pricing.ts, which /pricing and /terms read too.
 
 import {
   FREE_FEATURES,
@@ -8,7 +10,8 @@ import {
   KIT_COMING_SOON,
   KIT_FEATURES,
   KIT_PLAN,
-  TAX_AND_REFUND_LINE,
+  PACK_FROM_DISPLAY,
+  TAX_AND_FINAL_LINE,
 } from "../_data/pricing";
 import { ModelCredit } from "@/components/model-seal";
 import { PRICING_COPY } from "../_copy/landing";
@@ -16,6 +19,7 @@ import { START_FREE } from "../_copy/shared";
 import { CtaLink, START_FREE_HREF } from "../_ui/cta-link";
 import { Section } from "../_ui/section";
 import { Tick } from "../_ui/tick";
+import { SchoolPacks } from "./school-packs";
 
 function FeatureList({ items, label }: { items: readonly string[]; label: string }) {
   return (
@@ -35,10 +39,8 @@ const PRICE = "block text-display-xl text-text tabular-nums";
 export function PricingSection() {
   return (
     <Section id="pricing" labelledBy="pricing-title">
-      <h2 id="pricing-title" className="sr-only">
-        {PRICING_COPY.heading}
-      </h2>
-      <div className="plane col-span-4 grid overflow-hidden sm:col-span-8 lg:col-span-12 lg:grid-cols-2">
+      <SchoolPacks headingId="pricing-title" />
+      <div className="plane col-span-4 mt-20 grid lg:mt-28 overflow-hidden sm:col-span-8 lg:col-span-12 lg:grid-cols-2">
         <div className="p-6 sm:p-10 lg:p-14">
           <h3 className="text-lg text-text-soft">{FREE_PLAN.name}</h3>
           <p className="mt-4">
@@ -51,7 +53,10 @@ export function PricingSection() {
           <h3 className="text-lg text-text-soft">{KIT_PLAN.name}</h3>
           <p className="mt-4 flex flex-wrap items-baseline gap-x-4">
             <span className={PRICE}>{KIT_PLAN.price}</span>
-            <span className="text-lg text-text-soft">{KIT_PLAN.unit}</span>
+            <span className="text-lg text-text-soft">
+              {KIT_PLAN.unit}
+              {`, or from ${PACK_FROM_DISPLAY} in a pack`}
+            </span>
           </p>
           <p className="mt-6 font-reading text-read-lg text-text">{KIT_PLAN.line}</p>
           <ModelCredit className="mt-4" />
@@ -65,7 +70,7 @@ export function PricingSection() {
         </div>
       </div>
       <p className="col-span-4 mt-6 text-base text-text-soft sm:col-span-8 lg:col-span-9">
-        {TAX_AND_REFUND_LINE}
+        {TAX_AND_FINAL_LINE}
       </p>
       <div className="col-span-4 mt-8 flex flex-wrap items-center gap-3 sm:col-span-8 lg:col-span-12">
         <CtaLink href={START_FREE_HREF} track="pricing">

@@ -9,6 +9,7 @@ import {
   recordAudit,
   recordCheckout,
   recordWebhookEvent,
+  redeemSchoolCredit,
   setCheckoutStatus,
   systemContext,
 } from "@admitstory/db";
@@ -30,14 +31,14 @@ import { serverEnv } from "@/lib/env";
 import { latestPack } from "@/lib/strategy/server";
 import { dispatch } from "@/lib/strategy/dispatch";
 import { runKitGeneration } from "@/lib/kit/run";
+import { SCHOOL_KIT_CURRENCY, SCHOOL_PLANS, type PlanId } from "./plans";
 
 // Checkout and the payments webhook (spec §5.6, §13). The webhook, never the browser, grants a kit:
 // it is verified over the raw body, applied once per provider event and transaction, checked
 // against the checkout row this server wrote, and only then sends kit/generate.
 
-/** A flat $100 per school kit (§18 default, Manu 2026-10-31). */
-export const SCHOOL_KIT_PRICE_CENTS = 10_000;
-export const SCHOOL_KIT_CURRENCY = "USD";
+/** A flat $100 per school kit (§18 default, Manu 2026-10-31); packs in ./plans (5 Nov 2026). */
+export { SCHOOL_KIT_CURRENCY, SCHOOL_KIT_PRICE_CENTS } from "./plans";
 
 let override: PaymentsProvider | null = null;
 let cached: PaymentsProvider | null = null;
@@ -61,15 +62,17 @@ export interface OpenedCheckout {
 }
 
 /**
- * Opens a checkout for one school on the caller's list. Refuses a school that isn't theirs (404),
+ * Opens a checkout for one school on the caller's list: that school's kit, or a pack that unlocks
+ * it and leaves the rest as credits. The price comes from `SCHOOL_PLANS`, never the client. Refuses a school that isn't theirs (404),
  * one without a published pack (409, "Pack coming soon" is never purchasable) and one already
  * unlocked (409).
  */
 export async function openSchoolCheckout(
   user: { id: string; email: string },
   userSchoolId: string,
-  options: { discountCode?: string } = {},
+  options: { discountCode?: string; plan?: PlanId } = {},
 ): Promise<OpenedCheckout> {
+  const plan = SCHOOL_PLANS[options.plan ?? "school_kit"];
   const db = getDb();
   const row = await getUserSchool(db, user.id, userSchoolId);
   if (!row) throw new ApiError(404, "That school could not be found.");
@@ -82,7 +85,7 @@ export async function openSchoolCheckout(
   if (row.status !== "considering" && row.status !== "preview")
     throw new ApiError(409, `You've already unlocked ${name}.`);
 
-  const productKey = schoolKitProductKey(row.schoolCycleId);
+  const productKey = schoolKitProductKey(row.schoolCycleId, plan.id);
   let provider: PaymentsProvider;
   try {
     provider = payments();
@@ -95,22 +98,63 @@ export async function openSchoolCheckout(
   const session = await provider.createCheckout({
     userId: user.id,
     productKey,
-    priceCents: SCHOOL_KIT_PRICE_CENTS,
+    priceCents: plan.priceCents,
     currency: SCHOOL_KIT_CURRENCY,
     customerEmail: user.email,
     successUrl: `${serverEnv().APP_URL}/schools/${userSchoolId}/unlock?paid=1`,
-    label: `${name} School Kit, ${cycle?.cycle ?? ""}`.trim(),
+    label:
+      plan.schools === 1
+        ? `${name} School Kit, ${cycle?.cycle ?? ""}`.trim()
+        : `AdmitStories ${plan.schools}-school pack, starting with ${name}`,
     ...(options.discountCode ? { discountCode: options.discountCode } : {}),
   });
   const recorded = await recordCheckout(db, user.id, {
     provider: provider.name,
     providerCheckoutId: session.checkoutId,
     userSchoolId,
-    amountCents: SCHOOL_KIT_PRICE_CENTS,
+    product: plan.id,
+    amountCents: plan.priceCents,
     currency: SCHOOL_KIT_CURRENCY,
   });
   if (!recorded) throw new ApiError(404, "That school could not be found.");
   return session;
+}
+
+/**
+ * Unlocks one of the caller's schools with a credit from a pack they bought, and starts its kit.
+ * Refuses a school without a published pack (409), one already unlocked (409) and a caller with no
+ * credits left (402).
+ */
+export async function redeemCredit(
+  userId: string,
+  userSchoolId: string,
+): Promise<{ kitId: string; left: number }> {
+  const db = getDb();
+  const row = await getUserSchool(db, userId, userSchoolId);
+  if (!row) throw new ApiError(404, "That school could not be found.");
+  const [published, cycle] = await Promise.all([
+    latestPack(db, row.schoolCycleId),
+    getCycleWithSchool(db, row.schoolCycleId),
+  ]);
+  const name = cycle?.school.shortName ?? cycle?.school.name ?? "This school";
+  if (!published)
+    throw new ApiError(409, `${name}'s pack is coming soon. It can't be unlocked yet.`);
+  const outcome = await redeemSchoolCredit(db, userId, row.id);
+  switch (outcome.outcome) {
+    case "not_found":
+      throw new ApiError(404, "That school could not be found.");
+    case "already_unlocked":
+      throw new ApiError(409, `You've already unlocked ${name}.`);
+    case "no_credits":
+      throw new ApiError(402, "You have no school credits left.");
+    case "redeemed": {
+      const { kitId } = outcome;
+      await dispatch(kitGenerate.create({ kitId, userId }), () =>
+        runKitGeneration({ kitId, userId }),
+      );
+      return { kitId, left: outcome.left };
+    }
+  }
 }
 
 export type WebhookResult = { status: number; body: Record<string, unknown> };
@@ -182,8 +226,9 @@ export async function processWebhook(
       }
       if (outcome.outcome === "applied") {
         await setCheckoutStatus(db, event.providerTxnId, "completed");
-        if (outcome.alreadyEntitled)
-          await alertAdmin("second purchase for a school the buyer already owns; refund it", {
+        // A pack for a school already owned just leaves all its schools as credits.
+        if (outcome.alreadyEntitled && outcome.schools === 1)
+          await alertAdmin("second purchase for a school the buyer already owns", {
             eventId: event.eventId,
             providerTxnId: event.providerTxnId,
           });

@@ -27,9 +27,12 @@ export const INTEGRITY_LINES = [
   "It doesn't keep your voice. Audio is turned into text and discarded.",
 ] as const;
 
-/** The refund rule, verbatim wherever it appears (pricing, /pricing, /terms, the FAQ). */
-export const REFUND_RULE =
-  "Full refund within 7 days if you haven't marked anything final and have used fewer than 3 refinements.";
+/**
+ * No refunds (Manu, 5 Nov 2026): what you buy is yours and the sale is final. Verbatim wherever a
+ * price is shown (pricing, /pricing, /terms). Refunds are never promised or offered anywhere.
+ */
+export const SALES_FINAL_RULE =
+  "All sales are final. A school kit or pack is yours once you buy it, and payments aren't refunded.";
 
 export const TAX_LINE = "Prices in US dollars. Tax is added at checkout where it applies.";
 

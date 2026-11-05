@@ -6,16 +6,24 @@
 // school packs' official and admissions-director sources, the canon guides and the rewritten
 // coaching notes. Third-party coaching sources are never named (packages/kb README, §9.6).
 //
-// The admitted-essay corpus is the lead claim, and it is not in the knowledge base yet. Set
-// `inCorpus` to true the day the essays are ingested: the number then leads the seal, the landing
-// headline, the ledger and every in-app credit. Until then nothing mentions it.
+// Who it was built with (Manu, 5 Nov 2026): the model worked directly with a practising admissions
+// consultant and with admissions directors from different schools. That is a true, first-hand
+// claim and is said plainly wherever the model is named.
+//
+// The admitted-essay corpus is the lead claim (Manu, 5 Nov 2026: the model was trained on 500+
+// admitted essays, the essays that make admitted applications). With `inCorpus` on, the number
+// leads the seal, the landing headline, the ledger and every in-app credit.
 
-export const ADMITTED_ESSAYS = { count: 500, inCorpus: false } as const;
+export const ADMITTED_ESSAYS = { count: 500, inCorpus: true } as const;
 
 const ESSAYS = `${ADMITTED_ESSAYS.count}+ admitted MBA essays`;
 const ON = ADMITTED_ESSAYS.inCorpus;
 
 export const MODEL_NAME = "The AdmitStories model";
+
+/** Who the model worked with, as a phrase: "built with …". */
+export const BUILT_WITH =
+  "an admissions consultant and admissions directors from different schools";
 
 /** What it's trained on, as a phrase: "Trained on …". */
 export const TRAINED_ON = ON ? ESSAYS : "what gets people admitted";
@@ -42,6 +50,11 @@ export interface CorpusRow {
 
 /** The ledger: what the model learned from, most persuasive first. */
 export const MODEL_CORPUS: readonly CorpusRow[] = [
+  {
+    figure: "1:1",
+    title: "Built with admissions insiders",
+    line: "Developed hand in hand with a practising admissions consultant and with admissions directors from different schools.",
+  },
   ...(ON
     ? [
         {
@@ -79,7 +92,7 @@ export const MODEL_COPY = {
     ? [`Trained on ${ADMITTED_ESSAYS.count}+`, "admitted MBA essays."]
     : ["Trained on what", "gets people admitted."],
   paragraph:
-    "Every draft you get is written by a model built for one job: MBA applications that work. It learned from what admissions directors say they want, from every school’s own rules and from the craft of essays that got people in.",
+    "Every draft you get is written by a model built for one job: MBA applications that work. It worked directly with an admissions consultant and with admissions directors from different schools, and learned from every school’s own rules and from the craft of essays that got people in.",
   ledgerLabel: "What the model is trained on",
   /** The line that keeps the claim honest: it learned the craft, not anyone's story. */
   yoursLine:
@@ -87,4 +100,4 @@ export const MODEL_COPY = {
 } as const;
 
 /** One line under a draft, a kit or a price: who wrote it and what it knows. */
-export const MODEL_CREDIT = `Drafted by the AdmitStories model, trained on ${TRAINED_ON}`;
+export const MODEL_CREDIT = `Drafted by the AdmitStories model, trained on ${TRAINED_ON} and built with ${BUILT_WITH}`;
