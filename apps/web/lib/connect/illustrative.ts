@@ -1,7 +1,8 @@
 // The faces of Connect (Manu, 2026-11-04): stock portraits that show the kinds of people a
 // school pack connects you with, so the promise reads as people rather than a feature list.
 // They are NOT people in the directory, and nothing here may be presented as a real alum,
-// student or reader: no names, no schools, and ILLUSTRATIVE_NOTE wherever they appear.
+// student or reader: no names, no schools. ILLUSTRATIVE_NOTE (Manu, 5 Nov 2026: the line about
+// real matches, without "Photos are illustrative") goes wherever they appear.
 //
 // Photos: Unsplash (free licence, no attribution required), cropped to 400×500 WebP and served
 // from public/people. Source ids are kept so each can be traced back.
@@ -16,7 +17,7 @@ export interface IllustrativePerson {
 }
 
 export const ILLUSTRATIVE_NOTE =
-  "Photos are illustrative. Once you unlock a school, you’re matched with real people from it.";
+  "Once you unlock a school, you’re matched with real people from it.";
 
 export const ILLUSTRATIVE_PEOPLE: readonly IllustrativePerson[] = [
   {

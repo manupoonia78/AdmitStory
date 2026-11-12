@@ -66,9 +66,21 @@ Cartesia, ElevenLabs.
     Rate limits and idempotency are shared across instances only with this.
 12. **Inngest Cloud** (Vercel integration) → `INNGEST_EVENT_KEY`, `INNGEST_SIGNING_KEY`. Sync
     `https://admitstories.com/api/inngest` after the first deploy.
-13. **Paddle** (seller verification first; it can take days) → `PADDLE_ENV=production`,
-    `PADDLE_API_KEY`, `PADDLE_CLIENT_TOKEN`, `PADDLE_WEBHOOK_SECRET`, `PADDLE_PRICE_SCHOOL_KIT`
-    (the $100 school kit price id). Webhook URL `https://admitstories.com/api/webhooks/paddle`.
+13. **Dodo Payments** (merchant of record; business verification first, it can take days; sign up
+    as an individual, payouts by wire to your own bank account). In live mode:
+    - Developer → API Keys → a live key. Then create the three products from `SCHOOL_PLANS`:
+      `DODO_PAYMENTS_API_KEY=<live key> DODO_PAYMENTS_ENVIRONMENT=live_mode pnpm --filter
+@admitstory/web payments:products`. It prints the `DODO_PRODUCT_*` lines.
+    - Developer → Webhooks → Add endpoint `https://admitstories.com/api/webhooks/dodo` with the
+      events `payment.succeeded`, `payment.failed`, `refund.succeeded`, `dispute.opened`,
+      `dispute.lost`, `dispute.accepted`. Its signing secret is `DODO_PAYMENTS_WEBHOOK_KEY`.
+    - Vercel production → `DODO_PAYMENTS_ENVIRONMENT=live_mode`, `DODO_PAYMENTS_API_KEY`,
+      `DODO_PAYMENTS_WEBHOOK_KEY`, `DODO_PRODUCT_SCHOOL_KIT`, `DODO_PRODUCT_PACK5`,
+      `DODO_PRODUCT_PACK10`. Never put test-mode keys on production: test cards would unlock kits.
+    - Settings → Design: match the checkout to the paper theme (overlay colors and font).
+      Test mode first, locally: the test products already exist (ids in `.env.local`). Install the Dodo
+      CLI, `dodo login`, `dodo wh listen http://localhost:3000/api/webhooks/dodo`, put the relay
+      endpoint's signing secret in `.env.local`, uncomment the Dodo block and pay with a test card.
 14. **Sentry** (optional) → `SENTRY_DSN`, plus `SENTRY_AUTH_TOKEN`, `SENTRY_ORG`, `SENTRY_PROJECT`
     for source maps. With a DSN set, CSP violation reports go to Sentry too.
 15. **PostHog** (optional) → `POSTHOG_KEY`, `POSTHOG_HOST`. Session replay masks every input and
@@ -81,7 +93,7 @@ Cartesia, ElevenLabs.
     `.github/workflows/evals.yml`; without it the job prints a notice and passes). Branch
     protection on `main` requiring the CI `checks` job.
 19. **Legal and content** →
-    - Data processing agreements: Anthropic, Deepgram, Voyage, Paddle, Resend, PostHog, Neon,
+    - Data processing agreements: Anthropic, Deepgram, Voyage, Dodo Payments, Resend, PostHog, Neon,
       Vercel, Upstash, Inngest, Sentry.
     - Counsel review of `/privacy` and `/terms` (the `TODO(Manu)` list in `docs/phase-9a.md`:
       legal entity, address, contact emails, data region, governing law), including deletion
@@ -103,9 +115,9 @@ landing page's speaking demo, hard off).
 - [ ] `https://admitstories.com/api/health` returns 200 with `"db":"ok"` and `"redis":"ok"`. Point an
       uptime monitor at it (Vercel, Better Stack or similar), every minute.
 - [ ] In Chrome and Safari, with the browser console open, check there are no CSP violations:
-      dictation (the capture worklet) records, read-aloud plays, Paddle checkout opens, Turnstile
+      dictation (the capture worklet) records, read-aloud plays, Dodo checkout opens, Turnstile
       renders on sign-in and the landing demo, the Voiceprint shader runs.
-- [ ] One real purchase at $100 and one 5-school pack at $349 on production Paddle: the pack
+- [ ] One real purchase at $100 and one 5-school pack at $349 on production Dodo: the pack
       unlocks its school at once and shows 4 credits; spend one from another school's unlock page.
       All sales are final (no refund policy), so test with your own card.
 - [ ] Kill switches: in `/admin/switches`, pause `read_aloud`, check Studio shows "Reading

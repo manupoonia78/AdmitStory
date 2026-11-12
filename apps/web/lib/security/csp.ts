@@ -3,7 +3,7 @@
 // scripts. Every page renders dynamically (the root layout reads the theme cookie), so the
 // marketing pages take the same nonce policy as the app instead of the static one the plan
 // sketched. No 'strict-dynamic': it would ignore 'self', blob: and the host list that the
-// capture worklet, Paddle.js and Turnstile load through.
+// capture worklet, Dodo's checkout and Turnstile load through.
 
 export interface CspOptions {
   nonce: string;
@@ -37,13 +37,14 @@ export function pageCsp({ nonce, dev, local, posthogHost, reportUri }: CspOption
       // The capture AudioWorklet is a blob: module (packages/voice/src/client/capture.ts).
       "blob:",
       "https://challenges.cloudflare.com",
-      "https://cdn.paddle.com",
+      // Dodo's overlay SDK is bundled, but it can add the wallet SDK from its own hosts.
+      "https://*.dodopayments.com",
       // posthog-js lazy-loads its recorder and surveys from the assets host.
       "https://*.posthog.com",
       ...(dev ? ["'unsafe-eval'"] : []),
     ],
     "style-src": ["'self'", "'unsafe-inline'"],
-    "img-src": ["'self'", "data:", "blob:", "https://*.paddle.com", "https://media.licdn.com"],
+    "img-src": ["'self'", "data:", "blob:", "https://media.licdn.com"],
     "font-src": ["'self'"],
     "connect-src": [
       "'self'",
@@ -54,14 +55,15 @@ export function pageCsp({ nonce, dev, local, posthogHost, reportUri }: CspOption
       "https://*.ingest.sentry.io",
       "https://*.ingest.us.sentry.io",
       "https://*.ingest.de.sentry.io",
-      "https://*.paddle.com",
+      "https://*.dodopayments.com",
       "https://challenges.cloudflare.com",
       // Local: HMR and the fake Deepgram server (FAKE_STT_URL, ws://localhost:8787).
       ...(local ? ["ws://localhost:*", "http://localhost:*", "ws://127.0.0.1:*"] : []),
     ],
     "media-src": ["'self'", "blob:"],
     "worker-src": ["'self'", "blob:"],
-    "frame-src": ["https://challenges.cloudflare.com", "https://*.paddle.com"],
+    // Dodo's overlay is an iframe on checkout.dodopayments.com (test.checkout… in test mode).
+    "frame-src": ["https://challenges.cloudflare.com", "https://*.dodopayments.com"],
     "frame-ancestors": ["'none'"],
     "object-src": ["'none'"],
     "base-uri": ["'self'"],

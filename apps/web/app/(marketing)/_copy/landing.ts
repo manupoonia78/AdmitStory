@@ -118,7 +118,8 @@ export const FINAL_COPY = {
 
 /**
  * Connect (Manu, 4 Nov 2026): a school pack also connects you with people from that school.
- * The faces are illustrative (lib/connect/illustrative.ts); ILLUSTRATIVE_NOTE goes with them.
+ * The faces are illustrative (lib/connect/illustrative.ts); ILLUSTRATIVE_NOTE goes
+ * with them.
  */
 export const CONNECT_COPY = {
   eyebrow: "Connect · with every school pack",

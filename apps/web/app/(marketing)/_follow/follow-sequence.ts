@@ -2,14 +2,17 @@
 // with import() from ./follow-host on desktop only.
 //
 // It rearranges the server-rendered stacked chapters into the pinned stage (class "is-pinned":
-// statements left, frames right, all four stacked in one grid cell; marketing.css), then scrubs
-// a timeline between four labels, one unit apart. Scroll position is the clock (ease "none"); the
-// spring comes back in the snap that settles on a chapter. Between chapters:
-//   the outgoing statement's lines leave upward through their masks, the incoming ones rise;
-//   the paragraph cross-fades; the outgoing frame fades and drifts up 24 px while the incoming
-//   one fades in from 24 px below (the film cut: opacity and transform only);
-//   the sentence leaves its frame and travels to its slot in the next one, re-sized and
-//   re-coloured, then hands back to the frame's own text.
+// statements left, frames right, all four stacked in one grid cell; marketing.css) and pins it
+// for a few viewports of scroll. Scroll position picks the chapter (four equal stretches); each
+// change then plays as one short, self-contained transition, so the stage never rests half-way
+// between two chapters, whatever the scroll does (trackpad momentum, keys, a dragged scrollbar).
+// Between chapters:
+//   the outgoing statement's lines leave through their masks, the incoming ones rise in;
+//   the paragraph and the position readout cross-fade;
+//   the outgoing frame fades and drifts 24 px while the incoming one fades in from 24 px the other
+//   side (the film cut: opacity and transform only). Scrolling back runs it in reverse direction.
+// Each frame shows the sample sentence in place, so the sentence still "travels" chapter to
+// chapter without an overlay that has to line up with four different layouts.
 //
 // Everything is created inside gsap.matchMedia(), so leaving the query (a narrower window, reduced
 // motion switched on) or unmounting reverts it all and the stacked version is back.
@@ -20,192 +23,113 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { SplitText } from "gsap/SplitText";
 import { DESKTOP_MOTION_QUERY } from "../_lib/gates";
 import { onLenisStart } from "../_motion/smooth-scroll";
-import { CHAPTER_LABELS, slotBox, travelTarget, type TravelTarget } from "./follow-geometry";
 
-/** The colour the sentence takes in each frame: transcript, ignited, on paper, quoted. */
-const SENTENCE_COLORS = ["--text", "--voice", "--text", "--text-soft"] as const;
+/** How long the stage stays pinned, in viewport heights (four chapters share it equally). */
+const PIN_VIEWPORTS = 3.2;
+/** The film cut's drift, in px. */
+const DRIFT = 24;
 
 interface Chapter {
   note: HTMLElement;
   statement: HTMLElement;
   paragraph: HTMLElement;
   frame: HTMLElement;
-  slot: HTMLElement;
-}
-
-function required<T extends Element>(root: ParentNode, selector: string): T | null {
-  return root.querySelector<T>(selector);
-}
-
-/** The element holding the frame's copy of the sentence (its first line is the target). */
-function sentenceIn(frame: HTMLElement): HTMLElement | null {
-  const slot = frame.querySelector<HTMLElement>("[data-sentence-slot]");
-  if (!slot) return null;
-  return (
-    slot.querySelector<HTMLElement>("[data-own-words]") ??
-    slot.querySelector<HTMLElement>("[data-final]") ??
-    slot
-  );
 }
 
 function readChapters(section: HTMLElement): Chapter[] | null {
   const chapters: Chapter[] = [];
   for (const article of section.querySelectorAll<HTMLElement>(".follow-chapter")) {
-    const note = required<HTMLElement>(article, ".follow-note");
-    const statement = required<HTMLElement>(article, ".follow-statement");
-    const paragraph = required<HTMLElement>(article, ".follow-paragraph");
-    const frame = required<HTMLElement>(article, ".follow-frame");
-    const slot = frame ? sentenceIn(frame) : null;
-    if (!note || !statement || !paragraph || !frame || !slot) return null;
-    chapters.push({ note, statement, paragraph, frame, slot });
+    const note = article.querySelector<HTMLElement>(".follow-note");
+    const statement = article.querySelector<HTMLElement>(".follow-statement");
+    const paragraph = article.querySelector<HTMLElement>(".follow-paragraph");
+    const frame = article.querySelector<HTMLElement>(".follow-frame");
+    if (!note || !statement || !paragraph || !frame) return null;
+    chapters.push({ note, statement, paragraph, frame });
   }
-  return chapters.length === CHAPTER_LABELS.length ? chapters : null;
+  return chapters.length > 1 ? chapters : null;
 }
 
-/** A token's resolved colour (rgb), which GSAP can interpolate; var() strings it can't. */
-function tokenColor(scope: HTMLElement, token: string): string {
-  const probe = document.createElement("span");
-  probe.style.color = `var(${token})`;
-  probe.hidden = true;
-  scope.append(probe);
-  const color = getComputedStyle(probe).color;
-  probe.remove();
-  return color;
-}
-
-/** Each chapter's sentence target, measured at rest, relative to the section. */
-function measure(section: HTMLElement, chapters: Chapter[], traveller: HTMLElement) {
-  const sectionRect = section.getBoundingClientRect();
-  const baseFontSize = parseFloat(getComputedStyle(traveller).fontSize) || 21;
-  const targets = chapters.map((chapter): TravelTarget => {
-    const rects = chapter.slot.getClientRects();
-    const line = rects[0] ?? chapter.slot.getBoundingClientRect();
-    // The frame's content is scaled (ScaledFrame): rendered width over layout width.
-    const rendered = chapter.slot.getBoundingClientRect().width;
-    const layout = chapter.slot.offsetWidth;
-    const box = slotBox({
-      line,
-      section: sectionRect,
-      frameOffset: {
-        x: Number(gsap.getProperty(chapter.frame, "x")) || 0,
-        y: Number(gsap.getProperty(chapter.frame, "y")) || 0,
-      },
-      computedFontSize: parseFloat(getComputedStyle(chapter.slot).fontSize) || baseFontSize,
-      frameScale: layout > 0 ? rendered / layout : 1,
-    });
-    return travelTarget(box, baseFontSize);
-  });
-  // The traveller wraps like chapter 1's transcript: its slot's width at the traveller's scale.
-  const firstSlot = chapters[0]?.slot.closest<HTMLElement>("[data-sentence-slot]");
-  const firstScale = targets[0]?.scale ?? 1;
-  if (firstSlot && firstScale > 0) {
-    const width = firstSlot.getBoundingClientRect().width / firstScale;
-    traveller.style.setProperty("--follow-sentence-width", `${Math.round(width)}px`);
-  }
-  return targets;
-}
-
-function build(section: HTMLElement, chapters: Chapter[], traveller: HTMLElement) {
+function build(section: HTMLElement, chapters: Chapter[]) {
   const statements = chapters.map((chapter) => chapter.statement);
-  let targets: TravelTarget[] = [];
-  const colors = SENTENCE_COLORS.map((token) => tokenColor(section, token));
+  let lines: HTMLElement[][] = [];
+  let current = 0;
+  let transition: gsap.core.Timeline | null = null;
+  const glide = springEase("glide");
+
+  /** Shows one chapter at once, the rest hidden: the rest state, and after every re-split. */
+  const settle = (index: number) => {
+    transition?.kill();
+    transition = null;
+    chapters.forEach((chapter, i) => {
+      const shown = i === index;
+      gsap.set(lines[i] ?? [], { yPercent: shown ? 0 : 100 });
+      gsap.set([chapter.note, chapter.paragraph], { opacity: shown ? 1 : 0 });
+      gsap.set(chapter.frame, { autoAlpha: shown ? 1 : 0, y: 0 });
+    });
+  };
+
+  const go = (index: number) => {
+    if (index === current) return;
+    // A transition still playing finishes at once, so only two chapters are ever in motion.
+    transition?.progress(1).kill();
+    const from = chapters[current];
+    const to = chapters[index];
+    const sign = index > current ? 1 : -1;
+    const fromLines = lines[current] ?? [];
+    const toLines = lines[index] ?? [];
+    current = index;
+    if (!from || !to) return;
+    transition = gsap
+      .timeline({ onComplete: () => void (transition = null) })
+      // Statement lines through their masks.
+      .to(fromLines, { yPercent: -100 * sign, stagger: 0.04, duration: 0.32, ease: "power2.in" }, 0)
+      .fromTo(
+        toLines,
+        { yPercent: 100 * sign },
+        { yPercent: 0, stagger: 0.06, duration: SETTLE_SECONDS.glide, ease: glide },
+        0.22,
+      )
+      // The paragraph and the position readout cross-fade.
+      .to([from.note, from.paragraph], { opacity: 0, duration: 0.2, ease: "none" }, 0)
+      .to([to.note, to.paragraph], { opacity: 1, duration: 0.35, ease: "none" }, 0.3)
+      // The film cut.
+      .to(from.frame, { autoAlpha: 0, y: -DRIFT * sign, duration: 0.3, ease: "power1.in" }, 0)
+      .fromTo(
+        to.frame,
+        { autoAlpha: 0, y: DRIFT * sign },
+        { autoAlpha: 1, y: 0, duration: SETTLE_SECONDS.glide, ease: glide },
+        0.2,
+      );
+  };
 
   // One SplitText for all four statements. autoSplit re-splits when fonts load or the width
-  // changes, reverting the timeline returned from onSplit and building a fresh one.
+  // changes; the new lines take the current chapter's rest state.
   SplitText.create(statements, {
     type: "lines",
     mask: "lines",
     linesClass: "follow-line",
     autoSplit: true,
     onSplit() {
-      const lines = statements.map((statement) =>
+      lines = statements.map((statement) =>
         Array.from(statement.querySelectorAll<HTMLElement>(".follow-line")),
       );
-      targets = measure(section, chapters, traveller);
-      const target = (index: number, key: keyof TravelTarget) => () => targets[index]?.[key] ?? 0;
-
-      // Rest state: chapter 1 showing, the rest waiting below their masks.
-      chapters.forEach((chapter, index) => {
-        const shown = index === 0;
-        gsap.set(lines[index] ?? [], { yPercent: shown ? 0 : 100 });
-        gsap.set([chapter.note, chapter.paragraph], { opacity: shown ? 1 : 0 });
-        gsap.set(chapter.frame, { autoAlpha: shown ? 1 : 0, y: shown ? 0 : 24 });
-        gsap.set(chapter.slot, { opacity: 1 });
-      });
-      gsap.set(traveller, {
-        autoAlpha: 0,
-        x: target(0, "x"),
-        y: target(0, "y"),
-        scale: target(0, "scale"),
-      });
-
-      const timeline = gsap.timeline({
-        defaults: { ease: "none" },
-        scrollTrigger: {
-          trigger: section,
-          start: "top top",
-          end: () => `+=${window.innerHeight * 3.2}`,
-          pin: true,
-          scrub: true,
-          anticipatePin: 1,
-          invalidateOnRefresh: true,
-          onRefreshInit: () => {
-            targets = measure(section, chapters, traveller);
-          },
-          snap: {
-            snapTo: "labelsDirectional",
-            duration: { min: SETTLE_SECONDS.snap, max: SETTLE_SECONDS.drift },
-            delay: 0.08,
-            ease: springEase("drift"),
-          },
-        },
-      });
-
-      CHAPTER_LABELS.forEach((label, index) => timeline.addLabel(label, index));
-
-      for (let index = 0; index < chapters.length - 1; index += 1) {
-        const from = chapters[index];
-        const to = chapters[index + 1];
-        if (!from || !to) continue;
-        const at = index;
-        timeline
-          // Statement lines through their masks.
-          .to(lines[index] ?? [], { yPercent: -100, stagger: 0.06, duration: 0.4 }, at + 0.05)
-          .to(lines[index + 1] ?? [], { yPercent: 0, stagger: 0.06, duration: 0.4 }, at + 0.5)
-          // The paragraph and the position readout cross-fade.
-          .to([from.note, from.paragraph], { opacity: 0, duration: 0.3 }, at + 0.05)
-          .to([to.note, to.paragraph], { opacity: 1, duration: 0.3 }, at + 0.6)
-          // The film cut.
-          .to(from.frame, { autoAlpha: 0, y: -24, duration: 0.45 }, at + 0.1)
-          .to(to.frame, { autoAlpha: 1, y: 0, duration: 0.45 }, at + 0.45)
-          // The sentence lifts out of the old frame, travels, and lands in the new one.
-          .to(from.slot, { opacity: 0, duration: 0.05 }, at + 0.08)
-          .fromTo(
-            traveller,
-            {
-              autoAlpha: 1,
-              x: target(index, "x"),
-              y: target(index, "y"),
-              scale: target(index, "scale"),
-              color: colors[index] ?? colors[0],
-            },
-            {
-              x: target(index + 1, "x"),
-              y: target(index + 1, "y"),
-              scale: target(index + 1, "scale"),
-              color: colors[index + 1] ?? colors[0],
-              duration: 0.8,
-              immediateRender: false,
-            },
-            at + 0.08,
-          )
-          .set(to.slot, { opacity: 0 }, at + 0.08)
-          .to(to.slot, { opacity: 1, duration: 0.06 }, at + 0.88)
-          .to(traveller, { autoAlpha: 0, duration: 0.06 }, at + 0.88);
-      }
-      return timeline;
+      settle(current);
     },
   });
+
+  ScrollTrigger.create({
+    trigger: section,
+    start: "top top",
+    end: () => `+=${window.innerHeight * PIN_VIEWPORTS}`,
+    pin: true,
+    anticipatePin: 1,
+    invalidateOnRefresh: true,
+    onUpdate: (self) => {
+      go(Math.min(chapters.length - 1, Math.floor(self.progress * chapters.length)));
+    },
+  });
+
+  return () => transition?.kill();
 }
 
 /** Starts the sequence on the #follow section; returns the cleanup. */
@@ -213,15 +137,17 @@ export function startFollow(section: HTMLElement): () => void {
   gsap.registerPlugin(ScrollTrigger, SplitText);
   const media = gsap.matchMedia();
   media.add(DESKTOP_MOTION_QUERY, () => {
-    const traveller = section.querySelector<HTMLElement>(".follow-sentence");
     section.classList.add("is-pinned");
     const chapters = readChapters(section);
-    if (!chapters || !traveller) {
+    if (!chapters) {
       section.classList.remove("is-pinned");
       return;
     }
-    build(section, chapters, traveller);
-    return () => section.classList.remove("is-pinned");
+    const stop = build(section, chapters);
+    return () => {
+      stop();
+      section.classList.remove("is-pinned");
+    };
   });
 
   // Smooth scroll is optional and may start later (first wheel): keep ScrollTrigger in step.

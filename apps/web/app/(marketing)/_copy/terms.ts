@@ -86,9 +86,9 @@ export const TERMS_SECTIONS: readonly LegalSection[] = [
   {
     id: "payments",
     title: "Payments",
-    summary: `${KIT_PRICE_DISPLAY} per school per cycle, or a pack, through Paddle, our merchant of record. All sales are final.`,
+    summary: `${KIT_PRICE_DISPLAY} per school per cycle, or a pack, through Dodo Payments, our merchant of record. All sales are final.`,
     body: [
-      `A school kit costs ${KIT_PRICE_DISPLAY} per school for one application cycle. Paddle sells it to you as merchant of record, adds tax where it applies and issues your receipt. There is no subscription.`,
+      `A school kit costs ${KIT_PRICE_DISPLAY} per school for one application cycle. Dodo Payments sells it to you as merchant of record, adds tax where it applies and issues your receipt. There is no subscription.`,
       `A school pack (${PACKS}) unlocks the school you buy it from at once. Each remaining school is a credit that unlocks one more school, for one application cycle, whenever you choose. Credits don’t expire and can’t be exchanged for money.`,
       SALES_FINAL_RULE,
       "Refinement is unlimited within fair use: rework a draft as often as you need for your own application. Automated or bulk use isn’t fair use.",

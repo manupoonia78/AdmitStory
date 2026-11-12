@@ -58,14 +58,19 @@ export function serviceChecks(env: Record<string, string | undefined>): ServiceC
       required: true,
     },
     {
-      service: "Paddle payments",
+      service: "Dodo payments",
       status:
-        has(env, "PADDLE_API_KEY") &&
-        has(env, "PADDLE_WEBHOOK_SECRET") &&
-        has(env, "PADDLE_CLIENT_TOKEN")
+        has(env, "DODO_PAYMENTS_API_KEY") &&
+        has(env, "DODO_PAYMENTS_WEBHOOK_KEY") &&
+        has(env, "DODO_PRODUCT_SCHOOL_KIT") &&
+        has(env, "DODO_PRODUCT_PACK5") &&
+        has(env, "DODO_PRODUCT_PACK10") &&
+        env.DODO_PAYMENTS_ENVIRONMENT?.trim() === "live_mode"
           ? "live"
           : "fake",
-      detail: "PADDLE_API_KEY + PADDLE_WEBHOOK_SECRET + PADDLE_CLIENT_TOKEN",
+      // Test mode counts as fake: its checkout takes test cards, so it must never face buyers.
+      detail:
+        "DODO_PAYMENTS_ENVIRONMENT=live_mode + DODO_PAYMENTS_API_KEY + DODO_PAYMENTS_WEBHOOK_KEY + DODO_PRODUCT_SCHOOL_KIT/PACK5/PACK10",
       // Not blocking (2026-11-04): the fake provider refuses non-localhost hosts, so checkout
       // shows as unavailable until the keys are set (packages/payments/src/select.ts).
       required: false,

@@ -8,28 +8,53 @@ import {
   type WebhookHeaders,
 } from "./provider";
 
-// Paddle Billing webhook signatures (developer.paddle.com/webhooks/signature-verification, checked
-// 31 October 2026): the `Paddle-Signature` header is `ts=<unix seconds>;h1=<hex HMAC-SHA256>`, the
-// HMAC is over `${ts}:${rawBody}` keyed with the endpoint's secret key, and during secret rotation
-// more than one h1 may be present. The fake provider signs with this same scheme, so local
-// checkouts exercise this exact code path.
+// Dodo Payments webhook signatures follow Standard Webhooks (docs.dodopayments.com/developer-
+// resources/webhooks, checked 6 November 2026): headers `webhook-id`, `webhook-timestamp` (unix
+// seconds) and `webhook-signature`, which holds one or more space-separated `v1,<base64>` values.
+// Each is the base64 HMAC-SHA256 of `${id}.${timestamp}.${rawBody}`, keyed with the base64-decoded
+// part of the endpoint's `whsec_…` secret. During a secret rotation both signatures are present.
+// The fake provider signs with this same scheme, so local checkouts exercise this exact code path.
 
-export const SIGNATURE_HEADER = "paddle-signature";
+export const SIGNATURE_HEADER = "webhook-signature";
+export const ID_HEADER = "webhook-id";
+export const TIMESTAMP_HEADER = "webhook-timestamp";
 
 /**
- * Paddle's SDKs default to a 5-second tolerance. We allow 5 minutes so small clock skew on a
- * serverless host can't drop a real payment; replays inside the window are harmless because
- * purchases are idempotent on the transaction id (§5.6 AC).
+ * Standard Webhooks allows 5 minutes. Replays inside the window are harmless because events are
+ * idempotent on the webhook id and purchases on the payment id (§5.6 AC).
  */
 export const DEFAULT_TOLERANCE_SECONDS = 300;
 
-export function hmacHex(secret: string, timestamp: number | string, rawBody: string): string {
-  return createHmac("sha256", secret).update(`${timestamp}:${rawBody}`, "utf8").digest("hex");
+function signingKey(secret: string): Buffer {
+  const key = Buffer.from(secret.replace(/^whsec_/, ""), "base64");
+  // An empty key would make every forged signature computable; fail closed.
+  if (key.length === 0) throw new PaymentsConfigError("The webhook secret is empty.");
+  return key;
 }
 
-/** The header value Paddle would send for this body at this time. */
-export function signatureHeader(secret: string, rawBody: string, timestampSeconds: number): string {
-  return `ts=${timestampSeconds};h1=${hmacHex(secret, timestampSeconds, rawBody)}`;
+export function hmacBase64(
+  secret: string,
+  id: string,
+  timestamp: number | string,
+  rawBody: string,
+) {
+  return createHmac("sha256", signingKey(secret))
+    .update(`${id}.${timestamp}.${rawBody}`, "utf8")
+    .digest("base64");
+}
+
+/** The headers Dodo would send for this body, id and time. */
+export function signatureHeaders(
+  secret: string,
+  id: string,
+  rawBody: string,
+  timestampSeconds: number,
+): Record<string, string> {
+  return {
+    [ID_HEADER]: id,
+    [TIMESTAMP_HEADER]: String(timestampSeconds),
+    [SIGNATURE_HEADER]: `v1,${hmacBase64(secret, id, timestampSeconds, rawBody)}`,
+  };
 }
 
 export function headerValue(headers: WebhookHeaders, name: string): string | undefined {
@@ -41,30 +66,25 @@ export function headerValue(headers: WebhookHeaders, name: string): string | und
   return Array.isArray(found) ? found[0] : found;
 }
 
-export function parseSignatureHeader(header: string): { timestamp: number; signatures: string[] } {
-  let timestamp: number | undefined;
-  const signatures: string[] = [];
-  for (const part of header.split(";")) {
-    const at = part.indexOf("=");
-    if (at < 1) throw malformed();
-    const key = part.slice(0, at).trim();
-    const val = part.slice(at + 1).trim();
-    if (key === "ts") {
-      if (!/^\d{1,12}$/.test(val) || timestamp !== undefined) throw malformed();
-      timestamp = Number(val);
-    } else if (key === "h1") {
-      if (!/^[0-9a-f]{64}$/i.test(val)) throw malformed();
-      signatures.push(val.toLowerCase());
-    }
-    // Unknown keys are ignored, so a future signature scheme (h2…) doesn't break verification.
+/** The v1 signatures in a `webhook-signature` header, as raw bytes. */
+export function parseSignatureHeader(header: string): Buffer[] {
+  const signatures: Buffer[] = [];
+  for (const part of header.trim().split(/\s+/)) {
+    const comma = part.indexOf(",");
+    if (comma < 1) throw malformed();
+    // Unknown versions are skipped, so a future scheme (v1a…) doesn't break verification.
+    if (part.slice(0, comma) !== "v1") continue;
+    const value = part.slice(comma + 1);
+    if (!/^[A-Za-z0-9+/]+={0,2}$/.test(value)) throw malformed();
+    signatures.push(Buffer.from(value, "base64"));
   }
-  if (timestamp === undefined || signatures.length === 0) throw malformed();
-  return { timestamp, signatures };
+  if (signatures.length === 0) throw malformed();
+  return signatures;
 }
 
 const malformed = () =>
   new WebhookVerificationError(
-    "The Paddle-Signature header is not in the form ts=…;h1=….",
+    "The webhook-signature header is not in the form v1,<base64>.",
     "malformed_signature",
   );
 
@@ -80,15 +100,18 @@ export function verifySignedWebhook(
   headers: WebhookHeaders,
   { secret, toleranceSeconds = DEFAULT_TOLERANCE_SECONDS, now = Date.now }: VerifyOptions,
 ): VerifiedWebhook {
-  // An empty key would make every forged signature computable; fail closed.
-  if (!secret) throw new PaymentsConfigError("The webhook secret is empty.");
+  signingKey(secret);
+  const id = headerValue(headers, ID_HEADER);
+  const rawTimestamp = headerValue(headers, TIMESTAMP_HEADER);
   const header = headerValue(headers, SIGNATURE_HEADER);
-  if (!header)
+  if (!id || !rawTimestamp || !header)
     throw new WebhookVerificationError(
-      "The Paddle-Signature header is missing.",
+      "The webhook-id, webhook-timestamp or webhook-signature header is missing.",
       "missing_signature",
     );
-  const { timestamp, signatures } = parseSignatureHeader(header);
+  if (!/^\d{1,12}$/.test(rawTimestamp)) throw malformed();
+  const timestamp = Number(rawTimestamp);
+  const signatures = parseSignatureHeader(header);
 
   if (Math.abs(Math.floor(now() / 1000) - timestamp) > toleranceSeconds)
     throw new WebhookVerificationError(
@@ -96,9 +119,9 @@ export function verifySignedWebhook(
       "stale",
     );
 
-  const expected = Buffer.from(hmacHex(secret, timestamp, rawBody), "hex");
-  const matches = signatures.some((signature) =>
-    timingSafeEqual(Buffer.from(signature, "hex"), expected),
+  const expected = Buffer.from(hmacBase64(secret, id, timestamp, rawBody), "base64");
+  const matches = signatures.some(
+    (signature) => signature.length === expected.length && timingSafeEqual(signature, expected),
   );
   if (!matches)
     throw new WebhookVerificationError("The webhook signature does not match.", "mismatch");
@@ -113,9 +136,10 @@ export function verifySignedWebhook(
   if (!envelope.success)
     throw new WebhookPayloadError(`The webhook envelope is invalid: ${envelope.error.message}`);
   return {
-    eventId: envelope.data.event_id,
-    eventType: envelope.data.event_type,
-    occurredAt: envelope.data.occurred_at,
+    // Dodo keeps the webhook id across retries of one delivery, so it is the idempotency key.
+    eventId: id,
+    eventType: envelope.data.type,
+    occurredAt: envelope.data.timestamp,
     payload: json,
   };
 }

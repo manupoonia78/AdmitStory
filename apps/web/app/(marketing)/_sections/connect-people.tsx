@@ -1,7 +1,7 @@
 // Connect (Manu, 4 Nov 2026): every school pack comes with people from that school. The section
 // is the human part of the page: the claim, three kinds of people, then a slow strip of faces.
-// The faces are illustrative stock portraits and are labelled so; they are never shown as real
-// alumni. Server markup; the strip is CSS only (components/people-carousel.tsx).
+// The faces are illustrative stock portraits, never named or shown as real alumni; the line under
+// them says unlocking a school is what matches you with real people. Server markup; the strip is CSS only (components/people-carousel.tsx).
 
 import { PeopleCarousel } from "@/components/people-carousel";
 import { CONNECT_COPY } from "../_copy/landing";

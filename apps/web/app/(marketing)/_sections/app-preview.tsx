@@ -1,6 +1,7 @@
 // A still of the app, drawn in HTML (paper redesign): the essay workspace with the sidebar, the
 // draft on paper and the coach beside it. Shown in "Quiet where you work" until real captures
-// exist (_data/screens.ts). Decorative, server-only; the sample is fictional, as is Northfield.
+// exist (_data/screens.ts). Decorative, server-only. Its draft is a third sample applicant (Manu,
+// 5 Nov 2026: more than one story on the page), fictional, as is Northfield.
 
 import { Wordmark } from "@admitstory/ui";
 import { sampleHueStyle } from "../_ui/sample-hue";
@@ -39,29 +40,28 @@ export function AppPreview() {
 
         <div className="flex flex-col gap-4 p-6">
           <div className="flex items-center justify-between">
-            <p className="meta uppercase tracking-[0.14em]">Northfield · Essay 1</p>
+            <p className="meta uppercase tracking-[0.14em]">Northfield · Goals essay</p>
             <span className="rounded-full bg-[color-mix(in_srgb,var(--verified)_12%,transparent)] px-2.5 py-0.5 text-[11px] font-medium text-verified">
-              94% your words
+              91% your words
             </span>
           </div>
           <div className="flex-1 rounded-[6px] border border-edge bg-depth px-8 py-7 shadow-paper">
-            <p className="font-display text-[1.375rem] leading-tight">
-              What matters most to you, and why?
-            </p>
+            <p className="font-display text-[1.375rem] leading-tight">Why an MBA, and why now?</p>
             <div className="mt-5 flex flex-col gap-4 font-reading text-[14.5px] leading-[1.75]">
               <p>
                 <mark>
-                  It was 2 a.m. and the feed from the lab system was dropping every fourth message.
+                  My father ran the plant from a notebook, and the notebook was always right.
                 </mark>{" "}
-                Nobody on the ward could see it yet, but I could. The go-live had been planned for
-                months, and the manager who owned it had left two weeks before.
+                When I joined our family’s packaging business in 2021, we had 140 people, one
+                supervisor who could fix the corrugator, and no system anyone else could read.
               </p>
               <p>
-                I was a systems analyst with no authority over the vendor or the nurses.{" "}
-                <mark>What I did have was a phone list and a pot of terrible coffee.</mark>
+                I spent my first year moving the notebook into software nobody had asked for.{" "}
+                <mark>The supervisors called it my homework.</mark>
               </p>
               <p className="text-text-soft">
-                We found it at 4:40: a timeout nobody had changed from the test settings…
+                By the second year waste was down a third, and I knew the next problem wasn’t a
+                machine…
               </p>
             </div>
           </div>
@@ -70,10 +70,10 @@ export function AppPreview() {
         <div className="hidden flex-col gap-4 border-l border-edge p-5 lg:flex">
           <p className="meta uppercase tracking-[0.14em]">Coach</p>
           {[
-            ["Word count", "612 of 650", "verified"],
-            ["Every claim sourced", "3 stories cited", "verified"],
-            ["Reads like you", "Voice match 0.91", "verified"],
-            ["One question for you", "When did you tell your manager?", "needs"],
+            ["Word count", "468 of 500", "verified"],
+            ["Every claim sourced", "4 stories cited", "verified"],
+            ["Reads like you", "Voice match 0.93", "verified"],
+            ["One question for you", "What did your father say in month one?", "needs"],
           ].map(([title, detail, tone]) => (
             <div key={title} className="rounded-control border border-edge bg-depth p-3">
               <p className="flex items-center gap-2 text-[13px] font-medium">

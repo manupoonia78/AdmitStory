@@ -70,7 +70,7 @@ export function accountDeletedCopy() {
     heading: "Your account has been deleted",
     lines: [
       `We're deleting everything you wrote and said in ${APP_NAME}: your stories, drafts, kits and your recommenders' links. It should all be gone within the hour.`,
-      "Backups expire within 35 days. Receipts stay with Paddle, our payment provider, as the law requires.",
+      "Backups expire within 35 days. Receipts stay with Dodo Payments, our payment provider, as the law requires.",
       "You don't need to do anything. If you didn't ask for this, reply to this email straight away.",
     ],
     signoff: "Thank you for telling your story with us.",

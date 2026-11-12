@@ -1,10 +1,11 @@
 // The payments contract (spec §5.6, §13). Plain types and small pure helpers only: the browser
 // imports these through `@admitstory/payments/client`, so nothing here may pull in Zod, node:crypto
-// or a secret. Providers (Paddle, the local fake) live behind this interface so Lemon Squeezy,
-// Stripe or Razorpay can be added later without touching the app.
+// or a secret. Providers (Dodo Payments, the local fake) live behind this interface so another
+// merchant of record can be added later without touching the app.
 
-export type PaymentsProviderName = "paddle" | "fake";
-export type PaddleEnvironment = "sandbox" | "live";
+export type PaymentsProviderName = "dodo" | "fake";
+/** Dodo's API and checkout run in one of two modes; keys belong to one of them. */
+export type DodoEnvironment = "test_mode" | "live_mode";
 
 /**
  * One-time products (§5.6): a kit for one school per cycle, or a pack of 5 or 10 schools (Manu,
@@ -41,8 +42,8 @@ export interface CheckoutInput {
   userId: string;
   productKey: ProductKey;
   /**
-   * Smallest currency unit. For a single school kit, ignored by Paddle when PADDLE_PRICE_SCHOOL_KIT
-   * names a catalog price; packs always use this amount.
+   * Smallest currency unit. Dodo charges the price of the product configured for this kind
+   * (DODO_PRODUCT_*); this amount is what the checkout row records and the fake charges.
    */
   priceCents: number;
   /** ISO 4217, upper case. */
@@ -59,14 +60,12 @@ export interface CheckoutInput {
 /** What the browser needs to open the checkout. Never contains a secret. */
 export type CheckoutClientConfig =
   | {
-      provider: "paddle";
-      environment: PaddleEnvironment;
-      /** Paddle client-side token (`test_…` or `live_…`), safe to expose. */
-      clientToken: string;
-      transactionId: string;
-      customerEmail: string;
-      successUrl: string;
-      discountCode?: string;
+      provider: "dodo";
+      /** The overlay SDK's mode; must match the key that created the session. */
+      mode: "test" | "live";
+      /** Single-use hosted checkout URL for the session our server created. */
+      checkoutUrl: string;
+      sessionId: string;
     }
   | {
       provider: "fake";
@@ -80,7 +79,10 @@ export type CheckoutClientConfig =
     };
 
 export interface CheckoutSession {
-  /** The provider's transaction id (`txn_…`); purchases are idempotent on it. */
+  /**
+   * The provider's checkout id (Dodo's session `cks_…`), stored on the checkout row. The purchase
+   * itself is keyed on the payment id the webhook brings (`providerTxnId`).
+   */
   checkoutId: string;
   clientConfig: CheckoutClientConfig;
 }
@@ -91,6 +93,9 @@ export type PaymentEvent =
       type: "purchase_completed";
       eventId: string;
       occurredAt: string;
+      /** The checkout this payment completed (matched against the checkout row). */
+      providerCheckoutId: string;
+      /** The payment (`pay_…`); purchases are idempotent on it, and refunds name it. */
       providerTxnId: string;
       productKey: ProductKey;
       userId: string;
@@ -107,18 +112,21 @@ export type PaymentEvent =
       occurredAt: string;
       providerTxnId: string;
       adjustmentId: string;
-      /** A refund we or Paddle approved, or a chargeback the buyer's bank forced. Both revoke. */
+      /** A refund that went through, or a dispute the buyer's bank won. Both revoke. */
       kind: "refund" | "chargeback";
       /** True when only part of the price came back; the app decides whether that revokes. */
       partial: boolean;
       amountCents: number;
-      currency: string;
+      /** Null when the provider didn't say (a refund in the settlement currency). */
+      currency: string | null;
       raw: unknown;
     }
   | {
       type: "payment_failed";
       eventId: string;
       occurredAt: string;
+      /** Null for a payment that didn't start from one of our checkouts. */
+      providerCheckoutId: string | null;
       providerTxnId: string;
       userId: string | null;
       productKey: ProductKey | null;
@@ -127,10 +135,10 @@ export type PaymentEvent =
     }
   | {
       /**
-       * Verified but not ours to act on: another event type, a refund still awaiting approval, or a
-       * completed transaction without usable custom data. `reason` says which. When `alertAdmin`
-       * is true, money moved without a matching entitlement change: acknowledge the webhook (so
-       * Paddle stops retrying) and alert admin.
+       * Verified but not ours to act on: another event type, an open dispute, or a succeeded
+       * payment without usable metadata. `reason` says which. When `alertAdmin` is true, money
+       * moved without a matching entitlement change: acknowledge the webhook (so the provider
+       * stops retrying) and alert admin.
        */
       type: "ignored";
       eventId: string;
@@ -169,9 +177,10 @@ export interface RefundInput {
 }
 
 export interface RefundResult {
+  /** The provider's refund id (`ref_…`). */
   adjustmentId: string;
-  /** Live Paddle refunds usually wait for Paddle's review; the entitlement is revoked on approval. */
-  status: "pending_approval" | "approved" | "rejected" | "reversed";
+  /** A refund may wait for the provider's review; the entitlement is revoked when it succeeds. */
+  status: "pending_approval" | "approved" | "rejected";
 }
 
 export type WebhookHeaders = Headers | Record<string, string | string[] | undefined>;

@@ -6,7 +6,7 @@ import { isLocalAppUrl, serverEnv } from "@/lib/env";
 import { payments, processWebhook } from "@/lib/payments/server";
 
 // POST /api/dev/fake-checkout (localhost only): the local checkout's "Pay $100 (test)". Builds the
-// webhook Paddle would send for the caller's own open checkout, signed the way Paddle signs, and
+// webhook Dodo would send for the caller's own open checkout, signed the way Dodo signs, and
 // hands it to the same handler the real webhook route uses. Refuses anywhere but localhost, and
 // whenever the real provider is configured.
 
@@ -28,7 +28,7 @@ export async function POST(request: Request): Promise<Response> {
       body.outcome === "paid"
         ? {
             type: "purchase_completed",
-            transactionId: checkout.providerCheckoutId,
+            checkoutId: checkout.providerCheckoutId,
             userId: session.user.id,
             productKey: checkout.productKey as ProductKey,
             amountCents: checkout.amountCents,
@@ -36,11 +36,11 @@ export async function POST(request: Request): Promise<Response> {
           }
         : {
             type: "payment_failed",
-            transactionId: checkout.providerCheckoutId,
+            checkoutId: checkout.providerCheckoutId,
             userId: session.user.id,
             productKey: checkout.productKey as ProductKey,
             currency: checkout.currency,
-            errorCode: "declined",
+            errorCode: "CARD_DECLINED",
           },
     );
     const result = await processWebhook(webhook.body, webhook.headers);

@@ -21,7 +21,7 @@ import { dispatch } from "@/lib/strategy/dispatch";
 // Account deletion (spec §14.4, Phase 9b decision 13). Immediate, not delayed: the request signs
 // the user out everywhere and records the deletion; the job emails a confirmation and then deletes
 // the users row, which every user table cascades from. usage_ledger and audit_log keep anonymised
-// rows. Receipts stay with Paddle (the Merchant of Record); backups expire within 35 days.
+// rows. Receipts stay with Dodo Payments (the merchant of record); backups expire within 35 days.
 
 /** A deletion needs a session signed in within this long (decision 13). */
 export const FRESH_SESSION_MS = 15 * 60_000;

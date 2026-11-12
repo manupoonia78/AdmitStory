@@ -1,5 +1,5 @@
 // /pricing (direction §5, plan §9.4.1): what exactly $100 buys, and what stays free. One hero
-// moment, the kit that opens; everything below it is still. No Paddle here: purchases start in the
+// moment, the kit that opens; everything below it is still. No checkout here: purchases start in the
 // app from a school's kit preview, where the school and cycle are known.
 
 import { FileMapList, PositioningBlock } from "@admitstory/ui";
@@ -279,7 +279,7 @@ export default function PricingPage() {
             {PAYMENT_COPY.heading}
           </h2>
           <div className="mt-6 flex max-w-[40rem] flex-col gap-4 text-lg text-text-soft">
-            <p>{PAYMENT_COPY.paddle}</p>
+            <p>{PAYMENT_COPY.processor}</p>
             <p>{PAYMENT_COPY.noSubscription}</p>
             <p className="text-text">{SALES_FINAL_RULE}</p>
             <p className="text-base">{TAX_LINE}</p>

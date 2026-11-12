@@ -111,7 +111,7 @@ export function kitSupport(env: KitEnv) {
     const userId = await applicantWithDossier();
     const { cycle, compiled } = await fictionalSchool();
     const us = await addUserSchool(env.handle.db, userId, { schoolCycleId: cycle.id });
-    const txn = `txn_${randomUUID().replace(/-/g, "").slice(0, 26)}`;
+    const txn = `cks_${randomUUID().replace(/-/g, "").slice(0, 26)}`;
     await recordCheckout(env.handle.db, userId, {
       provider: "fake",
       providerCheckoutId: txn,
@@ -121,7 +121,7 @@ export function kitSupport(env: KitEnv) {
     });
     const webhook = buildSignedFakeWebhook({
       type: "purchase_completed",
-      transactionId: txn,
+      checkoutId: txn,
       userId,
       productKey: schoolKitProductKey(cycle.id),
       amountCents: 10_000,

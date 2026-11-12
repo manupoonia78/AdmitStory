@@ -151,7 +151,7 @@ and `costUsd`. `e2e/ai-smoke.spec.ts` calls it and reads the row back from the d
 
 `next.config.ts` sends HSTS, `X-Content-Type-Options: nosniff`, a strict referrer policy and
 `Content-Security-Policy: frame-ancestors 'none'`. The full CSP (script, style and connect
-sources for Turnstile, PostHog, Sentry, Paddle and Cal.com) is a Phase 9 item.
+sources for Turnstile, PostHog, Sentry, Dodo Payments and Cal.com) is a Phase 9 item.
 
 ## Layout (spec §17)
 

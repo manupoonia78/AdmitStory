@@ -3,7 +3,7 @@
 // own: four chapters in reading order, each with its statement, paragraph and frame.
 //
 // On desktop with a mouse and motion welcome, FollowHost loads ./follow-sequence, which rearranges
-// the same DOM into the pinned two-column stage (class "is-pinned") and scrubs between chapters.
+// the same DOM into the pinned two-column stage (class "is-pinned") and steps between chapters.
 // The articles stay in the DOM and in order, so a screen reader reads the same four chapters.
 
 import {
@@ -12,7 +12,6 @@ import {
   chapterPosition,
   type FollowChapter,
 } from "../_copy/follow";
-import { SAMPLE_LINE } from "../_data/sample";
 import { PlaneFrame, ScaledFrame } from "../_ui/frames";
 import { FictionalNote, MarginNote } from "../_ui/notes";
 import { sampleHueStyle } from "../_ui/sample-hue";
@@ -95,11 +94,6 @@ export function FollowSection() {
         </div>
         <FictionalNote className="follow-fictional col-span-4 mt-16 sm:col-span-8 lg:col-span-12" />
       </div>
-      {/* The travelling sentence: only shown in the pinned arrangement, and never read aloud
-          (each frame has the sentence in place). */}
-      <p aria-hidden="true" className="follow-sentence font-reading text-text">
-        {SAMPLE_LINE}
-      </p>
       <FollowHost />
     </section>
   );

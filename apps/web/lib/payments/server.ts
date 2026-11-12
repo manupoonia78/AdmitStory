@@ -43,7 +43,7 @@ export { SCHOOL_KIT_CURRENCY, SCHOOL_KIT_PRICE_CENTS } from "./plans";
 let override: PaymentsProvider | null = null;
 let cached: PaymentsProvider | null = null;
 
-/** The configured provider: Paddle with keys, the fake on localhost without them. */
+/** The configured provider: Dodo with keys, the fake on localhost without them. */
 export function payments(): PaymentsProvider {
   if (override) return override;
   cached ??= selectPaymentsProvider();
@@ -207,6 +207,7 @@ export async function processWebhook(
       const outcome = await applyPurchaseCompleted(db, {
         ...base,
         type: event.type,
+        providerCheckoutId: event.providerCheckoutId,
         providerTxnId: event.providerTxnId,
         productKey: event.productKey,
         userId: event.userId,
@@ -217,7 +218,7 @@ export async function processWebhook(
         raw: event.raw,
       });
       if (outcome.outcome === "mismatch") {
-        await setCheckoutStatus(db, event.providerTxnId, "mismatch");
+        await setCheckoutStatus(db, event.providerCheckoutId, "mismatch");
         await alertAdmin(`purchase did not match its checkout: ${outcome.reason}`, {
           eventId: event.eventId,
           providerTxnId: event.providerTxnId,
@@ -225,7 +226,7 @@ export async function processWebhook(
         return { status: 200, body: { outcome: "mismatch" } };
       }
       if (outcome.outcome === "applied") {
-        await setCheckoutStatus(db, event.providerTxnId, "completed");
+        await setCheckoutStatus(db, event.providerCheckoutId, "completed");
         // A pack for a school already owned just leaves all its schools as credits.
         if (outcome.alreadyEntitled && outcome.schools === 1)
           await alertAdmin("second purchase for a school the buyer already owns", {
@@ -257,7 +258,7 @@ export async function processWebhook(
       return { status: 200, body: { outcome: outcome.outcome } };
     }
     case "payment_failed": {
-      await setCheckoutStatus(db, event.providerTxnId, "failed");
+      if (event.providerCheckoutId) await setCheckoutStatus(db, event.providerCheckoutId, "failed");
       await recordWebhookEvent(db, { ...base, type: event.type, outcome: "applied" });
       return { status: 200, body: { outcome: "failed" } };
     }

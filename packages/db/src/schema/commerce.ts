@@ -80,9 +80,9 @@ export const checkouts = pgTable(
     userId: uuid("user_id")
       .notNull()
       .references(() => users.id, { onDelete: "cascade" }),
-    /** `paddle` or `fake` (packages/payments). */
+    /** `dodo` or `fake` (packages/payments). */
     provider: text("provider").notNull(),
-    /** Paddle's transaction id: our server creates the transaction, so it is also the checkout id. */
+    /** The provider's checkout id (Dodo's session `cks_…`); the payment id lands on the purchase. */
     providerCheckoutId: text("provider_checkout_id").notNull().unique(),
     /** `school_kit:{school_cycle_id}`, or `school_pack5:`/`school_pack10:` for a pack (§5.6). */
     productKey: text("product_key").notNull(),
