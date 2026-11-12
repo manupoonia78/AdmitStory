@@ -155,6 +155,27 @@ export function deferred<P extends object>(
       );
     }, [props, mode]);
 
+    // The safety net. The server HTML can be streamed after the shell and revealed by React's
+    // inline script; if that reveal never happens, or React drops the server HTML, the island
+    // would stay empty for good (a "never" gate never opens). Once the page has loaded, an island
+    // with nothing rendered loads its code and renders on the client instead.
+    useEffect(() => {
+      if (mode === "immediate") return;
+      let frame = 0;
+      const check = () => {
+        frame = requestAnimationFrame(() => {
+          const node = ref.current;
+          if (node && !node.querySelector(":scope > :not(template)")) gate.open();
+        });
+      };
+      if (document.readyState === "complete") check();
+      else window.addEventListener("load", check, { once: true });
+      return () => {
+        window.removeEventListener("load", check);
+        cancelAnimationFrame(frame);
+      };
+    }, [mode]);
+
     useEffect(() => {
       if (mode === "immediate" || gate.opened || when === "never") return;
       const node = ref.current;

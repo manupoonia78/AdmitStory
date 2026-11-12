@@ -42,15 +42,17 @@ const PORTAL_HEADERS = [
 ];
 
 // packages/ai reads these at runtime (canon, prompt templates, replay fixtures), so they must be
-// copied into every server trace that can reach ai.run().
+// copied into every server trace that can reach ai.run(). The globs must be relative to apps/web:
+// Next globs them from here and joins each match onto this directory, so an absolute pattern
+// yields paths that do not exist and the files are silently left out of the deployment.
 const AI_RUNTIME_FILES = [
-  `${REPO_ROOT}knowledge/canon/*.md`,
-  `${REPO_ROOT}packages/ai/src/prompts/**/*.md`,
-  `${REPO_ROOT}fixtures/llm-replays/**/*.json`,
+  "../../knowledge/canon/*.md",
+  "../../packages/ai/src/prompts/**/*.md",
+  "../../fixtures/llm-replays/**/*.json",
   // Phase 9b's in-app eval scan: the baseline, the synthetic applicants and the compiled packs.
-  `${REPO_ROOT}fixtures/evals/*.json`,
-  `${REPO_ROOT}fixtures/applicants/**/*`,
-  `${REPO_ROOT}packages/ai/scripts/samples/*.compiled.txt`,
+  "../../fixtures/evals/*.json",
+  "../../fixtures/applicants/**/*",
+  "../../packages/ai/scripts/samples/*.compiled.txt",
 ];
 
 const nextConfig: NextConfig = {

@@ -4,21 +4,17 @@
 // ./hero-stage. Each phase renders into the actions box (which keeps its height) and, where the
 // moment needs it, into absolutely placed layers over the stage, so nothing below ever moves:
 //
-//   explaining   the §6.9 microphone explainer, with Turnstile rendered invisibly beside it
-//   recording    a 15-second answer: microphone → 16 kHz PCM → Deepgram (one scoped token from
-//                /api/demo/stt-token), the live transcript over the form, a countdown ring
 //   sample       the fictional applicant's line, its words brightening on their timings
-//   writing      a two-line field instead of the microphone
+//   writing      a two-line field for the visitor's own line
 //   placing      the words glow, an essay sheet rises, and each word flies into its first line
-//   placed       the caption, "Sign up and keep this line" and "Say it again"
+//   placed       the caption, then "Write your own line" or "Sign up and keep this line"
 //
-// Escape or "Say it again" interrupts any of it. Nothing the visitor says or writes leaves this
-// browser except as audio to the speech-to-text provider; the line is kept only on "keep".
+// Escape interrupts any of it. Nothing the visitor writes leaves this browser; the line is kept
+// only on "keep".
 
 import {
   SharedElement,
   buttonStyles,
-  createIdentityAccumulator,
   cx,
   estimateWordTimings,
   identityFromText,
@@ -27,21 +23,12 @@ import {
   readingEndMs,
   splitWords,
   syntheticSignalAt,
-  useMicrophone,
   type LiveVoiceSignal,
   type VoiceSignalRef,
   type VoiceprintIdentity,
   type VoiceprintMood,
   type WordTiming,
 } from "@admitstory/ui";
-import {
-  createDictationSession,
-  startPcmCapture,
-  type DictationSession,
-  type DictationSnapshot,
-  type PcmCapture,
-} from "@admitstory/voice/client";
-import type { SttTokenResponse } from "@admitstory/voice/contract";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import {
@@ -63,31 +50,18 @@ import {
   CAPTION_COPY,
   HERO_ACTIONS,
   HERO_COPY,
-  HERO_NOTICES,
-  MIC_EXPLAINER,
   SAMPLE_LABEL,
   SHEET_COPY,
   WRITE_COPY,
-  fillersLine,
   placedAnnouncement,
-  recordingStatus,
 } from "../_copy/hero";
 import { START_FREE } from "../_copy/shared";
 import { SAMPLE_LINE } from "../_data/sample";
 import { track } from "../_lib/track";
-import { DemoRefusal, fetchDemoToken, renderTurnstile, type TurnstileHandle } from "./hero-demo";
 import { flyWord, prefersStill, readSpring } from "./hero-motion";
-import {
-  INTERRUPTIBLE,
-  SILENCE_END_MS,
-  SPEAK_SECONDS,
-  WATCHDOG_SECONDS,
-  type HeroAction,
-  type HeroState,
-  type PlacedLine,
-} from "./hero-state";
-import { ACTIONS_BOX, Notice, RecordGlyph, recordClasses } from "./hero-ui";
-import { cleanSpokenLine, cleanWrittenLine } from "./line-cleanup";
+import { INTERRUPTIBLE, type HeroAction, type HeroState, type PlacedLine } from "./hero-state";
+import { ACTIONS_BOX } from "./hero-ui";
+import { cleanWrittenLine } from "./line-cleanup";
 
 export interface HeroExperienceProps {
   state: HeroState;
@@ -107,24 +81,17 @@ const GHOST = cx(buttonStyles({ variant: "secondary" }), "min-h-11 px-5");
 const TRANSCRIPT =
   "flex h-[3.6em] flex-col justify-end overflow-hidden text-center font-ui text-display-sm font-medium leading-[1.2] tracking-[-0.02em] text-text";
 
+/** Where the sheet goes when it leaves: back to idle, or on to the field for the visitor's line. */
+type LeaveTo = "idle" | "writing";
+
 export default function HeroExperience(props: HeroExperienceProps) {
   const { state, dispatch } = props;
-  const [leaving, setLeaving] = useState(false);
-  const turnstile = useRef<TurnstileHandle | null>(null);
-  const turnstileSlot = useRef<HTMLDivElement>(null);
-
-  // Turnstile renders once, the first time the explainer opens, and lives until the hero is idle
-  // again, so a challenge still running when "Allow microphone" is pressed can finish.
-  useEffect(() => {
-    if (state.phase !== "explaining" || turnstile.current || !turnstileSlot.current) return;
-    turnstile.current = renderTurnstile(turnstileSlot.current);
-  }, [state.phase]);
-  useEffect(() => () => turnstile.current?.remove(), []);
+  const [leaving, setLeaving] = useState<LeaveTo | null>(null);
 
   // Escape interrupts from wherever the moment has got to (while focus is in the hero or nowhere).
   const interrupt = useEffectEvent(() => {
     if (!INTERRUPTIBLE.has(state.phase)) return;
-    if (state.phase === "placing" || state.phase === "placed") setLeaving(true);
+    if (state.phase === "placing" || state.phase === "placed") setLeaving("idle");
     else dispatch({ type: "reset" });
   });
   useEffect(() => {
@@ -140,351 +107,25 @@ export default function HeroExperience(props: HeroExperienceProps) {
     return () => document.removeEventListener("keydown", onKey);
   }, []);
 
-  const recording =
-    state.phase === "requesting" || state.phase === "listening" || state.phase === "finishing";
-
   return (
     <div className={ACTIONS_BOX}>
-      {state.phase === "explaining" ? <Explainer dispatch={dispatch} /> : null}
-      {recording ? <Recorder {...props} turnstile={turnstile} /> : null}
       {state.phase === "sample" ? <SamplePlayer {...props} /> : null}
       {state.phase === "writing" ? <Writer {...props} /> : null}
       {(state.phase === "placing" || state.phase === "placed") && state.line ? (
         <Placement
           {...props}
           line={state.line}
-          leaving={leaving}
-          onLeave={() => setLeaving(true)}
+          leaving={leaving !== null}
+          onLeave={setLeaving}
           onGone={() => {
-            setLeaving(false);
+            const next = leaving;
+            setLeaving(null);
             dispatch({ type: "reset" });
+            if (next === "writing") dispatch({ type: "write" });
           }}
         />
       ) : null}
-      {/* Turnstile's (usually invisible) widget. interaction-only shows a box only if needed. */}
-      <div
-        ref={turnstileSlot}
-        className={cx("mt-3", !(state.phase === "explaining" || recording) && "hidden")}
-      />
     </div>
-  );
-}
-
-// ---------------------------------------------------------------------------------------------
-// The microphone explainer (§6.9): getUserMedia is only called after "Allow microphone".
-
-function Explainer({ dispatch }: { dispatch: Dispatch<HeroAction> }) {
-  const allow = useRef<HTMLButtonElement>(null);
-  useEffect(() => allow.current?.focus({ preventScroll: true }), []);
-  return (
-    <div
-      role="group"
-      aria-labelledby="hero-mic-text"
-      className="plane max-w-[36rem] animate-fade-in p-4 sm:p-5"
-    >
-      <p id="hero-mic-text" className="text-base text-text">
-        {MIC_EXPLAINER.text}
-      </p>
-      <div className="mt-4 flex flex-wrap items-center gap-3">
-        <button
-          ref={allow}
-          type="button"
-          className={PRIMARY}
-          onClick={() => dispatch({ type: "allow" })}
-        >
-          {MIC_EXPLAINER.allow}
-        </button>
-        <button type="button" className={TEXT_BUTTON} onClick={() => dispatch({ type: "write" })}>
-          {MIC_EXPLAINER.write}
-        </button>
-      </div>
-    </div>
-  );
-}
-
-// ---------------------------------------------------------------------------------------------
-// Recording: one 15-second answer.
-
-function Recorder({
-  state,
-  dispatch,
-  signal,
-  setIdentity,
-  setMood,
-  turnstile,
-}: HeroExperienceProps & { turnstile: { current: TurnstileHandle | null } }) {
-  const accumulator = useRef(createIdentityAccumulator());
-  const mic = useMicrophone({
-    onFrame: (frame) => {
-      accumulator.current.add(frame);
-      // The form follows the microphone's own signal (one analyser, one context).
-      Object.assign(signal.current, mic.signal.current);
-    },
-  });
-
-  const token = useRef<SttTokenResponse | null>(null);
-  const session = useRef<DictationSession | null>(null);
-  const capture = useRef<PcmCapture | null>(null);
-  const ended = useRef(false);
-  const [snapshot, setSnapshot] = useState<DictationSnapshot | null>(null);
-  const [startedAt, setStartedAt] = useState<number | null>(null);
-  const [secondsLeft, setSecondsLeft] = useState(SPEAK_SECONDS);
-  const [announcement, setAnnouncement] = useState("");
-  const transcriptRef = useRef<HTMLParagraphElement>(null);
-  const doneRef = useRef<HTMLButtonElement>(null);
-
-  const stopAudio = () => {
-    capture.current?.close();
-    capture.current = null;
-    mic.stop();
-    Object.assign(signal.current, SILENT);
-  };
-
-  /** The answer is over: tidy it, and place it (or say nothing was heard). */
-  const conclude = useEffectEvent((text: string) => {
-    if (ended.current) return;
-    ended.current = true;
-    const cleaned = cleanSpokenLine(text);
-    const progress = accumulator.current.snapshot();
-    if (cleaned && progress.usable) setIdentity(accumulator.current.identity());
-    stopAudio();
-    setMood("idle");
-    if (cleaned) track("hero_line_placed", { source: "voice" });
-    dispatch({
-      type: "transcript",
-      line: cleaned ? { line: cleaned.line, source: "voice", removed: cleaned.removed } : null,
-    });
-  });
-
-  // A plain function, so the Done button's handler (finish) can call it too; effects use `fail`.
-  const failNow = (notice: "paused" | "turnstile" | "mic_blocked") => {
-    if (ended.current) return;
-    ended.current = true;
-    session.current?.dispose();
-    stopAudio();
-    setMood("idle");
-    dispatch({ type: "fail", notice });
-  };
-  const fail = useEffectEvent(failNow);
-
-  const finish = () => {
-    const current = session.current;
-    if (!current || state.phase !== "listening") {
-      if (!ended.current && state.phase === "requesting") failNow("paused");
-      return;
-    }
-    dispatch({ type: "finish" });
-    void (capture.current?.flush() ?? Promise.resolve()).then(() => current.finish());
-  };
-  const finishFromEffect = useEffectEvent(finish);
-
-  /** The session's own states: open (start the clock), or failed and refused. */
-  const onSessionState = useEffectEvent((next: DictationSnapshot["state"]) => {
-    if (next === "listening" && state.phase === "requesting") {
-      dispatch({ type: "listening" });
-      setMood("speaking");
-      setStartedAt(performance.now());
-      setAnnouncement(recordingStatus(SPEAK_SECONDS));
-      doneRef.current?.focus({ preventScroll: true });
-    } else if (next === "failed" || next === "refused") {
-      // A socket that fails (or the dev fake server not running) pauses speaking for this visit,
-      // unless words already arrived: then the answer stands.
-      const text = session.current?.getSnapshot().text ?? "";
-      if (text) conclude(text);
-      else fail("paused");
-    }
-  });
-
-  /** Both the token and the microphone are ready: open the stream. */
-  const begin = useEffectEvent(async () => {
-    const audio = mic.audio();
-    const minted = token.current;
-    if (session.current || !audio || !minted || ended.current) return;
-    let handedOut = false;
-    const dictation = createDictationSession({
-      // One connection: the demo's token is single-use, and a dropped socket isn't retried.
-      fetchToken: async () => {
-        if (handedOut) return { refusal: "stt_unavailable" };
-        handedOut = true;
-        return minted;
-      },
-      retryDelaysMs: [],
-      utteranceEndMs: SILENCE_END_MS,
-      onDone: (result) => conclude(result.text),
-    });
-    session.current = dictation;
-    let lastState = dictation.getSnapshot().state;
-    dictation.subscribe(() => {
-      const next = dictation.getSnapshot();
-      setSnapshot(next);
-      if (next.state !== lastState) {
-        lastState = next.state;
-        onSessionState(next.state);
-      }
-    });
-    try {
-      capture.current = await startPcmCapture(audio.context, audio.stream, (pcm) =>
-        dictation.pushAudio(pcm),
-      );
-    } catch {
-      return fail("paused");
-    }
-    dictation.start();
-  });
-
-  // Start: the microphone and the token together (one tap, one prompt).
-  useEffect(() => {
-    let cancelled = false;
-    const live = signal.current;
-    void mic.start();
-    void (turnstile.current?.token() ?? Promise.resolve(null))
-      .then((turnstileToken) => fetchDemoToken(turnstileToken))
-      .then(
-        (minted) => {
-          if (cancelled) return;
-          token.current = minted;
-          void begin();
-        },
-        (error: unknown) => {
-          if (cancelled) return;
-          fail(
-            error instanceof DemoRefusal && error.reason === "turnstile" ? "turnstile" : "paused",
-          );
-        },
-      );
-    return () => {
-      cancelled = true;
-      session.current?.dispose();
-      session.current = null;
-      capture.current?.close();
-      capture.current = null;
-      Object.assign(live, SILENT);
-    };
-    // Runs once per recording; the microphone hook's start is stable.
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
-  useEffect(() => {
-    if (mic.status === "live") void begin();
-    else if (mic.status === "denied") fail("mic_blocked");
-    else if (mic.status === "unsupported" || mic.status === "error") fail("paused");
-  }, [mic.status]);
-
-  // The countdown, the 15-second stop and the 20-second watchdog.
-  useEffect(() => {
-    if (startedAt === null) return;
-    const tick = window.setInterval(() => {
-      const elapsed = (performance.now() - startedAt) / 1000;
-      const left = Math.max(0, Math.ceil(SPEAK_SECONDS - elapsed));
-      setSecondsLeft(left);
-      if (left === 10 || left === 5) setAnnouncement(recordingStatus(left));
-      if (elapsed >= SPEAK_SECONDS) finishFromEffect();
-      if (elapsed >= WATCHDOG_SECONDS) {
-        const text = session.current?.getSnapshot().text ?? "";
-        session.current?.dispose();
-        if (text) conclude(text);
-        else fail("paused");
-      }
-    }, 250);
-    return () => window.clearInterval(tick);
-  }, [startedAt]);
-
-  // The active line's weight answers the voice (±60 around 500), written per frame, never state.
-  useEffect(() => {
-    const element = transcriptRef.current;
-    if (!element || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-    let frame = 0;
-    let level = 0.5;
-    const loop = () => {
-      level += (signal.current.amplitude - level) * 0.25;
-      const weight = Math.round(500 + (Math.min(1, Math.max(0, level)) * 2 - 1) * 60);
-      element.style.setProperty("--interim-weight", String(weight));
-      frame = requestAnimationFrame(loop);
-    };
-    frame = requestAnimationFrame(loop);
-    return () => cancelAnimationFrame(frame);
-  }, [signal]);
-
-  // Space stops while focus is in the hero but not on a control.
-  useEffect(() => {
-    const hero = document.getElementById("hero");
-    if (!hero) return;
-    const onKey = (event: KeyboardEvent) => {
-      if (event.key !== " " || event.repeat) return;
-      const target = event.target as Element | null;
-      if (target?.closest("button, a, input, textarea, select")) return;
-      event.preventDefault();
-      finishFromEffect();
-    };
-    hero.addEventListener("keydown", onKey);
-    return () => hero.removeEventListener("keydown", onKey);
-  }, []);
-
-  const record = recordClasses(true);
-  const listening = state.phase === "listening";
-  const ringLength = 2 * Math.PI * 34;
-  const text = snapshot?.text ?? "";
-  const interim = snapshot?.interim ?? "";
-
-  return (
-    <>
-      <div className="flex flex-wrap items-center gap-4">
-        <button
-          ref={doneRef}
-          type="button"
-          className={record.button}
-          onClick={() => finish()}
-          aria-pressed={listening}
-          aria-describedby="hero-recording-status"
-        >
-          <span className={record.circle}>
-            <RecordGlyph recording />
-            {listening ? (
-              <svg
-                viewBox="0 0 72 72"
-                aria-hidden="true"
-                className="absolute inset-0 hidden size-full -rotate-90 sm:block"
-              >
-                <circle
-                  cx="36"
-                  cy="36"
-                  r="34"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeOpacity="0.9"
-                  strokeWidth="2"
-                  strokeDasharray={ringLength}
-                  className="hero-ring"
-                  style={{ ["--ring-length" as string]: `${ringLength}` }}
-                />
-              </svg>
-            ) : null}
-          </span>
-          {HERO_ACTIONS.done}
-        </button>
-        <span aria-hidden="true" className="text-lg text-text tabular-nums">
-          0:{String(secondsLeft).padStart(2, "0")}
-        </span>
-      </div>
-      <p className="mt-4 max-w-[34rem] text-sm text-text-soft">{HERO_COPY.privacy}</p>
-      <p id="hero-recording-status" className="sr-only" aria-live="polite">
-        {announcement}
-      </p>
-      <div className="hero-center" aria-hidden="true">
-        <p ref={transcriptRef} className={TRANSCRIPT}>
-          <span>
-            {text}
-            {text && interim ? " " : null}
-            <span className="opacity-40 [font-weight:var(--interim-weight,500)] transition-opacity duration-(--spring-snap-duration)">
-              {interim}
-            </span>
-          </span>
-        </p>
-      </div>
-      <div className="sr-only" role="log" aria-live="polite" aria-label="Transcript">
-        {text}
-      </div>
-    </>
   );
 }
 
@@ -588,8 +229,8 @@ function SamplePlayer({ dispatch, signal, setMood }: HeroExperienceProps) {
         {voiced ? SAMPLE_LABEL.voiced : SAMPLE_LABEL.silent}
       </p>
       <div className="mt-3">
-        <button type="button" className={TEXT_BUTTON} onClick={() => dispatch({ type: "reset" })}>
-          {HERO_ACTIONS.ownLine}
+        <button type="button" className={TEXT_BUTTON} onClick={() => dispatch({ type: "write" })}>
+          {HERO_ACTIONS.write}
         </button>
       </div>
       <div className="hero-center">
@@ -617,16 +258,12 @@ function SamplePlayer({ dispatch, signal, setMood }: HeroExperienceProps) {
 }
 
 // ---------------------------------------------------------------------------------------------
-// Write instead.
+// The visitor's own line.
 
-function Writer({ state, dispatch, setIdentity }: HeroExperienceProps) {
+function Writer({ dispatch, setIdentity }: HeroExperienceProps) {
   const [value, setValue] = useState("");
   const field = useRef<HTMLTextAreaElement>(null);
   useEffect(() => field.current?.focus({ preventScroll: true }), []);
-  const notice =
-    state.notice === "mic_blocked" || state.notice === "turnstile" || state.notice === "paused"
-      ? HERO_NOTICES[state.notice]
-      : null;
 
   const submit = (event: FormEvent) => {
     event.preventDefault();
@@ -639,14 +276,10 @@ function Writer({ state, dispatch, setIdentity }: HeroExperienceProps) {
 
   return (
     <>
-      {notice ? (
-        <Notice>{notice}</Notice>
-      ) : (
-        <p className="max-w-[34rem] text-sm text-text-soft">{HERO_COPY.privacy}</p>
-      )}
+      <p className="max-w-[34rem] text-sm text-text-soft">{HERO_COPY.writeNote}</p>
       <div className="mt-3">
         <button type="button" className={TEXT_BUTTON} onClick={() => dispatch({ type: "reset" })}>
-          Cancel
+          {HERO_ACTIONS.cancel}
         </button>
       </div>
       <form className="hero-center flex flex-col items-center gap-4" onSubmit={submit}>
@@ -698,7 +331,7 @@ function Placement({
 }: HeroExperienceProps & {
   line: PlacedLine;
   leaving: boolean;
-  onLeave: () => void;
+  onLeave: (to: LeaveTo) => void;
   onGone: () => void;
 }) {
   const router = useRouter();
@@ -794,7 +427,7 @@ function Placement({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  // "Say it again" or Escape: the sheet reverses on glide and the form returns to idle.
+  // "Try another line", "Write your own line" or Escape: the sheet reverses on glide and the form returns to idle.
   useEffect(() => {
     if (!leaving) return;
     const glide = readSpring("glide");
@@ -821,8 +454,6 @@ function Placement({
     track("hero_keep_line");
     startTransition(() => router.push("/sign-in?from=line"));
   };
-
-  const usableVoiceprint = line.source === "voice" && identity !== null;
 
   return (
     <>
@@ -883,12 +514,6 @@ function Placement({
         </div>
         <div ref={caption} className="invisible w-full max-w-[720px] text-center">
           <p className="text-base text-text">{sample ? CAPTION_COPY.sample : CAPTION_COPY.line}</p>
-          {!sample && line.removed > 0 ? (
-            <p className="mt-1 text-sm text-text-soft">{fillersLine(line.removed)}</p>
-          ) : null}
-          {usableVoiceprint ? (
-            <p className="mt-1 text-sm text-text-soft">{CAPTION_COPY.voiceprint}</p>
-          ) : null}
           <div className="mt-5 flex flex-wrap items-center justify-center gap-3">
             {sample ? (
               <>
@@ -896,10 +521,10 @@ function Placement({
                   ref={keepRef}
                   type="button"
                   className={PRIMARY}
-                  onClick={onLeave}
+                  onClick={() => onLeave("writing")}
                   disabled={!placed}
                 >
-                  {HERO_ACTIONS.ownLine}
+                  {HERO_ACTIONS.write}
                 </button>
                 <Link
                   href="/sign-in"
@@ -921,7 +546,12 @@ function Placement({
                 >
                   {HERO_ACTIONS.keep}
                 </button>
-                <button type="button" className={GHOST} onClick={onLeave} disabled={!placed}>
+                <button
+                  type="button"
+                  className={GHOST}
+                  onClick={() => onLeave("writing")}
+                  disabled={!placed}
+                >
                   {HERO_ACTIONS.again}
                 </button>
               </>
