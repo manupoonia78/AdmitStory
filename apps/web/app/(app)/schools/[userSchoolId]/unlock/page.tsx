@@ -56,7 +56,6 @@ export default async function UnlockPage({
       available={published !== null}
       paid={query.paid === "1" && !declined}
       declined={declined}
-      email={session.user.email}
       setup={published && facts ? <ApplicationSetup setup={facts.setup} /> : null}
     />
   );

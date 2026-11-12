@@ -32,6 +32,3 @@ export const PACK_PITCH = {
   credits:
     "A pack unlocks the school you start from straight away. The rest wait as credits; use one on any school, whenever you’re ready.",
 } as const;
-
-/** All sales are final (Manu, 5 Nov 2026). Said plainly where people pay. */
-export const FINAL_SALE = "All sales are final.";

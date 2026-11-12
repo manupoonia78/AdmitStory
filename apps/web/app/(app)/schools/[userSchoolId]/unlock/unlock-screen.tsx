@@ -10,7 +10,7 @@ import { AlertMessage, StatusMessage } from "@/components/live-message";
 import { ModelCredit } from "@/components/model-seal";
 import { INTERVIEW_COMING_SOON } from "@/lib/interview/coming-soon";
 import { FEATURED_PLAN, SCHOOL_PLANS, dollars, type PlanId } from "@/lib/payments/plans";
-import { FINAL_SALE, PACK_PITCH } from "@/lib/payments/pitch";
+import { PACK_PITCH } from "@/lib/payments/pitch";
 import { PlanPicker } from "./plan-picker";
 
 // Unlock (spec §5.6, §6.9 copy). Three ways to pay (Manu, 5 Nov 2026): this school, or a 5- or
@@ -40,7 +40,6 @@ export interface UnlockScreenProps {
   paid: boolean;
   /** The provider's checkout came back with a failed or cancelled payment. */
   declined?: boolean;
-  email: string;
   /** The round and reapplicant choices, rendered on the server. */
   setup?: ReactNode;
 }
@@ -53,7 +52,6 @@ export function UnlockScreen({
   available,
   paid,
   declined = false,
-  email,
   setup,
 }: UnlockScreenProps) {
   const router = useRouter();
@@ -216,11 +214,11 @@ export function UnlockScreen({
               <Button onClick={() => void checkout()} disabled={busy || !available}>
                 {payLabel}
               </Button>
-              <p className="text-sm text-text-soft">
-                {available
-                  ? `Receipt to ${email}. Prices include tax where it applies. ${FINAL_SALE}`
-                  : `${school}'s pack is coming soon. It can't be bought yet.`}
-              </p>
+              {available ? null : (
+                <p className="text-sm text-text-soft">
+                  {`${school}'s pack is coming soon. It can't be bought yet.`}
+                </p>
+              )}
             </div>
           )}
         </section>
