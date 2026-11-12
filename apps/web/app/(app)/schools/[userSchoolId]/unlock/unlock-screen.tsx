@@ -15,10 +15,11 @@ import { PlanPicker } from "./plan-picker";
 
 // Unlock (spec §5.6, §6.9 copy). Three ways to pay (Manu, 5 Nov 2026): this school, or a 5- or
 // 10-school pack that unlocks it now and keeps the rest as credits; the pack story sits above them.
-// With credits left, one button spends one instead. One button names the exact action and price. With Paddle the
-// provider's overlay opens; locally (no Paddle keys) a calm test checkout stands in for it and
-// sends a correctly signed webhook. Either way the page then waits for the webhook to create the
-// kit, holding the same layout, and moves to the kit as soon as it exists.
+// With credits left, one button spends one instead. One button names the exact action and price. With Dodo the
+// provider's overlay opens and, once paid, returns here with ?paid=1; locally (no Dodo keys) a calm
+// test checkout stands in for it and sends a correctly signed webhook. Either way the page then
+// waits for the webhook to create the kit, holding the same layout, and moves to the kit as soon
+// as it exists.
 
 const POLL_MS = 1_500;
 
@@ -37,6 +38,8 @@ export interface UnlockScreenProps {
   credits: number;
   available: boolean;
   paid: boolean;
+  /** The provider's checkout came back with a failed or cancelled payment. */
+  declined?: boolean;
   email: string;
   /** The round and reapplicant choices, rendered on the server. */
   setup?: ReactNode;
@@ -49,6 +52,7 @@ export function UnlockScreen({
   credits,
   available,
   paid,
+  declined = false,
   email,
   setup,
 }: UnlockScreenProps) {
@@ -56,7 +60,11 @@ export function UnlockScreen({
   const [waiting, setWaiting] = useState(paid);
   const [busy, setBusy] = useState(false);
   const [fake, setFake] = useState<FakeConfig | null>(null);
-  const [error, setError] = useState("");
+  const [error, setError] = useState(
+    declined
+      ? "The payment didn't go through. Nothing was charged. Try again or use another card."
+      : "",
+  );
   const [planId, setPlanId] = useState<PlanId>(FEATURED_PLAN);
   const plan = SCHOOL_PLANS[planId];
   const price = dollars(plan.priceCents);
@@ -95,10 +103,8 @@ export function UnlockScreen({
     }
     const { clientConfig } = (await response.json()) as { clientConfig: CheckoutClientConfig };
     const { openCheckout } = await import("@admitstory/payments/client");
-    const theme = document.documentElement.dataset.theme === "light" ? "light" : "dark";
     try {
       const opened = await openCheckout(clientConfig, {
-        theme,
         onComplete: () => setWaiting(true),
         onClose: () => setBusy(false),
       });

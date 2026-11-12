@@ -1,100 +1,79 @@
 import { z } from "zod";
 
-// Zod validators for Paddle webhook payloads and API responses. Server-only: the browser entry
-// (client.ts) must never import this module (a top-level Zod schema can't be tree-shaken).
+// Zod validators for Dodo Payments webhook payloads and API responses. Server-only: the browser
+// entry (client.ts) must never import this module (a top-level Zod schema can't be tree-shaken).
 //
-// Field names follow Paddle Billing's docs (developer.paddle.com, checked 31 October 2026). Objects
-// are loose: Paddle adds fields without a version bump, and we validate only what we read. Money
-// arrives as a string of an integer in the currency's smallest unit.
-
-const paddleId = (prefix: string) =>
-  z.string().regex(new RegExp(`^${prefix}_[a-z0-9]+$`), `expected a ${prefix}_… id`);
-
-/** "1000" → 1000. Rejects decimals, so a fractional amount never reaches a purchase row. */
-export const AmountString = z
-  .string()
-  .regex(/^-?\d+$/, "expected an integer amount in the smallest currency unit")
-  .transform(Number);
+// Field names follow Dodo's API reference and the `dodopayments` SDK types (v2.61, checked
+// 6 November 2026). Objects are loose: Dodo adds fields without a version bump, and we validate
+// only what we read. Money is an integer in the currency's smallest unit, except a dispute's
+// `amount`, which is a string.
 
 const Currency = z.string().regex(/^[A-Z]{3}$/, "expected an ISO 4217 currency code");
+const Cents = z.number().int();
 
+/** The JSON body Dodo posts; the event id travels in the `webhook-id` header. */
 export const WebhookEnvelope = z.looseObject({
-  event_id: z.string().min(1),
-  event_type: z.string().min(1),
-  occurred_at: z.string().min(1),
-  notification_id: z.string().optional(),
+  business_id: z.string().min(1),
+  type: z.string().min(1),
+  timestamp: z.string().min(1),
   data: z.unknown(),
 });
 
-/** Our metadata on the transaction (§13: checkout metadata carries user_id and school_cycle_id). */
-export const OurCustomData = z.looseObject({
+/** Our metadata on the checkout session, copied onto its payment (§13: user and school cycle). */
+export const OurMetadata = z.looseObject({
   user_id: z.string().min(1),
   school_cycle_id: z.string().min(1),
   product_key: z.string().min(1),
 });
 
-export const TransactionData = z.looseObject({
-  id: paddleId("txn"),
-  status: z.string(),
-  currency_code: Currency,
-  customer_id: z.string().nullish(),
+export const PaymentData = z.looseObject({
+  payment_id: z.string().min(1),
+  checkout_session_id: z.string().nullish(),
+  status: z.string().nullish(),
+  total_amount: Cents,
+  currency: Currency,
+  metadata: z.record(z.string(), z.unknown()).nullish(),
   discount_id: z.string().nullish(),
-  custom_data: z.record(z.string(), z.unknown()).nullish(),
-  details: z
-    .looseObject({
-      totals: z.looseObject({
-        total: AmountString,
-        grand_total: AmountString.optional(),
-        currency_code: Currency,
-      }),
-      line_items: z.array(z.looseObject({ id: z.string() })).optional(),
-    })
-    .nullish(),
-  payments: z
-    .array(
-      z.looseObject({
-        status: z.string(),
-        error_code: z.string().nullish(),
-        created_at: z.string().optional(),
-      }),
-    )
-    .optional(),
+  discounts: z.array(z.looseObject({ discount_id: z.string() })).nullish(),
+  error_code: z.string().nullish(),
 });
-export type TransactionData = z.output<typeof TransactionData>;
+export type PaymentData = z.output<typeof PaymentData>;
 
-export const AdjustmentData = z.looseObject({
-  id: paddleId("adj"),
-  action: z.string(),
-  type: z.string().optional(),
-  transaction_id: paddleId("txn"),
+export const RefundData = z.looseObject({
+  refund_id: z.string().min(1),
+  payment_id: z.string().min(1),
   status: z.string(),
-  currency_code: Currency,
-  totals: z.looseObject({ total: AmountString }),
+  is_partial: z.boolean(),
+  amount: Cents.nullish(),
+  currency: Currency.nullish(),
 });
-export type AdjustmentData = z.output<typeof AdjustmentData>;
+export type RefundData = z.output<typeof RefundData>;
 
-export const CreatedTransactionResponse = z.looseObject({
-  data: z.looseObject({ id: paddleId("txn"), status: z.string() }),
+export const DisputeData = z.looseObject({
+  dispute_id: z.string().min(1),
+  payment_id: z.string().min(1),
+  dispute_status: z.string(),
+  amount: z.string(),
+  currency: z.string(),
+});
+export type DisputeData = z.output<typeof DisputeData>;
+
+export const CheckoutSessionResponse = z.looseObject({
+  session_id: z.string().min(1),
+  checkout_url: z.url(),
 });
 
-export const TransactionLineItemsResponse = z.looseObject({
-  data: z.looseObject({
-    id: paddleId("txn"),
-    details: z.looseObject({ line_items: z.array(z.looseObject({ id: z.string() })).min(1) }),
-  }),
+export const PaymentProductsResponse = z.looseObject({
+  payment_id: z.string(),
+  product_cart: z.array(z.looseObject({ product_id: z.string() })).nullish(),
 });
 
-export const AdjustmentResponse = z.looseObject({
-  data: z.looseObject({
-    id: paddleId("adj"),
-    status: z.enum(["pending_approval", "approved", "rejected", "reversed"]),
-  }),
+export const RefundResponse = z.looseObject({
+  refund_id: z.string().min(1),
+  status: z.enum(["succeeded", "failed", "pending", "review"]),
 });
 
 export const ApiErrorBody = z.looseObject({
-  error: z.looseObject({
-    type: z.string().optional(),
-    code: z.string().optional(),
-    detail: z.string().optional(),
-  }),
+  code: z.string().nullish(),
+  message: z.string().nullish(),
 });

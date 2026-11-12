@@ -26,9 +26,10 @@ const SECURITY_HEADERS = [
   { key: "X-Frame-Options", value: "DENY" },
   {
     key: "Permissions-Policy",
-    value: 'camera=(), geolocation=(), microphone=(self), payment=(self "https://*.paddle.com")',
+    value:
+      'camera=(), geolocation=(), microphone=(self), payment=(self "https://checkout.dodopayments.com" "https://test.checkout.dodopayments.com")',
   },
-  // Paddle's overlay and Google sign-in open popups that must be able to talk back.
+  // Payment wallets in Dodo's overlay and Google sign-in open popups that must be able to talk back.
   { key: "Cross-Origin-Opener-Policy", value: "same-origin-allow-popups" },
 ];
 

@@ -1,7 +1,7 @@
 // Your words, lit (direction §4.6): the one toy on the page. The real Workspace switch and the real
-// YourWordsText on a Day paper sheet holding the sample essay. The server renders it with the
-// switch off (plain text that reads well on its own); the island's code loads when the section is
-// within one viewport.
+// YourWordsText on a Day paper sheet holding a second sample applicant's essay. The server renders
+// it with the switch off (plain text that reads well on its own); the island's code loads when the
+// section is within one viewport.
 
 import { YOUR_WORDS_COPY } from "../_copy/landing";
 import { DisplayHeading } from "../_ui/display-heading";

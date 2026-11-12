@@ -1,5 +1,5 @@
 import { adminGetPurchase, recordAudit } from "@admitstory/db";
-import { REFUND_REASONS } from "@admitstory/payments";
+import { PaymentsApiError, REFUND_REASONS, type RefundResult } from "@admitstory/payments";
 import { z } from "zod";
 import { readJson } from "@/lib/api";
 import { AdminActionError } from "@/lib/admin/errors";
@@ -27,11 +27,20 @@ export const POST = adminRoute(async (admin, request) => {
       "That kit was a free grant. Revoke it on the user's page instead of refunding it.",
       409,
     );
-  const result = await payments().refund({
-    providerTxnId: purchase.providerTxnId,
-    reason: body.reason,
-    ...(body.note ? { note: body.note } : {}),
-  });
+  let result: RefundResult;
+  try {
+    result = await payments().refund({
+      providerTxnId: purchase.providerTxnId,
+      reason: body.reason,
+      ...(body.note ? { note: body.note } : {}),
+    });
+  } catch (error) {
+    // Dodo refuses some refunds (e.g. INSUFFICIENT_WALLET_FUNDS before the payment settles); show
+    // its reason instead of a bare 500, so the admin knows whether to retry later.
+    if (error instanceof PaymentsApiError)
+      throw new AdminActionError(`The provider refused the refund: ${error.message}`, 502);
+    throw error;
+  }
   await recordAudit(admin, {
     action: "purchases.refund",
     targetType: "purchase",

@@ -182,9 +182,6 @@ html.lenis body {
 /* Follow one sentence (direction §4.3). The stacked version is plain Tailwind in the markup.
    Inside @supports and with motion welcome, each frame's sentence glow comes up as its chapter
    scrolls in: the one scroll-linked thing on the stacked page, and part of the hero sequence. */
-.follow-sentence {
-  display: none;
-}
 @supports (animation-timeline: view()) {
   @media (prefers-reduced-motion: no-preference) {
     .follow:not(.is-pinned) [data-sentence-slot] {
@@ -229,20 +226,6 @@ html.lenis body {
 }
 .follow.is-pinned .follow-fictional {
   margin-top: 2.5rem;
-}
-.follow.is-pinned .follow-sentence {
-  display: block;
-  position: absolute;
-  top: 0;
-  left: 0;
-  z-index: 2;
-  width: var(--follow-sentence-width, 32rem);
-  margin: 0;
-  font-size: var(--type-read-lg);
-  line-height: var(--type-read-lg-leading);
-  transform-origin: 0 0;
-  pointer-events: none;
-  visibility: hidden;
 }
 
 /* The hero (direction §4.2). The form's box is sized by CSS before anything loads: larger than

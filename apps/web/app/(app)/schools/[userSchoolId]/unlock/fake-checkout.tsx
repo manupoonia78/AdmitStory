@@ -2,7 +2,7 @@
 
 import { Button, Dialog, DialogContent } from "@admitstory/ui";
 
-// The local stand-in for Paddle's overlay (no Paddle keys, localhost only): a calm plane with the
+// The local stand-in for Dodo's overlay (no Dodo keys, localhost only): a calm plane with the
 // item and price, and the two outcomes a test needs. "Pay" sends a correctly signed webhook through
 // the real webhook handler, so local purchases take the same path as real ones.
 

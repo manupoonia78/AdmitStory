@@ -193,6 +193,9 @@ async function settleEvent(
 /* Purchase completed ------------------------------------------------------------------------- */
 
 export interface PurchaseCompletedInput extends WebhookEventInput {
+  /** The checkout row this payment completes; defaults to `providerTxnId` (one id for both). */
+  providerCheckoutId?: string;
+  /** The provider's payment id: the purchase is unique on it, and refunds name it. */
   providerTxnId: string;
   productKey: string;
   userId: string;
@@ -224,7 +227,7 @@ export type PurchaseOutcome =
   | { outcome: "mismatch"; created: false; reason: string };
 
 /**
- * Applies `transaction.completed` (§5.6, §13): in one transaction, validates the event against the
+ * Applies a completed payment (§5.6, §13): in one transaction, validates the event against the
  * checkout row, inserts the purchase, grants the entitlement, unlocks the school and upgrades the
  * kit preview to a pending full kit (or creates the kit). Idempotent on the event id and on the
  * provider transaction id. `limits` are the admin's current fair-use limits.
@@ -235,6 +238,7 @@ export async function applyPurchaseCompleted(
   options: { limits?: EntitlementLimits } = {},
 ): Promise<PurchaseOutcome> {
   const limits = options.limits ?? DEFAULT_KIT_LIMITS;
+  const checkoutId = event.providerCheckoutId ?? event.providerTxnId;
   return db.transaction(async (tx) => {
     const claimed = await claimEvent(tx, event);
     if (!claimed) {
@@ -248,7 +252,7 @@ export async function applyPurchaseCompleted(
       if (seen?.outcome === "mismatch")
         return { outcome: "mismatch", created: false, reason: seen.detail ?? "mismatch" };
       return {
-        ...(await findPurchaseKit(tx, event.providerTxnId)),
+        ...(await findPurchaseKit(tx, event.providerTxnId, checkoutId)),
         outcome: "duplicate",
         created: false,
       };
@@ -259,14 +263,14 @@ export async function applyPurchaseCompleted(
       await tx
         .update(checkouts)
         .set({ status: "mismatch" })
-        .where(eq(checkouts.providerCheckoutId, event.providerTxnId));
+        .where(eq(checkouts.providerCheckoutId, checkoutId));
       return { outcome: "mismatch", created: false, reason };
     };
 
     const [checkout] = await tx
       .select()
       .from(checkouts)
-      .where(eq(checkouts.providerCheckoutId, event.providerTxnId))
+      .where(eq(checkouts.providerCheckoutId, checkoutId))
       .limit(1)
       .for("update");
     if (!checkout) return reject("no checkout was recorded for this transaction");
@@ -297,7 +301,7 @@ export async function applyPurchaseCompleted(
       // Another event for the same transaction (e.g. a second delivery under a new event id).
       await settleEvent(tx, claimed.id, "duplicate");
       return {
-        ...(await findPurchaseKit(tx, event.providerTxnId)),
+        ...(await findPurchaseKit(tx, event.providerTxnId, checkoutId)),
         outcome: "duplicate",
         created: false,
       };
@@ -546,7 +550,7 @@ async function unlockKit(tx: DbExecutor, userId: string, userSchoolId: string) {
   return { kitId: preview.id, keptPreview: keep };
 }
 
-async function findPurchaseKit(tx: DbExecutor, providerTxnId: string) {
+async function findPurchaseKit(tx: DbExecutor, providerTxnId: string, providerCheckoutId: string) {
   const [purchase] = await tx
     .select({ id: purchases.id, userId: purchases.userId })
     .from(purchases)
@@ -564,7 +568,7 @@ async function findPurchaseKit(tx: DbExecutor, providerTxnId: string) {
       ),
     )
     .innerJoin(kits, and(eq(kits.userSchoolId, userSchools.id), sql`${kits.status} <> 'preview'`))
-    .where(eq(checkouts.providerCheckoutId, providerTxnId))
+    .where(eq(checkouts.providerCheckoutId, providerCheckoutId))
     .limit(1);
   return { purchaseId: purchase.id, kitId: kit?.id ?? null };
 }

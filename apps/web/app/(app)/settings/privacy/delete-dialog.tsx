@@ -90,7 +90,7 @@ export function DeleteDialog({
               </p>
               <p className="mt-2 font-medium text-text">What stays</p>
               <p className="text-text-soft">
-                Receipts stay with Paddle, our payment provider. Backups expire within 35 days.
+                Receipts stay with Dodo Payments, our payment provider. Backups expire within 35 days.
               </p>
             </div>
             <label htmlFor={inputId} className="flex flex-col gap-1 text-sm text-text">

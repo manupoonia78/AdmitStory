@@ -22,7 +22,6 @@ const GUARDS = [
   "portalRoute",
   "verifyWebhook",
   "verifySignature",
-  "verifyPaddle",
   "processWebhook", // verifies the provider signature over the raw body
   "serve(", // Inngest's handler verifies its own signing key
   "toNextJsHandler", // Better Auth

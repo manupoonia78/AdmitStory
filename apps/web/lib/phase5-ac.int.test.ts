@@ -9,7 +9,7 @@ import {
   type DbHandle,
 } from "@admitstory/db";
 import { countAfterNormalize } from "@admitstory/linters";
-import { buildSignedFakeWebhook, createFakePayments } from "@admitstory/payments";
+import { buildSignedFakeWebhook, createFakePayments, fakePaymentId } from "@admitstory/payments";
 import { afterAll, beforeAll, describe, expect, it, vi } from "vitest";
 import { connectTestDb, createUserFactory } from "../../../packages/db/test/support/db";
 import { kitSupport, type KitEnv } from "../test/kit-support";
@@ -404,8 +404,8 @@ describe("Phase 5 acceptance", () => {
     const buyer = await builtKit();
     const refund = buildSignedFakeWebhook({
       type: "refund_completed",
-      transactionId: buyer.transactionId,
-      adjustmentId: `adj_${randomUUID().replace(/-/g, "").slice(0, 26)}`,
+      paymentId: fakePaymentId(buyer.transactionId),
+      refundId: `ref_${randomUUID().replace(/-/g, "").slice(0, 26)}`,
       amountCents: 10_000,
       currency: "USD",
     });

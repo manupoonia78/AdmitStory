@@ -1,6 +1,7 @@
 "use client";
 
-// The toy itself (direction §4.6). Loaded by ./your-words-island when the section is near.
+// The toy itself (direction §4.6). Loaded by ./your-words-island when the section is near. Its
+// essay is a second sample applicant (../_data/sample-words.ts), not the one the page follows.
 //
 // Exactly the Workspace behaviour: the glow comes on along glide, and pointing at, focusing or
 // tapping a lit sentence shows the moment it was said. Y toggles it only while focus is inside this
@@ -8,7 +9,7 @@
 
 import { YourWordsText, YourWordsToggle, isPlainKey } from "@admitstory/ui";
 import { useState, type KeyboardEvent } from "react";
-import { SAMPLE_PARAGRAPHS, SAMPLE_SOURCES } from "../_data/sample";
+import { WORDS_PARAGRAPHS, WORDS_SOURCES } from "../_data/sample-words";
 import { FictionalNote } from "../_ui/notes";
 
 export interface YourWordsToyProps {
@@ -65,8 +66,8 @@ export default function YourWordsToy({
         >
           <p className="mb-6 text-sm text-text-soft">{sheetHeader}</p>
           <YourWordsText
-            paragraphs={SAMPLE_PARAGRAPHS}
-            sources={SAMPLE_SOURCES}
+            paragraphs={WORDS_PARAGRAPHS}
+            sources={WORDS_SOURCES}
             on={on}
             className="max-w-(--measure-essay) font-reading text-read text-text"
           />

@@ -186,7 +186,7 @@ export const accountDeletions = pgTable(
     status: text("status").$type<"pending" | "done" | "failed">().notNull().default("pending"),
     requestedBy: text("requested_by").$type<"user" | "admin">().notNull(),
     reason: text("reason"),
-    /** Paddle transaction ids, kept for refund and chargeback reconciliation. */
+    /** Provider payment ids, kept for refund and chargeback reconciliation. */
     providerTxnIds: text("provider_txn_ids").array().notNull().default([]),
     requestedAt: timestamptz("requested_at").notNull().defaultNow(),
     completedAt: timestamptz("completed_at"),

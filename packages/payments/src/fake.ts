@@ -1,7 +1,7 @@
 import { createHash } from "node:crypto";
+import { checkCheckoutInput, refundBody } from "./dodo";
 import { isLocalUrl } from "./env";
-import { mapPaddleEvent } from "./events";
-import { checkCheckoutInput, refundBody } from "./paddle";
+import { mapDodoEvent } from "./events";
 import {
   parseProductKey,
   PaymentsConfigError,
@@ -10,25 +10,31 @@ import {
   type ProductKey,
   type RefundResult,
 } from "./provider";
-import { signatureHeader, verifySignedWebhook } from "./signature";
+import { signatureHeaders, verifySignedWebhook } from "./signature";
 
-// The development payments provider, chosen when Paddle isn't configured and APP_URL is localhost.
+// The development payments provider, chosen when Dodo isn't configured and APP_URL is localhost.
 // The app renders its own local overlay for a "fake" checkout; when the buyer confirms, it asks
-// this provider for a Paddle-shaped webhook signed with the same scheme Paddle uses and posts it
-// to its own /api/webhooks/paddle route. So the signature check, payload validation, event
-// mapping and purchase idempotency all run exactly as they will in production. Ids are derived
-// from their inputs and the clock (deterministic under a fixed `now`).
+// this provider for a Dodo-shaped webhook signed with the same scheme Dodo uses and posts it to
+// its own webhook handler. So the signature check, payload validation, event mapping and purchase
+// idempotency all run exactly as they will in production. Ids are derived from their inputs and
+// the clock (deterministic under a fixed `now`).
 
 /** Not a secret: it only ever verifies webhooks the fake itself signed, on localhost. */
-export const FAKE_WEBHOOK_SECRET = "fake_paddle_webhook_secret_localhost_only";
+export const FAKE_WEBHOOK_SECRET = `whsec_${Buffer.from(
+  "fake_dodo_webhook_secret_localhost_only",
+).toString("base64")}`;
 
 export const fakeId = (prefix: string, ...parts: (string | number)[]): string =>
   `${prefix}_${createHash("sha256").update(parts.join("\u0000")).digest("hex").slice(0, 26)}`;
 
+/** The payment a fake checkout session turns into. */
+export const fakePaymentId = (checkoutId: string): string => fakeId("pay", checkoutId);
+
 export type FakeWebhookEvent =
   | {
       type: "purchase_completed";
-      transactionId: string;
+      /** The checkout session (`cks_…`) the checkout row was recorded under. */
+      checkoutId: string;
       userId: string;
       productKey: ProductKey;
       amountCents: number;
@@ -37,15 +43,15 @@ export type FakeWebhookEvent =
     }
   | {
       type: "refund_completed";
-      transactionId: string;
-      adjustmentId: string;
+      paymentId: string;
+      refundId: string;
       amountCents: number;
       currency: string;
       partial?: boolean;
     }
   | {
       type: "payment_failed";
-      transactionId: string;
+      checkoutId: string;
       userId: string;
       productKey: ProductKey;
       currency: string;
@@ -57,89 +63,73 @@ export interface SignedWebhook {
   headers: Record<string, string>;
 }
 
-/** A Paddle-shaped webhook for `event`, signed as Paddle signs (ts=…;h1=…). */
+/** A Dodo-shaped webhook for `event`, signed as Dodo signs (Standard Webhooks). */
 export function buildSignedFakeWebhook(
   event: FakeWebhookEvent,
   { secret = FAKE_WEBHOOK_SECRET, now = Date.now }: { secret?: string; now?: () => number } = {},
 ): SignedWebhook {
   const at = now();
-  const occurredAt = new Date(at).toISOString();
-  const timestamp = Math.floor(at / 1000);
-  let payload: Record<string, unknown>;
+  const timestamp = new Date(at).toISOString();
+  let type: string;
+  let data: Record<string, unknown>;
+  let key: string;
 
   if (event.type === "refund_completed") {
-    payload = {
-      event_id: fakeId("evt", event.type, event.adjustmentId),
-      event_type: "adjustment.updated",
-      occurred_at: occurredAt,
-      notification_id: fakeId("ntf", event.type, event.adjustmentId, at),
-      data: {
-        id: event.adjustmentId,
-        action: "refund",
-        type: event.partial ? "partial" : "full",
-        reason: "requested_by_customer",
-        status: "approved",
-        transaction_id: event.transactionId,
-        currency_code: event.currency,
-        totals: { total: String(event.amountCents), currency_code: event.currency },
-        created_at: occurredAt,
-        updated_at: occurredAt,
-      },
+    type = "refund.succeeded";
+    key = event.refundId;
+    data = {
+      payload_type: "Refund",
+      refund_id: event.refundId,
+      payment_id: event.paymentId,
+      status: "succeeded",
+      is_partial: event.partial ?? false,
+      amount: event.amountCents,
+      currency: event.currency,
+      reason: "requested_by_customer",
+      metadata: {},
+      created_at: timestamp,
     };
   } else {
     const product = parseProductKey(event.productKey);
     if (!product) throw new PaymentsConfigError(`Unknown product key "${event.productKey}".`);
     const completed = event.type === "purchase_completed";
-    const amount = String(completed ? event.amountCents : 0);
-    payload = {
-      event_id: fakeId("evt", event.type, event.transactionId),
-      event_type: completed ? "transaction.completed" : "transaction.payment_failed",
-      occurred_at: occurredAt,
-      notification_id: fakeId("ntf", event.type, event.transactionId, at),
-      data: {
-        id: event.transactionId,
-        status: completed ? "completed" : "ready",
-        customer_id: fakeId("ctm", event.userId),
-        currency_code: event.currency,
-        discount_id: completed ? (event.discountId ?? null) : null,
-        custom_data: {
-          user_id: event.userId,
-          school_cycle_id: product.schoolCycleId,
-          product_key: event.productKey,
-        },
-        details: {
-          totals: { total: amount, grand_total: amount, currency_code: event.currency },
-          line_items: [{ id: fakeId("txnitm", event.transactionId) }],
-        },
-        payments: [
-          completed
-            ? { status: "captured", error_code: null, created_at: occurredAt }
-            : {
-                status: "error",
-                error_code: event.errorCode ?? "declined",
-                created_at: occurredAt,
-              },
-        ],
+    type = completed ? "payment.succeeded" : "payment.failed";
+    key = event.checkoutId;
+    data = {
+      payload_type: "Payment",
+      payment_id: fakePaymentId(event.checkoutId),
+      checkout_session_id: event.checkoutId,
+      status: completed ? "succeeded" : "failed",
+      total_amount: completed ? event.amountCents : 0,
+      currency: event.currency,
+      customer: { customer_id: fakeId("cus", event.userId) },
+      discount_id: completed ? (event.discountId ?? null) : null,
+      metadata: {
+        user_id: event.userId,
+        school_cycle_id: product.schoolCycleId,
+        product_key: event.productKey,
       },
+      error_code: completed ? null : (event.errorCode ?? "CARD_DECLINED"),
+      created_at: timestamp,
     };
   }
 
-  const body = JSON.stringify(payload);
+  const body = JSON.stringify({ business_id: "bus_fake", type, timestamp, data });
   return {
     body,
     headers: {
       "content-type": "application/json",
-      "paddle-signature": signatureHeader(secret, body, timestamp),
+      ...signatureHeaders(secret, fakeId("msg", type, key), body, Math.floor(at / 1000)),
     },
   };
 }
 
 export interface FakePaymentsProvider extends PaymentsProvider {
   name: "fake";
-  /** The signed webhook for a checkout this provider created: what Paddle sends after payment. */
-  completeCheckout(transactionId: string, outcome?: "paid" | "declined"): SignedWebhook;
-  /** The signed webhook that approves a refund this provider created. */
-  refundWebhook(adjustmentId: string): SignedWebhook;
+  /** The signed webhook for a checkout this provider created: what Dodo sends after payment. */
+  completeCheckout(checkoutId: string, outcome?: "paid" | "declined"): SignedWebhook;
+  /** The signed webhook for a refund this provider created. */
+  refundWebhook(refundId: string): SignedWebhook;
 }
 
 export function createFakePayments({
@@ -151,16 +141,16 @@ export function createFakePayments({
   now?: () => number;
   secret?: string;
 }): FakePaymentsProvider {
-  // A deployed app without Paddle keys must say checkout is unavailable, not grant kits for free.
+  // A deployed app without Dodo keys must say checkout is unavailable, not grant kits for free.
   if (!isLocalUrl(appUrl))
     throw new PaymentsConfigError(
-      "The fake payments provider runs only when APP_URL is localhost. Set the PADDLE_* keys.",
+      "The fake payments provider runs only when APP_URL is localhost. Set the DODO_* keys.",
     );
 
   const checkouts = new Map<string, CheckoutInput>();
   const refunds = new Map<
     string,
-    { transactionId: string; amountCents: number; currency: string; partial: boolean }
+    { paymentId: string; amountCents: number; currency: string; partial: boolean }
   >();
 
   return {
@@ -168,13 +158,13 @@ export function createFakePayments({
 
     async createCheckout(input) {
       checkCheckoutInput(input);
-      const transactionId = fakeId("txn", input.userId, input.productKey, now());
-      checkouts.set(transactionId, input);
+      const checkoutId = fakeId("cks", input.userId, input.productKey, now());
+      checkouts.set(checkoutId, input);
       return {
-        checkoutId: transactionId,
+        checkoutId,
         clientConfig: {
           provider: "fake",
-          transactionId,
+          transactionId: checkoutId,
           productKey: input.productKey,
           amountCents: input.priceCents,
           currency: input.currency,
@@ -187,28 +177,30 @@ export function createFakePayments({
 
     verifyWebhook: (rawBody, headers) => verifySignedWebhook(rawBody, headers, { secret, now }),
 
-    parseEvent: mapPaddleEvent,
+    parseEvent: mapDodoEvent,
 
     async refund(input): Promise<RefundResult> {
       // A purchase from an earlier dev-server process isn't in memory; refund it as USD.
-      const checkout = checkouts.get(input.providerTxnId);
-      // Same validation and body as Paddle, so a bad partial amount fails here too.
-      await refundBody(input, async () => fakeId("txnitm", input.providerTxnId));
-      const adjustmentId = fakeId("adj", input.providerTxnId, input.amountCents ?? "full", now());
-      refunds.set(adjustmentId, {
-        transactionId: input.providerTxnId,
+      const checkout = [...checkouts].find(
+        ([id]) => fakePaymentId(id) === input.providerTxnId,
+      )?.[1];
+      // Same validation and body as Dodo, so a bad partial amount fails here too.
+      await refundBody(input, async () => fakeId("pdt", input.providerTxnId));
+      const refundId = fakeId("ref", input.providerTxnId, input.amountCents ?? "full", now());
+      refunds.set(refundId, {
+        paymentId: input.providerTxnId,
         amountCents: input.amountCents ?? checkout?.priceCents ?? 0,
         currency: checkout?.currency ?? "USD",
         partial: input.amountCents !== undefined,
       });
-      return { adjustmentId, status: "approved" };
+      return { adjustmentId: refundId, status: "approved" };
     },
 
-    completeCheckout(transactionId, outcome = "paid") {
-      const checkout = checkouts.get(transactionId);
-      if (!checkout) throw new PaymentsConfigError(`No fake checkout ${transactionId}.`);
+    completeCheckout(checkoutId, outcome = "paid") {
+      const checkout = checkouts.get(checkoutId);
+      if (!checkout) throw new PaymentsConfigError(`No fake checkout ${checkoutId}.`);
       const base = {
-        transactionId,
+        checkoutId,
         userId: checkout.userId,
         productKey: checkout.productKey,
         currency: checkout.currency,
@@ -221,15 +213,12 @@ export function createFakePayments({
       );
     },
 
-    refundWebhook(adjustmentId) {
-      const refund = refunds.get(adjustmentId);
-      if (!refund) throw new PaymentsConfigError(`No fake refund ${adjustmentId}.`);
+    refundWebhook(refundId) {
+      const refund = refunds.get(refundId);
+      if (!refund) throw new PaymentsConfigError(`No fake refund ${refundId}.`);
       return buildSignedFakeWebhook(
-        { type: "refund_completed", adjustmentId, ...refund },
-        {
-          secret,
-          now,
-        },
+        { type: "refund_completed", refundId, ...refund },
+        { secret, now },
       );
     },
   };

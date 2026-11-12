@@ -139,8 +139,8 @@ export const LEDGER: readonly LedgerGroup[] = [
 
 export const PAYMENT_COPY = {
   heading: "Payment and tax",
-  paddle:
-    "Payments are processed by Paddle, our merchant of record, which adds tax where it applies and issues your receipt.",
+  processor:
+    "Payments are processed by Dodo Payments, our merchant of record, which adds tax where it applies and issues your receipt.",
   noSubscription:
     "No subscription. You pay once per school or once per pack, and each school is unlocked for that application cycle.",
 } as const;

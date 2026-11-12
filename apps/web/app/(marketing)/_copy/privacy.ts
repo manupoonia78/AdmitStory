@@ -40,7 +40,7 @@ export const PROCESSORS: readonly string[] = [
   "Vercel: hosting the app. " + DATA_REGION + ".",
   "Inngest: background jobs, such as building a kit. United States.",
   "Upstash: rate limiting. " + DATA_REGION + ".",
-  "Paddle: payments, as merchant of record. United Kingdom.",
+  "Dodo Payments: payments, as merchant of record. United States.",
   "Resend: sign-in links and the emails you ask for. United States.",
   "PostHog: product analytics. United States.",
   "Cloudflare Turnstile: telling people from bots at sign-in. Global network.",
@@ -57,7 +57,7 @@ export const PRIVACY_SECTIONS: readonly LegalSection[] = [
       "What you tell us: the answers you speak or type in Story Studio, the stories and facts in your Dossier, the schools you choose, and the drafts we write with you.",
       "What you upload: a résumé or other documents you choose to add. We keep the text we read from them.",
       "How you use the app: pages visited, buttons pressed and errors, without the text of what you write or say.",
-      "Payments go through Paddle. We see that you paid and for which school, never your card details.",
+      "Payments go through Dodo Payments. We see that you paid and for which school, never your card details.",
     ],
   },
   {
@@ -122,7 +122,7 @@ export const PRIVACY_SECTIONS: readonly LegalSection[] = [
       "We keep your content while you have an account, so you can come back to it.",
       "Exports you download are deleted from our servers after 24 hours.",
       "When you delete your account, we permanently delete your content within 30 days. Backups expire within 35 days.",
-      "Paddle keeps payment records for as long as tax law requires.",
+      "Dodo Payments keeps payment records for as long as tax law requires.",
     ],
   },
   {

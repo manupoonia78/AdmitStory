@@ -27,7 +27,8 @@ export default async function UnlockPage({
   searchParams,
 }: {
   params: Promise<{ userSchoolId: string }>;
-  searchParams: Promise<{ paid?: string }>;
+  /** `paid=1` is ours on the return URL; Dodo appends `payment_id` and `status`. */
+  searchParams: Promise<{ paid?: string; status?: string }>;
 }) {
   const { session } = await requireOnboardedUser();
   const id = z.guid().safeParse((await params).userSchoolId);
@@ -44,6 +45,8 @@ export default async function UnlockPage({
   ]);
   if (kit && kit.status !== "preview") redirect(`/schools/${row.id}`);
   const school = cycle?.school.shortName || cycle?.school.name || "this school";
+  const query = await searchParams;
+  const declined = query.status === "failed" || query.status === "cancelled";
   return (
     <UnlockScreen
       userSchoolId={row.id}
@@ -51,7 +54,8 @@ export default async function UnlockPage({
       cycle={cycle?.cycle.cycle ?? ""}
       credits={credits}
       available={published !== null}
-      paid={(await searchParams).paid === "1"}
+      paid={query.paid === "1" && !declined}
+      declined={declined}
       email={session.user.email}
       setup={published && facts ? <ApplicationSetup setup={facts.setup} /> : null}
     />
