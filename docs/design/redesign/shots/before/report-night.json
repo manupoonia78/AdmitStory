@@ -1,0 +1,397 @@
+{
+  "base": "http://localhost:3100",
+  "out": "before",
+  "theme": "night",
+  "reduced": false,
+  "takenAt": "2026-11-12T16:03:53.732Z",
+  "routes": [
+    {
+      "name": "home",
+      "path": "/home",
+      "consoleErrors": [],
+      "failedRequests": [],
+      "hydration": [],
+      "status": 200,
+      "finalPath": "/home",
+      "overflow375": {
+        "px": 0,
+        "offenders": []
+      }
+    },
+    {
+      "name": "studio",
+      "path": "/studio",
+      "consoleErrors": [
+        "Failed to load resource: the server responded with a status of 500 (Internal Server Error)",
+        "Failed to load resource: the server responded with a status of 500 (Internal Server Error)"
+      ],
+      "failedRequests": [
+        "500 /api/studio/sessions",
+        "500 /api/studio/sessions"
+      ],
+      "hydration": [],
+      "status": 200,
+      "finalPath": "/studio",
+      "overflow375": {
+        "px": 0,
+        "offenders": []
+      }
+    },
+    {
+      "name": "dossier",
+      "path": "/dossier",
+      "consoleErrors": [],
+      "failedRequests": [],
+      "hydration": [],
+      "status": 200,
+      "finalPath": "/dossier",
+      "overflow375": {
+        "px": 0,
+        "offenders": []
+      }
+    },
+    {
+      "name": "profile-read",
+      "path": "/profile-read",
+      "consoleErrors": [],
+      "failedRequests": [],
+      "hydration": [],
+      "status": 200,
+      "finalPath": "/profile-read",
+      "overflow375": {
+        "px": 0,
+        "offenders": []
+      }
+    },
+    {
+      "name": "schools",
+      "path": "/schools",
+      "consoleErrors": [],
+      "failedRequests": [],
+      "hydration": [],
+      "status": 200,
+      "finalPath": "/schools",
+      "overflow375": {
+        "px": 0,
+        "offenders": []
+      }
+    },
+    {
+      "name": "school",
+      "path": "/schools/38a1a41a-f3d2-4d89-ba67-134a330fe020",
+      "consoleErrors": [],
+      "failedRequests": [],
+      "hydration": [],
+      "status": 200,
+      "finalPath": "/schools/38a1a41a-f3d2-4d89-ba67-134a330fe020/unlock",
+      "overflow375": {
+        "px": 13,
+        "offenders": [
+          "nav.fixed inset-x-0 bottom-0 z-30 border-t border-edge bg-space/",
+          "ul.flex lg:flex-col lg:gap-0.5",
+          "li.flex flex-1 lg:flex-none",
+          "a.group/nav relative flex flex-1 items-center justify-center r",
+          "span.grid size-11 shrink-0 place-items-center lg:size-5 group-ari"
+        ]
+      }
+    },
+    {
+      "name": "school-unlocked",
+      "path": "/schools/15480822-d327-46ec-b3c6-935f11ed03a6",
+      "consoleErrors": [],
+      "failedRequests": [],
+      "hydration": [],
+      "status": 200,
+      "finalPath": "/schools/15480822-d327-46ec-b3c6-935f11ed03a6",
+      "overflow375": {
+        "px": 0,
+        "offenders": []
+      }
+    },
+    {
+      "name": "school-preview",
+      "path": "/schools/38a1a41a-f3d2-4d89-ba67-134a330fe020/preview",
+      "consoleErrors": [],
+      "failedRequests": [],
+      "hydration": [],
+      "status": 200,
+      "finalPath": "/schools/38a1a41a-f3d2-4d89-ba67-134a330fe020/preview",
+      "overflow375": {
+        "px": 0,
+        "offenders": []
+      }
+    },
+    {
+      "name": "school-unlock",
+      "path": "/schools/38a1a41a-f3d2-4d89-ba67-134a330fe020/unlock",
+      "consoleErrors": [],
+      "failedRequests": [],
+      "hydration": [],
+      "status": 200,
+      "finalPath": "/schools/38a1a41a-f3d2-4d89-ba67-134a330fe020/unlock",
+      "overflow375": {
+        "px": 13,
+        "offenders": [
+          "nav.fixed inset-x-0 bottom-0 z-30 border-t border-edge bg-space/",
+          "ul.flex lg:flex-col lg:gap-0.5",
+          "li.flex flex-1 lg:flex-none",
+          "a.group/nav relative flex flex-1 items-center justify-center r",
+          "span.grid size-11 shrink-0 place-items-center lg:size-5 group-ari"
+        ]
+      }
+    },
+    {
+      "name": "school-recommenders",
+      "path": "/schools/15480822-d327-46ec-b3c6-935f11ed03a6/recommenders",
+      "consoleErrors": [],
+      "failedRequests": [],
+      "hydration": [],
+      "status": 200,
+      "finalPath": "/schools/15480822-d327-46ec-b3c6-935f11ed03a6",
+      "overflow375": {
+        "px": 0,
+        "offenders": []
+      }
+    },
+    {
+      "name": "school-resume",
+      "path": "/schools/15480822-d327-46ec-b3c6-935f11ed03a6/resume",
+      "consoleErrors": [],
+      "failedRequests": [],
+      "hydration": [],
+      "status": 200,
+      "finalPath": "/schools/15480822-d327-46ec-b3c6-935f11ed03a6",
+      "overflow375": {
+        "px": 0,
+        "offenders": []
+      }
+    },
+    {
+      "name": "kit",
+      "path": "/kits/05c1c813-6854-4c23-8da6-1f3483f18d3a",
+      "consoleErrors": [],
+      "failedRequests": [],
+      "hydration": [],
+      "status": 200,
+      "finalPath": "/schools/15480822-d327-46ec-b3c6-935f11ed03a6",
+      "overflow375": {
+        "px": 0,
+        "offenders": []
+      }
+    },
+    {
+      "name": "workspace",
+      "path": "/workspace/37a00176-cb32-409e-becc-101322b96a56",
+      "consoleErrors": [],
+      "failedRequests": [],
+      "hydration": [],
+      "status": 200,
+      "finalPath": "/workspace/37a00176-cb32-409e-becc-101322b96a56",
+      "overflow375": {
+        "px": 0,
+        "offenders": []
+      }
+    },
+    {
+      "name": "recommenders",
+      "path": "/recommenders",
+      "consoleErrors": [],
+      "failedRequests": [],
+      "hydration": [],
+      "status": 200,
+      "finalPath": "/recommenders",
+      "overflow375": {
+        "px": 0,
+        "offenders": []
+      }
+    },
+    {
+      "name": "recommender",
+      "path": "/recommenders/d26017fd-f937-4443-b978-9c742c7870d1",
+      "consoleErrors": [],
+      "failedRequests": [],
+      "hydration": [],
+      "status": 200,
+      "finalPath": "/recommenders/d26017fd-f937-4443-b978-9c742c7870d1",
+      "overflow375": {
+        "px": 0,
+        "offenders": []
+      }
+    },
+    {
+      "name": "resume",
+      "path": "/resume",
+      "consoleErrors": [],
+      "failedRequests": [],
+      "hydration": [],
+      "status": 200,
+      "finalPath": "/resume",
+      "overflow375": {
+        "px": 0,
+        "offenders": []
+      }
+    },
+    {
+      "name": "resume-review",
+      "path": "/resume/review",
+      "consoleErrors": [],
+      "failedRequests": [],
+      "hydration": [],
+      "status": 200,
+      "finalPath": "/resume/review",
+      "overflow375": {
+        "px": 0,
+        "offenders": []
+      }
+    },
+    {
+      "name": "connect",
+      "path": "/connect",
+      "consoleErrors": [],
+      "failedRequests": [],
+      "hydration": [],
+      "status": 200,
+      "finalPath": "/connect",
+      "overflow375": {
+        "px": 0,
+        "offenders": []
+      }
+    },
+    {
+      "name": "settings",
+      "path": "/settings",
+      "consoleErrors": [],
+      "failedRequests": [],
+      "hydration": [],
+      "status": 200,
+      "finalPath": "/settings",
+      "overflow375": {
+        "px": 0,
+        "offenders": []
+      }
+    },
+    {
+      "name": "settings-privacy",
+      "path": "/settings/privacy",
+      "consoleErrors": [],
+      "failedRequests": [],
+      "hydration": [],
+      "status": 200,
+      "finalPath": "/settings/privacy",
+      "overflow375": {
+        "px": 0,
+        "offenders": []
+      }
+    },
+    {
+      "name": "settings-security",
+      "path": "/settings/security",
+      "consoleErrors": [],
+      "failedRequests": [],
+      "hydration": [],
+      "status": 200,
+      "finalPath": "/settings/security",
+      "overflow375": {
+        "px": 0,
+        "offenders": []
+      }
+    },
+    {
+      "name": "interview",
+      "path": "/interview",
+      "consoleErrors": [],
+      "failedRequests": [],
+      "hydration": [],
+      "status": 200,
+      "finalPath": "/interview",
+      "overflow375": {
+        "px": 0,
+        "offenders": []
+      }
+    },
+    {
+      "name": "tracker",
+      "path": "/tracker",
+      "consoleErrors": [],
+      "failedRequests": [],
+      "hydration": [],
+      "status": 200,
+      "finalPath": "/tracker",
+      "overflow375": {
+        "px": 0,
+        "offenders": []
+      }
+    },
+    {
+      "name": "ref-prototype-studio",
+      "path": "/prototype/studio",
+      "consoleErrors": [],
+      "failedRequests": [],
+      "hydration": [],
+      "status": 200,
+      "finalPath": "/prototype/studio",
+      "overflow375": {
+        "px": 4,
+        "offenders": [
+          "div.-mx-5 overflow-x-auto border-b border-edge px-5 [scrollbar-w",
+          "div.flex w-max gap-6",
+          "button.-mb-px min-h-11 shrink-0 border-b-2 px-0.5 text-[15px] white",
+          "button.-mb-px min-h-11 shrink-0 border-b-2 px-0.5 text-[15px] white",
+          "button.-mb-px min-h-11 shrink-0 border-b-2 px-0.5 text-[15px] white"
+        ]
+      }
+    },
+    {
+      "name": "ref-prototype-workspace",
+      "path": "/prototype/workspace",
+      "consoleErrors": [],
+      "failedRequests": [],
+      "hydration": [],
+      "status": 200,
+      "finalPath": "/prototype/workspace",
+      "overflow375": {
+        "px": 0,
+        "offenders": []
+      }
+    },
+    {
+      "name": "ref-prototype-kit",
+      "path": "/prototype/kit",
+      "consoleErrors": [],
+      "failedRequests": [],
+      "hydration": [],
+      "status": 200,
+      "finalPath": "/prototype/kit",
+      "overflow375": {
+        "px": 0,
+        "offenders": []
+      }
+    },
+    {
+      "name": "ref-prototype-duet",
+      "path": "/prototype/duet",
+      "consoleErrors": [],
+      "failedRequests": [],
+      "hydration": [],
+      "status": 200,
+      "finalPath": "/prototype/duet",
+      "overflow375": {
+        "px": 0,
+        "offenders": []
+      }
+    }
+  ],
+  "setup": [
+    "first-run: already completed for this account (use --email for a fresh one to recapture)",
+    "schools on the list: Halvorsen, Kestrel Lake, Quillfeather",
+    "kit: unlocked, a deliverable exists",
+    "recommender: one fictional recommender on file"
+  ],
+  "ids": {
+    "unlocked": "15480822-d327-46ec-b3c6-935f11ed03a6",
+    "kit": "05c1c813-6854-4c23-8da6-1f3483f18d3a",
+    "school": "38a1a41a-f3d2-4d89-ba67-134a330fe020",
+    "deliverable": "37a00176-cb32-409e-becc-101322b96a56",
+    "recommender": "d26017fd-f937-4443-b978-9c742c7870d1"
+  }
+}
