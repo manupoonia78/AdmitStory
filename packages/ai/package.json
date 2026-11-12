@@ -25,9 +25,9 @@
     "@admitstory/linters": "workspace:*",
     "@admitstory/shared": "workspace:*",
     "@admitstory/slots": "workspace:*",
-    "@anthropic-ai/sdk": "1.3.0",
-    "@langfuse/otel": "6.0.2",
-    "@langfuse/tracing": "6.0.2",
+    "@anthropic-ai/sdk": "1.6.0",
+    "@langfuse/otel": "6.1.1",
+    "@langfuse/tracing": "6.1.1",
     "@opentelemetry/api": "1.10.0",
     "@opentelemetry/sdk-trace-node": "2.12.0",
     "zod": "4.6.7"
