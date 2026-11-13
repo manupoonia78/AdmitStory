@@ -38,7 +38,7 @@ export function CitationMark({
         aria-label={`Source ${index}: ${text}`}
         data-citation={index}
         className={cx(
-          "relative ml-0.5 rounded-control align-super text-sm leading-none tabular-nums text-signal no-underline hover:underline",
+          "relative ml-0.5 rounded-control align-super text-sm leading-none tabular-nums text-text no-underline hover:underline",
           // A 24px target (WCAG 2.2 2.5.8) around a small mark.
           "before:absolute before:left-1/2 before:top-1/2 before:size-6 before:-translate-1/2",
           className,

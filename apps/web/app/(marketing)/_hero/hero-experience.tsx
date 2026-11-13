@@ -74,7 +74,7 @@ export interface HeroExperienceProps {
 
 const SILENT: LiveVoiceSignal = { amplitude: 0, centroid: 0, pitchDelta: 0 };
 const TEXT_BUTTON =
-  "inline-flex min-h-11 items-center justify-center rounded-control px-3 text-base text-signal underline-offset-4 hover:underline";
+  "inline-flex min-h-11 items-center justify-center rounded-control px-3 text-base text-text underline-offset-4 hover:underline";
 const PRIMARY = cx(buttonStyles({ variant: "primary" }), "min-h-11 px-5");
 const GHOST = cx(buttonStyles({ variant: "secondary" }), "min-h-11 px-5");
 /** The live transcript and the sample's words: Geist 500 at display-sm, three lines tall. */

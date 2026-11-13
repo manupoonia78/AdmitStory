@@ -29,7 +29,7 @@ export interface VoiceNoticeProps {
 }
 
 const ICONS: Record<VoiceNoticeTone, { icon: Icon; className: string }> = {
-  info: { icon: InfoIcon, className: "text-signal" },
+  info: { icon: InfoIcon, className: "text-text" },
   warning: { icon: WarningIcon, className: "text-needs" },
   problem: { icon: WarningCircleIcon, className: "text-risk" },
 };

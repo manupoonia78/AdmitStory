@@ -6,7 +6,7 @@ import type { ComponentProps, ReactNode } from "react";
 
 const control =
   "min-h-9 w-full rounded-control border border-control bg-depth px-2 text-base text-text " +
-  "focus-visible:outline-2 focus-visible:outline-offset-1 focus-visible:outline-signal";
+  "focus-visible:outline-2 focus-visible:outline-offset-1 focus-visible:outline-text";
 
 export function Field({
   label,

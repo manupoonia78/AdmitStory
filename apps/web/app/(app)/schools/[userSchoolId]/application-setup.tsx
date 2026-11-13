@@ -34,9 +34,9 @@ function Choice({
       onClick={onClick}
       className={cx(
         "inline-flex min-h-10 items-center rounded-full border px-4 text-sm tabular-nums transition-colors duration-150",
-        "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-signal",
+        "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-text",
         pressed
-          ? "border-signal bg-signal text-on-signal"
+          ? "border-text bg-signal text-on-signal"
           : "border-edge text-text hover:border-text-soft",
       )}
     >

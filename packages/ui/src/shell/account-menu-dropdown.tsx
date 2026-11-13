@@ -22,7 +22,7 @@ export interface AccountMenuDropdownProps extends AccountMenuProps {
 
 const ITEM =
   "flex min-h-11 cursor-pointer select-none items-center gap-3 rounded-control px-3 text-text " +
-  "focus-visible:-outline-offset-2 data-[highlighted]:bg-veil data-[highlighted]:text-signal";
+  "focus-visible:-outline-offset-2 data-[highlighted]:bg-veil data-[highlighted]:text-text";
 
 const SEPARATOR = "my-1 h-px bg-edge";
 

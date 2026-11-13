@@ -89,13 +89,13 @@ export default async function SchoolPage({ params }: { params: Promise<{ schoolI
                 </span>
                 <Link
                   href={`/admin/review/${cycle.id}`}
-                  className="text-sm text-signal hover:underline"
+                  className="text-sm text-text hover:underline"
                 >
                   Review {label}
                 </Link>
                 <Link
                   href={`/admin/sources?school=${school.id}&cycle=${cycle.cycle}`}
-                  className="text-sm text-signal hover:underline"
+                  className="text-sm text-text hover:underline"
                 >
                   Sources for {label}
                 </Link>

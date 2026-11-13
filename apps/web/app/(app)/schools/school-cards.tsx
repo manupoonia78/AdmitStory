@@ -75,7 +75,7 @@ function Card({ row, price }: { row: StrategyRow; price: string }) {
     return (
       <Link
         href={`/schools/${row.userSchoolId}`}
-        className="group flex min-h-56 flex-col justify-between gap-6 rounded-plane border border-edge bg-depth p-6 transition-[border-color,transform] duration-200 hover:-translate-y-0.5 hover:border-text-soft focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-signal motion-reduce:hover:translate-y-0"
+        className="group flex min-h-56 flex-col justify-between gap-6 rounded-plane border border-edge bg-depth p-6 transition-[border-color,transform] duration-200 hover:-translate-y-0.5 hover:border-text-soft focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-text motion-reduce:hover:translate-y-0"
       >
         <div className="flex flex-col gap-4">{body}</div>
         <span className="flex items-center gap-2 font-medium text-text">
@@ -96,7 +96,7 @@ function Card({ row, price }: { row: StrategyRow; price: string }) {
         <div className="flex flex-wrap items-center gap-x-4 gap-y-2">
           <Link
             href={`/schools/${row.userSchoolId}/unlock`}
-            className="inline-flex min-h-10 items-center rounded-full bg-signal px-4 text-sm font-medium text-on-signal focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-signal"
+            className="inline-flex min-h-10 items-center rounded-full bg-signal px-4 text-sm font-medium text-on-signal focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-text"
           >
             Unlock · {price}
           </Link>

@@ -42,7 +42,7 @@ export function EvidenceLink({ refs, onOpen, className }: EvidenceLinkProps) {
       onClick={() => onOpen(refs)}
       aria-label={`Evidence: ${refs.map((ref) => ref.title).join(", ")}`}
       className={cx(
-        "relative inline rounded-control text-sm text-signal underline decoration-1 underline-offset-[0.2em] hover:decoration-2",
+        "relative inline rounded-control text-sm text-text underline decoration-1 underline-offset-[0.2em] hover:decoration-2",
         // 24px minimum target (WCAG 2.2 2.5.8) without changing the line's height.
         "before:absolute before:-inset-x-1 before:top-1/2 before:h-6 before:-translate-y-1/2",
         className,

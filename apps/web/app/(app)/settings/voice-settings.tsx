@@ -136,7 +136,7 @@ export function VoiceSettingsForm({
                 : "Questions won't be read aloud.",
             )
           }
-          className="mt-0.5 size-5 accent-signal"
+          className="mt-0.5 size-5 accent-text"
         />
         <span className="flex flex-col gap-0.5">
           <span className="font-medium text-text">Read questions aloud</span>
@@ -159,7 +159,7 @@ export function VoiceSettingsForm({
                 onChange={() =>
                   void save({ ttsVoice: voice.id as TtsVoice }, `Voice set to ${voice.label}.`)
                 }
-                className="size-5 accent-signal"
+                className="size-5 accent-text"
               />
               {voice.label}
             </label>
@@ -196,7 +196,7 @@ export function VoiceSettingsForm({
                 onChange={() =>
                   void save({ ttsSpeed: speed }, `Speed set to ${SPEED_LABELS[speed]}.`)
                 }
-                className="size-5 accent-signal"
+                className="size-5 accent-text"
               />
               {SPEED_LABELS[speed]}
             </label>
@@ -220,7 +220,7 @@ export function VoiceSettingsForm({
               );
           }}
           aria-describedby={`${id}-language-hint`}
-          className="min-h-11 w-full max-w-sm rounded-control border border-control bg-depth px-3 text-text focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-signal"
+          className="min-h-11 w-full max-w-sm rounded-control border border-control bg-depth px-3 text-text focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-text"
         >
           {SPEECH_LANGUAGES.map((language) => (
             <option key={language.id} value={language.id}>

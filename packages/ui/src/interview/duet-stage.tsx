@@ -331,7 +331,7 @@ function ControlToggle({
       className={cx(
         "relative inline-flex min-h-11 shrink-0 items-center justify-center gap-2 rounded-control px-4 text-base font-medium whitespace-nowrap",
         "text-text-soft transition-colors duration-(--spring-snap-duration) ease-snap hover:bg-veil hover:text-text",
-        "aria-pressed:bg-veil aria-pressed:text-signal",
+        "aria-pressed:bg-veil aria-pressed:text-text",
       )}
     >
       <ToggleIcon size={20} weight={pressed ? "fill" : "regular"} aria-hidden />

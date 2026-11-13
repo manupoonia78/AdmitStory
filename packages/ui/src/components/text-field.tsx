@@ -10,9 +10,7 @@ import {
 import { cx } from "../lib/cx";
 
 export function Label({ className, ...rest }: ComponentProps<typeof LabelPrimitive.Root>) {
-  return (
-    <LabelPrimitive.Root className={cx("text-base font-medium text-text", className)} {...rest} />
-  );
+  return <LabelPrimitive.Root className={cx("text-ui text-text", className)} {...rest} />;
 }
 
 export function FieldHint({ className, ...rest }: ComponentProps<"p">) {
@@ -55,11 +53,12 @@ export function FieldErrorRegion({ id, error, className }: FieldErrorRegionProps
   );
 }
 
-// Control borders use --control-edge, not --edge, so the edge meets 3:1 (WCAG 1.4.11).
-// The input text is 17px below 640px, because iOS zooms into inputs set under 16px.
+// 48px tall, 14px corners (SPEC §2.9). Control borders use --control-edge, not --edge, so the
+// edge meets 3:1 (WCAG 1.4.11). The text is 16px at every width, because iOS zooms into inputs
+// set smaller. Focus turns the border to the text colour and shows the ring (render.css).
 const INPUT =
-  "min-h-11 w-full rounded-control border border-control bg-depth px-3 py-2 text-lg text-text sm:text-base " +
-  "placeholder:text-text-soft aria-invalid:border-risk disabled:cursor-not-allowed disabled:opacity-60";
+  "min-h-12 w-full rounded-control border border-control bg-field px-4 py-2.5 text-[1rem] leading-6 text-text " +
+  "placeholder:text-text-soft aria-invalid:border-risk disabled:cursor-not-allowed disabled:opacity-45";
 
 export interface TextFieldProps extends Omit<InputHTMLAttributes<HTMLInputElement>, "children"> {
   label: ReactNode;
@@ -89,7 +88,7 @@ export function TextField({
 
   return (
     <div className={className}>
-      <div className="flex flex-col gap-1">
+      <div className="flex flex-col gap-1.5">
         <Label htmlFor={inputId}>{label}</Label>
         {hint ? <FieldHint id={hintId}>{hint}</FieldHint> : null}
         <input

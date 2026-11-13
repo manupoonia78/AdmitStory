@@ -259,7 +259,7 @@ export function FirstRunFlow({ defaults }: FirstRunFlowProps) {
                       className={cx(
                         "flex min-h-11 flex-col gap-1 rounded-plane border p-4 text-left",
                         selected
-                          ? "border-signal bg-veil"
+                          ? "border-text bg-veil"
                           : "border-edge hover:border-control-edge hover:bg-veil",
                       )}
                     >
@@ -278,7 +278,7 @@ export function FirstRunFlow({ defaults }: FirstRunFlowProps) {
                     type="checkbox"
                     checked={keepLine}
                     onChange={(event) => setKeepLine(event.target.checked)}
-                    className="mt-1 size-4 shrink-0 accent-signal"
+                    className="mt-1 size-4 shrink-0 accent-text"
                   />
                   <span className="flex flex-col gap-2">
                     <span className="text-text">{KEEP_LINE_COPY.firstRunCheckbox}</span>
@@ -377,7 +377,7 @@ function Choices(
               className={cx(
                 "min-h-11 rounded-control border px-4 text-sm",
                 selected
-                  ? "border-signal bg-veil font-semibold text-text"
+                  ? "border-text bg-veil font-semibold text-text"
                   : "border-control-edge text-text-soft hover:bg-veil hover:text-text",
               )}
             >

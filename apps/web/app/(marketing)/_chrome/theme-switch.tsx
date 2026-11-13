@@ -40,7 +40,7 @@ export function ThemeSwitch({ initial }: { initial: ThemePreference }) {
         {OPTIONS.map((option) => (
           <label
             key={option.value}
-            className="relative flex min-w-20 cursor-pointer items-center justify-center px-4 text-base text-text-soft has-checked:text-text has-focus-visible:outline-2 has-focus-visible:outline-offset-2 has-focus-visible:outline-signal"
+            className="relative flex min-w-20 cursor-pointer items-center justify-center px-4 text-base text-text-soft has-checked:text-text has-focus-visible:outline-2 has-focus-visible:outline-offset-2 has-focus-visible:outline-text"
             // The control is 40 px; the label's own box reaches 44 px (spec §6.12).
             style={{ minHeight: 44, marginBlock: -2 }}
           >

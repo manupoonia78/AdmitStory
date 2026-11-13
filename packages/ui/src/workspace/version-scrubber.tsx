@@ -126,7 +126,7 @@ export function VersionScrubber({
                     className={cx(
                       "rounded-full border transition-[width,height,background-color] duration-(--spring-snap-duration) ease-snap motion-reduce:transition-none",
                       active
-                        ? "size-3 border-signal bg-signal"
+                        ? "size-3 border-text bg-signal"
                         : "size-2 border-control bg-depth group-hover:bg-control",
                       version.id === currentId && !active ? "border-text bg-text" : null,
                     )}

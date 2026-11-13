@@ -41,7 +41,7 @@ export function SourceLine({
               href={source.url}
               target="_blank"
               rel="noreferrer"
-              className="text-signal underline decoration-1 underline-offset-[0.2em] hover:decoration-2"
+              className="text-text underline decoration-1 underline-offset-[0.2em] hover:decoration-2"
             >
               {source.label}
             </a>

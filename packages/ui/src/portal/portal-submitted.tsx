@@ -38,7 +38,7 @@ export function PortalSubmitted({
                   checked={Boolean(school.submittedAt)}
                   disabled={busy}
                   onChange={(event) => onChange(school.schoolCycleId, event.target.checked)}
-                  className="size-5 shrink-0 accent-[var(--signal)]"
+                  className="size-5 shrink-0 accent-[var(--text)]"
                 />
                 <span>{submittedLabel(school.name)}</span>
                 {day ? (

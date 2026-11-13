@@ -75,7 +75,7 @@ export default function AssemblyPlayer({ deliverablesHeading, playAgain }: Assem
               setElapsed(0);
               setPlaying(true);
             }}
-            className="inline-flex min-h-11 items-center text-signal underline-offset-4 decoration-1 hover:underline focus-visible:underline"
+            className="inline-flex min-h-11 items-center text-text underline-offset-4 decoration-1 hover:underline focus-visible:underline"
           >
             {playAgain}
           </button>

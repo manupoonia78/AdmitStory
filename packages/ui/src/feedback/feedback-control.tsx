@@ -95,9 +95,9 @@ export function FeedbackControl({
                   className={cx(
                     "min-h-11 rounded-full border px-3 text-text transition-colors",
                     reason === r
-                      ? "border-signal bg-signal/10"
+                      ? "border-text bg-signal/10"
                       : "border-edge hover:border-text-soft",
-                    "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-signal",
+                    "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-text",
                   )}
                 >
                   {FEEDBACK_REASON_LABELS[r]}
@@ -112,7 +112,7 @@ export function FeedbackControl({
               value={note}
               maxLength={500}
               onChange={(e) => setNote(e.target.value)}
-              className="min-h-20 rounded-control border border-control bg-depth p-2 text-base text-text focus-visible:outline-2 focus-visible:outline-signal"
+              className="min-h-20 rounded-control border border-control bg-depth p-2 text-base text-text focus-visible:outline-2 focus-visible:outline-text"
             />
           </label>
           <div className="flex gap-2">

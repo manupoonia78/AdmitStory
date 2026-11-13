@@ -200,7 +200,7 @@ export function StoryDetail({
                     type="checkbox"
                     checked={person.mayName}
                     onChange={(event) => void setMayName(person.id, event.target.checked)}
-                    className="size-5 accent-signal"
+                    className="size-5 accent-text"
                   />
                   I&apos;m happy to name them in essays
                 </label>
@@ -275,7 +275,7 @@ export function StoryDetail({
                 event.target.checked ? "This story can be used." : "This story is kept private.",
               )
             }
-            className="mt-0.5 size-5 accent-signal"
+            className="mt-0.5 size-5 accent-text"
           />
           <span>
             Use this story in my applications.

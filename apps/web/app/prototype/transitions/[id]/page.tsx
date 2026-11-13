@@ -43,7 +43,7 @@ export default async function StoryPage({ params }: StoryPageProps) {
         href={SHELF}
         transitionTypes={[STORY_CLOSE]}
         aria-keyshortcuts="Escape"
-        className="self-start rounded-control text-signal underline decoration-1 underline-offset-[0.2em] hover:decoration-2"
+        className="self-start rounded-control text-text underline decoration-1 underline-offset-[0.2em] hover:decoration-2"
       >
         All stories
       </Link>

@@ -5,7 +5,13 @@
 export { cx } from "./lib/cx";
 
 export { Button, type ButtonProps } from "./components/button";
-export { buttonStyles, type ButtonSize, type ButtonVariant } from "./components/button-styles";
+export {
+  BUTTON_ARROW_CLASS,
+  buttonStyles,
+  type ButtonSize,
+  type ButtonStyleOptions,
+  type ButtonVariant,
+} from "./components/button-styles";
 export { IconButton, type IconButtonProps } from "./components/icon-button";
 export { TextLink, type TextLinkProps } from "./components/text-link";
 export {
@@ -70,15 +76,24 @@ export {
 
 // Motion vocabulary and the applicant's hue (spec §6.6, §6.2–6.3).
 export {
+  DURATIONS,
+  EASES,
   MOTION_TOKENS,
   REDUCED_FADE,
   SPRINGS,
   cssSpring,
+  ease,
   spring,
   useMotionToken,
   type CssSpring,
+  type DurationToken,
+  type EaseToken,
   type MotionToken,
 } from "./motion";
+// Entrances and scroll reveals (SPEC §2.10): the head script and the one shared observer.
+export { MOTION_ATTRIBUTE_SCRIPT } from "./motion-attribute";
+export { RevealObserver } from "./components/reveal-observer";
+export { useSlidingIndicator, SLIDING_PILL, SLIDING_RULE } from "./lib/sliding-indicator";
 // The same springs as plain curves, for GSAP on the marketing site (no motion/react import).
 export { SETTLE_SECONDS, springEase, springSamples } from "./motion-curves";
 export { VOICE_HUES, voiceHueAt, voiceHueStyle, type VoiceHue } from "./voice-hues";
@@ -111,7 +126,8 @@ export {
 } from "./shell/shared-element";
 export { VIEW_TRANSITION_CSS, ViewTransitionStyles } from "./shell/view-transition-styles";
 
-// Cursor craft (spec §6.6): magnetic primary actions and the edge light on planes.
+// Cursor craft from the Paper system. No component uses these any more (SPEC §2.9); the
+// /prototype/transitions page still does.
 export { MAGNETIC_MAX_PX, magneticOffset, mergeRefs, useMagnetic } from "./lib/magnetic";
 export { EdgeLight, edgeLightPoint, useEdgeLight } from "./lib/edge-light";
 

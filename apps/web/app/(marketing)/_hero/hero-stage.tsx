@@ -140,7 +140,7 @@ export function HeroStage() {
             </button>
             <button
               type="button"
-              className="inline-flex min-h-11 items-center justify-center rounded-control px-3 text-base text-signal underline-offset-4 hover:underline"
+              className="inline-flex min-h-11 items-center justify-center rounded-control px-3 text-base text-text underline-offset-4 hover:underline"
               onClick={() => dispatch({ type: "write" })}
             >
               {HERO_ACTIONS.write}

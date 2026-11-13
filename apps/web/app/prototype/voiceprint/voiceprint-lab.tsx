@@ -575,7 +575,7 @@ function Segmented({
         {options.map((option) => (
           <label
             key={option.value}
-            className="inline-flex min-h-11 min-w-11 cursor-pointer items-center justify-center rounded-control px-3 text-sm font-medium text-text-soft transition-colors duration-(--spring-snap-duration) ease-snap hover:text-text has-checked:bg-veil has-checked:font-semibold has-checked:text-signal has-focus-visible:outline-2 has-focus-visible:outline-offset-2 has-focus-visible:outline-signal"
+            className="inline-flex min-h-11 min-w-11 cursor-pointer items-center justify-center rounded-control px-3 text-sm font-medium text-text-soft transition-colors duration-(--spring-snap-duration) ease-snap hover:text-text has-checked:bg-veil has-checked:font-semibold has-checked:text-text has-focus-visible:outline-2 has-focus-visible:outline-offset-2 has-focus-visible:outline-text"
           >
             <input
               type="radio"

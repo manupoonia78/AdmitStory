@@ -71,7 +71,7 @@ export function UploadStep() {
         }}
         className={cx(
           "flex flex-col items-center gap-3 rounded-plane border border-dashed p-8 text-center",
-          dragging ? "border-signal bg-veil" : "border-control-edge",
+          dragging ? "border-text bg-veil" : "border-control-edge",
         )}
       >
         <p className="text-text-soft">Drop a file here, or choose one.</p>

@@ -59,7 +59,7 @@ export function readThemeCookie(cookieHeader: string): ThemePreference {
  * The browser-chrome colour for each theme: `--space`, the app background. `contrast.test.ts`
  * keeps these equal to tokens.css.
  */
-export const THEME_COLORS = { day: "#f3efe8", night: "#12110f" } as const;
+export const THEME_COLORS = { day: "#ece9e2", night: "#0b0a09" } as const;
 
 export const LIGHT_SCHEME_MEDIA = "(prefers-color-scheme: light)";
 export const DARK_SCHEME_MEDIA = "(prefers-color-scheme: dark)";

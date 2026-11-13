@@ -29,7 +29,7 @@ async function errorOf(response: Response | null, fallback: string): Promise<str
 }
 
 const field =
-  "w-full rounded-control border border-control bg-depth px-3 py-2 text-text placeholder:text-text-soft focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-signal";
+  "w-full rounded-control border border-control bg-depth px-3 py-2 text-text placeholder:text-text-soft focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-text";
 
 /* The narrative ---------------------------------------------------------------------------------- */
 
@@ -282,7 +282,7 @@ export function ResumeWork({
             checked={from === value}
             disabled={value === "upload" && !view.upload}
             onChange={() => setFrom(value)}
-            className="mt-1 size-4 accent-signal"
+            className="mt-1 size-4 accent-text"
           />
           <span className="flex flex-col">
             <span className="text-text">{title}</span>

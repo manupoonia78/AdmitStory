@@ -51,7 +51,7 @@ export function EvidenceDrawer({
                 {item.href ? (
                   <a
                     href={item.href}
-                    className="self-start rounded-control text-signal underline decoration-1 underline-offset-[0.2em] hover:decoration-2"
+                    className="self-start rounded-control text-text underline decoration-1 underline-offset-[0.2em] hover:decoration-2"
                   >
                     Open in Dossier
                     <span className="sr-only">: {item.title}</span>

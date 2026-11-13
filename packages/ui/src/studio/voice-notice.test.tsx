@@ -31,7 +31,7 @@ describe("VoiceNotice", () => {
     expect(screen.getByRole("button", { name: "Allow microphone" })).toBeTruthy();
   });
 
-  it("runs each action, the primary one filled and the rest outlined", () => {
+  it("runs each action, the primary one filled and the rest frosted", () => {
     const allow = vi.fn();
     const write = vi.fn();
     render(
@@ -46,7 +46,7 @@ describe("VoiceNotice", () => {
     const allowButton = screen.getByRole("button", { name: "Allow microphone" });
     const writeButton = screen.getByRole("button", { name: "Write instead" });
     expect(allowButton.className).toContain("bg-signal");
-    expect(writeButton.className).toContain("border-control");
+    expect(writeButton.className).toContain("frost-flat");
     fireEvent.click(allowButton);
     fireEvent.click(writeButton);
     expect(allow).toHaveBeenCalledOnce();

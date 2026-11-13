@@ -65,7 +65,7 @@ export default function UnlockPreview({
             aria-hidden
             className={cx(
               "relative h-6 w-10 shrink-0 rounded-full border transition-colors duration-(--spring-snap-duration) ease-snap motion-reduce:transition-none",
-              on ? "border-signal bg-signal" : "border-control bg-depth",
+              on ? "border-text bg-signal" : "border-control bg-depth",
             )}
           >
             <span

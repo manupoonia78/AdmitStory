@@ -40,7 +40,7 @@ export function PlanPicker({
           <label
             key={id}
             className={cx(
-              "relative flex cursor-pointer flex-col gap-1 rounded-plane border p-4 transition-colors duration-(--spring-snap-duration) ease-snap has-focus-visible:outline-2 has-focus-visible:outline-offset-2 has-focus-visible:outline-signal motion-reduce:transition-none",
+              "relative flex cursor-pointer flex-col gap-1 rounded-plane border p-4 transition-colors duration-(--spring-snap-duration) ease-snap has-focus-visible:outline-2 has-focus-visible:outline-offset-2 has-focus-visible:outline-text motion-reduce:transition-none",
               checked ? "border-accent bg-veil" : "border-edge hover:border-control",
             )}
           >

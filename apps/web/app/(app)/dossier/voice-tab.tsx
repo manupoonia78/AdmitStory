@@ -115,7 +115,7 @@ export function VoiceTab({
                 onClick={() => void choose(option.id)}
                 className={cx(
                   "flex flex-1 flex-col gap-1 rounded-plane border p-4 text-left",
-                  selected ? "border-signal bg-veil" : "border-edge hover:bg-veil",
+                  selected ? "border-text bg-veil" : "border-edge hover:bg-veil",
                 )}
               >
                 <span className="font-semibold text-text">{option.label}</span>

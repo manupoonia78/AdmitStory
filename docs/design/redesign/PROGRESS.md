@@ -8,33 +8,43 @@ push, never deploy.
 
 ## Next step
 
-**Wait for Manu's review of the Phase 0 spec.** Do not start Phase 1 until he names it. When he
-replies, write his answers to the five questions under "Needs Manu" into "Decisions" below (with
-the date) and change SPEC.md to match before anything else.
+**Phase 1 is done. Wait for Manu to name Phase 2 (landing hero).** Do not start it on your own.
 
-When Phase 1 is named, start here:
+Manu's answers to the five questions under "Needs Manu" have **not** been recorded: he named
+Phase 1 in a session that was cut off before writing anything here, so Phase 1 was built on the
+spec's own defaults. If his next message contains answers, write them into "Decisions" (with the
+date) and change SPEC.md to match before anything else. Two of them touch code that now exists:
+question 4 (`--needs` slate blue and the three hue labels, both in `tokens.css` /
+`voice-hues.ts`) and question 1 (the casing, left Day-coloured in Day until Phase 5).
 
-1. Start the local environment from `local-db.md` (a new session's scratch directory is empty:
-   initdb, createdb, migrate, seed, build, start).
-2. Expand nothing: SPEC §2 is already at full values. Build it in `packages/ui` in this order:
-   fonts in `apps/web/app/layout.tsx` → `tokens.css` (the three scopes) → `theme.css` mapping →
-   `render.css` utilities (§2.12 table) → `button-styles.ts` → text field, card, chip, tabs →
-   `motion.ts` eases + the `data-motion` head script → wordmark, mark, `app/icon.svg`, seal →
-   `contrast.test.ts`, `voice-hues.test.ts`, `motion.test.ts` → `/prototype/system`.
+When Phase 2 is named, start here:
+
+1. Start the local environment from `local-db.md`. Use the production build, not `next dev`
+   (it reload-loops under Playwright; the note is in `local-db.md` §4).
+2. Expand nothing: SPEC §3 is already at full values. Build in this order: the marketing nav
+   (`frost` pill, `Wordmark`, "Start your story" with `buttonStyles({ arrow: true })`) → the
+   server-rendered H1 and poster frame → the lazy Voiceline island (canvas, pause when hidden or
+   offscreen, pause control) → the three essay sheets (`sheet` at `read-sm`, `note` margin lines)
+   → the reduced-motion still → the phone composition → the facts strip. Then measure per-frame
+   cost and LCP, shoot `landing` at 1440 / 390 / 375 with and without `--reduced`, score, and stop
+   for review.
+3. The system is in `packages/ui`; `/prototype/system` shows every piece. Reuse it: the hero's
+   entrance is the `enter` utility with `--i`, the line is `draw-line` or the canvas, never a new
+   keyframe.
 
 ## Phases
 
-| Phase                      | Covers                                                                                                                     | Status                           |
-| -------------------------- | -------------------------------------------------------------------------------------------------------------------------- | -------------------------------- |
-| 0. Read, capture, spec     | repo read, branch, `shoot.mjs`, `local-db.md`, before shots, SPEC.md, this file                                            | **awaiting review** (2026-11-12) |
-| 1. Design system           | tokens, type, grain, frost, components, motion utilities, wordmark, favicon, utility migration, tests, `/prototype/system` | not started                      |
-| 2. Landing hero            | nav, hero signature, reduced-motion still, phone composition, facts strip, frame cost, LCP                                 | not started                      |
-| 3. Landing, all scenes     | sections 2–13, GSAP sequence to CSS, Lenis decision                                                                        | not started                      |
-| 4. Other marketing + entry | `/how-it-works`, `/pricing`, `/privacy`, `/terms`, OG, titles, `/sign-in`, `/welcome`, `/first-run`                        | not started                      |
-| 5. Shell, home, Studio     | casing, sidebar, top bar, dock, palette, account menu, toasts, `/home`, `/studio`                                          | not started                      |
-| 6. Schools and the editor  | `/schools`, workspace and tabs, preview, unlock, `/workspace/[id]`, `/kits/[id]`                                           | not started                      |
-| 7. The rest of the app     | dossier, profile read, recommenders, portal, résumé, connect, settings, interview, tracker, all states                     | not started                      |
-| 8. Final pass              | consistency sweep, axe, Lighthouse, overflow, console, reduced motion, admin, REPORT.md                                    | not started                      |
+| Phase                      | Covers                                                                                                                     | Status                         |
+| -------------------------- | -------------------------------------------------------------------------------------------------------------------------- | ------------------------------ |
+| 0. Read, capture, spec     | repo read, branch, `shoot.mjs`, `local-db.md`, before shots, SPEC.md, this file                                            | reviewed; answers not recorded |
+| 1. Design system           | tokens, type, grain, frost, components, motion utilities, wordmark, favicon, utility migration, tests, `/prototype/system` | **done** (2026-11-13)          |
+| 2. Landing hero            | nav, hero signature, reduced-motion still, phone composition, facts strip, frame cost, LCP                                 | not started                    |
+| 3. Landing, all scenes     | sections 2–13, GSAP sequence to CSS, Lenis decision                                                                        | not started                    |
+| 4. Other marketing + entry | `/how-it-works`, `/pricing`, `/privacy`, `/terms`, OG, titles, `/sign-in`, `/welcome`, `/first-run`                        | not started                    |
+| 5. Shell, home, Studio     | casing, sidebar, top bar, dock, palette, account menu, toasts, `/home`, `/studio`                                          | not started                    |
+| 6. Schools and the editor  | `/schools`, workspace and tabs, preview, unlock, `/workspace/[id]`, `/kits/[id]`                                           | not started                    |
+| 7. The rest of the app     | dossier, profile read, recommenders, portal, résumé, connect, settings, interview, tracker, all states                     | not started                    |
+| 8. Final pass              | consistency sweep, axe, Lighthouse, overflow, console, reduced motion, admin, REPORT.md                                    | not started                    |
 
 ## Phase 0 checklist
 
@@ -52,6 +62,38 @@ When Phase 1 is named, start here:
       font and JS budgets, brief-versus-code list, proposals
 - [x] PROGRESS.md, REPORT.md (Phase 0 summary)
 - [x] Committed on the branch
+
+## Phase 1 checklist
+
+Built across two sessions (the first, on 2026-11-12, was cut off with everything uncommitted; the
+second inspected that work, kept all of it, and finished).
+
+- [x] Fonts in `apps/web/app/layout.tsx` through `next/font/google`: Geist, Geist Mono,
+      Instrument Serif italic preloaded; Source Serif 4 lazy, preloaded on the reading routes by
+      `components/reading-fonts.tsx` (layouts added for `/workspace`, `/profile-read`, `/privacy`,
+      `/terms`, `/r`)
+- [x] `tokens.css`: material constants, Day / Night scopes (Night twice), voice hues, grain, type
+      scale, radii, eases and durations, springs
+- [x] `theme.css` mapping (old names kept: `display-xl` / `-lg` / plain / `-sm`, `rounded-plane`,
+      `rounded-sheet`) and base rules
+- [x] `render.css`: `card`, `sheet`, `frost`, `frost-flat`, `chip`, `btn-arrow`, `label`, `note`,
+      `figure`, `serif-accent`, `enter`, `reveal`, `draw-line`; old utilities migrated per §2.12
+- [x] `button-styles.ts` and `Button` (pills, arrow circle, no magnetic pull or edge light),
+      text field, tabs (sliding rule), theme toggle (sliding pill), dialog, side sheet
+- [x] `motion.ts` eases and durations, `motion-attribute.ts` head script in the root layout,
+      `RevealObserver`
+- [x] Wordmark, mark, `app/icon.svg`, model seal and seal mark
+- [x] Voice hues refit (12, ids and order kept)
+- [x] Callers migrated in the same change (class renames across admin, app, marketing and
+      `packages/ui`, about 80 files)
+- [x] Existing tests updated to the new tokens, none added: `contrast.test.ts` (and its token
+      regex, which skipped names with digits such as `--text-80`), `voice-hues.test.ts`,
+      `motion.test.ts`, `button.test.tsx`, `sheet.test.tsx`, `voice-notice.test.tsx`
+- [x] `/prototype/system` (SPEC §2.13), linked from `/prototype`, added to `shoot.mjs`
+- [x] After shots of every existing route (Day, and signed-in Night) to confirm they still render
+- [x] Gates: typecheck, lint, build, `bundle:check`; `packages/ui` tests 742 of 742
+- [x] SPEC.md updated where the build differs (§2.1 names, §2.2 interim, §2.4, §2.10, §2.12,
+      §2.13, §8.1); REPORT.md; committed
 
 ## Decisions
 
@@ -73,7 +115,21 @@ Made in Phase 0 by Claude, in the spec, **not yet approved by Manu**:
 | 2026-11-12 | Marketing is dark-only: the footer theme switch goes                                                                                               | brief                                                                     | §4          |
 | 2026-11-12 | Screenshots are JPEG (viewport q88, full page q60) to keep the repo light                                                                          | 272 files                                                                 | `shoot.mjs` |
 
-Approved, changed or rejected by Manu: nothing yet.
+Made in Phase 1 by Claude while building, **not yet approved by Manu**:
+
+| Date       | Decision                                                                                                                | Why                                                                                      | Spec       |
+| ---------- | ----------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------- | ---------- |
+| 2026-11-12 | Geist Mono is preloaded everywhere, not lazy in the app                                                                 | a label sits on nearly every screen; the three faces together are 66.5 KB against 157.3  | §2.4, §8.1 |
+| 2026-11-12 | Day `--rail` stays `#E4E0D8` and the Day theme-color stays the desk until Phase 5                                       | the old shell is still Day-coloured in Day; a black rail now would put ink text on black | §2.2       |
+| 2026-11-12 | Brass constants are named `--brass*` in the stylesheet; `--accent` is the semantic name (brass in Night, brass-ink Day) | one name can't be both a constant and a per-theme value                                  | §2.1       |
+| 2026-11-12 | `read-lg` (20 → 21 px) added to the reading scale                                                                       | lead paragraphs and positioning lines on sheets                                          | §2.4       |
+| 2026-11-13 | The "5 font files in the build" cap is dropped; the cap is the preload (≤ 110 KB a route)                               | `next/font/google` always emits the other unicode-range files; they are never preloaded  | §8.1       |
+| 2026-11-13 | `/prototype/system` follows Day / Night outside its three fixed material panels                                         | the same page then shows the working area both ways                                      | §2.13      |
+| 2026-11-13 | The system page's sample is a new fictional applicant (cold-chain coordinator, Nashik), school Northfield               | the brief: any new sample is a new fictional person                                      | §2.13      |
+
+Approved, changed or rejected by Manu: Phase 1 was named (so the Phase 0 spec was accepted as the
+working basis), but no answer to the five questions below was written down. Treat all five as
+open.
 
 ## Needs Manu (answer at the Phase 0 review)
 
@@ -91,6 +147,22 @@ Also for you, not design: `LEGAL_ENTITY` in `_copy/chrome.ts` is still `TODO(Man
 the footer's copyright line.
 
 ## Open problems
+
+- **Uncommitted work that is not the redesign's** sits in the working tree and was left alone:
+  `AdmitStory_Build_Spec.md`, `packages/slots/src/questions.ts`, `packages/slots/src/slots.ts`,
+  `apps/web/lib/studio/summary.ts` (the Studio slots v1.1 change of 2026-11-12). Redesign commits
+  never stage them; keep it that way (`git add` by path, not `-A`).
+- **One unit test fails and is not the redesign's**: `packages/db/test/schema.test.ts` expects
+  `entitlements.purchase_id` to be unique. `packages/db` is untouched on this branch, and schema
+  is out of scope, so it was not changed. Every other test passes (2,516 of 2,517; `packages/ui`
+  742 of 742).
+- **Interim look on screens not yet redesigned**: old Newsreader italics outside display lines are
+  now a synthesised Geist oblique (`/sign-in`'s right panel is the clearest case), and the WebGL
+  orb still draws in the hero. Each goes in its own phase (SPEC §2.12).
+- **`next dev` reload-loops under Playwright** on every route. Not diagnosed. Work from the
+  production build (`local-db.md` §4).
+- `pnpm format:check` also flags `apps/web/app/(app)/settings/privacy/delete-dialog.tsx` and the
+  two `shots/before/report*.json` files; all three are unchanged from Phase 0.
 
 - **Populated signed-in screens can't be reached locally** without live AI: Studio can't start a
   session (500 from `/api/studio/sessions`, no replay), the kit stops partway, and the portal
@@ -112,6 +184,26 @@ the footer's copyright line.
 - Fonts: 157.3 KB preloaded on every route; 388 KB and 16 files in the build.
 - Landing: 17,790 px tall at 1440; TTFB 175 ms locally.
 
+## Measured after Phase 1 (2026-11-13, production build, local)
+
+- First-load JS: `/` 153.3 KB of 155; `/sign-in` 158.0 of 160; `/studio` 157.4; `/first-run`
+  154.6; `/schools/[id]/unlock` 154.9; `/home` 148.4; most app routes 148.3;
+  `/prototype/system` 155.2.
+- Fonts preloaded: 66.5 KB on every route, 105.8 KB on reading routes.
+- 375 px overflow: `/schools/[id]/unlock` now 7 px (was 13; still Phase 6's to fix);
+  `ref-prototype-studio` 4 px. Nothing new.
+- Console: unchanged from before (`/studio` 500 without AI, the 404 page's own 404). No hydration
+  warnings.
+- axe (WCAG 2.2 AA) on `/prototype/system`: 0 violations in Night and in Day.
+
 ## Scores
 
-None yet. The rubric (SPEC §11) is applied from Phase 1 on.
+| Screen              | Glance | Signature | Type | Composition | Colour | Media | Motion | Mobile | Copy | Polish | Average |
+| ------------------- | ------ | --------- | ---- | ----------- | ------ | ----- | ------ | ------ | ---- | ------ | ------- |
+| `/prototype/system` | 8      | 8         | 9    | 8           | 8      | 8     | 8      | 7      | 8    | 8      | **8.0** |
+
+First pass scored 7.4 (polish 6, composition 7, mobile 6: transcript lines ran under the frost
+caption, a tab was clipped at the panel edge, the Night-paper colour column was two-thirds empty,
+one heading broke into three lines, and the radius grid was cramped at 390). All five were fixed
+and re-shot. Mobile stays the weakest: it is a correct single column, not a recomposition, which
+is acceptable for a hidden reference page and not for any real screen.

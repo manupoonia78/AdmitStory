@@ -99,7 +99,7 @@ export default async function AiPoliciesPage() {
                         href={policy.sourceUrl}
                         target="_blank"
                         rel="noreferrer noopener"
-                        className="text-signal underline"
+                        className="text-text underline"
                       >
                         {new URL(policy.sourceUrl).hostname}
                       </a>
@@ -109,7 +109,7 @@ export default async function AiPoliciesPage() {
                   </td>
                   <td className={table.td}>
                     <details>
-                      <summary className="cursor-pointer whitespace-nowrap text-signal">
+                      <summary className="cursor-pointer whitespace-nowrap text-text">
                         Edit {label}
                       </summary>
                       <div className="mt-2 flex w-[36rem] max-w-[80vw] flex-col gap-3">

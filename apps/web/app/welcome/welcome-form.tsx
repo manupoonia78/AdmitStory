@@ -32,7 +32,7 @@ function Checkbox({
           defaultChecked={defaultChecked}
           aria-invalid={error ? true : undefined}
           aria-describedby={error ? errorId : undefined}
-          className="mt-0.5 size-5 shrink-0 cursor-pointer accent-signal"
+          className="mt-0.5 size-5 shrink-0 cursor-pointer accent-text"
         />
         <span>{children}</span>
       </label>

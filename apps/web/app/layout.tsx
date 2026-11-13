@@ -1,33 +1,54 @@
 import { APP_NAME } from "@admitstory/shared";
-import { THEME_COOKIE, parseThemePreference, themeAttribute, themeColors } from "@admitstory/ui";
+import {
+  MOTION_ATTRIBUTE_SCRIPT,
+  THEME_COOKIE,
+  parseThemePreference,
+  themeAttribute,
+  themeColors,
+} from "@admitstory/ui";
 import type { Metadata, Viewport } from "next";
-import { Hanken_Grotesk, JetBrains_Mono, Newsreader } from "next/font/google";
-import { cookies } from "next/headers";
+import { Geist, Geist_Mono, Instrument_Serif, Source_Serif_4 } from "next/font/google";
+import { cookies, headers } from "next/headers";
 import type { ReactNode } from "react";
 import "./globals.css";
 
-// Three faces, one job each (paper redesign): Hanken Grotesk for the interface, Newsreader for
-// display lines and reading, JetBrains Mono for eyebrows, figures and metadata. All variable.
-const hanken = Hanken_Grotesk({
+// Four faces, one job each (SPEC §2.4, budget §8.1). All latin subsets with metric-matched
+// fallbacks, so text never shifts when a face arrives.
+//
+// Geist: headlines and every piece of interface text. Variable, one 29 KB file.
+const geist = Geist({
   subsets: ["latin"],
   display: "swap",
-  variable: "--font-hanken",
+  variable: "--font-geist",
 });
 
-// Every page title is set in it, so it is preloaded: roman and italic, weight axis only. The
-// optical-size axis more than doubled the files (279 KB to 123 KB for the pair), which is most of
-// what a first visit waited on before the hero could paint in its own face.
-const newsreader = Newsreader({
+// Instrument Serif: the one-to-three-word accent in a headline, the live transcript, the
+// Voiceline's words. Italic only; the roman is never loaded, so it is never set upright.
+const instrumentSerif = Instrument_Serif({
   subsets: ["latin"],
+  weight: "400",
+  style: "italic",
+  display: "swap",
+  variable: "--font-instrument-serif",
+});
+
+// Geist Mono: labels, margin notes, figures. Preloaded with the other two: a label sits on
+// nearly every screen, and the three together are 68 KB where the old faces were 157 KB.
+const geistMono = Geist_Mono({
+  subsets: ["latin"],
+  display: "swap",
+  variable: "--font-geist-mono",
+});
+
+// Source Serif 4: long-form reading on paper. Static 400 roman and italic at the family's
+// default optical size (14, the text master). Declared here without preload so --font-reading
+// resolves everywhere; the reading routes preload it themselves (components/reading-fonts.tsx).
+const sourceSerif = Source_Serif_4({
+  subsets: ["latin"],
+  weight: "400",
   style: ["normal", "italic"],
   display: "swap",
-  variable: "--font-newsreader",
-});
-
-const jetbrains = JetBrains_Mono({
-  subsets: ["latin"],
-  display: "swap",
-  variable: "--font-jetbrains",
+  variable: "--font-source-serif",
   preload: false,
 });
 
@@ -58,14 +79,21 @@ export async function generateViewport(): Promise<Viewport> {
 export default async function RootLayout({ children }: { children: ReactNode }) {
   // The theme cookie is rendered on the server, so the first paint is already in the right theme.
   const theme = await themePreference();
+  // proxy.ts puts the request's CSP nonce in this header.
+  const nonce = (await headers()).get("x-nonce") ?? undefined;
   return (
     <html
       lang="en"
       data-theme={themeAttribute(theme)}
-      className={`${hanken.variable} ${newsreader.variable} ${jetbrains.variable}`}
-      // ThemeToggle updates data-theme on the client without a reload.
+      className={`${geist.variable} ${instrumentSerif.variable} ${geistMono.variable} ${sourceSerif.variable}`}
+      // ThemeToggle updates data-theme on the client without a reload, and the script below sets
+      // data-motion before first paint.
       suppressHydrationWarning
     >
+      <head>
+        {/* Entrances only get a hidden start state once this has run (SPEC §2.10). */}
+        <script nonce={nonce} dangerouslySetInnerHTML={{ __html: MOTION_ATTRIBUTE_SCRIPT }} />
+      </head>
       {/* No ToastProvider here: it sits in the layouts that toast ((app), the recommender
           portal), so public pages don't carry its ~4 KB (marketing plan D1). */}
       <body>{children}</body>

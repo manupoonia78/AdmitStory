@@ -234,7 +234,7 @@ function FactEditor({
           type="checkbox"
           checked={consent}
           onChange={(event) => setConsent(event.target.checked)}
-          className="size-5 accent-signal"
+          className="size-5 accent-text"
         />
         Use this fact in my applications
       </label>

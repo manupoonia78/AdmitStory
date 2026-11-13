@@ -92,7 +92,7 @@ export function CoverageFindingsList({ findings, actions, className }: CoverageF
               <a
                 key={`${place.label}-${place.href}`}
                 href={place.href}
-                className="text-signal underline-offset-2 hover:underline"
+                className="text-text underline-offset-2 hover:underline"
               >
                 {place.label}
               </a>

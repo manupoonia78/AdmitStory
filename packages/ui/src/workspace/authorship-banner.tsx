@@ -114,7 +114,7 @@ export function AuthorshipBanner({
               href={policy.url}
               target="_blank"
               rel="noreferrer"
-              className="text-signal underline decoration-1 underline-offset-[0.2em] hover:decoration-2"
+              className="text-text underline decoration-1 underline-offset-[0.2em] hover:decoration-2"
             >
               {school}’s AI policy
             </a>
@@ -126,7 +126,7 @@ export function AuthorshipBanner({
             key={next}
             type="button"
             onClick={() => onChooseMode?.(next)}
-            className="relative rounded-control text-signal underline decoration-1 underline-offset-[0.2em] hover:decoration-2 before:absolute before:-inset-x-1 before:top-1/2 before:h-11 before:-translate-y-1/2"
+            className="relative rounded-control text-text underline decoration-1 underline-offset-[0.2em] hover:decoration-2 before:absolute before:-inset-x-1 before:top-1/2 before:h-11 before:-translate-y-1/2"
           >
             Switch to {MODE_LABELS[next].toLowerCase()}
           </button>

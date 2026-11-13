@@ -272,7 +272,7 @@ export function SignInForm({ turnstileSiteKey, googleEnabled, notice, theme }: S
     <div className="flex flex-col gap-6">
       {notice ? (
         <div className="flex gap-3 rounded-plane border border-control bg-space p-4">
-          <InfoIcon size={20} aria-hidden className="mt-0.5 shrink-0 text-signal" />
+          <InfoIcon size={20} aria-hidden className="mt-0.5 shrink-0 text-text" />
           <div className="flex flex-col gap-1">
             <p className="font-semibold text-text">{notice.title}</p>
             <p className="text-text">{notice.body}</p>

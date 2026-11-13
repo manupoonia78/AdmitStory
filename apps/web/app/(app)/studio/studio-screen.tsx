@@ -432,7 +432,7 @@ function Interview({
                   className={cx(
                     "w-full resize-y rounded-plane border border-control-edge bg-depth p-4",
                     "font-reading text-reading text-text placeholder:text-text-soft",
-                    "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-signal",
+                    "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-text",
                   )}
                 />
                 <div className="flex flex-wrap items-center gap-3">

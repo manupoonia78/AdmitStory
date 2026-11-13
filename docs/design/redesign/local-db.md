@@ -85,8 +85,14 @@ pnpm exec next start --port 3100 &         # or `pnpm exec next dev --port 3100`
 curl -s http://localhost:3100/api/health   # {"ok":true,"db":"ok","redis":"off","version":"local"}
 ```
 
-Use the production build for screenshots, bundle checks and Lighthouse. `next dev` is fine while
-iterating on a screen, but its numbers mean nothing.
+Use the production build for screenshots, bundle checks and Lighthouse, and for iterating too:
+on 2026-11-13 `next dev` under Playwright reloaded every page in a loop ("[Fast Refresh]
+rebuilding", then a full navigation, on every route including untouched ones), so no screenshot
+could settle. Rebuild and restart instead (about two minutes): `pnpm exec next build`, kill the
+old `next start --port 3100`, start it again, wait for `/api/health`.
+
+A Postgres left running on 5455 by an earlier session is fine to reuse: run the `node -e` guard,
+then `migrate` and `seed:fixtures` (both are idempotent).
 
 ## 5. Sign in
 

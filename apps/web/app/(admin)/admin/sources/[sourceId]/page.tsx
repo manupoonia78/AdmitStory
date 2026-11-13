@@ -55,7 +55,7 @@ export default async function SourcePage({ params }: { params: Promise<{ sourceI
           {BUSY.has(source.status) && !refreshKept ? (
             <Link
               href={`/admin/sources/${source.id}`}
-              className="text-sm text-signal hover:underline"
+              className="text-sm text-text hover:underline"
             >
               Check again
             </Link>
@@ -81,7 +81,7 @@ export default async function SourcePage({ params }: { params: Promise<{ sourceI
           {cycle ? (
             <Link
               href={`/admin/review/${cycle.id}?source=${source.id}`}
-              className="text-base text-signal hover:underline"
+              className="text-base text-text hover:underline"
             >
               Review proposals from this source
             </Link>

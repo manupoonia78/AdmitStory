@@ -79,7 +79,7 @@ export function StoryCard({
             type="button"
             onClick={onToggle}
             aria-expanded={expanded}
-            className="text-left after:absolute after:inset-0 after:rounded-[inherit] focus-visible:outline-none focus-visible:after:outline-2 focus-visible:after:outline-offset-2 focus-visible:after:outline-signal"
+            className="text-left after:absolute after:inset-0 after:rounded-[inherit] focus-visible:outline-none focus-visible:after:outline-2 focus-visible:after:outline-offset-2 focus-visible:after:outline-text"
           >
             {story.nickname}
           </button>

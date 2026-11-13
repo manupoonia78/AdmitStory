@@ -1,7 +1,15 @@
-// The motion vocabulary (spec §6.6). Every animation in the product uses one of these four
-// springs, so the whole interface moves as one piece. Use nothing else: no ad hoc durations,
-// no cubic-béziers. CSS transitions use the matching --spring-* easings in tokens.css, which
-// are generated from the same numbers (cssSpring below; motion.test.ts keeps them in step).
+// The motion vocabulary (SPEC §2.10). Two kinds, each with one job, so the whole interface
+// moves as one piece:
+//
+//  - Springs, for things the user moves: toggles, presses, panels, sheets, tab rules, flights.
+//    Velocity-based, so they can be interrupted. CSS uses the matching --spring-* easings in
+//    tokens.css, generated from the same numbers (cssSpring below; motion.test.ts keeps them in
+//    step).
+//  - Eases with fixed durations, for choreography: entrances, reveals, a line drawing. These
+//    are the --ease-* and --dur-* tokens; EASES and DURATIONS below are the same values for
+//    Motion.
+//
+// Use nothing else: no ad hoc durations or curves.
 
 import { useReducedMotion, type Transition } from "motion/react";
 import { SPRING_STEP_SECONDS, springSamples } from "./motion-curves";
@@ -9,13 +17,42 @@ import { SPRINGS, type MotionToken } from "./springs";
 
 export { MOTION_TOKENS, SPRINGS, type MotionToken } from "./springs";
 
+/** The choreography curves, as Motion cubic-bezier arrays. Same values as --ease-* in tokens.css. */
+export const EASES = {
+  /** Every entrance and reveal. */
+  rise: [0.22, 1, 0.36, 1],
+  /** Things leaving. */
+  exit: [0.4, 0, 1, 1],
+  /** A line drawing or settling. */
+  line: [0.65, 0, 0.35, 1],
+} as const satisfies Record<string, readonly [number, number, number, number]>;
+
+export type EaseToken = keyof typeof EASES;
+
+/** The choreography durations in milliseconds. Same values as --dur-* in tokens.css. */
+export const DURATIONS = {
+  press: 100,
+  hover: 200,
+  swap: 250,
+  reveal: 600,
+  enter: 800,
+  draw: 900,
+} as const;
+
+export type DurationToken = keyof typeof DURATIONS;
+
+/** A Motion transition for a choreographed move: a fixed duration on one of the three curves. */
+export function ease(duration: DurationToken, curve: EaseToken = "rise"): Transition {
+  return { duration: DURATIONS[duration] / 1000, ease: [...EASES[curve]] };
+}
+
 /** A Motion transition for the token. Springs are velocity-based, so a new target mid-flight
  *  carries the current velocity over: every animation built on these is interruptible. */
 export function spring(token: MotionToken): Transition {
   return { type: "spring", ...SPRINGS[token] };
 }
 
-/** What every spring becomes under prefers-reduced-motion: a 120 ms opacity fade (spec §6.6).
+/** What every spring and ease becomes under prefers-reduced-motion: a 120 ms opacity fade.
  *  Animate opacity only with it; drop transforms and morphs. */
 export const REDUCED_FADE: Transition = { duration: 0.12, ease: "linear" };
 

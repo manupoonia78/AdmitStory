@@ -120,7 +120,7 @@ export function PrivacyActions({
             type="checkbox"
             checked={optIn}
             onChange={(event) => void saveOptIn(event.target.checked)}
-            className="mt-0.5 size-5 accent-signal"
+            className="mt-0.5 size-5 accent-text"
           />
           <span className="text-text-soft">
             Let us read your drafts when you rate them, and include them in our weekly quality

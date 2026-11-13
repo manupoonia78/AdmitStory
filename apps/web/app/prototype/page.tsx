@@ -1,7 +1,14 @@
 import Link from "next/link";
 
-// The four signature moments (spec §6.13) plus the Voiceprint lab and route transitions.
+// The redesign's design system, the four signature moments (spec §6.13), the Voiceprint lab and
+// route transitions.
 const PROTOTYPES = [
+  {
+    href: "/prototype/system",
+    title: "Design system",
+    description:
+      "Every token and component of the redesign, on the instrument, paper and night paper.",
+  },
   {
     href: "/prototype/studio",
     title: "Story Studio",

@@ -1,6 +1,6 @@
 "use client";
 
-// A three-option segmented control. Radix's RadioGroup brings roving focus, direction and
+// A three-option segmented control: a pill of flat frost with a sliding inner pill (SPEC §2.9). Radix's RadioGroup brings roving focus, direction and
 // presence with it (~10 KB gz) for what is a fixed list of three buttons, and it landed in the
 // first load of every route that renders the toggle on the server (spec §6.11 budget), so the
 // WAI-ARIA radio-group pattern is written out here instead: roving tabindex, arrow keys that move
@@ -9,6 +9,7 @@
 import { MonitorIcon, MoonIcon, SunIcon, type Icon } from "@phosphor-icons/react";
 import { useRef, type KeyboardEvent } from "react";
 import { cx } from "../lib/cx";
+import { SLIDING_PILL, useSlidingIndicator } from "../lib/sliding-indicator";
 import { THEME_LABELS, THEME_PREFERENCES, type ThemePreference } from "../theme-preference";
 import { setThemePreference, useThemePreference } from "./theme-store";
 
@@ -39,6 +40,7 @@ export interface ThemeToggleProps {
 export function ThemeToggle({ serverValue, compact = false, className }: ThemeToggleProps) {
   const preference = useThemePreference(serverValue);
   const group = useRef<HTMLDivElement>(null);
+  useSlidingIndicator(group, '[data-state="checked"]');
 
   // Moving focus inside a radio group also chooses, so the theme follows the arrow key.
   function moveTo(index: number) {
@@ -63,10 +65,7 @@ export function ThemeToggle({ serverValue, compact = false, className }: ThemeTo
       role="radiogroup"
       aria-label="Theme"
       aria-orientation="horizontal"
-      className={cx(
-        "inline-flex gap-1 rounded-control border border-control bg-depth p-1",
-        className,
-      )}
+      className={cx("group/seg inline-flex rounded-full frost-flat p-1", SLIDING_PILL, className)}
     >
       {THEME_PREFERENCES.map((option, index) => {
         const OptionIcon = ICONS[option];
@@ -84,9 +83,11 @@ export function ThemeToggle({ serverValue, compact = false, className }: ThemeTo
             onClick={() => setThemePreference(option)}
             onKeyDown={(event) => onKeyDown(event, index)}
             className={cx(
-              "inline-flex min-h-11 min-w-11 items-center justify-center gap-2 rounded-control px-3 text-sm font-medium text-text-soft hover:text-text",
-              "transition-colors duration-(--spring-snap-duration) ease-snap",
-              "data-[state=checked]:bg-veil data-[state=checked]:font-semibold data-[state=checked]:text-signal",
+              // The global chosen-radio edge (render.css) is off here: the sliding pill marks it.
+              "relative inline-flex min-h-9 min-w-11 items-center justify-center gap-2 rounded-full px-3.5 text-sm font-medium text-text-soft shadow-none hover:text-text",
+              "before:absolute before:inset-x-0 before:top-1/2 before:h-11 before:-translate-y-1/2",
+              "transition-colors duration-(--dur-hover) ease-rise",
+              "data-[state=checked]:bg-frost-hover data-[state=checked]:text-text group-data-ind/seg:data-[state=checked]:bg-transparent",
             )}
           >
             <OptionIcon size={20} aria-hidden />

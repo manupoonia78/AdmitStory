@@ -11,7 +11,7 @@ export type CtaVariant = "primary" | "ghost" | "text";
 
 /** The text-link look: --signal, underlined on hover, with a 44 px target. */
 export const TEXT_LINK =
-  "inline-flex min-h-11 items-center text-signal underline-offset-4 decoration-1 hover:underline focus-visible:underline";
+  "inline-flex min-h-11 items-center text-text underline-offset-4 decoration-1 hover:underline focus-visible:underline";
 
 export function ctaClassName(variant: CtaVariant): string {
   if (variant === "text") return TEXT_LINK;

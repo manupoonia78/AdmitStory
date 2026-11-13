@@ -309,9 +309,7 @@ export function Constellation({
                 className={cx(
                   "size-2.5 shrink-0 rounded-full",
                   statusDot(node.story.status),
-                  isSelected || isActive
-                    ? "ring-2 ring-signal ring-offset-2 ring-offset-depth"
-                    : "",
+                  isSelected || isActive ? "ring-2 ring-text ring-offset-2 ring-offset-depth" : "",
                 )}
               />
               <span

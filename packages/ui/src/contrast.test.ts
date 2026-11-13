@@ -4,7 +4,8 @@ import { describe, expect, it } from "vitest";
 import { THEME_COLORS } from "./theme-preference";
 import { VOICE_HUES } from "./voice-hues";
 
-// Spec §6.3: "Every text pair meets WCAG AA in both themes (a contrast test runs in CI)".
+// SPEC §2.1: every text pair meets WCAG AA in both themes. Hierarchy is opacity steps of one
+// text colour, so every pair here is composited over its surface before it is measured.
 
 type Rgba = [number, number, number, number];
 type Palette = Record<string, Rgba>;
@@ -24,14 +25,15 @@ function parseColour(value: string): Rgba | undefined {
     const n = Number.parseInt(hex[1], 16);
     return [(n >> 16) & 255, (n >> 8) & 255, n & 255, 1];
   }
-  const rgba = /^rgba\(\s*(\d+),\s*(\d+),\s*(\d+),\s*([\d.]+)\s*\)$/.exec(value);
-  if (rgba) return [Number(rgba[1]), Number(rgba[2]), Number(rgba[3]), Number(rgba[4])];
+  // rgb(244 241 234 / 0.64), the form tokens.css uses for every opacity step
+  const rgb = /^rgb\(\s*(\d+)\s+(\d+)\s+(\d+)\s*(?:\/\s*([\d.]+)\s*)?\)$/.exec(value);
+  if (rgb) return [Number(rgb[1]), Number(rgb[2]), Number(rgb[3]), Number(rgb[4] ?? 1)];
   return undefined;
 }
 
 function palette(source: string): Palette {
   const out: Palette = {};
-  for (const [, name, value] of source.matchAll(/--([a-z-]+):\s*([^;]+);/g)) {
+  for (const [, name, value] of source.matchAll(/--([a-z0-9-]+):\s*([^;]+);/g)) {
     const colour = name && value ? parseColour(value.trim()) : undefined;
     if (name && colour) out[name] = colour;
   }
@@ -51,11 +53,17 @@ function luminance([r, g, b]: Rgba): number {
   return 0.2126 * lin(r) + 0.7152 * lin(g) + 0.0722 * lin(b);
 }
 
-function contrast(a: Rgba, b: Rgba): number {
-  const [hi, lo] = [luminance(a), luminance(b)].sort((x, y) => y - x) as [number, number];
+/** WCAG contrast of `fg` drawn on the opaque `bg`. A translucent `fg` is composited first. */
+function contrast(fg: Rgba, bg: Rgba): number {
+  if (bg[3] !== 1) throw new Error("contrast() needs an opaque background: composite it first");
+  const [hi, lo] = [luminance(over(fg, bg)), luminance(bg)].sort((x, y) => y - x) as [
+    number,
+    number,
+  ];
   return (hi + 0.05) / (lo + 0.05);
 }
 
+const constants = palette(block(":root"));
 const day = palette(block('[data-theme="day"]'));
 const nightMedia = palette(block(':root:not([data-theme="day"])'));
 const night = palette(block('[data-theme="night"]'));
@@ -73,24 +81,42 @@ function glowAlphas(): { day: number; night: number } {
 const AA_TEXT = 4.5;
 const AA_NON_TEXT = 3;
 
+/** The opaque surfaces text sits on: the page, a card, a sheet of paper. */
+const SURFACES = ["space", "depth", "sheet"];
+
 type Pair = [fg: string, bg: string, minimum: number, why: string];
 
 const PAIRS: Pair[] = [
-  ...["text", "text-soft", "signal", "accent", "silver", "verified", "needs", "risk"].flatMap(
-    (fg) => ["space", "depth"].map((bg): Pair => [fg, bg, AA_TEXT, "text"]),
-  ),
+  ...[
+    "text",
+    "text-80",
+    "text-soft",
+    "text-label",
+    "accent",
+    "silver",
+    "verified",
+    "needs",
+    "risk",
+  ].flatMap((fg) => SURFACES.map((bg): Pair => [fg, bg, AA_TEXT, "text"])),
+  ["sheet-text", "sheet", AA_TEXT, "long-form text on paper"],
   ["on-signal", "signal", AA_TEXT, "primary button text"],
+  ["on-signal", "signal-hover", AA_TEXT, "primary button text, hovered"],
   ["on-signal", "risk", AA_TEXT, "danger button text"],
   ["on-signal", "text", AA_TEXT, "tooltip text (inverted)"],
-  ...["space", "depth"].flatMap((bg): Pair[] => [
+  ["space", "text", AA_TEXT, "selected chip (inverted)"],
+  ...SURFACES.flatMap((bg): Pair[] => [
+    ["text-faint", bg, AA_NON_TEXT, "text of 24px and up, icons"],
     ["control-edge", bg, AA_NON_TEXT, "form control border"],
-    ["signal", bg, AA_NON_TEXT, "focus ring"],
+    ["text", bg, AA_NON_TEXT, "focus ring"],
+    ["signal", bg, AA_NON_TEXT, "primary fill against the page"],
     ["record", bg, AA_NON_TEXT, "record button (fill and ring only)"],
   ]),
 ];
 
-// Hover and selected planes are translucent: measured composited over each surface.
-const ON_VEIL = ["text", "text-soft", "signal"];
+// Translucent fills (hover, selected, frost, fields): text is measured on the fill composited
+// over each surface.
+const FILLS = ["veil", "frost", "frost-hover", "field"];
+const ON_FILLS = ["text", "text-soft"];
 
 describe.each([
   ["Day", day, "day" as const],
@@ -106,19 +132,24 @@ describe.each([
     expect(contrast(get(fg), get(bg))).toBeGreaterThanOrEqual(minimum);
   });
 
-  it.each(ON_VEIL.flatMap((fg) => ["space", "depth"].map((bg) => [fg, bg])))(
-    "%s on --veil over %s ≥ 4.5",
-    (fg, bg) => {
-      expect(contrast(get(fg), over(get("veil"), get(bg)))).toBeGreaterThanOrEqual(AA_TEXT);
+  it.each(FILLS.flatMap((fill) => ON_FILLS.flatMap((fg) => SURFACES.map((bg) => [fg, fill, bg]))))(
+    "%s on --%s over %s ≥ 4.5",
+    (fg, fill, bg) => {
+      expect(contrast(get(fg!), over(get(fill!), get(bg!)))).toBeGreaterThanOrEqual(AA_TEXT);
     },
   );
 
+  it.each(SURFACES)("a control border on a field over %s ≥ 3", (bg) => {
+    const field = over(get("field"), get(bg));
+    expect(contrast(get("control-edge"), field)).toBeGreaterThanOrEqual(AA_NON_TEXT);
+  });
+
   it.each(VOICE_HUES.map((hue) => [hue.name, hue]))(
-    "text on the %s glow (over space and depth) ≥ 4.5",
+    "text on the %s glow (over space, depth and the sheet) ≥ 4.5",
     (_name, hue) => {
       const glow = parseColour(hue[key])!;
       glow[3] = glowAlphas()[key];
-      for (const bg of ["space", "depth"]) {
+      for (const bg of SURFACES) {
         expect(contrast(get("text"), over(glow, get(bg)))).toBeGreaterThanOrEqual(AA_TEXT);
       }
     },
@@ -132,9 +163,16 @@ describe("restricted uses", () => {
     expect(contrast(day.record!, day.space!)).toBeLessThan(AA_TEXT);
   });
 
+  it("--text-faint is below 4.5 somewhere in each theme, so it is never body text", () => {
+    for (const theme of [day, night]) {
+      const lowest = Math.min(...SURFACES.map((bg) => contrast(theme["text-faint"]!, theme[bg]!)));
+      expect(lowest).toBeLessThan(AA_TEXT);
+    }
+  });
+
   it("--edge is decorative: below 3:1, so controls use --control-edge", () => {
     expect(contrast(day.edge!, day.depth!)).toBeLessThan(AA_NON_TEXT);
-    expect(contrast(over(night.edge!, night.depth!), night.depth!)).toBeLessThan(AA_NON_TEXT);
+    expect(contrast(night.edge!, night.depth!)).toBeLessThan(AA_NON_TEXT);
   });
 });
 
@@ -143,22 +181,35 @@ describe("tokens.css structure", () => {
     expect(nightMedia).toEqual(night);
   });
 
-  it("defines every spec §6.3 colour, plus the additions, in both themes", () => {
+  it("defines every semantic colour in both themes", () => {
     const names = [
       "space",
       "depth",
+      "sheet",
+      "sheet-text",
+      "field",
       "veil",
       "edge",
+      "edge-strong",
+      "control-edge",
       "text",
+      "text-80",
       "text-soft",
+      "text-label",
+      "text-faint",
       "signal",
+      "signal-hover",
+      "on-signal",
+      "accent",
+      "frost",
+      "frost-hover",
+      "frost-solid",
       "record",
       "verified",
       "needs",
       "risk",
-      "on-signal",
-      "control-edge",
       "silver",
+      "rail",
       "scrim",
     ];
     for (const name of names) {
@@ -172,32 +223,40 @@ describe("tokens.css structure", () => {
     expect(parseColour(THEME_COLORS.night)).toEqual(night.space);
   });
 
-  it("matches the paper palette values exactly", () => {
+  it("matches SPEC §2.1 and §2.2 exactly", () => {
     const spec: Record<"day" | "night", Record<string, string>> = {
       night: {
-        space: "#12110F",
-        depth: "#1B1916",
-        text: "#F2EDE6",
-        "text-soft": "#A69F94",
-        signal: "#F2EDE6",
-        accent: "#D4AE6A",
-        record: "#F06A50",
-        verified: "#7FCB98",
-        needs: "#E3B467",
-        risk: "#F08A78",
+        space: "#0B0A09",
+        depth: "#151412",
+        sheet: "#1C1A17",
+        "sheet-text": "#ECE7DD",
+        text: "#F4F1EA",
+        signal: "#E2B36B",
+        "signal-hover": "#E9C283",
+        "on-signal": "#14110A",
+        accent: "#E2B36B",
+        "frost-solid": "#1B1A19",
+        record: "#F0664E",
+        verified: "#8CCBA0",
+        needs: "#A9BEE0",
+        risk: "#F09080",
+        silver: "#C9C5BC",
       },
       day: {
-        space: "#F3EFE8",
-        depth: "#FBF9F5",
-        edge: "#E2DBCF",
-        text: "#1A1713",
-        "text-soft": "#625B50",
-        signal: "#1A1713",
-        accent: "#8A6420",
+        space: "#ECE9E2",
+        depth: "#F7F5F0",
+        sheet: "#F7F5F0",
+        field: "#FCFBF8",
+        text: "#141414",
+        signal: "#141414",
+        "on-signal": "#F7F5F0",
+        accent: "#85590F",
+        "frost-solid": "#EFEDE7",
         record: "#C8452F",
-        verified: "#2F6B45",
-        needs: "#8A5A12",
-        risk: "#A63A2A",
+        verified: "#2A6B45",
+        needs: "#34588F",
+        risk: "#A8382A",
+        silver: "#5E5C57",
       },
     };
     for (const [name, value] of Object.entries(spec.night)) {
@@ -206,9 +265,59 @@ describe("tokens.css structure", () => {
     for (const [name, value] of Object.entries(spec.day)) {
       expect(day[name], name).toEqual(parseColour(value));
     }
-    expect(night.veil).toEqual([255, 240, 220, 0.06]);
-    expect(night.edge).toEqual([255, 240, 220, 0.11]);
-    expect(day.veil).toEqual([60, 40, 10, 0.05]);
+    const fg = (alpha: number): Rgba => [244, 241, 234, alpha];
+    const ink = (alpha: number): Rgba => [20, 20, 20, alpha];
+    expect(night["text-80"]).toEqual(fg(0.8));
+    expect(night["text-soft"]).toEqual(fg(0.64));
+    expect(night["text-label"]).toEqual(fg(0.6));
+    expect(night["text-faint"]).toEqual(fg(0.48));
+    expect(night["control-edge"]).toEqual(fg(0.4));
+    expect(night.edge).toEqual(fg(0.12));
+    expect(night["edge-strong"]).toEqual(fg(0.2));
+    expect(night.veil).toEqual(fg(0.04));
+    expect(night.frost).toEqual(fg(0.07));
+    expect(day["text-80"]).toEqual(ink(0.8));
+    expect(day["text-soft"]).toEqual(ink(0.66));
+    expect(day["text-faint"]).toEqual(ink(0.5));
+    expect(day["control-edge"]).toEqual(ink(0.5));
+    expect(day.edge).toEqual(ink(0.1));
+    expect(day["edge-strong"]).toEqual(ink(0.18));
+    expect(day.frost).toEqual(ink(0.05));
+  });
+
+  it("keeps the material constants equal to the themes built from them", () => {
+    const same: [constant: string, theme: Palette, name: string][] = [
+      ["bg", night, "space"],
+      ["fg", night, "text"],
+      ["fg-80", night, "text-80"],
+      ["fg-64", night, "text-soft"],
+      ["fg-60", night, "text-label"],
+      ["fg-48", night, "text-faint"],
+      ["fg-40", night, "control-edge"],
+      ["line", night, "edge"],
+      ["line-strong", night, "edge-strong"],
+      ["surface-1", night, "veil"],
+      ["surface-2", night, "frost"],
+      ["brass", night, "accent"],
+      ["brass-hover", night, "signal-hover"],
+      ["on-brass", night, "on-signal"],
+      ["sheet-night", night, "sheet"],
+      ["text-night", night, "sheet-text"],
+      ["paper", day, "depth"],
+      ["desk", day, "space"],
+      ["paper-raise", day, "field"],
+      ["ink", day, "text"],
+      ["ink-80", day, "text-80"],
+      ["ink-66", day, "text-soft"],
+      ["ink-50", day, "text-faint"],
+      ["rule", day, "edge"],
+      ["rule-strong", day, "edge-strong"],
+      ["brass-ink", day, "accent"],
+    ];
+    for (const [constant, theme, name] of same) {
+      expect(constants[constant], `--${constant}`).toBeDefined();
+      expect(constants[constant], `--${constant} = --${name}`).toEqual(theme[name]);
+    }
   });
 
   it("keeps the default --voice hue equal to the first of the 12", () => {

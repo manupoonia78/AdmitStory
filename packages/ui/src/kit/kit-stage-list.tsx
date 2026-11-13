@@ -47,7 +47,7 @@ export function KitStageList({ stages, onAction, className }: KitStageListProps)
                 <button
                   type="button"
                   onClick={() => onAction(stage.id)}
-                  className="relative rounded-control text-signal underline decoration-1 underline-offset-[0.2em] hover:decoration-2 before:absolute before:-inset-x-1 before:top-1/2 before:h-11 before:-translate-y-1/2"
+                  className="relative rounded-control text-text underline decoration-1 underline-offset-[0.2em] hover:decoration-2 before:absolute before:-inset-x-1 before:top-1/2 before:h-11 before:-translate-y-1/2"
                   aria-label={`${stage.actionLabel}: ${stage.label}`}
                 >
                   {stage.actionLabel}

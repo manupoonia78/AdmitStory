@@ -106,7 +106,7 @@ export default async function SchoolsPage() {
                     {cycle ? (
                       <Link
                         href={`/admin/review/${cycle.id}`}
-                        className="whitespace-nowrap text-signal hover:underline"
+                        className="whitespace-nowrap text-text hover:underline"
                       >
                         Review {school.shortName} {cycle.cycle}
                       </Link>

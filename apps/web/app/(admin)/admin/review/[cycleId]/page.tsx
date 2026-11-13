@@ -239,7 +239,7 @@ export default async function ReviewPage({
           />
           {state.blockers.length > 0 ? (
             <details className="text-sm">
-              <summary className="cursor-pointer text-signal">
+              <summary className="cursor-pointer text-text">
                 Show what blocks publishing ({state.blockers.length})
               </summary>
               <ul className="mt-2 flex max-h-64 flex-col gap-1 overflow-auto">
@@ -337,7 +337,7 @@ export default async function ReviewPage({
             ) : null}
           </div>
           <details>
-            <summary className="cursor-pointer text-sm text-signal">Edit the draft as JSON</summary>
+            <summary className="cursor-pointer text-sm text-text">Edit the draft as JSON</summary>
             <AdminForm
               action={`/api/admin/packs/${draft.id}`}
               method="PUT"

@@ -33,7 +33,7 @@ export default async function Page() {
           title={RECOMMENDERS_COPY.lockedTitle}
           description={RECOMMENDERS_COPY.lockedBody}
           action={
-            <Link href="/schools" className="text-signal underline">
+            <Link href="/schools" className="text-text underline">
               {RECOMMENDERS_COPY.lockedAction}
             </Link>
           }

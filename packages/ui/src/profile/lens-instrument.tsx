@@ -320,7 +320,7 @@ function Arc({
         ))}
       </g>
       {/* Visible focus (spec §6.12): two --signal hairlines either side of the arc. */}
-      <g className="opacity-0 group-focus-visible:opacity-100" stroke="var(--signal)" fill="none">
+      <g className="opacity-0 group-focus-visible:opacity-100" stroke="var(--text)" fill="none">
         <path
           d={arcPath(arc.trackStart, arc.trackEnd, LENS_DIAL.radius + ringGap)}
           strokeWidth={2}
@@ -359,7 +359,7 @@ function LensPanel({
                   onClick={() => onOpenStory(story.id)}
                   className="flex min-h-11 w-full items-baseline justify-between gap-4 rounded-control py-2 text-left hover:bg-veil"
                 >
-                  <span className="text-signal">{story.title}</span>
+                  <span className="text-text">{story.title}</span>
                   {story.context ? (
                     <span className="shrink-0 text-sm text-text-soft">{story.context}</span>
                   ) : null}

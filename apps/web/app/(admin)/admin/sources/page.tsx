@@ -42,7 +42,7 @@ export default async function SourcesPage({
         id="list"
         aside={
           scope ? (
-            <Link href="/admin/sources" className="text-sm text-signal hover:underline">
+            <Link href="/admin/sources" className="text-sm text-text hover:underline">
               Show all sources
             </Link>
           ) : null

@@ -31,7 +31,7 @@ const GROUP =
 // The highlight moves with the keyboard as a veil, never a lift (spec §6.6).
 const ITEM =
   "flex min-h-11 cursor-pointer items-center gap-3 rounded-control px-3 text-text " +
-  "data-[selected=true]:bg-veil data-[selected=true]:text-signal data-[disabled=true]:opacity-60";
+  "data-[selected=true]:bg-veil data-[selected=true]:text-text data-[disabled=true]:opacity-60";
 
 // Centred plane: a fixed height, so it neither jumps as results narrow nor shifts the list.
 // It glides in from 98% scale (opacity only with reduced motion) and fades out.
@@ -108,7 +108,7 @@ export function CommandPalette({
           <DialogPrimitive.Title className="sr-only">{PALETTE_LABEL}</DialogPrimitive.Title>
           {/* vimBindings off: Ctrl K must stay the open/close shortcut, not "move up". */}
           <Command label={PALETTE_LABEL} loop vimBindings={false} className="flex min-h-0 flex-col">
-            <div className="flex items-center gap-3 border-b border-edge px-4 focus-within:outline-2 focus-within:-outline-offset-2 focus-within:outline-signal">
+            <div className="flex items-center gap-3 border-b border-edge px-4 focus-within:outline-2 focus-within:-outline-offset-2 focus-within:outline-text">
               <MagnifyingGlassIcon size={20} aria-hidden className="shrink-0 text-text-soft" />
               <Command.Input
                 placeholder={PALETTE_LABEL}

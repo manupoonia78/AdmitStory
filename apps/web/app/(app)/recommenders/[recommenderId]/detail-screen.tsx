@@ -284,7 +284,7 @@ export function DetailScreen({
                     onClick={() => go(item.id)}
                     className={
                       item.id === tab
-                        ? "min-h-11 border-b-2 border-signal text-text"
+                        ? "min-h-11 border-b-2 border-text text-text"
                         : "min-h-11 border-b-2 border-transparent text-text-soft hover:text-text"
                     }
                   >

@@ -105,7 +105,7 @@ export function AiPolicyTable({ rows, limit, variant, className }: AiPolicyTable
                       href={row.sourceUrl}
                       rel="noopener noreferrer"
                       target="_blank"
-                      className="inline-flex min-h-11 items-center text-signal underline-offset-4 hover:underline"
+                      className="inline-flex min-h-11 items-center text-text underline-offset-4 hover:underline"
                     >
                       Policy
                       <span className="sr-only"> for {row.schoolName} (opens in a new tab)</span>

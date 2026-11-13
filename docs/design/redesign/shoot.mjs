@@ -120,6 +120,8 @@ const APP_ROUTES = [
 // assembly and interview room that a fresh local account can't reach without live AI. They are
 // reference only (out of redesign scope) and exist only when the app runs with PROTOTYPES_ENABLED=1.
 const REFERENCE_ROUTES = [
+  // The redesign's own design-system page (Phase 1). Not a reference: shoot it with `--out after`.
+  { name: "prototype-system", path: "/prototype/system", load: true, optional: true },
   { name: "ref-prototype-studio", path: "/prototype/studio", load: true, optional: true },
   { name: "ref-prototype-workspace", path: "/prototype/workspace", load: true, optional: true },
   { name: "ref-prototype-kit", path: "/prototype/kit", load: true, optional: true },

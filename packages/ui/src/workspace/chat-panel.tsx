@@ -117,7 +117,7 @@ export function ChatPanel({
                       type="button"
                       disabled={busy}
                       onClick={() => send(s)}
-                      className="min-h-9 rounded-full border border-edge px-3.5 text-sm text-text transition-colors hover:border-text-soft hover:bg-veil focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-signal disabled:opacity-50"
+                      className="min-h-9 rounded-full border border-edge px-3.5 text-sm text-text transition-colors hover:border-text-soft hover:bg-veil focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-text disabled:opacity-50"
                     >
                       {s}
                     </button>
@@ -146,7 +146,7 @@ export function ChatPanel({
                     type="button"
                     onClick={() => onUndo(turn.id)}
                     disabled={busy}
-                    className="inline-flex min-h-9 items-center gap-1.5 rounded-control text-sm text-text-soft underline-offset-4 hover:text-text hover:underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-signal disabled:opacity-50"
+                    className="inline-flex min-h-9 items-center gap-1.5 rounded-control text-sm text-text-soft underline-offset-4 hover:text-text hover:underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-text disabled:opacity-50"
                   >
                     <ArrowCounterClockwiseIcon aria-hidden size={14} />
                     Undo this change
@@ -183,7 +183,7 @@ export function ChatPanel({
                   type="button"
                   disabled={busy}
                   onClick={() => send(s)}
-                  className="min-h-8 rounded-full border border-edge px-3 text-[0.8125rem] text-text-soft transition-colors hover:border-text-soft hover:text-text focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-signal disabled:opacity-50"
+                  className="min-h-8 rounded-full border border-edge px-3 text-[0.8125rem] text-text-soft transition-colors hover:border-text-soft hover:text-text focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-text disabled:opacity-50"
                 >
                   {s}
                 </button>
@@ -213,7 +213,7 @@ export function ChatPanel({
             type="submit"
             disabled={busy || value.trim() === ""}
             aria-label="Send"
-            className="grid size-9 shrink-0 place-items-center rounded-full bg-signal text-on-signal transition-opacity focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-signal disabled:opacity-30"
+            className="grid size-9 shrink-0 place-items-center rounded-full bg-signal text-on-signal transition-opacity focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-text disabled:opacity-30"
           >
             <ArrowUpIcon aria-hidden size={16} weight="bold" />
           </button>

@@ -3,7 +3,7 @@
 Source of truth between sessions. Brief: `docs/design/fable-redesign-prompt.md`. Progress and
 decisions: `PROGRESS.md`. Evidence: `REPORT.md` and `shots/`.
 
-**Status of each part** (Phase 0, 2026-11-12):
+**Status of each part** (Phase 0, 2026-11-12; §2 built in Phase 1, 2026-11-13, see §2.13):
 
 | Part                                                                  | Depth                                                                                                                                 |
 | --------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------- |
@@ -150,6 +150,15 @@ is the same hue, darker.
 fill, (2) the Voiceline when it is alive or marking "here", (3) the text caret and selection.
 Not on headings, icons, badges, links or active nav items.
 
+**Names in the code** (`tokens.css`, Phase 1). The tables above name each value once. In the
+stylesheet the brass constants are `--brass`, `--brass-hover`, `--on-brass` and `--brass-ink`
+(the tables' `--accent`, `--accent-hover`, `--on-accent`, `--accent-ink`), because `--accent` is
+the _semantic_ name that resolves to brass in Night and brass-ink in Day (§2.2). The opacity steps
+have semantic names too, which is what components use: `--text-80`, `--text-soft` (64 % / 66 %),
+`--text-label` (60 % / 66 %), `--text-faint` (48 % / 50 %), `--edge-strong`, `--field` (input
+fill), `--frost`, `--frost-hover`, `--frost-solid`, `--signal-hover` and `--sheet-text`.
+`contrast.test.ts` asserts every constant equals the theme value built from it.
+
 **First rule in the stylesheet** (no white flash):
 `html,body{background:#0B0A09;color:#F4F1EA}` before anything else, with `color-scheme: dark`.
 The Day working area paints its desk inside the casing.
@@ -179,6 +188,13 @@ The casing elements carry `data-theme="night"` themselves, so they are dark in b
 duplicated Night block (media query and selector) stays, as `contrast.test.ts` requires.
 `THEME_COLORS` (browser chrome) becomes `#0B0A09` for both themes, since the top of every screen
 is casing.
+
+**Interim, until Phase 5 recases the shell** (and until Manu answers §10.1): the existing sidebar
+and top bar are still Day-coloured in Day, so Phase 1 leaves Day `--rail` at `#E4E0D8` and
+`THEME_COLORS.day` at `#ECE9E2` (the desk). Making them `#0B0A09` now would put ink text on a
+black rail. Phase 5 switches both when the casing gets its own `data-theme="night"`.
+`ImmersiveScope` likewise still follows the chosen theme; forcing Night on immersive screens is
+Phase 5's change.
 
 ### 2.3 Voiceprint hues
 
@@ -221,12 +237,12 @@ Four faces, loaded with `next/font/google`, `subsets: ["latin"]`, `display: "swa
 metric-matched fallbacks (`adjustFontFallback`). Sizes below are measured latin woff2 files
 (Google Fonts, 2026-11-12).
 
-| Face                                               | Role                                                                                                                                  | Load                                            | File           |
-| -------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------- | -------------- |
-| **Geist** (variable 100–900)                       | headlines and all interface text                                                                                                      | preload everywhere                              | 29.3 KB        |
-| **Instrument Serif**, italic 400 only              | 1–3 accent words in a headline, the live transcript, the Voiceline's words. Never upright (the roman isn't loaded), never under 20 px | preload everywhere                              | 15.7 KB        |
-| **Geist Mono** (variable)                          | labels, margin notes, figures                                                                                                         | preload on marketing and entry; lazy in the app | 23.1 KB        |
-| **Source Serif 4**, 400 roman + 400 italic, static | long-form text on paper                                                                                                               | preload only on reading routes (§8.1)           | 20.1 + 20.1 KB |
+| Face                                               | Role                                                                                                                                  | Load                                          | File           |
+| -------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------- | -------------- |
+| **Geist** (variable 100–900)                       | headlines and all interface text                                                                                                      | preload everywhere                            | 29.3 KB        |
+| **Instrument Serif**, italic 400 only              | 1–3 accent words in a headline, the live transcript, the Voiceline's words. Never upright (the roman isn't loaded), never under 20 px | preload everywhere                            | 15.7 KB        |
+| **Geist Mono** (variable)                          | labels, margin notes, figures                                                                                                         | preload everywhere (changed in Phase 1, §8.1) | 23.1 KB        |
+| **Source Serif 4**, 400 roman + 400 italic, static | long-form text on paper                                                                                                               | preload only on reading routes (§8.1)         | 20.1 + 20.1 KB |
 
 **Why Source Serif 4 for reading.** It has a true optical-size axis (8–60), and when the axis is
 not requested Google serves its default instance, opsz 14: the text master, with the sturdier
@@ -260,6 +276,7 @@ take the `sm` composition.
 | `transcript`   | Instrument Serif italic 24 → 28 → 34 px                       | 400    | 1.2         | −0.005em                      | live transcript, Voiceline words                  |
 | `read`         | Source Serif 4, 17 → 18 → 19 px                               | 400    | 1.65        | 0                             | essays and documents, measure `68ch`              |
 | `read-sm`      | Source Serif 4, 15 px                                         | 400    | 1.6         | 0                             | sheets shown small (hero cards, previews)         |
+| `read-lg`      | Source Serif 4, 20 → 21 px (added in Phase 1)                 | 400    | 1.5         | 0                             | a lead paragraph or a positioning line on a sheet |
 
 Rules: headlines are never bold (max 500). The hero H1 is 5.9× body at 1440 (101 / 17).
 Headlines are broken by hand with a phone array beside each desktop array, as `_copy/hero.ts`
@@ -433,7 +450,14 @@ never on scroll.
 
 **Scroll reveal** (utility `reveal`): opacity 0 → 1, `translateY` 16 px → 0, `--dur-reveal`,
 `--ease-rise`, children staggered 60 ms up to five. One shared `IntersectionObserver` (threshold
-0.15) adds `data-in` once and stops observing. 0.4 KB.
+0.15) adds `data-in` once and stops observing. 0.4 KB. As built: `<RevealObserver>` first marks
+everything already in view, then sets `<html data-reveal="on">`, and the hidden state exists only
+under that attribute, so an element is never hidden unless the script that will show it is
+already running. It does nothing when `data-motion` is absent (reduced motion, no JS).
+
+**A line drawing** (utility `draw-line`, on a path with `pathLength="1"`): `stroke-dashoffset`
+1 → 0 over `--dur-draw` on `--ease-line`, ordered with `--i` like `enter`. Only under
+`data-motion="on"`.
 
 **Hover:** colour and fill only, plus the 2 px arrow nudge. Nothing scales above 1.0 on hover;
 pressed is 0.98.
@@ -477,8 +501,40 @@ collapse to 120 ms linear; the Voiceline shows a designed still (§3.6).
 | `font-display`                                        | Geist (headlines); `font-reading` → Source Serif 4; `font-mono` → Geist Mono; new `font-accent` → Instrument Serif |
 | `h1 em` rule                                          | italic accent at `--fg-60`, not `--accent`                                                                         |
 
-Admin, `/prototype/*` and the email templates only inherit tokens. `/prototype/system` (Phase 1)
-shows every token and component on dark, paper and night paper.
+**New utilities** (`render.css`, Phase 1): `card` and `card-link`, `sheet`, `frost` and
+`frost-flat`, `label`, `note`, `figure`, `serif-accent` (the name `chrome` now aliases), `chip`,
+`btn-arrow`, `enter`, `reveal`, `draw-line`. New theme names: `font-accent`, `text-ui`,
+`text-title`, `text-read`, `text-read-sm`, `text-read-lg`, `text-transcript`,
+`text-display-hero` / `-1` / `-2` / `-3` (the Paper names `display-xl` / `-lg` / plain / `-sm`
+resolve to the same four), `rounded-card` / `-frame` / `-inset` / `-paper`, `ease-rise` /
+`-exit` / `-line`.
+
+**Sliding selection** (`lib/sliding-indicator.ts`): `useSlidingIndicator` measures the selected
+item and writes `--ind-x` / `--ind-w` on the group; `SLIDING_RULE` (tabs) and `SLIDING_PILL`
+(segmented control) draw one indicator from them and move it with a transform on the `glide`
+spring. Before it has measured, each option shows its own static selected state.
+
+**Until a screen's own phase.** Screens not yet redesigned render with the new tokens and
+utilities but keep their old composition. Two things are visibly interim: text that was set in
+Newsreader italic outside a display line is now a synthesised Geist oblique (each phase replaces
+it with the italic accent or removes the emphasis), and the WebGL Voiceprint still draws in the
+hero, Studio, first-run and the Dossier voice tab (§9.1; replaced in Phases 2, 4, 5 and 7).
+
+Admin, `/prototype/*` and the email templates only inherit tokens.
+
+### 2.13 `/prototype/system` (built in Phase 1)
+
+A hidden page (never indexed, 404 in production unless `PROTOTYPES_ENABLED=1`) that shows every
+token and component. Seven sections, each headed by a flat rule with the one brass peak: colour,
+type, material, components, voice, motion, brand. Three fixed panels, **Instrument**
+(`data-theme="night"`), **Paper** (`data-theme="day"`) and **Night paper** (`data-theme="night"`
+on a `--sheet` fill), carry the colour steps and the same component kit three times; everything
+outside the panels follows the Day / Night switch in the header, so the page also shows the
+working area both ways. Its signature is the masthead Voiceline: a waveform that goes flat and
+rises once into the mark, drawn with `draw-line` after the headline has entered. The kit, the
+motion bench and the overlays load behind `next/dynamic` hosts (first load 155.2 KB of 160).
+Sample text is a new fictional applicant (a cold-chain coordinator, the night outside Nashik) at
+the fictional Northfield.
 
 ---
 
@@ -822,11 +878,21 @@ Measured latin woff2 sizes; today's figures from the current production build.
 | Extra preload on reading routes (`/workspace/*`, `/r/*`, `/privacy`, `/terms`, `/profile-read`) | 0                                                           | **+40.2 KB** (Source Serif 4 roman + italic)                            |
 | All font files in the build                                                                     | 388 KB, 16 files                                            | **≤ 110 KB, 5 files**                                                   |
 
-Hard caps for the gates: no route preloads more than 110 KB of fonts; the build carries no more
-than 5 font files (the OG image's `.ttf` aside). Source Serif is declared once without preload in
+**Measured in Phase 1** (production build, 2026-11-13): every route preloads **66.5 KB** (Geist
+28.6, Geist Mono 22.6, Instrument Serif italic 15.3), down from 157.3; the reading routes
+(`/workspace/*`, `/r/*`, `/privacy`, `/terms`, `/profile-read`) preload **105.8 KB** (+ Source
+Serif 4 roman 19.7 and italic 19.6). Geist Mono is preloaded in the app as well as on marketing:
+a label sits on nearly every screen, and at 66.5 KB the three together are still under half the
+old preload. The "5 files in the build" cap below was wrong about `next/font/google`: it also
+emits each family's other unicode-range files (latin-ext, cyrillic and so on; 27 files, 350 KB
+on disk), which a browser fetches only if a page contains those characters. The cap that matters
+is the preload, and it holds.
+
+Hard caps for the gates: no route preloads more than 110 KB of fonts. Source Serif is declared once without preload in
 the root layout (so `--font-reading` exists everywhere and lazy uses just work) and declared again
-with preload in the layouts of the reading routes; both resolve to the same two files (Phase 1
-verifies the URLs match, or the reading routes get their own font module). CLS from fonts: 0,
+with preload in the layouts of the reading routes. As built: `next/font` names a preloaded file
+differently from a lazy one, so `components/reading-fonts.tsx` wraps the reading routes and
+re-points `--font-source-serif` at the preloaded declaration for everything inside. CLS from fonts: 0,
 through `next/font`'s size-adjusted fallbacks.
 
 ### 8.2 JavaScript (first load, gzipped; from `bundle:check` on 2026-11-12)

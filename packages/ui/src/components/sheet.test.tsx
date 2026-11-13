@@ -25,11 +25,11 @@ describe("Sheet", () => {
     expect(sheet.contains(document.activeElement)).toBe(true);
   });
 
-  it("uses the 28px sheet radius and glides in on the sheet animation", () => {
+  it("uses the 24px card radius and glides in on the sheet animation", () => {
     renderSheet();
     fireEvent.click(screen.getByRole("button", { name: "Why this draft" }));
     const classes = screen.getByRole("dialog").className;
-    expect(classes).toContain("rounded-l-sheet");
+    expect(classes).toContain("rounded-l-plane");
     expect(classes).toContain("data-[state=open]:animate-sheet-in");
   });
 

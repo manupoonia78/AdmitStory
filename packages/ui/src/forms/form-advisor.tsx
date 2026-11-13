@@ -379,7 +379,7 @@ export function FormAdvisor({
                   // Left-out candidates stay folded away: the reasons are there for anyone who
                   // wonders, and nothing else competes with the entries.
                   <details className="group/leave">
-                    <summary className="flex min-h-11 cursor-pointer list-none items-center gap-2 rounded-control text-sm text-signal hover:underline [&::-webkit-details-marker]:hidden">
+                    <summary className="flex min-h-11 cursor-pointer list-none items-center gap-2 rounded-control text-sm text-text hover:underline [&::-webkit-details-marker]:hidden">
                       <span className="group-open/leave:hidden">
                         Show what to leave out and why
                       </span>

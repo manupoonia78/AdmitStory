@@ -157,7 +157,7 @@ export function MatrixTable({
                         href={citation.url}
                         target="_blank"
                         rel="noreferrer"
-                        className="rounded-control text-signal underline decoration-1 underline-offset-[0.2em] hover:decoration-2"
+                        className="rounded-control text-text underline decoration-1 underline-offset-[0.2em] hover:decoration-2"
                       >
                         Official page
                         <span className="sr-only"> (opens in a new tab)</span>

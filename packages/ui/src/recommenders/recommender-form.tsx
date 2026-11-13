@@ -174,14 +174,14 @@ export function RecommenderForm({
                   <label
                     className={cx(
                       "inline-flex min-h-11 cursor-pointer items-center gap-2 rounded-control border px-3",
-                      on ? "border-signal bg-veil text-text" : "border-control text-text",
+                      on ? "border-text bg-veil text-text" : "border-control text-text",
                     )}
                   >
                     <input
                       type="checkbox"
                       checked={on}
                       onChange={() => toggleSchool(school.userSchoolId)}
-                      className="size-4 accent-[var(--signal)]"
+                      className="size-4 accent-[var(--text)]"
                     />
                     <span>{school.name}</span>
                     {school.needed !== null ? (

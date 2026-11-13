@@ -97,7 +97,7 @@ function SourcePane({ source, span }: { source: ReviewSource | null; span: Revie
             {text.slice(0, start)}
             <mark
               ref={markRef}
-              className="rounded-sm bg-veil text-text outline outline-1 outline-signal"
+              className="rounded-sm bg-veil text-text outline outline-1 outline-text"
             >
               {text.slice(start, end)}
             </mark>
@@ -264,7 +264,7 @@ export function ReviewBoard({
                   onFocus={() => setFocus(index)}
                   onClick={() => setFocus(index)}
                   className={cx(
-                    "outline-none focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-signal",
+                    "outline-none focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-text",
                     isFocused && "bg-veil",
                     decided && "text-text-soft",
                   )}
@@ -287,7 +287,7 @@ export function ReviewBoard({
                         <p>{row.refresh.summary}</p>
                         <a
                           href={row.refresh.url}
-                          className="text-signal underline"
+                          className="text-text underline"
                           target="_blank"
                           rel="noreferrer noopener"
                         >

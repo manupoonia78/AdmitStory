@@ -1,11 +1,14 @@
 /*
- * The paper material system (redesign 2026-11-03, replacing the glass "rendered" look). Surfaces
- * are sheets of paper on a warm desk: solid fills, hairline edges, soft contact shadows. Primary
- * actions are flat ink. Display type is the serif; eyebrows are mono with a bronze rule. One
- * accent colour (--accent), used sparingly. Imported by theme.css after tokens.css.
+ * The material system of "the literary instrument" (SPEC §2.6–2.12). Imported by theme.css
+ * after tokens.css.
  *
- * The utility names (lit, gloss, glass-control, eyebrow, chrome) are kept from the old system so
- * every screen picks up the new material without edits; only what they paint has changed.
+ * Two materials. The instrument is dark and round: fill steps, hairlines and one frosted
+ * material, no shadows. Paper is light and square: sheets with 3px corners and one soft contact
+ * shadow. Nothing here glows, shines or floats.
+ *
+ * The utility names of the Paper system (plane, lit, gloss, glass-control, eyebrow, chrome,
+ * meta, placeholder, grain) are kept so every existing screen picks up the new material without
+ * edits; SPEC §2.12 says what each one became.
  */
 
 /* The old WebGL studio is retired. Any leftover stage element paints nothing. */
@@ -13,68 +16,157 @@
   display: none;
 }
 
-/* Immersive screens no longer force a different world: they sit on the same paper. */
+/* Immersive screens sit on the page's own background. */
 [data-immersive] {
   background: transparent;
 }
 
 /* ---------- Surfaces ---------- */
 
-/* The selected thing in a group (current nav item, chosen option): a darker sheet with an ink
-   hairline. No glow. */
-@utility lit {
-  background-color: color-mix(in srgb, var(--text) 6%, var(--depth));
-  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--text) 14%, transparent);
-}
-
-/* Solid buttons: flat ink with a 1px lighter top edge, so they read as pressed type, not plastic. */
-@utility gloss {
-  box-shadow:
-    inset 0 1px 0 0 rgb(255 255 255 / 0.12),
-    0 1px 2px rgb(20 15 5 / 0.18);
-  transition:
-    background-color var(--spring-snap-duration) var(--spring-snap),
-    box-shadow var(--spring-snap-duration) var(--spring-snap),
-    translate var(--spring-snap-duration) var(--spring-snap);
-  &:hover:not(:disabled, [aria-disabled="true"]) {
-    background-color: color-mix(in srgb, var(--gloss, var(--signal)) 86%, var(--space));
-  }
-  &:active:not(:disabled, [aria-disabled="true"]) {
-    translate: 0 1px;
-    box-shadow: none;
-  }
-}
-
-/* Outlined control on paper. */
-@utility glass-control {
+/* A card: solid fill, hairline edge, 24px corners. Paper's contact shadow in Day, none on dark. */
+@utility plane {
   background-color: var(--depth);
-  box-shadow: 0 1px 1px rgb(40 30 15 / 0.04);
+  border: 1px solid var(--edge);
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow-paper);
+}
+@utility card {
+  background-color: var(--depth);
+  border: 1px solid var(--edge);
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow-paper);
+}
+/* A card that is a link lifts its fill one step. Nothing scales. */
+@utility card-link {
+  transition: background-color var(--dur-hover) var(--ease-rise);
+  &:hover {
+    background-color: color-mix(in srgb, var(--text) 4%, var(--depth));
+  }
 }
 
-/* Eyebrow: mono, tracked capitals, a short bronze rule before it. */
+/* A sheet of paper: what you read and write on. Square corners, the reading serif. On dark it is
+   night paper (a warm dark sheet, never black) and the contrast is the lift. */
+@utility sheet {
+  background-color: var(--sheet);
+  color: var(--sheet-text);
+  border-radius: var(--radius-paper);
+  box-shadow: var(--shadow-paper);
+  padding: 2.5rem;
+  font-family: var(--font-reading);
+  font-size: var(--type-read);
+  line-height: var(--type-read-leading);
+  @media (min-width: 40rem) {
+    padding: 3.5rem;
+  }
+  @media (min-width: 64rem) {
+    padding: 4.5rem;
+  }
+}
+
+/*
+ * The one material: frost. `frost` is for things content scrolls beneath (nav, top bar, dock,
+ * floating toolbar, palette, toasts): at most three on screen at once. `frost-flat` is the same
+ * look for things in the flow (chips, secondary buttons, the sidebar), with no blur to pay for.
+ * Frosted, not glossy: no highlight, no gradient, no inner glow.
+ */
+@utility frost {
+  background-color: var(--frost);
+  border: 1px solid var(--edge);
+  -webkit-backdrop-filter: blur(16px);
+  backdrop-filter: blur(16px);
+  @supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+    background-color: var(--frost-solid);
+  }
+  @media (prefers-reduced-transparency: reduce), (prefers-contrast: more), (forced-colors: active) {
+    background-color: var(--frost-solid);
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+  }
+}
+@utility frost-flat {
+  background-color: var(--frost);
+  border: 1px solid var(--edge);
+}
+/* The Paper system's outlined control: now the flat frost. */
+@utility glass-control {
+  background-color: var(--frost);
+  border: 1px solid var(--edge);
+}
+
+/* The selected thing in a group (current nav item, chosen option): one fill step. No ring. */
+@utility lit {
+  background-color: var(--frost);
+  color: var(--text);
+}
+
+/* Solid fills (primary and danger buttons): the hover step. No highlight, no shadow. */
+@utility gloss {
+  &:hover:not(:disabled, [aria-disabled="true"]) {
+    background-color: var(--gloss-hover, var(--signal-hover));
+  }
+}
+
+/* Static grain for an element that paints its own dark background. */
+@utility grain {
+  background-image: var(--grain);
+}
+
+/* A section with nothing in it yet: a dashed card holding one quiet line. */
+@utility placeholder {
+  border: 1px dashed var(--edge-strong);
+  border-radius: var(--radius-card);
+  padding: 1.25rem 1.5rem;
+  color: var(--text-soft);
+}
+
+/* ---------- Type ---------- */
+
+/* Label: Geist Mono capitals, tracked. Eyebrows, column heads. */
+@utility label {
+  font-family: var(--font-mono);
+  font-size: var(--type-label);
+  line-height: var(--type-label-leading);
+  font-weight: 500;
+  letter-spacing: var(--type-label-tracking);
+  text-transform: uppercase;
+  color: var(--text-label);
+}
+
+/* Eyebrow: a label behind a short neutral rule. */
 @utility eyebrow {
   display: inline-flex;
   align-items: center;
   gap: 0.75rem;
   font-family: var(--font-mono);
-  font-size: 0.75rem;
-  line-height: 1rem;
-  font-weight: 400;
-  letter-spacing: 0.16em;
+  font-size: var(--type-label);
+  line-height: var(--type-label-leading);
+  font-weight: 500;
+  letter-spacing: var(--type-label-tracking);
   text-transform: uppercase;
-  color: var(--text-soft);
+  color: var(--text-label);
   &::before {
     content: "";
+    flex: none;
     width: 1.5rem;
     height: 1px;
-    background: var(--accent);
+    background: var(--edge-strong);
   }
 }
 
-/* Kept for old call sites: the accent italic, the one flourish display lines may carry. */
-@utility chrome {
-  color: var(--accent);
-  font-style: italic;
+/* Margin note: Geist Mono, sentence case. Brass-ink on paper, the label grey on dark. */
+@utility note {
+  font-family: var(--font-mono);
+  font-size: var(--type-note);
+  line-height: var(--type-note-leading);
+  font-weight: 400;
+  color: light-dark(var(--brass-ink), var(--fg-60));
+}
+
+/* Figures: prices, counts, dates. */
+@utility figure {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.01em;
 }
 
 /* Small mono metadata: dates, counts, ids. */
@@ -82,69 +174,227 @@
   font-family: var(--font-mono);
   font-size: 0.75rem;
   line-height: 1.125rem;
-  letter-spacing: 0.02em;
   color: var(--text-soft);
   font-variant-numeric: tabular-nums;
 }
 
+/* The italic accent: one to three words of a headline in Instrument Serif, a step quieter than
+   the line around it. Never under 20px. */
+@utility serif-accent {
+  font-family: var(--font-accent);
+  font-style: italic;
+  font-weight: 400;
+  font-size: 1.06em;
+  letter-spacing: -0.01em;
+  color: var(--text-label);
+}
+/* The Paper system's name for the same flourish. */
+@utility chrome {
+  font-family: var(--font-accent);
+  font-style: italic;
+  font-weight: 400;
+  font-size: 1.06em;
+  letter-spacing: -0.01em;
+  color: var(--text-label);
+}
+
+/* ---------- Controls ---------- */
+
+/*
+ * Chip: a toggle or a filter. 32px tall with a 44px hit area, a pill of flat frost. Selected is
+ * inverted (text colour fill), not brass.
+ */
+@utility chip {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  height: 2rem;
+  padding: 0 0.875rem;
+  border-radius: var(--radius-round);
+  background-color: var(--frost);
+  border: 1px solid var(--edge);
+  font-size: var(--type-ui-sm);
+  line-height: var(--type-ui-sm-leading);
+  font-weight: 500;
+  color: var(--text);
+  white-space: nowrap;
+  transition:
+    background-color var(--dur-hover) var(--ease-rise),
+    border-color var(--dur-hover) var(--ease-rise),
+    color var(--dur-hover) var(--ease-rise);
+  &::before {
+    content: "";
+    position: absolute;
+    inset-inline: 0;
+    top: 50%;
+    height: 2.75rem;
+    translate: 0 -50%;
+  }
+  &:where(button, a, label):hover {
+    background-color: var(--frost-hover);
+  }
+  &:where(
+    [aria-pressed="true"],
+    [aria-checked="true"],
+    [aria-selected="true"],
+    [aria-current],
+    [data-state="on"]
+  ) {
+    background-color: var(--text);
+    border-color: var(--text);
+    color: var(--space);
+    box-shadow: none;
+  }
+}
+
+/*
+ * The arrow in a forward action: a small circle inside the pill whose glyph nudges 2px on hover.
+ * The glyph is a mask, so it takes the button's colours and needs no icon import. Variants set
+ * --btn-arrow-bg and --btn-arrow-fg (button-styles.ts).
+ */
+@utility btn-arrow {
+  display: inline-grid;
+  flex: none;
+  place-items: center;
+  width: var(--btn-arrow-size, 2rem);
+  height: var(--btn-arrow-size, 2rem);
+  border-radius: var(--radius-round);
+  background-color: var(--btn-arrow-bg, var(--on-signal));
+  &::after {
+    content: "";
+    width: 0.875rem;
+    height: 0.875rem;
+    background-color: var(--btn-arrow-fg, var(--signal));
+    -webkit-mask: var(--btn-arrow-glyph) center / contain no-repeat;
+    mask: var(--btn-arrow-glyph) center / contain no-repeat;
+    transition: translate var(--dur-hover) var(--ease-rise);
+  }
+  :where(a, button):hover:not(:disabled, [aria-disabled="true"]) > &::after {
+    translate: 2px 0;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    &::after {
+      transition: none;
+      translate: none !important;
+    }
+  }
+}
+
+:root {
+  --btn-arrow-glyph: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 14 14' fill='none' stroke='%23000' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M2.5 7h9M7.75 3.25 11.5 7l-3.75 3.75'/%3E%3C/svg%3E");
+}
+
+/* ---------- Motion (SPEC §2.10) ---------- */
+
+/*
+ * Page entrance. Markup renders visible; the start state exists only once the inline script in
+ * the root layout has set <html data-motion="on"> (it does not under reduced motion, and cannot
+ * without JS). A keyframe animation with fill-mode both, so once started it finishes with no
+ * further JS. Order with --i (90ms steps); everything is done by 1.5s.
+ */
+@utility enter {
+  :root[data-motion="on"] & {
+    animation: enter var(--dur-enter) var(--ease-rise) both;
+    animation-delay: calc(var(--i, 0) * 90ms);
+  }
+}
+@keyframes enter {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+    filter: blur(8px);
+  }
+}
+
+/*
+ * Scroll reveal: fires once at 15%. <RevealObserver> marks what is already in view, then sets
+ * <html data-reveal="on">, so nothing is ever hidden unless the script that will show it is
+ * running. No blur on scroll. Children stagger with --i (60ms, up to five).
+ */
+@utility reveal {
+  :root[data-reveal="on"] & {
+    transition:
+      opacity var(--dur-reveal) var(--ease-rise),
+      translate var(--dur-reveal) var(--ease-rise);
+    transition-delay: calc(min(var(--i, 0), 5) * 60ms);
+  }
+  :root[data-reveal="on"] &:not([data-in]) {
+    opacity: 0;
+    translate: 0 16px;
+  }
+}
+
+/* A Voiceline drawing itself: set pathLength="1" on the path. */
+@utility draw-line {
+  :root[data-motion="on"] & {
+    stroke-dasharray: 1;
+    animation: draw-line var(--dur-draw) var(--ease-line) both;
+    animation-delay: calc(var(--i, 0) * 90ms);
+  }
+}
+@keyframes draw-line {
+  from {
+    stroke-dashoffset: 1;
+  }
+}
+
+/* The model seal no longer turns. The class stays until its last caller is rewritten. */
+@utility seal-turn {
+  transform-origin: 100px 100px;
+}
+
 @layer base {
-  /* Emphasis inside a display line is the accent italic. */
+  /* Emphasis inside a display line is the italic accent, a step quieter. Never brass. */
   :where(h1, [class*="text-display"]) :where(em, i) {
-    color: var(--accent);
+    font-family: var(--font-accent);
     font-style: italic;
+    font-weight: 400;
+    font-size: 1.06em;
+    letter-spacing: -0.01em;
+    color: var(--text-label);
   }
 
-  /* Inputs: paper with an ink-soft border; focus draws a soft accent halo. */
+  /* Inputs: the field fill and a brass caret. Focus turns the border to the text colour and
+     shows the focus ring; no coloured halo. */
   :where(
     input:not([type="checkbox"], [type="radio"], [type="range"], [type="file"], [type="color"]),
     textarea,
     select
   ) {
-    background-color: var(--depth);
-    transition:
-      box-shadow var(--spring-snap-duration) var(--spring-snap),
-      border-color var(--spring-snap-duration) var(--spring-snap);
+    background-color: var(--field);
+    caret-color: var(--accent);
+    transition: border-color var(--dur-hover) var(--ease-rise);
   }
   :where(
     input:not([type="checkbox"], [type="radio"], [type="range"], [type="file"], [type="color"]),
     textarea,
     select
   ):focus-visible {
-    outline: none;
-    border-color: var(--accent);
-    box-shadow: 0 0 0 4px color-mix(in srgb, var(--accent) 18%, transparent);
+    border-color: var(--text);
   }
   :where(input[type="checkbox"], input[type="radio"], input[type="range"], progress) {
     accent-color: var(--text);
   }
 
-  /* One orchestrated entrance per page: each top-level block rises in turn. */
+  /* App route change: the first three blocks rise 8px in turn. */
   :where([data-slot="route-content"]) > * > :where(*) {
-    animation: page-rise 720ms cubic-bezier(0.2, 0.7, 0.1, 1) backwards;
+    animation: page-rise 400ms var(--ease-rise) backwards;
   }
   :where([data-slot="route-content"]) > * > :where(:nth-child(2)) {
-    animation-delay: 70ms;
+    animation-delay: 60ms;
   }
-  :where([data-slot="route-content"]) > * > :where(:nth-child(3)) {
-    animation-delay: 140ms;
-  }
-  :where([data-slot="route-content"]) > * > :where(:nth-child(4)) {
-    animation-delay: 210ms;
-  }
-  :where([data-slot="route-content"]) > * > :where(:nth-child(5)) {
-    animation-delay: 280ms;
-  }
-  :where([data-slot="route-content"]) > * > :where(:nth-child(n + 6)) {
-    animation-delay: 340ms;
+  :where([data-slot="route-content"]) > * > :where(:nth-child(n + 3)) {
+    animation-delay: 120ms;
   }
 
-  /* Toggle chips and option cards: chosen ones fill with ink. */
+  /* Toggle chips and option cards: the chosen one takes a text-colour edge. */
   :where(button[aria-pressed], [role="radio"], [role="tab"]) {
     transition:
-      box-shadow var(--spring-snap-duration) var(--spring-snap),
-      background-color var(--spring-snap-duration) var(--spring-snap),
-      border-color var(--spring-snap-duration) var(--spring-snap),
-      color var(--spring-snap-duration) var(--spring-snap);
+      box-shadow var(--dur-hover) var(--ease-rise),
+      background-color var(--dur-hover) var(--ease-rise),
+      border-color var(--dur-hover) var(--ease-rise),
+      color var(--dur-hover) var(--ease-rise);
   }
   :where(button[aria-pressed="true"], [role="radio"][aria-checked="true"]) {
     border-color: var(--text);
@@ -152,7 +402,7 @@
   }
 
   ::selection {
-    background-color: color-mix(in srgb, var(--accent) 26%, transparent);
+    background-color: color-mix(in srgb, var(--accent) 30%, transparent);
   }
 
   @media (prefers-reduced-motion: reduce) {
@@ -165,35 +415,6 @@
 @keyframes page-rise {
   from {
     opacity: 0;
-    translate: 0 10px;
+    translate: 0 8px;
   }
-}
-
-@keyframes orb-float {
-  50% {
-    translate: 0 -4px;
-  }
-}
-
-/* The model seal's ring of text: one turn every two minutes, still under reduced motion. */
-@keyframes seal-turn {
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-@utility seal-turn {
-  transform-origin: 100px 100px;
-  animation: seal-turn 120s linear infinite;
-  @media (prefers-reduced-motion: reduce) {
-    animation: none;
-  }
-}
-
-/* A section with nothing in it yet: a dashed sheet holding one quiet line. */
-@utility placeholder {
-  border: 1px dashed var(--edge);
-  border-radius: var(--radius-plane);
-  padding: 1.25rem 1.5rem;
-  color: var(--text-soft);
 }

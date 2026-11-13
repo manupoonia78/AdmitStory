@@ -47,7 +47,7 @@ export function lineKeys(lines: readonly ResumeLine[]): string[] {
 }
 
 const STATE_ICONS: Record<BulletState, { icon: typeof CheckIcon; className: string } | null> = {
-  suggestion: { icon: DotOutlineIcon, className: "text-signal" },
+  suggestion: { icon: DotOutlineIcon, className: "text-text" },
   accepted: { icon: CheckIcon, className: "text-verified" },
   edited: { icon: PencilSimpleIcon, className: "text-verified" },
   rejected: { icon: MinusIcon, className: "text-text-soft" },

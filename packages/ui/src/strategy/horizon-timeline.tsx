@@ -300,7 +300,7 @@ function LaneHead({
         className={cx(
           "mt-0.5 flex size-5 shrink-0 items-center justify-center rounded-control border",
           "transition-colors duration-(--spring-snap-duration) ease-snap",
-          selected ? "border-signal bg-signal text-on-signal" : "border-control",
+          selected ? "border-text bg-signal text-on-signal" : "border-control",
         )}
       >
         {selected ? <CheckIcon size={14} weight="bold" /> : null}

@@ -1,12 +1,21 @@
 import { readFileSync } from "node:fs";
 import { fileURLToPath } from "node:url";
 import { describe, expect, it } from "vitest";
-import { MOTION_TOKENS, REDUCED_FADE, SPRINGS, cssSpring, spring } from "./motion";
+import {
+  DURATIONS,
+  EASES,
+  MOTION_TOKENS,
+  REDUCED_FADE,
+  SPRINGS,
+  cssSpring,
+  ease,
+  spring,
+} from "./motion";
 
 const css = readFileSync(fileURLToPath(new URL("./tokens.css", import.meta.url)), "utf8");
 
 describe("motion tokens", () => {
-  it("match spec §6.6 exactly", () => {
+  it("match SPEC §2.10 exactly", () => {
     expect(SPRINGS).toEqual({
       snap: { stiffness: 700, damping: 40, mass: 1 },
       glide: { stiffness: 380, damping: 34, mass: 1 },
@@ -22,6 +31,46 @@ describe("motion tokens", () => {
 
   it("become a 120 ms linear fade under reduced motion", () => {
     expect(REDUCED_FADE).toEqual({ duration: 0.12, ease: "linear" });
+  });
+});
+
+describe("choreography eases and durations", () => {
+  it("match SPEC §2.10 exactly", () => {
+    expect(EASES).toEqual({
+      rise: [0.22, 1, 0.36, 1],
+      exit: [0.4, 0, 1, 1],
+      line: [0.65, 0, 0.35, 1],
+    });
+    expect(DURATIONS).toEqual({
+      press: 100,
+      hover: 200,
+      swap: 250,
+      reveal: 600,
+      enter: 800,
+      draw: 900,
+    });
+  });
+
+  it("are the same values as the --ease-* and --dur-* tokens", () => {
+    for (const [name, curve] of Object.entries(EASES)) {
+      expect(css).toContain(`--ease-${name}: cubic-bezier(${curve.join(", ")});`);
+    }
+    for (const [name, ms] of Object.entries(DURATIONS)) {
+      expect(css).toContain(`--dur-${name}: ${ms}ms;`);
+    }
+  });
+
+  it("build Motion transitions in seconds, rising by default", () => {
+    expect(ease("enter")).toEqual({ duration: 0.8, ease: [0.22, 1, 0.36, 1] });
+    expect(ease("draw", "line")).toEqual({ duration: 0.9, ease: [0.65, 0, 0.35, 1] });
+  });
+
+  it("tokens.css shortens every choreographed move over 120 ms under reduced motion", () => {
+    const start = css.indexOf("@media (prefers-reduced-motion: reduce)");
+    const reduced = css.slice(start, css.indexOf("}", css.indexOf("}", start) + 1));
+    for (const name of ["swap", "reveal", "enter", "draw"]) {
+      expect(reduced).toContain(`--dur-${name}: 120ms;`);
+    }
   });
 });
 

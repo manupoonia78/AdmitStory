@@ -27,7 +27,8 @@
   }
 }
 
-/* Breakpoints (spec §6.12): mobile < 640, tablet 640–1023, laptop 1024–1279, desktop 1280+. */
+/* Breakpoints: phone < 640, tablet 640–1023, laptop 1024–1279, desktop 1280+. There is no md:
+   tablets take the sm composition (SPEC §2.4). */
 @theme {
   --breakpoint-*: initial;
   --breakpoint-sm: 40rem;
@@ -72,12 +73,22 @@
   --color-space: var(--space);
   --color-depth: var(--depth);
   --color-solid: var(--depth);
+  --color-sheet: var(--sheet);
+  --color-field: var(--field);
   --color-veil: var(--veil);
+  --color-frost: var(--frost);
+  --color-frost-hover: var(--frost-hover);
   --color-edge: var(--edge);
+  --color-edge-strong: var(--edge-strong);
   --color-control: var(--control-edge);
   --color-text: var(--text);
+  --color-text-80: var(--text-80);
   --color-text-soft: var(--text-soft);
+  --color-text-label: var(--text-label);
+  --color-text-faint: var(--text-faint);
+  --color-sheet-text: var(--sheet-text);
   --color-signal: var(--signal);
+  --color-signal-hover: var(--signal-hover);
   --color-accent: var(--accent);
   --color-rail: var(--rail);
   --color-on-signal: var(--on-signal);
@@ -94,42 +105,82 @@
   --font-ui: var(--font-ui);
   --font-reading: var(--font-reading);
   --font-display: var(--font-display);
+  --font-accent: var(--font-accent);
   --font-mono: var(--font-mono);
 
+  /*
+   * Type (SPEC §2.4). text-sm is `ui-sm`, text-ui is `ui`, text-base is `body`, text-lg is
+   * `body-lg`. The display steps are hero, 1, 2 and 3; the Paper system's names (display-xl,
+   * -lg, plain, -sm) resolve to the same four so existing screens keep rendering.
+   */
   --text-*: initial;
   --text-sm: var(--type-ui-sm);
   --text-sm--line-height: var(--type-ui-sm-leading);
-  --text-base: var(--type-ui);
-  --text-base--line-height: var(--type-ui-leading);
-  --text-lg: var(--type-ui-lg);
-  --text-lg--line-height: var(--type-ui-lg-leading);
+  --text-ui: var(--type-ui);
+  --text-ui--line-height: var(--type-ui-leading);
+  --text-ui--font-weight: 500;
+  --text-base: var(--type-body);
+  --text-base--line-height: var(--type-body-leading);
+  --text-lg: var(--type-body-lg);
+  --text-lg--line-height: var(--type-body-leading);
+  --text-lg--letter-spacing: -0.005em;
+  --text-title: var(--type-title);
+  --text-title--line-height: var(--type-title-leading);
+  --text-title--letter-spacing: var(--type-title-tracking);
+  --text-title--font-weight: 500;
+  --text-read-sm: var(--type-read-sm);
+  --text-read-sm--line-height: var(--type-read-sm-leading);
   --text-read: var(--type-read);
   --text-read--line-height: var(--type-read-leading);
   --text-read-lg: var(--type-read-lg);
   --text-read-lg--line-height: var(--type-read-lg-leading);
-  --text-display-sm: var(--type-display-sm);
-  --text-display-sm--line-height: var(--type-display-leading);
-  --text-display-sm--letter-spacing: var(--type-display-tracking);
-  --text-display-sm--font-weight: var(--type-display-weight);
-  --text-display: var(--type-display);
-  --text-display--line-height: var(--type-display-leading);
-  --text-display--letter-spacing: var(--type-display-tracking);
-  --text-display--font-weight: var(--type-display-weight);
-  --text-display-lg: var(--type-display-lg);
-  --text-display-lg--line-height: var(--type-display-leading);
-  --text-display-lg--letter-spacing: var(--type-display-tracking);
-  --text-display-lg--font-weight: var(--type-display-weight);
-  --text-display-xl: var(--type-display-xl);
-  --text-display-xl--line-height: var(--type-display-leading);
-  --text-display-xl--letter-spacing: var(--type-display-tracking);
-  --text-display-xl--font-weight: var(--type-display-weight);
+  --text-transcript: var(--type-transcript);
+  --text-transcript--line-height: var(--type-transcript-leading);
+  --text-transcript--letter-spacing: var(--type-transcript-tracking);
+  --text-display-hero: var(--type-display-hero);
+  --text-display-hero--line-height: var(--type-display-hero-leading);
+  --text-display-hero--letter-spacing: var(--type-display-hero-tracking);
+  --text-display-hero--font-weight: var(--type-display-hero-weight);
+  --text-display-1: var(--type-display-1);
+  --text-display-1--line-height: var(--type-display-1-leading);
+  --text-display-1--letter-spacing: var(--type-display-1-tracking);
+  --text-display-1--font-weight: var(--type-display-1-weight);
+  --text-display-2: var(--type-display-2);
+  --text-display-2--line-height: var(--type-display-2-leading);
+  --text-display-2--letter-spacing: var(--type-display-2-tracking);
+  --text-display-2--font-weight: var(--type-display-2-weight);
+  --text-display-3: var(--type-display-3);
+  --text-display-3--line-height: var(--type-display-3-leading);
+  --text-display-3--letter-spacing: var(--type-display-3-tracking);
+  --text-display-3--font-weight: var(--type-display-3-weight);
+  /* the Paper names: xl = hero, lg = 1, plain = 2, sm = 3 */
+  --text-display-xl: var(--type-display-hero);
+  --text-display-xl--line-height: var(--type-display-hero-leading);
+  --text-display-xl--letter-spacing: var(--type-display-hero-tracking);
+  --text-display-xl--font-weight: var(--type-display-hero-weight);
+  --text-display-lg: var(--type-display-1);
+  --text-display-lg--line-height: var(--type-display-1-leading);
+  --text-display-lg--letter-spacing: var(--type-display-1-tracking);
+  --text-display-lg--font-weight: var(--type-display-1-weight);
+  --text-display: var(--type-display-2);
+  --text-display--line-height: var(--type-display-2-leading);
+  --text-display--letter-spacing: var(--type-display-2-tracking);
+  --text-display--font-weight: var(--type-display-2-weight);
+  --text-display-sm: var(--type-display-3);
+  --text-display-sm--line-height: var(--type-display-3-leading);
+  --text-display-sm--letter-spacing: var(--type-display-3-tracking);
+  --text-display-sm--font-weight: var(--type-display-3-weight);
 
   --container-essay: var(--measure-essay);
 
   --radius-*: initial;
   --radius-control: var(--radius-control);
-  --radius-plane: var(--radius-plane);
-  --radius-sheet: var(--radius-sheet);
+  --radius-card: var(--radius-card);
+  --radius-frame: var(--radius-frame);
+  --radius-inset: var(--radius-inset);
+  --radius-paper: var(--radius-paper);
+  --radius-plane: var(--radius-card);
+  --radius-sheet: var(--radius-frame);
   --radius-full: var(--radius-round);
 
   --shadow-*: initial;
@@ -145,22 +196,9 @@
   --ease-glide: var(--spring-glide);
   --ease-drift: var(--spring-drift);
   --ease-settle: var(--spring-settle);
-}
-
-/*
- * A raised plane: a sheet of paper on the desk. Solid --depth, a hairline --edge, a soft
- * contact shadow. No blur, no gloss.
- */
-@utility plane {
-  background-color: var(--depth);
-  border: 1px solid var(--edge);
-  border-radius: var(--radius-plane);
-  box-shadow: var(--plane-light), var(--shadow-paper);
-}
-
-/* Paints film grain on an element that has its own --space background (Night only). */
-@utility grain {
-  background-image: var(--grain);
+  --ease-rise: var(--ease-rise);
+  --ease-exit: var(--ease-exit);
+  --ease-line: var(--ease-line);
 }
 
 @layer base {
@@ -173,29 +211,23 @@
   body {
     min-height: 100dvh;
     background-color: var(--space);
-    /* Atmosphere: paper grain under a faint warm light from the top of the page. */
-    background-image:
-      var(--grain),
-      radial-gradient(
-        120% 60% at 50% -10%,
-        color-mix(in srgb, var(--accent) 7%, transparent),
-        transparent 70%
-      );
-    background-attachment: scroll, fixed;
+    /* Grain on dark only (--grain is none in Day). No lights, no gradients. */
+    background-image: var(--grain);
     color: var(--text);
     font-family: var(--font-ui);
-    font-size: var(--type-ui);
-    line-height: var(--type-ui-leading);
+    font-size: var(--type-body);
+    line-height: var(--type-body-leading);
     -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
     text-transform: none;
-    font-feature-settings: "ss01", "cv11";
+    caret-color: var(--accent);
   }
 
-  /* Display type is the serif, at a light weight. */
+  /* Headlines are Geist: 450–500, tight, never bold. Each display step sets its own values;
+     this is the floor for a bare h1. */
   :where(h1, [class*="text-display"]) {
     font-family: var(--font-display);
-    font-weight: var(--type-display-weight);
-    font-optical-sizing: auto;
+    font-weight: 450;
     text-wrap: balance;
   }
   :where(h2, h3) {
@@ -205,7 +237,8 @@
     text-wrap: pretty;
   }
 
-  /* A theme scope inside the page (ImmersiveScope, a Day sheet) paints its own background. */
+  /* A theme scope inside the page (an instrument panel in Day, a Day sheet in Night) paints its
+     own background. */
   :where(body [data-theme]) {
     background-color: var(--space);
     background-image: var(--grain);
@@ -217,10 +250,10 @@
     outline-offset: var(--focus-ring-offset);
   }
 
-  /* The applicant's own words (spec §6.2): a soft glow in their Voiceprint hue. */
+  /* The applicant's own words: a soft fill in their Voiceprint hue. */
   mark {
     background-color: var(--voice-glow);
-    color: var(--text);
+    color: inherit;
     box-decoration-break: clone;
     -webkit-box-decoration-break: clone;
   }
@@ -233,10 +266,15 @@
       text-decoration-thickness: 1px;
       text-underline-offset: 0.2em;
     }
+    :root,
+    [data-theme] {
+      --edge: var(--control-edge);
+      --edge-strong: var(--control-edge);
+    }
   }
 
   @media (prefers-reduced-motion: reduce) {
-    /* Sheets fade instead of sliding (spec §6.6: no movement, 120 ms opacity fades). */
+    /* Sheets fade instead of sliding: no movement, 120 ms opacity fades. */
     :root {
       --animate-sheet-in: fade-in var(--spring-glide-duration) linear both;
       --animate-sheet-out: fade-out var(--spring-glide-duration) linear both;

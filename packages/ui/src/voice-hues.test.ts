@@ -3,8 +3,8 @@ import { fileURLToPath } from "node:url";
 import { describe, expect, it } from "vitest";
 import { VOICE_HUES, voiceHueAt, voiceHueStyle } from "./voice-hues";
 
-// Spec §6.3: the 12 hues are pre-tuned for contrast against both themes. Duet-stage captions are
-// set in the hue, so each variant must reach text contrast on its theme's --space and --depth.
+// SPEC §2.3: the 12 hues are tuned for contrast against both themes. Captions are set in the hue,
+// so each variant must reach text contrast on its theme's --space and --depth.
 
 const css = readFileSync(fileURLToPath(new URL("./tokens.css", import.meta.url)), "utf8");
 
@@ -20,6 +20,21 @@ function luminance(value: string): number {
   };
   const [r, g, b] = hex(value);
   return 0.2126 * lin(r) + 0.7152 * lin(g) + 0.0722 * lin(b);
+}
+
+/** OKLCH chroma and hue angle (degrees) of a hex colour. */
+function oklch(value: string): { chroma: number; angle: number } {
+  const lin = (c: number) => {
+    const s = c / 255;
+    return s <= 0.04045 ? s / 12.92 : ((s + 0.055) / 1.055) ** 2.4;
+  };
+  const [r, g, b] = hex(value).map(lin) as [number, number, number];
+  const l = Math.cbrt(0.4122214708 * r + 0.5363325363 * g + 0.0514459929 * b);
+  const m = Math.cbrt(0.2119034982 * r + 0.6806995451 * g + 0.1073969566 * b);
+  const s = Math.cbrt(0.0883024619 * r + 0.2817188376 * g + 0.6299787005 * b);
+  const a = 1.9779984951 * l - 2.428592205 * m + 0.4505937099 * s;
+  const bb = 0.0259040371 * l + 0.7827717662 * m - 0.808675766 * s;
+  return { chroma: Math.hypot(a, bb), angle: ((Math.atan2(bb, a) * 180) / Math.PI + 360) % 360 };
 }
 
 function contrast(a: string, b: string): number {
@@ -49,9 +64,23 @@ describe("voice hues", () => {
     expect(new Set(VOICE_HUES.map((h) => h.name)).size).toBe(12);
   });
 
-  it("includes the spec §6.3 examples as Night variants", () => {
+  it("matches SPEC §2.3: ids in their stored order, the first three as specified", () => {
+    expect(VOICE_HUES.map((h) => h.id)).toEqual([
+      "aqua",
+      "amber",
+      "violet",
+      "coral",
+      "gold",
+      "lime",
+      "fern",
+      "mint",
+      "sky",
+      "orchid",
+      "rose",
+      "sand",
+    ]);
     const night = VOICE_HUES.map((h) => h.night.toUpperCase());
-    expect(night).toEqual(expect.arrayContaining(["#7CF5E6", "#FFB86B", "#C59BFF"]));
+    expect(night.slice(0, 3)).toEqual(["#84DCDC", "#F9BA9A", "#D3BEFA"]);
   });
 
   it.each(VOICE_HUES.map((h) => [h.name, h]))(
@@ -62,10 +91,18 @@ describe("voice hues", () => {
     },
   );
 
-  it("keeps --signal a neutral ink, so no applicant colour reads as interactive", () => {
-    for (const theme of ['[data-theme="night"]', '[data-theme="day"]']) {
-      const [r, g, b] = hex(token(theme, "signal"));
-      expect(Math.max(r, g, b) - Math.min(r, g, b), theme).toBeLessThanOrEqual(16);
+  it("keeps the Day --signal a neutral ink, and every hue clear of the Night brass", () => {
+    const [r, g, b] = hex(token('[data-theme="day"]', "signal"));
+    expect(Math.max(r, g, b) - Math.min(r, g, b)).toBeLessThanOrEqual(16);
+
+    // Night's primary fill is brass. No hue with real colour in it sits within 25° of it, so the
+    // applicant's colour is never mistaken for the primary action; Stone is almost neutral.
+    const brass = oklch(token('[data-theme="night"]', "signal"));
+    for (const hue of VOICE_HUES) {
+      const { chroma, angle } = oklch(hue.night);
+      if (chroma < 0.04) continue;
+      const apart = Math.abs(((angle - brass.angle + 540) % 360) - 180);
+      expect(apart, hue.name).toBeGreaterThanOrEqual(25);
     }
   });
 
@@ -81,6 +118,6 @@ describe("voice hues", () => {
   });
 
   it("sets both theme variants as custom properties", () => {
-    expect(voiceHueStyle(2)).toEqual({ "--voice-night": "#C59BFF", "--voice-day": "#6A3DC4" });
+    expect(voiceHueStyle(2)).toEqual({ "--voice-night": "#D3BEFA", "--voice-day": "#614A87" });
   });
 });

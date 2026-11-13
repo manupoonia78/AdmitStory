@@ -453,7 +453,7 @@ function Directory({
             }}
             placeholder="Name, company, role or topic"
             autoComplete="off"
-            className="w-full rounded-control border border-control-edge bg-space py-2.5 ps-10 pe-3 text-sm text-text placeholder:text-text-soft focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-signal"
+            className="w-full rounded-control border border-control-edge bg-space py-2.5 ps-10 pe-3 text-sm text-text placeholder:text-text-soft focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-text"
           />
         </div>
         <div className="flex items-center gap-2">
@@ -651,7 +651,7 @@ function Profile({
                 href={person.linkedinUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="self-start text-sm text-signal underline-offset-4 hover:underline"
+                className="self-start text-sm text-text underline-offset-4 hover:underline"
               >
                 LinkedIn profile ↗
               </a>
@@ -902,7 +902,7 @@ function Composer({
         rows={1}
         maxLength={4000}
         placeholder={placeholder}
-        className="field-sizing-content max-h-40 min-h-11 flex-1 resize-none rounded-control border border-control-edge bg-space px-3.5 py-2.5 text-[0.9375rem] text-text placeholder:text-text-soft focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-signal"
+        className="field-sizing-content max-h-40 min-h-11 flex-1 resize-none rounded-control border border-control-edge bg-space px-3.5 py-2.5 text-[0.9375rem] text-text placeholder:text-text-soft focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-text"
       />
       <button
         type="submit"
