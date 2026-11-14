@@ -9,7 +9,7 @@
 // analysis, and the landing page's "play a sample voice" (spec §6.7). Deterministic, so the same
 // script always draws the same Voiceprint.
 
-import { SPRINGS, type MotionToken } from "../motion";
+import { SPRINGS, type MotionToken } from "../springs";
 import type { LiveVoiceSignal } from "../voiceprint/types";
 import type { WordTiming } from "./word-timing";
 

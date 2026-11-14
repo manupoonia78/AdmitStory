@@ -160,3 +160,115 @@ score: a correct single column, not a recomposition.
   component. Not one of the four gates.
 - Four changed files in the working tree belong to other work (Studio slots v1.1) and were not
   committed with the redesign.
+
+---
+
+## Phase 2: landing hero (2026-11-14) · awaiting review
+
+The marketing nav and the landing hero are rebuilt on the Phase 1 system. Everything below the
+hero on `/` is still the old page (Phase 3).
+
+### What changed
+
+- **The hero** (`_hero/hero.tsx`, server markup). Left: the eyebrow, "Tell it once. / Tell it
+  _well._", the subline, "Start your story" and "See how it works", and the model credit. Right:
+  the stage. One line, the horizon, crosses the hero: flat under the headline, a voice in brass
+  across the stage. A fictional applicant's sentence rests on it in italic serif, and above it
+  three essay sheets are fanned like a hand of cards. Each sheet's margin carries its title, a
+  note in mono on why the draft is built that way, and its word count; the top sheet shows the
+  essay's opening with the applicant's own sentence marked as theirs. Under the line: three facts
+  about how it works, the "fictional" label and a pause control.
+- **The loop** (`_hero/hero-loop.ts`, 3.1 KB, lazy). After the page has loaded and gone idle, the
+  sheets leave, three hairline pages wait, the next applicant speaks word by word while the line
+  moves with the voice, the line settles, three sheets rise into place, the spoken sentence is
+  underlined on the top sheet, and the notes appear. Three applicants, about eleven seconds
+  each. It stops completely when the hero is off screen, the tab is hidden or pause is pressed.
+- **The still.** What the server sends is the finished picture. Under reduced motion, with
+  Save-Data, or with JavaScript off, that picture is the hero: no loop is downloaded and there is
+  no pause button.
+- **Phones.** The headline, both actions and the credit fill the first screen with the top of
+  the fan showing; the sheets, the sentence and the line follow, then the strip. The stage is a
+  CSS container, so the fan scales as one piece from 320 px to a 546 px column.
+- **The nav.** One frosted pill on the page grid's margins, always dark so it also reads over
+  paper scenes. "Start your story" replaces "Start free" there. Below 1024 px: the small button
+  and a round menu button. The phone menu is restyled to match.
+- **Copy.** New hero copy and three samples in `_copy/hero.ts`. The three applicants are the
+  ones already on the page (night-shift analyst, fintech product manager, family packaging
+  business), each quoted in a sentence they already had. All fictional, as is Northfield, and
+  labelled so in the strip.
+- **Removed.** The WebGL Voiceprint and its lamp-light gradients from the hero, the "See it
+  happen" player and its reducer, the retired mic demo's token code, `nav-compact.tsx`.
+- SPEC §3 is rewritten to the values as built.
+
+### Screenshots (`shots/after/`; before: `shots/before/landing-*.jpg`)
+
+| File                                                        | What it shows                                               |
+| ----------------------------------------------------------- | ----------------------------------------------------------- |
+| `landing-1440.jpg`, `landing-390.jpg`                       | first screen, laptop and phone                              |
+| `landing-1440-rm.jpg`, `landing-390-rm.jpg`                 | the same under reduced motion: the still, no pause button   |
+| `landing-hero-390-whole.jpg`                                | the whole hero on a phone (1,414 px)                        |
+| `landing-hero-768-whole.jpg`, `landing-hero-1280-whole.jpg` | tablet, and a 1280 × 720 laptop                             |
+| `landing-hero-1440-loop-1-speaking.jpg`                     | the loop: the second applicant mid-sentence, pages waiting  |
+| `landing-hero-1440-loop-2-rising.jpg`                       | the sheets rising                                           |
+| `landing-hero-1440-loop-3-held.jpg`                         | the second applicant's essays, sentence marked, notes shown |
+| `landing-hero-390-loop-speaking.jpg`                        | the loop on a phone                                         |
+| `landing-menu-390.jpg`                                      | the phone menu                                              |
+
+`report-p2-landing.json` and `report-p2-landing-rm.json` are the capture script's reports for
+these runs (no overflow at 375 px, no console errors, no failed requests, no hydration
+warnings). Full-page shots were not kept: below the hero the page is unchanged.
+
+### Score: `/` hero and nav
+
+| Glance | Signature | Type | Composition | Colour | Media | Motion | Mobile | Copy | Polish | Average |
+| ------ | --------- | ---- | ----------- | ------ | ----- | ------ | ------ | ---- | ------ | ------- |
+| 9      | 9         | 9    | 8           | 9      | 9     | 8      | 8      | 8    | 8      | **8.5** |
+
+The first pass scored about 7.0. Three rounds of fixes, each re-shot: (1) the sentence's words
+ran together and the phone's top sheet clipped its word count; (2) the fan showed cut-off
+slivers of the two lower essays, so the margins were widened until it shows three notes and one
+essay; (3) the stage sat empty while an applicant spoke, so hairline pages now wait there, and
+the counts moved into the margins. The three lowest scores now: composition (a lot of air
+between headline and stage from 1440 up), motion (checked from timed frames, not yet watched at
+speed by a person) and mobile (the sentence and line are just below the first screen).
+
+### What was checked, and how
+
+| Check                                    | Result                                                                                                                                                                                          |
+| ---------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `pnpm typecheck`                         | passed                                                                                                                                                                                          |
+| `pnpm lint`                              | passed                                                                                                                                                                                          |
+| `next build` (local environment)         | passed                                                                                                                                                                                          |
+| `bundle:check`                           | passed: `/` 151.9 of 155 KB (was 153.3); other marketing routes 144.4–150.8; `/sign-in` 157.9 of 160                                                                                            |
+| The loop's chunk                         | 3.1 KB gz (budget 7), loaded after `load` and idle; contains no Motion, GSAP or OGL                                                                                                             |
+| Per-frame cost, phone at 4× CPU throttle | 0.07 ms in the frame callback (worst 1.7), 1.9 ms of main-thread time a frame over a full pass (budget 1.5 and 4)                                                                               |
+| Frames while stopped                     | 0 while paused, 0 off screen, 0 with the tab hidden. On laptops the old "follow" section's GSAP ticker keeps its own frames running until Phase 3 removes it                                    |
+| CLS over a full pass                     | 0 on the phone, 0.0001 on desktop                                                                                                                                                               |
+| LCP, observed                            | equal to first contentful paint with and without the entrance (0.1–0.25 s locally)                                                                                                              |
+| Lighthouse, mobile, simulated (3 runs)   | performance 0.95, accessibility 0.97, best practices 1.00, SEO 1.00; FCP 1.66 s, **LCP 2.87 s**, TBT 16 ms, CLS 0                                                                               |
+| Lighthouse, mobile, throttling applied   | FCP 2.28 s, **LCP 2.28 s**, TBT 40 ms, CLS 0                                                                                                                                                    |
+| Fonts preloaded on `/`                   | 86 KB (cap 110)                                                                                                                                                                                 |
+| axe, WCAG 2.2 AA, hero and nav           | 0 violations with motion and under reduced motion                                                                                                                                               |
+| Reduced motion                           | the still; the loop's chunk is not requested; the pause button stays hidden                                                                                                                     |
+| JavaScript off                           | the complete hero renders (headline at full opacity, stage, line, strip)                                                                                                                        |
+| 375 px overflow, console, requests       | none on `/`                                                                                                                                                                                     |
+| Unit tests                               | 2,515 of 2,517 pass. Neither failure is the redesign's: the `db` schema test (as before) and `api/stt/token/route.test.ts`, which follows someone else's uncommitted change to `packages/voice` |
+
+### What could not be done, and what to know
+
+- **The H1 is not the element Chrome reports as LCP.** It is split into one block a word so each
+  can rise, and Chrome scores each block separately. What it reports is static server text
+  painted in the first frame, so LCP equals first paint and the entrance costs nothing. SPEC
+  §3.7 has the detail; PROGRESS "Needs Manu" 6 asks whether to keep the per-word rise.
+- **Lighthouse's default, simulated LCP is 2.87 s, over the 2.5 s target.** With the throttling
+  really applied it is 2.28 s. First paint is dominated by the 354 KB document, almost all of it
+  the old sections below the hero. Re-measured in Phases 3 and 8.
+- **"Write your own line" is off the page until Phase 3**, where it returns in the paper scene.
+  Its copy (`_copy/write-line.ts`) and clean-up code (`_hero/line-cleanup.ts`) are kept.
+- **"See how it works" jumps to the old `#follow` section** until Phase 3 builds scene 3.
+- **Motion was verified from timed frames and measurements, not watched live.** Worth a look at
+  speed in a real browser during review.
+- Lighthouse's one accessibility failure and a 16 px overflow at 320 px both come from old
+  sections below the hero, replaced in Phase 3.
+- Other people's uncommitted work was in the tree during this session (about twenty files in
+  Studio, `packages/ai`, `packages/slots`, `packages/voice`). None of it is in this commit.

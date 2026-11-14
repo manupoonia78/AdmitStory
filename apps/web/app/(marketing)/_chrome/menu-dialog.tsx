@@ -1,15 +1,21 @@
 "use client";
 
-// The phone menu (direction §4.1, deviation D9): a native <dialog> styled as a full-height sheet
-// (radius 28 at the top, rising on glide), not Radix. The word "Menu" is the control, 44 px.
-// Escape and the Close button close it; focus returns to "Menu".
+// The phone menu (SPEC §3.3): a native <dialog> styled as a full-height sheet of the instrument
+// (--bg with grain, 24px on top, rising on glide), not Radix. The trigger is a 40px round button
+// with a 44px hit area. Escape, the backdrop and the Close button close it; focus returns to the
+// trigger. The primary action sits at the bottom, above the safe-area inset.
 
+import { buttonStyles, cx } from "@admitstory/ui";
 import Link from "next/link";
 import { useRef } from "react";
 import { NAV_COPY, NAV_LINKS } from "../_copy/chrome";
-import { SIGN_IN } from "../_copy/shared";
+import { SIGN_IN, START_STORY } from "../_copy/shared";
+import { trackAttributes } from "../_lib/track";
 
 const ITEMS = [...NAV_LINKS, { href: "/sign-in", label: SIGN_IN }] as const;
+
+const ROUND =
+  "relative inline-flex size-10 shrink-0 items-center justify-center rounded-full text-text frost-flat transition-colors duration-(--dur-hover) hover:bg-frost-hover before:absolute before:left-1/2 before:top-1/2 before:size-11 before:-translate-1/2";
 
 export function MenuDialog() {
   const dialog = useRef<HTMLDialogElement>(null);
@@ -25,13 +31,15 @@ export function MenuDialog() {
         ref={trigger}
         type="button"
         aria-haspopup="dialog"
+        aria-label={NAV_COPY.menu}
         onClick={() => dialog.current?.showModal()}
-        className="inline-flex min-h-11 min-w-11 items-center justify-center rounded-control px-3 text-base text-text lg:hidden"
+        className={cx(ROUND, "ml-1 lg:hidden")}
       >
-        {NAV_COPY.menu}
+        <span aria-hidden="true" className="site-menu-glyph" />
       </button>
       <dialog
         ref={dialog}
+        data-theme="night"
         aria-label={NAV_COPY.menuTitle}
         className="site-menu"
         onClose={() => trigger.current?.focus()}
@@ -40,24 +48,31 @@ export function MenuDialog() {
           if (event.target === event.currentTarget) close();
         }}
       >
-        <div className="site-menu-sheet flex h-full flex-col px-4 pb-8 pt-4">
-          <div className="flex justify-end">
-            <button
-              type="button"
-              onClick={close}
-              className="inline-flex min-h-11 min-w-11 items-center justify-center rounded-control px-3 text-base text-text"
-            >
-              {NAV_COPY.closeMenu}
+        <div className="flex h-full flex-col px-5 pb-[max(1.5rem,env(safe-area-inset-bottom))] pt-4">
+          <div className="flex items-center justify-between">
+            <p className="label">{NAV_COPY.menuTitle}</p>
+            <button type="button" aria-label={NAV_COPY.closeMenu} onClick={close} className={ROUND}>
+              <svg
+                aria-hidden="true"
+                viewBox="0 0 14 14"
+                width="14"
+                height="14"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="1.25"
+              >
+                <path d="M2 2l10 10M12 2 2 12" />
+              </svg>
             </button>
           </div>
-          <nav aria-label={NAV_COPY.menuTitle} className="mt-8">
+          <nav aria-label={NAV_COPY.menuTitle} className="mt-10">
             <ul role="list" className="divide-y divide-edge border-y border-edge">
               {ITEMS.map((item) => (
                 <li key={item.href}>
                   <Link
                     href={item.href}
                     onClick={close}
-                    className="flex min-h-16 items-center text-display-sm text-text"
+                    className="flex min-h-18 items-center font-display text-display-3 text-text"
                   >
                     {item.label}
                   </Link>
@@ -65,6 +80,15 @@ export function MenuDialog() {
               ))}
             </ul>
           </nav>
+          <Link
+            href="/sign-in"
+            onClick={close}
+            className={cx(buttonStyles({ size: "lg", arrow: true }), "mt-auto w-full")}
+            {...trackAttributes("cta_start_free", { location: "menu" })}
+          >
+            {START_STORY}
+            <span aria-hidden="true" className="btn-arrow ml-auto" />
+          </Link>
         </div>
       </dialog>
     </>

@@ -1,7 +1,7 @@
 // When the marketing site's heavier pieces may load (direction §10, plan §3.5). Pure: the browser
 // bindings live in ../_motion/media.ts, so these rules can be read (and reasoned about) alone.
 //
-//   the hero's WebGL Voiceprint   rendererGate
+//   the hero's loop               ../_hero/hero-loop-gate.tsx (its own three lines)
 //   the pinned sequence (GSAP)    followGate
 //   Lenis smooth scroll           smoothScrollGate
 //
@@ -18,9 +18,6 @@ export const REDUCED_MOTION_QUERY = "(prefers-reduced-motion: reduce)";
 
 export type Gate = "wait" | "load" | "never";
 
-/** The renderer tier (packages/ui voiceprint/tier.ts): 1 is the still SVG, 2–3 are WebGL. */
-export type RendererTier = 1 | 2 | 3;
-
 /** Desktop motion is allowed when the query matches and the visitor hasn't asked to save data. */
 export function desktopMotionAllowed({
   matches,
@@ -30,31 +27,6 @@ export function desktopMotionAllowed({
   saveData: boolean;
 }): boolean {
   return matches && !saveData;
-}
-
-export interface RendererGateInput {
-  phone: boolean;
-  /** The window `load` event has fired. */
-  loaded: boolean;
-  /** An idle callback has run since load. */
-  idle: boolean;
-  /** The visitor has tapped, scrolled or pressed a key. */
-  interacted: boolean;
-  heroInView: boolean;
-  /** Null while the tier is still unknown (detect-gpu hasn't answered). */
-  tier: RendererTier | null;
-  reducedMotion?: boolean;
-}
-
-/**
- * The hero's live Voiceprint (direction §10). Desktop: after load, on idle, while the hero is in
- * view. Phone: only on the first interaction, so Lighthouse never triggers it. Tier 1 and reduced
- * motion keep the still poster for good.
- */
-export function rendererGate(input: RendererGateInput): Gate {
-  if (input.reducedMotion || input.tier === 1) return "never";
-  if (input.phone) return input.interacted ? "load" : "wait";
-  return input.loaded && input.idle && input.heroInView ? "load" : "wait";
 }
 
 export interface FollowGateInput {

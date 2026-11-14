@@ -3,7 +3,8 @@
 Source of truth between sessions. Brief: `docs/design/fable-redesign-prompt.md`. Progress and
 decisions: `PROGRESS.md`. Evidence: `REPORT.md` and `shots/`.
 
-**Status of each part** (Phase 0, 2026-11-12; §2 built in Phase 1, 2026-11-13, see §2.13):
+**Status of each part** (Phase 0, 2026-11-12; §2 built in Phase 1, 2026-11-13, see §2.13; §3
+built in Phase 2, 2026-11-14, and rewritten to the values as built):
 
 | Part                                                                  | Depth                                                                                                                                 |
 | --------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------- |
@@ -538,79 +539,111 @@ the fictional Northfield.
 
 ---
 
-## 3. The landing hero (full values)
+## 3. The landing hero (full values; built in Phase 2, 2026-11-14)
 
-Replaces `_hero/hero.tsx`, `hero-stage.tsx`, `hero-experience.tsx`, `hero-voiceprint.tsx`,
-`hero-state.ts`, `hero-motion.ts`, `hero-ui.tsx`. `hero-demo.ts` (the retired mic demo's Turnstile
-and token code) has no importer and is deleted (§9.2). `line-cleanup.ts` moves with the "Write
-your own line" toy to scene 5.
+Replaced `_hero/hero.tsx`, `hero-stage.tsx`, `hero-experience.tsx`, `hero-voiceprint.tsx`,
+`hero-state.ts`, `hero-motion.ts`, `hero-ui.tsx` and `_chrome/nav-compact.tsx`. `hero-demo.ts` (the
+retired mic demo's Turnstile and token code) had no importer and is deleted (§9.2). The hero is
+now four files:
+
+| File                       | What it is                                                                                   | Ships                           |
+| -------------------------- | -------------------------------------------------------------------------------------------- | ------------------------------- |
+| `_hero/hero.tsx`           | server markup: copy, the poster (all three applicants, two hidden), the strip                | HTML only                       |
+| `_hero/voiceline-shape.ts` | the line's maths, shared by the poster path and the canvas                                   | with the loop                   |
+| `_hero/hero-loop-gate.tsx` | the only first-load code: waits for `load`, idle and the hero in view, then imports the loop | first load, a few hundred bytes |
+| `_hero/hero-loop.ts`       | the loop: plain DOM, canvas and the Web Animations API. No React, no Motion                  | lazy, 3.1 KB gz                 |
+
+`line-cleanup.ts` and the "Write your own line" copy (`_copy/write-line.ts`) wait for scene 5 in
+Phase 3; until then the toy is not on the page (it lived in `hero-experience.tsx`, last in commit
+`98dfc25`).
 
 ### 3.1 Composition
 
-A dark scene, `min-height: 100svh`, capped at 1000 px tall, `--bg` with grain. One horizontal line
-crosses the whole hero **128 px above its bottom edge: the horizon**. It is the Voiceline. Under
-the headline it lies flat and neutral; across the right 45 % it is alive and brass. Voice enters
-at the bottom right, becomes a sentence just above the line, and the sentence rises into three
-essay sheets above that. The eye reads the right side bottom to top, the way something is
+A dark scene, `--bg` with grain. One horizontal line crosses the whole hero: **the horizon**, the
+bottom edge of the hero's main block, with the facts strip hanging under it. It is the Voiceline.
+Under the headline it lies flat and neutral; across the stage it is alive and brass. Voice enters
+at the bottom right, becomes a sentence just above the line, and above the sentence are three
+essay sheets built from it. The eye reads the right side bottom to top, the way something is
 distilled, then lands back on the headline and the button.
 
 ```
 ┌────────────────────────────────────────────────────────────────────────────┐
 │ ( ⌃ AdmitStories            How it works  Pricing  Sign in  [Start your story →] ) │  nav, frost
 │                                                                            │
-│  ── MBA APPLICATIONS · IN YOUR OWN WORDS            ┌────┐┌────┐┌──────────┐ │
-│                                                     │note││note││note│ essay│ │  three sheets,
-│  Tell it once.                                      │    ││    ││    │ text │ │  fanned like a
-│  Tell it well.                                      │    ││    ││    │      │ │  hand of cards
-│                                                     └────┘└────┘└──────────┘ │
-│  AdmitStories listens to your life story once…                              │
-│  [ Start your story → ]  ( See how it works )       It was 2 a.m. and the   │  sentence, italic
-│  ◌ The AdmitStories model · trained on …            feed from the lab…      │
+│  ── MBA APPLICATIONS · IN YOUR OWN WORDS            ┌──────┬──────┬──────┬───────┐ │
+│                                                     │ WHY  │SHORT │A TIME│ FIRST │ │  three sheets,
+│  Tell it once.                                      │ note │ note │ note │ DRAFT │ │  fanned: three
+│  Tell it well.                                      │      │      │      │ essay │ │  margins, then
+│                                                     │ n/250│ n/100│ n/200│ text… │ │  the top essay
+│  AdmitStories listens to your life story once…      └──────┴──────┴──────┴───────┘ │
+│  [ Start your story → ]  ( See how it works )       SPOKEN · HOSPITAL SYSTEMS ANALYST│
+│  ◌ The AdmitStories model · trained on …            “It was 2 a.m. and the feed…”   │  sentence, italic
 │ ───────────────────────────────────────────────────╱╲╱‾╲╱╲__╱‾‾╲╱╲╱╲╱‾╲╱── │  the horizon
-│  01 You talk.        02 It drafts.        03 You see why.        ❙❙ SAMPLE  │  facts strip
+│  01 You talk.      02 It drafts.      03 You see why.      SAMPLE… FICTIONAL ❙❙ │  facts strip
 └────────────────────────────────────────────────────────────────────────────┘
 ```
 
 ### 3.2 Layout values
 
-| Element           | 1440 × 900 (`lg`+)                                                                       | 390 × 844 (base)                                         | `sm` 640–1023                                          |
-| ----------------- | ---------------------------------------------------------------------------------------- | -------------------------------------------------------- | ------------------------------------------------------ |
-| Nav               | fixed, top 16 px, inset 48 px, height 56 px, pill, `frost`                               | top 12 px, inset 12 px, height 52 px                     | inset 32 px                                            |
-| Copy column       | grid columns 1–7 (774 px, 57 %)                                                          | full width, margins 20 px                                | columns 1–8                                            |
-| Eyebrow           | top at 172 px                                                                            | top at 108 px                                            |                                                        |
-| H1                | 24 px under the eyebrow; two lines                                                       | two lines, same breaks                                   |                                                        |
-| Subline           | 28 px under the H1, max-width 460 px                                                     | 20 px under, full width                                  | max-width 520 px                                       |
-| Actions           | 36 px under the subline, row, gap 12 px                                                  | 28 px under, stacked, full width, gap 12 px              | row                                                    |
-| Model credit      | 32 px under the actions                                                                  | 24 px under                                              |                                                        |
-| Stage             | columns 8–12 (546 px wide), from 120 px to the horizon                                   | below the credit, 48 px gap, full width, 372 px tall     | below the copy, 420 px tall, max-width 560 px, centred |
-| Horizon           | `bottom: 128px`, full bleed                                                              | the stage's bottom edge, full bleed                      | same as base                                           |
-| Facts strip       | the last 128 px: 3 columns at grid 1–4, 5–8, 9–12, text baseline 56 px under the horizon | below the stage, stacked, 16 px apart, 32 px top padding | 3 columns                                              |
-| Left content ends | at least 40 px above the horizon at every height ≥ 720 px                                | n/a                                                      |                                                        |
+| Element      | `lg`+ (1440 × 900 shown)                                                                                                                 | base (390 × 844)                                                                                                  | `sm` 640–1023                             |
+| ------------ | ---------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------- | ----------------------------------------- |
+| Hero         | `min-height: clamp(832px, 100svh, 1000px)`; a column: main block (flex 1), then the strip                                                | height from content (1,414 px at 390)                                                                             | same as base                              |
+| Nav          | fixed, top 16 px, inset 48 px (the grid's margins, max 1344 px), height 56 px, pill                                                      | top 12 px, inset 12 px, height 52 px                                                                              | inset 32 px                               |
+| Copy column  | grid columns 1–7 (774 px), `padding-top: clamp(140px, 19svh, 190px)`, `padding-bottom: 56px`                                             | full width, the grid's 16 px gutters, `padding-top: 108px`                                                        | columns 1–8                               |
+| H1           | 24 px under the eyebrow; two lines                                                                                                       | two lines, same breaks                                                                                            |                                           |
+| Subline      | 28 px under the H1, max-width 460 px                                                                                                     | 20 px under, full width                                                                                           | max-width 520 px                          |
+| Actions      | 36 px under the subline, row, gap 12 px                                                                                                  | 28 px under, stacked, full width, gap 12 px                                                                       | row                                       |
+| Model credit | 32 px under the actions, 44 px tall link                                                                                                 | 24 px under                                                                                                       |                                           |
+| Stage        | columns 8–12 (546 px at 1440), bottom-aligned on the horizon, `padding-top: 104px`                                                       | below the credit, 56 px gap, full width                                                                           | below the copy, max-width 560 px, centred |
+| Horizon      | the bottom edge of the main block, full bleed; the line's box is 96 px tall, centred on it                                               | the same edge: the stage's bottom                                                                                 | same as base                              |
+| Facts strip  | 128 px tall, `padding-top: 40px`; four equal columns (each = 3 grid columns): three facts, then the sample note and pause, right-aligned | under the horizon: the sample note and pause on one row, then the facts stacked 20 px apart; 48 px bottom padding | sample note row, then three columns       |
 
-Under 720 px of height at `lg`, the model credit drops below the fold with the strip rather than
-the hero shrinking its type.
+Under 832 px of height at `lg` the strip falls below the fold rather than the hero shrinking its
+type. The phone's first screen holds the headline, both actions, the credit and the top 200 px of
+the fan; the sentence and the line are one short scroll down.
+
+**The stage is a container** (`container: hero-stage / inline-size`) and everything in it is set
+in `--u`, one pixel of the design it was drawn at, so the fan and the sentence scale as one piece
+with the column. Two designs:
+
+|                                  | Full (stage ≥ 460 px; `--u: 100cqw / 546`) | Small (stage < 460 px; `--u: 100cqw / 350`) |
+| -------------------------------- | ------------------------------------------ | ------------------------------------------- |
+| Sheet                            | 272 × 344                                  | 190 × 262                                   |
+| Step between sheets              | 120                                        | 82                                          |
+| Sheet margin (the note's column) | 108, padding 8                             | 76, padding 5                               |
+| Body padding                     | 14                                         | 10                                          |
+| Essay text                       | 12.5 / 1.6, 10 lines at most               | 10.5 / 1.6, 9 lines at most                 |
+| Note                             | 10.5 / 1.43 mono                           | 9.5 / 1.43 mono                             |
+| Title, kicker, count             | 9 mono caps, tracking 0.06em               | 8.5 mono caps, tracking 0.08em              |
+| Sentence                         | 34 / 1.2                                   | 24 / 1.2                                    |
+
+At 1440 the stage is 546 px and `--u` is 1 px. At 1280 it is 479 px (full design at 0.88); at
+1024, 373 px (small design at 1.07); at 390, 358 px (small design at 1.02).
 
 ### 3.3 Elements
 
-| Element      | Type                                                   | Colour                          | Notes                                                                                                                                                                                            |
-| ------------ | ------------------------------------------------------ | ------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| Wordmark     | §2.9, 18 px                                            | `--fg`                          | links to `/`                                                                                                                                                                                     |
-| Nav links    | `ui` 14 / 20, 500                                      | `--fg-80`, hover `--fg` 200 ms  | "How it works", "Pricing", "Sign in"                                                                                                                                                             |
-| Nav CTA      | button `sm` primary with arrow (40 px tall in the nav) | brass                           | "Start your story" → `/sign-in`. Phone: `sm` without arrow, plus a 40 px menu button                                                                                                             |
-| Eyebrow      | `label`                                                | `--fg-60`                       | "MBA applications · in your own words", 24 px rule before it                                                                                                                                     |
-| H1           | `display-hero`                                         | `--fg`                          | lines `["Tell it once.", "Tell it well."]`; "well." in Instrument Serif italic at `--fg-60`. Server-rendered; the LCP element. Phone array identical                                             |
-| Subline      | `body-lg` 17 / 1.55                                    | `--fg-80`                       | "AdmitStories listens to your life story once, then drafts each school's essays from it, shows its reasoning, and marks which words are yours."                                                  |
-| Primary      | button `lg` primary with arrow                         | brass                           | "Start your story" → `/sign-in`                                                                                                                                                                  |
-| Secondary    | button `lg` secondary                                  | frost-flat                      | "See how it works" → `#how`                                                                                                                                                                      |
-| Model credit | `ui-sm` 13 / 18                                        | name `--fg-80`, rest `--fg-64`  | `ModelSealMark` 28 px + `MODEL_NAME` · "trained on " + `TRAINED_ON`; links to `#the-model`                                                                                                       |
-| Facts        | index in `label`; text `ui` 14 / 20                    | index `--fg-60`, text `--fg-80` | "01 You talk. By voice or by typing, one question at a time." · "02 It drafts. Every essay, one school at a time." · "03 You see why. Each draft shows its reasoning and which words are yours." |
-| Sample note  | `label`                                                | `--fg-60`                       | "Sample applicants · fictional, as is Northfield", right end of the strip (base: under the stage)                                                                                                |
-| Pause        | 36 px icon button (44 px hit area), `frost-flat`       | `--fg-80`                       | "Pause the sample" / "Play the sample"; beside the sample note; absent under reduced motion                                                                                                      |
+| Element      | Type                                                                                                           | Colour                                       | Notes                                                                                                                                                                                            |
+| ------------ | -------------------------------------------------------------------------------------------------------------- | -------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| Nav pill     | `frost` look on a 72 % wash of `--bg`, blur 16 px                                                              | always the instrument (`data-theme="night"`) | the wash is what lets one pill read over the dark hero and over a paper scene alike; solid `--frost-solid` without backdrop-filter or under reduced transparency                                 |
+| Wordmark     | §2.9, 18 px                                                                                                    | `--fg`                                       | links to `/`                                                                                                                                                                                     |
+| Nav links    | `ui` 14 / 20, 500                                                                                              | `--fg-80`, hover `--fg` 200 ms               | "How it works", "Pricing", "Sign in"; `lg`+ only                                                                                                                                                 |
+| Nav CTA      | `lg`+: button `md` primary, 40 px tall, 28 px arrow circle. Below: button `sm`, no arrow (hidden under 340 px) | brass                                        | "Start your story" (`START_STORY` in `_copy/shared.ts`) → `/sign-in`                                                                                                                             |
+| Menu button  | 40 px round, `frost-flat`, 44 px hit area; two hairlines, the lower 62.5 % as long                             | `--fg`                                       | below `lg`; opens the phone menu                                                                                                                                                                 |
+| Eyebrow      | `eyebrow`                                                                                                      | `--fg-60`                                    | "MBA applications · in your own words"                                                                                                                                                           |
+| H1           | `display-hero`                                                                                                 | `--fg`                                       | lines `["Tell it once.", "Tell it well."]`; "well." in Instrument Serif italic at `--fg-60`. Server-rendered, one inline-block per word so each can rise in turn                                 |
+| Subline      | `body-lg` 17 / 1.55                                                                                            | `--fg-80`                                    | "AdmitStories listens to your life story once, then drafts each school's essays from it, shows its reasoning, and marks which words are yours."                                                  |
+| Primary      | button `lg` primary with arrow                                                                                 | brass                                        | "Start your story" → `/sign-in`                                                                                                                                                                  |
+| Secondary    | button `lg` secondary                                                                                          | frost-flat                                   | "See how it works" → `#follow` today; Phase 3 builds scene 3 with the id `how` and changes `HOW_HREF` in `hero.tsx`                                                                              |
+| Model credit | `ui-sm` 13 / 18                                                                                                | name `--fg-80`, rest `--fg-64`               | `ModelSealMark` 28 px + `MODEL_NAME` · "trained on " + `TRAINED_ON`; links to `#the-model`                                                                                                       |
+| Facts        | index in `label`; text `ui` 14 / 20, max-width 272 px                                                          | lead `--fg` 500, rest `--fg-64`              | "01 You talk. By voice or by typing, one question at a time." · "02 It drafts. Every essay, one school at a time." · "03 You see why. Each draft shows its reasoning and which words are yours." |
+| Sample note  | `label`                                                                                                        | `--fg-60`                                    | "Sample applicants · fictional, as is Northfield"                                                                                                                                                |
+| Pause        | button `sm` icon, secondary (36 px, 44 px hit area)                                                            | `--fg`                                       | "Pause the sample" / "Play the sample"; server-rendered `hidden`, shown by the loop when it starts, so it is absent under reduced motion and without JS                                          |
 
-**Phone menu.** The existing native `<dialog>` sheet (`menu-dialog.tsx`), restyled: `--bg` with
-grain, 24 px top radius, the three links in `display-3` on hairlines, the primary button full
-width at the bottom above the safe-area inset. It rises on the `glide` spring and fades under
-reduced motion. Past the hero the nav keeps the same frost; it does not change shape.
+**Phone menu.** The native `<dialog>` sheet (`menu-dialog.tsx`): `--bg` with grain, 24 px top
+radius, `calc(100dvh - 24px)` tall, a "Menu" `label` and a 40 px round close button, the three
+links in `display-3` on hairlines (72 px rows), and the primary button full width at the bottom
+above `max(24px, env(safe-area-inset-bottom))`. It rises on the `glide` spring and fades under
+reduced motion.
 
 Copy lives in `_copy/hero.ts`. Headline reasoning: "Your story, admitted." promises an outcome,
 which the product refuses to do (`INTEGRITY_LINES`), so it is out. "Tell it once. Tell it well."
@@ -623,59 +656,79 @@ All of it is decorative (`aria-hidden`), with one visually hidden sentence descr
 each with a note on why."
 
 **The Voiceline.** A `<canvas>` across the full hero width, 96 px tall, centred on the horizon,
-`devicePixelRatio` capped at 2.
+`devicePixelRatio` capped at 2. Until the loop starts it is an inline SVG path of the same frame.
 
-- Stroke 1.25 px, round joins. Colour is a horizontal gradient: `--line` from 0 to 50 % of the
-  width, blending to `--accent` at 68 % and holding to the right edge.
-- Shape at x (0–1 across the width) and time t:
-  `y = A(t) · E(x) · [0.55·sin(2π(xW/140 − 0.6t)) + 0.30·sin(2π(xW/52 + 1.1t) + 1.7) + 0.15·n(xW/18, 2.4t)]`
-  where `n` is 1-D value noise, `E(x) = smoothstep(0.50, 0.70, x) · (1 − smoothstep(0.965, 1, x))`
-  keeps it flat under the copy and tapered at the edge, and `A(t)` is the speaking amplitude:
-  `syntheticSignalAt()` (already in `@admitstory/ui`, driven by the sentence's word timings),
-  smoothed, times 34 px at `lg`, 22 px at base.
-- 180 sample points at `lg`, 96 at base. One `beginPath`, one `stroke`. Nothing else is drawn.
-- On phones `E(x)` spans the full width (`smoothstep(0.04, 0.2, x)` and the same taper).
+- Stroke 1.25 px, round joins. Colour is a horizontal gradient: `--line-strong` (20 %; `--line`
+  at 12 % was too faint to read as the horizon) to `--accent`.
+- Shape at x (0–1 across the width), for a width of W pixels, at time t:
+  `y = A · E(x) · [0.55·sin(2π(xW/140 − 0.6t)) + 0.30·sin(2π(xW/52 + 1.1t) + 1.7) + 0.15·n(xW/18 + 2.4t)]`
+  where `n` is 1-D value noise and `E(x) = smoothstep(rise₀, rise₁, x) · (1 − smoothstep(0.965, 1, x))`.
+- Two forms (`voiceline-shape.ts`):
 
-**The sentence.** Instrument Serif italic, 34 px at `lg`, 24 px at base, line-height 1.2,
-`--fg` for words already said and `--fg-48` for none (words that haven't been said aren't
-rendered ahead of time, so nothing dims). Max two lines at `lg` (546 px), three at base. Its last
-baseline sits 52 px above the horizon. Each sentence's block height is reserved up front (the
-tallest of the three), so nothing shifts.
+  |                        | `lg`+       | below `lg`  |
+  | ---------------------- | ----------- | ----------- |
+  | rise (flat → full)     | 0.50 → 0.70 | 0.04 → 0.20 |
+  | tint (neutral → brass) | 0.50 → 0.68 | 0.02 → 0.22 |
+  | peak height            | 34 px       | 22 px       |
+  | poster drawn for W =   | 1440        | 390         |
 
-**The sheets.** Three sheets of paper (`data-theme="day"`), each 248 × 336 px at `lg`, 168 × 228
-px at base, `--radius-paper`, no shadow.
+- `A` is the speaking level, 0–1: `syntheticSignalAt()` (in `@admitstory/ui`) over the sentence's
+  word timings, times 1.3 and capped at 1, followed with a time constant of 60 ms rising, 110 ms
+  falling between words and 150 ms settling to flat.
+- One segment every 4 px of the live part (48 to 260 segments). One `beginPath`, one `stroke`.
+  Nothing else is drawn. A flat line is drawn once and not again.
+- **The poster** is the frame at t = 1.7 s, level 0.86, drawn for the form's own W and stretched
+  to the hero (`preserveAspectRatio="none"`, `vector-effect: non-scaling-stroke`). The canvas
+  draws that same frame first, so the hand-over cannot be seen, and uses the real width from the
+  first live sentence on.
 
-- A hand of cards: sheet 1 left and lowest, sheet 3 right and on top. Offsets from the stage
-  centre (x, y, rotation): `lg` (−132, 10, −5°), (0, 0, 0°), (+132, 12, +5°); base (−86, 6, −5°),
-  (0, 0, 0°), (+86, 8, +5°). Their bottoms sit 132 px above the horizon at `lg`, 104 px at base.
-- Each sheet is two columns: a **left margin** 76 px wide (52 px at base) holding the margin note,
-  a 1 px `--rule`, then the body. The left margin is the part of every sheet that stays visible
-  in the fan, so all three notes can be read.
-- Margin note: `note` type at 10.5 px / 15 (9.5 px at base), `--accent-ink`, sentence case, top
-  aligned 44 px down.
-- Body: a `label` at 9.5 px in `--ink-66` ("WHY NORTHFIELD", "SHORT-TERM GOAL", "A TIME YOU
-  LED"), then the essay's opening in `read-sm` at 12.5 px / 1.6 (`--ink`), 5–7 lines, with the
-  applicant's spoken phrase marked as `verbatim` (§2.3, brass-ink hue for samples). A foot line in
-  `label` 9 px with the count against the limit (for example "187 / 200 WORDS").
+**The sentence.** Instrument Serif italic, 34 px (full design) or 24 px (small), line-height 1.2,
+`--fg`, balanced, in curly quotation marks with the opening mark hung in the margin. Above it a
+`label`: "Spoken · " and the speaker's role ("Hospital systems analyst", "Fintech product
+manager", "Family packaging business"). Its last baseline sits about 52 px above the horizon
+(`padding-bottom: 40px`). The three applicants' sentences share one grid cell, so the tallest
+reserves the height and nothing shifts. Words that have not been said are at opacity 0 in place.
 
-**The three samples** (existing fictional applicants; one new person each loop, never the same
-one twice in a row):
+**The sheets.** Three sheets of paper (`data-theme="day"`), `--radius-paper`.
 
-| #   | Applicant (source file)                                                 | Sentence                                                                            |
-| --- | ----------------------------------------------------------------------- | ----------------------------------------------------------------------------------- |
-| 1   | Night-shift hospital systems analyst (`_data/sample.ts`, `SAMPLE_LINE`) | "It was 2 a.m. and the feed from the lab system was dropping every fourth message." |
-| 2   | Fintech product manager (`_data/sample-words.ts`, L115)                 | "Not one of them was angry. They had simply forgotten it was there."                |
-| 3   | Family packaging business (`_sections/app-preview.tsx`)                 | "My father ran the plant from a notebook, and the notebook was always right."       |
+- A hand of cards: sheet 1 left and lowest, sheet 3 right and on top. From the stage centre
+  (x, y, rotation): (−step, +10, −5°), (0, 0, 0°), (+step, +12, +5°), bottoms 28 design px above
+  the sentence block.
+- **A sheet's margin is almost as wide as the step**, so what shows of the two sheets beneath is
+  their margins: three notes in a row, then the top sheet's essay. (The first build used 76 px
+  margins on 248 px sheets; the gaps then showed cut-off slivers of essay text.)
+- Margin column, top to bottom: the essay's title in mono caps (`--ink`), the note (`note` type,
+  `--brass-ink`), and at the foot the count against the limit on two lines ("187 / 200", "WORDS").
+- Body column: a kicker "FIRST DRAFT", then the essay's opening in the reading serif, clamped to
+  10 (9) lines, with the applicant's sentence marked as `verbatim` (§2.3): a 15 % brass-ink fill
+  and a 1.25 px brass-ink underline. On sheets 1 and 2 the text starts 36 px in, clear of the
+  wedge the fan leaves open.
+- Sheets 1 and 2 sit a tone back (`--paper` mixed 9 % and 5 % with `--bg`), so the top sheet is
+  the subject. Each casts paper's one contact shadow onto the sheet beneath (it is lost on the
+  dark): `-16px 8px 32px -12px rgb(11 10 9 / .55)` plus a 1 px edge at 6 % ink.
+- **The slots.** Behind the sheets, in the same three positions, are three empty pages drawn in
+  hairline (`--line` border and margin rule on `--bg`). They are hidden while the paper is down;
+  while an applicant is speaking they are the three pages waiting to be written, so the stage is
+  never empty.
+- The reading serif's roman is preloaded on this page (+19.7 KB) because the sheets are on screen
+  at first paint.
 
-Margin notes for sample 1 (the others are written in Phase 2 in the same voice, three each):
-"Why Northfield" → "Opens on the ward at 2 a.m. The school asks about ownership, so it comes
-first." · "Short-term goal" → "The goal grows out of that night: teams that never need the call." ·
-"A time you led" → "No title in this story. Kept: the phone list and the terrible coffee."
+**The three samples** (existing fictional applicants; `_copy/hero.ts`, `HERO_SAMPLES`). The third
+sheet, "A time you led", is the one on top and carries the sentence:
+
+| #   | Applicant (source)                                       | Sentence                                                                            | Notes: Why Northfield · Short-term goal · A time you led                                                                                                                                                                          |
+| --- | -------------------------------------------------------- | ----------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 1   | Night-shift hospital systems analyst (`_data/sample.ts`) | "It was 2 a.m. and the feed from the lab system was dropping every fourth message." | "Opens on the ward at 2 a.m. The school asks about ownership, so it comes first." · "The goal grows out of that night: teams that never need the call." · "No title in this story. Kept: the phone list and the terrible coffee." |
+| 2   | Fintech product manager (`_data/sample-words.ts`, L115)  | "Not one of them was angry. They had simply forgotten it was there."                | "Starts with the feature you shut down. Candour is what this prompt rewards." · "The goal follows from the calls: products people come back to." · "Leading, here, is ending your own work. The week of calls is the proof."      |
+| 3   | Family packaging business (`_sections/app-preview.tsx`)  | "My father ran the plant from a notebook, and the notebook was always right."       | "Begins with the notebook, not the job title. It shows what you came to learn." · "The goal is the next problem: a plant that runs without one memory." · "Your line opens it. The year of “homework” is where you lead."         |
+
+No word in a note is longer than ten characters: the margin holds about ten at the small size.
 (The brief's example says 3 a.m.; the sample says 2 a.m., and the sample wins.)
 
 ### 3.5 Motion
 
-**Entrance** (CSS, under `data-motion="on"`; each step is the §2.10 `enter`):
+**Entrance** (CSS, under `data-motion="on"`; each step is the §2.10 `enter`, its delay set as
+`--i: ms / 90`):
 
 | Step | Element                             | Delay                                                     | Ends |
 | ---- | ----------------------------------- | --------------------------------------------------------- | ---- |
@@ -684,56 +737,70 @@ first." · "Short-term goal" → "The goal grows out of that night: teams that n
 | 3    | H1, per word (6 words), 90 ms apart | 120, 210, 300, 390, 480, 570 ms                           | 1370 |
 | 4    | subline                             | 520 ms                                                    | 1320 |
 | 5    | actions, then model credit          | 640, 700 ms                                               | 1500 |
-|      | stage, strip                        | not animated in: they are simply there (the poster frame) |      |
-
-The H1's first word starts 120 ms after first paint, so LCP stays within one frame of FCP +120 ms.
-Phase 2 measures it; if the animated H1 costs more than 100 ms of LCP against a static one, the
-H1 words keep `opacity: 1` and animate only translate and blur.
+|      | stage, line, strip                  | not animated in: they are simply there (the poster frame) |      |
 
 **The poster.** The server renders the stage complete and still: sample 1's sentence, its three
-sheets fanned with their notes, and an inline SVG path of the Voiceline frozen at a chosen
-speaking shape (t = 1.7 s, seed fixed). That is the first thing anyone sees, with or without JS,
-and it is the screenshot.
+sheets fanned with their notes, and the Voiceline frozen mid-sentence. That is the first thing
+anyone sees, with or without JS, and it is the screenshot.
 
-**The loop.** A lazy island (loaded on idle after `load`, only while the hero is in view) takes
-over from the poster at the "hold" step and runs:
+**The loop.** `hero-loop-gate.tsx` waits for `load`, then idle, then the hero intersecting, and
+imports `hero-loop.ts`, which takes the poster's own elements over. All three applicants are in
+the HTML (two with `data-off`, `visibility: hidden`), so the loop carries no copy. One pass:
 
-| t (s)  | What happens                           | Values                                                                                                                                                                                                |
-| ------ | -------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| 0.0    | hold on the poster                     | 2.4 s on the first pass                                                                                                                                                                               |
-| 2.4    | sheets leave                           | each: opacity 1 → 0, y 0 → −12 px, 500 ms `--ease-exit`, 60 ms apart; sentence fades 400 ms; line settles flat (amplitude → 0, 600 ms `--ease-line`)                                                  |
-| 3.4    | rest                                   | 400 ms of a flat line                                                                                                                                                                                 |
-| 3.8    | next applicant speaks                  | amplitude 0 → 1 over 400 ms; each word at its estimated timing (`estimateWordTimings`, about 250 ms a word): opacity 0 → 1, y 10 px → 0, blur 6 px → 0, 420 ms `--ease-rise`                          |
-| ≈ 7.6  | last word lands; line settles          | amplitude → 0 over 600 ms; 500 ms beat                                                                                                                                                                |
-| ≈ 8.7  | the sentence lifts into the sheets     | sentence: y 0 → −40 px, opacity 1 → 0, 600 ms `--ease-rise`. Sheets rise from the horizon: y +60 px → rest, opacity 0 → 1, rotation 0 → rest, scale 0.96 → 1, `drift` spring (≈ 680 ms), 120 ms apart |
-| ≈ 9.7  | the spoken phrase is marked on sheet 3 | the underline draws left to right, `background-size` 0 → 100 %, 500 ms `--ease-line`                                                                                                                  |
-| ≈ 9.9  | margin notes appear                    | opacity 0 → 1, 300 ms, 150 ms apart, left to right                                                                                                                                                    |
-| ≈ 10.5 | hold                                   | 3.0 s, then back to 2.4                                                                                                                                                                               |
+| t (s) | What happens                             | Values                                                                                                                                                                                                             |
+| ----- | ---------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| 0.0   | hold                                     | 2.4 s on the poster the first time, 3.0 s afterwards                                                                                                                                                               |
+| 2.4   | sheets leave                             | each: opacity 1 → 0, y 0 → −12, 500 ms `--ease-exit`, 60 ms apart; sentence opacity → 0 over 400 ms; the line settles flat. The slots are left showing                                                             |
+| 3.4   | rest                                     | 400 ms of a flat line and three empty pages; the next applicant's elements are swapped in, hidden                                                                                                                  |
+| 3.8   | the next applicant speaks                | the "Spoken ·" label fades in (300 ms); each word at its timing (`estimateWordTimings`, 215 wpm, about 250 ms a word): opacity 0 → 1, y 10 px → 0, blur 6 px → 0, 420 ms `--ease-rise`; the line follows the voice |
+| ≈ 7.1 | last word lands; the line settles        | 900 ms                                                                                                                                                                                                             |
+| ≈ 8.0 | three sheets rise into their slots       | each: y +60 → 0, opacity 0 → 1, rotation 0 → rest, scale 0.96 → 1, `drift` spring (680 ms), 120 ms apart. **The sentence stays** and dims to 64 % over 600 ms `--ease-line`: it rests on the line under its essays |
+| ≈ 9.0 | the spoken sentence is marked on sheet 3 | fill and underline draw left to right, `background-size` 0 → 100 %, 500 ms `--ease-line`                                                                                                                           |
+| ≈ 9.2 | margin notes appear                      | opacity 0 → 1, 300 ms, 150 ms apart, left to right                                                                                                                                                                 |
+| ≈ 9.8 | hold                                     | 3.0 s, then back to "sheets leave"                                                                                                                                                                                 |
 
-One pass is about 11 s. Words and sheets are DOM, moved with the Web Animations API on
-`transform`, `opacity` and (words only) `filter`; the island imports no Motion and no GSAP.
+One pass is 11 to 12 s depending on the sentence. Words, sheets and notes are DOM, moved with the
+Web Animations API on `opacity`, `translate`, `rotate`, `scale`, `transform` and (words only)
+`filter`; each animation runs _from_ a start state _to_ the element's own style, so a cancelled
+animation leaves the element at rest. The loop imports no React, no Motion and no GSAP.
 
-**Stops.** `IntersectionObserver` (hero under 10 % visible), `visibilitychange` (tab hidden) and
-the pause button each cancel the `requestAnimationFrame` loop and pause the running animations.
-Paused means zero frames, not an idle loop. Resuming continues from the same step.
+(The first spec had the sentence lift 40 px and fade as the sheets rose. Built, that left the
+band above the line empty for the whole hold and made the hold look unlike the poster. Staying
+and dimming is "the line lies flat once the words are down", §1.1.)
+
+**Stops.** One clock drives the loop and it only advances inside `requestAnimationFrame`.
+`IntersectionObserver` (hero under 10 % visible), `visibilitychange` (tab hidden) and the pause
+button each cancel the frame loop and pause the running animations. Paused means zero frames,
+not an idle loop. Resuming continues from the same instant.
 
 ### 3.6 Reduced motion and no JS
 
-The poster frame, exactly, and nothing else: flat-to-speaking line as inline SVG, sample 1's
-sentence, its three sheets and notes. No pause button, no loop, no island download (the gate
-returns "never" under `prefers-reduced-motion`). It is composed to stand as a picture: the line
-rising at the right, the sentence resting on it, the sheets above.
+The poster frame, exactly, and nothing else. No pause button, no loop, no download of the loop
+(the gate returns before importing under `prefers-reduced-motion`, and under Save-Data). It is
+composed to stand as a picture: the line rising at the right, the sentence resting on it, the
+sheets above.
 
-### 3.7 Budget for the hero
+### 3.7 Budget for the hero, and what was measured (2026-11-14, production build, local)
 
-|                                          | Budget                                                                                                                                              | How it's checked                                            |
-| ---------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------- |
-| First-load JS for `/`                    | ≤ 152 KB gz (today 153.1 of 155). The hero's first-load part is a gate of ≤ 0.6 KB; today's `HeroStage` reducer and renderer gates leave first load | `bundle:check`                                              |
-| Lazy hero island                         | ≤ 7 KB gz, no Motion, no GSAP, no OGL                                                                                                               | source map of the chunk                                     |
-| Canvas frame                             | ≤ 1.5 ms of script, ≤ 4 ms total per frame on a mid-range phone (4× CPU throttle)                                                                   | Performance trace over one full loop; recorded in REPORT.md |
-| Frames while hidden, offscreen or paused | 0                                                                                                                                                   | trace                                                       |
-| CLS                                      | 0 from fonts and from the loop (reserved sentence box; sheets absolutely placed)                                                                    | Lighthouse                                                  |
-| LCP                                      | H1; < 2.5 s on Lighthouse mobile                                                                                                                    | Lighthouse                                                  |
+|                                          | Budget                                            | Measured                                                                                                                                          |
+| ---------------------------------------- | ------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------- |
+| First-load JS for `/`                    | ≤ 152 KB gz (was 153.3 of 155)                    | **151.9 KB**                                                                                                                                      |
+| Lazy loop                                | ≤ 7 KB gz, no Motion, no GSAP, no OGL             | **3.1 KB gz** (6.8 KB raw), none of the three                                                                                                     |
+| Canvas frame                             | ≤ 1.5 ms of script, ≤ 4 ms total, phone at 4× CPU | **0.07 ms** in the frame callback on average (1.7 ms worst), **1.9 ms** of main-thread time a frame over a full pass; desktop 0.04 and 1.0 ms     |
+| Frames while hidden, offscreen or paused | 0                                                 | **0** in all three (on laptops the old "follow" section's GSAP ticker still runs its own frames until Phase 3 removes it)                         |
+| CLS                                      | 0                                                 | **0** on the phone, 0.0001 on desktop, over a full pass                                                                                           |
+| LCP                                      | < 2.5 s on a mid-range phone                      | Lighthouse mobile, throttling applied for real: **2.28 s**, equal to first paint. Lighthouse's default simulated estimate: **2.87 s** (see below) |
+| Fonts preloaded on `/`                   | ≤ 110 KB                                          | **86 KB** (Geist, Geist Mono, Instrument Serif italic, Source Serif 4 roman)                                                                      |
+
+**About LCP.** The H1 is split into one inline-block a word so each can rise, and Chrome scores
+each block on its own, so no H1 word is ever the largest element. What Chrome reports as LCP is
+static, server-rendered text that paints with the first frame: the sample sentence on laptops
+and the top sheet's essay on phones (the subline under reduced motion). So LCP equals first
+contentful paint and the entrance costs it nothing, which is the point of the rule, though the
+element is not literally the H1. Lighthouse's simulated mode adds about 1.2 s on top of first
+paint by assuming everything that had loaded by then was needed; with the throttling actually
+applied, the two are the same moment. First paint itself (2.3 s on slow 4G) is mostly the 354 KB
+HTML document, nearly all of it the old sections below the hero that Phase 3 replaces.
 
 ---
 
@@ -887,6 +954,9 @@ old preload. The "5 files in the build" cap below was wrong about `next/font/goo
 emits each family's other unicode-range files (latin-ext, cyrillic and so on; 27 files, 350 KB
 on disk), which a browser fetches only if a page contains those characters. The cap that matters
 is the preload, and it holds.
+
+**Phase 2:** `/` also preloads Source Serif 4 roman (the hero's sheets are set in it and are on
+screen at first paint), so the landing page preloads 86 KB.
 
 Hard caps for the gates: no route preloads more than 110 KB of fonts. Source Serif is declared once without preload in
 the root layout (so `--font-reading` exists everywhere and lazy uses just work) and declared again

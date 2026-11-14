@@ -4,9 +4,9 @@
  * into the 120 ms fade tokens.css already defines, or no movement at all.
  */
 
-/* The nav: compact (a --depth plane at 88% with a faint blur and a 1px --edge) by default, and
-   transparent with no edge over the landing hero until #hero-end scrolls past. Pages without a
-   hero are compact from the first paint, with no JS. */
+/* The nav (SPEC §3.2): one frosted pill, the same over every scene. It is always the dark
+   instrument, whatever the page beneath: the frost sits on a 72% wash of --bg, so it reads over
+   the hero and over a paper scene alike. */
 .site-header {
   view-transition-name: site-header;
   pointer-events: none;
@@ -14,22 +14,40 @@
 .site-header-plane {
   pointer-events: auto;
   border: 1px solid var(--edge);
-  background-color: color-mix(in srgb, var(--depth) 88%, transparent);
-  -webkit-backdrop-filter: blur(12px);
-  backdrop-filter: blur(12px);
-  transition:
-    background-color var(--spring-glide-duration) var(--spring-glide),
-    border-color var(--spring-glide-duration) var(--spring-glide),
-    backdrop-filter var(--spring-glide-duration) var(--spring-glide);
+  background-color: color-mix(in srgb, var(--bg) 72%, transparent);
+  background-image: linear-gradient(var(--frost), var(--frost));
+  -webkit-backdrop-filter: blur(16px);
+  backdrop-filter: blur(16px);
 }
-[data-marketing-theme]:has(#hero-end) .site-header:not([data-past-hero]) .site-header-plane {
-  border-color: transparent;
-  background-color: transparent;
-  -webkit-backdrop-filter: none;
-  backdrop-filter: none;
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .site-header-plane {
+    background-color: var(--frost-solid);
+    background-image: none;
+  }
 }
-/* Over the hero (always Night) the plane also takes data-theme="night" (NavCompact), so the
-   nav reads Night whatever the page theme. */
+@media (prefers-reduced-transparency: reduce), (prefers-contrast: more), (forced-colors: active) {
+  .site-header-plane {
+    background-color: var(--frost-solid);
+    background-image: none;
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+  }
+}
+/* The menu button's glyph: two hairlines, the lower one shorter. */
+.site-menu-glyph {
+  display: grid;
+  gap: 5px;
+  width: 16px;
+}
+.site-menu-glyph::before,
+.site-menu-glyph::after {
+  content: "";
+  height: 1.25px;
+  background: currentColor;
+}
+.site-menu-glyph::after {
+  width: 62.5%;
+}
 
 ::view-transition-group(site-header) {
   animation: none;
@@ -42,7 +60,8 @@
   animation: none;
 }
 
-/* The phone menu: a native <dialog> as a full-height sheet rising on glide, radius 28 on top. */
+/* The phone menu: a native <dialog> as a full-height sheet of the instrument (--bg with grain,
+   24px on top), rising on glide. */
 .site-menu {
   position: fixed;
   inset: auto 0 0 0;
@@ -54,10 +73,10 @@
   padding: 0;
   border: 1px solid var(--edge);
   border-bottom: 0;
-  border-radius: var(--radius-sheet) var(--radius-sheet) 0 0;
-  background-color: var(--depth);
+  border-radius: var(--radius-card) var(--radius-card) 0 0;
+  background-color: var(--bg);
+  background-image: var(--grain-image);
   color: var(--text);
-  box-shadow: var(--plane-light);
   transform: translateY(0);
   transition:
     transform var(--spring-glide-duration) var(--spring-glide),
@@ -228,131 +247,355 @@ html.lenis body {
   margin-top: 2.5rem;
 }
 
-/* The hero (direction §4.2). The form's box is sized by CSS before anything loads: larger than
-   the viewport on desktop so it bleeds past the top and bottom, 120vw in the top 55% on phones. */
-/* The Voiceprint sits to the right of the headline as a quiet bronze emblem, not a backdrop. */
-.hero-form-box {
-  position: absolute;
-  top: 44%;
-  left: 74%;
-  width: min(68svh, 44vw);
-  aspect-ratio: 1 / 1;
-  margin: 0;
-  translate: -50% -50%;
-  pointer-events: none;
-  opacity: 0.9;
+/* The hero (SPEC §3). One line, the horizon, crosses it: flat under the headline, a voice across
+   the stage. The stage sits on that line and the facts strip hangs under it. Everything here is
+   layout for the poster the server renders; ./_hero/hero-loop.ts animates the same elements. */
+.hero {
+  position: relative;
+  isolation: isolate;
+  display: flex;
+  flex-direction: column;
+  overflow: clip;
 }
-@media (max-width: 1023px) {
-  .hero-form-box {
-    top: 26svh;
-    left: 50%;
-    width: min(70vw, 46svh);
-    opacity: 0.55;
+.hero-main {
+  position: relative;
+  display: flex;
+  flex: 1;
+}
+.hero-grid {
+  align-items: start;
+}
+.hero-copy {
+  padding-top: 108px;
+}
+
+/* The stage is a container, and everything in it is set in --u: one pixel of the design it was
+   drawn at. So the fan and the sentence scale as one piece with the column, from a 320px phone
+   to a 546px column on a wide laptop. There are two designs: a small hand (phones, and columns
+   under 460px) and the full one. */
+.hero-stage {
+  container: hero-stage / inline-size;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  width: 100%;
+  margin-top: 56px;
+}
+.hero-stage > * {
+  --u: calc(100cqw / 350);
+  --sheet-w: 190;
+  --sheet-h: 262;
+  --sheet-x: 82;
+  --sheet-margin: 76;
+  --sheet-pad: 5;
+  --body-pad: 10;
+  --fs-text: 10.5;
+  --fs-note: 9.5;
+  --fs-title: 8.5;
+  --fs-say: 24;
+  --text-lines: 9;
+  --title-track: 0.08em;
+}
+@container hero-stage (min-width: 460px) {
+  .hero-stage > * {
+    --u: calc(100cqw / 546);
+    --sheet-w: 272;
+    --sheet-h: 344;
+    --sheet-x: 120;
+    --sheet-margin: 108;
+    --sheet-pad: 8;
+    --body-pad: 14;
+    --fs-text: 12.5;
+    --fs-note: 10.5;
+    --fs-title: 9;
+    --fs-say: 34;
+    --text-lines: 10;
+    /* Tight enough that every title sits on one line of the wider margin. */
+    --title-track: 0.06em;
   }
 }
 
-/* The hero's ink: warm black with one pool of lamp light, like the reference's desk at night. */
-.hero-ink {
-  background-image:
-    var(--grain),
-    radial-gradient(
-      60% 55% at 74% 40%,
-      color-mix(in srgb, var(--accent) 13%, transparent),
-      transparent 70%
-    ),
-    radial-gradient(
-      80% 60% at 10% 110%,
-      color-mix(in srgb, var(--accent) 6%, transparent),
-      transparent 70%
-    );
+/* Three sheets of paper, fanned like a hand of cards: the first lowest and to the left, the third
+   on top. A sheet's margin is as wide as the step between sheets, so what shows of the two
+   beneath is exactly their margins: three notes in a row, then the top sheet's essay. */
+.hero-fans {
+  position: relative;
+  height: calc((var(--sheet-h) + 40) * var(--u));
+}
+.hero-fan {
+  position: absolute;
+  inset: 0;
+}
+.hero-fan[data-off],
+.hero-say[data-off] {
+  visibility: hidden;
+}
+.hero-leaf {
+  position: absolute;
+  bottom: calc((28 - var(--y)) * var(--u));
+  left: calc(50% + (var(--x) * var(--sheet-x) - var(--sheet-w) / 2) * var(--u));
+  width: calc(var(--sheet-w) * var(--u));
+  height: calc(var(--sheet-h) * var(--u));
+  border-radius: var(--radius-paper);
+  rotate: var(--r);
+}
+.hero-leaf:nth-child(1) {
+  --x: -1;
+  --y: 10;
+  --r: -5deg;
+}
+.hero-leaf:nth-child(2) {
+  --x: 0;
+  --y: 0;
+  --r: 0deg;
+}
+.hero-leaf:nth-child(3) {
+  --x: 1;
+  --y: 12;
+  --r: 5deg;
+}
+/* The slots: where the sheets lie, drawn in hairline on the dark, each with its margin rule.
+   Hidden under the paper while it is down; while an applicant is speaking they are the three
+   pages waiting to be written. */
+.hero-slot {
+  border: 1px solid var(--line);
+  background-color: var(--bg);
+  background-image: linear-gradient(var(--line), var(--line));
+  background-repeat: no-repeat;
+  background-position: calc(var(--sheet-margin) * var(--u)) 0;
+  background-size: 1px 100%;
 }
 .hero-sheet {
-  position: absolute;
-  padding: 1.5rem 1.75rem;
-  border-radius: 4px;
-  background: #f3efe8;
-  color: #1a1713;
-  font-family: var(--font-reading);
-  font-size: 0.9375rem;
-  line-height: 1.65;
-  opacity: 0.14;
-  box-shadow: 0 30px 60px -20px rgb(0 0 0 / 0.8);
+  --hero-glow: color-mix(in srgb, var(--brass-ink) 15%, transparent);
+  display: grid;
+  grid-template-columns: calc(var(--sheet-margin) * var(--u)) minmax(0, 1fr);
+  overflow: hidden;
+  background-color: var(--paper);
+  color: var(--ink);
+  /* The one contact shadow paper is allowed: it falls on the sheet beneath, and is lost on the
+     dark. */
+  box-shadow:
+    0 0 0 1px rgb(20 20 20 / 0.06),
+    calc(-16 * var(--u)) calc(8 * var(--u)) calc(32 * var(--u)) calc(-12 * var(--u))
+      rgb(11 10 9 / 0.55);
 }
-.hero-sheet-head {
-  margin-bottom: 0.75rem;
-  font-family: var(--font-mono);
-  font-size: 0.6875rem;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-  color: #625b50;
+/* The sheets further down the hand sit a tone back, so the top one is the subject. */
+.hero-sheet:nth-child(1) {
+  background-color: color-mix(in srgb, var(--paper) 91%, var(--bg));
 }
-/* While the visitor speaks, the H1 and subline dim to 35% on snap. Opacity only, so the LCP
-   element never moves. */
-.hero-copy {
-  transition: opacity var(--spring-snap-duration) var(--spring-snap);
+.hero-sheet:nth-child(2) {
+  background-color: color-mix(in srgb, var(--paper) 95%, var(--bg));
 }
-#hero[data-dim] .hero-copy {
-  opacity: 0.35;
-}
-/* The live transcript (and the write-instead field) sit over the upper form, clear of the H1. */
-.hero-center {
-  position: absolute;
-  top: 31svh;
-  left: 50%;
-  z-index: 20;
-  width: min(56rem, calc(100vw - 2rem));
-  translate: -50% -50%;
-}
-@media (max-width: 639px) {
-  .hero-center {
-    top: 27.5svh;
-  }
-}
-/* The essay sheet and its caption rise into the lower part of the stage. */
-.hero-sheet-stack {
-  position: absolute;
-  inset-inline: 0;
-  bottom: 0;
-  z-index: 30;
+.hero-sheet-margin {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  gap: 1.5rem;
-  padding: 0 1rem 2rem;
+  padding: calc(18 * var(--u)) calc(var(--sheet-pad) * var(--u)) calc(14 * var(--u));
+  border-right: 1px solid var(--rule);
+  font-family: var(--font-mono);
 }
-.hero-line {
-  border-radius: 4px;
-  box-decoration-break: clone;
+.hero-sheet-title,
+.hero-sheet-kicker,
+.hero-sheet-count {
+  font-family: var(--font-mono);
+  font-size: calc(var(--fs-title) * var(--u));
+  font-weight: 500;
+  line-height: 1.45;
+  letter-spacing: var(--title-track);
+  text-transform: uppercase;
+  color: var(--ink-66);
+}
+.hero-sheet-title,
+.hero-sheet-kicker {
+  min-height: calc(var(--fs-title) * 2.9 * var(--u));
+}
+.hero-sheet-title {
+  color: var(--ink);
+}
+.hero-sheet-note {
+  margin-top: calc(12 * var(--u));
+  font-size: calc(var(--fs-note) * var(--u));
+  line-height: 1.43;
+  color: var(--brass-ink);
+}
+.hero-sheet-body {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  padding: calc(18 * var(--u)) calc(var(--body-pad) * var(--u)) calc(14 * var(--u));
+}
+/* The two sheets beneath show a sliver of their essay where the fan opens (the sheets turn, so
+   the gap is a wedge). Their text starts clear of it: what shows there is paper. */
+.hero-sheet:not(:last-child) > .hero-sheet-body {
+  padding-left: calc(36 * var(--u));
+}
+/* An opening, not the essay: it stops after a set number of lines, mid-thought. */
+.hero-sheet-text {
+  display: -webkit-box;
+  margin-top: calc(12 * var(--u));
+  overflow: hidden;
+  /* The face comes from the element's next/font class: the preloaded reading serif. */
+  font-size: calc(var(--fs-text) * var(--u));
+  line-height: 1.6;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: var(--text-lines);
+  line-clamp: var(--text-lines);
+}
+.hero-sheet-count {
+  margin-top: auto;
+}
+/* The applicant's own sentence, marked as theirs twice over (SPEC §2.3): a fill and a solid
+   underline. The loop draws both in from the left. */
+.hero-mark {
+  padding-block: 0.14em;
+  background-color: transparent;
+  background-image:
+    linear-gradient(var(--hero-glow), var(--hero-glow)),
+    linear-gradient(var(--brass-ink), var(--brass-ink));
+  background-repeat: no-repeat;
+  background-position:
+    0 0,
+    0 100%;
+  background-size:
+    100% 100%,
+    100% 1.25px;
   -webkit-box-decoration-break: clone;
-  transition:
-    background-color var(--spring-glide-duration) var(--spring-glide),
-    box-shadow var(--spring-glide-duration) var(--spring-glide);
+  box-decoration-break: clone;
+  color: inherit;
 }
-.hero-line[data-lit] {
-  background-color: var(--voice-glow);
-  box-shadow: 0 0 0.7em var(--voice-glow);
+
+/* The sentence rests on the line. All three applicants' sentences share one grid cell, so the
+   tallest reserves the height and nothing moves when they change. */
+.hero-says {
+  display: grid;
+  align-items: end;
+  margin-top: calc(10 * var(--u));
+  padding-bottom: 40px;
 }
-@media (max-height: 760px) {
-  .hero-ruled-extra {
+.hero-say {
+  grid-area: 1 / 1;
+}
+.hero-say-line {
+  margin-top: 10px;
+  padding-left: 0.4em;
+  font-family: var(--font-accent);
+  font-size: calc(var(--fs-say) * var(--u));
+  font-style: italic;
+  line-height: 1.2;
+  letter-spacing: -0.005em;
+  /* The opening quotation mark hangs in the margin. */
+  text-indent: -0.4em;
+  text-wrap: balance;
+  color: var(--fg);
+}
+.hero-say > .label {
+  padding-left: 0.1em;
+}
+.hero-word {
+  display: inline-block;
+  /* An inline-block starts its own first line, so the hanging indent stops here. */
+  text-indent: 0;
+}
+
+/* The horizon: the bottom edge of .hero-main, full bleed. The server's SVG until the loop's
+   canvas has drawn the same frame. */
+.hero-horizon {
+  --hero-line: var(--line-strong);
+  position: absolute;
+  inset-inline: 0;
+  bottom: -48px;
+  z-index: 1;
+  height: 96px;
+  pointer-events: none;
+}
+.hero-horizon > * {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+.hero-line-lg {
+  display: none;
+}
+
+/* Under the horizon: the sample's label and its pause control, then three facts. */
+.hero-strip {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  row-gap: 20px;
+  padding-top: 20px;
+  padding-bottom: 48px;
+}
+.hero-sample-note {
+  display: flex;
+  min-height: 44px;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  order: -1;
+  margin-bottom: 12px;
+}
+.hero-pause-play,
+.hero-pause[data-state="paused"] .hero-pause-bars {
+  display: none;
+}
+.hero-pause[data-state="paused"] .hero-pause-play {
+  display: inline;
+}
+
+@media (min-width: 40rem) {
+  .hero-stage {
+    max-width: 560px;
+    margin-inline: auto;
+  }
+  .hero-strip {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+  .hero-sample-note {
+    grid-column: 1 / -1;
+  }
+}
+
+@media (min-width: 64rem) {
+  .hero {
+    min-height: clamp(832px, 100svh, 1000px);
+  }
+  .hero-copy {
+    padding-top: clamp(140px, 19svh, 190px);
+    padding-bottom: 56px;
+  }
+  .hero-stage {
+    align-self: end;
+    max-width: none;
+    margin-top: 0;
+    padding-top: 104px;
+  }
+  .hero-line-lg {
+    display: block;
+  }
+  .hero-line-base {
     display: none;
   }
-}
-/* The 15-second ring around the record button. */
-@keyframes hero-countdown {
-  from {
-    stroke-dashoffset: 0;
+  .hero-strip {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    height: 128px;
+    padding-top: 40px;
+    padding-bottom: 0;
   }
-  to {
-    stroke-dashoffset: var(--ring-length);
+  .hero-sample-note {
+    grid-column: auto;
+    order: 0;
+    min-height: 0;
+    align-items: flex-start;
+    justify-content: flex-end;
+    margin-bottom: 0;
+    text-align: right;
+  }
+  .hero-sample-note > .label {
+    padding-top: 2px;
   }
 }
-.hero-ring {
-  animation: hero-countdown 15s linear forwards;
-}
-@media (prefers-reduced-motion: reduce) {
-  .hero-ring {
-    animation: none;
-  }
+.hero-horizon[data-live] > svg {
+  display: none;
 }
 
 /* The schools strip (_sections/schools-strip.tsx): one row drawn twice, slid by half its width. */

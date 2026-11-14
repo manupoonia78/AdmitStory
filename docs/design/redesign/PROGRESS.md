@@ -8,29 +8,34 @@ push, never deploy.
 
 ## Next step
 
-**Phase 1 is done. Wait for Manu to name Phase 2 (landing hero).** Do not start it on your own.
+**Phase 2 is built and awaiting Manu's review of the hero.** Do not start Phase 3 until he names
+it. If his message has feedback on the hero, write it into "Decisions" (with the date), change
+SPEC §3 to match, and fix the hero first.
 
-Manu's answers to the five questions under "Needs Manu" have **not** been recorded: he named
-Phase 1 in a session that was cut off before writing anything here, so Phase 1 was built on the
-spec's own defaults. If his next message contains answers, write them into "Decisions" (with the
-date) and change SPEC.md to match before anything else. Two of them touch code that now exists:
-question 4 (`--needs` slate blue and the three hue labels, both in `tokens.css` /
-`voice-hues.ts`) and question 1 (the casing, left Day-coloured in Day until Phase 5).
+Manu's answers to the five questions under "Needs Manu" have **still not been recorded** (he
+named Phase 2 without answering them), so Phases 1 and 2 stand on the spec's defaults. Question 2
+(the headline) is now built; if he changes it, it is two strings in `_copy/hero.ts`
+(`headingLines`, `headingAccent`).
 
-When Phase 2 is named, start here:
+When Phase 3 is named, start here:
 
-1. Start the local environment from `local-db.md`. Use the production build, not `next dev`
-   (it reload-loops under Playwright; the note is in `local-db.md` §4).
-2. Expand nothing: SPEC §3 is already at full values. Build in this order: the marketing nav
-   (`frost` pill, `Wordmark`, "Start your story" with `buttonStyles({ arrow: true })`) → the
-   server-rendered H1 and poster frame → the lazy Voiceline island (canvas, pause when hidden or
-   offscreen, pause control) → the three essay sheets (`sheet` at `read-sm`, `note` margin lines)
-   → the reduced-motion still → the phone composition → the facts strip. Then measure per-frame
-   cost and LCP, shoot `landing` at 1440 / 390 / 375 with and without `--reduced`, score, and stop
-   for review.
-3. The system is in `packages/ui`; `/prototype/system` shows every piece. Reuse it: the hero's
-   entrance is the `enter` utility with `--i`, the line is `draw-line` or the canvas, never a new
-   keyframe.
+1. Start the local environment from `local-db.md` (production build, not `next dev`). A Postgres
+   on 5455 may still be running from an earlier session: run the guard, then reuse it.
+2. Expand SPEC §4 (scenes 2–13) to full values before building. Then build in page order. Things
+   Phase 2 left for Phase 3, all noted in SPEC §3:
+   - give scene 3 the id `how` and point `HOW_HREF` in `_hero/hero.tsx` at it (it is `#follow`
+     today);
+   - make marketing dark-only (`marketingTheme()` returns Night, the footer's theme switch goes,
+     `themeColor` follows). The nav is already always dark and needs no change;
+   - rebuild "Write your own line" in scene 5 from `_copy/write-line.ts` and
+     `_hero/line-cleanup.ts` (the old toy lived in `hero-experience.tsx`, last in `98dfc25`);
+   - remove GSAP and Lenis (§8.3); `_lib/gates.ts` then loses `followGate` and
+     `smoothScrollGate`;
+   - the sheet look for scenes 4 and 5 should reuse the hero's (`hero-leaf`, `hero-sheet*` in
+     `marketing.css`): lift those rules into shared classes rather than copying them.
+3. Known faults in the old sections that Phase 3 replaces, so they need no separate fix: a 16 px
+   sideways overflow at 320 px from the "steps" section, and one axe contrast failure (4.48:1) on
+   the "91% your words" chip in `app-preview.tsx`.
 
 ## Phases
 
@@ -38,7 +43,7 @@ When Phase 2 is named, start here:
 | -------------------------- | -------------------------------------------------------------------------------------------------------------------------- | ------------------------------ |
 | 0. Read, capture, spec     | repo read, branch, `shoot.mjs`, `local-db.md`, before shots, SPEC.md, this file                                            | reviewed; answers not recorded |
 | 1. Design system           | tokens, type, grain, frost, components, motion utilities, wordmark, favicon, utility migration, tests, `/prototype/system` | **done** (2026-11-13)          |
-| 2. Landing hero            | nav, hero signature, reduced-motion still, phone composition, facts strip, frame cost, LCP                                 | not started                    |
+| 2. Landing hero            | nav, hero signature, reduced-motion still, phone composition, facts strip, frame cost, LCP                                 | **awaiting review** (11-14)    |
 | 3. Landing, all scenes     | sections 2–13, GSAP sequence to CSS, Lenis decision                                                                        | not started                    |
 | 4. Other marketing + entry | `/how-it-works`, `/pricing`, `/privacy`, `/terms`, OG, titles, `/sign-in`, `/welcome`, `/first-run`                        | not started                    |
 | 5. Shell, home, Studio     | casing, sidebar, top bar, dock, palette, account menu, toasts, `/home`, `/studio`                                          | not started                    |
@@ -95,6 +100,31 @@ second inspected that work, kept all of it, and finished).
 - [x] SPEC.md updated where the build differs (§2.1 names, §2.2 interim, §2.4, §2.10, §2.12,
       §2.13, §8.1); REPORT.md; committed
 
+## Phase 2 checklist
+
+Built in one session on 2026-11-14.
+
+- [x] Marketing nav: one frosted pill, always dark, on the grid's margins; "Start your story";
+      40 px round menu button below `lg`; `nav-compact.tsx` removed
+- [x] Phone menu restyled (`--bg` with grain, 24 px top, links in `display-3`, primary at the foot)
+- [x] Server-rendered hero: eyebrow, H1 word by word, subline, both actions, model credit
+- [x] The poster: sample 1's sentence, three fanned sheets with margin notes, the Voiceline as an
+      inline SVG path (one for `lg`+, one below)
+- [x] `voiceline-shape.ts` (shared maths), `hero-loop-gate.tsx` (first load), `hero-loop.ts`
+      (lazy: canvas line, word-by-word sentence, sheets rising into hairline slots, the mark, the
+      notes; pause when hidden, offscreen or paused; pause control)
+- [x] Three samples written in `_copy/hero.ts` (nine margin notes, nine openings)
+- [x] Reduced-motion and no-JS still: the poster, no pause button, the loop never requested
+- [x] Phone and tablet composition (the stage is a container; two designs scaled in `--u`)
+- [x] Facts strip with the sample note and pause control
+- [x] Old hero deleted: `hero-stage`, `hero-experience`, `hero-voiceprint`, `hero-state`,
+      `hero-motion`, `hero-ui`, `hero-demo`; `rendererGate` removed from `_lib/gates.ts`
+- [x] Measured: per-frame cost, frames while stopped, CLS, LCP (observed, Lighthouse simulated,
+      Lighthouse applied), the loop's chunk, font preload, axe
+- [x] Shot `landing` at 1440 / 390 / 375 with and without `--reduced`, plus hero evidence shots
+- [x] Gates: typecheck, lint, build, `bundle:check`
+- [x] SPEC §3 rewritten to the values as built; REPORT.md; committed
+
 ## Decisions
 
 Made in Phase 0 by Claude, in the spec, **not yet approved by Manu**:
@@ -127,6 +157,25 @@ Made in Phase 1 by Claude while building, **not yet approved by Manu**:
 | 2026-11-13 | `/prototype/system` follows Day / Night outside its three fixed material panels                                         | the same page then shows the working area both ways                                      | §2.13      |
 | 2026-11-13 | The system page's sample is a new fictional applicant (cold-chain coordinator, Nashik), school Northfield               | the brief: any new sample is a new fictional person                                      | §2.13      |
 
+Made in Phase 2 by Claude while building, **not yet approved by Manu**:
+
+| Date       | Decision                                                                                                                     | Why                                                                                                                   | Spec       |
+| ---------- | ---------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------- | ---------- |
+| 2026-11-14 | The loop is plain DOM, canvas and the Web Animations API on the server's own markup: no React island, no hydration           | 3.1 KB instead of a hydrated island; no chance of the lazy-island double blink; all three samples' copy stays in HTML | §3.5       |
+| 2026-11-14 | Sheet margins are as wide as the step between sheets (108 of 120), on 272 × 344 sheets                                       | with 76 px margins the fan showed cut-off slivers of essay text; now it shows three notes, then one essay             | §3.2, §3.4 |
+| 2026-11-14 | The sentence stays under its sheets and dims to 64 %; it does not lift and fade                                              | lifting left the band above the line empty for the whole hold, and the hold no longer matched the poster              | §3.5       |
+| 2026-11-14 | Three hairline "slots" sit where the sheets lie and show while an applicant speaks                                           | without them the right half of the hero was empty for five seconds of every eleven                                    | §3.4       |
+| 2026-11-14 | Title, note and word count all live in the sheet's margin; a "Spoken · role" label sits above the sentence                   | every sheet is then identifiable in the fan; the label says whose voice the line is                                   | §3.4       |
+| 2026-11-14 | The flat line is `--line-strong` (20 %), not `--line` (12 %)                                                                 | at 12 % the horizon did not read as a line under the headline                                                         | §3.4       |
+| 2026-11-14 | Sheets 1 and 2 sit a tone back and each sheet casts one contact shadow on the one beneath (the first spec said no shadow)    | three same-coloured overlapping sheets had no visible edges                                                           | §3.4       |
+| 2026-11-14 | The stage is a CSS container and the fan is set in `--u`; two designs, switching at a 460 px stage                           | one composition from 320 px phones to 1920 px screens with no per-breakpoint numbers                                  | §3.2       |
+| 2026-11-14 | The nav is always dark (frost on a 72 % wash of `--bg`), also over paper                                                     | plain frost over a paper scene would be a pale pill with white text; scene 5 and the legal pages are paper            | §3.3       |
+| 2026-11-14 | Strip is four equal columns (three facts, then the sample note and pause), not facts at 1–4, 5–8, 9–12                       | the sample note and pause need a place on the strip's right end                                                       | §3.2       |
+| 2026-11-14 | `/` preloads Source Serif 4 roman (+19.7 KB; 86 KB of fonts in all)                                                          | the sheets are on screen at first paint; without it the essay text swapped faces in view                              | §3.4, §8.1 |
+| 2026-11-14 | Phone gutters stay the grid's 16 px (the first spec said 20 px)                                                              | every other marketing section uses `SECTION_GRID`                                                                     | §3.2       |
+| 2026-11-14 | `synthetic-signal.ts` imports the springs from `../springs`, not `../motion`                                                 | `../motion` imports `motion/react`; the loop must not be able to pull Motion into its chunk                           | §3.5       |
+| 2026-11-14 | The H1 is one inline-block a word, so it is not what Chrome reports as LCP; LCP is other server-rendered text at first paint | the brief asks for both a per-word rise and "the H1 is the LCP element"; see SPEC §3.7 and "Needs Manu" 6             | §3.7       |
+
 Approved, changed or rejected by Manu: Phase 1 was named (so the Phase 0 spec was accepted as the
 working basis), but no answer to the five questions below was written down. Treat all five as
 open.
@@ -143,11 +192,37 @@ open.
 5. **"12 schools, read closely" in `model-claims.ts`** while 16 packs are published (§9.4): leave,
    or will you update the claim? (Only you change claims.)
 
+6. **The H1 and LCP** (SPEC §3.7): the brief wants the H1 to rise word by word _and_ to be the
+   LCP element. Split into words, it can't be the element Chrome reports; what is reported
+   instead is static server text that paints with the first frame, so LCP equals first paint.
+   Keep the per-word rise (my recommendation), or have the H1 appear whole and still so it is
+   literally the LCP element?
+7. **Lighthouse's simulated LCP for `/` is 2.87 s**, over the 2.5 s target, while with throttling
+   really applied it is 2.28 s and equal to first paint. Most of first paint is the 354 KB
+   document, nearly all of it sections Phase 3 replaces, so I expect both to drop then; it is
+   re-measured in Phases 3 and 8. Say if you want it chased now instead.
+
 Also for you, not design: `LEGAL_ENTITY` in `_copy/chrome.ts` is still `TODO(Manu)` and shows in
 the footer's copyright line.
 
 ## Open problems
 
+- **Someone else is working in this checkout at the same time** (seen 2026-11-14): during the
+  Phase 2 session about twenty files outside the redesign changed in the working tree (Studio
+  screens, `api/studio`, `packages/ai`, `packages/slots`, `packages/voice`, `knowledge/canon`),
+  on top of the four listed below. All were left alone and none are in a redesign commit. Local
+  builds for screenshots include them, because they are in the tree. One of them
+  (`packages/voice/src/contract.ts`, the utterance end now 1,500 ms) makes
+  `apps/web/app/api/stt/token/route.test.ts` fail; that test and the `db` schema test are the
+  two failures of 2,517, and neither is the redesign's.
+- **"Write your own line" is not on the landing page between Phase 2 and Phase 3.** It opened
+  from the old hero; it comes back in scene 5. Its copy and clean-up code are kept (see "Next
+  step").
+- **Below the hero the landing page is still the old one**, and still Day-themed, so the page
+  goes dark hero → paper sections. The dark nav pill reads over both. Phase 3.
+- **Old-section faults seen while testing the hero**: 16 px sideways overflow at 320 px ("steps"
+  section; 375 px is clean), one contrast failure in `app-preview.tsx`, and the GSAP ticker
+  running frames on laptops even when the hero's loop is paused. All three go with Phase 3.
 - **Uncommitted work that is not the redesign's** sits in the working tree and was left alone:
   `AdmitStory_Build_Spec.md`, `packages/slots/src/questions.ts`, `packages/slots/src/slots.ts`,
   `apps/web/lib/studio/summary.ts` (the Studio slots v1.1 change of 2026-11-12). Redesign commits
@@ -157,8 +232,9 @@ the footer's copyright line.
   is out of scope, so it was not changed. Every other test passes (2,516 of 2,517; `packages/ui`
   742 of 742).
 - **Interim look on screens not yet redesigned**: old Newsreader italics outside display lines are
-  now a synthesised Geist oblique (`/sign-in`'s right panel is the clearest case), and the WebGL
-  orb still draws in the hero. Each goes in its own phase (SPEC §2.12).
+  now a synthesised Geist oblique (`/sign-in`'s right panel is the clearest case). The WebGL orb
+  left the landing hero in Phase 2; it still draws in the final call, the Studio, first-run and
+  the Dossier voice tab. Each goes in its own phase (SPEC §2.12).
 - **`next dev` reload-loops under Playwright** on every route. Not diagnosed. Work from the
   production build (`local-db.md` §4).
 - `pnpm format:check` also flags `apps/web/app/(app)/settings/privacy/delete-dialog.tsx` and the
@@ -196,14 +272,41 @@ the footer's copyright line.
   warnings.
 - axe (WCAG 2.2 AA) on `/prototype/system`: 0 violations in Night and in Day.
 
+## Measured after Phase 2 (2026-11-14, production build, local)
+
+- First-load JS: `/` **151.9 KB** of 155 (was 153.3); `/how-it-works` 150.8, `/pricing` 145.6,
+  `/privacy` 144.8, `/terms` 144.4, `/sign-in` 157.9 of 160. The hero's loop: 3.1 KB gz, lazy.
+- Fonts preloaded on `/`: 86 KB (Source Serif 4 roman added for the sheets). Other routes
+  unchanged.
+- Loop on a phone at 4× CPU: 0.07 ms a frame in the callback, 1.9 ms of main-thread time a
+  frame; 0 frames while paused, offscreen or hidden. Desktop: 0.04 ms and 1.0 ms.
+- CLS over a full pass: 0 (phone), 0.0001 (desktop).
+- LCP: equals first paint (observed locally 0.1–0.25 s). Lighthouse mobile, simulated: FCP 1.66 s,
+  LCP 2.87 s, TBT 16 ms, CLS 0, performance 0.95, accessibility 0.97 (the old-section chip), best
+  practices 1.00, SEO 1.00. Lighthouse mobile, throttling applied: FCP and LCP 2.28 s, TBT 40 ms.
+- axe (WCAG 2.2 AA) on the hero and nav: 0 violations, with motion and with reduced motion.
+- 375 px overflow on `/`: none. Console, failed requests, hydration warnings: none.
+
 ## Scores
 
 | Screen              | Glance | Signature | Type | Composition | Colour | Media | Motion | Mobile | Copy | Polish | Average |
 | ------------------- | ------ | --------- | ---- | ----------- | ------ | ----- | ------ | ------ | ---- | ------ | ------- |
 | `/prototype/system` | 8      | 8         | 9    | 8           | 8      | 8     | 8      | 7      | 8    | 8      | **8.0** |
+| `/` hero and nav    | 9      | 9         | 9    | 8           | 9      | 9     | 8      | 8      | 8    | 8      | **8.5** |
 
 First pass scored 7.4 (polish 6, composition 7, mobile 6: transcript lines ran under the frost
 caption, a tab was clipped at the panel edge, the Night-paper colour column was two-thirds empty,
 one heading broke into three lines, and the radius grid was cramped at 390). All five were fixed
 and re-shot. Mobile stays the weakest: it is a correct single column, not a recomposition, which
 is acceptable for a hidden reference page and not for any real screen.
+
+**Hero.** First pass scored about 7.0 (polish 5, media 6, signature 7): the sentence's words ran
+together (a hanging indent inherited by every word), the word count was clipped off the phone's
+top sheet, the fan showed cut-off slivers of the two lower essays, and the stage sat empty while
+an applicant spoke. Fixed in three rounds and re-shot each time: the indent and a line clamp;
+the wider margins (three notes in a row); then the slots, the counts in the margins, a stronger
+live line, the earlier switch to the full design at 1280, and the text inset on the lower sheets.
+The three lowest now are composition (at 1440 and wider there is a lot of air between the
+headline and the stage), motion (judged from timed frames, not watched at speed by a person
+yet) and mobile (the sentence and the line sit below the first screen; the fan's top shows
+above it).
