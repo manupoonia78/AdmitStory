@@ -1,5 +1,6 @@
 import "server-only";
 
+import { after } from "next/server";
 import { PostHog } from "posthog-node";
 import { serverEnv } from "../env";
 
@@ -17,7 +18,18 @@ export type ProductEvent =
   | "studio_session_ended"
   | "document_imported"
   // Connect (2026-11-04).
-  | "connect_thread_started";
+  | "connect_thread_started"
+  // The path to a purchase (2026-11-16), in the order an applicant meets it. /admin/funnel counts
+  // the same steps from the database; these add the page views and the timing between them.
+  | "school_added"
+  | "profile_read_viewed"
+  | "preview_viewed"
+  | "preview_requested"
+  | "studio_limit_reached"
+  | "unlock_viewed"
+  | "checkout_opened"
+  | "purchase_completed"
+  | "credit_redeemed";
 
 export type EventProperties = Record<string, string | number | boolean | null>;
 
@@ -42,6 +54,15 @@ function posthog(): PostHog | null {
       })
     : null;
   return client;
+}
+
+/**
+ * A page view, sent after the response so it never slows the page (next/server `after`). For
+ * server components; routes and actions that already do work call captureServerEvent directly.
+ */
+export function capturePageEvent(args: Parameters<ServerCapture>[0]): void {
+  if (!posthog()) return;
+  after(() => captureServerEvent(args).catch(() => undefined));
 }
 
 /** Sends one event and waits for it, so it survives the end of a serverless invocation. */

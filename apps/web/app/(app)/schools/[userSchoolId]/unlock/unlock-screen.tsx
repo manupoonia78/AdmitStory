@@ -43,6 +43,8 @@ export interface UnlockScreenProps {
   email: string;
   /** The round and reapplicant choices, rendered on the server. */
   setup?: ReactNode;
+  /** The opening of their own essay from the free preview, when one was drafted. */
+  opening?: { essay: string; text: string } | null;
 }
 
 export function UnlockScreen({
@@ -55,6 +57,7 @@ export function UnlockScreen({
   declined = false,
   email,
   setup,
+  opening = null,
 }: UnlockScreenProps) {
   const router = useRouter();
   const [waiting, setWaiting] = useState(paid);
@@ -166,6 +169,18 @@ export function UnlockScreen({
             : `Everything for ${school}${cycle ? ` ${cycle}` : ""}: every essay and short answer drafted from your stories, checked, with a Verify list. One payment, no subscription.`}
         </p>
       </header>
+
+      {!waiting && opening ? (
+        <figure className="flex flex-col gap-3 border-l-2 border-accent pl-5">
+          <figcaption className="meta">{`Your ${school} ${opening.essay} begins`}</figcaption>
+          <blockquote className="max-w-essay whitespace-pre-line font-reading text-read text-text">
+            {opening.text}
+          </blockquote>
+          <p className="text-sm text-text-soft">
+            The rest of it, and everything else {school} asks for, is drafted when you unlock.
+          </p>
+        </figure>
+      ) : null}
 
       {!waiting ? setup : null}
 

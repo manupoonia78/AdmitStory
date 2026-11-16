@@ -28,7 +28,7 @@ import {
 } from "react";
 import { AlertMessage, StatusMessage } from "@/components/live-message";
 import { PlainQuestion, StageFrame } from "./stage-frame";
-import type { CoverageBarDto, QuestionDto, SummaryDto } from "./types";
+import type { CoverageBarDto, LiveReply, QuestionDto, SummaryDto } from "./types";
 import {
   composedTurn,
   initialVoiceFlow,
@@ -82,7 +82,7 @@ function StudioButton({
 }
 
 /** Only shown once the free half is used up, so it is not part of the Studio's first load. */
-const StudioGate = dynamic(() => import("./studio-gate").then((mod) => mod.StudioGate), {
+const StudioGate = dynamic(() => import("./studio-gate-live").then((mod) => mod.StudioGateLive), {
   loading: () => <div className="h-96" />,
 });
 
@@ -128,6 +128,11 @@ export interface StudioScreenProps {
    * an account with a school pack, which has no limit.
    */
   allowance: { limit: number; left: number; warnAt: number } | null;
+  /**
+   * The school the applicant would unlock next (lib/funnel/next-school.ts), which the halfway
+   * prompt and the end-of-session card point at. Null with no buyable school on their list.
+   */
+  nextSchool: { userSchoolId: string; name: string; preview: boolean } | null;
 }
 
 export function StudioScreen(props: StudioScreenProps) {
@@ -146,6 +151,7 @@ function Interview({
   initialCoverage,
   initialFactCount,
   allowance,
+  nextSchool,
 }: StudioScreenProps) {
   const panelId = useId();
   const answerId = useId();
@@ -170,6 +176,10 @@ function Interview({
   const [hurried, setHurried] = useState(mode === "express");
   const [summary, setSummary] = useState<SummaryDto | null>(null);
   const [digs, setDigs] = useState(0);
+  /** The consultant's reply while it streams in, then the finished one (see LiveReply). */
+  const [live, setLive] = useState<LiveReply | null>(null);
+  /** The applicant's last answer, shown as saved until they start the next one. */
+  const [lastSaid, setLastSaid] = useState("");
   /** Set once the free half is used up (lib/studio/allowance.ts): the halfway prompt replaces the Studio. */
   const [gate, setGate] = useState<{ used: number; limit: number } | null>(null);
 
@@ -220,44 +230,80 @@ function Interview({
     const text = payload.text ?? "";
     const skip = payload.skip ?? false;
     const fields: VoiceTurnFields = payload.fields ?? { inputMode: "text" };
+    const clientTurnId = crypto.randomUUID();
+    // The reply streams in (NDJSON): "saved" the moment the answer is stored, then the
+    // consultant's words as they are written, then the finished question.
+    setLive({ id: clientTurnId, text: "", final: false });
+    let saved = false;
     try {
       const response = await fetch("/api/studio/turns", {
         method: "POST",
         headers: { "content-type": "application/json" },
         body: JSON.stringify({
           sessionId,
-          clientTurnId: crypto.randomUUID(),
+          clientTurnId,
           text,
           skip,
           slot: question?.slot,
           chapter,
           hurry: hurried,
           digsUsedOnStory: digs,
+          stream: true,
           ...fields,
         }),
       });
-      const result = (await response.json()) as {
-        error?: string;
-        code?: string;
-        question?: QuestionDto | null;
-        allowance?: { used: number; limit: number | null; left: number | null };
-      };
+      let result: TurnResult = {};
+      if (response.ok && response.body && isNdjson(response)) {
+        await readLines(response.body, (line) => {
+          const event = JSON.parse(line) as TurnEvent;
+          if (event.type === "saved" && !saved) {
+            saved = true;
+            queued.current = false;
+            if (!skip) setLastSaid(text.trim());
+            dispatch({ type: "sent", voiceSeconds: skip ? 0 : (fields.voiceSeconds ?? 0) });
+          } else if (event.type === "delta") {
+            setLive((current) =>
+              current?.id === clientTurnId
+                ? { ...current, text: current.text + event.text }
+                : current,
+            );
+          } else if (event.type === "done") {
+            result = event;
+          } else if (event.type === "error") {
+            result = { error: event.error, savedError: true };
+          }
+        });
+      } else {
+        result = (await response.json()) as TurnResult;
+      }
       if (result.code === "studio_limit" && result.allowance?.limit != null) {
+        setLive(null);
         // Refused before it was stored, so it is kept in the composer for after an unlock.
         if (!skip) dispatch({ type: "send-failed", text, fields });
         setGate({ used: result.allowance.used, limit: result.allowance.limit });
         return;
       }
-      if (!response.ok) {
-        setError(result.error ?? "That answer didn't save. It's still here — try again.");
-        if (!skip) dispatch({ type: "send-failed", text, fields });
+      if (!response.ok || result.savedError) {
+        setLive(null);
+        setError(
+          result.error ??
+            (saved
+              ? "Your answer is saved."
+              : "That answer didn't save. It's still here — try again."),
+        );
+        if (!skip && !saved) dispatch({ type: "send-failed", text, fields });
         return;
       }
-      queued.current = false;
-      dispatch({ type: "sent", voiceSeconds: skip ? 0 : (fields.voiceSeconds ?? 0) });
-      setQuestion(result.question ?? null);
-      setDigs(result.question?.move === "DIG" ? digs + 1 : 0);
-      if (result.question) setChapter(result.question.chapter);
+      if (!saved) {
+        queued.current = false;
+        if (!skip) setLastSaid(text.trim());
+        dispatch({ type: "sent", voiceSeconds: skip ? 0 : (fields.voiceSeconds ?? 0) });
+      }
+      const next = result.question ?? null;
+      setQuestion(next ? { ...next, streamed: true } : null);
+      setLive(next ? { id: clientTurnId, text: next.question, final: true } : null);
+      setDigs(next?.move === "DIG" ? digs + 1 : 0);
+      if (next) setChapter(next.chapter);
       const left = result.allowance?.left ?? null;
       if (left === 0 && result.allowance?.limit != null) {
         setGate({ used: result.allowance.used, limit: result.allowance.limit });
@@ -266,18 +312,23 @@ function Interview({
       setStatus(
         left !== null && allowance && left <= allowance.warnAt
           ? allowanceLine(left)
-          : result.question
+          : next
             ? ""
             : "That's everything we need for now. Your Dossier has the whole picture.",
       );
       if (flow.mode === "write") composerRef.current?.focus();
     } catch {
-      // Offline: hold the answer in the composer rather than losing it.
-      if (!skip) {
-        queued.current = true;
-        dispatch({ type: "send-failed", text, fields });
+      setLive(null);
+      if (saved) {
+        setError("Your answer is saved, but the next question didn't arrive. Try Skip for now.");
+      } else {
+        // Offline: hold the answer in the composer rather than losing it.
+        if (!skip) {
+          queued.current = true;
+          dispatch({ type: "send-failed", text, fields });
+        }
+        setError("You look offline. This answer is kept here and sent when you're back.");
       }
-      setError("You look offline. This answer is kept here and sent when you're back.");
     } finally {
       setBusy(false);
     }
@@ -352,12 +403,22 @@ function Interview({
     />
   );
 
-  if (gate) return <StudioGate used={gate.used} limit={gate.limit} />;
+  if (gate)
+    return (
+      <StudioGate
+        used={gate.used}
+        limit={gate.limit}
+        stories={initialStories.map((story) => story.nickname)}
+        facts={initialFactCount}
+        school={nextSchool}
+      />
+    );
 
   if (summary)
     return (
       <SessionSummaryCard
         summary={summary}
+        school={nextSchool}
         onContinue={() => {
           setSummary(null);
           void start({ fresh: true });
@@ -403,6 +464,8 @@ function Interview({
                 readAloud={readAloud}
                 onReadAloudChange={changeReadAloud}
                 onAnswer={answered}
+                reply={live}
+                lastSaid={lastSaid}
               />
             </Suspense>
           ) : (
@@ -498,6 +561,44 @@ function Interview({
       </aside>
     </ImmersiveScope>
   );
+}
+
+interface TurnResult {
+  error?: string;
+  code?: string;
+  question?: QuestionDto | null;
+  allowance?: { used: number; limit: number | null; left: number | null };
+  /** The answer was stored, then the next question failed. */
+  savedError?: boolean;
+}
+
+type TurnEvent =
+  | { type: "saved"; turnId: string }
+  | { type: "delta"; text: string }
+  | ({ type: "done" } & TurnResult)
+  | { type: "error"; error: string };
+
+const isNdjson = (response: Response) =>
+  response.headers.get("content-type")?.includes("application/x-ndjson") === true;
+
+/** Calls `onLine` with each complete line of a streamed body. */
+async function readLines(body: ReadableStream<Uint8Array>, onLine: (line: string) => void) {
+  const reader = body.getReader();
+  const decoder = new TextDecoder();
+  let buffer = "";
+  for (;;) {
+    const { value, done } = await reader.read();
+    buffer += decoder.decode(value, { stream: !done });
+    let newline = buffer.indexOf("\n");
+    while (newline !== -1) {
+      const line = buffer.slice(0, newline).trim();
+      buffer = buffer.slice(newline + 1);
+      if (line) onLine(line);
+      newline = buffer.indexOf("\n");
+    }
+    if (done) break;
+  }
+  if (buffer.trim()) onLine(buffer.trim());
 }
 
 interface SessionOutcome {

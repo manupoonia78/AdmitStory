@@ -146,6 +146,11 @@ export interface RunContext {
   signal?: AbortSignal;
   /** Use the streaming transport. The result is still the validated final output. */
   stream?: boolean;
+  /**
+   * The primary attempt's raw text as it streams (implies `stream`). A preview only: a repair or
+   * fallback attempt is not streamed, and the validated output is what counts.
+   */
+  onText?: (delta: string) => void;
   /** Pass the user's improve_product_opt_in; false always suppresses content logging. */
   contentLoggingAllowed?: boolean;
   /**
@@ -525,13 +530,16 @@ export function createAI(config: AIConfig): AI {
     params: MessageCreateParamsBase,
     plan: AttemptPlan,
     ctx: RunContext,
+    kind: AttemptKind,
   ): Promise<ApiMessage> {
+    const onText = kind === "repair" ? undefined : ctx.onText;
     return provider.send(params, {
       task: task.def.name,
       promptVersion: task.promptVersion,
       serverFallback: plan.serverFallback,
       stream: ctx.stream === true,
       ...(ctx.signal ? { signal: ctx.signal } : {}),
+      ...(onText ? { onText } : {}),
     });
   }
 
@@ -566,7 +574,7 @@ export function createAI(config: AIConfig): AI {
       const startedAt = new Date();
       let message: ApiMessage;
       try {
-        message = await callApi(preparedTask, params, plan, ctx);
+        message = await callApi(preparedTask, params, plan, ctx, kind);
       } catch (error) {
         trace.failedAttempt({
           model: MODEL_IDS[plan.model],

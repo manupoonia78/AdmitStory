@@ -22,6 +22,7 @@ import {
   studioLimitReached,
 } from "@/lib/studio/allowance";
 import { extractFromAnswer } from "@/lib/studio/extract";
+import { createStringStreamer } from "@/lib/studio/partial-json";
 import { loadKnowledge } from "@/lib/studio/state";
 import {
   TURNS_BETWEEN_CONSOLIDATIONS,
@@ -74,6 +75,8 @@ const Body = z.object({
     .transform((seconds) => Math.min(seconds, MAX_VOICE_SECONDS_PER_ANSWER))
     .optional(),
   language: LanguageTag.optional(),
+  /** Answer as an NDJSON stream: saved, the reply as it is written, then done. */
+  stream: z.boolean().default(false),
 });
 
 /**
@@ -87,6 +90,54 @@ function answerLanguage(
   if (body.inputMode !== "voice") return null;
   if (body.language) return body.language;
   return speechLanguage === "multi" ? "en" : speechLanguage;
+}
+
+type TurnEvent =
+  | { type: "saved"; turnId: string }
+  | { type: "delta"; text: string }
+  | { type: "done"; [key: string]: unknown }
+  | { type: "error"; error: string };
+
+/**
+ * An NDJSON response the turn writes into. Everything before it (auth, the allowance, storing the
+ * answer) has already succeeded, so a failure in here is reported as an "error" line: the answer
+ * is saved either way, and the client says so.
+ */
+function streamTurn(work: (emit: (event: TurnEvent) => void) => Promise<void>): Response {
+  const encoder = new TextEncoder();
+  const stream = new ReadableStream<Uint8Array>({
+    async start(controller) {
+      let open = true;
+      const emit = (event: TurnEvent) => {
+        if (!open) return;
+        try {
+          controller.enqueue(encoder.encode(`${JSON.stringify(event)}\n`));
+        } catch {
+          open = false;
+        }
+      };
+      try {
+        await work(emit);
+      } catch (error) {
+        console.error("[studio] turn failed after the answer was saved", error);
+        emit({ type: "error", error: "Your answer is saved, but the next question didn't come." });
+      } finally {
+        open = false;
+        try {
+          controller.close();
+        } catch {
+          // The client went away.
+        }
+      }
+    },
+  });
+  return new Response(stream, {
+    headers: {
+      "content-type": "application/x-ndjson; charset=utf-8",
+      "cache-control": "no-cache, no-transform",
+      "x-accel-buffering": "no",
+    },
+  });
 }
 
 export async function POST(request: Request): Promise<Response> {
@@ -109,18 +160,47 @@ export async function POST(request: Request): Promise<Response> {
     if (studioLimitReached(allowance)) throw studioLimitError(allowance);
 
     // "I'm short on time" switches the session to Express, which is what hurry mode is (§5.2).
-    if (body.hurry && session.mode !== "express")
-      await updateStudioSession(db, userId, session.id, { mode: "express" });
-    if (body.chapter && body.chapter !== session.currentChapter)
-      await updateStudioSession(db, userId, session.id, { currentChapter: body.chapter });
+    const sessionPatch = {
+      ...(body.hurry && session.mode !== "express" ? { mode: "express" as const } : {}),
+      ...(body.chapter && body.chapter !== session.currentChapter
+        ? { currentChapter: body.chapter }
+        : {}),
+    };
+    if (Object.keys(sessionPatch).length > 0)
+      await updateStudioSession(db, userId, session.id, sessionPatch);
 
     const answer = body.text.trim();
 
     if (body.skip || answer === "") {
       if (body.slot) await upsertSlotState(db, userId, { slotKey: body.slot, skipped: true });
       const refreshed = await getStudioSession(db, userId, session.id);
-      const next = refreshed ? await askNextQuestion(userId, { session: refreshed }) : null;
-      return Response.json({ recorded: false, skipped: true, question: next });
+      const ask = (onText?: (delta: string) => void) =>
+        refreshed
+          ? askNextQuestion(userId, { session: refreshed, ...(onText ? { onText } : {}) })
+          : Promise.resolve(null);
+      if (!body.stream) {
+        const next = await ask();
+        after(() => ai().flush());
+        return Response.json({ recorded: false, skipped: true, question: next });
+      }
+      let skipDone: () => void = () => {};
+      const skipped = new Promise<void>((resolve) => {
+        skipDone = resolve;
+      });
+      after(async () => {
+        await skipped;
+        await ai().flush();
+      });
+      return streamTurn(async (emit) => {
+        try {
+          const next = await ask(
+            createStringStreamer("question", (text) => emit({ type: "delta", text })),
+          );
+          emit({ type: "done", skipped: true, question: next });
+        } finally {
+          skipDone();
+        }
+      });
     }
 
     // The answer is stored before anything else can fail, so it is never lost (§5.2).
@@ -142,34 +222,10 @@ export async function POST(request: Request): Promise<Response> {
     // A retry of a turn already recorded must not ask a second question or extract twice.
     if (!created) return Response.json({ recorded: true, duplicate: true, question: null });
 
-    // Dictation is metered once per recorded turn (a retry returned above), alongside the reads
-    // the next question needs, so it adds no latency.
-    const [knowledge, conflicts] = await Promise.all([
-      loadKnowledge(userId),
-      possibleConflicts(userId, answer),
-      voice && body.voiceSeconds ? meterDictation(userId, session.id, body.voiceSeconds) : null,
-    ]);
-
+    // Extraction starts now, alongside the next question rather than after it (§7.3 runs the two
+    // in parallel), and the response waits for neither: `after()` keeps it alive.
     const chapter = body.chapter ?? session.currentChapter;
-    const mode = body.hurry ? "express" : session.mode;
-    // This answer was the last free one: it is stored and extracted, but no next question is
-    // asked, since it couldn't be answered.
-    const spent = { ...allowance, used: allowance.used + 1 };
-    const left = answersLeft(spent);
-    const next =
-      left === 0
-        ? null
-        : await askNextQuestion(userId, {
-            session: { ...session, currentChapter: chapter, mode },
-            lastAnswer: answer,
-            possibleConflicts: conflicts,
-            digsUsedOnStory: body.digsUsedOnStory,
-            knowledge,
-          });
-
-    const turnCount = await countUserTurns(db, userId, session.id);
-
-    after(async () => {
+    const extraction = (async () => {
       try {
         const result = await extractFromAnswer(userId, answer, {
           targetSlot: body.slot ?? null,
@@ -183,7 +239,60 @@ export async function POST(request: Request): Promise<Response> {
             event: "story_detected",
             properties: { chapter, code: story.code },
           });
+      } catch (error) {
+        // A failed extraction must never cost the applicant their answer: the source and the turn
+        // are already stored, and the next consolidation picks the material up.
+        console.error("[studio] extraction failed", error);
+      }
+    })();
+
+    // This answer was the last free one: it is stored and extracted, but no next question is
+    // asked, since it couldn't be answered.
+    const spent = { ...allowance, used: allowance.used + 1 };
+    const left = answersLeft(spent);
+    const mode = body.hurry ? "express" : session.mode;
+
+    const nextQuestion = async (onText?: (delta: string) => void) => {
+      if (left === 0) return null;
+      // Dictation is metered once per recorded turn (a retry returned above), alongside the reads
+      // the next question needs, so it adds no latency.
+      const [knowledge, conflicts] = await Promise.all([
+        loadKnowledge(userId),
+        possibleConflicts(userId, answer),
+        voice && body.voiceSeconds ? meterDictation(userId, session.id, body.voiceSeconds) : null,
+      ]);
+      return askNextQuestion(userId, {
+        session: { ...session, currentChapter: chapter, mode },
+        lastAnswer: answer,
+        possibleConflicts: conflicts,
+        digsUsedOnStory: body.digsUsedOnStory,
+        knowledge,
+        ...(onText ? { onText } : {}),
+      });
+    };
+
+    // Registered now, inside the request, and run once the reply is out: it waits for the question
+    // (for its latency) and for the extraction.
+    let questionAsked: (next: Awaited<ReturnType<typeof nextQuestion>>) => void = () => {};
+    const asked = new Promise<Awaited<ReturnType<typeof nextQuestion>>>((resolve) => {
+      questionAsked = resolve;
+    });
+    after(async () => {
+      const next = await asked;
+      await extraction;
+      try {
+        await captureServerEvent({
+          distinctId: userId,
+          event: "studio_turn",
+          properties: {
+            mode: session.mode,
+            chapter,
+            latency_ms: next?.latencyMs ?? 0,
+            input_mode: body.inputMode,
+          },
+        });
         // Spec §7.4: the Consolidator runs every ~8 turns, keyed by user.
+        const turnCount = await countUserTurns(db, userId, session.id);
         if (turnCount > 0 && turnCount % TURNS_BETWEEN_CONSOLIDATIONS === 0)
           await inngest.send({
             name: "dossier/consolidate",
@@ -191,28 +300,37 @@ export async function POST(request: Request): Promise<Response> {
           });
         await ai().flush();
       } catch (error) {
-        // A failed extraction must never cost the applicant their answer: the source and the turn
-        // are already stored, and the next consolidation picks the material up.
-        console.error("[studio] extraction failed", error);
+        console.error("[studio] after-turn work failed", error);
       }
     });
 
-    await captureServerEvent({
-      distinctId: userId,
-      event: "studio_turn",
-      properties: {
-        mode: session.mode,
-        chapter,
-        latency_ms: next?.latencyMs ?? 0,
-        input_mode: body.inputMode,
-      },
-    });
+    const allowanceOut = { used: spent.used, limit: spent.limit, left };
 
-    return Response.json({
-      recorded: true,
-      turnId: turn.id,
-      question: next,
-      allowance: { used: spent.used, limit: spent.limit, left },
+    if (!body.stream) {
+      const next = await nextQuestion().catch((error: unknown) => {
+        questionAsked(null);
+        throw error;
+      });
+      questionAsked(next);
+      return Response.json({
+        recorded: true,
+        turnId: turn.id,
+        question: next,
+        allowance: allowanceOut,
+      });
+    }
+
+    // Streamed (NDJSON): "saved" at once, the reply's words as they are written, then "done".
+    return streamTurn(async (emit) => {
+      emit({ type: "saved", turnId: turn.id });
+      const next = await nextQuestion(
+        createStringStreamer("question", (text) => emit({ type: "delta", text })),
+      ).catch((error: unknown) => {
+        questionAsked(null);
+        throw error;
+      });
+      questionAsked(next);
+      emit({ type: "done", turnId: turn.id, question: next, allowance: allowanceOut });
     });
   });
 }

@@ -138,7 +138,8 @@ export const ROUTES = {
     model: "sonnet",
     effort: "low",
     thinking: "off",
-    visibleBudget: 300,
+    // 300 until v2: a reply that answers the applicant's question first runs to ~6 sentences.
+    visibleBudget: 600,
     fallback: { model: "haiku", effort: "low", thinking: "off" },
     // §12.4: past the free-user cap, Studio continues with the Haiku interviewer.
     downgrade: { model: "haiku", effort: "low", thinking: "off" },
@@ -148,7 +149,10 @@ export const ROUTES = {
     model: "haiku",
     effort: "low",
     thinking: "off",
-    visibleBudget: 2_000,
+    // 2,000 truncated long spoken answers (a story or two, facts and verbatim golden lines run
+    // past it), and a truncated extraction is dropped whole. It runs beside the next question, so
+    // a longer budget costs no latency.
+    visibleBudget: 8_000,
     note: "Per-turn structured extraction; thinking off.",
   }),
   "studio.consolidate": route({

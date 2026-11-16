@@ -13,7 +13,7 @@ import type { FileMap, Positioning } from "@admitstory/shared/kit";
 import { packDeliverables } from "./deliverables";
 import { asPack, type RetrievalSource } from "./pack";
 import { previewCurrent, previewDecision } from "./preview-policy";
-import { previewView } from "./preview-view";
+import { previewView, readStoredOpening } from "./preview-view";
 import { latestPack } from "./server";
 import { storyTitles } from "./jobs";
 import { readStoredFit } from "./stored-fit";
@@ -60,7 +60,11 @@ export async function loadPreviewState(
   // A preview on screen is never taken away: an older one shows, marked stale, while a new one runs.
   if (kit?.positioning && kit.fileMap) {
     const pack = asPack(published.data);
-    const fileMap = kit.fileMap as unknown as FileMap & { retrieval?: RetrievalSource[] };
+    const fileMap = kit.fileMap as unknown as FileMap & {
+      retrieval?: RetrievalSource[];
+      opening?: unknown;
+      opening_mode?: unknown;
+    };
     const view = previewView({
       schoolName,
       pack,
@@ -69,6 +73,8 @@ export async function loadPreviewState(
       deliverables: packDeliverables(pack, row.isReapplicant),
       stories: await storyTitles(userId),
       retrieval: Array.isArray(fileMap.retrieval) ? fileMap.retrieval : [],
+      opening: readStoredOpening(fileMap.opening),
+      coached: fileMap.opening_mode === "coach",
       builtAt: kit.updatedAt ?? kit.createdAt,
     });
     return {

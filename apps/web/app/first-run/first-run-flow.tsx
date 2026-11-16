@@ -9,14 +9,15 @@ import { clearFirstLine, readFirstLine, subscribeFirstLine } from "@/lib/marketi
 import { completeFirstRun, type FirstRunInput } from "./actions";
 import { UploadStep } from "./upload-step";
 
-// First run (spec §5.1): four screens, one question each, under a minute.
+// First run (spec §5.1): five screens, one question each, about a minute. The second asks which
+// schools they are aiming for (16 Nov 2026), so the free steps after it can point at a real one.
 //
 // The hero moment is §6.7's: "the Voiceprint is born — a faint seed that grows brighter as you
 // answer the four first-run questions." It is the still SVG form rather than the live renderer,
 // because nobody has spoken yet and a WebGL context on the first screen after sign-up would cost
 // more than it shows.
 
-const STEPS = ["applying", "where", "bring", "time"] as const;
+const STEPS = ["applying", "schools", "where", "bring", "time"] as const;
 type Step = (typeof STEPS)[number];
 
 const INTAKES = [2027, 2028] as const;
@@ -50,6 +51,8 @@ const MODES = [
 ] as const;
 
 export interface FirstRunFlowProps {
+  /** Schools with a published pack, by name. With none, the schools screen is left out. */
+  schools: readonly { cycleId: string; name: string }[];
   defaults: {
     programType: string;
     targetIntake: number | null;
@@ -58,7 +61,9 @@ export interface FirstRunFlowProps {
   };
 }
 
-export function FirstRunFlow({ defaults }: FirstRunFlowProps) {
+export function FirstRunFlow({ defaults, schools }: FirstRunFlowProps) {
+  const steps: readonly Step[] =
+    schools.length > 0 ? STEPS : STEPS.filter((id) => id !== "schools");
   const [step, setStep] = useState<Step>("applying");
   const [pending, start] = useTransition();
   const [error, setError] = useState("");
@@ -86,7 +91,9 @@ export function FirstRunFlow({ defaults }: FirstRunFlowProps) {
     timezone: defaults.timezone ?? "",
     currentRole: "",
     studioMode: "standard",
+    schoolCycleIds: [],
   });
+  const chosen = answers.schoolCycleIds ?? [];
 
   // Moving between screens moves focus to the new question, so a screen reader and the keyboard
   // land in the same place (WCAG 2.4.3). Not on first paint, where focus belongs at the top.
@@ -98,12 +105,16 @@ export function FirstRunFlow({ defaults }: FirstRunFlowProps) {
     headingRef.current?.focus();
   }, [step]);
 
-  const index = STEPS.indexOf(step);
-  const progress = (index + 1) / STEPS.length;
+  const index = steps.indexOf(step);
+  const progress = (index + 1) / steps.length;
 
   const goNext = () => {
-    const next = STEPS[index + 1];
+    const next = steps[index + 1];
     if (next) setStep(next);
+  };
+  const goBack = () => {
+    const previous = steps[index - 1];
+    if (previous) setStep(previous);
   };
 
   const submit = () => {
@@ -129,7 +140,7 @@ export function FirstRunFlow({ defaults }: FirstRunFlowProps) {
         <Seed progress={progress} />
 
         <ol className="flex items-center gap-2" aria-label="Progress">
-          {STEPS.map((id, position) => (
+          {steps.map((id, position) => (
             <li
               key={id}
               aria-current={id === step ? "step" : undefined}
@@ -139,7 +150,7 @@ export function FirstRunFlow({ defaults }: FirstRunFlowProps) {
               )}
             >
               <span className="sr-only">
-                {`Step ${position + 1} of ${STEPS.length}`}
+                {`Step ${position + 1} of ${steps.length}`}
                 {id === step ? " (current)" : ""}
               </span>
             </li>
@@ -193,6 +204,35 @@ export function FirstRunFlow({ defaults }: FirstRunFlowProps) {
             </Screen>
           ) : null}
 
+          {step === "schools" ? (
+            <Screen
+              ref={headingRef}
+              title="Which schools are you aiming for?"
+              hint="Pick any you're considering. Each one gets a free preview built from your stories, and you can change the list at any time."
+            >
+              <Choices
+                legend="Schools we have a pack for"
+                multiple
+                options={schools.map((school) => ({ id: school.cycleId, label: school.name }))}
+                values={chosen}
+                onToggle={(id) =>
+                  setAnswers({
+                    ...answers,
+                    schoolCycleIds: chosen.includes(id)
+                      ? chosen.filter((cycleId) => cycleId !== id)
+                      : [...chosen, id],
+                  })
+                }
+                hint="Aiming somewhere else too? Add any school from Schools later; we build packs by demand."
+              />
+              <Actions
+                onBack={goBack}
+                onNext={goNext}
+                nextLabel={chosen.length > 0 ? "Next" : "Not sure yet"}
+              />
+            </Screen>
+          ) : null}
+
           {step === "where" ? (
             <Screen ref={headingRef} title="Where are you right now?">
               <div className="grid gap-5 sm:grid-cols-2">
@@ -224,7 +264,7 @@ export function FirstRunFlow({ defaults }: FirstRunFlowProps) {
                 placeholder="Senior product lead at a US health system"
                 onChange={(event) => setAnswers({ ...answers, currentRole: event.target.value })}
               />
-              <Actions onBack={() => setStep("applying")} onNext={goNext} nextLabel="Next" />
+              <Actions onBack={goBack} onNext={goNext} nextLabel="Next" />
             </Screen>
           ) : null}
 
@@ -236,7 +276,7 @@ export function FirstRunFlow({ defaults }: FirstRunFlowProps) {
             >
               <UploadStep />
               <Actions
-                onBack={() => setStep("where")}
+                onBack={goBack}
                 onNext={goNext}
                 nextLabel="Next"
                 skipLabel="Skip for now"
@@ -288,7 +328,7 @@ export function FirstRunFlow({ defaults }: FirstRunFlowProps) {
               ) : null}
               <AlertMessage message={error} />
               <Actions
-                onBack={() => setStep("bring")}
+                onBack={goBack}
                 onNext={submit}
                 nextLabel={pending ? "Starting…" : "Start talking"}
                 nextDisabled={pending}

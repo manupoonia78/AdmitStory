@@ -7,7 +7,9 @@ import type { StrategyRow } from "@/lib/strategy/types";
 // paid for opens straight into its tabs (essays, application, video, recommenders, résumé). One
 // you haven't shows its next deadline and what it asks for, with Unlock and a free preview. No
 // controls here: the round and reapplicant choices live on the school's preview and unlock pages.
-// With pack credits left (Manu, 5 Nov 2026), Unlock says it costs a credit, not a price.
+// With pack credits left (Manu, 5 Nov 2026), Unlock says it costs a credit, not a price. Without
+// them the button names the school and the line under it gives the single price and points at the
+// packs, so the unlock page's three prices are no surprise (16 Nov 2026).
 
 type CardState = "ready" | "building" | "failed" | "locked" | "coming_soon";
 
@@ -26,7 +28,7 @@ const CHIP: Record<CardState, string> = {
   coming_soon: "Pack coming soon",
 };
 
-function Card({ row, price }: { row: StrategyRow; price: string }) {
+function Card({ row, price, credits }: { row: StrategyRow; price: string; credits: boolean }) {
   const state = stateOf(row);
   const open = state === "ready" || state === "building" || state === "failed";
   const progress =
@@ -98,7 +100,7 @@ function Card({ row, price }: { row: StrategyRow; price: string }) {
             href={`/schools/${row.userSchoolId}/unlock`}
             className="inline-flex min-h-10 items-center rounded-full bg-signal px-4 text-sm font-medium text-on-signal focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-text"
           >
-            Unlock · {price}
+            {credits ? "Unlock · 1 credit" : `Unlock ${row.shortName || row.name}`}
           </Link>
           <Link
             href={`/schools/${row.userSchoolId}/preview`}
@@ -106,6 +108,9 @@ function Card({ row, price }: { row: StrategyRow; price: string }) {
           >
             Free preview
           </Link>
+          {credits ? null : (
+            <p className="w-full text-sm text-text-soft">{`${price} alone, less in a pack`}</p>
+          )}
         </div>
       ) : (
         <p className="text-sm text-text-soft">
@@ -155,7 +160,7 @@ export function SchoolCards({
       <ul className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
         {sorted.map((row) => (
           <li key={row.userSchoolId}>
-            <Card row={row} price={credits > 0 ? "1 credit" : price} />
+            <Card row={row} price={price} credits={credits > 0} />
           </li>
         ))}
       </ul>

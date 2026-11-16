@@ -94,7 +94,7 @@ export const LEDGER: readonly LedgerGroup[] = [
       ),
       free(
         "Kit previews",
-        "For every school: the positioning, which story goes where, and each deliverable, locked.",
+        "For every school: your positioning, which story goes where, and the opening of one of your essays where the school allows drafting. The rest stays locked.",
       ),
     ],
   },

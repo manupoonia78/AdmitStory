@@ -1,6 +1,7 @@
 // The kit preview as the page shows it (spec §5.5): the positioning headline, the file map with
 // titles only, and the deliverables present but locked. Pure, so the preview route and the tests
-// build it the same way. Nothing here ever exposes draft text: a preview has none.
+// build it the same way. The only draft text a preview carries is the opening of one essay, built
+// from the applicant's own story (Manu, 16 Nov 2026); every other draft stays locked.
 
 import type { SchoolPack } from "@admitstory/kb/types";
 import { traitLabel } from "@admitstory/shared";
@@ -8,7 +9,7 @@ import type { FileMap, Positioning } from "@admitstory/shared/kit";
 import { COMING_SOON } from "@/lib/deferred/coming-soon";
 import type { PackDeliverable } from "./deliverables";
 import { firstCitation, shortDate, type RetrievalSource } from "./pack";
-import type { PreviewView } from "./types";
+import type { PreviewOpeningView, PreviewView } from "./types";
 
 export interface StoryTitle {
   code: string;
@@ -26,6 +27,43 @@ export function positioningHeadline(positioning: Positioning, schoolName: string
   return `At ${schoolName}, lead with ${list}.`;
 }
 
+/** The opening as the preview run stored it beside the file map (lib/strategy/jobs.ts). */
+export interface StoredOpening {
+  deliverable_key: string;
+  story: string;
+  text: string;
+}
+
+/** Reads the stored opening defensively: it is JSON from an earlier run, so nothing is assumed. */
+export function readStoredOpening(value: unknown): StoredOpening | null {
+  if (value === null || typeof value !== "object") return null;
+  const { deliverable_key: key, story, text } = value as Record<string, unknown>;
+  if (typeof key !== "string" || typeof story !== "string" || typeof text !== "string") return null;
+  return text.trim() === "" ? null : { deliverable_key: key, story, text: text.trim() };
+}
+
+/**
+ * The opening for the page, or null: it shows only for an essay the school still asks for and a
+ * story the applicant still has, so a deleted story or a changed pack never leaves stale text up.
+ */
+export function openingView(
+  opening: StoredOpening | null,
+  deliverables: readonly PackDeliverable[],
+  stories: readonly StoryTitle[],
+): PreviewOpeningView | null {
+  if (!opening) return null;
+  const deliverable = deliverables.find((d) => d.key === opening.deliverable_key && d.drafted);
+  const story = stories.find((s) => s.code === opening.story);
+  if (!deliverable || !story) return null;
+  return {
+    essay: deliverable.title,
+    limit: deliverable.limit ?? null,
+    prompt: deliverable.prompt,
+    story: story.nickname,
+    text: opening.text,
+  };
+}
+
 export function previewView(input: {
   schoolName: string;
   pack: SchoolPack;
@@ -34,6 +72,9 @@ export function previewView(input: {
   deliverables: readonly PackDeliverable[];
   stories: readonly StoryTitle[];
   retrieval?: readonly RetrievalSource[];
+  /** The essay opening stored with the preview, and whether the school's policy ruled one out. */
+  opening?: StoredOpening | null;
+  coached?: boolean;
   builtAt: Date;
 }): PreviewView {
   const titleOf = (code: string | null) =>
@@ -57,6 +98,10 @@ export function previewView(input: {
   return {
     headline: positioningHeadline(input.positioning, input.schoolName),
     support,
+    opening: input.coached
+      ? null
+      : openingView(input.opening ?? null, input.deliverables, input.stories),
+    coached: input.coached === true,
     fileMap: input.deliverables.map((d) => ({
       key: d.key,
       // Interview practice is deferred (Phase 7), so its rows say so rather than promise a draft.

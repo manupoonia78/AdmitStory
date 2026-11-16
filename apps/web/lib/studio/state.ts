@@ -97,6 +97,7 @@ export async function loadKnowledge(userId: string): Promise<StudioKnowledge> {
           confirmed: story.status === "confirmed",
         })),
       states,
+      facts: facts.map((fact) => ({ key: fact.key, confirmed: fact.status === "confirmed" })),
     }),
     factCount: facts.length,
     confirmedFactCount: facts.filter((fact) => fact.status === "confirmed").length,

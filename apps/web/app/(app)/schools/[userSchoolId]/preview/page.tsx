@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { z } from "zod";
+import { capturePageEvent } from "@/lib/analytics/server";
 import { requireOnboardedUser } from "@/lib/app-user";
 import { loadPreviewState } from "@/lib/strategy/preview";
 import { loadSchoolPageFacts } from "@/lib/strategy/setup";
@@ -29,6 +30,15 @@ export default async function PreviewPage({
     loadSchoolPageFacts(session.user.id, id.data),
   ]);
   if (!preview || !facts) notFound();
+  capturePageEvent({
+    distinctId: session.user.id,
+    event: "preview_viewed",
+    properties: {
+      state: preview.state.state,
+      has_stories: facts.storyCount > 0,
+      has_opening: preview.state.state === "ready" && preview.state.preview.opening !== null,
+    },
+  });
   return (
     <PreviewScreen
       userSchoolId={id.data}

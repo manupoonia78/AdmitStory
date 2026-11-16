@@ -19,6 +19,7 @@ const EXPECTED: Record<string, { file: string; count: number }> = {
   INT: { file: "interview", count: 10 },
   LENS: { file: "admissions-lens", count: 9 },
   LOR: { file: "lor", count: 10 },
+  PLAT: { file: "platform-guide", count: 16 },
   RES: { file: "resume", count: 8 },
   STU: { file: "studio-interviewing", count: 7 },
   TELL: { file: "anti-ai-tells", count: 3 },
@@ -31,7 +32,7 @@ describe("canon v1 (spec Appendix A)", () => {
     expect(CANON_DIR.endsWith(join("knowledge", "canon"))).toBe(true);
   });
 
-  it("has exactly the 15 Appendix A files, all at version 1", () => {
+  it("has the 15 Appendix A files plus the platform guide", () => {
     expect(canon.docs.map((doc) => doc.slug).sort()).toEqual([
       "admissions-lens",
       "anti-ai-tells",
@@ -41,6 +42,7 @@ describe("canon v1 (spec Appendix A)", () => {
       "forms",
       "interview",
       "lor",
+      "platform-guide",
       "prompt-archetypes",
       "red-flags",
       "resume",
@@ -49,7 +51,8 @@ describe("canon v1 (spec Appendix A)", () => {
       "truth-discipline",
       "why-mba",
     ]);
-    for (const doc of canon.docs) expect(doc.version).toBe(1);
+    for (const doc of canon.docs)
+      expect(doc.version).toBe(doc.slug === "studio-interviewing" ? 2 : 1);
     expect(canon.getDoc("admissions-lens").title).toBe("How admissions readers think");
   });
 
@@ -63,7 +66,7 @@ describe("canon v1 (spec Appendix A)", () => {
     expect(counts).toEqual(
       Object.fromEntries(Object.entries(EXPECTED).map(([p, e]) => [p, e.count])),
     );
-    expect(allRules).toHaveLength(150);
+    expect(allRules).toHaveLength(166);
   });
 
   it("has unique IDs and contiguous numbering", () => {

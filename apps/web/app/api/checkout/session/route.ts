@@ -1,4 +1,5 @@
 import { z } from "zod";
+import { captureServerEvent } from "@/lib/analytics/server";
 import { checkRateLimit, handle, readJson, requireUser } from "@/lib/api";
 import { assertFeatureOn } from "@/lib/features";
 import { withIdempotency } from "@/lib/idempotency";
@@ -21,13 +22,18 @@ export async function POST(request: Request): Promise<Response> {
     await checkRateLimit("checkout", userId, { limit: 10, windowMs: 60_000 });
     await assertFeatureOn("kit_checkout");
     const body = await readJson(request, Body);
-    return withIdempotency(request, "checkout.session", userId, async () => ({
-      status: 201,
-      body: await openSchoolCheckout(
+    return withIdempotency(request, "checkout.session", userId, async () => {
+      const opened = await openSchoolCheckout(
         { id: userId, email: user.session.user.email },
         body.userSchoolId,
         { plan: body.plan, ...(body.discountCode ? { discountCode: body.discountCode } : {}) },
-      ),
-    }));
+      );
+      await captureServerEvent({
+        distinctId: userId,
+        event: "checkout_opened",
+        properties: { plan: body.plan },
+      });
+      return { status: 201, body: opened };
+    });
   });
 }

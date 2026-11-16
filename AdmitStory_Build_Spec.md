@@ -190,7 +190,7 @@ Each module lists: purpose, screens, behaviour, states, and acceptance criteria 
 
 **The adaptive engine (how the next question is chosen):**
 
-The conversation is driven by an explicit **Evidence Slot** model (Appendix C), not by the model's whims. There are ~45 slots (e.g., `leadership.originated_idea`, `failure.consequential`, `goals.short_term_role`, `support.someone_hard`, `identity.root`, `numbers.biggest_impact`). Each slot has a weight, the chapters it belongs to, and the prompt archetypes that need it.
+The conversation is driven by an explicit **Evidence Slot** model (Appendix C), not by the model's whims. There are 54 slots (e.g., `leadership.originated_idea`, `failure.consequential`, `goals.short_term_role`, `support.someone_hard`, `identity.root`, `numbers.biggest_impact`). Each slot has a weight, the chapters it belongs to, and the prompt archetypes that need it.
 
 ```
 next_slot = argmax over slots of
@@ -2138,13 +2138,16 @@ Seed for `packages/slots/src/questions.ts`. The Interviewer rephrases naturally 
 - "What are you accountable for, and who do you work with most?" → `work.scope`
 - "What are you proudest of here? Start with the moment it nearly went wrong." → `impact.biggest`
 - "What changed because of you that wouldn't have happened otherwise? Roughly how much — money, time, people?" → `numbers.impact`
+- "What did this role teach you that you carried into the next thing?" → `work.arc` *(v1.1, CandEval per-role "Learnings")*
 - "Have you ever convinced someone more senior to change course?" → `leadership.persuaded_up`
+- "Who pushed back hardest on an idea of yours, and how did you bring them round?" → `leadership.persuaded_peers` *(v1.1)*
 - "Have you taken on something nobody else wanted — risky, messy or unglamorous?" → `leadership.initiative_risky`
 - "Have you spotted a better way of doing something and pushed it through?" → `leadership.originated_idea`
 - "Who have you helped grow — a new joiner, a junior, a peer?" → `leadership.developed_others`
 - "What feedback stung, and what did you do with it?" → `self.feedback`
 - "Were you promoted or given scope early? What do you think they saw?" → `employ.trajectory`
 - "Have you worked with clients, other departments or other countries? A moment where that was hard?" → `employ.cross_functional`
+- "Is there a gap, a short stint or a sudden move in your career you'd want to explain?" → `work.gaps` *(v1.1)*
 
 **4. Beyond work**
 - "Outside work, what do you spend real time on?" → `community.interests`
@@ -2154,20 +2157,24 @@ Seed for `packages/slots/src/questions.ts`. The Interviewer rephrases naturally 
 
 **5. Turning points**
 - "Tell me about a time you got something genuinely wrong. What was your part in it?" → `failure.consequential`
+- "What's the longest stretch you've had to keep going when things were hard?" → `self.resilience` *(v1.1)*
 - "When did you support someone when it wasn't easy — for you or for them?" → `support.someone_hard`
 - "Have you had to choose between the easy thing and the right thing, at a real cost?" → `values.dilemma`
 - "Was there a moment after which you never saw something the same way again?" → `identity.turning_point`
 - "Have you worked closely with someone very different from you? What did you learn?" → `perspective.difference`
+- "When did you notice someone being left out or treated unfairly, and what did you do about it?" → `perspective.inclusion` *(v1.1, CandEval's five inclusion skills)*
 - "Have you been on a team heading the wrong way? Did you try to change it?" → `leadership.changed_course`
 
 **6. People and values**
 - "Who do you most want to be like? What exactly did you watch them do?" → `values.role_model`
+- "Who taught you something at work that you still use? What exactly did they do?" → `values.mentor` *(v1.1)*
 - "What would you be willing to lose a job over?" → `values.line`
 - "How would your closest colleagues describe you — the good and the annoying?" → `self.others_view`
+- "Where do you still fall short as a leader, and what are you doing about it?" → `self.leadership_gap` *(v1.1, CandEval "Major shortcomings as a leader")*
 - "Tell me three things that would surprise someone who only knows your resume." → `identity.quirks`
 
 **7. Goals**
-- "In the first job after your MBA, what do you want to be doing day to day?" → `goals.short_term`
+- "Picture your first job after the MBA. What's the role, and what kind of company is it at?" → `goals.short_term` *(v1.1: asks for role and company, as CandEval does)*
 - "In 10–15 years, what do you want to have built or changed, and where?" → `goals.long_term`
 - "Where did that come from? Is there a moment or a person behind it?" → `goals.origin`
 - "What have you done to test it — people you've talked to, things you've tried?" → `goals.research`
@@ -2202,6 +2209,7 @@ Seed for `packages/slots/src/questions.ts`. The Interviewer rephrases naturally 
 | `identity.quirks` | 2 | People and values | LIST, MICRO |
 | `perspective.cross_cultural` | 3 | Roots | IDENTITY, CONTRIBUTION |
 | `perspective.difference` | 3 | Turning points | SUPPORT, CONTRIBUTION |
+| `perspective.inclusion` | 4 | Turning points | CONTRIBUTION, SUPPORT, VALUES *(v1.1)* |
 | `academics.choice` | 2 | Education | GOALS |
 | `academics.intellectual_moment` | 2 | Education | IDENTITY |
 | `academics.quant_evidence` | 4 | Education | OPTIONAL |
@@ -2209,10 +2217,12 @@ Seed for `packages/slots/src/questions.ts`. The Interviewer rephrases naturally 
 | `work.motivation` | 3 | Work | GOALS |
 | `work.scope` | 4 | Work | (forms, resume) |
 | `work.arc` | 4 | Work | GOALS |
+| `work.gaps` | 3 | Work | OPTIONAL *(v1.1)* |
 | `impact.biggest` | 5 | Work | LEADERSHIP, GOALS |
 | `numbers.impact` | 5 | Work | (forms, resume, all) |
 | `leadership.originated_idea` | 5 | Work | LEADERSHIP |
 | `leadership.persuaded_up` | 5 | Work | LEADERSHIP |
+| `leadership.persuaded_peers` | 4 | Work | LEADERSHIP *(v1.1)* |
 | `leadership.initiative_risky` | 4 | Work | LEADERSHIP, VALUES |
 | `leadership.developed_others` | 4 | Work | LEADERSHIP, SUPPORT |
 | `leadership.changed_course` | 3 | Turning points | LEADERSHIP |
@@ -2221,12 +2231,15 @@ Seed for `packages/slots/src/questions.ts`. The Interviewer rephrases naturally 
 | `employ.cross_functional` | 4 | Work | LEADERSHIP |
 | `self.feedback` | 5 | Work | SETBACK, (recommenders) |
 | `self.others_view` | 2 | People and values | IDENTITY |
+| `self.leadership_gap` | 4 | People and values | SETBACK, IDENTITY, (recommenders, interview) *(v1.1)* |
+| `self.resilience` | 3 | Turning points | SETBACK, VALUES *(v1.1)* |
 | `failure.consequential` | 5 | Turning points | SETBACK |
 | `support.someone_hard` | 4 | Turning points | SUPPORT |
 | `support.ongoing` | 2 | Beyond work | SUPPORT, CONTRIBUTION |
 | `values.dilemma` | 3 | Turning points | VALUES |
 | `values.line` | 2 | People and values | VALUES |
 | `values.role_model` | 3 | People and values | IDENTITY |
+| `values.mentor` | 2 | People and values | IDENTITY, SUPPORT *(v1.1)* |
 | `community.interests` | 3 | Beyond work | MICRO, LIST |
 | `community.built` | 4 | Beyond work | CONTRIBUTION, LEADERSHIP |
 | `goals.short_term` | 5 | Goals | GOALS, GOALBOX |

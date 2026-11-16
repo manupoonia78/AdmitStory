@@ -2,21 +2,54 @@
 
 import { Button } from "@admitstory/ui";
 import Link from "next/link";
+import { STORIES_BEFORE_READ } from "@/lib/home/next-step";
 import type { SummaryDto } from "./types";
 
 // The end-of-session card (spec §5.2): what was found, what is still thin, and the one next step.
 // The copy follows §6.9: plain, specific, no praise of the answers themselves.
+//
+// The next step is the one that shows the applicant what their stories are worth (16 Nov 2026;
+// it used to be the Dossier, from before the Profile Read existed): their school's preview, which
+// opens one of their own essays, then the Profile Read. The Dossier is the fallback only when
+// there is no story yet to build either from.
+
+interface Step {
+  href: string;
+  label: string;
+}
+
+/** What to offer after a session, most useful first. */
+export function nextSteps(
+  stories: number,
+  school: { userSchoolId: string; name: string } | null,
+): Step[] {
+  const steps: Step[] = [];
+  if (stories >= 1 && school)
+    steps.push({
+      href: `/schools/${school.userSchoolId}/preview`,
+      label: `See your stories as a ${school.name} application`,
+    });
+  if (stories >= STORIES_BEFORE_READ)
+    steps.push({ href: "/profile-read", label: "See how admissions will read you" });
+  if (stories >= 1 && !school) steps.push({ href: "/schools", label: "Choose your schools" });
+  if (steps.length === 0) steps.push({ href: "/dossier", label: "See what we have" });
+  return steps;
+}
 
 export function SessionSummaryCard({
   summary,
+  school,
   onContinue,
 }: {
   summary: SummaryDto;
+  /** The school the applicant would unlock next, when one is on their list. */
+  school: { userSchoolId: string; name: string } | null;
   onContinue: () => void;
 }) {
   const stories = summary.storyCount;
   const facts = summary.factCount;
   const thin = summary.nextUp[0];
+  const [first, ...rest] = nextSteps(stories, school);
 
   return (
     <section className="mx-auto flex w-full max-w-2xl flex-col gap-8 py-10">
@@ -59,10 +92,16 @@ export function SessionSummaryCard({
       ) : null}
 
       <div className="flex flex-wrap items-center gap-3">
-        {/* Profile Read is Phase 3; until then the Dossier is the honest next step. */}
-        <Button asChild>
-          <Link href="/dossier">See what we have</Link>
-        </Button>
+        {first ? (
+          <Button asChild>
+            <Link href={first.href}>{first.label}</Link>
+          </Button>
+        ) : null}
+        {rest.map((step) => (
+          <Button key={step.href} asChild variant="secondary">
+            <Link href={step.href}>{step.label}</Link>
+          </Button>
+        ))}
         <Button variant="quiet" onClick={onContinue}>
           Keep talking
         </Button>

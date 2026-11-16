@@ -1,9 +1,11 @@
 // The evidence slot model (spec Appendix C). This is the spine of Story Studio: the conversation is
-// driven by which of these 48 slots are still empty, not by the model's whims (§5.2). The model
+// driven by which of these 54 slots are still empty, not by the model's whims (§5.2). The model
 // only phrases the question the selector has already chosen.
 //
 // Appendix C is content, not a suggestion (§0): weights, chapters and archetypes below are the
-// table, transcribed. The `consumers` field holds the table's parenthetical entries — "(forms,
+// table, transcribed. v1.1 (2026-11-12) adds six slots from the ApplicantLab brainstorming themes
+// and the CandEval candidate-evaluation template: persuading peers, inclusion, resilience, career
+// gaps, a leadership shortcoming, and a mentor. The `consumers` field holds the table's parenthetical entries — "(forms,
 // resume)", "(recommender kit)" — which are not prompt archetypes but still need the slot.
 
 import type { ArchetypeId, ChapterId } from "@admitstory/shared";
@@ -91,6 +93,12 @@ export const SLOTS: readonly Slot[] = [
     factKeys: ["team_size", "scope", "reports", "responsibility", "_scale", "headcount"],
   },
   { key: "work.arc", weight: 4, chapter: "work", archetypes: ["GOALS"] },
+  {
+    key: "work.gaps",
+    weight: 3,
+    chapter: "work",
+    archetypes: ["OPTIONAL"],
+  },
   { key: "impact.biggest", weight: 5, chapter: "work", archetypes: ["LEADERSHIP", "GOALS"] },
   {
     key: "numbers.impact",
@@ -101,6 +109,12 @@ export const SLOTS: readonly Slot[] = [
   },
   { key: "leadership.originated_idea", weight: 5, chapter: "work", archetypes: ["LEADERSHIP"] },
   { key: "leadership.persuaded_up", weight: 5, chapter: "work", archetypes: ["LEADERSHIP"] },
+  {
+    key: "leadership.persuaded_peers",
+    weight: 4,
+    chapter: "work",
+    archetypes: ["LEADERSHIP"],
+  },
   {
     key: "leadership.initiative_risky",
     weight: 4,
@@ -164,12 +178,24 @@ export const SLOTS: readonly Slot[] = [
     archetypes: ["SUPPORT", "CONTRIBUTION"],
   },
   {
+    key: "perspective.inclusion",
+    weight: 4,
+    chapter: "turning_points",
+    archetypes: ["CONTRIBUTION", "SUPPORT", "VALUES"],
+  },
+  {
     key: "leadership.changed_course",
     weight: 3,
     chapter: "turning_points",
     archetypes: ["LEADERSHIP"],
   },
   { key: "failure.consequential", weight: 5, chapter: "turning_points", archetypes: ["SETBACK"] },
+  {
+    key: "self.resilience",
+    weight: 3,
+    chapter: "turning_points",
+    archetypes: ["SETBACK", "VALUES"],
+  },
   { key: "support.someone_hard", weight: 4, chapter: "turning_points", archetypes: ["SUPPORT"] },
   { key: "values.dilemma", weight: 3, chapter: "turning_points", archetypes: ["VALUES"] },
   // People and values
@@ -180,8 +206,21 @@ export const SLOTS: readonly Slot[] = [
     archetypes: ["LIST", "MICRO"],
   },
   { key: "self.others_view", weight: 2, chapter: "people_and_values", archetypes: ["IDENTITY"] },
+  {
+    key: "self.leadership_gap",
+    weight: 4,
+    chapter: "people_and_values",
+    archetypes: ["SETBACK", "IDENTITY"],
+    consumers: ["recommenders", "interview"],
+  },
   { key: "values.line", weight: 2, chapter: "people_and_values", archetypes: ["VALUES"] },
   { key: "values.role_model", weight: 3, chapter: "people_and_values", archetypes: ["IDENTITY"] },
+  {
+    key: "values.mentor",
+    weight: 2,
+    chapter: "people_and_values",
+    archetypes: ["IDENTITY", "SUPPORT"],
+  },
   // Goals
   { key: "goals.short_term", weight: 5, chapter: "goals", archetypes: ["GOALS", "GOALBOX"] },
   { key: "goals.long_term", weight: 5, chapter: "goals", archetypes: ["GOALS", "GOALBOX"] },

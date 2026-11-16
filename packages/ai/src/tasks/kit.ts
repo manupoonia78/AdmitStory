@@ -11,9 +11,44 @@ import {
   positioningIssues,
   unresolvedCites,
 } from "@admitstory/shared/kit";
+import type { z } from "zod";
 import { retrievalBlocks } from "../request";
 import { KitPositioningInput, KitPositioningOutput } from "../schemas";
 import { defineTask } from "./define";
+
+/** Kinds whose opening the free preview may show: the long, written answers. */
+const OPENING_KINDS: ReadonlySet<string> = new Set(["essay", "reapplicant_essay"]);
+
+/**
+ * The preview's essay opening (prompt v2): none unless it was asked for, and when given it must
+ * open an essay the request listed, from the story the file map gives that essay.
+ */
+function openingIssues(
+  output: z.output<typeof KitPositioningOutput>,
+  input: z.output<typeof KitPositioningInput>,
+): { path: string; message: string }[] {
+  const { opening } = output;
+  if (!opening) return [];
+  if (!input.draft_opening)
+    return [{ path: "opening", message: 'The request says "Opening: none"; return null' }];
+  const deliverable = input.deliverables.find((d) => d.key === opening.deliverable_key);
+  if (!deliverable || !OPENING_KINDS.has(deliverable.kind))
+    return [
+      {
+        path: "opening.deliverable_key",
+        message: `"${opening.deliverable_key}" is not an essay listed in the request`,
+      },
+    ];
+  const planned = output.file_map.items.find((i) => i.deliverable_key === opening.deliverable_key);
+  if (planned?.primary_story !== opening.story)
+    return [
+      {
+        path: "opening.story",
+        message: `Open with the essay's own primary story (${planned?.primary_story ?? "it has none: choose another essay or return null"})`,
+      },
+    ];
+  return [];
+}
 
 export const kitPositioningFilemap = defineTask({
   name: "kit.positioning_filemap",
@@ -45,7 +80,9 @@ export const kitPositioningFilemap = defineTask({
           `Deliverables (map every one, by key, exactly once):\n${deliverables}`,
           recommenders,
           retrievalBlocks(input.retrieval),
-          "Produce the positioning and the file map.",
+          input.draft_opening
+            ? "Opening: write. Produce the positioning, the file map and the opening."
+            : "Opening: none. Produce the positioning and the file map.",
         ].join("\n\n"),
       },
     ];
@@ -68,6 +105,7 @@ export const kitPositioningFilemap = defineTask({
         recommenderIds: input.recommenders.map((r) => r.id),
       }),
       ...unresolvedCites(output, known),
+      ...openingIssues(output, input),
     ];
   },
 });

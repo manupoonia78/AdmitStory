@@ -5,19 +5,19 @@ import { describe, expect, it, vi } from "vitest";
 import { KitPreview, KitPreviewError, UnlockCta, unlockLabel } from "./kit-preview";
 
 describe("UnlockCta", () => {
-  it("reads exactly 'Unlock {School} for $100'", () => {
-    expect(unlockLabel("Darden")).toBe("Unlock Darden for $100");
+  it("reads exactly 'Unlock {School}'", () => {
+    expect(unlockLabel("Darden")).toBe("Unlock Darden");
     const onUnlock = vi.fn();
     render(<UnlockCta pack="published" schoolName="Northfield" onUnlock={onUnlock} />);
-    fireEvent.click(screen.getByRole("button", { name: "Unlock Northfield for $100" }));
+    fireEvent.click(screen.getByRole("button", { name: "Unlock Northfield" }));
     expect(onUnlock).toHaveBeenCalledOnce();
   });
 
   it("can be a link to checkout", () => {
     render(<UnlockCta pack="published" schoolName="Northfield" href="/checkout/northfield" />);
-    expect(
-      screen.getByRole("link", { name: "Unlock Northfield for $100" }).getAttribute("href"),
-    ).toBe("/checkout/northfield");
+    expect(screen.getByRole("link", { name: "Unlock Northfield" }).getAttribute("href")).toBe(
+      "/checkout/northfield",
+    );
   });
 
   it("can't be bought without a published pack, and offers to record interest", () => {
@@ -65,7 +65,7 @@ describe("KitPreview", () => {
     const locked = container.querySelectorAll("[data-locked]");
     expect(locked).toHaveLength(2);
     for (const row of locked) expect(row.textContent).toContain("Locked");
-    expect(screen.getByRole("button", { name: "Unlock Northfield for $100" })).toBeTruthy();
+    expect(screen.getByRole("button", { name: "Unlock Northfield" })).toBeTruthy();
   });
 });
 

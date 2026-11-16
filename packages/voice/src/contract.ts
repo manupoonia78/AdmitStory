@@ -5,8 +5,12 @@
 /** Dictation audio as §7.5 specifies it: 16 kHz mono, 16-bit little-endian PCM. */
 export const DICTATION_SAMPLE_RATE = 16_000;
 
-/** §5.2: an answer ends after this much silence following a sentence end, or on "Done". */
-export const DEFAULT_UTTERANCE_END_MS = 2_500;
+/**
+ * §5.2: an answer ends after this much silence following a sentence end, or on "Done". 1.5 s
+ * since 2026-11-14 (was 2.5 s): the Studio is a conversation, and 2.5 s of dead air after every
+ * answer made it feel slow. A pause mid-sentence still never ends an answer.
+ */
+export const DEFAULT_UTTERANCE_END_MS = 1_500;
 
 /** §7.5: the STT token lives 60 s and is good for one connection. */
 export const STT_TOKEN_TTL_SECONDS = 60;

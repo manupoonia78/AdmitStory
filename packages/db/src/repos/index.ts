@@ -453,6 +453,7 @@ export {
   costsOverview,
   spendSnapshot,
 } from "./admin-costs";
+export { FUNNEL_STEPS, funnelOverview, type FunnelStep, type FunnelView } from "./admin-funnel";
 export {
   BREAK_GLASS_MINUTES,
   BreakGlassRequiredError,

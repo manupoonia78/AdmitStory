@@ -50,10 +50,30 @@ export type PreviewState =
   | { state: "budget" }
   | { state: "ready"; preview: PreviewView; stale: boolean; updating: boolean };
 
-/** The preview as the page renders it: titles only, drafts locked (§5.5). */
+/**
+ * The opening of one essay, drafted from the applicant's own story (Manu, 16 Nov 2026): the one
+ * piece of draft text a preview shows. The rest of the essay stays locked.
+ */
+export interface PreviewOpeningView {
+  /** "Essay 1". */
+  essay: string;
+  /** "500 words", or null when the prompt has no limit. */
+  limit: string | null;
+  /** The school's prompt, as published. */
+  prompt: string;
+  /** The applicant's story it opens with, by its title. */
+  story: string;
+  text: string;
+}
+
+/** The preview as the page renders it: titles, one essay's opening, every draft locked (§5.5). */
 export interface PreviewView {
   headline: string;
   support: string[];
+  /** Null on a preview built before openings, or when nothing could be opened honestly. */
+  opening: PreviewOpeningView | null;
+  /** The school's AI policy rules out drafted prose, so the pack coaches and nothing is opened. */
+  coached: boolean;
   fileMap: { key: string; deliverable: string; story: string | null }[];
   deliverables: { key: string; title: string; limit: string; story: string | null }[];
   builtAt: string;

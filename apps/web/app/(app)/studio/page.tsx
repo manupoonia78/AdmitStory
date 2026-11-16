@@ -3,7 +3,9 @@ import { DEFAULT_IDENTITY } from "@admitstory/shared";
 import { VoiceprintStill, paramsFromIdentity, voiceHueStyle } from "@admitstory/ui";
 import type { Metadata } from "next";
 import { redirect } from "next/navigation";
+import { capturePageEvent } from "@/lib/analytics/server";
 import { requireOnboardedUser } from "@/lib/app-user";
+import { nextSchoolToUnlock } from "@/lib/funnel/next-school";
 import { STUDIO_ALLOWANCE_WARNING, answersLeft, studioAllowance } from "@/lib/studio/allowance";
 import { loadKnowledge } from "@/lib/studio/state";
 import { remainingVoiceSeconds, voiceSettingsOf } from "@/lib/voice/server";
@@ -27,17 +29,33 @@ export default async function StudioPage() {
 
   const userId = session.user.id;
   const db = getDb();
-  const [knowledge, open, stories, remainingSeconds, allowance] = await Promise.all([
+  const [knowledge, open, allStories, remainingSeconds, allowance, nextSchool] = await Promise.all([
     loadKnowledge(userId),
     getResumableSession(db, userId),
     listStories(db, userId),
     remainingVoiceSeconds(userId),
     studioAllowance(userId),
+    nextSchoolToUnlock(userId),
   ]);
+  const stories = allStories.filter((story) => story.mergedInto === null);
   // The free half is used up (lib/studio/allowance.ts): the halfway prompt instead of a question.
   const left = answersLeft(allowance);
-  if (left === 0 && allowance.limit !== null)
-    return <StudioGate used={allowance.used} limit={allowance.limit} />;
+  if (left === 0 && allowance.limit !== null) {
+    capturePageEvent({
+      distinctId: userId,
+      event: "studio_limit_reached",
+      properties: { stories: stories.length, has_school: nextSchool !== null },
+    });
+    return (
+      <StudioGate
+        used={allowance.used}
+        limit={allowance.limit}
+        stories={stories.map((story) => story.nickname)}
+        facts={knowledge.factCount}
+        school={nextSchool}
+      />
+    );
+  }
   const identity = profile.voiceprint ?? DEFAULT_IDENTITY;
 
   return (
@@ -65,18 +83,16 @@ export default async function StudioPage() {
         remainingSeconds,
         emailVerified: session.user.emailVerified === true,
       }}
-      initialStories={stories
-        .filter((story) => story.mergedInto === null)
-        .map((story) =>
-          toCard({
-            id: story.id,
-            nickname: story.nickname,
-            era: story.era ?? "",
-            context: story.context,
-            traits: story.traits,
-            status: story.status,
-          }),
-        )}
+      initialStories={stories.map((story) =>
+        toCard({
+          id: story.id,
+          nickname: story.nickname,
+          era: story.era ?? "",
+          context: story.context,
+          traits: story.traits,
+          status: story.status,
+        }),
+      )}
       initialCoverage={knowledge.coverage}
       initialFactCount={knowledge.factCount}
       allowance={
@@ -84,6 +100,7 @@ export default async function StudioPage() {
           ? null
           : { limit: allowance.limit, left: left ?? 0, warnAt: STUDIO_ALLOWANCE_WARNING }
       }
+      nextSchool={nextSchool}
     />
   );
 }

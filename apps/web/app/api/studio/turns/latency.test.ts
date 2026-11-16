@@ -43,6 +43,10 @@ const state = vi.hoisted(() => ({ user: null as unknown as AppUser, turn: 0 }));
 
 vi.mock("server-only", () => ({}));
 vi.mock("next/server", () => ({ after: () => {} }));
+// Extraction runs beside the question (and never delays it); this measures the question alone.
+vi.mock("@/lib/studio/extract", () => ({
+  extractFromAnswer: vi.fn(async () => ({ storiesCreated: [] })),
+}));
 vi.mock("@/lib/app-user", () => ({ requireOnboardedUser: vi.fn(async () => state.user) }));
 vi.mock("@/lib/analytics/server", () => ({ captureServerEvent: vi.fn(async () => {}) }));
 vi.mock("@/inngest", () => ({ inngest: { send: vi.fn(async () => {}) } }));
@@ -92,6 +96,7 @@ const anthropic = stubFetch(async () => {
   return sseResponse({
     text: JSON.stringify({
       move: "NEXT",
+      answered: false,
       question: `What did you do on the night of outage number ${state.turn}?`,
       slot: "work.ownership",
       story_ref: null,

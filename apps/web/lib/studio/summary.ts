@@ -90,6 +90,13 @@ const SLOT_DESCRIPTIONS: Record<string, string> = {
   "fit.contribution": "what you'd do on campus",
   "academics.quant_evidence": "your most quantitative work",
   "lor.candidates": "who could recommend you",
+  "leadership.persuaded_peers": "a time you won over someone who pushed back",
+  "perspective.inclusion": "a time you stepped in for someone left out",
+  "self.resilience": "a long stretch you kept going through",
+  "self.leadership_gap": "where you still fall short as a leader",
+  "values.mentor": "someone who taught you at work",
+  "work.arc": "what each role taught you",
+  "work.gaps": "anything in your career you'd want to explain",
 };
 
 export function describeSlot(key: string): string {

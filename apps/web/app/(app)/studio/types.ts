@@ -8,6 +8,10 @@ import type { StudioSummary } from "@/lib/studio/summary";
 export interface QuestionDto {
   question: string;
   move: "DIG" | "NEXT" | "CONFIRM" | "CARE";
+  /** The reply answered something the applicant asked first. */
+  answered?: boolean;
+  /** It arrived as a stream and was read aloud as it came (the stage doesn't read it again). */
+  streamed?: boolean;
   slot: string;
   storyRef: string | null;
   turnId: string;
@@ -22,6 +26,16 @@ export interface QuestionDto {
     | "schools"
     | "recommenders";
   latencyMs: number;
+}
+
+/**
+ * The consultant's reply as it streams: `id` is the turn it answers, `final` once the validated
+ * question has arrived (its text then replaces the streamed one).
+ */
+export interface LiveReply {
+  id: string;
+  text: string;
+  final: boolean;
 }
 
 export interface CoverageBarDto {

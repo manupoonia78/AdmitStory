@@ -352,7 +352,7 @@ async function signIn(context) {
     note("welcome: captured, then agreed");
   }
 
-  // /first-run redirects to /studio once it has been completed, so its four steps can only be
+  // /first-run redirects to /studio once it has been completed, so its steps can only be
   // captured on a fresh account.
   await page.goto(`${BASE}/first-run`, { waitUntil: "load" });
   await page.waitForTimeout(1_200);
@@ -360,6 +360,12 @@ async function signIn(context) {
     await shootBothSizes(page, "first-run-1-applying");
     await page.getByRole("button", { name: "Next" }).click();
     await page.waitForTimeout(700);
+    // The schools screen (added 16 Nov 2026) shows only when a pack is published.
+    if (await page.getByRole("heading", { name: "Which schools are you aiming for?" }).count()) {
+      await shootBothSizes(page, "first-run-2-schools");
+      await page.getByRole("button", { name: "Not sure yet" }).click();
+      await page.waitForTimeout(700);
+    }
     await shootBothSizes(page, "first-run-2-where");
     await page
       .getByLabel("Your current role, in one line")
@@ -372,7 +378,7 @@ async function signIn(context) {
     await shootBothSizes(page, "first-run-4-time");
     await page.getByRole("button", { name: "Start talking" }).click();
     await page.waitForURL(/\/studio/, { timeout: 30_000 }).catch(() => {});
-    note(`first-run: four steps captured, finished at ${page.url().replace(BASE, "")}`);
+    note(`first-run: every step captured, finished at ${page.url().replace(BASE, "")}`);
   } else {
     note(
       "first-run: already completed for this account (use --email for a fresh one to recapture)",

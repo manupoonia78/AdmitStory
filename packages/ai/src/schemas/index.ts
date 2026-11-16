@@ -47,6 +47,7 @@ export {
   KitDeliverable,
   KitPositioningInput,
   KitPositioningOutput,
+  PreviewOpening,
   type DeliverableKind,
 } from "./kit-positioning";
 export {

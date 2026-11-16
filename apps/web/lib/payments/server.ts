@@ -26,6 +26,7 @@ import {
 } from "@admitstory/payments";
 import { kitGenerate } from "@/inngest/events";
 import { raiseAdminAlert } from "@/lib/alerts";
+import { captureServerEvent } from "@/lib/analytics/server";
 import { ApiError } from "@/lib/api";
 import { serverEnv } from "@/lib/env";
 import { latestPack } from "@/lib/strategy/server";
@@ -237,6 +238,12 @@ export async function processWebhook(
         await dispatch(kitGenerate.create({ kitId, userId }), () =>
           runKitGeneration({ kitId, userId }),
         );
+        // Analytics never decides a payment's outcome: a failed send is dropped, not retried.
+        await captureServerEvent({
+          distinctId: userId,
+          event: "purchase_completed",
+          properties: { schools: outcome.schools, amount_cents: event.amountCents },
+        }).catch(() => undefined);
       }
       return { status: 200, body: { outcome: outcome.outcome } };
     }

@@ -62,6 +62,8 @@ export interface SendOptions {
   /** Use the streaming transport even below NON_STREAMING_MAX_TOKENS. */
   stream: boolean;
   signal?: AbortSignal;
+  /** Streaming only: each text delta as it arrives (a live preview; the final message wins). */
+  onText?: (delta: string) => void;
 }
 
 export interface AnthropicProvider {
@@ -124,16 +126,20 @@ export function createAnthropicProvider(config: AnthropicProviderConfig): Anthro
         headers: { [TASK_HEADER]: options.task, [PROMPT_VERSION_HEADER]: options.promptVersion },
         ...(options.signal ? { signal: options.signal } : {}),
       };
-      const stream = options.stream || params.max_tokens > NON_STREAMING_MAX_TOKENS;
+      const onText = options.onText;
+      const stream =
+        options.stream || onText !== undefined || params.max_tokens > NON_STREAMING_MAX_TOKENS;
       if (options.serverFallback) {
         const beta = { ...params, betas: [SERVER_FALLBACK_BETA], fallbacks: "default" as const };
-        return stream
-          ? client.beta.messages.stream(beta, requestOptions).finalMessage()
-          : client.beta.messages.create({ ...beta, stream: false }, requestOptions);
+        if (!stream) return client.beta.messages.create({ ...beta, stream: false }, requestOptions);
+        const live = client.beta.messages.stream(beta, requestOptions);
+        if (onText) live.on("text", (delta) => onText(delta));
+        return live.finalMessage();
       }
-      return stream
-        ? client.messages.stream(params, requestOptions).finalMessage()
-        : client.messages.create({ ...params, stream: false }, requestOptions);
+      if (!stream) return client.messages.create({ ...params, stream: false }, requestOptions);
+      const live = client.messages.stream(params, requestOptions);
+      if (onText) live.on("text", (delta) => onText(delta));
+      return live.finalMessage();
     },
   };
 }

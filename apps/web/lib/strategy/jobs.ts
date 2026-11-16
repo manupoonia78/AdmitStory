@@ -9,6 +9,7 @@ import {
   getLatestSnapshot,
   getUserSchool,
   getCycleWithSchool,
+  getVerifiedAiPolicy,
   listStories,
   saveDossierSnapshot,
   saveKitPreview,
@@ -20,6 +21,7 @@ import { hybridSearch } from "@admitstory/kb";
 import { compileDossier } from "@admitstory/shared";
 import { compareToMedian } from "@admitstory/shared/kit";
 import { ai } from "@/lib/ai";
+import { authorshipFor, type AiStance } from "@/lib/kit/authorship";
 import { isInternational } from "./applicant";
 import { packDeliverables } from "./deliverables";
 import { asPack, type RetrievalSource } from "./pack";
@@ -244,6 +246,15 @@ export async function runKitPreview(userId: string, userSchoolId: string): Promi
       })
     : { chunks: [], sources: [] };
 
+  // The preview shows the opening of one essay, drafted from the applicant's own story (Manu,
+  // 16 Nov 2026), and only where the school's verified AI policy allows drafted prose (§8.10): the
+  // same rule the paid kit follows for every essay.
+  const policy = await getVerifiedAiPolicy(db, row.schoolCycleId);
+  const stance: AiStance =
+    (policy?.stance as AiStance | undefined) ??
+    (pack.ai_policy?.verified_at ? (pack.ai_policy.stance as AiStance) : "unknown");
+  const draftOpening = authorshipFor("essay", stance) === "draft";
+
   try {
     const output = await ai().run(
       "kit.positioning_filemap",
@@ -260,6 +271,7 @@ export async function runKitPreview(userId: string, userSchoolId: string): Promi
         is_reapplicant: row.isReapplicant,
         recommenders: [],
         retrieval: retrieval.chunks,
+        draft_opening: draftOpening,
       },
       {
         userId,
@@ -275,6 +287,9 @@ export async function runKitPreview(userId: string, userSchoolId: string): Promi
         ...(output.file_map as unknown as Record<string, unknown>),
         // Kept so the preview's "what the school must see" lines can cite retrieved chunks later.
         retrieval: retrieval.sources,
+        // The preview's essay opening, or how the school's policy ruled it out.
+        opening: output.opening,
+        opening_mode: draftOpening ? "draft" : "coach",
       },
       dossierSnapshotVersion: snapshot.version,
       packVersion: published.version,

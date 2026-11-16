@@ -63,55 +63,100 @@ export async function GET(
 
         request.signal.addEventListener("abort", close);
 
-        // The cursor starts at what the client already has: only new rows are sent.
+        // The cursor. A first connection starts at what the page already showed; a reconnect
+        // (EventSource sends the last event id it saw) starts where the previous stream stopped,
+        // so a story that landed in between still flies in rather than being skipped.
+        const resumeFrom = Date.parse(request.headers.get("last-event-id") ?? "");
         const seenStories = new Set<string>();
-        const seenFacts = new Set<string>();
-        for (const story of await listStories(db, userId)) seenStories.add(story.id);
-        for (const fact of await listFacts(db, userId)) seenFacts.add(fact.id);
-        send("ready", { sessionId: id, stories: seenStories.size, facts: seenFacts.size });
+        let cursor = Number.isFinite(resumeFrom) ? resumeFrom : 0;
+        let factSignature = "";
+        const signatureOf = (facts: Awaited<ReturnType<typeof listFacts>>) =>
+          facts
+            .map((fact) => `${fact.id}:${fact.status}:${fact.value}`)
+            .sort()
+            .join("|");
+
+        const sendEvent = (event: string, data: unknown) => {
+          if (!open) return;
+          try {
+            controller.enqueue(
+              encoder.encode(
+                `id: ${new Date(cursor).toISOString()}\nevent: ${event}\ndata: ${JSON.stringify(data)}\n\n`,
+              ),
+            );
+          } catch {
+            open = false;
+          }
+        };
+
+        const storyEvent = (story: Awaited<ReturnType<typeof listStories>>[number]) => ({
+          id: story.id,
+          code: story.code,
+          nickname: story.nickname,
+          era: story.era,
+          context: story.context,
+          traits: story.traits,
+          status: story.status,
+          sensitivity: story.sensitivity,
+        });
+
+        const progress = async () => {
+          // Coverage and the counters are derived, so they are recomputed together.
+          const knowledge = await loadKnowledge(userId);
+          sendEvent("progress", {
+            coverage: knowledge.coverage,
+            factCount: knowledge.factCount,
+            conflictCount: knowledge.conflictCount,
+            storyCount: knowledge.stories.length,
+          });
+        };
+
+        {
+          const [stories, facts] = await Promise.all([
+            listStories(db, userId),
+            listFacts(db, userId),
+          ]);
+          const resumed = cursor > 0;
+          for (const story of stories) {
+            const at = story.createdAt.getTime();
+            if (resumed && at > cursor) sendEvent("story", storyEvent(story));
+            seenStories.add(story.id);
+          }
+          cursor = Math.max(cursor, Date.now());
+          factSignature = signatureOf(facts);
+          send("ready", { sessionId: id, stories: seenStories.size, facts: facts.length });
+          // Always: whatever changed while the client was not listening shows straight away.
+          await progress();
+        }
 
         let lastBeat = Date.now();
         while (open) {
           await new Promise((resolve) => setTimeout(resolve, POLL_MS));
           if (!open || request.signal.aborted) break;
           if (Date.now() - startedAt > MAX_STREAM_MS) {
-            send("reconnect", {});
+            sendEvent("reconnect", {});
             break;
           }
 
           try {
+            const polledAt = Date.now();
             const [stories, facts] = await Promise.all([
               listStories(db, userId),
               listFacts(db, userId),
             ]);
 
             const fresh = stories.filter((story) => !seenStories.has(story.id));
-            const factsChanged = facts.some((fact) => !seenFacts.has(fact.id));
+            const signature = signatureOf(facts);
+            const factsChanged = signature !== factSignature;
+            factSignature = signature;
+            cursor = polledAt;
 
             if (fresh.length > 0 || factsChanged) {
               for (const story of fresh) {
                 seenStories.add(story.id);
-                send("story", {
-                  id: story.id,
-                  code: story.code,
-                  nickname: story.nickname,
-                  era: story.era,
-                  context: story.context,
-                  traits: story.traits,
-                  status: story.status,
-                  sensitivity: story.sensitivity,
-                });
+                sendEvent("story", storyEvent(story));
               }
-              for (const fact of facts) seenFacts.add(fact.id);
-
-              // Coverage and the counters are derived, so they are recomputed together.
-              const knowledge = await loadKnowledge(userId);
-              send("progress", {
-                coverage: knowledge.coverage,
-                factCount: knowledge.factCount,
-                conflictCount: knowledge.conflictCount,
-                storyCount: knowledge.stories.length,
-              });
+              await progress();
             } else if (Date.now() - lastBeat > HEARTBEAT_MS) {
               // Keeps proxies from closing an idle stream.
               controller.enqueue(encoder.encode(": keep-alive\n\n"));

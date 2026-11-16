@@ -63,24 +63,42 @@ const sentenceCount = (text: string) =>
     .map((part) => part.trim())
     .filter(Boolean).length;
 
-export const StudioInterviewerOutput = z.object({
-  move: z.enum(INTERVIEWER_MOVES),
-  question: z
-    .string()
-    .trim()
-    .min(1)
-    .max(400)
-    .describe(
-      "One question, at most two sentences. No preamble, no praise, no summary of what they said.",
-    )
-    .refine(
-      (text) => sentenceCount(text) <= MAX_QUESTION_SENTENCES,
-      `At most ${MAX_QUESTION_SENTENCES} sentences`,
-    ),
+/**
+ * The reply's sentence budget: one short reaction plus a question of at most two sentences, or,
+ * when the applicant asked something, a short answer and then the question.
+ */
+export const MAX_REPLY_SENTENCES = 3;
+export const MAX_ANSWER_REPLY_SENTENCES = 6;
+
+export const StudioInterviewerOutput = z
+  .object({
+    move: z.enum(INTERVIEWER_MOVES),
+    /**
+     * The applicant asked something (about the platform, their application, MBA admissions) and
+     * the reply answers it before going back to the interview.
+     */
+    answered: z.boolean(),
+    question: z
+      .string()
+      .trim()
+      .min(1)
+      .max(900)
+      .describe(
+        "What you say out loud: an optional short reaction (or a brief answer when they asked something), then exactly one question.",
+      ),
   /** The slot this question serves — normally the target, or the story's slot on a DIG. */
   slot: z.string().trim().min(1).max(80),
   /** The story being dug into, as a code ("S03"), or null. */
   story_ref: z.string().max(16).nullable(),
-});
+  })
+  .superRefine((output, context) => {
+    const limit = output.answered ? MAX_ANSWER_REPLY_SENTENCES : MAX_REPLY_SENTENCES;
+    if (sentenceCount(output.question) > limit)
+      context.addIssue({
+        code: "custom",
+        path: ["question"],
+        message: `At most ${limit} sentences`,
+      });
+  });
 
 export type StudioInterviewerOutput = z.output<typeof StudioInterviewerOutput>;

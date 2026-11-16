@@ -289,6 +289,20 @@ const STRATEGIST_REPLY: TaskOutput<"kit.positioning_filemap"> = {
     ],
     warnings: ["Only one recommender has seen his product work; brief R2 early."],
   },
+  opening: null,
+};
+
+/**
+ * The free preview's reply (prompt v2, "Opening: write"): the same plan, plus the opening of the
+ * "shaped" essay from its primary story S02, with the applicant's golden line L002 word for word.
+ */
+export const KIT_POSITIONING_PREVIEW_REPLY: TaskOutput<"kit.positioning_filemap"> = {
+  ...STRATEGIST_REPLY,
+  opening: {
+    deliverable_key: "shaped",
+    story: "S02",
+    text: "The director wanted six months and the whole backend team. The customer's deadline was in five. I spent a weekend instrumenting the scheduling module and found that 80% of the slow requests came from three queries. I showed them the numbers instead of arguing the principle.",
+  },
 };
 
 /** First reply plans the withheld story S05 for the optional essay; the repair drops it. */

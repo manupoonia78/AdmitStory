@@ -1,11 +1,14 @@
 import type { EvidenceItem } from "@admitstory/ui";
 import type { Metadata } from "next";
 import { profileReadRequested } from "@/inngest/events";
+import { capturePageEvent } from "@/lib/analytics/server";
 import { requireOnboardedUser } from "@/lib/app-user";
+import { nextSchoolToUnlock } from "@/lib/funnel/next-school";
 import { MIN_STORIES_FOR_READ } from "@/lib/profile-read/policy";
 import { loadProfileRead, runProfileRead } from "@/lib/profile-read/server";
 import { evidenceIndex, profileReadView, readingsFromStories } from "@/lib/profile-read/view";
 import { dispatch } from "@/lib/strategy/dispatch";
+import { ProfileReadOnward } from "./onward";
 import { ProfileReadHost } from "./profile-read-host";
 
 export const metadata: Metadata = { title: "Profile Read" };
@@ -18,12 +21,21 @@ export const metadata: Metadata = { title: "Profile Read" };
 export default async function ProfileReadPage() {
   const { session } = await requireOnboardedUser();
   const userId = session.user.id;
-  const data = await loadProfileRead(userId);
+  const [data, nextSchool] = await Promise.all([
+    loadProfileRead(userId),
+    nextSchoolToUnlock(userId),
+  ]);
   const enough = data.stories.length >= MIN_STORIES_FOR_READ;
   if (!data.read && enough)
     await dispatch(profileReadRequested.create({ userId, reason: "first_visit" }), () =>
       runProfileRead(userId, "first_visit"),
     );
+
+  capturePageEvent({
+    distinctId: userId,
+    event: "profile_read_viewed",
+    properties: { state: data.read ? "ready" : enough ? "building" : "thin" },
+  });
 
   const view = data.read
     ? profileReadView({
@@ -47,17 +59,20 @@ export default async function ProfileReadPage() {
   }
 
   return (
-    <ProfileReadHost
-      readings={view?.readings ?? readingsFromStories(data.stories, data.levels)}
-      lenses={view?.lenses ?? []}
-      plan={view?.plan ?? []}
-      brand={view?.brand ?? []}
-      evidence={evidence}
-      version={data.version}
-      readId={data.read ? data.readId : null}
-      builtAt={data.builtAt}
-      behind={data.behind}
-      state={data.read ? "ready" : enough ? "building" : "thin"}
-    />
+    <>
+      <ProfileReadHost
+        readings={view?.readings ?? readingsFromStories(data.stories, data.levels)}
+        lenses={view?.lenses ?? []}
+        plan={view?.plan ?? []}
+        brand={view?.brand ?? []}
+        evidence={evidence}
+        version={data.version}
+        readId={data.read ? data.readId : null}
+        builtAt={data.builtAt}
+        behind={data.behind}
+        state={data.read ? "ready" : enough ? "building" : "thin"}
+      />
+      {data.read ? <ProfileReadOnward school={nextSchool} /> : null}
+    </>
   );
 }

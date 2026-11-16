@@ -1,4 +1,5 @@
 import { z } from "zod";
+import { captureServerEvent } from "@/lib/analytics/server";
 import { ApiError, checkRateLimit, handle, notFound, requireUser } from "@/lib/api";
 import { kitPreviewRequested } from "@/inngest/events";
 import { dispatch } from "@/lib/strategy/dispatch";
@@ -64,6 +65,11 @@ export async function POST(
     }
     const since = new Date().toISOString();
     await setPreviewJob(userId, id, { state: "running", at: since });
+    await captureServerEvent({
+      distinctId: userId,
+      event: "preview_requested",
+      properties: { refresh: state.state === "ready" },
+    });
     await dispatch(kitPreviewRequested.create({ userId, userSchoolId: id }), async () => {
       try {
         await runKitPreview(userId, id);

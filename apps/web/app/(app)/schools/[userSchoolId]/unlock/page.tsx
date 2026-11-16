@@ -8,7 +8,9 @@ import {
 import type { Metadata } from "next";
 import { notFound, redirect } from "next/navigation";
 import { z } from "zod";
+import { capturePageEvent } from "@/lib/analytics/server";
 import { requireOnboardedUser } from "@/lib/app-user";
+import { loadPreviewState } from "@/lib/strategy/preview";
 import { latestPack } from "@/lib/strategy/server";
 import { loadSchoolPageFacts } from "@/lib/strategy/setup";
 import { ApplicationSetup } from "../application-setup";
@@ -36,17 +38,34 @@ export default async function UnlockPage({
   const db = getDb();
   const row = await getUserSchool(db, session.user.id, id.data);
   if (!row) notFound();
-  const [kit, cycle, published, facts, credits] = await Promise.all([
+  const [kit, cycle, published, facts, credits, preview] = await Promise.all([
     getKitForUserSchool(db, session.user.id, row.id),
     getCycleWithSchool(db, row.schoolCycleId),
     latestPack(db, row.schoolCycleId),
     loadSchoolPageFacts(session.user.id, row.id),
     countSchoolCredits(db, session.user.id),
+    loadPreviewState(session.user.id, row.id),
   ]);
   if (kit && kit.status !== "preview") redirect(`/schools/${row.id}`);
   const school = cycle?.school.shortName || cycle?.school.name || "this school";
   const query = await searchParams;
   const declined = query.status === "failed" || query.status === "cancelled";
+  // The opening of their own essay, when the free preview drafted one: shown again where they pay.
+  const opening =
+    preview?.state.state === "ready" && preview.state.preview.opening
+      ? { essay: preview.state.preview.opening.essay, text: preview.state.preview.opening.text }
+      : null;
+  if (query.paid !== "1")
+    capturePageEvent({
+      distinctId: session.user.id,
+      event: "unlock_viewed",
+      properties: {
+        has_preview: kit !== null,
+        has_opening: opening !== null,
+        credits,
+        declined,
+      },
+    });
   return (
     <UnlockScreen
       userSchoolId={row.id}
@@ -57,6 +76,7 @@ export default async function UnlockPage({
       paid={query.paid === "1" && !declined}
       declined={declined}
       email={session.user.email}
+      opening={opening}
       setup={published && facts ? <ApplicationSetup setup={facts.setup} /> : null}
     />
   );

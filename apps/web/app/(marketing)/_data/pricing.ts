@@ -57,7 +57,7 @@ export const FREE_FEATURES = [
   "Your Story Bank and Fact Sheet",
   "Profile Read: how admissions will likely see you",
   "School Strategy and the round planner",
-  "A preview of each school's kit: the positioning, which story goes where, and every deliverable, locked",
+  "A preview of each school's kit: your positioning, which story goes where, and the opening of one of your essays where the school allows drafting",
 ] as const;
 
 export const KIT_FEATURES = [

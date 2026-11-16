@@ -15,8 +15,8 @@ import { TASKS } from "../src/tasks";
 
 /** Spec §8.3 table: task → [model, effort, max output]. util.* take the low end of "300–1000". */
 const SPEC: Record<RouteTask, [RoutableModelKey, Effort, number]> = {
-  "studio.interviewer": ["sonnet", "low", 300],
-  "studio.extract": ["haiku", "low", 2_000],
+  "studio.interviewer": ["sonnet", "low", 600],
+  "studio.extract": ["haiku", "low", 8_000],
   "studio.consolidate": ["sonnet", "medium", 6_000],
   "import.parse": ["haiku", "medium", 6_000],
   "profile.read": ["sonnet", "medium", 3_000],

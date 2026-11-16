@@ -39,6 +39,8 @@ export const TURNS_BETWEEN_CONSOLIDATIONS = 8;
 export interface NextQuestion {
   question: string;
   move: "DIG" | "NEXT" | "CONFIRM" | "CARE";
+  /** The reply answered a question the applicant asked before going on with the interview. */
+  answered: boolean;
   slot: string;
   storyRef: string | null;
   turnId: string;
@@ -61,6 +63,11 @@ export interface AskOptions {
   /** How many DIG turns the current story has had, so the Interviewer respects the limit of two. */
   digsUsedOnStory?: number;
   knowledge?: StudioKnowledge;
+  /**
+   * The reply's spoken text as the model writes it (raw JSON deltas). A preview for the browser;
+   * the validated question returned at the end is what is stored.
+   */
+  onText?: (delta: string) => void;
 }
 
 /**
@@ -78,9 +85,13 @@ export async function askNextQuestion(
 ): Promise<NextQuestion | null> {
   const db = getDb();
   const { session } = options;
-  const [knowledge, schools] = await Promise.all([
+  // Everything the turn reads, at once: the Interviewer is waiting on all of it.
+  const [knowledge, schools, history, snapshot, turnsSoFar] = await Promise.all([
     options.knowledge ?? loadKnowledge(userId),
     studioSchools(userId),
+    recentTurns(db, userId, session.id),
+    getLatestSnapshot(db, userId),
+    countUserTurns(db, userId, session.id),
   ]);
   const now = new Date();
 
@@ -110,14 +121,12 @@ export async function askNextQuestion(
     if (!picked) return null;
     targetSlot = picked.slot.key;
     chapterId = picked.slot.chapter;
-    seedQuestion = questionsForSlot(targetSlot)[0]?.text ?? "";
+    // A slot asked before (still partial, or skipped and back) gets its next angle rather than
+    // the same question again.
+    const seeds = questionsForSlot(targetSlot);
+    const askedBefore = knowledge.states.get(targetSlot)?.lastAskedAt != null;
+    seedQuestion = (askedBefore ? (seeds[1] ?? seeds[0]) : seeds[0])?.text ?? "";
   }
-
-  const [history, snapshot, turnsSoFar] = await Promise.all([
-    recentTurns(db, userId, session.id),
-    getLatestSnapshot(db, userId),
-    countUserTurns(db, userId, session.id),
-  ]);
 
   // The line the applicant said on our homepage, if first run kept it: it seeds the very first
   // question of a conversation, once (homepage-line.ts). Looked up only before the first turn.
@@ -151,7 +160,12 @@ export async function askNextQuestion(
       possibleConflicts: options.possibleConflicts ?? [],
       offerPause: turnsSoFar > 0 && turnsSoFar % TURNS_BETWEEN_PAUSES === 0,
     },
-    { userId, stream: true, dossier: snapshot?.compactText },
+    {
+      userId,
+      stream: true,
+      ...(snapshot?.compactText ? { dossier: snapshot.compactText } : {}),
+      ...(options.onText ? { onText: options.onText } : {}),
+    },
   );
   const latencyMs = Date.now() - startedAt;
 
@@ -168,20 +182,25 @@ export async function askNextQuestion(
     latencyMs,
   });
 
-  await upsertSlotState(db, userId, { slotKey: answeredSlot, asked: true });
-  if (chapterId !== session.currentChapter)
-    await updateStudioSession(db, userId, session.id, { currentChapter: chapterId });
-  // The homepage line took the express opener's place, so that opener is still to come.
-  if (opener && !homepageSeed)
-    await updateStudioSession(db, userId, session.id, {
-      openersAsked: session.openersAsked + 1,
-    });
-  if (homepageSeed && homepageLine)
-    await updateSourceMeta(db, userId, homepageLine.id, { usedAt: now.toISOString() });
+  const sessionPatch = {
+    ...(chapterId !== session.currentChapter ? { currentChapter: chapterId } : {}),
+    // The homepage line took the express opener's place, so that opener is still to come.
+    ...(opener && !homepageSeed ? { openersAsked: session.openersAsked + 1 } : {}),
+  };
+  await Promise.all([
+    upsertSlotState(db, userId, { slotKey: answeredSlot, asked: true }),
+    Object.keys(sessionPatch).length > 0
+      ? updateStudioSession(db, userId, session.id, sessionPatch)
+      : null,
+    homepageSeed && homepageLine
+      ? updateSourceMeta(db, userId, homepageLine.id, { usedAt: now.toISOString() })
+      : null,
+  ]);
 
   return {
     question: result.question,
     move: result.move,
+    answered: result.answered,
     slot: answeredSlot,
     storyRef: result.story_ref,
     turnId: turn.id,

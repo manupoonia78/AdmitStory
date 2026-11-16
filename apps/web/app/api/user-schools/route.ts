@@ -1,5 +1,6 @@
 import { addUserSchool, getDb, listUserSchools } from "@admitstory/db";
 import { z } from "zod";
+import { captureServerEvent } from "@/lib/analytics/server";
 import { checkRateLimit, handle, readJson, requireUser } from "@/lib/api";
 import { profileReadRequested, strategyFitRequested } from "@/inngest/events";
 import { runProfileRead } from "@/lib/profile-read/server";
@@ -58,6 +59,11 @@ export async function POST(request: Request): Promise<Response> {
     await dispatch(profileReadRequested.create({ userId, reason: "schools_changed" }), () =>
       runProfileRead(userId, "schools_changed"),
     );
+    await captureServerEvent({
+      distinctId: userId,
+      event: "school_added",
+      properties: { source: "schools" },
+    });
     return Response.json(
       {
         userSchool: {

@@ -1,4 +1,5 @@
 import { z } from "zod";
+import { captureServerEvent } from "@/lib/analytics/server";
 import { checkRateLimit, handle, notFound, requireUser } from "@/lib/api";
 import { assertFeatureOn } from "@/lib/features";
 import { redeemCredit } from "@/lib/payments/server";
@@ -17,6 +18,12 @@ export async function POST(
     await assertFeatureOn("kit_checkout");
     const id = z.guid().safeParse((await context.params).id);
     if (!id.success) notFound("That school");
-    return Response.json(await redeemCredit(userId, id.data), { status: 201 });
+    const redeemed = await redeemCredit(userId, id.data);
+    await captureServerEvent({
+      distinctId: userId,
+      event: "credit_redeemed",
+      properties: { left: redeemed.left },
+    });
+    return Response.json(redeemed, { status: 201 });
   });
 }

@@ -40,4 +40,11 @@ export {
   type SelectorOptions,
   type SlotScore,
 } from "./selector";
-export { coverage, type CoverageBar, type CoverageInput, type CoverageStory } from "./coverage";
+export {
+  coverage,
+  lensesForFactKey,
+  type CoverageBar,
+  type CoverageFact,
+  type CoverageInput,
+  type CoverageStory,
+} from "./coverage";

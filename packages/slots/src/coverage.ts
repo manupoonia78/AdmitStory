@@ -42,10 +42,53 @@ export interface CoverageBar {
   note?: string;
 }
 
+/** A Fact Sheet entry as coverage needs it. */
+export interface CoverageFact {
+  key: string;
+  confirmed: boolean;
+}
+
 export interface CoverageInput {
   stories: readonly CoverageStory[];
   states: ReadonlyMap<SlotKey, SlotRecord>;
+  /**
+   * The Fact Sheet. A lens is evidenced by stories, but an applicant who has told us their degree,
+   * scores, employer and team size has given the reader something on that lens, and the meter must
+   * show it: before this, answers that were all facts left every bar at "not yet".
+   */
+  facts?: readonly CoverageFact[];
 }
+
+/**
+ * Which lens a fact speaks to, by its snake_case key (the Extractor's keys are free-form, so this
+ * matches on parts). A fact can count for more than one lens; most count for none.
+ */
+const FACT_LENS_PATTERNS: Record<LensId, RegExp> = {
+  academics:
+    /gmat|\bgre\b|_gre|gre_|gpa|cgpa|grade|degree|university|college|undergrad|major|minor|high_school|_school$|education|test_|toefl|ielts|class_rank|rank_|scholarship|coursework|course_|thesis|cfa|cpa|certif|exam/,
+  employability:
+    /employer|company|firm|title|role|designation|job|industry|experience|years_|tenure|promotion|skill|tool|language|client|revenue|budget|salary|certif|function|sector|career/,
+  leadership:
+    /team_size|reports|headcount|led_|lead_|leader|manag|captain|president|founder|co_founder|mentor|volunteer_role|chair|head_/,
+  self_awareness: /weakness|strength|learning|lesson|value|motivation|feedback/,
+};
+
+export function lensesForFactKey(key: string): LensId[] {
+  const normalized = key.toLowerCase();
+  return (Object.keys(FACT_LENS_PATTERNS) as LensId[]).filter((lens) =>
+    FACT_LENS_PATTERNS[lens].test(normalized),
+  );
+}
+
+/** Facts alone never make a lens more than partial: a reader still wants a story behind them. */
+function levelFromFacts(confirmed: number, stated: number): CoverageLevel {
+  if (confirmed >= 3) return "partial";
+  if (confirmed + stated > 0) return "thin";
+  return "none";
+}
+
+const LEVEL_RANK: Record<CoverageLevel, number> = { none: 0, thin: 1, partial: 2, strong: 3 };
+const higher = (a: CoverageLevel, b: CoverageLevel) => (LEVEL_RANK[b] > LEVEL_RANK[a] ? b : a);
 
 const GOAL_SLOTS = SLOTS.filter((slot) => slot.chapter === "goals").map((slot) => slot.key);
 const SCHOOL_SLOTS = SLOTS.filter((slot) => slot.chapter === "schools").map((slot) => slot.key);
@@ -67,12 +110,21 @@ export function coverage(input: CoverageInput): CoverageBar[] {
     if (id === "school_fit") return { id, level: chapterLevel(SCHOOL_SLOTS, input.states) };
     const lens = id as LensId;
     const matching = input.stories.filter((story) => story.lenses.includes(lens));
-    return {
-      id,
-      level: levelFromStories(
-        matching.filter((story) => story.confirmed).length,
-        matching.filter((story) => !story.confirmed).length,
-      ),
-    };
+    const fromStories = levelFromStories(
+      matching.filter((story) => story.confirmed).length,
+      matching.filter((story) => !story.confirmed).length,
+    );
+    const facts = (input.facts ?? []).filter((fact) => lensesForFactKey(fact.key).includes(lens));
+    const fromFacts = levelFromFacts(
+      facts.filter((fact) => fact.confirmed).length,
+      facts.filter((fact) => !fact.confirmed).length,
+    );
+    const level = higher(fromStories, fromFacts);
+    // Say where a level came from when facts carried it, so "thin" doesn't read as "ignored".
+    const note =
+      matching.length === 0 && facts.length > 0
+        ? `${facts.length} ${facts.length === 1 ? "fact" : "facts"} so far — a story will strengthen it`
+        : undefined;
+    return note ? { id, level, note } : { id, level };
   });
 }

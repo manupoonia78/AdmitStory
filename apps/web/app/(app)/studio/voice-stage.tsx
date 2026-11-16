@@ -20,8 +20,8 @@ import {
 import { useDictation, useReadAloud, type DictationSnapshot } from "@admitstory/voice/client";
 import { PencilSimpleLineIcon, SpeakerHighIcon, SpeakerSlashIcon } from "@phosphor-icons/react";
 import { useEffect, useEffectEvent, useRef, useState, type CSSProperties } from "react";
-import { StageFrame } from "./stage-frame";
-import type { QuestionDto } from "./types";
+import { QUESTION_CLASS, StageFrame } from "./stage-frame";
+import type { LiveReply, QuestionDto } from "./types";
 import type { SpokenAnswer, VoiceFlowEvent, VoiceFlowState } from "./voice-flow";
 import {
   LONG_SILENCE_MS,
@@ -55,7 +55,21 @@ export interface VoiceStageProps {
   onReadAloudChange: (on: boolean) => void;
   /** A dictated answer is complete (Done, or silence after a sentence end). */
   onAnswer: (answer: SpokenAnswer) => void;
+  /** The consultant's reply as it streams in, then finished. */
+  reply: LiveReply | null;
+  /** The applicant's last answer, shown as saved until they start the next one. */
+  lastSaid: string;
 }
+
+/** The end of the last complete sentence in `text`, or 0: where a spoken chunk can stop. */
+function sentenceBoundary(text: string): number {
+  let end = 0;
+  for (const match of text.matchAll(/[.?!…]["'”’)\]]*\s+/gu)) end = match.index + match[0].length;
+  return end;
+}
+
+/** Hands-free: an answer the Studio started on its own ends quietly if nothing is said. */
+const HANDS_FREE_IDLE_MS = 12_000;
 
 const partialOf = (snapshot: DictationSnapshot): SpokenAnswer => ({
   text: heardSoFar(snapshot),
@@ -95,6 +109,8 @@ export function VoiceStage({
   readAloud,
   onReadAloudChange,
   onAnswer,
+  reply,
+  lastSaid,
 }: VoiceStageProps) {
   const talk = flow.mode === "talk";
   const recordRef = useRef<HTMLDivElement>(null);
@@ -136,10 +152,24 @@ export function VoiceStage({
   const [attempt, setAttempt] = useState(0);
   const [startFailed, setStartFailed] = useState(false);
   const [permission, setPermission] = useState<PermissionState | "unknown">("unknown");
+  /** The reply's read-aloud queue: which reply, how much of it has been handed to the player. */
+  const speech = useRef<{ id: string | null; said: string; items: string[]; playing: boolean }>({
+    id: null,
+    said: "",
+    items: [],
+    playing: false,
+  });
 
-  const startAnswer = async () => {
+  // Hands-free (on by default): once the applicant has answered out loud once, the Studio
+  // listens again by itself when the consultant finishes speaking, like a call.
+  const [handsFree, setHandsFree] = useState(true);
+  const autoStarted = useRef(false);
+
+  const startAnswer = async (auto = false) => {
     if (!question || busy) return;
-    unlock();
+    autoStarted.current = auto;
+    speech.current.items = [];
+    if (!auto) unlock();
     setStartFailed(false);
     setAttempt((n) => n + 1);
     dispatch({ type: "dictation-start" });
@@ -273,25 +303,119 @@ export function VoiceStage({
     if (turnId) clearAnswer();
   }, [turnId]);
 
-  // Questions are read aloud in Talk mode when the applicant has it on (§5.2); each question
-  // once. Captions are always on screen: the question is the caption. Never over a recording
-  // (turning read-aloud on mid-answer): the microphone would hear it.
+  // The reply is read aloud as it streams (§5.2: questions read aloud in Talk mode when the
+  // applicant has it on): each sentence goes to the player the moment it is complete, so the
+  // consultant starts talking while the rest is still being written. Captions are always on
+  // screen. Never over a recording: the microphone would hear it.
+  const answeredOnce = attempt > 0;
+
+  const listenAgain = useEffectEvent(() => {
+    if (!handsFree || !talk || !answeredOnce || busy || !question) return;
+    if (isRecording(snapshot.state) || snapshot.state === "finishing") return;
+    void startAnswer(true);
+  });
+
+  const latestReply = useRef(reply);
+  useEffect(() => {
+    latestReply.current = reply;
+  });
+
+  /** Says whatever is queued, in order; when it runs dry on a finished reply, hands over. */
+  const pump = useEffectEvent(() => {
+    const queue = speech.current;
+    if (queue.playing) return;
+    queue.playing = true;
+    void (async () => {
+      for (let next = queue.items.shift(); next !== undefined; next = queue.items.shift()) {
+        const outcome = await speak(next);
+        if (outcome !== "ended") {
+          queue.items = [];
+          queue.playing = false;
+          return;
+        }
+      }
+      queue.playing = false;
+      // Everything said and the reply is finished: the applicant's turn. Read from the ref, since
+      // the reply may have finished while this was speaking.
+      const latest = latestReply.current;
+      if (latest?.final && latest.id === queue.id && queue.said.length >= latest.text.length)
+        listenAgain();
+    })();
+  });
+
+  const liveText = reply?.text ?? "";
+  const liveFinal = reply?.final ?? false;
+  const liveId = reply?.id ?? null;
+  const feedSpeech = useEffectEvent(() => {
+    if (!liveId || !talk || !readAloud || recording) return;
+    if (speech.current.id !== liveId)
+      speech.current = { id: liveId, said: "", items: [], playing: false };
+    const queue = speech.current;
+    // The finished reply can differ from what streamed (a repaired reply). Then what was said is
+    // wrong: stop, and read the finished one from the start.
+    if (liveFinal && !liveText.startsWith(queue.said)) {
+      queue.items = [];
+      queue.said = "";
+      stopReading();
+    }
+    const pending = liveText.slice(queue.said.length);
+    const take = liveFinal ? pending.length : sentenceBoundary(pending);
+    const chunk = pending.slice(0, take).trim();
+    queue.said += pending.slice(0, take);
+    if (chunk) queue.items.push(chunk);
+    pump();
+  });
+  useEffect(() => {
+    feedSpeech();
+  }, [liveText, liveFinal, liveId]);
+
+  // A question that did not stream (the session's first, after a resume) is read whole.
   const spoken = useRef<string | null>(null);
   useEffect(() => {
     if (!question || !talk || !readAloud || spoken.current === question.turnId) return;
     spoken.current = question.turnId;
-    if (!recording) void speak(question.question);
+    if (question.streamed || recording) return;
+    void speak(question.question).then((outcome) => {
+      if (outcome === "ended") listenAgain();
+    });
   }, [question, talk, readAloud, speak, recording]);
   useEffect(() => {
-    if (!talk || !readAloud) stopReading();
+    if (!talk || !readAloud) {
+      speech.current.items = [];
+      stopReading();
+    }
   }, [talk, readAloud, stopReading]);
+
+  // Read-aloud off: hands-free still hands the turn back as soon as the question is on screen.
+  const silentHandOff = useEffectEvent(() => {
+    if (!readAloud) listenAgain();
+  });
+  useEffect(() => {
+    if (!turnId) return;
+    const timer = window.setTimeout(() => silentHandOff(), 600);
+    return () => window.clearTimeout(timer);
+  }, [turnId]);
+
+  // Hands-free answers end quietly when nothing is said, so an open microphone never runs down
+  // the free minutes while the applicant is away.
+  const nothingYet = snapshot.text === "" && snapshot.interim === "";
+  const idleOut = useEffectEvent(() => {
+    if (!autoStarted.current || !nothingYet || !isRecording(snapshot.state)) return;
+    dictation.cancel();
+    stopMic();
+  });
+  useEffect(() => {
+    if (snapshot.state !== "listening" || !nothingYet) return;
+    const timer = window.setTimeout(() => idleOut(), HANDS_FREE_IDLE_MS);
+    return () => window.clearTimeout(timer);
+  }, [snapshot.state, nothingYet, attempt]);
 
   const toggleReadAloud = () => {
     const on = !readAloud;
     if (on) {
       unlock();
       // Turned back on: read the question on screen now.
-      spoken.current = null;
+      if (question && !recording) void speak(question.question);
     }
     onReadAloudChange(on);
   };
@@ -327,10 +451,10 @@ export function VoiceStage({
   });
 
   const runAction: Record<NoticeAction, () => void> = {
-    allow: () => void startAnswer(),
+    allow: () => void startAnswer(false),
     write: () => dispatch({ type: "mode", mode: "write" }),
     "retry-stt": () => dictation.retry(),
-    "retry-mic": () => void startAnswer(),
+    "retry-mic": () => void startAnswer(false),
     type: typeInstead,
   };
   const actions: VoiceNoticeAction[] = (notice?.actions ?? []).map((action, index) => ({
@@ -357,7 +481,11 @@ export function VoiceStage({
         />
       }
       question={
-        question ? (
+        reply && !reply.final && reply.text ? (
+          <h2 className={QUESTION_CLASS} aria-live="polite">
+            {reply.text}
+          </h2>
+        ) : question ? (
           <SpokenQuestion
             text={question.question}
             timings={matched ? read.timings : null}
@@ -375,11 +503,16 @@ export function VoiceStage({
           label="Your answer"
           className="h-full"
           empty={
-            <p className="text-base">
-              {recording
-                ? "Listening. Your words appear here as you speak."
-                : "Answer out loud. Your words appear here as you speak."}
-            </p>
+            recording ? (
+              <p className="text-base">Listening. Your words appear here as you speak.</p>
+            ) : lastSaid ? (
+              <div className="flex flex-col gap-1">
+                <p className="line-clamp-3 font-reading text-reading text-text">{lastSaid}</p>
+                <p className="text-sm text-text-soft">Saved. Your words go into your Dossier.</p>
+              </div>
+            ) : (
+              <p className="text-base">Answer out loud. Your words appear here as you speak.</p>
+            )
           }
         />
       }
@@ -391,7 +524,9 @@ export function VoiceStage({
           <div ref={recordRef}>
             <RecordButton
               state={recordButtonState(snapshot.state, busy)}
-              onStart={() => (snapshot.state === "failed" ? dictation.retry() : void startAnswer())}
+              onStart={() =>
+                snapshot.state === "failed" ? dictation.retry() : void startAnswer(false)
+              }
               onStop={finishAnswer}
               signal={live}
               disabled={!question}
@@ -425,6 +560,13 @@ export function VoiceStage({
               aria-pressed={readAloud}
             >
               Read questions aloud
+            </Button>
+            <Button
+              variant="quiet"
+              onClick={() => setHandsFree((on) => !on)}
+              aria-pressed={handsFree}
+            >
+              Hands-free
             </Button>
           </div>
         </div>

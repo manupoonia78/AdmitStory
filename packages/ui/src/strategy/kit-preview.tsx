@@ -1,6 +1,8 @@
 // The free kit preview (spec §5.5): the positioning headline for one school, the file map (which
 // story goes where, titles only), the deliverables visibly present but locked, and the CTA,
-// "Unlock {School} for $100". A school without a published pack can't be bought: its CTA becomes
+// "Unlock {School}". The button names no price (Manu's packs, 5 Nov 2026: the unlock page offers
+// one school or a pack, so a single price on the way in was wrong half the time); the line under
+// it says what the choices cost. A school without a published pack can't be bought: its CTA becomes
 // "Pack coming soon" and an offer to record interest (§5.5 AC). Server-safe; Button is the only
 // client leaf. Pages usually show it in a Sheet opened from the school's "Preview kit".
 
@@ -12,10 +14,13 @@ import type { FileMapEntry, LockedDeliverable, PackStatus } from "./types";
 /** The flat price of one school's kit (decided 2026-10-31). */
 export const KIT_PRICE = "$100";
 
-/** "Unlock Darden for $100" (spec §6.9). */
+/** "Unlock Darden". The prices are on the line under the button and on the unlock page. */
 export function unlockLabel(schoolName: string): string {
-  return `Unlock ${schoolName} for ${KIT_PRICE}`;
+  return `Unlock ${schoolName}`;
 }
+
+/** Under the button when the page gives no price line of its own. */
+export const UNLOCK_NOTE = `From ${KIT_PRICE} for this school's whole kit. Your preview carries over.`;
 
 /** "Darden's". */
 function possessive(name: string): string {
@@ -142,6 +147,8 @@ export interface PublishedUnlockCtaProps extends UnlockCtaBase {
   onUnlock?: () => void;
   /** Checkout is opening: the button keeps its place and says so. */
   loading?: boolean;
+  /** The line under the button: what one school and a pack cost. Defaults to UNLOCK_NOTE. */
+  note?: string;
 }
 
 export interface ComingSoonUnlockCtaProps extends UnlockCtaBase {
@@ -187,9 +194,7 @@ export function UnlockCta(props: UnlockCtaProps) {
           {props.loading ? "Opening checkout" : label}
         </Button>
       )}
-      <p className="text-sm text-text-soft">
-        {"One payment for this school's whole kit. Your preview carries over."}
-      </p>
+      <p className="text-sm text-text-soft">{props.note ?? UNLOCK_NOTE}</p>
     </div>
   );
 }

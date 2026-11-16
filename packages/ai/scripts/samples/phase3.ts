@@ -344,6 +344,12 @@ export const KIT_POSITIONING_INPUT: TaskInput<"kit.positioning_filemap"> = {
   retrieval: HALVORSEN_RETRIEVAL,
 };
 
+/** The same request as the free preview sends it: the opening of one essay is asked for (v2). */
+export const KIT_POSITIONING_PREVIEW_INPUT: TaskInput<"kit.positioning_filemap"> = {
+  ...KIT_POSITIONING_INPUT,
+  draft_opening: true,
+};
+
 export const KB_NORMALIZE_OFFICIAL_INPUT: TaskInput<"kb.normalize"> = {
   school: "Halvorsen School of Management",
   cycle: "2026-27",
