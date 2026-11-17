@@ -17,6 +17,8 @@ export interface PageHeadProps {
   action?: ReactNode;
   /** Classes for the h1, replacing the display-1 size. */
   headingClassName?: string;
+  /** Set the last line in the italic accent (default). */
+  accent?: boolean;
   className?: string;
 }
 
@@ -29,6 +31,7 @@ export function PageHead({
   paragraph,
   action,
   headingClassName,
+  accent = true,
   className,
 }: PageHeadProps) {
   const last = lines.length - 1;
@@ -51,7 +54,7 @@ export function PageHead({
               className="enter block"
               style={step(index === 0 ? 0.8 : 0.8 + index * 0.65)}
             >
-              {index === last && last > 0 ? <em>{line}</em> : line}
+              {accent && index === last && last > 0 ? <em>{line}</em> : line}
               {index < last ? " " : null}
             </span>
           ))}

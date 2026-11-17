@@ -16,7 +16,8 @@ export const metadata = pageMetadata({
 export default function TermsPage() {
   return (
     <LegalLayout
-      title={TERMS_COPY.title}
+      titleLines={TERMS_COPY.titleLines}
+      readingLine
       titleId="terms-title"
       contentsLabel={TERMS_COPY.contents}
       sections={TERMS_SECTIONS}

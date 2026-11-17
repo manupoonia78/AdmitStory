@@ -151,17 +151,17 @@ kept all of it, fixed five things found in the screenshots, measured and committ
 - [x] `/how-it-works`: head, index, four stages with their windows, the pack assembling,
       interview row, what it won't do, AI policies on paper, final call (8.4; threads draw
       with `clip-path`, not a dash: a dash breaks on a stretched non-scaling stroke)
-- [ ] `/pricing`: the strike, plans, one kit opened, the ledger, elsewhere and here, payment,
-      questions, final call; `SocialProofSlot` above the plans
-- [ ] `/privacy` and `/terms` on paper: contents, hanging numbers, the voice path, the reading
-      line
+- [x] `/pricing`: the strike, plans, one kit opened, the ledger, elsewhere and here, payment,
+      questions, final call; `SocialProofSlot` above the plans (8.4)
+- [x] `/privacy` and `/terms` on paper: contents, hanging numbers, the voice path, the reading
+      line (8.5)
 - [ ] OG images (five routes, one template) and titles
 - [ ] The entry room (`auth-shell.tsx`, `entry.css`); `/sign-in` with the sheet, the line and
       "Check your email"; `/goodbye` and not-found
 - [ ] `/welcome`
 - [ ] `/first-run` (all five steps)
-- [ ] Old helpers deleted (`school-packs`, `tick`, `display-heading`, `notes`, `screens*`,
-      `_unlock*`, `_assembly-island`, `voice-path-play`)
+- [x] Old helpers deleted (`school-packs`, `tick`, `display-heading`, `notes`, `screens*`,
+      `sample-hue`, `_unlock*`, `_assembly*`, `voice-path-play`, the `capture:screens` stub)
 - [ ] Shot, scored, fixed, re-shot; measured (bundle, fonts, overflow, console, axe)
 - [ ] Gates: typecheck, lint, build, `bundle:check`; existing unit tests
 - [ ] SPEC updated where the build differs; REPORT.md; committed

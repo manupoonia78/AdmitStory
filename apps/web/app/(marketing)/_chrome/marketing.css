@@ -1807,3 +1807,520 @@ body:has(.marketing) {
     padding: 24px 40px;
   }
 }
+
+/* /pricing: the head. "5 schools." then the list price, struck by a line that draws through it
+   as the page settles (900ms after load), and the price rising beside it. Still, and struck,
+   under reduced motion and without JavaScript. */
+.price-hero-title {
+  font-size: clamp(44px, 8vw, 120px);
+  font-weight: 450;
+  line-height: 0.95;
+  letter-spacing: -0.045em;
+}
+.price-hero-was {
+  position: relative;
+  display: inline-block;
+  color: var(--fg-48);
+}
+.price-hero-was s {
+  text-decoration: none;
+}
+.price-hero-was::after {
+  content: "";
+  position: absolute;
+  left: -0.04em;
+  right: -0.04em;
+  top: 52%;
+  height: max(2px, 0.045em);
+  background: var(--fg-80);
+  transform-origin: left center;
+}
+:root[data-motion="on"] .price-hero-was::after {
+  animation: price-strike 600ms var(--ease-line) 900ms both;
+}
+@keyframes price-strike {
+  from {
+    scale: 0 1;
+  }
+}
+.price-hero-now {
+  display: inline-block;
+}
+
+/* One kit, opened: the drafts as sheets, two by two from 640px. */
+.kit-sheets {
+  display: grid;
+  gap: 16px;
+}
+.kit-sheet {
+  height: 100%;
+  /* Phones: one step smaller, so the text column beside the margin holds a sentence. */
+  font-size: 0.875rem;
+}
+.kit-sheet .scene-sheet-body {
+  font-size: 1.0625em;
+}
+.kit-sheet-from {
+  margin-bottom: 0.875em;
+  font-family: var(--font-mono);
+  font-size: 0.625em;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink-66);
+}
+.kit-others {
+  display: grid;
+  gap: 0 24px;
+}
+.kit-others > li {
+  padding-block: 20px;
+  border-top: 1px solid var(--line);
+}
+@media (min-width: 40rem) {
+  .kit-sheet {
+    font-size: 1rem;
+  }
+  .kit-sheets {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 24px;
+  }
+  .kit-others {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+@media (min-width: 64rem) {
+  .kit-sheet {
+    font-size: 1.125rem;
+  }
+  .kit-others {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+
+/* What's free, and what a kit adds: one list at every width. */
+.ledger-group + .ledger-group {
+  margin-top: 56px;
+}
+.ledger-group > h3 {
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--line-strong);
+}
+.ledger-line {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 24px;
+  padding-block: 20px;
+  border-bottom: 1px solid var(--line);
+}
+.ledger-line > :last-child {
+  flex-shrink: 0;
+}
+
+/* Elsewhere, and here: two columns on hairlines. No ticks, no brass. */
+.compare-table {
+  width: 100%;
+  border-collapse: collapse;
+  table-layout: fixed;
+  text-align: left;
+}
+.compare-table th {
+  padding-bottom: 12px;
+  font-family: var(--font-mono);
+  font-size: var(--type-label);
+  font-weight: 500;
+  letter-spacing: var(--type-label-tracking);
+  text-transform: uppercase;
+  color: var(--fg-60);
+}
+.compare-table td {
+  padding: 20px 24px 20px 0;
+  border-top: 1px solid var(--line);
+  vertical-align: baseline;
+  font-size: var(--type-body-lg);
+  line-height: 1.4;
+  color: var(--fg);
+}
+.compare-table td:first-child {
+  color: var(--fg-60);
+}
+.compare-table tbody tr:last-child td {
+  border-bottom: 1px solid var(--line);
+}
+
+/* /privacy and /terms: one sheet of paper from the top of the window to a rounded foot. */
+.legal {
+  padding-bottom: 96px;
+  border-radius: 0 0 var(--radius-frame) var(--radius-frame);
+  background-color: var(--paper);
+  color: var(--ink);
+}
+.legal-head {
+  padding-top: 128px;
+}
+.legal-body {
+  margin-top: 72px;
+}
+@media (min-width: 64rem) {
+  .legal {
+    padding-bottom: 160px;
+  }
+  .legal-head {
+    padding-top: 160px;
+  }
+  .legal-body {
+    margin-top: 96px;
+  }
+}
+
+/* Contents: a <details> on phones and tablets; a sticky list on a rule from 1024px. */
+.legal-contents-details {
+  margin-bottom: 24px;
+  border-block: 1px solid var(--rule);
+}
+.legal-contents-details > summary {
+  display: flex;
+  min-height: 48px;
+  cursor: pointer;
+  align-items: center;
+  font-size: var(--type-ui);
+  font-weight: 500;
+}
+.legal-contents-details > .legal-contents-list {
+  padding-bottom: 12px;
+}
+.legal-contents {
+  display: none;
+}
+.legal-contents-list a {
+  display: flex;
+  min-height: 44px;
+  align-items: baseline;
+  gap: 12px;
+  padding-block: 11px;
+  font-size: var(--type-ui-sm);
+  line-height: 1.4;
+  color: var(--ink-66);
+  transition: color var(--dur-hover) ease;
+}
+.legal-contents-number {
+  flex: none;
+  width: 18px;
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  font-variant-numeric: tabular-nums;
+}
+@media (hover: hover) and (pointer: fine) {
+  .legal-contents-list a:hover {
+    color: var(--ink);
+  }
+}
+@media (min-width: 64rem) {
+  .legal-contents-details {
+    display: none;
+  }
+  .legal-contents {
+    display: block;
+    grid-column: 1 / span 3;
+  }
+  .legal-contents-inner {
+    position: sticky;
+    top: 128px;
+  }
+  .legal-contents-rule {
+    position: relative;
+    margin-top: 16px;
+    padding-left: 20px;
+    border-left: 1px solid var(--rule);
+  }
+  .legal-contents-list a {
+    min-height: 36px;
+    padding-block: 8px;
+  }
+}
+
+/* The reading line (/terms): brass, down the contents rule, full when the last section ends at
+   the foot of the window. A view timeline on the sections; nothing where it isn't supported. */
+.legal-read {
+  display: none;
+}
+@supports (animation-timeline: view()) {
+  @media (min-width: 64rem) and (prefers-reduced-motion: no-preference) {
+    .legal-reading .legal-body {
+      timeline-scope: --legal-sections;
+    }
+    .legal-reading .legal-sections {
+      view-timeline: --legal-sections block;
+    }
+    .legal-read {
+      display: block;
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: -1px;
+      width: 1.25px;
+      background: var(--brass-ink);
+      transform-origin: top;
+      animation: legal-read linear both;
+      animation-timeline: --legal-sections;
+      animation-range: contain 0% contain 100%;
+    }
+  }
+}
+@keyframes legal-read {
+  from {
+    scale: 1 0;
+  }
+}
+
+/* A section: its number hanging in the margin column, the text at 68ch. */
+.legal-section {
+  padding-block: 40px;
+  border-top: 1px solid var(--rule);
+}
+.legal-section:first-child {
+  padding-top: 0;
+  border-top: 0;
+}
+.legal-number {
+  margin-bottom: 12px;
+}
+.legal-text {
+  max-width: 68ch;
+}
+.legal-h2 {
+  scroll-margin-top: 112px;
+  font-size: 1.5rem;
+  line-height: 1.2;
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  text-wrap: balance;
+}
+.legal-summary {
+  margin-top: 16px;
+  font-family: var(--font-reading);
+  font-style: italic;
+  font-size: var(--type-read-lg);
+  line-height: 1.5;
+}
+.legal-full {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-top: 24px;
+  font-family: var(--font-reading);
+  font-size: var(--type-read);
+  line-height: var(--type-read-leading);
+  color: var(--ink-80);
+}
+.legal-list > li {
+  position: relative;
+  padding: 12px 0 12px 20px;
+  border-top: 1px solid var(--rule);
+}
+.legal-list > li:last-child {
+  border-bottom: 1px solid var(--rule);
+}
+.legal-list > li::before {
+  content: "";
+  position: absolute;
+  top: 1.45em;
+  left: 0;
+  width: 8px;
+  height: 1px;
+  background: var(--ink-50);
+}
+@media (min-width: 64rem) {
+  .legal-section {
+    display: grid;
+    grid-template-columns: repeat(8, minmax(0, 1fr));
+    column-gap: 24px;
+    padding-block: 64px;
+  }
+  .legal-number {
+    grid-column: 1;
+    margin: 0;
+    padding-top: 10px;
+  }
+  .legal-text {
+    grid-column: 2 / -1;
+  }
+  .legal-h2 {
+    font-size: 1.75rem;
+  }
+}
+
+/* Where your voice goes (/privacy). */
+.vp {
+  padding-block: 40px;
+  border-block: 1px solid var(--rule-strong);
+}
+.vp-desc {
+  margin-top: 12px;
+  max-width: 560px;
+  color: var(--ink-66);
+}
+.vp-name {
+  display: block;
+  font-size: 0.9375rem;
+  line-height: 1.3;
+  font-weight: 500;
+  color: var(--ink);
+}
+.vp-voice,
+.vp-branch {
+  stroke: var(--brass-ink);
+  stroke-width: 1.25px;
+  stroke-linejoin: round;
+  vector-effect: non-scaling-stroke;
+}
+.vp-text {
+  stroke: var(--ink-50);
+  stroke-width: 1.25px;
+  vector-effect: non-scaling-stroke;
+}
+.vp-ring,
+.vp-dot {
+  position: absolute;
+  width: 9px;
+  height: 9px;
+  margin: -4.5px 0 0 -4.5px;
+  border-radius: 50%;
+}
+.vp-ring {
+  border: 1.25px solid var(--ink-50);
+  background: var(--paper);
+}
+.vp-dot {
+  background: var(--ink);
+}
+.vp-across {
+  display: none;
+}
+/* Phones: the stops down the left edge, the voice as the first segment of the line. */
+.vp-down {
+  position: relative;
+  margin-top: 32px;
+}
+.vp-down > li {
+  position: relative;
+  padding: 0 0 28px 28px;
+}
+.vp-down > li:last-child {
+  padding-bottom: 0;
+}
+.vp-down > li::before {
+  content: "";
+  position: absolute;
+  top: 8px;
+  bottom: -8px;
+  left: 4px;
+  width: 1.25px;
+  background: var(--ink-50);
+}
+.vp-down > li:last-child::before {
+  content: none;
+}
+.vp-down > li[data-voice]::before {
+  background: var(--brass-ink);
+}
+.vp-down .vp-ring {
+  top: 8px;
+  left: 4.5px;
+}
+.vp-down-audio {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 16px;
+}
+.vp-down-audio svg {
+  width: 96px;
+  height: 24px;
+  flex: none;
+}
+.vp-down-audio .vp-dot {
+  position: relative;
+  flex: none;
+  margin: 0 0 0 -12px;
+}
+@media (min-width: 64rem) {
+  .vp-head {
+    display: grid;
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    column-gap: 24px;
+    align-items: baseline;
+  }
+  .vp-head > h2 {
+    grid-column: 1 / span 5;
+  }
+  .vp-desc {
+    grid-column: 7 / -1;
+    margin: 0;
+  }
+  .vp-down {
+    display: none;
+  }
+  .vp-across {
+    display: block;
+    margin-top: 56px;
+  }
+  .vp-stops {
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    column-gap: 24px;
+  }
+  .vp-drawing {
+    position: relative;
+    height: 132px;
+    margin-top: 16px;
+  }
+  .vp-drawing svg {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    overflow: visible;
+  }
+  .vp-audio {
+    position: absolute;
+    translate: 0 -50%;
+  }
+  /* The run, once, as the figure comes into view: voice, rule, branch, full stop. */
+  :root[data-reveal="on"] .vp .vp-voice,
+  :root[data-reveal="on"] .vp .vp-text,
+  :root[data-reveal="on"] .vp .vp-branch {
+    clip-path: inset(-20px);
+  }
+  :root[data-reveal="on"] .vp .vp-voice {
+    transition: clip-path 600ms var(--ease-line) 200ms;
+  }
+  :root[data-reveal="on"] .vp .vp-text {
+    transition: clip-path 800ms var(--ease-line) 800ms;
+  }
+  :root[data-reveal="on"] .vp .vp-branch {
+    transition: clip-path 700ms var(--ease-line) 700ms;
+  }
+  :root[data-reveal="on"] .vp:not([data-in]) .vp-voice,
+  :root[data-reveal="on"] .vp:not([data-in]) .vp-branch,
+  :root[data-reveal="on"] .vp:not([data-in]) .vp-text {
+    clip-path: inset(-20px 100% -20px -20px);
+  }
+  /* clip-path on a path measures against the path's own box (its stroke box), so each line
+     uncovers from its own start. */
+  :root[data-reveal="on"] .vp .vp-dot,
+  :root[data-reveal="on"] .vp .vp-audio {
+    transition:
+      opacity 200ms var(--ease-rise) 1400ms,
+      scale 200ms var(--ease-rise) 1400ms;
+  }
+  :root[data-reveal="on"] .vp:not([data-in]) .vp-dot {
+    opacity: 0;
+    scale: 0.4;
+  }
+  :root[data-reveal="on"] .vp:not([data-in]) .vp-audio {
+    opacity: 0;
+  }
+}

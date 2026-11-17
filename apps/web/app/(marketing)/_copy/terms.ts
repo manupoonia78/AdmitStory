@@ -20,7 +20,7 @@ export const GOVERNING_LAW = "TODO(Manu): governing law and courts, from counsel
 export const LIABILITY_TERMS = "TODO(Manu): limitation of liability, from counsel";
 
 export const TERMS_COPY = {
-  title: "Terms.",
+  titleLines: ["Terms,", "in plain words."],
   contents: "On this page",
 } as const;
 

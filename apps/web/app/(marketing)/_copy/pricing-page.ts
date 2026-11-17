@@ -18,21 +18,41 @@ const PACK10 = SCHOOL_PLANS.school_pack10;
 const KIT = SCHOOL_PLANS.school_kit;
 
 export const PRICING_PAGE_COPY = {
-  heading: `${PACK5.schools} schools. ${dollars(PACK5.priceCents)}.`,
-  phoneHeading: [`${PACK5.schools} schools.`, `${dollars(PACK5.priceCents)}.`],
+  eyebrow: "Pricing",
+  /** "5 schools." then the struck list price and the price (SPEC §4.2). */
+  schools: `${PACK5.schools} schools.`,
+  insteadOf: "Instead of",
   subline: `Every essay drafted for five schools, not just guidelines. Or ${dollars(KIT.priceCents)} for one school, ${dollars(PACK10.priceCents)} for ten. Talking, your Profile Read and your school strategy are free.`,
-  packsLabel: "Ways to buy",
-  kitLabel: "A sample kit preview for Northfield",
-  positioningHeading: "Positioning",
-  fileMapHeading: "Which story goes where",
-  deliverablesHeading: "What Northfield asks for",
-  unlockSwitch: "Show what unlocks",
-  locked: "Locked",
 } as const;
+
+/** "One kit, opened": the sample kit's drafts as sheets, then the files that aren't essays. */
+export const KIT_COPY = {
+  eyebrow: "What a school kit holds",
+  headingLines: ["Everything one school", "asks for."],
+  paragraph:
+    "Each essay opens on something you said, with a note on why it’s built that way. Then the form, the résumé and the briefs, from the same stories.",
+  from: "From",
+  others: [
+    { label: "Application form", line: "What to enter in each field of the school’s own form." },
+    {
+      label: "Résumé pass",
+      line: "Your résumé tightened for this school, with every change shown.",
+    },
+    {
+      label: "Recommender briefs",
+      line: "A brief and a private page for each. They write the letter.",
+    },
+    { label: "Connect", line: "Message alumni, students and admissions readers from that school." },
+  ],
+  note: "A sample applicant · fictional, as is Northfield",
+} as const;
+
+/** "Elsewhere, and here" (PACK_PITCH.compare holds the rows). */
+export const COMPARE_HEADING_ID = "compare-title";
 
 /** The ledger's two columns, and what each cell says in words. */
 export const LEDGER_COPY = {
-  heading: "What’s free, and what a kit adds.",
+  headingLines: ["What’s free,", "and what a kit adds."],
   caption: "What is free and what each school kit includes, grouped by stage",
   feature: "Feature",
   free: "Free",

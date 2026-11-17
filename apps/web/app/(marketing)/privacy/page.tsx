@@ -17,7 +17,7 @@ export const metadata = pageMetadata({
 export default function PrivacyPage() {
   return (
     <LegalLayout
-      title={PRIVACY_COPY.title}
+      titleLines={PRIVACY_COPY.titleLines}
       titleId="privacy-title"
       contentsLabel={PRIVACY_COPY.contents}
       sections={PRIVACY_SECTIONS}

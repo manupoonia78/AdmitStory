@@ -85,6 +85,17 @@ function Plan({ plan }: { plan: Column }) {
   );
 }
 
+/** The four ways to start on one baseline, shared with /pricing. */
+export function PlanRow({ className }: { className?: string }) {
+  return (
+    <ul role="list" aria-label={PRICING_COPY.waysLabel} className={cx("price-row", className)}>
+      {COLUMNS.map((plan) => (
+        <Plan key={plan.id} plan={plan} />
+      ))}
+    </ul>
+  );
+}
+
 function Included({ label, items }: { label: string; items: readonly string[] }) {
   return (
     <div>
@@ -114,15 +125,7 @@ export function PricingSection() {
         </h2>
       </div>
 
-      <ul
-        role="list"
-        aria-label={PRICING_COPY.waysLabel}
-        className="price-row reveal col-span-4 mt-14 sm:col-span-8 lg:col-span-12 lg:mt-24"
-      >
-        {COLUMNS.map((plan) => (
-          <Plan key={plan.id} plan={plan} />
-        ))}
-      </ul>
+      <PlanRow className="reveal col-span-4 mt-14 sm:col-span-8 lg:col-span-12 lg:mt-24" />
 
       <div className="reveal col-span-4 mt-14 grid gap-x-6 gap-y-10 border-t border-edge pt-8 sm:col-span-8 lg:col-span-12 lg:mt-20 lg:grid-cols-2">
         <Included label={PRICING_COPY.freeListLabel} items={FREE_FEATURES} />

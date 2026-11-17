@@ -52,11 +52,12 @@ export default function MarketingLayout({ children }: { children: ReactNode }) {
     <div data-theme="night" className="marketing grain min-h-dvh bg-space text-text">
       <SkipLink />
       <SiteNav />
-      {/* Pages without the landing hero start below the floating nav. */}
+      {/* Pages without the landing hero start below the floating nav; the paper legal pages run
+          under it, to the top of the window. */}
       <main
         id="main"
         tabIndex={-1}
-        className="pt-24 outline-none sm:pt-28 has-[#hero]:pt-0 sm:has-[#hero]:pt-0"
+        className="pt-24 outline-none sm:pt-28 has-[#hero]:pt-0 has-[.legal]:pt-0 sm:has-[#hero]:pt-0 sm:has-[.legal]:pt-0"
       >
         <PageTransition>{children}</PageTransition>
       </main>

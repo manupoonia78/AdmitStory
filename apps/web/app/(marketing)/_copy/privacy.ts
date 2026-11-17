@@ -15,20 +15,19 @@ export const POSTAL_ADDRESS = "TODO(Manu): postal address";
 export const EU_UK_REPRESENTATIVE = "TODO(Manu): EU/UK representative, if required";
 
 export const PRIVACY_COPY = {
-  title: "Privacy.",
+  titleLines: ["Privacy,", "in plain words."],
   contents: "On this page",
   diagramTitle: "Where your voice goes",
   diagramDescription:
-    "When you speak, your microphone's audio streams to our speech-to-text provider, Deepgram, which turns it into text. The audio is discarded; we never store it. The text goes into your Dossier, encrypted, and from there into your drafts.",
-  nodes: {
-    microphone: "Microphone",
-    stt: "Speech-to-text (Deepgram)",
-    text: "Text",
-    dossier: "Your Dossier (encrypted)",
-    drafts: "Your drafts",
-    audio: "Audio",
-    discarded: "Discarded",
-  },
+    "When you speak, your microphone’s audio streams to our speech-to-text provider, Deepgram, which turns it into text. The audio is discarded; we never store it. The text goes into your Dossier, encrypted, and from there into your drafts.",
+  stops: [
+    { name: "Microphone", label: "your voice" },
+    { name: "Speech-to-text", label: "Deepgram" },
+    { name: "Text", label: "kept" },
+    { name: "Your Dossier", label: "encrypted" },
+    { name: "Your drafts", label: "where it is used" },
+  ],
+  audio: { name: "Audio", label: "discarded · never stored" },
 } as const;
 
 /** Who processes data for us at launch, what for, and where (spec §14.4). */
