@@ -14,23 +14,9 @@ committed there); the session of 2026-11-17 moved the uncommitted work back to
 
 ## Next step
 
-**Phase 4 is done (2026-11-17). Do not start Phase 5 until Manu names it.** If his message has
-feedback on the Phase 4 pages, write it into "Decisions" (with the date), change SPEC §4.2 or §5
-to match, and fix that first.
-
-When Phase 5 is named, start here:
-
-1. Load the project skills that apply (`.claude/skills/`: `emil-design-eng`, `animate`,
-   `choreograph`, `mobile-native`; SPEC §2.10 "Rules from the project skills").
-2. Start the local environment from `local-db.md` (production build). A Postgres on 5455 may
-   still be running: run the guard, then reuse it.
-3. Expand SPEC §6.1 (shell) and the Home and Studio rows of §6.2 to full values, then build the
-   casing (sidebar, top bar, dock, palette, account menu, toasts), `/home` and `/studio`. The
-   entry room (`components/auth-shell.tsx`, `entry.css`) is the nearest finished thing to the
-   casing: reuse its horizon and peak.
-4. Manu answered "Needs Manu" on 2026-11-17: the casing is dark in Day too, and Phase 5 also
-   moves the Studio to the Voiceline so `ogl` and `detect-gpu` can be deleted (see "Answered by
-   Manu").
+**Phase 5 is in progress (named by Manu 2026-11-17, no feedback on Phase 4).** SPEC §6.1, §6.3
+and §6.4 are at full values. Continue down the Phase 5 checklist: the first unticked item is
+next. Local environment: `local-db.md` (Postgres on 5455 was already running and was reused).
 
 ## Phases
 
@@ -41,7 +27,7 @@ When Phase 5 is named, start here:
 | 2. Landing hero            | nav, hero signature, reduced-motion still, phone composition, facts strip, frame cost, LCP                                 | built; Phase 3 named, no notes |
 | 3. Landing, all scenes     | sections 2–13, GSAP sequence to CSS, Lenis decision                                                                        | **done** (2026-11-17)          |
 | 4. Other marketing + entry | `/how-it-works`, `/pricing`, `/privacy`, `/terms`, OG, titles, `/sign-in`, `/welcome`, `/first-run`                        | **done** (2026-11-17)          |
-| 5. Shell, home, Studio     | casing, sidebar, top bar, dock, palette, account menu, toasts, `/home`, `/studio`                                          | not started                    |
+| 5. Shell, home, Studio     | casing, sidebar, top bar, dock, palette, account menu, toasts, `/home`, `/studio`                                          | **in progress** (2026-11-17)   |
 | 6. Schools and the editor  | `/schools`, workspace and tabs, preview, unlock, `/workspace/[id]`, `/kits/[id]`                                           | not started                    |
 | 7. The rest of the app     | dossier, profile read, recommenders, portal, résumé, connect, settings, interview, tracker, all states                     | not started                    |
 | 8. Final pass              | consistency sweep, axe, Lighthouse, overflow, console, reduced motion, admin, REPORT.md                                    | not started                    |
@@ -180,6 +166,20 @@ kept all of it, fixed five things found in the screenshots, measured and committ
 - [x] Gates: typecheck, lint, build, `bundle:check`; existing unit tests (2,515 of 2,517, the same
       two failures as before)
 - [x] SPEC updated where the build differs; REPORT.md; committed
+
+## Phase 5 checklist
+
+- [x] SPEC §6.1 (casing), §6.3 (Home) and §6.4 (Studio) at full values
+- [ ] The casing: sidebar, rail mode, bay, top bar, dock, palette, account menu, toasts, page
+      header; Day `--rail` and `THEME_COLORS` to `#0B0A09`
+- [ ] `/home`: head, next step, the path line, schools with deadlines, the model credit
+- [ ] `/studio`: Night always, rail, the horizon Voiceline, record button, transcript, Speak /
+      Write, shelf and coverage lines, gate, session summary
+- [ ] OGL out: the Studio, kit assembly and the studio and duet prototypes off the WebGL
+      Voiceprint; `ogl`, `detect-gpu`, `public/detect-gpu`, the renderer and its tests deleted
+- [ ] Shot in Day and Night (1440, 390, 375 overflow), scored, fixed, re-shot; measured
+- [ ] Gates: typecheck, lint, build, `bundle:check`; existing unit tests
+- [ ] SPEC updated where the build differs; REPORT.md; committed
 
 ## Decisions
 
