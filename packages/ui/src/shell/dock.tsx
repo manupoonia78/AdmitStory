@@ -66,7 +66,11 @@ function SearchTrigger({
       </span>
       {/* CSS-generated, so the visible text stays the accessible name (WCAG 2.5.3); the shortcut
           is announced through aria-keyshortcuts. */}
-      <kbd aria-hidden data-shortcut={hint.label} className="before:content-[attr(data-shortcut)]" />
+      <kbd
+        aria-hidden
+        data-shortcut={hint.label}
+        className="before:content-[attr(data-shortcut)]"
+      />
     </button>
   );
 }

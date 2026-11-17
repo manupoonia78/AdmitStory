@@ -554,3 +554,93 @@ timed frames and mid-animation captures rather than watched at speed by a person
 - Sign-in copy in `lib/sign-in-copy.ts` keeps its straight apostrophes ("we'll", "can't"): that
   module's voice is unit-tested, and the tests were left alone.
 - **Motion was verified from timed frames and mid-animation captures, not watched live.**
+
+## Phase 5: shell, Home, Story Studio (2026-11-17) · done
+
+Spec first (SPEC §6.1 the casing, §6.3 Home, §6.4 the Studio, all at full values), then built,
+shot in Day and Night at 1440 and 390, scored, fixed and re-shot. Emil Kowalski's skills
+(`emil-design-eng`, `mobile-native`, `animate`) were loaded and followed, as Manu asked.
+
+**The casing.** The app is now one dark instrument in both themes: a fixed 256 px sidebar
+(wordmark, the brass "New story", a frosted search pill with the shortcut, seven destinations
+on pills, Settings and the account at the foot) holding the working area as a lit **bay**,
+inset 8 px with a 24 px radius: the Day desk or Night. Below 1024 px: a dark top bar with the
+page's name and a floating dock pill with a dot under the current icon. The Studio puts the
+shell in **rail mode** (64 px of circles, the bay edge to edge and Night). The palette, account
+menu and toasts are the same dark material; the palette has no animation at all (a keyboard
+action). `THEME_COLORS` and Day `--rail` are the casing's `#0B0A09`. The page header is
+`display-2` with a label eyebrow, so every app page that uses it already looks of a piece.
+
+- `shots/after/home-1440.jpg`, `home-1440-night.jpg`, `home-390.jpg` (sidebar, bay, top bar, dock)
+- `shots/after/shell-palette-1440.jpg`, `shell-account-menu-1440.jpg`, `shell-account-menu-390.jpg`
+- `shots/after/settings-1440-night.jpg`, `schools-1440.jpg` (screens of later phases inside the
+  new casing)
+
+**Home.** The next step as one card with the action in `display-3` and one button; **the path**
+as one line with four stops: the line draws, brass follows it to where the applicant is, and the
+peak rises there (vertical on phones, the peak turned to point at the stage); the schools as rows
+on hairlines with where each stands, the recommender line and the **next deadline** in mono (from
+the pack's verified rounds); the model credit from `model-claims.ts`, quiet, at the foot.
+
+- `shots/after/home-1440-full.jpg`, `home-390-rm.jpg` (reduced motion: the line simply drawn)
+
+**Story Studio.** Night in both themes, a conversation rather than a form: chapter tabs in the
+label type and a Speak / Write switch along the top; the question in Geist `display-2` (read
+aloud word by word); the answer under it in Instrument Serif italic; and **the horizon**, one line
+across the room at about two thirds of its height, with the 88 px record button sitting on it.
+The line is a canvas (`StudioVoiceline`): flat at rest, the applicant's hue while they speak
+(following the microphone, growing outwards from the button, its shape set by their Voiceprint
+numbers), silver while a question is read to them. Under it the status, Done, Read aloud and
+Hands-free; the session row at the foot; the shelf and coverage (six thin lines) in a frosted
+panel on the right from 1280 px. Write mode puts a Source Serif answer field where the transcript
+was. The free-half gate and the session summary are in the same room: the gate's "half line" is
+brass to the midpoint with the peak there, the second half dashed, then the three option cards
+with the unlock card the only filled one. Every capture state, notice, shortcut, hands-free,
+read aloud, the story-capture flight and the 30-answer allowance are untouched in behaviour.
+
+- `shots/after/studio-asked-1440.jpg`, `studio-asked-390.jpg`, `studio-asked-1440-night.jpg` (a
+  question on screen, being read aloud: the line moving in silver)
+- `shots/after/studio-write-1440.jpg` (Write mode)
+- `shots/after/studio-gate-1440.jpg`, `studio-gate-390.jpg` (the free-half gate)
+- `shots/after/studio-1440.jpg`, `studio-390.jpg` (the real empty state locally: no AI, so no
+  question, and the microphone notice)
+- `shots/after/ref-prototype-studio-1440.jpg` (the prototype, now on the same Voiceline)
+
+The populated Studio and the gate were shot on the real `/studio` with its one session request
+stubbed **in the browser** by the screenshot script (a fictional question, or the 402 that
+means the free half is used). Nothing reached the server's data, and no key was involved.
+
+**WebGL is gone.** The OGL renderer, its shaders, GPU tiering, `ogl`, `detect-gpu` and
+`public/detect-gpu` are deleted, with their tests. `Voiceprint` keeps its props and renders the
+still SVG, which the kit's assembly (Phase 6) and the duet prototype show until their phases.
+
+**Scores** (harsh, from the shots): the casing 8.3, palette / menu / toast 8.1, Home 8.2, the
+Studio 8.5, the gate 8.4. Nothing under 7.
+
+**First pass and fixes** (each re-shot):
+
+| Found                                                                                            | Fixed                                                                                  |
+| ------------------------------------------------------------------------------------------------ | -------------------------------------------------------------------------------------- |
+| The sidebar list's corners were clipped on a diagonal ("ʀKSPACE", a cut pill)                    | the dock's pill radius was carried into the scrolling list; reset to 0 from 1024 px    |
+| The palette and account menu were light and unreadable over the Day desk                        | `.casing-overlay`: the dark wash at 92 % with the blur, for all three overlays         |
+| The palette's input row had a hard square white outline                                          | a hairline that brightens on focus                                                      |
+| The Studio's chapter tabs ran under Speak / Write on phones; the open chapter was out of view   | a fade at the row's end and the open tab scrolled into view                             |
+| "Tap to talk, or hold Space" wrapped inside a 195 px box                                         | the button's well takes its content's width                                             |
+| A white ring doubled every pressed toggle in the Studio                                          | the base layer's pressed ring is turned off where the pill or the dot shows the state  |
+| The gate in Day showed the desk under the Night room                                             | the rail bay paints Night itself                                                        |
+| Home showed "No date yet" for schools with a deadline                                            | the deadline comes from the pack's rounds, like the school cards                        |
+| Home's moment was invisible on stage 1; the next step broke over three lines                     | the line draws before the brass; the title measure is 30ch                              |
+| The bigger peak ran into the first stage's title on phones                                       | 16 × 22 px on phones, 20 × 28 px from 640 px                                            |
+
+**Measured** (production build, local): `/studio` 157.9 KB of 160, `/home` 146.1; the line 0.18 ms
+of script a frame (0.59 at 4× CPU), nothing at rest; axe 0 violations on `/home`, `/studio` and
+`/settings` in Day and Night at both sizes; no overflow at 375 px; no hydration warnings. Gates:
+typecheck, lint, build, `bundle:check`, format check; unit tests 2,442 of 2,442.
+
+**Not done or not seen:**
+
+- A real spoken answer: there is no speech-to-text key locally, so the line was seen following a
+  scripted voice (the prototype) and the read-aloud signal, not a live microphone.
+- Toasts: restyled (dark, bottom centre, rising 12 px), but nothing raises one on these screens
+  locally, so no shot.
+- The session summary was restyled but not shot (it needs a finished session).

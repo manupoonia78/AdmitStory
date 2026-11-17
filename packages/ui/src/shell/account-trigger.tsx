@@ -33,7 +33,9 @@ export function AccountTriggerContent({ user }: { user?: AccountUser }) {
           {user?.name ?? "Account"}
         </span>
         {user ? (
-          <span className="truncate font-mono text-[11px] leading-4 text-text-soft">{user.email}</span>
+          <span className="truncate font-mono text-[11px] leading-4 text-text-soft">
+            {user.email}
+          </span>
         ) : null}
       </span>
     </>

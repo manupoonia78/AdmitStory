@@ -3,7 +3,7 @@
   "out": "after",
   "theme": "day",
   "reduced": false,
-  "takenAt": "2026-11-17T17:47:19.289Z",
+  "takenAt": "2026-11-17T18:09:06.625Z",
   "routes": [
     {
       "name": "home",
@@ -32,6 +32,58 @@
       "hydration": [],
       "status": 200,
       "finalPath": "/studio",
+      "overflow375": {
+        "px": 0,
+        "offenders": []
+      }
+    },
+    {
+      "name": "schools",
+      "path": "/schools",
+      "consoleErrors": [],
+      "failedRequests": [],
+      "hydration": [],
+      "status": 200,
+      "finalPath": "/schools",
+      "overflow375": {
+        "px": 0,
+        "offenders": []
+      }
+    },
+    {
+      "name": "settings",
+      "path": "/settings",
+      "consoleErrors": [],
+      "failedRequests": [],
+      "hydration": [],
+      "status": 200,
+      "finalPath": "/settings",
+      "overflow375": {
+        "px": 0,
+        "offenders": []
+      }
+    },
+    {
+      "name": "settings-privacy",
+      "path": "/settings/privacy",
+      "consoleErrors": [],
+      "failedRequests": [],
+      "hydration": [],
+      "status": 200,
+      "finalPath": "/settings/privacy",
+      "overflow375": {
+        "px": 0,
+        "offenders": []
+      }
+    },
+    {
+      "name": "settings-security",
+      "path": "/settings/security",
+      "consoleErrors": [],
+      "failedRequests": [],
+      "hydration": [],
+      "status": 200,
+      "finalPath": "/settings/security",
       "overflow375": {
         "px": 0,
         "offenders": []

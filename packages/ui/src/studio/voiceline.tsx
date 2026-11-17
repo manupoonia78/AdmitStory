@@ -135,7 +135,10 @@ export function StudioVoiceline({ signal, speaker, identity, className }: Studio
       const half = width / 2;
       const reach = Math.max(1, half * rise(spread));
       const amp =
-        (width < 640 ? 22 : 34) * form.gain * clamp01(level.value) * (active === "reader" ? 0.55 : 1);
+        (width < 640 ? 22 : 34) *
+        form.gain *
+        clamp01(level.value) *
+        (active === "reader" ? 0.55 : 1);
       const mid = height / 2;
       const count = Math.min(360, Math.max(48, Math.ceil(width / 4)));
       ctx.globalAlpha = shown;
@@ -144,7 +147,8 @@ export function StudioVoiceline({ signal, speaker, identity, className }: Studio
       for (let i = 0; i <= count; i += 1) {
         const px = (width * i) / count;
         const d = Math.abs(px - half);
-        const envelope = (1 - smoothstep(0.3 * reach, reach, d)) * (1 - smoothstep(0.92 * half, half, d));
+        const envelope =
+          (1 - smoothstep(0.3 * reach, reach, d)) * (1 - smoothstep(0.92 * half, half, d));
         const y =
           envelope === 0
             ? 0

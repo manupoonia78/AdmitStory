@@ -53,62 +53,68 @@ export function SessionSummaryCard({
 
   return (
     <div data-theme="night" className="min-h-full">
-    <section className="mx-auto flex w-full max-w-[55rem] flex-col gap-10 px-5 pt-10 pb-16 sm:px-10 sm:pt-14 lg:px-14 lg:pt-16">
-      <div className="flex flex-col gap-4">
-        <p className="eyebrow">Session saved</p>
-        <h1 className="text-display-2 max-w-[24ch] text-text">
-          {stories === 0
-            ? "Everything so far is saved."
-            : `That's a strong start: ${stories} ${stories === 1 ? "story" : "stories"} and ${facts} ${facts === 1 ? "fact" : "facts"}.`}
-        </h1>
-        {thin ? (
-          <p className="max-w-[60ch] text-lg text-text-soft">
-            We don&apos;t yet have {thin.what} — {Math.max(5, summary.nextUp.length * 3)} minutes
-            next time?
+      <section className="mx-auto flex w-full max-w-[55rem] flex-col gap-10 px-5 pt-10 pb-16 sm:px-10 sm:pt-14 lg:px-14 lg:pt-16">
+        <div className="flex flex-col gap-4">
+          <p className="eyebrow">Session saved</p>
+          <h1 className="text-display-2 max-w-[24ch] text-text">
+            {stories === 0
+              ? "Everything so far is saved."
+              : `That's a strong start: ${stories} ${stories === 1 ? "story" : "stories"} and ${facts} ${facts === 1 ? "fact" : "facts"}.`}
+          </h1>
+          {thin ? (
+            <p className="max-w-[60ch] text-lg text-text-soft">
+              We don&apos;t yet have {thin.what} — {Math.max(5, summary.nextUp.length * 3)} minutes
+              next time?
+            </p>
+          ) : null}
+        </div>
+
+        {summary.thinLenses.length > 0 ? (
+          <div className="flex flex-col gap-3">
+            <h2 className="eyebrow">Still thin</h2>
+            <ul className="flex flex-col">
+              {summary.thinLenses.map((lens) => (
+                <li
+                  key={lens.id}
+                  className="border-t border-edge py-3.5 text-text-80 last:border-b"
+                >
+                  {lens.label}
+                </li>
+              ))}
+            </ul>
+          </div>
+        ) : null}
+
+        {summary.conflictCount > 0 ? (
+          <p className="text-text-soft">
+            {summary.conflictCount === 1
+              ? "One fact needs you to say which version is current."
+              : `${summary.conflictCount} facts need you to say which version is current.`}{" "}
+            <Link
+              href="/dossier?tab=facts"
+              className="underline underline-offset-2 hover:text-text"
+            >
+              Resolve them
+            </Link>
           </p>
         ) : null}
-      </div>
 
-      {summary.thinLenses.length > 0 ? (
-        <div className="flex flex-col gap-3">
-          <h2 className="eyebrow">Still thin</h2>
-          <ul className="flex flex-col">
-            {summary.thinLenses.map((lens) => (
-              <li key={lens.id} className="border-t border-edge py-3.5 text-text-80 last:border-b">
-                {lens.label}
-              </li>
-            ))}
-          </ul>
+        <div className="flex flex-wrap items-center gap-3">
+          {first ? (
+            <Button asChild>
+              <Link href={first.href}>{first.label}</Link>
+            </Button>
+          ) : null}
+          {rest.map((step) => (
+            <Button key={step.href} asChild variant="secondary">
+              <Link href={step.href}>{step.label}</Link>
+            </Button>
+          ))}
+          <Button variant="quiet" onClick={onContinue}>
+            Keep talking
+          </Button>
         </div>
-      ) : null}
-
-      {summary.conflictCount > 0 ? (
-        <p className="text-text-soft">
-          {summary.conflictCount === 1
-            ? "One fact needs you to say which version is current."
-            : `${summary.conflictCount} facts need you to say which version is current.`}{" "}
-          <Link href="/dossier?tab=facts" className="underline underline-offset-2 hover:text-text">
-            Resolve them
-          </Link>
-        </p>
-      ) : null}
-
-      <div className="flex flex-wrap items-center gap-3">
-        {first ? (
-          <Button asChild>
-            <Link href={first.href}>{first.label}</Link>
-          </Button>
-        ) : null}
-        {rest.map((step) => (
-          <Button key={step.href} asChild variant="secondary">
-            <Link href={step.href}>{step.label}</Link>
-          </Button>
-        ))}
-        <Button variant="quiet" onClick={onContinue}>
-          Keep talking
-        </Button>
-      </div>
-    </section>
+      </section>
     </div>
   );
 }

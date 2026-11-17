@@ -14,9 +14,20 @@ committed there); the session of 2026-11-17 moved the uncommitted work back to
 
 ## Next step
 
-**Phase 5 is in progress (named by Manu 2026-11-17, no feedback on Phase 4).** SPEC §6.1, §6.3
-and §6.4 are at full values. Continue down the Phase 5 checklist: the first unticked item is
-next. Local environment: `local-db.md` (Postgres on 5455 was already running and was reused).
+**Phase 5 is done (2026-11-17). Do not start Phase 6 until Manu names it.** If his message has
+feedback on the casing, Home or the Studio, write it into "Decisions" (with the date), change
+SPEC §6.1, §6.3 or §6.4 to match, and fix that first.
+
+When Phase 6 is named, start here:
+
+1. Load the project skills that apply (`.claude/skills/`: `emil-design-eng`, `animate`,
+   `choreograph`, `mobile-native`; SPEC §2.10). Manu asked again on 2026-11-17 that they be used.
+2. Start the local environment from `local-db.md` (production build). Signed-in probes and
+   populated screens: the Phase 5 scripts stub a request in the browser (see REPORT, Phase 5);
+   nothing reaches the database.
+3. Expand SPEC §6.2's Schools, workspace, preview, unlock and editor rows to full values, then
+   build them. Add `/workspace` to `RAIL_PATHS` (`packages/ui/src/shell/nav-items.ts`) so the
+   editor gets the 64 px rail. Redraw the kit's assembly without the Voiceprint still.
 
 ## Phases
 
@@ -27,7 +38,7 @@ next. Local environment: `local-db.md` (Postgres on 5455 was already running and
 | 2. Landing hero            | nav, hero signature, reduced-motion still, phone composition, facts strip, frame cost, LCP                                 | built; Phase 3 named, no notes |
 | 3. Landing, all scenes     | sections 2–13, GSAP sequence to CSS, Lenis decision                                                                        | **done** (2026-11-17)          |
 | 4. Other marketing + entry | `/how-it-works`, `/pricing`, `/privacy`, `/terms`, OG, titles, `/sign-in`, `/welcome`, `/first-run`                        | **done** (2026-11-17)          |
-| 5. Shell, home, Studio     | casing, sidebar, top bar, dock, palette, account menu, toasts, `/home`, `/studio`                                          | **in progress** (2026-11-17)   |
+| 5. Shell, home, Studio     | casing, sidebar, top bar, dock, palette, account menu, toasts, `/home`, `/studio`                                          | **done** (2026-11-17)          |
 | 6. Schools and the editor  | `/schools`, workspace and tabs, preview, unlock, `/workspace/[id]`, `/kits/[id]`                                           | not started                    |
 | 7. The rest of the app     | dossier, profile read, recommenders, portal, résumé, connect, settings, interview, tracker, all states                     | not started                    |
 | 8. Final pass              | consistency sweep, axe, Lighthouse, overflow, console, reduced motion, admin, REPORT.md                                    | not started                    |
@@ -170,16 +181,18 @@ kept all of it, fixed five things found in the screenshots, measured and committ
 ## Phase 5 checklist
 
 - [x] SPEC §6.1 (casing), §6.3 (Home) and §6.4 (Studio) at full values
-- [ ] The casing: sidebar, rail mode, bay, top bar, dock, palette, account menu, toasts, page
+- [x] The casing: sidebar, rail mode, bay, top bar, dock, palette, account menu, toasts, page
       header; Day `--rail` and `THEME_COLORS` to `#0B0A09`
-- [ ] `/home`: head, next step, the path line, schools with deadlines, the model credit
-- [ ] `/studio`: Night always, rail, the horizon Voiceline, record button, transcript, Speak /
+- [x] `/home`: head, next step, the path line, schools with deadlines, the model credit
+- [x] `/studio`: Night always, rail, the horizon Voiceline, record button, transcript, Speak /
       Write, shelf and coverage lines, gate, session summary
-- [ ] OGL out: the Studio, kit assembly and the studio and duet prototypes off the WebGL
+- [x] OGL out: the Studio, kit assembly and the studio and duet prototypes off the WebGL
       Voiceprint; `ogl`, `detect-gpu`, `public/detect-gpu`, the renderer and its tests deleted
-- [ ] Shot in Day and Night (1440, 390, 375 overflow), scored, fixed, re-shot; measured
-- [ ] Gates: typecheck, lint, build, `bundle:check`; existing unit tests
-- [ ] SPEC updated where the build differs; REPORT.md; committed
+- [x] Shot in Day and Night (1440, 390, 375 overflow), scored, fixed, re-shot; measured
+- [x] Gates: typecheck, lint, build, `bundle:check`, format check; existing unit tests (2,442 of
+      2,442: the two old failures are gone; the deleted renderer and tier tests account for the
+      lower count)
+- [x] SPEC updated where the build differs; REPORT.md; committed
 
 ## Decisions
 
@@ -272,6 +285,28 @@ Made in Phase 4 by Claude while building, **not yet approved by Manu**:
 | 2026-11-17 | Welcome's button wakes from flat frost to brass, not from 45 % opacity                                                                      | a faded brass button that can still be pressed fails AA                                   | §5    |
 | 2026-11-17 | The `capture:screens` stub script and `_data/screens*.ts` are deleted                                                                       | the windows are live markup now; the stub never captured anything                         | §4.2  |
 
+**From Manu, 2026-11-17 (naming Phase 5):** "don't forget to use the new claude skill", read as
+Emil Kowalski's project skills: `emil-design-eng`, `mobile-native` and `animate` were loaded and
+applied (the palette has no animation; hover is gated; presses scale; the line is a canvas that
+runs only while someone speaks; `viewport-fit=cover` so safe areas apply).
+
+Made in Phase 5 by Claude while building, **not yet approved by Manu**:
+
+| Date       | Decision                                                                                                                                       | Why                                                                                                   | Spec       |
+| ---------- | ---------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------- | ---------- |
+| 2026-11-17 | The working area is a **bay** inset 8 px in the dark casing from 1024 px; the sidebar has no fill of its own                                   | "a dark instrument holding a lit page"; the bay's edge is the only line needed                        | §6.1       |
+| 2026-11-17 | Below 1024 px: a dark top bar and a **floating dock pill**, both on the marketing nav's 88 % wash (not plain frost)                            | plain frost over the Day desk is a pale pill with white text                                          | §6.1       |
+| 2026-11-17 | The palette, account menu and toasts use `.casing-overlay` (the wash at 92 %), not `frost`                                                     | first shots: frost over the Day desk made them light and unreadable                                   | §6.1       |
+| 2026-11-17 | The command palette has **no animation** and sits at 14 % of the height                                                                        | a keyboard action used many times a day (SPEC §2.10); the list grows downwards without jumping        | §6.1       |
+| 2026-11-17 | `THEME_COLORS` is `#0B0A09` in both themes; Day `--rail` likewise; `contrast.test.ts` asserts it                                               | the top of every app screen is casing                                                                 | §6.1       |
+| 2026-11-17 | `viewport-fit=cover` and `interactive-widget=resizes-content` in the root viewport; the marketing nav pads for the safe area                   | the mobile-native skill: without it every `env(safe-area-inset-*)` was 0                              | §6.4 notes |
+| 2026-11-17 | Home's path is one line with four stops; the line draws, then brass to the current stop, then the peak rises; vertical on phones               | the brief's "path line draws to where you are", visible even on stage 1                               | §6.3       |
+| 2026-11-17 | Home shows each school's next deadline from the pack's verified rounds (a read-only addition to `lib/home/server.ts`)                          | "schools, deadlines and next actions"; the same rule the school cards use                             | §6.3       |
+| 2026-11-17 | The Studio is a conversation: the question in Geist `display-2`, the transcript in Instrument Serif italic, a horizon line with the button on it | "talking to someone attentive, not filling in a form"                                                 | §6.4       |
+| 2026-11-17 | The line is silver while the question is read aloud, the applicant's hue while they speak                                                       | §1.1: the line takes the colour of whoever is speaking                                                | §6.4       |
+| 2026-11-17 | Speak / Write moved to a segmented control in the top row; "Write instead" / "Talk instead" buttons removed (the notice action stays)          | one switch, always in the same place                                                                  | §6.4       |
+| 2026-11-17 | The `Voiceprint` component is the still SVG; OGL, detect-gpu and their tests are deleted; the kit and duet keep the still until their phases   | Manu's yes (§10.3); deleting needed every caller off the renderer                                     | §6.4 notes |
+
 Approved, changed or rejected by Manu: Phase 1 was named (so the Phase 0 spec was accepted as the
 working basis). All of "Needs Manu" was answered on 2026-11-17, below.
 
@@ -330,9 +365,16 @@ working basis). All of "Needs Manu" was answered on 2026-11-17, below.
   is out of scope, so it was not changed. Every other test passes (2,516 of 2,517; `packages/ui`
   742 of 742).
 - **Interim look on screens not yet redesigned**: old Newsreader italics outside display lines are
-  now a synthesised Geist oblique (`/sign-in`'s right panel is the clearest case). The WebGL orb
-  left the landing page in Phases 2 and 3; it still draws on `/how-it-works`, in the Studio,
-  first-run and the Dossier voice tab. Each goes in its own phase (SPEC §2.12).
+  now a synthesised Geist oblique. WebGL is gone from the product (Phase 5); the Voiceprint
+  **still** (an SVG orb) remains on the Dossier voice tab, the kit's assembly and the duet
+  prototype until Phases 6 and 7 redraw them.
+- **Not seen working with a real microphone**: locally there is no speech-to-text key, so a
+  spoken answer is refused before the line can follow a live voice. The line was seen moving on
+  `/prototype/studio`'s scripted sample and in silver while a question was read aloud on the real
+  screen; Manu should try one spoken answer on a preview deployment.
+- **Toasts were restyled but not seen**: nothing on the Phase 5 screens raises one locally.
+- **The recommender portal's browser chrome is now dark** for a light-scheme visitor, because
+  `THEME_COLORS.day` is the casing. Phase 7 can give `/r` its own paper `themeColor`.
 - **`next dev` reload-loops under Playwright** on every route. Not diagnosed. Work from the
   production build (`local-db.md` §4).
 - `pnpm format:check` also flags `apps/web/app/(app)/settings/privacy/delete-dialog.tsx` and the
@@ -418,6 +460,20 @@ working basis). All of "Needs Manu" was answered on 2026-11-17, below.
 - Overflow at 375 px: none on any Phase 4 route. Console, failed requests, hydration warnings:
   none (the 404 page logs its own 404, as before).
 
+## Measured after Phase 5 (2026-11-17, production build, local)
+
+- First-load JS: `/studio` **157.9 KB** of 160 (was 157.4: the casing's CSS-driven sidebar and the
+  Speak / Write switch; the canvas line is in the lazy voice stage), `/home` **146.1** (was 148.4),
+  `/prototype/studio` 153.0, `/` 147.4, `/sign-in` 157.1, `/first-run` 148.2.
+- The Voiceline (on `/prototype/studio`'s scripted sample, the page's other loops included):
+  **0.18 ms** of script and 0.94 ms of main-thread work a frame; at 4× CPU slowdown 0.59 and
+  1.88 ms. `/studio` at rest: **0.0 ms** of script in 3 s (no loop runs).
+- axe (WCAG 2.2 AA): **0 violations** on `/home`, `/studio` and `/settings`, Day and Night, at 1440
+  and 390.
+- Overflow at 375 px: none on `/home`, `/studio`, `/schools`, `/settings` (and its two subpages),
+  Day, Night and reduced motion. Hydration warnings: none. Console: `/studio` logs the known 500
+  from `/api/studio/sessions` (no AI locally); nothing else.
+
 ## Scores
 
 | Screen               | Glance | Signature | Type | Composition | Colour | Media | Motion | Mobile | Copy | Polish | Average |
@@ -445,6 +501,11 @@ working basis). All of "Needs Manu" was answered on 2026-11-17, below.
 | `/welcome`           | 8      | 7         | 9    | 8           | 9      | 7     | 8      | 8      | 8    | 8      | **8.0** |
 | `/first-run`         | 8      | 8         | 9    | 8           | 9      | 7     | 8      | 8      | 8    | 8      | **8.1** |
 | not-found, goodbye   | 8      | 7         | 9    | 8           | 8      | 7     | 7      | 8      | 8    | 8      | **7.8** |
+| The casing           | 9      | 7         | 9    | 9           | 9      | 8     | 8      | 8      | 8    | 8      | **8.3** |
+| Palette, menu, toast | 8      | 7         | 9    | 8           | 9      | 7     | 9      | 8      | 8    | 8      | **8.1** |
+| `/home`              | 8      | 8         | 9    | 8           | 9      | 8     | 8      | 8      | 8    | 8      | **8.2** |
+| `/studio`            | 9      | 9         | 9    | 8           | 9      | 9     | 8      | 8      | 8    | 8      | **8.5** |
+| Studio free-half gate | 9     | 8         | 9    | 8           | 9      | 8     | 8      | 8      | 9    | 8      | **8.4** |
 
 First pass scored 7.4 (polish 6, composition 7, mobile 6: transcript lines ran under the frost
 caption, a tab was clipped at the panel edge, the Night-paper colour column was two-thirds empty,

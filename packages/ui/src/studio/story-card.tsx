@@ -68,10 +68,7 @@ export function StoryCard({
       )}
     >
       <Heading
-        className={cx(
-          "text-text",
-          expanded ? "text-title" : "text-[14px] leading-5 font-medium",
-        )}
+        className={cx("text-text", expanded ? "text-title" : "text-[14px] leading-5 font-medium")}
       >
         {onToggle ? (
           // The pseudo-element stretches the button over the whole card: one large target.

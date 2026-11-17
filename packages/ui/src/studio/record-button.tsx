@@ -210,7 +210,11 @@ export function RecordButton({
             transition={reduced ? REDUCED_FADE : { duration: 0.16, ease: [0.22, 1, 0.36, 1] }}
             {...iconMotion}
           >
-            <StateIcon size={listening ? 24 : 28} weight={listening ? "fill" : "regular"} aria-hidden />
+            <StateIcon
+              size={listening ? 24 : 28}
+              weight={listening ? "fill" : "regular"}
+              aria-hidden
+            />
           </motion.span>
         </AnimatePresence>
       </button>

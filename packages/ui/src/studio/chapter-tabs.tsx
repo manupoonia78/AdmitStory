@@ -6,7 +6,7 @@
 // browsing the list never starts a question being read aloud. Space here opens a tab rather than
 // recording, because Space to talk steps aside on tabs (space-to-talk.ts).
 
-import { useRef, type KeyboardEvent } from "react";
+import { useEffect, useRef, type KeyboardEvent } from "react";
 import { cx } from "../lib/cx";
 
 export interface ChapterTab<Id extends string = string> {
@@ -57,6 +57,21 @@ export function ChapterTabs<Id extends string>({
 }: ChapterTabsProps<Id>) {
   const listRef = useRef<HTMLDivElement>(null);
 
+  // On a phone the row scrolls sideways: keep the open chapter in view (scrollLeft, not
+  // scrollIntoView, so the page itself never moves).
+  useEffect(() => {
+    const list = listRef.current;
+    const scroller = list?.parentElement;
+    const tab = list?.querySelector<HTMLElement>('[aria-selected="true"]');
+    if (!scroller || !tab || scroller.scrollWidth <= scroller.clientWidth) return;
+    const left = tab.offsetLeft - list.offsetLeft;
+    if (
+      left < scroller.scrollLeft ||
+      left + tab.offsetWidth > scroller.scrollLeft + scroller.clientWidth - 32
+    )
+      scroller.scrollLeft = Math.max(0, left - 24);
+  }, [value]);
+
   const onKeyDown = (event: KeyboardEvent<HTMLDivElement>) => {
     const tabs = Array.from(
       listRef.current?.querySelectorAll<HTMLButtonElement>("[role=tab]") ?? [],
@@ -71,10 +86,7 @@ export function ChapterTabs<Id extends string>({
   return (
     // Scrolls sideways instead of wrapping onto a second row; the page itself never does.
     <div
-      className={cx(
-        "-mx-5 overflow-x-auto px-5 [scrollbar-width:none] sm:mx-0 sm:px-0",
-        className,
-      )}
+      className={cx("-mx-5 overflow-x-auto px-5 [scrollbar-width:none] sm:mx-0 sm:px-0", className)}
     >
       <div
         ref={listRef}

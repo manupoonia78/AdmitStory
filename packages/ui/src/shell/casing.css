@@ -29,6 +29,12 @@ html:has(.casing) {
   color: var(--text);
   outline: none;
 }
+/* Immersive (rail) screens are Night in both themes, so their bay is the instrument too. */
+.casing[data-rail] .bay {
+  background-color: var(--bg);
+  background-image: var(--grain-image);
+  color: var(--fg);
+}
 @media (min-width: 64rem) {
   .bay {
     min-height: calc(100dvh - 16px);
@@ -197,7 +203,8 @@ html:has(.casing) {
   margin-right: 48px;
   border-radius: var(--radius-round);
   color: var(--fg-64);
-  transition: color var(--dur-hover) var(--ease-rise),
+  transition:
+    color var(--dur-hover) var(--ease-rise),
     background-color var(--dur-hover) var(--ease-rise);
 }
 .casing-search-text,
@@ -276,7 +283,8 @@ html:has(.casing) {
   justify-content: center;
   border-radius: var(--radius-round);
   color: var(--fg-64);
-  transition: color var(--dur-hover) var(--ease-rise),
+  transition:
+    color var(--dur-hover) var(--ease-rise),
     background-color var(--dur-hover) var(--ease-rise);
 }
 .casing-link:active {

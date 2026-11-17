@@ -107,7 +107,7 @@ export default async function HomePage() {
         className="card enter mt-12 flex flex-col gap-7 p-7 sm:flex-row sm:items-end sm:justify-between sm:gap-10 sm:p-10"
         style={enter(1.45)}
       >
-        <div className="flex max-w-[26ch] flex-col gap-3">
+        <div className="flex max-w-[30ch] flex-col gap-3">
           <p className="label text-text-label">Next step</p>
           <h2 id="next-step" className="text-display-3 text-text">
             {step.title}
@@ -138,9 +138,9 @@ export default async function HomePage() {
         >
           <span aria-hidden className="path-track" />
           <span aria-hidden className="path-run" />
-          <svg aria-hidden className="path-peak" viewBox="0 0 16 22" fill="none">
+          <svg aria-hidden className="path-peak" viewBox="0 0 20 28" fill="none">
             <path
-              d="M0 21.5 L8 1 L16 21.5"
+              d="M0 27.5 L10 1 L20 27.5"
               stroke="currentColor"
               strokeWidth="1.5"
               strokeLinejoin="miter"
@@ -160,7 +160,7 @@ export default async function HomePage() {
                   <span className="label text-text-label">
                     {String(index + 1).padStart(2, "0")}
                   </span>
-                  <span className="path-step-title text-[14px] leading-5 font-medium text-text">
+                  <span className="path-step-title text-[14px] leading-5 font-medium">
                     {stage.title}
                   </span>
                   <span className="text-sm text-text-soft">
@@ -181,7 +181,9 @@ export default async function HomePage() {
         {facts.schools.length > 0 ? (
           <ul>
             {facts.schools.map((s) => {
-              const href = s.kit ? `/schools/${s.userSchoolId}` : `/schools/${s.userSchoolId}/preview`;
+              const href = s.kit
+                ? `/schools/${s.userSchoolId}`
+                : `/schools/${s.userSchoolId}/preview`;
               const line = lineFor(s.userSchoolId);
               return (
                 <li key={s.userSchoolId} className="home-school">

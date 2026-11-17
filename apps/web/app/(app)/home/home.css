@@ -107,22 +107,24 @@
     height: 5px;
   }
   .path-peak {
-    left: calc(var(--path-at) * 25% - 8px);
+    left: calc(var(--path-at) * 25% - 10px);
+    width: 20px;
+    height: 28px;
     transform: none;
   }
   .path-run {
     height: 1.25px;
   }
   .path-peak {
-    top: 19px;
+    top: 13px;
   }
   /* All four done: brass to the end, and the peak stands at the line's end. */
   .path[data-all] .path-run {
     width: 100%;
   }
   .path[data-all] .path-peak {
-    top: 19px;
-    left: calc(100% - 16px);
+    top: 13px;
+    left: calc(100% - 20px);
   }
 }
 
@@ -134,16 +136,38 @@
   }
 }
 
+/* The moment: the line draws across, brass follows it to where you are, the peak rises there. */
+[data-motion="on"] .path-track {
+  animation: path-draw-y 700ms var(--ease-line) 250ms both;
+}
 [data-motion="on"] .path-run {
-  animation: path-draw-y 900ms var(--ease-line) 300ms both;
+  animation: path-draw-y 900ms var(--ease-line) 450ms both;
 }
 [data-motion="on"] .path-peak {
-  animation: path-peak 400ms var(--ease-rise) 1050ms both;
+  animation: path-peak 400ms var(--ease-rise) 1150ms both;
 }
 @media (min-width: 40rem) {
+  [data-motion="on"] .path-track,
   [data-motion="on"] .path-run {
     animation-name: path-draw-x;
   }
+}
+.path-track {
+  transform-origin: top;
+}
+@media (min-width: 40rem) {
+  .path-track {
+    transform-origin: left;
+  }
+}
+
+/* Hierarchy along the path: done and current at full strength, the stages ahead a step back. */
+.path-step-title {
+  color: var(--text-soft);
+}
+.path-step[data-done] .path-step-title,
+.path-step[aria-current="step"] .path-step-title {
+  color: var(--text);
 }
 @keyframes path-draw-x {
   from {
