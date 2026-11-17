@@ -11,6 +11,8 @@ export interface HomeFacts {
     published: boolean;
     status: string;
     preview: boolean;
+    /** The next date to work to: the applicant's round, else the next round still ahead (Home). */
+    deadline?: { round: string | null; date: string } | null;
     kit: {
       id: string;
       status: string;

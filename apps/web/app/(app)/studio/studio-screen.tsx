@@ -14,7 +14,6 @@ import type { VoiceTurnFields } from "@admitstory/voice/contract";
 import {
   type ButtonHTMLAttributes,
   type CSSProperties,
-  type ReactNode,
   Suspense,
   lazy,
   useCallback,
@@ -27,7 +26,8 @@ import {
   useSyncExternalStore,
 } from "react";
 import { AlertMessage, StatusMessage } from "@/components/live-message";
-import { PlainQuestion, StageFrame } from "./stage-frame";
+import { PlainQuestion, PlainRecordButton, StageFrame } from "./stage-frame";
+import "./studio.css";
 import type { CoverageBarDto, LiveReply, QuestionDto, SummaryDto } from "./types";
 import {
   composedTurn,
@@ -38,8 +38,9 @@ import {
   type SpokenAnswer,
 } from "./voice-flow";
 
-// Story Studio (spec §5.2, screen B). Talk and Write are switchable per answer (Phase 2): in Talk
-// the record button, the live transcript and the question read aloud; in Write the composer. The
+// Story Studio (spec §5.2, screen B; SPEC §6.4). Night in both themes. Talk and Write are
+// switchable per answer from the top row: in Talk the record button on the horizon, the live
+// transcript and the question read aloud; in Write the composer. The
 // answer flow (voice-flow.ts) decides which, and makes sure a spoken answer that cannot be sent
 // as one lands in the composer rather than being lost.
 //
@@ -81,6 +82,9 @@ function StudioButton({
   return <button type="button" className={cx(buttonStyles({ variant }), className)} {...rest} />;
 }
 
+/** The session row's quiet buttons, at the small size. */
+const SMALL = "h-9 px-3 text-[13px]";
+
 /** Only shown once the free half is used up, so it is not part of the Studio's first load. */
 const StudioGate = dynamic(() => import("./studio-gate-live").then((mod) => mod.StudioGateLive), {
   loading: () => <div className="h-96" />,
@@ -103,11 +107,6 @@ export interface StudioScreenProps {
   mode: "express" | "standard" | "deep";
   resumable: { id: string; chapter: ChapterId; mode: string } | null;
   identity: VoiceprintIdentity;
-  /**
-   * The identity's still Voiceprint, rendered on the server: the stage's stand-in until the voice
-   * stage loads, at no cost to the first load.
-   */
-  still: ReactNode;
   /** voiceHueStyle() of the applicant's hue: the one chosen in Settings, else their identity's. */
   hueStyle: CSSProperties;
   /** The hue was chosen in Settings, so a new Voiceprint identity does not change it. */
@@ -143,7 +142,6 @@ function Interview({
   mode,
   resumable,
   identity: initialIdentity,
-  still,
   hueStyle: initialHueStyle,
   hueChosen,
   voice,
@@ -156,6 +154,8 @@ function Interview({
   const panelId = useId();
   const answerId = useId();
   const composerRef = useRef<HTMLTextAreaElement>(null);
+  /** Set by the voice stage: Write while talking carries the words said so far over. */
+  const writeInsteadRef = useRef<(() => void) | null>(null);
   const hydrated = useSyncExternalStore(
     noSubscription,
     () => true,
@@ -395,13 +395,77 @@ function Interview({
   };
 
   const waiting = busy ? "Thinking about what to ask next…" : "Nothing more to ask right now.";
+  const chapterLabel = TABS.find((tab) => tab.id === chapter)?.label ?? "";
+  const talkOpen = talkAvailable(flow);
+
+  const composer =
+    flow.mode === "write" ? (
+      <div className="flex flex-col gap-3">
+        <label htmlFor={answerId} className="label text-text-label">
+          Your answer
+        </label>
+        <textarea
+          ref={composerRef}
+          id={answerId}
+          value={flow.draft}
+          onChange={(event) => dispatch({ type: "draft", text: event.target.value })}
+          onKeyDown={(event) => {
+            // Enter makes a paragraph; a long answer is the point. Cmd/Ctrl+Enter sends.
+            if (event.key === "Enter" && (event.metaKey || event.ctrlKey)) {
+              event.preventDefault();
+              sendDraft();
+            }
+          }}
+          rows={6}
+          placeholder="Say as much as you like. Rambling is useful."
+          className="studio-composer"
+        />
+        <div className="flex flex-wrap items-center gap-4">
+          <button
+            type="button"
+            onClick={sendDraft}
+            disabled={busy || flow.draft.trim() === "" || !question}
+            className={buttonStyles({ arrow: true })}
+          >
+            Done
+            <span aria-hidden className="btn-arrow" />
+          </button>
+          <span aria-hidden className="label text-text-faint">
+            ⌘ Enter to send
+          </span>
+        </div>
+      </div>
+    ) : undefined;
+
   const plainStage = (
     <StageFrame
       mode={flow.mode}
-      voiceprint={still}
+      chapter={chapterLabel}
       question={<PlainQuestion text={question?.question ?? null} waiting={waiting} />}
+      answer={
+        flow.mode === "talk" ? (
+          <div className="studio-transcript flex items-end">
+            <p className="text-base text-text-soft">
+              Answer out loud. Your words appear here as you speak.
+            </p>
+          </div>
+        ) : (
+          composer
+        )
+      }
+      button={<PlainRecordButton />}
     />
   );
+
+  const switchMode = (next: "talk" | "write") => {
+    if (next === flow.mode) return;
+    if (next === "talk") {
+      if (talkOpen) dispatch({ type: "mode", mode: "talk" });
+      return;
+    }
+    if (writeInsteadRef.current) writeInsteadRef.current();
+    else dispatch({ type: "mode", mode: "write" });
+  };
 
   if (gate)
     return (
@@ -427,98 +491,77 @@ function Interview({
     );
 
   return (
-    <ImmersiveScope
-      className="mx-auto flex min-h-dvh w-full max-w-[90rem] flex-col gap-8 px-5 py-8 sm:px-10 sm:py-10 xl:flex-row xl:gap-12"
-      style={hueStyle}
-    >
-      <div className="flex min-w-0 flex-1 flex-col gap-6">
-        <ChapterTabs
-          chapters={TABS}
-          value={chapter}
-          onChange={(next) => {
-            setChapter(next);
-            setStatus("");
-          }}
-          panelId={panelId}
-          label="Chapters"
-        />
+    // Night in both themes (SPEC §6.4): the room is part of the instrument.
+    <div data-theme="night" className="min-h-full">
+      <ImmersiveScope className="studio-room" style={hueStyle}>
+        <div className="studio-stage">
+          <div className="studio-top">
+            <ChapterTabs
+              chapters={TABS}
+              value={chapter}
+              onChange={(next) => {
+                setChapter(next);
+                setStatus("");
+              }}
+              panelId={panelId}
+              label="Chapters"
+            />
+            <div role="group" aria-label="Answer by" className="studio-mode" data-mode={flow.mode}>
+              <button
+                type="button"
+                aria-pressed={flow.mode === "talk"}
+                aria-disabled={!talkOpen || undefined}
+                onClick={() => switchMode("talk")}
+              >
+                Speak
+              </button>
+              <button
+                type="button"
+                aria-pressed={flow.mode === "write"}
+                onClick={() => switchMode("write")}
+              >
+                Write
+              </button>
+            </div>
+          </div>
 
-        <div
-          id={panelId}
-          role="tabpanel"
-          className="flex min-h-0 flex-1 flex-col items-center justify-center gap-8 py-4"
-        >
-          {hydrated ? (
-            <Suspense fallback={plainStage}>
-              <VoiceStage
-                flow={flow}
-                dispatch={dispatch}
-                question={question}
-                waiting={waiting}
-                busy={busy}
-                identity={identity}
-                onIdentity={(next, style) => {
-                  setIdentity(next);
-                  if (!hueChosen) setHueStyle(style);
-                }}
-                readAloud={readAloud}
-                onReadAloudChange={changeReadAloud}
-                onAnswer={answered}
-                reply={live}
-                lastSaid={lastSaid}
-              />
-            </Suspense>
-          ) : (
-            plainStage
-          )}
-
-          <div className="flex w-full max-w-2xl flex-col gap-3">
-            {flow.mode === "write" ? (
-              <>
-                <label htmlFor={answerId} className="text-sm font-medium text-text">
-                  Your answer
-                </label>
-                <textarea
-                  ref={composerRef}
-                  id={answerId}
-                  value={flow.draft}
-                  onChange={(event) => dispatch({ type: "draft", text: event.target.value })}
-                  onKeyDown={(event) => {
-                    // Enter makes a paragraph; a long answer is the point. Cmd/Ctrl+Enter sends.
-                    if (event.key === "Enter" && (event.metaKey || event.ctrlKey)) {
-                      event.preventDefault();
-                      sendDraft();
-                    }
+          <div id={panelId} role="tabpanel" className="studio-panel">
+            {hydrated ? (
+              <Suspense fallback={plainStage}>
+                <VoiceStage
+                  flow={flow}
+                  dispatch={dispatch}
+                  question={question}
+                  waiting={waiting}
+                  busy={busy}
+                  identity={identity}
+                  onIdentity={(next, style) => {
+                    setIdentity(next);
+                    if (!hueChosen) setHueStyle(style);
                   }}
-                  rows={6}
-                  placeholder="Say as much as you like. Rambling is useful."
-                  className={cx(
-                    "w-full resize-y rounded-plane border border-control-edge bg-depth p-4",
-                    "font-reading text-reading text-text placeholder:text-text-soft",
-                    "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-text",
-                  )}
+                  readAloud={readAloud}
+                  onReadAloudChange={changeReadAloud}
+                  onAnswer={answered}
+                  reply={live}
+                  lastSaid={lastSaid}
+                  chapter={chapterLabel}
+                  writeInsteadRef={writeInsteadRef}
+                  composer={composer}
                 />
-                <div className="flex flex-wrap items-center gap-3">
-                  <StudioButton
-                    onClick={sendDraft}
-                    disabled={busy || flow.draft.trim() === "" || !question}
-                  >
-                    Done
-                  </StudioButton>
-                  {talkAvailable(flow) ? (
-                    <StudioButton
-                      variant="quiet"
-                      onClick={() => dispatch({ type: "mode", mode: "talk" })}
-                    >
-                      Talk instead
-                    </StudioButton>
-                  ) : null}
-                </div>
-              </>
-            ) : null}
-            <div className="flex flex-wrap items-center gap-3">
+              </Suspense>
+            ) : (
+              plainStage
+            )}
+
+            <div className="mt-6 flex flex-col gap-2 empty:hidden">
+              <StatusMessage message={status} />
+              <AlertMessage message={error} />
+            </div>
+
+            <div className="studio-session">
               <StudioButton
                 variant="quiet"
+                className={SMALL}
                 onClick={() => void send({ skip: true })}
                 disabled={busy || !question}
               >
@@ -527,6 +570,7 @@ function Interview({
               {hurried ? null : (
                 <StudioButton
                   variant="quiet"
+                  className={SMALL}
                   onClick={() => {
                     setHurried(true);
                     setStatus("Switched to the short path: only the questions a draft needs.");
@@ -540,26 +584,24 @@ function Interview({
                 variant="quiet"
                 onClick={() => void end()}
                 disabled={busy}
-                className="ms-auto"
+                className={cx(SMALL, "ms-auto")}
               >
                 Finish for now
               </StudioButton>
             </div>
-            <StatusMessage message={status} />
-            <AlertMessage message={error} />
           </div>
         </div>
-      </div>
 
-      <aside className="plane flex w-full shrink-0 flex-col gap-6 self-start p-6 xl:sticky xl:top-10 xl:w-80">
-        <ShelfPane
-          sessionId={sessionId}
-          initialStories={initialStories}
-          initialCoverage={initialCoverage}
-          initialFactCount={initialFactCount}
-        />
-      </aside>
-    </ImmersiveScope>
+        <aside aria-label="Your shelf and coverage" className="studio-shelf">
+          <ShelfPane
+            sessionId={sessionId}
+            initialStories={initialStories}
+            initialCoverage={initialCoverage}
+            initialFactCount={initialFactCount}
+          />
+        </aside>
+      </ImmersiveScope>
+    </div>
   );
 }
 

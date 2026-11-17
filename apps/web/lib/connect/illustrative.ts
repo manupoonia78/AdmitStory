@@ -16,8 +16,9 @@ export interface IllustrativePerson {
   unsplash: string;
 }
 
+/** Future tense while Connect is closed (2026-11-17, lib/connect/coming-soon.ts). */
 export const ILLUSTRATIVE_NOTE =
-  "Once you unlock a school, you’re matched with real people from it.";
+  "When Connect opens, you’ll be matched with real people from your schools.";
 
 export const ILLUSTRATIVE_PEOPLE: readonly IllustrativePerson[] = [
   {

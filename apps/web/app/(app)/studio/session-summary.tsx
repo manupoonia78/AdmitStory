@@ -52,15 +52,17 @@ export function SessionSummaryCard({
   const [first, ...rest] = nextSteps(stories, school);
 
   return (
-    <section className="mx-auto flex w-full max-w-2xl flex-col gap-8 py-10">
-      <div className="flex flex-col gap-3">
-        <h1 className="text-display text-text">
+    <div data-theme="night" className="min-h-full">
+    <section className="mx-auto flex w-full max-w-[55rem] flex-col gap-10 px-5 pt-10 pb-16 sm:px-10 sm:pt-14 lg:px-14 lg:pt-16">
+      <div className="flex flex-col gap-4">
+        <p className="eyebrow">Session saved</p>
+        <h1 className="text-display-2 max-w-[24ch] text-text">
           {stories === 0
             ? "Everything so far is saved."
             : `That's a strong start: ${stories} ${stories === 1 ? "story" : "stories"} and ${facts} ${facts === 1 ? "fact" : "facts"}.`}
         </h1>
         {thin ? (
-          <p className="text-text-soft">
+          <p className="max-w-[60ch] text-lg text-text-soft">
             We don&apos;t yet have {thin.what} — {Math.max(5, summary.nextUp.length * 3)} minutes
             next time?
           </p>
@@ -68,13 +70,13 @@ export function SessionSummaryCard({
       </div>
 
       {summary.thinLenses.length > 0 ? (
-        <div className="flex flex-col gap-2">
-          <h2 className="font-display text-[1.625rem] leading-tight tracking-[-0.01em] text-text">
-            Still thin
-          </h2>
-          <ul className="flex flex-col gap-1 text-text-soft">
+        <div className="flex flex-col gap-3">
+          <h2 className="eyebrow">Still thin</h2>
+          <ul className="flex flex-col">
             {summary.thinLenses.map((lens) => (
-              <li key={lens.id}>{lens.label}</li>
+              <li key={lens.id} className="border-t border-edge py-3.5 text-text-80 last:border-b">
+                {lens.label}
+              </li>
             ))}
           </ul>
         </div>
@@ -107,5 +109,6 @@ export function SessionSummaryCard({
         </Button>
       </div>
     </section>
+    </div>
   );
 }

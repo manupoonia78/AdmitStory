@@ -10,6 +10,7 @@
 
 @import "./tokens.css";
 @import "./render.css";
+@import "./shell/casing.css";
 
 /* Scan this package's components so their class names are generated in the app build. */
 @source "./";

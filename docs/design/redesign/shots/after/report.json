@@ -1,0 +1,73 @@
+{
+  "base": "http://localhost:3100",
+  "out": "after",
+  "theme": "day",
+  "reduced": false,
+  "takenAt": "2026-11-17T17:47:19.289Z",
+  "routes": [
+    {
+      "name": "home",
+      "path": "/home",
+      "consoleErrors": [],
+      "failedRequests": [],
+      "hydration": [],
+      "status": 200,
+      "finalPath": "/home",
+      "overflow375": {
+        "px": 0,
+        "offenders": []
+      }
+    },
+    {
+      "name": "studio",
+      "path": "/studio",
+      "consoleErrors": [
+        "Failed to load resource: the server responded with a status of 500 (Internal Server Error)",
+        "Failed to load resource: the server responded with a status of 500 (Internal Server Error)"
+      ],
+      "failedRequests": [
+        "500 /api/studio/sessions",
+        "500 /api/studio/sessions"
+      ],
+      "hydration": [],
+      "status": 200,
+      "finalPath": "/studio",
+      "overflow375": {
+        "px": 0,
+        "offenders": []
+      }
+    },
+    {
+      "name": "ref-prototype-studio",
+      "path": "/prototype/studio",
+      "consoleErrors": [],
+      "failedRequests": [],
+      "hydration": [],
+      "status": 200,
+      "finalPath": "/prototype/studio",
+      "overflow375": {
+        "px": 4,
+        "offenders": [
+          "div.-mx-5 overflow-x-auto px-5 [scrollbar-width:none] sm:mx-0 sm",
+          "div.flex w-max gap-6",
+          "button.label relative min-h-11 shrink-0 px-0.5 whitespace-nowrap tr",
+          "button.label relative min-h-11 shrink-0 px-0.5 whitespace-nowrap tr",
+          "button.label relative min-h-11 shrink-0 px-0.5 whitespace-nowrap tr"
+        ]
+      }
+    }
+  ],
+  "setup": [
+    "first-run: already completed for this account (use --email for a fresh one to recapture)",
+    "schools on the list: Halvorsen, Kestrel Lake, Quillfeather",
+    "kit: unlocked, a deliverable exists",
+    "recommender: one fictional recommender on file"
+  ],
+  "ids": {
+    "unlocked": "0b168856-2e13-4b34-ba24-e5c837ac146f",
+    "kit": "26d38c41-5b16-4b44-8f66-df9b7dbe82ad",
+    "school": "a5e8f815-a79b-418d-b81c-c2dac801b2ea",
+    "deliverable": "61feecb5-4c8a-460e-b71c-5cfc2f34febe",
+    "recommender": "f3e449cb-92f0-4712-96c9-55798a416661"
+  }
+}

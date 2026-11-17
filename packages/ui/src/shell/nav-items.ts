@@ -35,3 +35,26 @@ export function isActivePath(pathname: string, href: string): boolean {
 
 /** Routes that light the sidebar's Settings entry. */
 export const SETTINGS_PATHS = ["/settings", "/dossier"] as const;
+
+/**
+ * Immersive screens: the sidebar folds to a 64px rail and the bay runs edge to edge (SPEC §6.1).
+ * Phase 6 adds the essay editor.
+ */
+export const RAIL_PATHS = ["/studio"] as const;
+
+/** Names the top bar shows for pages that are not one of the seven destinations. */
+const OTHER_TITLES: readonly (readonly [string, string])[] = [
+  ["/settings", "Settings"],
+  ["/dossier", "Your dossier"],
+  ["/recommenders", "Recommenders"],
+  ["/profile-read", "Profile Read"],
+  ["/workspace", "Your draft"],
+  ["/kits", "Your kit"],
+];
+
+/** The page's name in the top bar below 1024px. */
+export function pageTitle(pathname: string): string {
+  const item = NAV_ITEMS.find((entry) => isActivePath(pathname, entry.href));
+  if (item) return item.label;
+  return OTHER_TITLES.find(([href]) => isActivePath(pathname, href))?.[1] ?? "AdmitStories";
+}

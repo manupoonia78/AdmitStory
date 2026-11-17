@@ -5,8 +5,8 @@ import {
   LiveTranscript,
   RecordButton,
   SpokenQuestion,
+  StudioVoiceline,
   VoiceNotice,
-  Voiceprint,
   createIdentityAccumulator,
   microphoneSupported,
   paramsFromIdentity,
@@ -14,12 +14,19 @@ import {
   voiceHueStyle,
   type IdentityAccumulator,
   type VoiceNoticeAction,
+  type VoicelineSpeaker,
   type VoiceprintIdentity,
-  type VoiceprintMood,
 } from "@admitstory/ui";
 import { useDictation, useReadAloud, type DictationSnapshot } from "@admitstory/voice/client";
-import { PencilSimpleLineIcon, SpeakerHighIcon, SpeakerSlashIcon } from "@phosphor-icons/react";
-import { useEffect, useEffectEvent, useRef, useState, type CSSProperties } from "react";
+import {
+  useEffect,
+  useEffectEvent,
+  useRef,
+  useState,
+  type CSSProperties,
+  type ReactNode,
+  type RefObject,
+} from "react";
 import { QUESTION_CLASS, StageFrame } from "./stage-frame";
 import type { LiveReply, QuestionDto } from "./types";
 import type { SpokenAnswer, VoiceFlowEvent, VoiceFlowState } from "./voice-flow";
@@ -33,11 +40,10 @@ import {
   type NoticeAction,
 } from "./voice-notice";
 
-// The Studio's voice stage (spec §5.2 Talk, §6.2, §6.7, screen B): the Voiceprint full size and
-// breathing with the microphone, the question read aloud word by word, the live transcript, the
-// record button with hold-Space, and every voice state's notice. Loaded after first paint, so the
-// dictation client, the read-aloud player, Motion and the Voiceprint's renderer loader are never
-// in the Studio's first load (§6.11). The screen keeps the answer flow (voice-flow.ts) and sends
+// The Studio's voice stage (spec §5.2 Talk; SPEC §6.4): the horizon line answering the
+// microphone, the question read aloud word by word, the live transcript, the record button with
+// hold-Space, and every voice state's notice. Loaded after first paint, so the dictation client,
+// the read-aloud player, Motion and the canvas line are never in the Studio's first load. The screen keeps the answer flow (voice-flow.ts) and sends
 // the answers; this stage only turns speech into SpokenAnswers and says what is happening.
 
 export interface VoiceStageProps {
@@ -59,6 +65,12 @@ export interface VoiceStageProps {
   reply: LiveReply | null;
   /** The applicant's last answer, shown as saved until they start the next one. */
   lastSaid: string;
+  /** The open chapter's name, above the question. */
+  chapter: string;
+  /** The answer field, shown in the transcript's place in Write. */
+  composer?: ReactNode;
+  /** The top row's Write switch calls this: it carries the words said so far into the composer. */
+  writeInsteadRef: RefObject<(() => void) | null>;
 }
 
 /** The end of the last complete sentence in `text`, or 0: where a spoken chunk can stop. */
@@ -111,6 +123,9 @@ export function VoiceStage({
   onAnswer,
   reply,
   lastSaid,
+  chapter,
+  writeInsteadRef,
+  composer,
 }: VoiceStageProps) {
   const talk = flow.mode === "talk";
   const recordRef = useRef<HTMLDivElement>(null);
@@ -206,6 +221,15 @@ export function VoiceStage({
       typeInstead();
     }
   };
+  useEffect(() => {
+    writeInsteadRef.current = writeInstead;
+  });
+  useEffect(
+    () => () => {
+      writeInsteadRef.current = null;
+    },
+    [writeInsteadRef],
+  );
 
   // The browser's own answer about the microphone, where it gives one, so the explanation and
   // "Allow microphone" only show to someone who has not allowed it yet (§5.2 states).
@@ -464,22 +488,15 @@ export function VoiceStage({
   }));
 
   const reading = read.status === "playing" && read.text === question?.question;
-  const mood: VoiceprintMood = recording ? "speaking" : reading ? "listening" : "idle";
+  const speaker: VoicelineSpeaker = recording ? "you" : reading ? "reader" : "none";
   const live = recording ? mic.signal : null;
   const matched = question !== null && read.text === question.question;
 
   return (
     <StageFrame
       mode={flow.mode}
-      voiceprint={
-        <Voiceprint
-          identity={identity}
-          signal={live}
-          mood={mood}
-          size="fill"
-          label="Your Voiceprint"
-        />
-      }
+      chapter={chapter}
+      line={<StudioVoiceline signal={live} speaker={speaker} identity={identity} />}
       question={
         reply && !reply.final && reply.text ? (
           <h2 className={QUESTION_CLASS} aria-live="polite">
@@ -490,86 +507,97 @@ export function VoiceStage({
             text={question.question}
             timings={matched ? read.timings : null}
             clock={matched ? read.clock : null}
-            className="max-w-[30ch]"
+            className="studio-question"
           />
         ) : (
-          <p className="font-reading text-reading-lg text-text-soft">{waiting}</p>
+          <p className="text-display-3 text-text-soft">{waiting}</p>
         )
       }
-      transcript={
-        <LiveTranscript
-          segments={transcriptSegments(snapshot, `answer-${attempt}`)}
-          signal={live}
-          label="Your answer"
-          className="h-full"
-          empty={
-            recording ? (
-              <p className="text-base">Listening. Your words appear here as you speak.</p>
-            ) : lastSaid ? (
-              <div className="flex flex-col gap-1">
-                <p className="line-clamp-3 font-reading text-reading text-text">{lastSaid}</p>
-                <p className="text-sm text-text-soft">Saved. Your words go into your Dossier.</p>
-              </div>
-            ) : (
-              <p className="text-base">Answer out loud. Your words appear here as you speak.</p>
-            )
-          }
-        />
+      answer={
+        talk ? (
+          <LiveTranscript
+            segments={transcriptSegments(snapshot, `answer-${attempt}`)}
+            signal={live}
+            label="Your answer"
+            className="studio-transcript"
+            empty={
+              recording ? (
+                <p className="text-base text-text-soft">
+                  Listening. Your words appear here as you speak.
+                </p>
+              ) : lastSaid ? (
+                <div className="flex flex-col gap-2">
+                  <p className="line-clamp-3 font-accent text-transcript text-text-soft italic">
+                    {lastSaid}
+                  </p>
+                  <p className="label text-text-label">Saved to your Dossier</p>
+                </div>
+              ) : (
+                <p className="text-base text-text-soft">
+                  Answer out loud. Your words appear here as you speak.
+                </p>
+              )
+            }
+          />
+        ) : (
+          composer
+        )
       }
-      notice={
-        <VoiceNotice notice={notice} actions={actions} className="w-full max-w-2xl text-start" />
+      notice={<VoiceNotice notice={notice} actions={actions} className="w-full max-w-2xl" />}
+      button={
+        <div ref={recordRef}>
+          <RecordButton
+            state={recordButtonState(snapshot.state, busy)}
+            onStart={() =>
+              snapshot.state === "failed" ? dictation.retry() : void startAnswer(false)
+            }
+            onStop={finishAnswer}
+            signal={live}
+            disabled={!question}
+            status={
+              mic.status === "requesting"
+                ? "Waiting for your browser's permission"
+                : snapshot.state === "connecting"
+                  ? "Getting ready to listen"
+                  : undefined
+            }
+          />
+        </div>
       }
       controls={
-        <div className="flex flex-wrap items-start justify-center gap-x-4 gap-y-3">
-          <div ref={recordRef}>
-            <RecordButton
-              state={recordButtonState(snapshot.state, busy)}
-              onStart={() =>
-                snapshot.state === "failed" ? dictation.retry() : void startAnswer(false)
-              }
-              onStop={finishAnswer}
-              signal={live}
-              disabled={!question}
-              status={
-                mic.status === "requesting"
-                  ? "Waiting for your browser's permission"
-                  : snapshot.state === "connecting"
-                    ? "Getting ready to listen"
-                    : undefined
-              }
-            />
-          </div>
-          <div className="flex h-20 flex-wrap items-center gap-2">
-            {/* aria-disabled, not disabled: focus stays put when an answer ends. */}
-            <Button
-              variant="secondary"
-              onClick={() => {
-                if (recording || snapshot.state === "failed") finishAnswer();
-              }}
-              aria-disabled={!recording && snapshot.state !== "failed"}
-            >
-              Done
-            </Button>
-            <Button variant="quiet" icon={PencilSimpleLineIcon} onClick={writeInstead}>
-              Write instead
-            </Button>
-            <Button
-              variant="quiet"
-              icon={readAloud ? SpeakerHighIcon : SpeakerSlashIcon}
-              onClick={toggleReadAloud}
-              aria-pressed={readAloud}
-            >
-              Read questions aloud
-            </Button>
-            <Button
-              variant="quiet"
-              onClick={() => setHandsFree((on) => !on)}
-              aria-pressed={handsFree}
-            >
-              Hands-free
-            </Button>
-          </div>
-        </div>
+        <>
+          {/* aria-disabled, not disabled: focus stays put when an answer ends. */}
+          <Button
+            variant="secondary"
+            size="sm"
+            onClick={() => {
+              if (recording || snapshot.state === "failed") finishAnswer();
+            }}
+            aria-disabled={!recording && snapshot.state !== "failed"}
+          >
+            Done
+          </Button>
+          <Button
+            variant="quiet"
+            size="sm"
+            onClick={toggleReadAloud}
+            aria-pressed={readAloud}
+            className="gap-2"
+          >
+            <span aria-hidden className="studio-dot" />
+            Read aloud
+          </Button>
+          <Button
+            variant="quiet"
+            size="sm"
+            onClick={() => setHandsFree((on) => !on)}
+            aria-pressed={handsFree}
+            className="gap-2"
+          >
+            <span aria-hidden className="studio-dot" />
+            Hands-free
+          </Button>
+        </>
       }
     />
   );

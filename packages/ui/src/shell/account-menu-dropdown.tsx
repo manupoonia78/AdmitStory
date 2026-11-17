@@ -20,11 +20,13 @@ export interface AccountMenuDropdownProps extends AccountMenuProps {
   focusTriggerOnMount?: boolean;
 }
 
+// SPEC §6.1: rows on the frost, 44px (the tap minimum), the highlight a step of frost.
 const ITEM =
-  "flex min-h-11 cursor-pointer select-none items-center gap-3 rounded-control px-3 text-text " +
-  "focus-visible:-outline-offset-2 data-[highlighted]:bg-veil data-[highlighted]:text-text";
+  "flex min-h-11 cursor-pointer select-none items-center gap-3 rounded-full px-3 text-[14px] text-text-80 " +
+  "outline-none [&_svg]:text-text-faint data-[highlighted]:bg-frost data-[highlighted]:text-text " +
+  "data-[highlighted]:[&_svg]:text-text";
 
-const SEPARATOR = "my-1 h-px bg-edge";
+const SEPARATOR = "mx-3 my-1.5 h-px bg-edge";
 
 export function AccountMenuDropdown({
   user,
@@ -48,32 +50,39 @@ export function AccountMenuDropdown({
         <AccountTriggerContent user={user} />
       </DropdownMenu.Trigger>
       <DropdownMenu.Portal>
+        {/* Night in both themes: part of the casing. Opens from its trigger, closes faster. */}
         <DropdownMenu.Content
+          data-theme="night"
           side="top"
           align="start"
           sideOffset={8}
           collisionPadding={8}
-          className="z-50 min-w-64 max-w-[calc(100vw-1rem)] rounded-plane border border-edge bg-depth p-1 text-text shadow-overlay"
+          className={cx(
+            "casing-overlay z-50 min-w-64 max-w-[calc(100vw-1rem)] rounded-card p-1.5 text-text shadow-overlay",
+            "origin-(--radix-dropdown-menu-content-transform-origin) transition-[opacity,scale] duration-150 ease-rise",
+            "starting:scale-[0.97] starting:opacity-0 motion-reduce:starting:scale-100",
+            "data-[state=closed]:animate-[fade-out_100ms_linear_both]",
+          )}
         >
-          <div className="px-3 py-2">
-            <p className="truncate font-medium">{user.name}</p>
-            <p className="truncate text-sm text-text-soft">{user.email}</p>
+          <div className="px-3 py-2.5">
+            <p className="truncate text-[13px] leading-[18px] font-medium">{user.name}</p>
+            <p className="truncate font-mono text-[11px] leading-4 text-text-soft">{user.email}</p>
           </div>
           <DropdownMenu.Separator className={SEPARATOR} />
           <DropdownMenu.Item asChild className={ITEM}>
             <Link href="/settings">
-              <GearIcon size={20} aria-hidden />
+              <GearIcon size={18} aria-hidden />
               Settings
             </Link>
           </DropdownMenu.Item>
           <DropdownMenu.Item asChild className={ITEM}>
             <Link href="/dossier">
-              <CardsThreeIcon size={20} aria-hidden />
+              <CardsThreeIcon size={18} aria-hidden />
               Your dossier
             </Link>
           </DropdownMenu.Item>
           <DropdownMenu.Separator className={SEPARATOR} />
-          <DropdownMenu.Label className="px-3 pb-1 pt-2 text-sm font-medium text-text-soft">
+          <DropdownMenu.Label className="label px-3 pb-1 pt-2 text-text-label">
             Theme
           </DropdownMenu.Label>
           <DropdownMenu.RadioGroup
@@ -90,7 +99,7 @@ export function AccountMenuDropdown({
               >
                 <span className="flex size-5 items-center justify-center">
                   <DropdownMenu.ItemIndicator>
-                    <CheckIcon size={20} aria-hidden />
+                    <CheckIcon size={16} aria-hidden />
                   </DropdownMenu.ItemIndicator>
                 </span>
                 {THEME_LABELS[option]}
@@ -99,7 +108,7 @@ export function AccountMenuDropdown({
           </DropdownMenu.RadioGroup>
           <DropdownMenu.Separator className={SEPARATOR} />
           <DropdownMenu.Item className={ITEM} onSelect={() => void onSignOut()}>
-            <SignOutIcon size={20} aria-hidden />
+            <SignOutIcon size={18} aria-hidden />
             Sign out
           </DropdownMenu.Item>
         </DropdownMenu.Content>

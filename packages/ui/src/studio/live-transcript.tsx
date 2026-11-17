@@ -95,7 +95,12 @@ export function LiveTranscript({
         aria-hidden="true"
         className="flex h-full flex-col justify-end overflow-hidden [mask-image:linear-gradient(to_bottom,transparent,black_2.5rem)]"
       >
-        <p ref={textRef} className="font-ui text-read-lg text-text">
+        {/* SPEC §6.4: the transcript type, Instrument Serif italic. It has one weight, so the
+            voice-driven weight is kept for the timing but never synthesised. */}
+        <p
+          ref={textRef}
+          className="font-accent text-transcript italic text-text [font-synthesis-weight:none]"
+        >
           {segments.map((segment) => (
             <SegmentText key={segment.id} segment={segment} ignited={ignitedIds.has(segment.id)} />
           ))}

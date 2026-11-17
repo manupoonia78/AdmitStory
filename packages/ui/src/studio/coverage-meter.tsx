@@ -76,25 +76,26 @@ export function CoverageMeter({
   const Heading = `h${headingLevel}` as const;
   const byId = new Map(lenses.map((lens) => [lens.id, lens]));
   const ordered = COVERAGE_ORDER.flatMap((id) => byId.get(id) ?? []);
+  // SPEC §6.4: six thin lines. Each lens is a hairline track with a run to its level.
   return (
-    <section className={cx("flex flex-col gap-3", className)}>
-      <Heading className="text-base font-medium text-text">{heading}</Heading>
-      <ul className="flex flex-col gap-3">
+    <section className={cx("flex flex-col gap-1", className)}>
+      <Heading className="label mb-1 text-text-label">{heading}</Heading>
+      <ul className="flex flex-col">
         {ordered.map((lens) => (
-          <li key={lens.id} data-lens={lens.id} data-level={lens.level}>
-            {/* One sentence for screen readers; the visual row splits it into label, bar, note. */}
+          <li key={lens.id} data-lens={lens.id} data-level={lens.level} className="py-2.5">
+            {/* One sentence for screen readers; the visual row splits it into label, line, note. */}
             <span className="sr-only">{coverageText(lens)}</span>
-            <div aria-hidden="true" className="flex flex-col gap-1">
-              <div className="grid grid-cols-[minmax(0,1fr)_4.5rem_4.5rem] items-center gap-3 text-sm">
-                <span className="text-text">{COVERAGE_LABELS[lens.id]}</span>
-                <span className="h-1 overflow-hidden rounded-full bg-edge">
-                  <span
-                    className="block h-full origin-left rounded-full bg-text-soft transition-transform duration-(--spring-glide-duration) ease-glide motion-reduce:transition-none"
-                    style={{ transform: `scaleX(${levelFraction(lens.level)})` }}
-                  />
-                </span>
-                <span className="text-right text-text-soft">{LEVEL_WORDS[lens.level]}</span>
+            <div aria-hidden="true" className="flex flex-col gap-2">
+              <div className="flex items-baseline justify-between gap-3">
+                <span className="text-sm text-text-80">{COVERAGE_LABELS[lens.id]}</span>
+                <span className="label text-text-label">{LEVEL_WORDS[lens.level]}</span>
               </div>
+              <span className="relative block h-[1.25px] bg-edge">
+                <span
+                  className="absolute inset-0 origin-left bg-text-soft transition-transform duration-250 ease-rise motion-reduce:transition-none"
+                  style={{ transform: `scaleX(${levelFraction(lens.level)})` }}
+                />
+              </span>
               {lens.note ? <span className="text-sm text-text-soft">{lens.note}</span> : null}
             </div>
           </li>

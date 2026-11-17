@@ -8,7 +8,6 @@ import { cx } from "../lib/cx";
 import { REDUCED_FADE, spring } from "../motion";
 import {
   Voiceprint,
-  usePerformanceTier,
   type LiveVoiceSignal,
   type PerformanceTier,
   type VoiceprintIdentity,
@@ -30,7 +29,7 @@ export interface KitAssemblyProps {
   deliverablesHeading: string;
   /** Under the stage list: the gap questions plane. */
   aside?: ReactNode;
-  /** Force a performance tier (prototype, tests); otherwise chosen at runtime. */
+  /** Force a performance tier (prototype, tests): 1 makes the threads still. */
   tier?: PerformanceTier;
   className?: string;
 }
@@ -125,9 +124,9 @@ export function KitAssembly({
   const storiesHeadingId = useId();
   const deliverablesHeadingId = useId();
   const reduced = useReducedMotion();
-  const runtimeTier = usePerformanceTier();
-  const tier = forcedTier ?? runtimeTier;
-  const still = Boolean(reduced) || tier === 1;
+  // GPU tiering left with the WebGL renderer (2026-11-17): only reduced motion or a forced
+  // tier 1 (prototype, tests) makes the threads still.
+  const still = Boolean(reduced) || forcedTier === 1;
 
   // Re-measure whenever anything inside changes size. Rows reserve their space, so this is rare.
   const [anchors, setAnchors] = useState<ThreadAnchors | null>(null);

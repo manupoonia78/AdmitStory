@@ -18,7 +18,7 @@ const LINK =
 
 export function SiteNav() {
   return (
-    <header className="site-header enter fixed inset-x-0 top-0 z-40 px-3 pt-3 sm:px-8 lg:px-12 lg:pt-4">
+    <header className="site-header enter fixed inset-x-0 top-0 z-40 px-3 pt-[max(12px,env(safe-area-inset-top))] sm:px-8 lg:px-12 lg:pt-4">
       <div
         data-theme="night"
         className="site-header-plane mx-auto flex h-13 max-w-[1344px] items-center gap-1 rounded-full pl-4 pr-1.5 text-text lg:h-14 lg:pl-6 lg:pr-2"

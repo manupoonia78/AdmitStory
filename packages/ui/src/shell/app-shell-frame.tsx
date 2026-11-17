@@ -8,6 +8,7 @@ import type { AccountUser } from "./account-menu";
 import { CommandPaletteHost } from "./command-palette-host";
 import { Dock, type DockIcons } from "./dock";
 import { useCommandK } from "./keyboard-shortcut";
+import { RAIL_PATHS, isActivePath } from "./nav-items";
 import { RouteTransition } from "./route-transition";
 import type { CommandAction } from "./types";
 import { ViewTransitionStyles } from "./view-transition-styles";
@@ -44,9 +45,11 @@ export function AppShellFrame({
   }
 
   useCommandK(() => changePalette(!paletteOpen));
+  const rail = RAIL_PATHS.some((href) => isActivePath(pathname, href));
 
+  // The casing (SPEC §6.1, casing.css): dark in both themes; the bay holds the page.
   return (
-    <div className="min-h-dvh text-text">
+    <div data-slot="casing" data-rail={rail ? "" : undefined} className="casing">
       <ViewTransitionStyles />
       <SkipLink targetId="main" />
 
@@ -60,12 +63,8 @@ export function AppShellFrame({
         icons={icons}
       />
 
-      {/* Room for the 256px sidebar from 1024px, and the bottom tab bar below it. */}
-      <main
-        id="main"
-        tabIndex={-1}
-        className="app-main min-w-0 pb-[calc(4.5rem+env(safe-area-inset-bottom))] outline-none lg:pb-0 lg:pl-64"
-      >
+      {/* The bay: right of the sidebar (or rail) from 1024px, above the floating dock below it. */}
+      <main id="main" tabIndex={-1} className="app-main bay">
         <RouteTransition>{children}</RouteTransition>
       </main>
 

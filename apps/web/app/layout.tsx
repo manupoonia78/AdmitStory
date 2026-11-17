@@ -71,6 +71,10 @@ export async function generateViewport(): Promise<Viewport> {
   return {
     width: "device-width",
     initialScale: 1,
+    // Edge to edge (the mobile-native skill): fixed bars pad themselves with
+    // env(safe-area-inset-*), which is 0 without this. The keyboard resizes the layout on Android.
+    viewportFit: "cover",
+    interactiveWidget: "resizes-content",
     colorScheme: "light dark",
     themeColor: themeColors(await themePreference()),
   };

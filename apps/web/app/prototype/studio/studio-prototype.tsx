@@ -10,7 +10,7 @@ import {
   SpokenQuestion,
   StoryCaptureProvider,
   StoryShelf,
-  Voiceprint,
+  StudioVoiceline,
   chapterTabId,
   estimateWordTimings,
   syntheticSignalAt,
@@ -22,7 +22,7 @@ import {
   type RecordButtonState,
   type TranscriptSegment,
   type VoiceSignalRef,
-  type VoiceprintMood,
+  type VoicelineSpeaker,
   type WordTiming,
 } from "@admitstory/ui";
 import { APP_NAME } from "@admitstory/shared";
@@ -303,7 +303,7 @@ function StudioScreen() {
     : micRecording
       ? mic.signal
       : null;
-  const mood: VoiceprintMood = reading ? "listening" : recording ? "speaking" : "idle";
+  const speaker: VoicelineSpeaker = reading ? "reader" : recording ? "you" : "none";
   const recordState: RecordButtonState = processing
     ? "processing"
     : recording
@@ -381,14 +381,9 @@ function StudioScreen() {
             />
           </div>
 
-          <div className="relative aspect-square w-[min(64vw,34dvh,26rem)] sm:w-[min(48vw,40dvh,26rem)]">
-            <Voiceprint
-              identity={identity}
-              signal={signal}
-              mood={mood}
-              size="fill"
-              label="Your Voiceprint"
-            />
+          {/* The Voiceline (SPEC §6.4) replaced the WebGL Voiceprint here on 2026-11-17. */}
+          <div className="relative h-[120px] w-full">
+            <StudioVoiceline identity={identity} signal={signal} speaker={speaker} />
           </div>
 
           <div ref={panelRef} className="w-full max-w-3xl scroll-mb-24 lg:scroll-mb-6">

@@ -1,0 +1,195 @@
+/*
+ * Home (SPEC §6.3). The path: one line with four stops, brass up to where the applicant is, the
+ * peak standing on that stop. The moment draws the brass run once per visit and lets the peak
+ * rise out of the line; under [data-motion="on"] only, so with reduced motion or no JavaScript
+ * the line is simply drawn.
+ */
+
+.path {
+  --path-at: 0; /* 0–4: the current stop, 4 when all are done */
+  position: relative;
+}
+.path-steps {
+  display: grid;
+  gap: 0;
+}
+.path-step {
+  position: relative;
+  display: flex;
+  min-height: 72px;
+  flex-direction: column;
+  justify-content: center;
+  gap: 2px;
+  padding: 10px 0 10px 32px;
+  border-radius: var(--radius-inset);
+  color: var(--text);
+}
+.path-track,
+.path-run {
+  position: absolute;
+  pointer-events: none;
+}
+/* Phones: the line runs down the left. */
+.path-track {
+  top: 0;
+  bottom: 0;
+  left: 7px;
+  width: 1.25px;
+  background-color: var(--edge-strong);
+}
+.path-run {
+  top: 0;
+  left: 7px;
+  width: 1.25px;
+  /* to the middle of the current row, where its tick is */
+  height: calc(var(--path-at) * 25% + 12.5%);
+  background-color: var(--accent);
+  transform-origin: top;
+}
+.path[data-all] .path-run {
+  height: 100%;
+}
+.path[data-all] .path-peak {
+  top: calc(100% - 11px);
+}
+.path-tick {
+  position: absolute;
+  top: 50%;
+  left: 5px;
+  width: 5px;
+  height: 1.25px;
+  background-color: var(--text-faint);
+}
+.path-step[data-done] .path-tick {
+  background-color: var(--text);
+}
+.path-peak {
+  position: absolute;
+  top: calc(var(--path-at) * 25% + 12.5% - 11px);
+  /* turned to point right, its base on the line */
+  left: 11px;
+  width: 16px;
+  height: 22px;
+  color: var(--accent);
+  transform: rotate(90deg);
+  transform-origin: center;
+}
+
+@media (min-width: 40rem) {
+  .path-steps {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    padding-top: 40px;
+  }
+  .path-step {
+    min-height: 0;
+    justify-content: flex-start;
+    padding: 16px 16px 8px 0;
+  }
+  .path-track {
+    top: 40px;
+    right: 0;
+    bottom: auto;
+    left: 0;
+    width: auto;
+    height: 1.25px;
+  }
+  .path-run {
+    top: 40px;
+    left: 0;
+    width: calc(var(--path-at) * 25%);
+    height: 1.25px;
+    transform-origin: left;
+  }
+  .path-tick {
+    top: -2px;
+    left: 0;
+    width: 1.25px;
+    height: 5px;
+  }
+  .path-peak {
+    left: calc(var(--path-at) * 25% - 8px);
+    transform: none;
+  }
+  .path-run {
+    height: 1.25px;
+  }
+  .path-peak {
+    top: 19px;
+  }
+  /* All four done: brass to the end, and the peak stands at the line's end. */
+  .path[data-all] .path-run {
+    width: 100%;
+  }
+  .path[data-all] .path-peak {
+    top: 19px;
+    left: calc(100% - 16px);
+  }
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .path-step:hover .path-step-title {
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 4px;
+  }
+}
+
+[data-motion="on"] .path-run {
+  animation: path-draw-y 900ms var(--ease-line) 300ms both;
+}
+[data-motion="on"] .path-peak {
+  animation: path-peak 400ms var(--ease-rise) 1050ms both;
+}
+@media (min-width: 40rem) {
+  [data-motion="on"] .path-run {
+    animation-name: path-draw-x;
+  }
+}
+@keyframes path-draw-x {
+  from {
+    transform: scaleX(0);
+  }
+}
+@keyframes path-draw-y {
+  from {
+    transform: scaleY(0);
+  }
+}
+@keyframes path-peak {
+  from {
+    clip-path: inset(100% 0 0 0);
+  }
+  to {
+    clip-path: inset(0);
+  }
+}
+
+/* Schools: rows on hairlines. */
+.home-school {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 6px 16px;
+  align-items: center;
+  padding-block: 20px;
+  border-top: 1px solid var(--edge);
+}
+.home-school:last-child {
+  border-bottom: 1px solid var(--edge);
+}
+.home-school-state,
+.home-school-date {
+  grid-column: 1 / -1;
+}
+@media (min-width: 40rem) {
+  .home-school {
+    grid-template-columns: minmax(0, 1.2fr) minmax(0, 1.5fr) 9rem auto;
+    gap: 24px;
+  }
+  .home-school-state,
+  .home-school-date {
+    grid-column: auto;
+  }
+  .home-school-open {
+    order: 4;
+  }
+}

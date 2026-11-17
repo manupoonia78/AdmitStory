@@ -72,7 +72,7 @@ export function ChapterTabs<Id extends string>({
     // Scrolls sideways instead of wrapping onto a second row; the page itself never does.
     <div
       className={cx(
-        "-mx-5 overflow-x-auto border-b border-edge px-5 [scrollbar-width:none] sm:mx-0 sm:px-0",
+        "-mx-5 overflow-x-auto px-5 [scrollbar-width:none] sm:mx-0 sm:px-0",
         className,
       )}
     >
@@ -95,12 +95,15 @@ export function ChapterTabs<Id extends string>({
               aria-controls={panelId}
               tabIndex={selected ? 0 : -1}
               onClick={() => onChange(chapter.id)}
+              // SPEC §6.4: label type, a 1.25px rule under the open chapter; no slide (a click
+              // that should feel instant).
               className={cx(
-                "-mb-px min-h-11 shrink-0 border-b-2 px-0.5 text-[15px] whitespace-nowrap",
-                "transition-colors duration-(--spring-snap-duration) ease-snap",
+                "label relative min-h-11 shrink-0 px-0.5 whitespace-nowrap",
+                "transition-colors duration-200 ease-rise",
+                "after:absolute after:inset-x-0 after:bottom-0 after:h-[1.25px]",
                 selected
-                  ? "border-text font-medium text-text"
-                  : "border-transparent text-text-soft hover:text-text",
+                  ? "text-text after:bg-text"
+                  : "text-text-label after:bg-transparent hover:text-text",
               )}
             >
               {chapter.label}

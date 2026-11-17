@@ -1,12 +1,9 @@
-// Server-safe class lists shared by the sidebar's parts (dock.tsx, account-trigger.tsx).
-//
-// From 1024px the navigation is a light sidebar on the left (256px): wordmark, New story, search,
-// the destinations, then Settings and the account at the foot. Below 1024px the same element
-// splits into a top bar (wordmark, search, account) and a bottom tab bar of icons, each named by
-// its label for screen readers.
+// Server-safe class names shared by the sidebar's parts (dock.tsx, account-trigger.tsx). The
+// styles themselves are in casing.css (SPEC §6.1): one element serves the sidebar from 1024px
+// (or the 64px rail on immersive screens) and, below it, a top bar and a floating dock.
 
-/** A label beside an icon: visible in the sidebar, screen-reader only in the bottom tab bar. */
-export const DOCK_LABEL = "sr-only lg:not-sr-only lg:truncate";
+/** A label beside an icon: visible in the sidebar, screen-reader only in the dock and the rail. */
+export const DOCK_LABEL = "casing-label";
 
-/** The fixed square each icon sits in. */
-export const DOCK_ICON = "grid size-11 shrink-0 place-items-center lg:size-5";
+/** The square an icon sits in: 44px in the dock, 18px in the sidebar. */
+export const DOCK_ICON = "casing-icon";

@@ -1,0 +1,445 @@
+/*
+ * The casing (SPEC §6.1): the dark instrument that holds the work. Sidebar, top bar and dock
+ * carry data-theme="night", so they are dark in both themes; only the bay follows Day / Night.
+ *
+ * One element serves both layouts (dock.tsx). Below 1024px `.casing-side` is `display:
+ * contents`, so its three parts place themselves: a sticky top bar, a floating dock at the foot
+ * and the account disc at the top right. From 1024px it is the fixed 256px sidebar, or a 64px
+ * rail on immersive screens (`.casing[data-rail]`: the Studio).
+ */
+
+html:has(.casing) {
+  background-color: var(--bg);
+}
+
+.casing {
+  min-height: 100dvh;
+  background-color: var(--bg);
+  background-image: var(--grain-image);
+}
+
+/* The bay: the lit page the instrument holds. */
+.bay {
+  position: relative;
+  min-width: 0;
+  min-height: calc(100dvh - 52px - env(safe-area-inset-top, 0px));
+  padding-bottom: calc(80px + env(safe-area-inset-bottom, 0px));
+  background-color: var(--space);
+  background-image: var(--grain);
+  color: var(--text);
+  outline: none;
+}
+@media (min-width: 64rem) {
+  .bay {
+    min-height: calc(100dvh - 16px);
+    margin: 8px 8px 8px 256px;
+    padding-bottom: 0;
+    border: 1px solid var(--edge);
+    border-radius: var(--radius-card);
+    overflow: clip;
+  }
+  .casing[data-rail] .bay {
+    min-height: 100dvh;
+    margin: 0 0 0 64px;
+    border: 0;
+    border-radius: 0;
+  }
+}
+
+/* ── The sidebar's frame ──────────────────────────────────────────────────────────────────── */
+
+.casing-side {
+  display: contents;
+}
+@media (min-width: 64rem) {
+  .casing-side {
+    position: fixed;
+    inset-block: 0;
+    left: 0;
+    z-index: 30;
+    display: flex;
+    width: 256px;
+    flex-direction: column;
+    padding: 20px 12px 12px;
+    background: none;
+  }
+  .casing[data-rail] .casing-side {
+    width: 64px;
+    align-items: center;
+    padding: 20px 10px 12px;
+  }
+}
+
+/* The dark wash the marketing nav uses: frost that stays dark over the Day desk. */
+.casing-wash {
+  background-color: color-mix(in srgb, var(--bg) 88%, transparent);
+  -webkit-backdrop-filter: blur(16px);
+  backdrop-filter: blur(16px);
+}
+@media (prefers-reduced-transparency: reduce), (prefers-contrast: more), (forced-colors: active) {
+  .casing-wash {
+    background-color: var(--bg);
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+  }
+}
+
+/* Overlays from the casing (palette, account menu, toasts): the same dark material, a step more
+   opaque because they carry text over whatever page is under them, Day desk included. */
+.casing-overlay {
+  border: 1px solid var(--line);
+  background-color: color-mix(in srgb, var(--bg) 92%, transparent);
+  -webkit-backdrop-filter: blur(16px);
+  backdrop-filter: blur(16px);
+}
+@media (prefers-reduced-transparency: reduce), (prefers-contrast: more), (forced-colors: active) {
+  .casing-overlay {
+    background-color: var(--bg);
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+  }
+}
+
+/* ── Head: top bar below 1024px, the sidebar's head from it ───────────────────────────────── */
+
+.casing-head {
+  position: sticky;
+  top: 0;
+  z-index: 30;
+  display: flex;
+  height: calc(52px + env(safe-area-inset-top, 0px));
+  align-items: center;
+  gap: 4px;
+  padding: env(safe-area-inset-top, 0px) 8px 0;
+  border-bottom: 1px solid var(--line);
+  color: var(--fg);
+}
+.casing-home {
+  display: inline-flex;
+  min-width: 44px;
+  min-height: 44px;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-round);
+}
+.casing-home-word {
+  display: none;
+}
+.casing-title {
+  min-width: 0;
+  overflow: hidden;
+  font-size: var(--type-ui);
+  font-weight: 500;
+  line-height: 20px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  color: var(--fg);
+}
+.casing-new {
+  display: none;
+}
+@media (min-width: 64rem) {
+  .casing-head {
+    position: static;
+    height: auto;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0;
+    padding: 0;
+    border: 0;
+    background: none;
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+  }
+  .casing-home {
+    justify-content: flex-start;
+    padding-inline: 8px;
+  }
+  .casing-home-mark,
+  .casing-title {
+    display: none;
+  }
+  .casing-home-word {
+    display: inline-flex;
+  }
+  .casing-new {
+    display: inline-flex;
+    width: 100%;
+    margin-top: 20px;
+  }
+  .casing[data-rail] .casing-home {
+    padding: 0;
+    justify-content: center;
+  }
+  .casing[data-rail] .casing-home-mark {
+    display: inline-flex;
+  }
+  .casing[data-rail] .casing-home-word {
+    display: none;
+  }
+  .casing[data-rail] .casing-new {
+    width: 44px;
+    padding: 0;
+    justify-content: center;
+  }
+}
+
+/* Search: a 44px circle in the top bar, a 40px frosted pill in the sidebar. */
+.casing-search {
+  display: inline-flex;
+  width: 44px;
+  height: 44px;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin-left: auto;
+  margin-right: 48px;
+  border-radius: var(--radius-round);
+  color: var(--fg-64);
+  transition: color var(--dur-hover) var(--ease-rise),
+    background-color var(--dur-hover) var(--ease-rise);
+}
+.casing-search-text,
+.casing-search kbd {
+  display: none;
+}
+@media (min-width: 64rem) {
+  .casing-search {
+    width: 100%;
+    height: 40px;
+    justify-content: flex-start;
+    margin: 12px 0 0;
+    padding: 0 14px;
+    border: 1px solid var(--line);
+    background-color: var(--surface-1);
+    font-size: var(--type-ui-sm);
+  }
+  .casing-search-text {
+    display: inline;
+  }
+  .casing-search kbd {
+    display: inline;
+    margin-left: auto;
+    font-family: var(--font-mono);
+    font-size: var(--type-label);
+    letter-spacing: 0.08em;
+    color: var(--fg-48);
+  }
+  .casing[data-rail] .casing-search {
+    width: 44px;
+    height: 44px;
+    justify-content: center;
+    padding: 0;
+  }
+  .casing[data-rail] .casing-search-text,
+  .casing[data-rail] .casing-search kbd {
+    display: none;
+  }
+}
+@media (hover: hover) and (pointer: fine) {
+  .casing-search:hover {
+    color: var(--fg);
+    background-color: var(--surface-2);
+  }
+}
+
+/* ── Destinations: the floating dock below 1024px, the sidebar's list from it ─────────────── */
+
+.casing-nav {
+  position: fixed;
+  inset-inline: 12px;
+  bottom: calc(12px + env(safe-area-inset-bottom, 0px));
+  z-index: 30;
+  height: 56px;
+  padding-inline: 4px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-round);
+  box-shadow: var(--shadow-overlay);
+}
+.casing-nav-head {
+  display: none;
+}
+.casing-list {
+  display: flex;
+  height: 100%;
+}
+.casing-list > li {
+  display: flex;
+  flex: 1;
+}
+.casing-link {
+  position: relative;
+  display: flex;
+  flex: 1;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-round);
+  color: var(--fg-64);
+  transition: color var(--dur-hover) var(--ease-rise),
+    background-color var(--dur-hover) var(--ease-rise);
+}
+.casing-link:active {
+  transform: scale(0.94);
+  transition-duration: var(--dur-press);
+}
+.casing-link[aria-current="page"] {
+  color: var(--fg);
+}
+/* The current page below 1024px: a 4px dot under its icon. */
+.casing-link[aria-current="page"]::after {
+  content: "";
+  position: absolute;
+  bottom: 6px;
+  left: 50%;
+  width: 4px;
+  height: 4px;
+  margin-left: -2px;
+  border-radius: 9999px;
+  background-color: var(--fg);
+}
+.casing-icon {
+  display: grid;
+  width: 44px;
+  height: 44px;
+  flex-shrink: 0;
+  place-items: center;
+}
+.casing-label {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+.casing-settings {
+  display: none;
+}
+@media (hover: hover) and (pointer: fine) {
+  .casing-link:hover {
+    color: var(--fg);
+  }
+}
+
+@media (min-width: 64rem) {
+  .casing-nav {
+    position: static;
+    flex: 1;
+    width: 100%;
+    height: auto;
+    min-height: 0;
+    padding: 28px 0 0;
+    border: 0;
+    /* the dock's pill radius would clip the scrolling list's corners */
+    border-radius: 0;
+    box-shadow: none;
+    background: none;
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+  }
+  .casing-nav-head {
+    display: block;
+    padding: 0 12px 8px;
+    color: var(--fg-60);
+  }
+  .casing-list {
+    height: auto;
+    flex-direction: column;
+    gap: 2px;
+  }
+  .casing-list > li {
+    flex: none;
+  }
+  .casing-link {
+    width: 100%;
+    height: 40px;
+    flex: none;
+    justify-content: flex-start;
+    gap: 12px;
+    padding: 0 12px;
+    font-size: var(--type-ui);
+    font-weight: 500;
+    line-height: 20px;
+  }
+  .casing-link:active {
+    transform: scale(0.98);
+  }
+  .casing-link[aria-current="page"] {
+    background-color: var(--surface-2);
+  }
+  .casing-link[aria-current="page"]::after {
+    display: none;
+  }
+  .casing-link .casing-icon {
+    width: 18px;
+    height: 18px;
+    color: var(--fg-48);
+  }
+  .casing-link[aria-current="page"] .casing-icon {
+    color: var(--fg);
+  }
+  .casing-icon svg {
+    width: 18px;
+    height: 18px;
+  }
+  .casing-label {
+    position: static;
+    width: auto;
+    height: auto;
+    overflow: hidden;
+    clip-path: none;
+    text-overflow: ellipsis;
+  }
+  .casing-settings {
+    display: flex;
+  }
+
+  /* Rail: 44px circles, the labels kept as the accessible names. */
+  .casing[data-rail] .casing-nav {
+    padding-top: 24px;
+  }
+  .casing[data-rail] .casing-nav-head {
+    display: none;
+  }
+  .casing[data-rail] .casing-link {
+    width: 44px;
+    height: 44px;
+    justify-content: center;
+    padding: 0;
+  }
+  .casing[data-rail] .casing-label {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    clip-path: inset(50%);
+  }
+}
+@media (min-width: 64rem) and (hover: hover) and (pointer: fine) {
+  .casing-link:hover:not([aria-current="page"]) {
+    background-color: var(--surface-1);
+  }
+}
+
+/* ── Foot: the account disc at the top right below 1024px; Settings and account from it ────── */
+
+.casing-foot {
+  position: fixed;
+  top: calc(4px + env(safe-area-inset-top, 0px));
+  right: 8px;
+  z-index: 40;
+}
+@media (min-width: 64rem) {
+  .casing-foot {
+    position: static;
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    gap: 2px;
+    padding-top: 12px;
+    border-top: 1px solid var(--line);
+  }
+  .casing[data-rail] .casing-foot {
+    align-items: center;
+  }
+}

@@ -218,9 +218,10 @@ describe("tokens.css structure", () => {
     }
   });
 
-  it("keeps the theme-color meta values equal to --space in each theme", () => {
-    expect(parseColour(THEME_COLORS.day)).toEqual(day.space);
+  it("keeps the theme-color meta values equal to the casing in both themes (SPEC §6.1)", () => {
+    expect(parseColour(THEME_COLORS.day)).toEqual(day.rail);
     expect(parseColour(THEME_COLORS.night)).toEqual(night.space);
+    expect(parseColour(THEME_COLORS.night)).toEqual(night.rail);
   });
 
   it("matches SPEC §2.1 and §2.2 exactly", () => {

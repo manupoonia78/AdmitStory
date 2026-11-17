@@ -30,3 +30,42 @@
     display: none;
   }
 }
+
+/*
+ * Connect, coming soon (app/(app)/connect/connect-soon.tsx). One-shot keyframes with fill-mode
+ * both, each started at its own --d, and only under <html data-motion="on">: under reduced
+ * motion or without JS everything is simply there. Opacity, transform and clip-path only.
+ */
+:root[data-motion="on"] .cs-fade {
+  animation: cs-fade 600ms var(--ease-rise) both;
+  animation-delay: var(--d, 0ms);
+}
+:root[data-motion="on"] .cs-wire {
+  animation: cs-wire 700ms var(--ease-line) both;
+  animation-delay: var(--d, 0ms);
+}
+:root[data-motion="on"] .cs-arrive {
+  animation: cs-arrive 600ms var(--ease-rise) both;
+  animation-delay: var(--d, 0ms);
+}
+@keyframes cs-fade {
+  from {
+    opacity: 0;
+  }
+}
+/* The wires draw out of the "You" card, left to right. */
+@keyframes cs-wire {
+  from {
+    clip-path: inset(0 100% 0 0);
+  }
+  to {
+    clip-path: inset(0);
+  }
+}
+/* Each person arrives along the wire's direction. */
+@keyframes cs-arrive {
+  from {
+    opacity: 0;
+    transform: translateX(-10px);
+  }
+}

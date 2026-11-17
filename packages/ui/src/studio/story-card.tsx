@@ -61,16 +61,16 @@ export function StoryCard({
       transition={transition}
       data-variant={variant}
       className={cx(
-        "relative flex flex-col border border-edge bg-depth text-left shadow-plane",
-        expanded ? "gap-3 rounded-plane p-5" : "gap-1.5 rounded-control px-4 py-3",
-        onToggle && "hover:border-control",
+        "relative flex flex-col border border-edge bg-veil text-left",
+        expanded ? "gap-3 rounded-card p-5" : "gap-1.5 rounded-control px-4 py-3",
+        onToggle && "transition-colors duration-200 ease-rise hover:border-control",
         className,
       )}
     >
       <Heading
         className={cx(
           "text-text",
-          expanded ? "font-reading text-read-lg" : "text-base font-medium",
+          expanded ? "text-title" : "text-[14px] leading-5 font-medium",
         )}
       >
         {onToggle ? (
@@ -88,7 +88,7 @@ export function StoryCard({
         )}
       </Heading>
 
-      <p className="flex flex-wrap gap-x-3 text-sm text-text-soft">
+      <p className="label flex flex-wrap gap-x-3 text-text-label">
         <span>{story.context}</span>
         <span className="tabular-nums">{story.era}</span>
       </p>

@@ -316,8 +316,8 @@ export function StoryShelf({
 
   return (
     <section id={id} aria-labelledby={headingId} className={cx("flex flex-col gap-3", className)}>
-      <Heading id={headingId} className="text-base font-medium text-text">
-        {heading} <span className="text-text-soft tabular-nums">({count})</span>
+      <Heading id={headingId} className="label flex justify-between text-text-label">
+        {heading} <span className="tabular-nums">({count})</span>
       </Heading>
       {items.length === 0 ? <p className="text-sm text-text-soft">{emptyText}</p> : null}
       {/* Layout and transform animations step aside under reduced motion. */}

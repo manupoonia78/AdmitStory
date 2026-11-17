@@ -10,7 +10,7 @@ import { MicrophoneIcon, StopIcon, WarningIcon, WaveformIcon } from "@phosphor-i
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import { useEffect, useEffectEvent, useId, useRef, type MouseEvent } from "react";
 import { cx } from "../lib/cx";
-import { REDUCED_FADE, spring } from "../motion";
+import { REDUCED_FADE } from "../motion";
 import type { VoiceSignalRef } from "../voiceprint/types";
 import { canTalkFrom, isSpaceKey, releaseAction } from "./space-to-talk";
 import { followSpring } from "./synthetic-signal";
@@ -31,12 +31,13 @@ const ICONS: Record<RecordButtonState, Icon> = {
   error: WarningIcon,
 };
 
-// Day text on --record would be 4.4:1, so --record is a fill with --on-signal icons (tokens.css).
+// SPEC §6.4: frosted at rest, brass while listening (the primary action, live), quiet while the
+// answer is written down, a risk edge on error. The Studio is Night, so these are dark values.
 const SURFACES: Record<RecordButtonState, string> = {
-  idle: "bg-signal text-on-signal hover:bg-signal/90",
-  listening: "bg-record text-on-signal",
-  processing: "border border-control bg-depth text-text-soft",
-  error: "border-2 border-risk bg-depth text-risk",
+  idle: "border border-edge bg-frost text-text hover:bg-frost-hover",
+  listening: "border border-transparent bg-accent text-on-signal",
+  processing: "border border-edge bg-frost text-text-soft",
+  error: "border-[1.5px] border-risk bg-frost text-risk",
 };
 
 export interface RecordButtonProps {
@@ -166,13 +167,13 @@ export function RecordButton({
   const iconMotion = reduced
     ? { initial: { opacity: 0 }, animate: { opacity: 1 }, exit: { opacity: 0 } }
     : {
-        initial: { opacity: 0, scale: 0.6 },
+        initial: { opacity: 0, scale: 0.9 },
         animate: { opacity: 1, scale: 1 },
-        exit: { opacity: 0, scale: 0.6 },
+        exit: { opacity: 0, scale: 0.9 },
       };
 
   return (
-    <div className={cx("flex flex-col items-center gap-3", className)}>
+    <div className={cx("flex flex-col items-center gap-4", className)}>
       <button
         ref={buttonRef}
         type="button"
@@ -184,9 +185,10 @@ export function RecordButton({
         data-state={state}
         onClick={onClick}
         className={cx(
-          "relative grid size-20 shrink-0 place-items-center rounded-full",
-          "transition-colors duration-(--spring-snap-duration) ease-snap",
-          "aria-disabled:cursor-not-allowed",
+          "relative grid size-[88px] shrink-0 place-items-center rounded-full",
+          "transition-[background-color,border-color,color,scale] duration-200 ease-rise",
+          "active:scale-[0.97] active:duration-100 aria-disabled:cursor-not-allowed aria-disabled:active:scale-100",
+          "focus-visible:outline-offset-[3px]",
           SURFACES[state],
         )}
       >
@@ -194,9 +196,9 @@ export function RecordButton({
           ref={ringRef}
           aria-hidden="true"
           className={cx(
-            "pointer-events-none absolute -inset-2 rounded-full border-2 will-change-transform",
+            "pointer-events-none absolute -inset-2 rounded-full border will-change-transform",
             "transition-[border-color,opacity] duration-(--spring-snap-duration) ease-snap",
-            listening && "border-record opacity-60",
+            listening && "border-accent opacity-60",
             state === "processing" && "border-control opacity-60",
             (state === "idle" || state === "error") && "border-transparent opacity-0",
           )}
@@ -205,14 +207,21 @@ export function RecordButton({
           <motion.span
             key={state}
             className="grid place-items-center"
-            transition={reduced ? REDUCED_FADE : spring("snap")}
+            transition={reduced ? REDUCED_FADE : { duration: 0.16, ease: [0.22, 1, 0.36, 1] }}
             {...iconMotion}
           >
-            <StateIcon size={32} weight={listening ? "fill" : "regular"} aria-hidden />
+            <StateIcon size={listening ? 24 : 28} weight={listening ? "fill" : "regular"} aria-hidden />
           </motion.span>
         </AnimatePresence>
       </button>
-      <p id={statusId} role="status" className="min-h-[1lh] text-center text-sm text-text-soft">
+      <p
+        id={statusId}
+        role="status"
+        className={cx(
+          "min-h-[1lh] text-center",
+          state === "error" ? "text-sm text-risk" : "label text-text-label",
+        )}
+      >
         {status ?? RECORD_STATUS[state]}
       </p>
     </div>

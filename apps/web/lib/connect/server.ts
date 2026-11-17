@@ -10,6 +10,7 @@ import {
   type ConnectThreadSummary,
 } from "@admitstory/db";
 import { ApiError } from "@/lib/api-error";
+import { CONNECT_COMING_SOON, CONNECT_OPEN } from "./coming-soon";
 import type { ConnectMessageDto, ConnectPersonDto, ConnectThreadDto } from "./types";
 
 // Who may use Connect (Manu, 2026-11-04): anyone who has unlocked a school pack, and the guides
@@ -38,8 +39,13 @@ export async function connectAccess(userId: string): Promise<ConnectAccess> {
   return { unlocked: unlockedSchoolIds.length > 0, unlockedSchoolIds, guide };
 }
 
-/** The 402 for an account with no pack; the client branches on `code`. */
+/**
+ * Every /api/connect route starts here. While Connect is closed (lib/connect/coming-soon.ts) it
+ * is a 404 for everyone, before any database read. Open, it is the 402 for an account with no
+ * pack; the client branches on `code`.
+ */
 export async function requireConnect(userId: string): Promise<ConnectAccess> {
+  if (!CONNECT_OPEN) throw new ApiError(404, CONNECT_COMING_SOON.line, undefined, "coming_soon");
   const access = await connectAccess(userId);
   if (!access.unlocked && !access.guide)
     throw new ApiError(

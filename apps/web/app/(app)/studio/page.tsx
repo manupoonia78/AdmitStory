@@ -1,6 +1,6 @@
 import { getDb, getResumableSession, listStories } from "@admitstory/db";
 import { DEFAULT_IDENTITY } from "@admitstory/shared";
-import { VoiceprintStill, paramsFromIdentity, voiceHueStyle } from "@admitstory/ui";
+import { paramsFromIdentity, voiceHueStyle } from "@admitstory/ui";
 import type { Metadata } from "next";
 import { redirect } from "next/navigation";
 import { capturePageEvent } from "@/lib/analytics/server";
@@ -71,11 +71,6 @@ export default async function StudioPage() {
           : null
       }
       identity={identity}
-      still={
-        <span aria-hidden className="block size-full">
-          <VoiceprintStill identity={identity} size="fill" label="" />
-        </span>
-      }
       hueStyle={voiceHueStyle(profile.voiceprintHue ?? paramsFromIdentity(identity).hueIndex)}
       hueChosen={profile.voiceprintHue !== null}
       voice={{

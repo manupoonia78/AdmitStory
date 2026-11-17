@@ -1,19 +1,13 @@
 "use client";
 
-// Frame HUD for screen-recording reviews (spec §6.13, §16 Phase 0.5 AC: 60 fps at tier 2, 120 fps
-// at tier 3). Shown only when the address has ?hud=1. It samples frames itself, so it measures
-// whatever the page is animating.
+// Frame HUD for screen-recording reviews (spec §6.13; GPU tiers left with the WebGL renderer).
+// Shown only when the address has ?hud=1. It samples frames itself, so it measures whatever the
+// page is animating.
 
-import {
-  createFrameMonitor,
-  usePerformanceTier,
-  type FrameSnapshot,
-  type PerformanceTier,
-} from "@admitstory/ui";
+import { createFrameMonitor, type FrameSnapshot } from "@admitstory/ui";
 import { useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 
-const TIER_NAMES: Record<PerformanceTier, string> = { 1: "still", 2: "lite", 3: "full" };
 const REFRESH_MS = 500;
 
 export function FrameHud() {
@@ -22,7 +16,6 @@ export function FrameHud() {
 }
 
 function HudPanel() {
-  const tier = usePerformanceTier();
   const [frames, setFrames] = useState<FrameSnapshot | null>(null);
 
   useEffect(() => {
@@ -46,10 +39,6 @@ function HudPanel() {
         <dd className="text-right text-text">{frames ? `${frames.fps} fps` : "–"}</dd>
         <dt>p95 frame time</dt>
         <dd className="text-right text-text">{frames ? `${frames.p95FrameMs} ms` : "–"}</dd>
-        <dt>Tier</dt>
-        <dd className="text-right text-text">
-          {tier} ({TIER_NAMES[tier]})
-        </dd>
         <dt>Sustained slow</dt>
         <dd className="text-right text-text">{frames?.sustainedSlow ? "Yes" : "No"}</dd>
       </dl>

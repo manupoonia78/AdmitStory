@@ -1,4 +1,4 @@
-// The Connect carousel: illustrative portraits of the kinds of people a school pack connects you
+// The Connect carousel: illustrative portraits of the kinds of people Connect will match you
 // with (lib/connect/illustrative.ts). Server-safe and CSS only (globals.css .people-strip): one
 // row drawn twice and slid by half its width, paused on hover or focus, a still wrapped row under
 // reduced motion. The second copy is hidden from assistive technology. Images load lazily, so

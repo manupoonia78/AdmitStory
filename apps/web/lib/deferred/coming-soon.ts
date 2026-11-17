@@ -5,8 +5,9 @@
 // Phase 7 (Interview Studio) is deferred with a promise attached — kit owners get it at no extra
 // cost when it opens — and keeps its own copy in lib/interview/coming-soon.ts.
 // Phase 8 (Experts, Tracker, Notifications, After decisions) is deferred without a
-// promise (Connect shipped on its own, 2026-11-04): it is not sold at launch, so the copy below
-// describes what is coming and nothing more (docs/phase-8-experts-connect-tracker.md).
+// promise: it is not sold at launch, so the copy below describes what is coming and nothing more
+// (docs/phase-8-experts-connect-tracker.md). Connect shipped on its own on 2026-11-04 and was
+// closed again on 2026-11-17; its copy and switch are in lib/connect/coming-soon.ts.
 
 export const COMING_SOON = "Coming soon";
 

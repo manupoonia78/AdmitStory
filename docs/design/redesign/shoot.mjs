@@ -345,8 +345,9 @@ async function signIn(context) {
   if (page.url().endsWith("/welcome")) {
     await page.waitForTimeout(1_000);
     await shootBothSizes(page, "welcome");
-    await page.getByLabel("I'm 18 or older.").check();
-    await page.getByLabel("I agree to these commitments.").check();
+    // The welcome page sets its copy with typographic apostrophes (Phase 4).
+    await page.getByLabel(/18 or older/).check({ force: true });
+    await page.getByLabel(/agree to these commitments/).check({ force: true });
     await page.getByRole("button", { name: "Agree and continue" }).click();
     await page.waitForURL(/\/(home|first-run)/, { timeout: 20_000 });
     note("welcome: captured, then agreed");

@@ -1,0 +1,303 @@
+/*
+ * Story Studio (SPEC §6.4): Night in both themes, a conversation rather than a form. One
+ * question, the answer under it, and the horizon across the room with the record button on it.
+ */
+
+.studio-room {
+  --studio-pad: 20px;
+  display: grid;
+  min-height: calc(100dvh - 52px - 80px - env(safe-area-inset-top, 0px) - env(safe-area-inset-bottom, 0px));
+  gap: 32px;
+  padding: 12px var(--studio-pad) 32px;
+}
+@media (min-width: 40rem) {
+  .studio-room {
+    --studio-pad: 40px;
+    padding-top: 20px;
+  }
+}
+@media (min-width: 64rem) {
+  .studio-room {
+    --studio-pad: 48px;
+    min-height: 100dvh;
+    padding-top: 16px;
+    padding-bottom: 0;
+  }
+}
+@media (min-width: 80rem) {
+  .studio-room {
+    grid-template-columns: minmax(0, 1fr) 320px;
+    gap: 48px;
+  }
+}
+
+.studio-stage {
+  display: flex;
+  min-width: 0;
+  min-height: 100%;
+  flex-direction: column;
+}
+
+.studio-top {
+  display: flex;
+  min-height: 44px;
+  align-items: center;
+  gap: 24px;
+  border-bottom: 1px solid var(--line);
+}
+.studio-top > :first-child {
+  min-width: 0;
+  flex: 1;
+  /* the tabs scroll under a short fade instead of running into Speak / Write */
+  margin-inline: 0;
+  padding-inline: 0;
+  mask-image: linear-gradient(to right, #000 calc(100% - 32px), transparent);
+}
+@media (min-width: 64rem) {
+  .studio-top > :first-child {
+    mask-image: none;
+  }
+}
+
+.studio-panel {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+}
+
+/* The frame the server paints and the voice stage takes over. */
+.studio-frame {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+}
+.studio-ask {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  justify-content: flex-start;
+  gap: 20px;
+  padding-top: max(40px, 8dvh);
+  padding-bottom: 32px;
+}
+@media (min-width: 64rem) {
+  .studio-ask {
+    padding-left: calc(100% / 12);
+  }
+}
+.studio-question {
+  max-width: 22ch;
+}
+.studio-answer {
+  max-width: 34ch;
+  margin-top: 12px;
+}
+.studio-frame[data-mode="write"] .studio-answer {
+  max-width: 64ch;
+}
+.studio-transcript {
+  /* three lines of the transcript type, bottom-aligned */
+  height: calc(var(--type-transcript) * 1.2 * 3);
+}
+
+/* The horizon: a 120px box across the stage's full width, the line through its middle. */
+.studio-horizon {
+  position: relative;
+  height: 120px;
+  margin-inline: calc(-1 * var(--studio-pad));
+}
+.studio-flat {
+  position: absolute;
+  top: calc(50% - 0.625px);
+  right: 0;
+  left: 0;
+  height: 1.25px;
+  background-color: var(--line-strong);
+}
+/* Once the canvas is drawing, it draws the flat line too. */
+.studio-horizon:has(canvas) .studio-flat {
+  display: none;
+}
+.studio-line {
+  position: absolute;
+  inset: 0;
+}
+.studio-well {
+  position: absolute;
+  top: calc(50% - 44px);
+  left: 50%;
+  z-index: 1;
+  width: max-content;
+  transform: translateX(-50%);
+}
+/* A solid disc behind the frosted button, so the line passes behind it, not through it. */
+.studio-well::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: 88px;
+  height: 88px;
+  margin-left: -44px;
+  border-radius: 9999px;
+  background-color: var(--bg);
+}
+.studio-well > * {
+  position: relative;
+}
+
+.studio-controls {
+  display: flex;
+  min-height: 44px;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 8px 12px;
+  margin-top: 44px;
+}
+
+.studio-session {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 4px 8px;
+  margin-top: 32px;
+  margin-inline: calc(-1 * var(--studio-pad));
+  padding: 12px var(--studio-pad);
+  border-top: 1px solid var(--line);
+}
+@media (min-width: 64rem) {
+  .studio-session {
+    padding-bottom: 16px;
+  }
+}
+
+/* A toggle's state: a 6px dot, filled when on. */
+.studio-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 9999px;
+  box-shadow: inset 0 0 0 1px var(--fg-40);
+  transition: background-color var(--dur-hover) var(--ease-rise),
+    box-shadow var(--dur-hover) var(--ease-rise);
+}
+[aria-pressed="true"] > .studio-dot {
+  background-color: var(--fg);
+  box-shadow: none;
+}
+
+/* Speak / Write: a frosted pill with a sliding inner pill. */
+.studio-mode {
+  position: relative;
+  display: inline-grid;
+  grid-template-columns: 1fr 1fr;
+  height: 36px;
+  flex-shrink: 0;
+  padding: 3px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-round);
+  background-color: var(--surface-1);
+}
+.studio-mode::before {
+  content: "";
+  position: absolute;
+  top: 3px;
+  bottom: 3px;
+  left: 3px;
+  width: calc(50% - 3px);
+  border-radius: var(--radius-round);
+  background-color: var(--surface-2);
+  box-shadow: inset 0 0 0 1px var(--line);
+  transition: translate 200ms var(--ease-rise);
+}
+.studio-mode[data-mode="write"]::before {
+  translate: 100% 0;
+}
+.studio-mode button {
+  position: relative;
+  min-width: 68px;
+  padding: 0 14px;
+  border-radius: var(--radius-round);
+  font-size: var(--type-ui-sm);
+  font-weight: 500;
+  color: var(--fg-64);
+  transition: color var(--dur-hover) var(--ease-rise);
+}
+.studio-mode button[aria-pressed="true"] {
+  color: var(--fg);
+}
+.studio-mode button[aria-disabled="true"] {
+  cursor: not-allowed;
+  color: var(--fg-40);
+}
+/* 44px hit area on a 36px pill. */
+.studio-mode button::after {
+  content: "";
+  position: absolute;
+  inset: -4px 0;
+}
+
+.studio-composer {
+  width: 100%;
+  min-height: 168px;
+  resize: vertical;
+  padding: 20px;
+  border: 1px solid var(--control-edge);
+  border-radius: var(--radius-control);
+  background-color: var(--surface-1);
+  font-family: var(--font-reading);
+  font-size: var(--type-read);
+  line-height: var(--type-read-leading);
+  color: var(--fg);
+  transition: border-color var(--dur-hover) var(--ease-rise);
+}
+.studio-composer::placeholder {
+  color: var(--fg-48);
+}
+.studio-composer:focus-visible {
+  border-color: var(--fg);
+}
+
+.studio-shelf {
+  align-self: start;
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+  padding: 24px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-card);
+  background-color: var(--surface-1);
+}
+@media (min-width: 80rem) {
+  .studio-shelf {
+    position: sticky;
+    top: 24px;
+    margin-top: 16px;
+  }
+}
+@media (min-width: 64rem) and (max-width: 79.99rem) {
+  .studio-shelf {
+    margin-bottom: 48px;
+  }
+}
+
+/* The gate's half line (SPEC §6.4): the brass half draws, then the peak rises out of it. */
+[data-motion="on"] .studio-half-run {
+  animation: studio-draw-x 900ms var(--ease-line) 300ms both;
+}
+[data-motion="on"] .studio-half-peak {
+  animation: studio-rise 400ms var(--ease-rise) 1050ms both;
+}
+@keyframes studio-draw-x {
+  from {
+    transform: scaleX(0);
+  }
+}
+@keyframes studio-rise {
+  from {
+    clip-path: inset(100% 0 0 0);
+  }
+  to {
+    clip-path: inset(0);
+  }
+}

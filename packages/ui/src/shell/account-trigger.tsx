@@ -6,9 +6,10 @@ import type { AccountUser } from "./account-menu";
 // the sidebar from 1024px, with the name and email beside it.
 
 export const ACCOUNT_TRIGGER_CLASSES =
-  "flex min-h-11 min-w-11 items-center justify-center gap-3 rounded-control text-left text-sm text-text-soft " +
-  "hover:bg-veil hover:text-text data-[state=open]:bg-veil " +
-  "lg:w-full lg:justify-start lg:px-2 lg:py-1.5";
+  "group/acct flex min-h-11 min-w-11 items-center justify-center gap-3 rounded-full text-left text-text-soft " +
+  "transition-colors duration-(--dur-hover) ease-rise hover:text-text data-[state=open]:bg-frost " +
+  "lg:min-h-[52px] lg:w-full lg:justify-start lg:px-2 lg:hover:bg-veil " +
+  "[.casing[data-rail]_&]:lg:w-11 [.casing[data-rail]_&]:lg:justify-center [.casing[data-rail]_&]:lg:px-0";
 
 function initials(name: string): string {
   const parts = name.trim().split(/\s+/).filter(Boolean);
@@ -22,15 +23,17 @@ export function AccountTriggerContent({ user }: { user?: AccountUser }) {
     <>
       <span
         aria-hidden
-        className="grid size-8 shrink-0 place-items-center rounded-full bg-text font-mono text-[11px] font-medium text-space"
+        className="grid size-7 shrink-0 place-items-center rounded-full bg-text font-mono text-[11px] font-medium text-space"
       >
         {user ? initials(user.name || user.email) : "·"}
       </span>
-      <span className="sr-only lg:not-sr-only lg:flex lg:min-w-0 lg:flex-col">
+      <span className="sr-only lg:not-sr-only lg:flex lg:min-w-0 lg:flex-col lg:gap-0.5 [.casing[data-rail]_&]:lg:sr-only">
         <span className="sr-only">Account: </span>
-        <span className={cx("truncate font-medium text-text")}>{user?.name ?? "Account"}</span>
+        <span className={cx("truncate text-[13px] leading-[18px] font-medium text-text")}>
+          {user?.name ?? "Account"}
+        </span>
         {user ? (
-          <span className="truncate text-[12px] leading-4 text-text-soft">{user.email}</span>
+          <span className="truncate font-mono text-[11px] leading-4 text-text-soft">{user.email}</span>
         ) : null}
       </span>
     </>

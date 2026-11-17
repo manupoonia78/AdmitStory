@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import type { ReactNode } from "react";
-import { Wordmark } from "../brand/wordmark";
+import { BrandMark, Wordmark } from "../brand/wordmark";
 import { buttonStyles } from "../components/button-styles";
 import { cx } from "../lib/cx";
 import type { ThemePreference } from "../theme-preference";
@@ -10,7 +10,7 @@ import { AccountMenu, type AccountUser } from "./account-menu";
 import { preloadCommandPalette } from "./command-palette-host";
 import { DOCK_ICON, DOCK_LABEL } from "./dock-styles";
 import { useShortcutHint } from "./keyboard-shortcut";
-import { NAV_ITEMS, SETTINGS_PATHS, isActivePath } from "./nav-items";
+import { NAV_ITEMS, SETTINGS_PATHS, isActivePath, pageTitle } from "./nav-items";
 import { ROUTE_TRANSITION_TYPE } from "./route-transition";
 import { PALETTE_LABEL } from "./types";
 
@@ -36,27 +36,6 @@ export interface DockProps {
   icons: DockIcons;
 }
 
-// One element serves both layouts (see dock-styles.ts). Below 1024px it is `contents`, so its
-// parts place themselves: a sticky top bar, a fixed bottom tab bar, the account at the top right.
-const SIDEBAR = cx(
-  "contents",
-  "lg:fixed lg:inset-y-0 lg:left-0 lg:z-30 lg:flex lg:w-64 lg:flex-col lg:border-r lg:border-edge lg:bg-rail",
-  "lg:[view-transition-name:dock]",
-);
-
-// Sidebar rows from 1024px; equal-width icon tabs in the bottom bar below it. The current page
-// is marked by a paper sheet, ink text and the accent icon, not colour alone.
-const NAV_LINK = cx(
-  "group/nav relative flex flex-1 items-center justify-center rounded-control text-text-soft",
-  "transition-colors duration-(--spring-snap-duration) ease-snap hover:text-text",
-  "aria-[current=page]:text-text",
-  "lg:h-9 lg:w-full lg:flex-none lg:justify-start lg:gap-3 lg:px-2.5 lg:text-[14px] lg:hover:bg-veil",
-  "lg:aria-[current=page]:bg-depth lg:aria-[current=page]:font-medium lg:aria-[current=page]:shadow-paper",
-  "lg:aria-[current=page]:ring-1 lg:aria-[current=page]:ring-edge",
-);
-
-const NAV_ICON = cx(DOCK_ICON, "group-aria-[current=page]/nav:text-accent");
-
 function SearchTrigger({
   open,
   onOpen,
@@ -77,31 +56,26 @@ function SearchTrigger({
       onClick={onOpen}
       onPointerEnter={preloadCommandPalette}
       onFocus={preloadCommandPalette}
-      className={cx(
-        "ml-auto mr-12 flex size-11 items-center justify-center rounded-control text-text-soft hover:bg-veil hover:text-text",
-        "lg:m-0 lg:h-9 lg:w-full lg:justify-start lg:gap-3 lg:border lg:border-edge lg:bg-depth lg:px-2.5 lg:text-[14px]",
-        "lg:hover:border-control lg:hover:bg-depth",
-      )}
+      className="casing-search"
     >
-      <span aria-hidden className="grid size-5 place-items-center">
+      <span aria-hidden className="grid size-4 place-items-center">
         {icon}
       </span>
-      <span className="hidden lg:inline">Search</span>
+      <span aria-hidden className="casing-search-text">
+        Search
+      </span>
       {/* CSS-generated, so the visible text stays the accessible name (WCAG 2.5.3); the shortcut
           is announced through aria-keyshortcuts. */}
-      <kbd
-        aria-hidden
-        data-shortcut={hint.label}
-        className="meta ml-auto hidden rounded-[5px] border border-edge px-1.5 before:content-[attr(data-shortcut)] lg:inline"
-      />
+      <kbd aria-hidden data-shortcut={hint.label} className="before:content-[attr(data-shortcut)]" />
     </button>
   );
 }
 
 /**
- * The navigation: a light sidebar from 1024px, a top bar and bottom tab bar below it. DOM order
- * matches the sidebar's visual order (brand, new story, search, destinations, settings, account),
- * so keyboard focus moves down it.
+ * The casing's navigation (SPEC §6.1): the dark sidebar from 1024px (a 64px rail on immersive
+ * screens), a top bar and a floating dock below it. Night in both themes. DOM order matches the
+ * sidebar's visual order (brand, new story, search, destinations, settings, account), so
+ * keyboard focus moves down it.
  */
 export function Dock({
   pathname,
@@ -116,56 +90,50 @@ export function Dock({
   const inSettings = SETTINGS_PATHS.some((href) => isActivePath(pathname, href));
 
   return (
-    <div data-slot="dock" className={SIDEBAR}>
-      <div
-        className={cx(
-          "sticky top-0 z-30 flex h-14 items-center gap-2 border-b border-edge bg-space/92 px-4 backdrop-blur-md",
-          "max-lg:[view-transition-name:top-bar]",
-          "lg:static lg:h-auto lg:flex-col lg:items-stretch lg:gap-3 lg:border-0 lg:bg-transparent lg:px-3 lg:pb-2 lg:pt-5 lg:backdrop-blur-none",
-        )}
-      >
-        <Link
-          href="/home"
-          className="rounded-control lg:mb-3 lg:px-2"
-          aria-label="AdmitStories home"
-        >
-          <Wordmark size={22} />
+    <div data-slot="dock" data-theme="night" className="casing-side">
+      <div className="casing-head casing-wash">
+        <Link href="/home" className="casing-home" aria-label="AdmitStories home">
+          <span className="casing-home-mark">
+            <BrandMark size={24} />
+          </span>
+          <span className="casing-home-word">
+            <Wordmark size={23} />
+          </span>
         </Link>
+        <span aria-hidden className="casing-title">
+          {pageTitle(pathname)}
+        </span>
         <Link
           href="/studio"
           prefetch
           transitionTypes={[ROUTE_TRANSITION_TYPE]}
-          className={cx(buttonStyles({ size: "sm" }), "w-full max-lg:hidden")}
+          className={cx(buttonStyles({ size: "md" }), "casing-new gap-2")}
         >
           <span aria-hidden className="grid size-4 place-items-center">
             {icons.newStory}
           </span>
-          New story
+          <span className={DOCK_LABEL}>New story</span>
         </Link>
         <SearchTrigger open={paletteOpen} onOpen={onOpenPalette} icon={icons.search} />
       </div>
 
-      <nav
-        aria-label="Main"
-        className={cx(
-          "fixed inset-x-0 bottom-0 z-30 border-t border-edge bg-space/95 px-1 pb-[env(safe-area-inset-bottom)] backdrop-blur-md",
-          "max-lg:[view-transition-name:dock]",
-          "lg:static lg:flex-1 lg:overflow-y-auto lg:border-0 lg:bg-transparent lg:px-3 lg:pb-0 lg:pt-4 lg:backdrop-blur-none",
-        )}
-      >
-        <p className="eyebrow mb-2 hidden px-2.5 before:hidden lg:flex">Workspace</p>
-        <ul className="flex lg:flex-col lg:gap-0.5">
+      {/* lg:overflow-y-auto: a short laptop screen scrolls the list, never the casing. */}
+      <nav aria-label="Main" className="casing-nav casing-wash lg:overflow-y-auto">
+        <p aria-hidden className="casing-nav-head label">
+          Workspace
+        </p>
+        <ul className="casing-list">
           {NAV_ITEMS.map((item, index) => (
-            <li key={item.id} className="flex flex-1 lg:flex-none">
+            <li key={item.id}>
               <Link
                 href={item.href}
-                // Full prefetch: the next page is ready before the click (spec §6.1, §6.6).
+                // Full prefetch: the next page is ready before the click.
                 prefetch
                 transitionTypes={[ROUTE_TRANSITION_TYPE]}
                 aria-current={index === current ? "page" : undefined}
-                className={cx(NAV_LINK, "min-h-14 lg:min-h-0")}
+                className="casing-link"
               >
-                <span aria-hidden className={NAV_ICON}>
+                <span aria-hidden className={DOCK_ICON}>
                   {icons.nav[item.id]}
                 </span>
                 <span className={DOCK_LABEL}>{item.label}</span>
@@ -175,15 +143,15 @@ export function Dock({
         </ul>
       </nav>
 
-      <div className="fixed right-2 top-1.5 z-40 lg:static lg:flex lg:flex-col lg:gap-1 lg:border-t lg:border-edge lg:p-3">
+      <div className="casing-foot">
         <Link
           href="/settings"
           prefetch
           transitionTypes={[ROUTE_TRANSITION_TYPE]}
           aria-current={inSettings ? "page" : undefined}
-          className={cx(NAV_LINK, "hidden lg:flex")}
+          className="casing-link casing-settings"
         >
-          <span aria-hidden className={NAV_ICON}>
+          <span aria-hidden className={DOCK_ICON}>
             {icons.settings}
           </span>
           <span className={DOCK_LABEL}>Settings</span>

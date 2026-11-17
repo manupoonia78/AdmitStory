@@ -1,15 +1,14 @@
-// Scene 7 (SPEC §4): Connect. Every school pack comes with people from that school. The claim and
-// the three kinds of people on the left; on the right a still grid of six illustrative portraits,
-// each with a role and nothing else: never a name, never a school. They are stock portraits and
-// the line under the grid says so. Server markup, no script.
+// Scene 7 (SPEC §4): Connect, which is coming soon (Manu, 2026-11-17). What it will be and how
+// matches are made on the left; on the right a still grid of six illustrative portraits, each
+// with a role and nothing else: never a name, never a school. They are stock portraits and the
+// line under the grid says so. No link: there is nothing to buy or open yet. Server markup, no
+// script.
 
 import type { CSSProperties } from "react";
 import { ILLUSTRATIVE_NOTE, ILLUSTRATIVE_PEOPLE } from "@/lib/connect/illustrative";
 import { CONNECT_COPY } from "../_copy/landing";
-import { TEXT_LINK } from "../_ui/cta-link";
 import { SceneHead } from "../_ui/scene-head";
 import { Section } from "../_ui/section";
-import Link from "next/link";
 
 const FACES = ILLUSTRATIVE_PEOPLE.slice(0, 6);
 
@@ -35,9 +34,6 @@ export function ConnectPeopleSection() {
             </li>
           ))}
         </ul>
-        <Link href="/pricing" className={`${TEXT_LINK} mt-4`}>
-          {CONNECT_COPY.link}
-        </Link>
       </div>
       <div className="col-span-4 mt-14 sm:col-span-8 lg:col-span-6 lg:col-start-7 lg:mt-0">
         <ul role="list" className="grid grid-cols-2 gap-4 sm:grid-cols-3">

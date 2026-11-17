@@ -81,3 +81,9 @@ export {
   type Box as FlightBox,
   type Point as FlightPoint,
 } from "./flight-path";
+export {
+  StudioVoiceline,
+  voicelineForm,
+  type StudioVoicelineProps,
+  type VoicelineSpeaker,
+} from "./voiceline";

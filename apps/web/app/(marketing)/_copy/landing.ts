@@ -205,21 +205,21 @@ export const ESSAY_COPY = {
 } as const;
 
 /**
- * Scene 7: Connect (Manu, 4 Nov 2026): a school pack also connects you with people from that
- * school. The faces are illustrative (lib/connect/illustrative.ts) and labelled as such.
+ * Scene 7: Connect, which is NOT live (Manu, 17 Nov 2026; lib/connect/coming-soon.ts). It says
+ * what Connect will be and never that a pack includes it today. The faces are illustrative
+ * (lib/connect/illustrative.ts) and labelled as such.
  */
 export const CONNECT_COPY = {
-  eyebrow: "Connect · with every school pack",
-  headingLines: ["Talk to people", "who’ve been there."],
+  eyebrow: "Connect · coming soon",
+  headingLines: ["Talk to people", "who’ve walked your path."],
   paragraph:
-    "Unlock a school and we match you with its alumni, current students and admissions-committee readers who work with us. Message them in the app: ask what the place is really like, or have someone read your why-school before you send it.",
-  pointsLabel: "Who you can talk to",
+    "We’re building a short list of people for each school you choose: alumni and students who do the work you do now, or the work you want next. You’ll write to them from here. Connect isn’t open yet.",
+  pointsLabel: "Who you’ll be matched with",
   points: [
-    { figure: "Alumni", line: "What the degree did for their career, and what they’d do again" },
-    { figure: "Students", line: "Classes, clubs and recruiting, as they are this year" },
-    { figure: "Readers", line: "How an application lands on the committee’s desk" },
+    { figure: "Same school", line: "Alumni and students of the schools you choose" },
+    { figure: "Same work", line: "People who do the job you do now" },
+    { figure: "Your next", line: "People who made the move you want to make" },
   ],
-  link: "See what a school pack includes",
   illustrative: "Illustrative portraits · roles only",
 } as const;
 

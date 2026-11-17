@@ -67,7 +67,6 @@ export const KIT_FEATURES = [
   "Form entries and a résumé pass",
   "Briefs for your recommenders",
   "The rest of Story Studio",
-  "Connect: message alumni, students and admissions readers from that school",
 ] as const;
 
 export interface PlanCard {

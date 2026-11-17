@@ -42,7 +42,6 @@ export const KIT_COPY = {
       label: "Recommender briefs",
       line: "A brief and a private page for each. They write the letter.",
     },
-    { label: "Connect", line: "Message alumni, students and admissions readers from that school." },
   ],
   note: "A sample applicant · fictional, as is Northfield",
 } as const;

@@ -1,6 +1,6 @@
 // The Voiceprint (spec §6.2). Owned by the Voiceprint agent after the Foundation step; the
-// exported names and types are the shared contract and may only grow. The WebGL renderer
-// (./renderer, with OGL) is deliberately not exported: Voiceprint loads it lazily after mount.
+// exported names and types are the shared contract. The WebGL renderer and GPU tiering were
+// removed on 2026-11-17 (no WebGL anywhere); Voiceprint is the still SVG.
 
 export type {
   LiveVoiceSignal,
@@ -18,15 +18,6 @@ export { VoiceprintStill, type VoiceprintStillProps } from "./voiceprint-still";
 export { voiceprintStillSvg } from "./still-svg";
 export { SILENT_SIGNAL, microphoneSupported, useMicrophone, type MicrophoneOptions } from "./audio";
 export type { AnalysisFrame } from "./audio-features";
-export {
-  configurePerformanceTier,
-  decideTier,
-  usePerformanceTier,
-  useTierDetails,
-  type GpuClass,
-  type TierDetails,
-  type TierInputs,
-} from "./tier";
 export {
   IDENTITY_MIN_SECONDS,
   IDENTITY_SAMPLE_SECONDS,

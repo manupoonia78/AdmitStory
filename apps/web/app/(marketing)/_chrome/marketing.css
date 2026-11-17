@@ -1893,8 +1893,9 @@ body:has(.marketing) {
   .kit-sheet {
     font-size: 1.125rem;
   }
+  /* Three since Connect left the kit (2026-11-17). */
   .kit-others {
-    grid-template-columns: repeat(4, minmax(0, 1fr));
+    grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 }
 
