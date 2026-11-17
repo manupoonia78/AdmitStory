@@ -206,6 +206,21 @@
     background-color: var(--space);
     color: var(--text);
     font-family: var(--font-ui);
+    /* The phone layer (SPEC §2.10, the mobile-native skill): no grey flash on tap, no font
+       inflation in landscape. Every tappable thing has its own :active state instead. */
+    -webkit-tap-highlight-color: transparent;
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+  }
+
+  /* Taps fire at once (no double-tap-zoom wait); a long press on a control doesn't select its
+     label. Text stays selectable everywhere else. */
+  :where(a, button, [role="button"], [role="tab"], summary, label) {
+    touch-action: manipulation;
+  }
+  :where(button, [role="button"], [role="tab"], summary) {
+    -webkit-user-select: none;
+    user-select: none;
   }
 
   body {

@@ -146,6 +146,8 @@ kept all of it, fixed five things found in the screenshots, measured and committ
 ## Phase 4 checklist
 
 - [x] SPEC §4.2 (the four pages, OG images, titles) and §5 (entry) expanded to full values
+- [x] Emil Kowalski's skills installed (`.claude/skills/`), rules in SPEC §2.10, phone layer in
+      `theme.css`
 - [ ] `/how-it-works`: head, index, four stages with their windows, the pack assembling,
       interview row, what it won't do, AI policies on paper, final call
 - [ ] `/pricing`: the strike, plans, one kit opened, the ledger, elsewhere and here, payment,
@@ -230,6 +232,15 @@ Made in Phase 3 by Claude while building, **not yet approved by Manu**:
 | 2026-11-17 | The final call has one action. "Sign in" is not repeated there; the model credit is centred under the line                           | it sat alone under the credit; beside the button it would leave the peak under neither      | §4, scene 12 |
 | 2026-11-17 | The pinned window is centred in the viewport (`top: max(112px, …)`), and the Studio window's question sits midway down               | at 1080 px tall the window hung in the top half; the Studio window had 200 px of dead space | §4, scene 3  |
 | 2026-11-17 | The hero's entrance was **not** changed, although it now sets LCP ("Needs Manu" 6)                                                   | the hero was reviewed as built; the trade is Manu's                                         | §3.7         |
+
+**From Manu, 2026-11-17 (naming Phase 4):** use the skills at
+https://github.com/emilkowalski/skills throughout the project. Done the same day: seven copied
+unchanged into `.claude/skills/` (see its README), their rules written into SPEC §2.10 ("Rules
+from the project skills"), and the phone layer added to `theme.css` (tap highlight, text size
+adjust, `touch-action`, `user-select` on controls). Every phase from 4 follows them. He also
+asked why only the landing page has changed: answered that each screen gets its new layout in
+its own phase (Studio and Home in 5, Schools in 6, the rest in 7), and until then wears only
+Phase 1's colours and type.
 
 Approved, changed or rejected by Manu: Phase 1 was named (so the Phase 0 spec was accepted as the
 working basis), but no answer to the five questions below was written down. Treat all five as

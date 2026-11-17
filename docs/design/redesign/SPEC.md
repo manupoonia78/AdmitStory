@@ -474,6 +474,39 @@ after-`load` guard (`deferred.tsx` keeps its guard).
 **Reduced motion:** all of the above become 120 ms opacity fades or nothing; springs already
 collapse to 120 ms linear; the Voiceline shows a designed still (§3.6).
 
+**Rules from the project skills** (added 2026-11-17; `.claude/skills/`, from emilkowalski/skills,
+at Manu's request). The tokens above stay the vocabulary; these are the rules for using them,
+and every phase from 4 on follows them:
+
+- **Gate first.** Before anything moves, name its frequency and purpose. Keyboard-triggered and
+  100-a-day actions (the command palette, tab switches, `Y` for "your words", space-to-talk)
+  get no animation beyond an instant state change. Delight lives only on rare, first-time
+  screens (the landing page, first-run, unlock).
+- **UI motion stays under 300 ms**: presses 100–160 ms, toggles and small controls 150–250 ms,
+  sheets and dialogs up to 500 ms. Longer is allowed only for explanatory moments (the hero, a
+  page's signature moment, a line drawing).
+- **Exits are faster than entrances** (an entrance at 250 ms leaves at 150–200 ms) and use
+  `--ease-exit` only for leaving; nothing on screen ever uses a plain `ease-in`.
+- **Toggles and anything a person can fire twice in a second are CSS transitions**, which
+  retarget mid-flight, never keyframes, which restart. Keyframes are for one-shot entrances.
+- **Staggers are non-uniform** and one entrance per container. Page heads use delays that
+  shrink as the group goes on (eyebrow 0, first line 70 ms, second line 130 ms, paragraph and
+  action 180 ms; `--i` values 0, 0.8, 1.45, 2 on the 90 ms `enter` step), never `i × 90 ms`
+  past the hero's per-word line. Product lists never stagger.
+- **Hover motion is gated** behind `@media (hover: hover) and (pointer: fine)` (Tailwind 4's
+  `hover:` already is; hand-written `:hover` in CSS files must be wrapped). Press feedback is
+  `:active`, which works on touch.
+- **Only `transform`, `opacity` and `clip-path` animate**, plus `stroke-dashoffset` on a line
+  and a measured height on the FAQ. Blur only in entrances, never above 8 px.
+- **The phone layer** (in `theme.css`, Phase 4): `-webkit-tap-highlight-color: transparent` and
+  `-webkit-text-size-adjust: 100%` on `html`; `touch-action: manipulation` on links and buttons;
+  `user-select: none` on buttons, chips and tabs only (never on text); inputs 16 px minimum;
+  `100dvh` for full-screen app and entry screens, `100svh` for marketing first screens;
+  `env(safe-area-inset-*)` on anything fixed to an edge.
+- **Self-review before ticking a screen**: run `review-animations`' ten standards over the
+  motion it added, and `break-ui`'s catalogue over anything that renders user data (long
+  names, unbreakable emails, one item, none).
+
 ### 2.11 Focus and accessibility
 
 - Focus ring: 2 px solid `--fg` on dark, `--ink` on paper, offset 3 px, radius following the
