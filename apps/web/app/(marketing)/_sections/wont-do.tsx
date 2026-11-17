@@ -1,54 +1,63 @@
-// What it won't do (direction §4.7): the section a sceptical applicant reads twice. A Night plane
-// in either theme, five lines in Newsreader numbered in the margin, then each school's AI policy as
-// we verified it. Until Manu verifies a policy there is no table, only the fallback sentence.
-// No icons, no motion.
+// Scene 8 (SPEC §4): what it won't do, the section a sceptical applicant reads twice. Short and
+// sharp: the five integrity lines, numbered, on hairlines. Each line's first sentence carries the
+// weight; the rest of it sits beside it, smaller. The AI-policy table lives on /how-it-works now.
+// No icons, no motion beyond the reveal.
 
-import { verifiedPolicies } from "@/lib/marketing/public-data";
-import { WONT_DO_COPY } from "../_copy/landing";
-import { AI_POLICY_FALLBACK, INTEGRITY_LINES } from "../_copy/shared";
-import { AiPolicyTable } from "../_ui/ai-policy-table";
-import { TEXT_LINK } from "../_ui/cta-link";
-import { DisplayHeading } from "../_ui/display-heading";
-import { Section } from "../_ui/section";
 import Link from "next/link";
+import { WONT_DO_COPY } from "../_copy/landing";
+import { INTEGRITY_LINES } from "../_copy/shared";
+import { TEXT_LINK } from "../_ui/cta-link";
+import { SceneHead } from "../_ui/scene-head";
+import { Section } from "../_ui/section";
 
-export async function WontDoSection() {
-  const policies = await verifiedPolicies();
+/** The first sentence, and whatever follows it. Typographic apostrophes for display. */
+function split(line: string): [string, string] {
+  const text = line.replace(/'/g, "’");
+  const end = text.indexOf(". ");
+  return end === -1 ? [text, ""] : [text.slice(0, end + 1), text.slice(end + 2)];
+}
+
+export function WontDoSection() {
   return (
-    <Section id="wont-do" labelledBy="wont-do-title" theme="night">
-      <div className="col-span-4 sm:col-span-8 lg:col-span-10">
-        <DisplayHeading level={2} size="lg" id="wont-do-title" lines={[WONT_DO_COPY.heading]} />
-      </div>
+    <Section id="wont-do" labelledBy="wont-do-title">
+      <SceneHead
+        id="wont-do-title"
+        eyebrow={WONT_DO_COPY.eyebrow}
+        lines={WONT_DO_COPY.headingLines}
+        className="reveal col-span-4 sm:col-span-8 lg:col-span-8"
+      />
       <ol
         role="list"
-        className="col-span-4 mt-12 divide-y divide-edge border-y border-edge sm:col-span-8 lg:col-span-11 lg:mt-20"
+        className="col-span-4 mt-14 border-b border-edge sm:col-span-8 lg:col-span-12 lg:mt-24"
       >
-        {INTEGRITY_LINES.map((line, index) => (
-          <li
-            key={line}
-            className="grid grid-cols-[2.5rem_1fr] gap-x-4 py-8 sm:grid-cols-[4rem_1fr] lg:py-10"
-          >
-            <span aria-hidden="true" className="pt-3 text-sm text-text-soft tabular-nums">
-              {String(index + 1).padStart(2, "0")}
-            </span>
-            <p className="max-w-[46rem] font-reading text-display-sm font-normal tracking-[-0.01em] text-text [line-height:1.2]">
-              {line}
-            </p>
-          </li>
-        ))}
+        {INTEGRITY_LINES.map((line, index) => {
+          const [first, rest] = split(line);
+          return (
+            <li
+              key={line}
+              className="reveal grid grid-cols-[40px_minmax(0,1fr)] gap-x-4 border-t border-edge py-7 lg:grid-cols-12 lg:gap-x-6 lg:py-9"
+            >
+              <span aria-hidden="true" className="label pt-1.5 lg:col-span-1 lg:pt-3">
+                {String(index + 1).padStart(2, "0")}
+              </span>
+              <p className="lg:col-span-11 lg:grid lg:grid-cols-11 lg:gap-x-6">
+                <span className="block text-[1.25rem] leading-[1.25] font-[450] tracking-[-0.02em] text-text lg:col-span-6 lg:text-[1.75rem]">
+                  {first}
+                </span>{" "}
+                {rest ? (
+                  <span className="mt-3 block text-base text-text-soft lg:col-span-4 lg:col-start-8 lg:mt-1.5">
+                    {rest}
+                  </span>
+                ) : null}
+              </p>
+            </li>
+          );
+        })}
       </ol>
-      <div className="col-span-4 mt-12 sm:col-span-8 lg:col-span-9 lg:col-start-1 lg:mt-16">
-        {policies.length === 0 ? (
-          <p className="text-base text-text-soft">{AI_POLICY_FALLBACK}</p>
-        ) : (
-          <>
-            <p className="text-base text-text-soft">{WONT_DO_COPY.policyLine}</p>
-            <AiPolicyTable rows={policies} limit={6} variant="compact" className="mt-6" />
-            <Link href="/how-it-works#ai-policies" className={`${TEXT_LINK} mt-4`}>
-              {WONT_DO_COPY.allPolicies}
-            </Link>
-          </>
-        )}
+      <div className="col-span-4 mt-4 sm:col-span-8 lg:col-span-12">
+        <Link href="/how-it-works#ai-policies" className={TEXT_LINK}>
+          {WONT_DO_COPY.allPolicies}
+        </Link>
       </div>
     </Section>
   );

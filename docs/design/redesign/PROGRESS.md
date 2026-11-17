@@ -6,36 +6,39 @@ and before the parts of `SPEC.md` for the current phase.
 Branch: `redesign/literary-instrument` (off `phase-0`). Never commit to `main` or `phase-0`, never
 push, never deploy.
 
+**Where the branches stand (seen 2026-11-17):** `main` and `origin/main` were fast-forwarded to
+`f710165`, the merge that carries redesign Phases 0–2 and the funnel fixes, and the branch was
+pushed too. No redesign session did that. Phase 3 was built with `main` checked out (nothing was
+committed there); the session of 2026-11-17 moved the uncommitted work back to
+`redesign/literary-instrument` and committed it on the branch, unpushed.
+
 ## Next step
 
-**Phase 2 is built and awaiting Manu's review of the hero.** Do not start Phase 3 until he names
-it. If his message has feedback on the hero, write it into "Decisions" (with the date), change
-SPEC §3 to match, and fix the hero first.
+**Phase 3 is done (2026-11-17). Do not start Phase 4 until Manu names it.** If his message has
+feedback on the landing page, write it into "Decisions" (with the date), change SPEC §3 or §4 to
+match, and fix that first.
 
-Manu's answers to the five questions under "Needs Manu" have **still not been recorded** (he
-named Phase 2 without answering them), so Phases 1 and 2 stand on the spec's defaults. Question 2
-(the headline) is now built; if he changes it, it is two strings in `_copy/hero.ts`
-(`headingLines`, `headingAccent`).
+The one thing that wants his answer before Phase 8 measures again is "Needs Manu" 6: the hero's
+entrance now costs about a second of LCP on a slow phone, and the fix is his choice.
 
-When Phase 3 is named, start here:
+When Phase 4 is named, start here:
 
 1. Start the local environment from `local-db.md` (production build, not `next dev`). A Postgres
-   on 5455 may still be running from an earlier session: run the guard, then reuse it.
-2. Expand SPEC §4 (scenes 2–13) to full values before building. Then build in page order. Things
-   Phase 2 left for Phase 3, all noted in SPEC §3:
-   - give scene 3 the id `how` and point `HOW_HREF` in `_hero/hero.tsx` at it (it is `#follow`
-     today);
-   - make marketing dark-only (`marketingTheme()` returns Night, the footer's theme switch goes,
-     `themeColor` follows). The nav is already always dark and needs no change;
-   - rebuild "Write your own line" in scene 5 from `_copy/write-line.ts` and
-     `_hero/line-cleanup.ts` (the old toy lived in `hero-experience.tsx`, last in `98dfc25`);
-   - remove GSAP and Lenis (§8.3); `_lib/gates.ts` then loses `followGate` and
-     `smoothScrollGate`;
-   - the sheet look for scenes 4 and 5 should reuse the hero's (`hero-leaf`, `hero-sheet*` in
-     `marketing.css`): lift those rules into shared classes rather than copying them.
-3. Known faults in the old sections that Phase 3 replaces, so they need no separate fix: a 16 px
-   sideways overflow at 320 px from the "steps" section, and one axe contrast failure (4.48:1) on
-   the "91% your words" chip in `app-preview.tsx`.
+   on 5455 may still be running: run the guard, then reuse it. `next build` may stop once with a
+   notice about a Next.js security advisory; running it again continues (see "Open problems").
+2. Expand SPEC §4.2 and §5 to full values, then build `/how-it-works`, `/pricing`, `/privacy`,
+   `/terms`, the OG images and titles, `/sign-in`, `/welcome`, `/first-run`. What Phase 3 leaves
+   for it:
+   - the four product windows (`_sections/how-windows.tsx`), `SceneHead`, `scene-sheet`,
+     `soon-pill`, `price-figure` and the pricing columns are built to be reused on
+     `/how-it-works` and `/pricing`;
+   - `/how-it-works` and `/pricing` still have their old layouts, now dark like the rest (they
+     render cleanly; the old `_assembly` Voiceprint orb is on `/how-it-works`);
+   - `/privacy` and `/terms` are dark until Phase 4 turns them to paper;
+   - `SocialProofSlot` still has to be placed above the plans on `/pricing` (SPEC §4.1);
+   - `_sections/school-packs.tsx`, `_ui/tick.tsx`, `_ui/display-heading.tsx`, `_ui/notes.tsx`
+     and `_data/screens*.ts` are used only by those two old pages: delete them as the pages are
+     rebuilt.
 
 ## Phases
 
@@ -43,8 +46,8 @@ When Phase 3 is named, start here:
 | -------------------------- | -------------------------------------------------------------------------------------------------------------------------- | ------------------------------ |
 | 0. Read, capture, spec     | repo read, branch, `shoot.mjs`, `local-db.md`, before shots, SPEC.md, this file                                            | reviewed; answers not recorded |
 | 1. Design system           | tokens, type, grain, frost, components, motion utilities, wordmark, favicon, utility migration, tests, `/prototype/system` | **done** (2026-11-13)          |
-| 2. Landing hero            | nav, hero signature, reduced-motion still, phone composition, facts strip, frame cost, LCP                                 | **awaiting review** (11-14)    |
-| 3. Landing, all scenes     | sections 2–13, GSAP sequence to CSS, Lenis decision                                                                        | not started                    |
+| 2. Landing hero            | nav, hero signature, reduced-motion still, phone composition, facts strip, frame cost, LCP                                 | built; Phase 3 named, no notes |
+| 3. Landing, all scenes     | sections 2–13, GSAP sequence to CSS, Lenis decision                                                                        | **done** (2026-11-17)          |
 | 4. Other marketing + entry | `/how-it-works`, `/pricing`, `/privacy`, `/terms`, OG, titles, `/sign-in`, `/welcome`, `/first-run`                        | not started                    |
 | 5. Shell, home, Studio     | casing, sidebar, top bar, dock, palette, account menu, toasts, `/home`, `/studio`                                          | not started                    |
 | 6. Schools and the editor  | `/schools`, workspace and tabs, preview, unlock, `/workspace/[id]`, `/kits/[id]`                                           | not started                    |
@@ -125,6 +128,42 @@ Built in one session on 2026-11-14.
 - [x] Gates: typecheck, lint, build, `bundle:check`
 - [x] SPEC §3 rewritten to the values as built; REPORT.md; committed
 
+## Phase 3 checklist
+
+Built across two sessions (the first, on 2026-11-16, built all twelve scenes and was cut off
+with everything uncommitted and nothing shot; the second, on 2026-11-17, inspected that work,
+kept all of it, fixed five things found in the screenshots, measured and committed).
+
+- [x] SPEC §4 expanded to full values for scenes 2–13
+- [x] Chrome: marketing dark-only (`marketing-theme.ts` and the footer's theme switch removed,
+      `themeColor` Night), grain painted once on the wrapper, one `RevealObserver` in
+      `PageTransition`, footer rebuilt
+- [x] GSAP and Lenis removed (`package.json`, lockfile, `_follow/*`, `_motion/*`,
+      `_lib/gates.ts`); nothing on the page runs a frame loop outside the hero
+- [x] Scene 2, schools strip (static, two justified rows from 1280 px)
+- [x] Scene 3, how it works (`#how`): four product windows, sticky stepper, complete without
+      JavaScript; `HOW_HREF` in the hero points at it
+- [x] Scene 4, school by school (new fictional applicant; Wharton, Tuck, HEC Paris)
+- [x] Scene 5, the paper scene: sheet with margin notes, "your words" switch (`Y`), "Write your
+      own line" back on the page, client-only
+- [x] Scene 6, the model (dial seal and ledger, every word from `model-claims.ts`)
+- [x] Scene 7, Connect (static grid of six illustrative portraits, roles only);
+      `SocialProofSlot` after it, rendering nothing
+- [x] Scene 8, what it won't do; scene 9, interview practice, labelled "Coming soon" and
+      "Preview · not available yet"
+- [x] Scene 10, pricing (plans from `_data/pricing.ts`, final-sale line); scene 11, questions;
+      scene 12, final call; scene 13, footer
+- [x] Old sections and their helpers deleted (`app-preview`, `real-screens`, `screens-stepper`,
+      `your-words*`, `how-it-works-lines`, `final-voiceprint*`, `_ui/frames`, `_ui/hairline`)
+- [x] Shot at 1440 and 390 scene by scene, plus 320, 375, 768, 1024, 1280 and 1920 for
+      overflow, the stepper at each step, the switch on, a line placed, a question open, reduced
+      motion and JavaScript off
+- [x] Scored; five fixes; re-shot (see "Scores")
+- [x] Measured: bundle, document weight, fonts, CLS, idle frames, axe, Lighthouse (two modes),
+      LCP candidates on a throttled phone
+- [x] Gates: typecheck, lint, build, `bundle:check`; existing unit tests
+- [x] SPEC §4 and §3.3 updated where the build differs; REPORT.md; committed
+
 ## Decisions
 
 Made in Phase 0 by Claude, in the spec, **not yet approved by Manu**:
@@ -176,6 +215,23 @@ Made in Phase 2 by Claude while building, **not yet approved by Manu**:
 | 2026-11-14 | `synthetic-signal.ts` imports the springs from `../springs`, not `../motion`                                                 | `../motion` imports `motion/react`; the loop must not be able to pull Motion into its chunk                           | §3.5       |
 | 2026-11-14 | The H1 is one inline-block a word, so it is not what Chrome reports as LCP; LCP is other server-rendered text at first paint | the brief asks for both a per-word rise and "the H1 is the LCP element"; see SPEC §3.7 and "Needs Manu" 6             | §3.7       |
 
+Made in Phase 3 by Claude while building, **not yet approved by Manu**:
+
+| Date       | Decision                                                                                                                             | Why                                                                                         | Spec         |
+| ---------- | ------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------- | ------------ |
+| 2026-11-16 | GSAP and Lenis are removed                                                                                                           | the stepped scene needs neither; one scroll model, no ticker                                | §8.3         |
+| 2026-11-16 | "How it works" is four steps (Tell, Position, Draft, Refine) with product windows drawn in markup, pinned by CSS `sticky`            | the brief's scene 3; real UI from the system, not screenshots; complete without JavaScript  | §4, scene 3  |
+| 2026-11-16 | Scene 4's applicant is new (a site engineer on a metro line); the schools are Wharton, Tuck and HEC Paris, each prompt from its pack | the brief: real school names, a fictional applicant, any new sample a new person            | §4, scene 4  |
+| 2026-11-16 | The paper scene's sheet and controls are one client component rendered on the server, not a lazy island                              | an island's markup arrives late and never shows without JavaScript                          | §4, scene 5  |
+| 2026-11-16 | A written line is not cleaned of fillers: only trimmed, capitalised and given a full stop                                            | its caption says "Word for word, that's your line"                                          | §4, scene 5  |
+| 2026-11-16 | The AI-policy table left the landing page; scene 8 links to `/how-it-works#ai-policies`                                              | "short and sharp"; sixteen rows of table were neither                                       | §4, scene 8  |
+| 2026-11-16 | The Connect marquee is a static 3 × 2 grid                                                                                           | nothing in the background moves                                                             | §4, scene 7  |
+| 2026-11-16 | Prices are set in Geist, not Geist Mono                                                                                              | in mono the four prices read as a terminal                                                  | §4, scene 10 |
+| 2026-11-17 | The nav's wash is 88 % of `--bg`, up from 72 %                                                                                       | over the paper scene the pill was mid-grey with white text                                  | §3.3         |
+| 2026-11-17 | The final call has one action. "Sign in" is not repeated there; the model credit is centred under the line                           | it sat alone under the credit; beside the button it would leave the peak under neither      | §4, scene 12 |
+| 2026-11-17 | The pinned window is centred in the viewport (`top: max(112px, …)`), and the Studio window's question sits midway down               | at 1080 px tall the window hung in the top half; the Studio window had 200 px of dead space | §4, scene 3  |
+| 2026-11-17 | The hero's entrance was **not** changed, although it now sets LCP ("Needs Manu" 6)                                                   | the hero was reviewed as built; the trade is Manu's                                         | §3.7         |
+
 Approved, changed or rejected by Manu: Phase 1 was named (so the Phase 0 spec was accepted as the
 working basis), but no answer to the five questions below was written down. Treat all five as
 open.
@@ -192,15 +248,21 @@ open.
 5. **"12 schools, read closely" in `model-claims.ts`** while 16 packs are published (§9.4): leave,
    or will you update the claim? (Only you change claims.)
 
-6. **The H1 and LCP** (SPEC §3.7): the brief wants the H1 to rise word by word _and_ to be the
-   LCP element. Split into words, it can't be the element Chrome reports; what is reported
-   instead is static server text that paints with the first frame, so LCP equals first paint.
-   Keep the per-word rise (my recommendation), or have the H1 appear whole and still so it is
-   literally the LCP element?
-7. **Lighthouse's simulated LCP for `/` is 2.87 s**, over the 2.5 s target, while with throttling
-   really applied it is 2.28 s and equal to first paint. Most of first paint is the 354 KB
-   document, nearly all of it sections Phase 3 replaces, so I expect both to drop then; it is
-   re-measured in Phases 3 and 8. Say if you want it chased now instead.
+6. **The hero's entrance and LCP** (SPEC §3.7; measured again on 2026-11-17). On Lighthouse's
+   slow phone the page first paints at about 2.4 s, and LCP is reported at **3.4 s**, over the
+   2.5 s target. The cause is the hero's own entrance, not the scenes below it: the largest text
+   above the fold is the subline, which fades in about a second after first paint, and that is
+   the moment Chrome reports (three runs, the same each time). Two ways to settle it:
+   - **A. Keep the entrance as built.** LCP stays about one second behind first paint.
+   - **B. Let the subline be there at first paint (my recommendation).** The headline still
+     rises word by word; the eyebrow, buttons and nav still enter. LCP should then equal first
+     paint (about 2.4 s on the slow phone); not yet tried. One class on one element in
+     `_hero/hero.tsx`.
+7. **First paint on the slow phone is 2.4 s, close to the target on its own.** It is bound by
+   the network (the document, 33 KB of CSS and 86 KB of preloaded fonts share a 1.6 Mbit line),
+   not by the page's size: the document fell from 354 KB to 246 KB (47 KB gz) in Phase 3 and
+   first paint did not move. Dropping the Source Serif preload on `/` (19.7 KB) would buy a
+   little, at the cost of the sheets' text swapping faces in view on first load. Not done.
 
 Also for you, not design: `LEGAL_ENTITY` in `_copy/chrome.ts` is still `TODO(Manu)` and shows in
 the footer's copyright line.
@@ -215,14 +277,12 @@ the footer's copyright line.
   (`packages/voice/src/contract.ts`, the utterance end now 1,500 ms) makes
   `apps/web/app/api/stt/token/route.test.ts` fail; that test and the `db` schema test are the
   two failures of 2,517, and neither is the redesign's.
-- **"Write your own line" is not on the landing page between Phase 2 and Phase 3.** It opened
-  from the old hero; it comes back in scene 5. Its copy and clean-up code are kept (see "Next
-  step").
-- **Below the hero the landing page is still the old one**, and still Day-themed, so the page
-  goes dark hero → paper sections. The dark nav pill reads over both. Phase 3.
-- **Old-section faults seen while testing the hero**: 16 px sideways overflow at 320 px ("steps"
-  section; 375 px is clean), one contrast failure in `app-preview.tsx`, and the GSAP ticker
-  running frames on laptops even when the hero's loop is paused. All three go with Phase 3.
+- **`next build` stops once with "Your version of Next.js is affected by a known security
+  vulnerability"** (seen 2026-11-17, Next 16.4.3) and prints instructions to run
+  `next upgrade --agent=security`. Running the build again continues. Nothing was upgraded:
+  dependencies are outside this job. Manu should look at the advisory.
+- **`/how-it-works`, `/pricing`, `/privacy` and `/terms` are dark with their old layouts** until
+  Phase 4. They render cleanly (no overflow, console or hydration errors).
 - **Uncommitted work that is not the redesign's** sits in the working tree and was left alone:
   `AdmitStory_Build_Spec.md`, `packages/slots/src/questions.ts`, `packages/slots/src/slots.ts`,
   `apps/web/lib/studio/summary.ts` (the Studio slots v1.1 change of 2026-11-12). Redesign commits
@@ -233,8 +293,8 @@ the footer's copyright line.
   742 of 742).
 - **Interim look on screens not yet redesigned**: old Newsreader italics outside display lines are
   now a synthesised Geist oblique (`/sign-in`'s right panel is the clearest case). The WebGL orb
-  left the landing hero in Phase 2; it still draws in the final call, the Studio, first-run and
-  the Dossier voice tab. Each goes in its own phase (SPEC §2.12).
+  left the landing page in Phases 2 and 3; it still draws on `/how-it-works`, in the Studio,
+  first-run and the Dossier voice tab. Each goes in its own phase (SPEC §2.12).
 - **`next dev` reload-loops under Playwright** on every route. Not diagnosed. Work from the
   production build (`local-db.md` §4).
 - `pnpm format:check` also flags `apps/web/app/(app)/settings/privacy/delete-dialog.tsx` and the
@@ -250,8 +310,8 @@ the footer's copyright line.
 - **`pnpm format:check` flags `docs/design/fable-redesign-prompt.md`** (blank lines and `*` versus
   `_` only). It is Manu's file, committed byte for byte; run Prettier on it if you want that gate
   green.
-- Full-page screenshots of `/` show blank bands where the pinned "follow" section holds the
-  viewport, and repeat the sticky nav. A capture artefact, not a page bug.
+- Full-page screenshots of `/` repeat the fixed nav and catch the pinned stepper mid-scroll. A
+  capture artefact; the scene-by-scene shots are the ones to judge.
 
 ## Baselines measured on 2026-11-12 (production build, local)
 
@@ -287,12 +347,45 @@ the footer's copyright line.
 - axe (WCAG 2.2 AA) on the hero and nav: 0 violations, with motion and with reduced motion.
 - 375 px overflow on `/`: none. Console, failed requests, hydration warnings: none.
 
+## Measured after Phase 3 (2026-11-17, production build, local)
+
+- First-load JS: `/` **147.7 KB** of 155 (was 151.9); `/how-it-works` 149.2, `/pricing` 144.0,
+  `/privacy` 143.2, `/terms` 142.8, `/sign-in` 158.0 of 160. The page's own chunk (the paper
+  scene's toy and the stepper): 5.1 KB gz.
+- Document: 245.9 KB, 47.0 KB gz (was 354 KB). 1,050 elements.
+- Fonts preloaded on `/`: 86.1 KB in 4 files (unchanged); 105.8 KB fetched after a full pass.
+- CLS over a full pass: 0 (phone), 0.0001 (desktop).
+- Frames asked for in 3 s with the hero off screen: 0 (the GSAP ticker is gone).
+- axe (WCAG 2.2 AA) on the whole page: 0 violations on desktop, under reduced motion, on a
+  phone, and with the switch on, a line placed and a question open.
+- Lighthouse mobile, simulated (two sets of three): performance 0.83 and 0.92, accessibility
+  1.00, best practices 1.00, SEO 1.00; FCP 1.51 s, **LCP 3.3 s**, TBT 44 and 383 ms (it varies
+  between sets), CLS 0.
+- Lighthouse mobile, throttling applied: performance 0.86; FCP 2.44 s, **LCP 3.42 s**, TBT
+  92 ms, CLS 0. LCP candidates on the same throttled phone, three runs: first paint at
+  2.38–2.49 s (the top sheet's text), then the hero subline at 3.41–3.74 s. See "Needs Manu" 6.
+- Overflow: none at 320, 375, 390, 768, 1024, 1280, 1440 or 1920. Console, failed requests,
+  hydration warnings: none on any public page (the 404 page logs its own 404, as before).
+
 ## Scores
 
 | Screen              | Glance | Signature | Type | Composition | Colour | Media | Motion | Mobile | Copy | Polish | Average |
 | ------------------- | ------ | --------- | ---- | ----------- | ------ | ----- | ------ | ------ | ---- | ------ | ------- |
 | `/prototype/system` | 8      | 8         | 9    | 8           | 8      | 8     | 8      | 7      | 8    | 8      | **8.0** |
 | `/` hero and nav    | 9      | 9         | 9    | 8           | 9      | 9     | 8      | 8      | 8    | 8      | **8.5** |
+| `/` whole page      | 9      | 9         | 9    | 8           | 9      | 8     | 8      | 8      | 9    | 8      | **8.5** |
+| 2 schools strip     | 8      | 7         | 9    | 8           | 8      | 8     | 7      | 8      | 8    | 9      | **8.0** |
+| 3 how it works      | 9      | 9         | 9    | 8           | 9      | 9     | 8      | 8      | 9    | 8      | **8.6** |
+| 4 school by school  | 9      | 8         | 9    | 8           | 9      | 8     | 7      | 8      | 9    | 8      | **8.3** |
+| 5 essays, on paper  | 9      | 9         | 9    | 8           | 9      | 9     | 8      | 8      | 9    | 8      | **8.6** |
+| 6 the model         | 8      | 8         | 9    | 8           | 8      | 8     | 8      | 8      | 8    | 8      | **8.1** |
+| 7 Connect           | 8      | 7         | 9    | 8           | 8      | 8     | 7      | 8      | 8    | 8      | **7.9** |
+| 8 what it won't do  | 8      | 7         | 9    | 8           | 8      | 7     | 7      | 8      | 9    | 8      | **7.9** |
+| 9 interview, soon   | 8      | 8         | 8    | 8           | 9      | 8     | 8      | 8      | 9    | 8      | **8.2** |
+| 10 pricing          | 8      | 8         | 8    | 8           | 9      | 7     | 7      | 8      | 9    | 8      | **8.0** |
+| 11 questions        | 8      | 7         | 9    | 8           | 8      | 7     | 7      | 8      | 8    | 8      | **7.8** |
+| 12 final call       | 8      | 7         | 9    | 8           | 8      | 7     | 8      | 8      | 8    | 8      | **7.9** |
+| 13 footer           | 8      | 7         | 8    | 8           | 8      | 7     | 7      | 8      | 8    | 8      | **7.7** |
 
 First pass scored 7.4 (polish 6, composition 7, mobile 6: transcript lines ran under the frost
 caption, a tab was clipped at the panel edge, the Night-paper colour column was two-thirds empty,
@@ -310,3 +403,16 @@ The three lowest now are composition (at 1440 and wider there is a lot of air be
 headline and the stage), motion (judged from timed frames, not watched at speed by a person
 yet) and mobile (the sentence and the line sit below the first screen; the fan's top shows
 above it).
+
+**Landing scenes (Phase 3).** Scored scene by scene and as one page. The page clears the bar
+(8.5, nothing under 7). Five scenes on their own sit just under 8 (Connect, what it won't do,
+questions, the final call, the footer): they are the quiet ones, lists and type on hairlines
+with no visual of their own, and score 7 on signature, media or motion for that reason. That is
+the brief's "one moment per page, everything around it quiet", but a jury looking at any one of
+them alone would call it plain. The first pass found five faults, all fixed and re-shot: the nav
+was a grey pill over the paper scene; the final call had "Sign in" stranded under a left-aligned
+credit; the model ledger's last rule stopped at 560 px; the Studio window had 200 px of dead
+space; the pinned window hung in the top half of tall screens. The weakest three now: the final
+call (the peak is small for a closing image), pricing's three open columns (a lot of empty
+height beside the filled card at 1440) and motion everywhere (judged from frames and timings,
+not watched at speed by a person).

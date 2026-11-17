@@ -1,20 +1,20 @@
-// "/" (direction §4, plan §8.9): the landing page, server sections in order. Foundation owns this
-// file; packages build the sections it imports and never edit it. It doesn't read the session, so
-// signed-in visitors see it too and "Sign in" takes them on to /home.
+// "/" (SPEC §3, §4): the landing page, thirteen scenes in order, all server sections. It doesn't
+// read the session, so signed-in visitors see it too and "Sign in" takes them on to /home.
 
 import { pageMetadata, HOME_DESCRIPTION, HOME_TITLE } from "./_lib/seo";
-import { FollowSection } from "./_follow/follow-section";
+import { SocialProofSlot } from "@/components/social-proof-slot";
 import { Hero } from "./_hero/hero";
+import { ConnectPeopleSection } from "./_sections/connect-people";
+import { EssayScene } from "./_sections/essay-scene";
 import { FaqSection } from "./_sections/faq";
 import { FinalCall } from "./_sections/final-call";
-import { ConnectPeopleSection } from "./_sections/connect-people";
-import { HowItWorksLines } from "./_sections/how-it-works-lines";
+import { HowScene } from "./_sections/how-scene";
+import { InterviewSoon } from "./_sections/interview-soon";
 import { PricingSection } from "./_sections/pricing";
-import { RealScreens } from "./_sections/real-screens";
+import { SchoolBySchool } from "./_sections/school-by-school";
 import { SchoolsStrip } from "./_sections/schools-strip";
 import { TheModelSection } from "./_sections/the-model";
 import { WontDoSection } from "./_sections/wont-do";
-import { YourWordsSection } from "./_sections/your-words";
 
 export const metadata = pageMetadata({
   title: { absolute: HOME_TITLE },
@@ -25,18 +25,21 @@ export const metadata = pageMetadata({
 export default function Home() {
   return (
     <>
-      <Hero /> {/* ./_hero/hero (A) */}
-      <SchoolsStrip /> {/* ./_sections/schools-strip: every school with a verified pack */}
-      <FollowSection /> {/* ./_follow/follow-section (B) */}
-      <HowItWorksLines /> {/* ./_sections/how-it-works-lines (C) */}
-      <ConnectPeopleSection /> {/* ./_sections/connect-people: people from each school */}
-      <TheModelSection /> {/* ./_sections/the-model: what the model is trained on */}
-      <RealScreens /> {/* ./_sections/real-screens (C) */}
-      <YourWordsSection /> {/* ./_sections/your-words (C) */}
-      <WontDoSection /> {/* ./_sections/wont-do (C) */}
-      <PricingSection /> {/* ./_sections/pricing (C) */}
-      <FaqSection /> {/* ./_sections/faq (C) */}
-      <FinalCall /> {/* ./_sections/final-call (C) */}
+      <Hero /> {/* 1: voice becomes story becomes essays */}
+      <SchoolsStrip /> {/* 2: the sixteen schools, typeset */}
+      <HowScene /> {/* 3: Tell, Position, Draft, Refine */}
+      <SchoolBySchool /> {/* 4: one story, three schools */}
+      <EssayScene /> {/* 5: the paper scene, with "Write your own line" */}
+      <TheModelSection /> {/* 6: the seal and the ledger */}
+      <ConnectPeopleSection /> {/* 7: people from each school */}
+      {/* Social proof goes here. It renders nothing until components/social-proof.ts has real,
+          attributable content from Manu: no empty box and no placeholder ever ships. */}
+      <SocialProofSlot />
+      <WontDoSection /> {/* 8: what it won't do */}
+      <InterviewSoon /> {/* 9: interview practice, coming soon, labelled as a preview */}
+      <PricingSection /> {/* 10: Free, 1, 5 and 10 schools */}
+      <FaqSection /> {/* 11: questions */}
+      <FinalCall /> {/* 12: the final call; the footer (13) is in the layout */}
     </>
   );
 }

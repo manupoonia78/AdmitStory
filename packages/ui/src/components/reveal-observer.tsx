@@ -20,14 +20,6 @@ export function RevealObserver({ routeKey }: { routeKey?: string }) {
     if (root.getAttribute("data-motion") !== "on" || typeof IntersectionObserver !== "function") {
       return;
     }
-    const elements = document.querySelectorAll<HTMLElement>(SELECTOR);
-    const viewport = window.innerHeight;
-    for (const element of elements) {
-      const { top, bottom } = element.getBoundingClientRect();
-      if (top < viewport && bottom > 0) element.setAttribute("data-in", "");
-    }
-    root.setAttribute("data-reveal", "on");
-
     const observer = new IntersectionObserver(
       (entries) => {
         for (const entry of entries) {
@@ -38,10 +30,23 @@ export function RevealObserver({ routeKey }: { routeKey?: string }) {
       },
       { threshold: 0.15 },
     );
-    for (const element of elements) {
-      if (!element.hasAttribute("data-in")) observer.observe(element);
-    }
-    return () => observer.disconnect();
+    // What is already on screen is marked before the hidden state exists; the rest is watched.
+    const arm = () => {
+      const viewport = window.innerHeight;
+      for (const element of document.querySelectorAll<HTMLElement>(SELECTOR)) {
+        const { top, bottom } = element.getBoundingClientRect();
+        if (top < viewport && bottom > 0) element.setAttribute("data-in", "");
+        else observer.observe(element);
+      }
+      root.setAttribute("data-reveal", "on");
+    };
+    arm();
+    // Markup that streams in after hydration is picked up once the page has loaded.
+    if (document.readyState !== "complete") window.addEventListener("load", arm, { once: true });
+    return () => {
+      window.removeEventListener("load", arm);
+      observer.disconnect();
+    };
   }, [routeKey]);
   return null;
 }

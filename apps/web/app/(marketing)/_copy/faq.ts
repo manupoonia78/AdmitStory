@@ -5,6 +5,7 @@
 // function of the verified packs. Interview practice is "Coming soon" (plan OVERRIDE), so it gets
 // its own honest question rather than a place in the kit.
 
+import { PLAN_CARDS } from "../_data/pricing";
 import { INTERVIEW_COMING_SOON_LINE } from "./shared";
 
 export interface FaqEntry {
@@ -14,6 +15,15 @@ export interface FaqEntry {
 }
 
 export const FAQ_HEADING = "Questions.";
+/** Under the heading, before our address. */
+export const FAQ_MORE = "Something else? Write to us at";
+
+/** The pack answer, with every price read from the plans the app charges from. */
+function packsAnswer(): string {
+  const [one, five, ten] = PLAN_CARDS;
+  if (!one || !five || !ten) return "";
+  return `Yes. One school is ${one.price}. Five are ${five.price} and ten are ${ten.price}, with every essay drafted for each, where most services charge about ${five.price} for guidelines alone. A pack unlocks your first school straight away and keeps the rest as credits for whenever you’re ready.`;
+}
 
 const BEFORE_SCHOOLS: readonly FaqEntry[] = [
   {
@@ -75,8 +85,7 @@ const AFTER_SCHOOLS: readonly FaqEntry[] = [
   {
     id: "packs",
     question: "Is it cheaper for several schools?",
-    answer:
-      "Yes. One school is $100. Five are $349 and ten are $699, with every essay drafted for each, where most services charge about $349 for guidelines alone. A pack unlocks your first school straight away and keeps the rest as credits for whenever you’re ready.",
+    answer: packsAnswer(),
   },
 ];
 

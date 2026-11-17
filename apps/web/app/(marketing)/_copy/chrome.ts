@@ -1,4 +1,4 @@
-// The nav, the phone menu, the footer and the theme switch (direction §4.1, §4.10, §9).
+// The nav, the phone menu and the footer (SPEC §3.3, §4 scene 13).
 
 import { APP_NAME } from "@admitstory/shared/brand";
 
@@ -53,13 +53,10 @@ export const FOOTER_CONTACT = {
 
 export const FOOTER_LEGAL = `AdmitStories is not affiliated with any school. School names are used only to describe which applications we support.`;
 
-export function copyrightLine(year: number): string {
-  return `© ${year} ${LEGAL_ENTITY}.`;
-}
+/** One line under the wordmark in the footer: the headline again, small. */
+export const FOOTER_LINE = "Tell it once. Tell it well.";
 
-export const THEME_SWITCH = {
-  label: "Theme",
-  night: "Night",
-  day: "Day",
-  note: "Night is easier at 1 a.m.",
-} as const;
+/** Until the legal entity is set, the line names the brand; a placeholder never renders. */
+export function copyrightLine(year: number): string {
+  return `© ${year} ${LEGAL_ENTITY.includes("TODO") ? APP_NAME : LEGAL_ENTITY}.`;
+}

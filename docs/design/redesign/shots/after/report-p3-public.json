@@ -1,0 +1,146 @@
+{
+  "base": "http://localhost:3100",
+  "out": "after",
+  "theme": "day",
+  "reduced": false,
+  "takenAt": "2026-11-17T07:17:20.151Z",
+  "routes": [
+    {
+      "name": "landing",
+      "path": "/",
+      "consoleErrors": [],
+      "failedRequests": [],
+      "hydration": [],
+      "status": 200,
+      "finalPath": "/",
+      "overflow375": {
+        "px": 0,
+        "offenders": []
+      }
+    },
+    {
+      "name": "how-it-works",
+      "path": "/how-it-works",
+      "consoleErrors": [],
+      "failedRequests": [],
+      "hydration": [],
+      "status": 200,
+      "finalPath": "/how-it-works",
+      "overflow375": {
+        "px": 0,
+        "offenders": []
+      }
+    },
+    {
+      "name": "pricing",
+      "path": "/pricing",
+      "consoleErrors": [],
+      "failedRequests": [],
+      "hydration": [],
+      "status": 200,
+      "finalPath": "/pricing",
+      "overflow375": {
+        "px": 0,
+        "offenders": []
+      }
+    },
+    {
+      "name": "privacy",
+      "path": "/privacy",
+      "consoleErrors": [],
+      "failedRequests": [],
+      "hydration": [],
+      "status": 200,
+      "finalPath": "/privacy",
+      "overflow375": {
+        "px": 0,
+        "offenders": []
+      }
+    },
+    {
+      "name": "terms",
+      "path": "/terms",
+      "consoleErrors": [],
+      "failedRequests": [],
+      "hydration": [],
+      "status": 200,
+      "finalPath": "/terms",
+      "overflow375": {
+        "px": 0,
+        "offenders": []
+      }
+    },
+    {
+      "name": "sign-in",
+      "path": "/sign-in",
+      "consoleErrors": [],
+      "failedRequests": [],
+      "hydration": [],
+      "status": 200,
+      "finalPath": "/sign-in",
+      "overflow375": {
+        "px": 0,
+        "offenders": []
+      }
+    },
+    {
+      "name": "portal-resend",
+      "path": "/r",
+      "consoleErrors": [],
+      "failedRequests": [],
+      "hydration": [],
+      "status": 200,
+      "finalPath": "/r",
+      "overflow375": {
+        "px": 0,
+        "offenders": []
+      }
+    },
+    {
+      "name": "portal-closed",
+      "path": "/r/not-a-real-link",
+      "consoleErrors": [],
+      "failedRequests": [],
+      "hydration": [],
+      "status": 200,
+      "finalPath": "/r/not-a-real-link",
+      "overflow375": {
+        "px": 0,
+        "offenders": []
+      }
+    },
+    {
+      "name": "goodbye",
+      "path": "/goodbye",
+      "consoleErrors": [],
+      "failedRequests": [],
+      "hydration": [],
+      "status": 200,
+      "finalPath": "/goodbye",
+      "overflow375": {
+        "px": 0,
+        "offenders": []
+      }
+    },
+    {
+      "name": "not-found",
+      "path": "/this-page-does-not-exist",
+      "consoleErrors": [
+        "Failed to load resource: the server responded with a status of 404 (Not Found)",
+        "Failed to load resource: the server responded with a status of 404 (Not Found)"
+      ],
+      "failedRequests": [
+        "404 /this-page-does-not-exist",
+        "404 /this-page-does-not-exist"
+      ],
+      "hydration": [],
+      "status": 404,
+      "finalPath": "/this-page-does-not-exist",
+      "overflow375": {
+        "px": 0,
+        "offenders": []
+      }
+    }
+  ],
+  "setup": []
+}

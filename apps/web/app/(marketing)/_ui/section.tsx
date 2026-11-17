@@ -1,8 +1,8 @@
 // The marketing section (plan §3.3): the 12-column grid (4 on phones, 8 on tablets), 16 px phone
 // gutters, a 1440 px maximum and the vertical rhythm. Server-safe.
 //
-// theme "night" pins the section to Night (with grain) in either site theme, as the hero, the
-// pinned sequence, "What it won't do" and the final call are. "page" follows the visitor's theme.
+// The marketing site is dark only (SPEC §4): a section is transparent over the page's one dark
+// field. theme "paper" turns a section into a Day island for a scene about reading.
 
 import { cx } from "@admitstory/ui";
 import type { ReactNode } from "react";
@@ -11,10 +11,8 @@ export interface SectionProps {
   id?: string;
   /** The id of the section's heading (every section is labelled by its heading). */
   labelledBy: string;
-  theme?: "night" | "page";
-  /** Film grain (Night only; it is a no-op in Day). Defaults to on for Night sections. */
-  grain?: boolean;
-  /** Vertical rhythm: "default" for ordinary sections, "none" for stages that set their own. */
+  theme?: "night" | "page" | "paper";
+  /** Vertical rhythm: "default" for scenes, "none" for those that set their own. */
   spacing?: "default" | "compact" | "none";
   className?: string;
   /** Class for the inner grid. */
@@ -22,8 +20,9 @@ export interface SectionProps {
   children: ReactNode;
 }
 
+/** Scene padding (SPEC §2.5): 80, 112, 160 px. */
 const SPACING = {
-  default: "py-24 sm:py-32 lg:py-40",
+  default: "py-20 sm:py-28 lg:py-40",
   compact: "py-16 sm:py-20 lg:py-24",
   none: "",
 } as const;
@@ -36,25 +35,18 @@ export function Section({
   id,
   labelledBy,
   theme = "page",
-  grain,
   spacing = "default",
   className,
   gridClassName,
   children,
 }: SectionProps) {
-  const night = theme === "night";
+  const paper = theme === "paper";
   return (
     <section
       id={id}
       aria-labelledby={labelledBy}
-      data-theme={night ? "night" : undefined}
-      className={cx(
-        "relative",
-        night && "bg-space text-text",
-        night && (grain ?? true) && "grain",
-        SPACING[spacing],
-        className,
-      )}
+      data-theme={paper ? "day" : undefined}
+      className={cx("relative", paper && "bg-space text-text", SPACING[spacing], className)}
     >
       <div className={cx(SECTION_GRID, gridClassName)}>{children}</div>
     </section>

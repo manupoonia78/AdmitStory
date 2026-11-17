@@ -624,7 +624,7 @@ At 1440 the stage is 546 px and `--u` is 1 px. At 1280 it is 479 px (full design
 
 | Element      | Type                                                                                                           | Colour                                       | Notes                                                                                                                                                                                            |
 | ------------ | -------------------------------------------------------------------------------------------------------------- | -------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| Nav pill     | `frost` look on a 72 % wash of `--bg`, blur 16 px                                                              | always the instrument (`data-theme="night"`) | the wash is what lets one pill read over the dark hero and over a paper scene alike; solid `--frost-solid` without backdrop-filter or under reduced transparency                                 |
+| Nav pill     | `frost` look on an 88 % wash of `--bg` (72 % until Phase 3: over paper it read as a grey pill), blur 16 px     | always the instrument (`data-theme="night"`) | the wash is what lets one pill read over the dark hero and over a paper scene alike; solid `--frost-solid` without backdrop-filter or under reduced transparency                                 |
 | Wordmark     | §2.9, 18 px                                                                                                    | `--fg`                                       | links to `/`                                                                                                                                                                                     |
 | Nav links    | `ui` 14 / 20, 500                                                                                              | `--fg-80`, hover `--fg` 200 ms               | "How it works", "Pricing", "Sign in"; `lg`+ only                                                                                                                                                 |
 | Nav CTA      | `lg`+: button `md` primary, 40 px tall, 28 px arrow circle. Below: button `sm`, no arrow (hidden under 340 px) | brass                                        | "Start your story" (`START_STORY` in `_copy/shared.ts`) → `/sign-in`                                                                                                                             |
@@ -802,29 +802,281 @@ paint by assuming everything that had loaded by then was needed; with the thrott
 applied, the two are the same moment. First paint itself (2.3 s on slow 4G) is mostly the 354 KB
 HTML document, nearly all of it the old sections below the hero that Phase 3 replaces.
 
+**Measured again after Phase 3 (2026-11-17), and the paragraph above no longer holds.** With the
+throttling applied, first paint is at 2.4 s and Chrome reports LCP at 3.4 s. It records two
+candidates: the top sheet's text at first paint, then the subline, which is larger and fades in
+about a second later as part of the entrance (three runs, the same each time). So the entrance
+does cost LCP on a phone, by about a second. First paint did not move when the document shrank
+from 354 KB to 246 KB: it is bound by the network, not by the page's size. The hero was left as
+built; PROGRESS "Needs Manu" 6 has the two ways to settle it.
+
 ---
 
-## 4. Marketing: composition sketches
+## 4. Marketing: the landing scenes (full values; built in Phase 3, 2026-11-16)
 
-Dark-only. `marketingTheme()` returns Night for every preference and the footer's theme switch
-goes (the app keeps its own). Each scene is one idea, one composed visual, and space. Scenes
-reveal once (§2.10); only the hero moves on its own. Headings are `display-1` unless noted; scene
-eyebrows are `label`.
+Dark-only. `marketingTheme()` returns Night for every preference, the footer's theme switch is
+gone (the app keeps its own) and `themeColor` is the Night colour. The page is one dark field
+(`--bg` with the grain tile, painted once on the marketing wrapper) that turns to paper for
+scene 5 only. Order: hero, 2 schools, 3 how it works, 4 school by school, 5 essays (paper), 6 the
+model, 7 Connect, 8 what it won't do, 9 interview practice, 10 pricing, 11 questions, 12 final
+call, 13 footer.
 
-| #   | Scene                                             | Layout                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           | Key type and details                                                                                                                                                                                                                                                                 |
-| --- | ------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| 2   | **Schools strip**                                 | One full-width band between hairlines, 96 px tall. The 16 names from `_data/schools.ts` set as one justified paragraph of names, two lines at `lg`, separated by mid-dots; a mono label at the left: "16 schools, verified for 2026–27". Static: the current sideways scroller goes                                                                                                                                                                                                                              | Names: Geist 20 / 28, 450, `--fg-80`. No logos. CSS only                                                                                                                                                                                                                             |
-| 3   | **How it works** (`#how`)                         | Sticky split, `lg`+: left columns 1–5, the four steps (Tell → Position → Draft → Refine) as a list; right columns 6–12, one product window (32 px frame, 8 px bezel, `--surface-1`) pinned at `top: 112px`. As each step's text block crosses the middle of the viewport the window swaps to that step's screen: a self-contained 250 ms cross-fade plus 8 px rise, stepped, never scrubbed. Phone: no pin; each step is followed by its own window. Folds in "follow one sentence" and the real-screens stepper | Step number in `label`; step title `display-3`; body `body`. Windows are live markup built from the system: the Studio (prompt, Voiceline, transcript), the positioning summary, an essay sheet with margin notes, the revision review. The Voiceline in the Studio window is static |
-| 4   | **School by school**                              | Heading left. Below, three columns, one per real school from the packs (default: Wharton, Tuck, HEC Paris; final pick in Phase 3 from what the packs actually emphasise). Each column: the school name, a one-line "what this school listens for" taken from its pack, then the _same_ fictional story's opening as a small sheet, with a different phrase marked and a different margin note. The row is the idea: one story, three readings                                                                    | School names Geist 24, 450. Sheets as in the hero (`read-sm`). Fictional applicant and "illustrative" label under the row. No school logos                                                                                                                                           |
-| 5   | **Essays that show their thinking** (paper scene) | The section itself turns to paper: full-bleed `--paper` with a 32 px top radius rising out of the dark. Centre: one essay sheet at reading size, 68ch; right margin: three reasoning notes aligned to the paragraphs they explain; a "Your words" switch above it (the existing toy, `Y` key). Below the sheet: "Write your own line" (browser-only, redesigned as one paper text field whose line then appears marked in the sheet's first paragraph)                                                           | Essay in `read` 19 / 1.65. Notes in `note`. Heading in ink, `display-1`. Fictional note. Source Serif loads lazily here (below the fold)                                                                                                                                             |
-| 6   | **The model** (`#the-model`)                      | An instrument panel: left columns 1–4 the dial seal (240 px) with the heading under it; right columns 6–12 the ledger from `MODEL_CORPUS` as a typeset table: figure, title, one line, each row on a hairline                                                                                                                                                                                                                                                                                                    | Figures: Geist Mono 40 px, tabular, `--fg`. Titles `title`. Lines `body` `--fg-64`. `yoursLine` as the closing sentence in Instrument Serif italic 24 px. Rules draw in on reveal (`scaleX` 0 → 1, 600 ms, 80 ms apart)                                                              |
-| 7   | **Connect**                                       | Heading and paragraph left (columns 1–5); right, a static grid of six of the illustrative portraits (3 × 2, 24 px radius, greyscale at rest at 90 % brightness, each with its role in `label` beneath). The marquee goes. "Photos are illustrative" stays directly under the grid                                                                                                                                                                                                                                | Roles only, never names or schools. `SocialProofSlot` sits after this scene (§4.1)                                                                                                                                                                                                   |
-| 8   | **What we won't do** (`#wont-do`)                 | Short and sharp: the five `INTEGRITY_LINES` as a numbered list, one hairline between each, on dark. The AI-policy table moves behind the existing "See all schools' AI policies" link (it stays on `/how-it-works`)                                                                                                                                                                                                                                                                                              | Lines in Geist 28 / 1.25 at `lg` (20 px base), 450, `--fg`; numbers in `label`. The first clause of each line carries the weight; the rest is `--fg-64`                                                                                                                              |
-| 9   | **Interview practice, coming soon**               | Small: a half-height scene. Left, the honest line; right, one still of the room in a 32 px frame: a question in `display-3`, a timer ring (the Voiceline bent into a circle, 42 s of 2:00 drawn), four lines of transcript in Instrument Serif italic. A `label` chip on the frame: "Preview · coming soon"                                                                                                                                                                                                      | Copy from `INTERVIEW_COMING_SOON_LINE` verbatim. If the still can't be made both honest and beautiful in Phase 3, the scene is dropped and reported                                                                                                                                  |
-| 10  | **Pricing** (`#pricing`)                          | Lead-in sentence (the $349-for-guidelines comparison) as a `display-2`. Four columns on one baseline: Free · 1 school · **5 schools** · 10 schools. The 5-school column is the only card with a filled surface (`--surface-2`), the only brass button, and is 16 px taller top and bottom. The others are open columns separated by hairlines with secondary buttons. Phone: 5 schools first, then 1, 10, Free                                                                                                   | Prices in Geist Mono 56 px (`figure`), from `plans.ts` via `_data/pricing.ts`, never typed. "$500" struck through beside "$349" in `--fg-48`. "Most chosen" as a `label` chip. Under the row, one quiet line: `TAX_AND_FINAL_LINE` ("…All sales are final…"), `ui-sm`, `--fg-64`     |
-| 11  | **FAQ** (`#questions`)                            | Heading in columns 1–4; the list in columns 6–12 as native `<details>`, hairline between rows, a plus that turns 45°                                                                                                                                                                                                                                                                                                                                                                                             | Questions `title`; answers `body` `--fg-80`, max 60ch                                                                                                                                                                                                                                |
-| 12  | **Final CTA**                                     | One sentence, centred, `display-1`, and the primary button. Behind it the horizon line crosses the full width at the baseline of the last line of type, flat, with one peak (the mark) under the button. No Voiceprint                                                                                                                                                                                                                                                                                           | "Your story, told well, for each school." with "told well" in the italic accent                                                                                                                                                                                                      |
-| 13  | **Footer**                                        | Dark. Wordmark and one line left; Product, Trust, Contact columns; the affiliation disclaimer and copyright on a last hairline row                                                                                                                                                                                                                                                                                                                                                                               | Links `ui` `--fg-64`; `label` column heads. `LEGAL_ENTITY` is still a TODO in the code (§9.6)                                                                                                                                                                                        |
+**Shared values**
+
+| Thing            | Value                                                                                                                                                                                                                             |
+| ---------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Scene padding    | 80 px base, 112 px `sm`, 160 px `lg`, top and bottom (`Section`, `spacing="default"`); the strip and scene 9 set their own                                                                                                        |
+| Grid             | `SECTION_GRID`: 4 / 8 / 12 columns, 16 / 32 / 48 px margins, 16 / 24 / 24 px gutters, 1440 px cap                                                                                                                                 |
+| Scene head       | `eyebrow` (mono 11 px, +0.18em, `--fg-60`, behind a 24 px rule); 24 px; `h2` in `display-1` (36 → 72 px, 450, 1.0, −0.04em, `--fg`), broken by hand, its last 1–3 words in the italic accent at `--fg-60`                         |
+| Scene paragraph  | `body-lg` (16 → 17 px / 1.55), `--fg-64`, at most 440 px wide, 24 px under the heading or in the right-hand columns on the heading's last baseline                                                                                |
+| Head to content  | 56 px base, 96 px `lg`                                                                                                                                                                                                            |
+| Reveal           | the `reveal` utility (§2.10): opacity 0 → 1 and 16 px → 0, 600 ms, `--ease-rise`, 60 ms apart by `--i`, once at 15 %. One `RevealObserver`, mounted in `PageTransition` and keyed by the pathname, so a client navigation re-arms |
+| Lines that draw  | `scene-draw` on a path with `pathLength="1"` inside a `reveal` block: `stroke-dashoffset` 1 → 0, 900 ms, `--ease-line`, when the block reveals. Still, and fully drawn, without `data-reveal`                                     |
+| Hairlines        | 1 px `--line` (12 %); a rule that carries structure (the strip, the horizon) is `--line-strong` (20 %)                                                                                                                            |
+| Sheets of paper  | `scene-sheet`: `--paper`, ink text, 3 px radius, Source Serif 4. The hero's `hero-sheet` keeps its own fan geometry; the paper, margin rule, mono note and mark (`sheet-mark`) are the shared classes both use                    |
+| Brass            | three element types on this page, as everywhere: a primary action's fill, a live or marking line (the Voiceline in the Studio window, the timer arc, the peak in the final call), and marks on paper (as brass-ink)               |
+| Fictional people | every applicant is fictional and says so in a `label` under its scene. Scene 4 introduces a new one (a site engineer on a metro line); scenes 3 and 5 reuse the analyst and the product manager                                   |
+
+### Scene 2 · Schools strip (`_sections/schools-strip.tsx`)
+
+One band between two `--line-strong` hairlines, static: the sideways scroller is gone.
+
+- From 1280 px (`xl`): 96 px tall content box (20 px above and below two 28 px lines). Columns 1–3: two `label`
+  lines, "16 schools" and "verified for 2026–27" (the count is `COVERED_SCHOOLS.length`). Columns
+  4–12: the sixteen names as two justified rows. The rows are cut by the code so each holds about
+  half the characters (6 names, then 10), and each row is `display: flex; justify-content:
+space-between`, so both rows run edge to edge like a masthead.
+- Names: Geist 20 / 28 px, 450, −0.015em, `--fg-80`. Between names a middle dot in `--fg-40`.
+- Below 1280 px: the label on one line, 16 px, then the names as one wrapping run, 17 / 30 px,
+  dots between, left-aligned. Band padding 28 px. (Two justified rows need about 880 px of
+  names column, so the masthead starts at `xl`, not `lg`.)
+- No logos, no motion, no JS. Reveal: none (it is directly under the hero).
+
+### Scene 3 · How it works (`#how`; `_sections/how-scene.tsx`, `how-windows.tsx`, `how-stepper.tsx`)
+
+Folds in the old three-step section, "follow one sentence" (GSAP) and the screens stepper. Four
+steps: **Tell → Position → Draft → Refine**. The analyst's sentence ("It was 2 a.m. …") is the
+one thing that passes through all four windows.
+
+- Head: eyebrow "How it works"; `h2` "Twenty minutes / to a _first draft._"; paragraph in columns
+  9–12 on `lg` with the "See how it works in full" text link to `/how-it-works`.
+- **`lg`+, a sticky split.** The steps are four rows of one grid. Text in columns 1–4; the
+  product window in columns 6–12 from 1280 px (774 px at 1440) and columns 5–12 below that
+  (611 px at 1024), `aspect-ratio: 4 / 3`. Each
+  row is as tall as the window plus 96 px, computed in CSS from the grid's own width
+  (`--how-row`), so the scene is the same height with or without JavaScript.
+  - Without JavaScript each window sits at the top of its own row: four steps, each beside its
+    screen. Complete on its own.
+  - `how-stepper.tsx` (0.4 KB, the scene's only script) sets `data-live` on the scene. Then all
+    four windows share one grid area spanning the four rows and each is `position: sticky`, centred in the
+    viewport and never under the nav (`top: max(112px, (100dvh − window height) / 2)`), so they
+    lie on top of one another and stay put while the steps scroll. An `IntersectionObserver`
+    with `rootMargin: -65% 0 -35% 0` (a line 65 % down the viewport) puts `data-on` on the step
+    whose text is crossing it.
+  - The swap is stepped, never scrubbed: the window whose step is current goes opacity 0 → 1 and
+    `translateY` 8 px → 0 over 250 ms (`--dur-swap`, `--ease-rise`); the one leaving goes to 0
+    over 150 ms (`--ease-exit`). Each is a self-contained transition; nothing rests half-way.
+    Reduced motion: the same swap as a 120 ms fade.
+  - The step text that is not current sits at 40 % opacity (250 ms).
+- **Step text.** `label` "01 · Tell" (number and verb); 16 px; title in `display-3` (22 → 32 px,
+  500, 1.15); 12 px; `body`, `--fg-64`, at most 360 px; 20 px; a `chip`-height flat pill saying
+  what it costs: "Free" on steps 1 and 2, "With a school pack" on 3 and 4 (`label` type in a
+  `frost-flat` pill, 28 px tall).
+- **The window.** Frame: `--radius-frame` 32 px, 8 px bezel in `--surface-1` with a `--line`
+  edge; screen: 24 px radius, `--depth` (`#151412`). Everything inside is set in `em`, and the
+  screen's font size is `100cqw / 46` (16.8 px at 774, 11.5 px at 531), so the whole window
+  scales as one piece. Below `lg` the window is as wide as the column, its font size is
+  `100cqw / 25` (13.7 px at 342) and its height is its content's: the same markup, recomposed in
+  one column. The windows are live markup built from the system, `inert` and hidden from
+  assistive technology behind a caption that says what each shows.
+  1. **Tell: Story Studio.** Chapter tabs as `label` text ("Early life", "Work" current,
+     "Turning points"); a Speak / Write control, Speak current. The question in Geist 1.375em /
+     1.2, 500, the last clause at `--fg-48`. The answer in Instrument Serif italic 1.625em / 1.2,
+     `--fg-80`. The two sit midway between the bar and the line. A static Voiceline across the full width in brass (1.25 px, the hero's maths, frozen)
+     with the record button on it: 4.5em, brass fill, mic glyph in `--on-brass`. Under it
+     "Listening · hold space" in `label`.
+  2. **Position: the positioning for one school.** `label` "Northfield · positioning". Three
+     positioning lines in Geist 1.25em / 1.3, 450, on hairlines, numbered in mono. Beside them
+     (under them on phones) "Which story goes where": the pack's files, each with the story that
+     feeds it, in 0.875em, joined by a hairline. Along the foot, on hairlines: what the positioning
+     "lands" and what "a reader may doubt", one line each.
+  3. **Draft: an essay sheet.** A `scene-sheet` on the dark screen, inset 1.5em: a left margin
+     (11em) with the essay's title in mono capitals, one brass-ink margin note and the count
+     "199 / 200 words"; the body in Source Serif 1.0625em / 1.6 with the applicant's own sentence
+     marked.
+  4. **Refine: a revision.** The same sheet, one request above it in a `frost-flat` pill ("Cut
+     twelve words from paragraph two. I need room for the ending."), the changed sentence shown as a diff (the removed
+     words struck through at `--ink-50`, the kept words in ink), the count going "199 → 187 /
+     200", and two controls drawn as pills: "Keep" (ink) and "Undo".
+- Under the scene: `label` "A sample applicant · fictional, as is Northfield".
+- Phone: no pin; each step is followed by its window, 40 px apart, 72 px between steps. Each
+  step reveals.
+
+### Scene 4 · School by school (`_sections/school-by-school.tsx`)
+
+One story, three real schools, three readings. A new fictional applicant: a site engineer on a
+metro line. The schools are Wharton, Tuck and HEC Paris, and what each "asks" is taken from the
+essay prompt in its published pack (`knowledge/schools/*/2026-27`): adding value to the
+community, supporting another person when it was not easy, and leadership and ethics.
+
+- Head: eyebrow "School by school"; `h2` "One story. / _Three schools._" in columns 1–6.
+- Columns 8–12 on `lg` (under the heading below): what she said, once. `label` "Spoken once ·
+  site engineer, metro line", then her three sentences in `transcript` type (Instrument Serif
+  italic 24 → 28 px / 1.25, `--fg-80`).
+- Then three columns (one below `lg`), 24 px gutters, each:
+  - the school's name in Geist 24 / 28 px, 450; under it `label`, the essay it is ("The
+    community essay");
+  - one line, `body`, `--fg-64`, min-height three lines: what that prompt asks;
+  - a `scene-sheet`, full column width: a 104 px left margin (title "First draft", one margin
+    note in `note` type, brass-ink) and the essay's opening in `read-sm` (15 px / 1.6). In each
+    sheet a different one of her three sentences is marked as hers, and the opening is built
+    around it. Sheets are 3 px radius, `--paper`, no shadow on dark.
+- Under the row: `label` "A sample applicant, fictional · each school's prompt as published for
+  2026–27". No logos; names are type.
+- Reveal: head, the spoken lines, then the three columns 60 ms apart.
+
+### Scene 5 · Essays that show their thinking (`_sections/essay-scene.tsx`, `essay-toy.tsx`)
+
+The page turns to paper. The scene is a Day island: a full-bleed desk (`--desk`, `#ECE9E2`) with
+32 px corners top and bottom, rising out of the dark, and one large sheet on it. Ink primary
+button; brass-ink notes. The nav above it stays dark (§3.3).
+
+- Head: eyebrow "On paper" (ink at 66 %); `h2` "Essays that show / _their thinking._" in ink,
+  the accent at `--ink-66`; paragraph in columns 9–12.
+- **The sheet** (columns 1–9 on `lg`, 1002 px): `--paper`, `--shadow-paper`, 3 px radius. Inside,
+  two columns divided by a `--rule` hairline: the essay (padding 56 px, text column at most 68ch)
+  and a 232 px right margin for notes. Sheet head: "Essay 1 · Northfield" in mono capitals and
+  "What matters most to you, and why?" in Source Serif italic 17 px. Essay: the product
+  manager's four paragraphs (`_data/sample-words.ts`) in `read` (17 → 19 px / 1.65). Three
+  reasoning notes in `note` type (11.5 / 18 px, brass-ink), each at the top of the paragraph it
+  explains, each led by a 16 px brass-ink rule. Below `lg` the margin folds away and each note
+  sits under its paragraph, indented behind a 1 px rule.
+- **The controls** (columns 10–12 from 1280 px, sticky at 112 px; above the sheet below that,
+  with "Write your own line" under the sheet):
+  - "Your words": a switch (44 px target, 40 × 24 px track, ink when on) labelled "Show which
+    words are yours", with a `Y` key hint; `Y` works while focus is inside the scene. On, every
+    sentence takes its mark (§2.3): word for word, a brass-ink wash and a solid 1.25 px
+    underline; lightly edited, a 60 % wash and a dotted underline; written to connect them,
+    plain. The marks sweep in left to right (`background-size` 0 → 100 %, 400 ms, `--ease-line`,
+    40 ms apart). A three-row legend under the switch names the kinds. Pointing at or focusing
+    a marked sentence shows when it was said in a line under the legend.
+  - "Write your own line" (the client-only toy, back from the old hero): one paper text field
+    (48 px, 16 px type), "Place it in an essay" (ink primary). The line is cleaned
+    (`line-cleanup.ts`) and set as the first sentence of the essay, marked as word for word;
+    the caption and "Sign up and keep this line" (→ `/sign-in?from=line`, the line kept in this
+    browser only) and "Try another line" follow. Nothing typed leaves the browser.
+- Under the sheet: the fictional note in `label`, ink at 66 %.
+- The sheet and its controls are one small client component (`essay-toy.tsx`; with the stepper it is the page's own 5.1 KB gz chunk),
+  rendered on the server like any other and hydrated with the page. Not a lazy island: an
+  island's markup arrives late and never shows without JavaScript. The server's render has the
+  switch off, which reads as a finished page on its own.
+
+### Scene 6 · The model (`#the-model`; `_sections/the-model.tsx`)
+
+An instrument panel, not a badge wall. Every word from `lib/model-claims.ts`.
+
+- Columns 1–4: the dial seal, 240 px (200 px on phones); 40 px; eyebrow (`MODEL_COPY.eyebrow`);
+  `h2` in `display-2` (28 → 48 px): `MODEL_COPY.headingLines`, the last line in the accent; 20 px;
+  the paragraph, `body`, `--fg-64`. This column is sticky at 112 px on `lg`.
+- Columns 6–12: the ledger (`MODEL_CORPUS`) as rows on hairlines. Each row: the figure in Geist
+  Mono 40 px (28 px on phones), tabular, `--fg`, in a 144 px column (88 px on phones); the title
+  in `title` (18 → 20 px, 500); the line in `body`, `--fg-64`, at most 520 px. Row padding 28 px.
+  The hairline above each row draws left to right as the ledger reveals (`scaleX` 0 → 1, 600 ms,
+  `--ease-line`, 80 ms apart).
+- After the last row, 40 px: `MODEL_COPY.yoursLine` in Instrument Serif italic 24 → 28 px / 1.25,
+  `--fg-80`, at most 560 px.
+
+### Scene 7 · Connect (`#connect`; `_sections/connect-people.tsx`)
+
+- Columns 1–5: eyebrow; `h2` (`CONNECT_COPY.headingLines`, accent on the last line); paragraph;
+  then the three kinds of people as rows on hairlines (`label` in a 96 px column, the line in
+  `body`); the text link to `/pricing`.
+- Columns 7–12: a static 3 × 2 grid of six of the illustrative portraits (2 × 3 on phones),
+  16 px gutters, 4 : 5, 24 px radius, `grayscale(1) brightness(.9)` at rest. Under each, its role
+  in `label`. Roles only: no names, no schools. The marquee is gone.
+- Directly under the grid: `label` "Illustrative portraits", then `ILLUSTRATIVE_NOTE`, `ui-sm`,
+  `--fg-64`.
+- `SocialProofSlot` follows this scene (§4.1) and renders nothing.
+
+### Scene 8 · What it won't do (`#wont-do`; `_sections/wont-do.tsx`)
+
+Short and sharp. The five `INTEGRITY_LINES`, each split at its first full stop.
+
+- Head: eyebrow "Trust"; `h2` "What it / _won't do._".
+- A numbered list on hairlines, row padding 28 px (`lg` 36 px). Each row on `lg`: the number in
+  `label` (column 1); the first sentence in Geist 28 / 1.25, 450, −0.02em, `--fg` (columns 2–8);
+  the rest of the line in `body`, `--fg-64` (columns 9–12). Below `lg`: 20 px for the first
+  sentence, the rest under it.
+- The AI-policy table has left this page; a text link, "See all schools' AI policies", goes to
+  `/how-it-works#ai-policies`.
+
+### Scene 9 · Interview practice, coming soon (`_sections/interview-soon.tsx`)
+
+A half-height scene (padding 64 / 96 px), between hairlines, honest first.
+
+- Columns 1–5: a `chip`-style pill in `label` type, "Coming soon"; `h2` in `display-2`,
+  "Interview practice, / _from the same story._"; `INTERVIEW_COMING_SOON_LINE` verbatim in
+  `body-lg`, `--fg-80`.
+- Columns 7–12: one still of the room in a product frame (32 px radius, 8 px bezel), with a
+  pill on its top edge: "Preview · not available yet". Inside, set in `em` like the windows of
+  scene 3: `label` "Follow-up · from your essay"; the question in Geist 1.5em, 500; a timer
+  ring, 7.5em across: a `--line` circle with 35 % of it (0:42 of 2:00) drawn in brass 1.5 px
+  from twelve o'clock, "0:42" in mono inside; four lines of an answer in Instrument Serif italic
+  1.25em, the last line at `--fg`, the earlier ones at `--fg-48`.
+- The arc draws to its place when the scene reveals (900 ms, `--ease-line`).
+
+### Scene 10 · Pricing (`#pricing`; `_sections/pricing.tsx`)
+
+- Head: eyebrow `PACK_PITCH.eyebrow`; the two-line contrast as `h2` in `display-2`
+  (`PACK_PITCH.others`, then `PACK_PITCH.ours`; the first line at `--fg-60`, the second at
+  `--fg`: here the quiet line is the competitor's and the full-strength one is ours).
+- **Four columns on one baseline** (`lg`): Free · 1 school · **5 schools** · 10 schools, from
+  `FREE_PLAN` and `PLAN_CARDS`, never typed. Each: the name in `label`; 20 px; the price in Geist
+  56 px (40 px below `lg`), 450, tabular, −0.04em (`price-figure`; set in mono the four prices
+  read as a terminal, not a price list); the struck-through list price beside it in
+  mono 18 px, `--fg-48`; 16 px; one line, `ui-sm`, `--fg-64`; then the button at the column's
+  foot.
+  - The 5-school column is the only filled card (`--surface-2`, `--line-strong` edge, 24 px
+    radius, 32 px padding), 16 px taller top and bottom than the row, with "Most chosen" as a
+    `label` pill, `PACK_PITCH.detail` under its line and the page's only brass button in this
+    scene, "Start your story" with the arrow.
+  - The other three are open columns, 32 px padding, a `--line` hairline between neighbours,
+    each with a secondary button, "Start free".
+  - Phone: 5 schools first, then 1, 10, Free, stacked with hairlines.
+- Under the row, two typeset lists on hairlines, `lg` side by side: "Included free"
+  (`FREE_FEATURES`) and "In every school kit" (`KIT_FEATURES`), `ui-sm`, `--fg-80`, each item
+  behind a 12 px rule; the interview line (`KIT_COMING_SOON`) under the second with its
+  "Coming soon" pill.
+- Last: `TAX_AND_FINAL_LINE` ("…All sales are final…") in `ui-sm`, `--fg-64`, and the text link
+  "See what's in a kit" to `/pricing`.
+
+### Scene 11 · Questions (`#questions`; `_sections/faq.tsx`)
+
+- Columns 1–4: `h2` in `display-1`, "Questions." Columns 6–12: the list as native `<details>`,
+  a hairline between rows. Summary: `title` (18 → 20 px, 500), 24 px padding, 44 px minimum, a
+  16 px plus on the right whose stem turns 90° on `snap`. Answer: `body`, `--fg-80`, at most
+  60ch, 28 px under it. Height glides open where `interpolate-size` exists.
+- FAQPage JSON-LD and `faq_open` tracking unchanged.
+
+### Scene 12 · Final call (`_sections/final-call.tsx`)
+
+- Centred: `h2` in `display-1`, "Your story, _told well,_ / for each school."; 40 px; the
+  primary button "Start your story" (`lg`, with the arrow), alone. No "Sign in" here: it is in
+  the nav above and the footer directly below, and a second action beside the button left the
+  peak under neither.
+- Under the line, 32 px: the model credit, centred, at most 420 px wide, the small seal above
+  its sentence.
+- The horizon returns: one full-bleed line (`--line-strong`, 1.25 px) 72 px under the buttons,
+  flat, with one brass peak (the mark's rise, 42 px tall) under the button. It draws from the
+  left as the scene reveals (900 ms). No Voiceprint, no orb.
+
+### Scene 13 · Footer (`_chrome/site-footer.tsx`)
+
+Dark, above a `--line` hairline. Columns 1–4: the wordmark (18 px) and one line, "Tell it once.
+Tell it well." in `ui-sm`, `--fg-64`. Then Product, Trust and Contact: `label` heads; links in
+`ui` at `--fg-64`, 44 px rows, `--fg` on hover. Last row, on a hairline: the copyright and the
+affiliation disclaimer, `ui-sm`, `--fg-60`. No theme switch. `LEGAL_ENTITY` is still a TODO in
+the code (§9.6); until it is set the line reads "© 2026 AdmitStories." and no placeholder shows.
 
 ### 4.1 `SocialProofSlot`
 
@@ -986,12 +1238,12 @@ only additions to every page.
 
 Added: none.
 
-| Removed                                                      | When                                 | Why                                                                                                                                                                                                                                                                                                     |
-| ------------------------------------------------------------ | ------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `gsap`                                                       | Phase 3                              | its one user, `_follow/follow-sequence.ts`, folds into the stepped "How it works" scene (CSS transitions)                                                                                                                                                                                               |
-| `lenis`                                                      | Phase 3 (**recommendation: remove**) | With stepped scenes there is nothing for smooth scrolling to smooth. It is desktop-only today, starts on the first wheel event, and adds input latency and a second scroll model that fights `position: sticky`, anchor links and the phone's native scroll. Anchor jumps use `scroll-behavior: smooth` |
-| `ogl`, `detect-gpu`, `public/detect-gpu`                     | after Phase 5, with a yes (§9.1)     | the brief says no WebGL anywhere; they stay only as long as `/prototype/*` uses them                                                                                                                                                                                                                    |
-| `next/font` faces Newsreader, Hanken Grotesk, JetBrains Mono | Phase 1                              | replaced                                                                                                                                                                                                                                                                                                |
+| Removed                                                      | When                             | Why                                                                                                                                                                                                                                                                                                     |
+| ------------------------------------------------------------ | -------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `gsap`                                                       | Phase 3                          | its one user, `_follow/follow-sequence.ts`, folds into the stepped "How it works" scene (CSS transitions)                                                                                                                                                                                               |
+| `lenis`                                                      | Phase 3 (removed)                | With stepped scenes there is nothing for smooth scrolling to smooth. It is desktop-only today, starts on the first wheel event, and adds input latency and a second scroll model that fights `position: sticky`, anchor links and the phone's native scroll. Anchor jumps use `scroll-behavior: smooth` |
+| `ogl`, `detect-gpu`, `public/detect-gpu`                     | after Phase 5, with a yes (§9.1) | the brief says no WebGL anywhere; they stay only as long as `/prototype/*` uses them                                                                                                                                                                                                                    |
+| `next/font` faces Newsreader, Hanken Grotesk, JetBrains Mono | Phase 1                          | replaced                                                                                                                                                                                                                                                                                                |
 
 ---
 

@@ -8,15 +8,22 @@
 // Keyed by pathname and animated on enter/exit only, never on update: an `update` animation also
 // fired whenever a lazy island inside the page resolved (the hero's live Voiceprint, the pinned
 // sequence), which cross-faded the whole landing page twice while it loaded.
+//
+// It also arms the scroll reveals (SPEC §2.10): one observer for the page, re-armed by the pathname
+// so a client navigation picks up the new page's `reveal` blocks.
 
+import { RevealObserver } from "@admitstory/ui";
 import { usePathname } from "next/navigation";
 import { ViewTransition, type ReactNode } from "react";
 
 export function PageTransition({ children }: { children: ReactNode }) {
   const pathname = usePathname();
   return (
-    <ViewTransition key={pathname} enter="route-in" exit="route-out" default="none">
-      <div>{children}</div>
-    </ViewTransition>
+    <>
+      <ViewTransition key={pathname} enter="route-in" exit="route-out" default="none">
+        <div>{children}</div>
+      </ViewTransition>
+      <RevealObserver routeKey={pathname} />
+    </>
   );
 }

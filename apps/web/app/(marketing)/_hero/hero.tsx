@@ -11,7 +11,6 @@
 // All three are in the HTML (two hidden), so the loop carries no copy and nothing shifts.
 
 import { buttonStyles, cx, estimateWordTimings } from "@admitstory/ui";
-import { Source_Serif_4 } from "next/font/google";
 import Link from "next/link";
 import type { CSSProperties } from "react";
 import { ModelSealMark } from "@/components/model-seal";
@@ -20,6 +19,7 @@ import { HERO_COPY, HERO_FACTS, HERO_SAMPLES, type HeroSample } from "../_copy/h
 import { trackAttributes } from "../_lib/track";
 import { START_FREE_HREF } from "../_ui/cta-link";
 import { SECTION_GRID } from "../_ui/section";
+import { sheetSerif } from "../_ui/sheet-serif";
 import { HeroLoopGate } from "./hero-loop-gate";
 import {
   LINE_BASE,
@@ -30,18 +30,8 @@ import {
   type LineForm,
 } from "./voiceline-shape";
 
-// The sheets are set in the reading serif and are on screen at first paint, so this page preloads
-// its roman (19.7 KB; the root layout declares the face lazily, SPEC §8.1). Without it the essay
-// text would paint in the fallback and swap a moment later, in the one place everybody looks.
-const sheetSerif = Source_Serif_4({
-  subsets: ["latin"],
-  weight: "400",
-  style: "normal",
-  display: "swap",
-});
-
-/** Where "See how it works" lands. Phase 3 builds the scene and gives it the id `how`. */
-const HOW_HREF = "#follow";
+/** Where "See how it works" lands: scene 3. */
+const HOW_HREF = "#how";
 
 /** The `enter` utility steps in 90 ms; the hero's order is set in milliseconds (SPEC §3.5). */
 function enterAt(ms: number): CSSProperties {
@@ -227,7 +217,7 @@ function HeroFan({ sample, off }: { sample: HeroSample; off: boolean }) {
               {sheet.before ? `${sheet.before} ` : null}
               {sheet.said ? (
                 <>
-                  <mark data-hero-mark="" className="hero-mark">
+                  <mark data-hero-mark="" className="sheet-mark">
                     {sheet.said}
                   </mark>{" "}
                 </>

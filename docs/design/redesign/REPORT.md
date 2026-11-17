@@ -163,7 +163,7 @@ score: a correct single column, not a recomposition.
 
 ---
 
-## Phase 2: landing hero (2026-11-14) · awaiting review
+## Phase 2: landing hero (2026-11-14) · built; Phase 3 named with no notes
 
 The marketing nav and the landing hero are rebuilt on the Phase 1 system. Everything below the
 hero on `/` is still the old page (Phase 3).
@@ -272,3 +272,155 @@ speed by a person) and mobile (the sentence and line are just below the first sc
   sections below the hero, replaced in Phase 3.
 - Other people's uncommitted work was in the tree during this session (about twenty files in
   Studio, `packages/ai`, `packages/slots`, `packages/voice`). None of it is in this commit.
+
+## Phase 3: landing, all scenes (2026-11-16 and 17) · done
+
+Built across two sessions. The first built scenes 2 to 13 and was cut off before anything was
+shot or committed. The second inspected that work, kept all of it, shot every scene, fixed five
+things the screenshots showed, measured, and committed. The landing page is now one dark page
+from the hero to the footer, with one paper scene in the middle.
+
+### What changed
+
+- **One dark field.** Marketing is dark-only. The grain is painted once on the wrapper; the
+  footer's theme switch and `marketing-theme.ts` are gone. One `RevealObserver` arms the scroll
+  reveals for whichever marketing page is open.
+- **GSAP and Lenis are removed** from `package.json` and the lockfile, with `_follow/*`,
+  `_motion/*` and `_lib/gates.ts`. Nothing below the hero runs a frame loop.
+- **Scene 2, schools strip.** The sixteen names as type between two hairlines; two justified
+  rows from 1280 px, a wrapping run below. No scroller, no script.
+- **Scene 3, how it works.** Tell, Position, Draft, Refine. Four product windows drawn in
+  markup from the design system (Story Studio, a positioning, a draft on paper, a revision as a
+  diff), with the analyst's 2 a.m. sentence passing through all four. On laptops the window is
+  pinned with CSS `sticky` and swaps as each step crosses a line in the viewport: stepped,
+  never scrubbed. Without JavaScript each step sits beside its own window. This replaces the old
+  three-step section, "follow one sentence" and the screens stepper.
+- **Scene 4, school by school.** A new fictional applicant (a site engineer on a metro line)
+  says three sentences once; Wharton, Tuck and HEC Paris each get a draft opening built around a
+  different one, because each asks a different question. Names are type; no logos.
+- **Scene 5, essays that show their thinking.** The page turns to paper: one large sheet with
+  its reasoning in the margin, a switch (and the `Y` key) that marks which sentences are the
+  applicant's own, and "Write your own line", back on the page and still client-only.
+- **Scene 6, the model.** The dial seal beside the ledger, typeset as a table whose rules draw
+  in. Every word and figure comes from `lib/model-claims.ts`.
+- **Scene 7, Connect.** Six illustrative portraits in a still grid, roles only, labelled.
+  `SocialProofSlot` follows it and renders nothing until it is given real content.
+- **Scene 8, what it won't do.** Five numbered lines on hairlines. The AI-policy table moved
+  off this page; a link goes to it.
+- **Scene 9, interview practice.** "Coming soon", the promise verbatim, and one still of the
+  room labelled "Preview · not available yet".
+- **Scene 10, pricing.** Free, 1, 5 and 10 schools from `_data/pricing.ts`; the 5-school pack
+  is the one filled card with "Most chosen" and the only brass button; "All sales are final"
+  sits in the terms line.
+- **Scenes 11 to 13.** Questions as native `<details>`; the final call (one sentence, one
+  button, the horizon line with its peak, the model credit); the footer.
+- **Deleted:** `app-preview`, `real-screens`, `screens-stepper`, `your-words*`,
+  `how-it-works-lines`, `final-voiceprint*`, `_ui/frames`, `_ui/hairline`.
+- SPEC §4 is written to the values as built.
+
+### Screenshots (`shots/after/`; before: `shots/before/landing-*.jpg`)
+
+| File                                                           | What it shows                                             |
+| -------------------------------------------------------------- | --------------------------------------------------------- |
+| `landing-1440-full.jpg`, `landing-390-full.jpg`                | the whole page, laptop and phone (see the note below)     |
+| `landing-scene-02-schools-strip-1440.jpg`                      | scene 2                                                   |
+| `landing-scene-03-how-head-1440.jpg`, `…-how-step1…4-1440.jpg` | scene 3: the head, then the pinned window at each step    |
+| `landing-scene-03-how-nojs-1440.jpg`, `…-how-1024.jpg`         | scene 3 without JavaScript, and at 1024 px                |
+| `landing-scene-04-school-by-school-1440.jpg`, `…-sheets-1440`  | scene 4: the head and spoken lines, then the three drafts |
+| `landing-scene-05-essays-1440.jpg`                             | scene 5 as the server renders it                          |
+| `landing-scene-05-essays-words-on-1440.jpg`, `…-line-placed-…` | the switch on; a visitor's own line placed in the essay   |
+| `landing-scene-06-model-1440.jpg`, `…-07-connect-1440.jpg`     | scenes 6 and 7                                            |
+| `landing-scene-08-wont-do-1440.jpg`, `…-09-interview-1440.jpg` | scenes 8 and 9                                            |
+| `landing-scene-10-pricing-1440.jpg`, `…-lists-1440`, `…-768`   | scene 10: the plans, the lists and terms, and at 768 px   |
+| `landing-scene-11-questions-1440.jpg`, `…-questions-open-1440` | scene 11, closed and with one answer open                 |
+| `landing-scene-12-final-call-1440.jpg`, `…-13-footer-1440.jpg` | scenes 12 and 13                                          |
+| `landing-scenes-390-sheet-1.jpg` to `-4.jpg`                   | sixteen phone frames, four to a sheet, in page order      |
+| `landing-1440.jpg`, `landing-390.jpg`, and the two `-rm` files | the first screen again, with and without reduced motion   |
+
+`report-p3-public.json` and `report-p3-landing-rm.json` are the capture script's reports: no
+overflow at 375 px, no console errors, failed requests or hydration warnings on `/`,
+`/how-it-works`, `/pricing`, `/privacy`, `/terms` or `/sign-in`.
+
+The two full-page images repeat the fixed nav and catch the pinned stepper mid-scroll, so judge
+the scenes from the scene files.
+
+### Scores
+
+| Scene              | Glance | Signature | Type | Composition | Colour | Media | Motion | Mobile | Copy | Polish | Average |
+| ------------------ | ------ | --------- | ---- | ----------- | ------ | ----- | ------ | ------ | ---- | ------ | ------- |
+| `/` whole page     | 9      | 9         | 9    | 8           | 9      | 8     | 8      | 8      | 9    | 8      | **8.5** |
+| 2 schools strip    | 8      | 7         | 9    | 8           | 8      | 8     | 7      | 8      | 8    | 9      | **8.0** |
+| 3 how it works     | 9      | 9         | 9    | 8           | 9      | 9     | 8      | 8      | 9    | 8      | **8.6** |
+| 4 school by school | 9      | 8         | 9    | 8           | 9      | 8     | 7      | 8      | 9    | 8      | **8.3** |
+| 5 essays, on paper | 9      | 9         | 9    | 8           | 9      | 9     | 8      | 8      | 9    | 8      | **8.6** |
+| 6 the model        | 8      | 8         | 9    | 8           | 8      | 8     | 8      | 8      | 8    | 8      | **8.1** |
+| 7 Connect          | 8      | 7         | 9    | 8           | 8      | 8     | 7      | 8      | 8    | 8      | **7.9** |
+| 8 what it won't do | 8      | 7         | 9    | 8           | 8      | 7     | 7      | 8      | 9    | 8      | **7.9** |
+| 9 interview, soon  | 8      | 8         | 8    | 8           | 9      | 8     | 8      | 8      | 9    | 8      | **8.2** |
+| 10 pricing         | 8      | 8         | 8    | 8           | 9      | 7     | 7      | 8      | 9    | 8      | **8.0** |
+| 11 questions       | 8      | 7         | 9    | 8           | 8      | 7     | 7      | 8      | 8    | 8      | **7.8** |
+| 12 final call      | 8      | 7         | 9    | 8           | 8      | 7     | 8      | 8      | 8    | 8      | **7.9** |
+| 13 footer          | 8      | 7         | 8    | 8           | 8      | 7     | 7      | 8      | 8    | 8      | **7.7** |
+
+The page as one screen clears the bar (8.5, nothing under 7). Five scenes taken alone sit just
+under 8: Connect, what it won't do, questions, the final call and the footer. They are the quiet
+ones, type on hairlines with no visual of their own, which is what the brief asks of everything
+around the one moment; but a jury shown any one of them alone would call it plain.
+
+The first pass found five faults, all fixed and re-shot:
+
+1. over the paper scene the nav was a mid-grey pill (its wash is now 88 % of `--bg`, not 72 %);
+2. the final call had "Sign in" stranded under a left-aligned credit (now one action, the
+   credit centred under the line);
+3. the model ledger's last rule stopped at 560 px (it runs the full column);
+4. the Studio window had 200 px of dead space (the question sits midway down);
+5. the pinned window hung in the top half of tall screens (it is centred in the viewport).
+
+The three weakest now: the final call (the peak is small for a closing image), pricing's three
+open columns (a lot of empty height beside the filled card at 1440) and motion everywhere
+(judged from frames and timings, not watched at speed by a person).
+
+### What was checked, and how
+
+| Check                                        | Result                                                                                                                            |
+| -------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------- |
+| `pnpm typecheck`, `pnpm lint`                | passed                                                                                                                            |
+| `next build` (local environment)             | passed on the second run; the first stopped on a Next.js security notice (see below)                                              |
+| `bundle:check`                               | passed: `/` 147.7 of 155 KB (was 151.9); other marketing routes 142.8–149.2; `/sign-in` 158.0 of 160                              |
+| The page's own script                        | 5.1 KB gz (the paper scene's toy and the stepper)                                                                                 |
+| Document                                     | 245.9 KB, 47.0 KB gz (was 354 KB); 1,050 elements                                                                                 |
+| Fonts preloaded on `/`                       | 86.1 KB in 4 files (cap 110); unchanged                                                                                           |
+| CLS over a full pass                         | 0 on the phone, 0.0001 on desktop                                                                                                 |
+| Frames with the hero off screen              | 0 `requestAnimationFrame` calls in 3 s (the GSAP ticker is gone)                                                                  |
+| axe, WCAG 2.2 AA, whole page                 | 0 violations: desktop, reduced motion, phone, and with the switch on, a line placed and a question open                           |
+| Lighthouse, mobile, simulated (2 sets of 3)  | performance 0.83 and 0.92, accessibility 1.00, best practices 1.00, SEO 1.00; FCP 1.51 s, **LCP 3.3 s**, TBT 383 and 44 ms, CLS 0 |
+| Lighthouse, mobile, throttling applied       | performance 0.86; FCP 2.44 s, **LCP 3.42 s**, TBT 92 ms, CLS 0                                                                    |
+| Overflow                                     | none at 320, 375, 390, 768, 1024, 1280, 1440, 1920                                                                                |
+| Reduced motion                               | every block visible with no scroll; the stepper swaps with a 120 ms fade                                                          |
+| JavaScript off                               | the whole page renders: nothing hidden, each step beside its own window, the paper scene with the switch off                      |
+| Console, failed requests, hydration warnings | none on `/` or the other public pages (the 404 page logs its own 404, as before)                                                  |
+| Unit tests                                   | 2,515 of 2,517 pass, as after Phase 2. Neither failure is the redesign's: the `db` schema test and `api/stt/token/route.test.ts`  |
+
+### What could not be done, and what to know
+
+- **LCP on a slow phone is 3.4 s, over the 2.5 s target, and it is the hero's entrance that
+  sets it.** First paint is at 2.4 s; the subline, the largest text above the fold, fades in
+  about a second later, and that is the moment Chrome reports. Phase 2 measured the two as the
+  same moment; measured again with every candidate logged, they are not. The scenes below the
+  hero are not involved, and shrinking the document by a third did not move first paint. The
+  hero was left as built because it was reviewed that way. PROGRESS "Needs Manu" 6 gives the two
+  options; the one recommended is to let the subline be there at first paint and keep the
+  headline's rise.
+- **Lighthouse's performance score moved between 0.83 and 0.92** across two sets of runs on the
+  same build, almost all of it TBT (44 to 383 ms). Accessibility went from 0.97 to 1.00.
+- **`next build` stopped once** with "Your version of Next.js is affected by a known security
+  vulnerability" and instructions to run an upgrade command. The build was run again and
+  passed; nothing was upgraded, since dependencies are outside this job. Worth Manu's look.
+- **`main` already carries Phases 0 to 2.** `main` and `origin/main` are at the merge commit
+  `f710165`, and Phase 3 had been built with `main` checked out. Its work was moved to
+  `redesign/literary-instrument` uncommitted and committed there; nothing was pushed.
+- **`/how-it-works`, `/pricing`, `/privacy` and `/terms` are now dark with their old layouts**
+  until Phase 4. They render cleanly. `/how-it-works` still draws the old Voiceprint orb.
+- **Motion was verified from timed frames and measurements, not watched live.**
+- "12 schools, read closely" still stands in the model ledger beside a strip that names 16
+  (PROGRESS "Needs Manu" 5). Only Manu changes claims.

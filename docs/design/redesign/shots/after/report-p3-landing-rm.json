@@ -1,0 +1,23 @@
+{
+  "base": "http://localhost:3100",
+  "out": "after",
+  "theme": "day",
+  "reduced": true,
+  "takenAt": "2026-11-17T07:17:35.020Z",
+  "routes": [
+    {
+      "name": "landing",
+      "path": "/",
+      "consoleErrors": [],
+      "failedRequests": [],
+      "hydration": [],
+      "status": 200,
+      "finalPath": "/",
+      "overflow375": {
+        "px": 0,
+        "offenders": []
+      }
+    }
+  ],
+  "setup": []
+}

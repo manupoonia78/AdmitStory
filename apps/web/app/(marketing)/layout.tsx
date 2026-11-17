@@ -1,28 +1,20 @@
 // The public marketing site (spec §16 Phase 9a; direction §2, §9; plan §2.1). No app shell, no
 // dock, no Radix: server markup with a handful of tiny client leaves.
 //
-// Theme: Day paper by default, Night only when the visitor chose Night (marketingTheme). The hero
-// and the pinned sequence pin themselves to Night, so the page alternates ink and paper.
+// Theme: dark only (SPEC §4). The marketing site is the instrument whatever the visitor's app
+// preference is; a scene that is about reading turns to paper by carrying data-theme="day" itself.
+// The grain is painted once, here, so every dark scene shares one field.
 
 import { APP_NAME } from "@admitstory/shared/brand";
-import {
-  SkipLink,
-  THEME_COOKIE,
-  ViewTransitionStyles,
-  parseThemePreference,
-  themeColors,
-} from "@admitstory/ui";
+import { SkipLink, ViewTransitionStyles, themeColors } from "@admitstory/ui";
 import type { Metadata, Viewport } from "next";
-import { cookies } from "next/headers";
 import type { ReactNode } from "react";
 import { absoluteUrl, siteUrl } from "@/lib/marketing/site-url";
 import { PageTransition } from "./_chrome/page-transition";
-import { marketingTheme } from "./_chrome/marketing-theme";
 import { SiteFooter } from "./_chrome/site-footer";
 import { SiteNav } from "./_chrome/site-nav";
 import { TrackClicks } from "./_chrome/track-clicks";
 import { HELLO_EMAIL } from "./_copy/chrome";
-import { SmoothScrollHost } from "./_motion/smooth-scroll-host";
 import { JsonLd } from "./_ui/json-ld";
 import "./_chrome/marketing.css";
 
@@ -34,16 +26,12 @@ export function generateMetadata(): Metadata {
   };
 }
 
-async function themePreference() {
-  return parseThemePreference((await cookies()).get(THEME_COOKIE)?.value);
-}
-
-export async function generateViewport(): Promise<Viewport> {
+export function generateViewport(): Viewport {
   return {
     width: "device-width",
     initialScale: 1,
-    colorScheme: "light dark",
-    themeColor: themeColors(marketingTheme(await themePreference())),
+    colorScheme: "dark",
+    themeColor: themeColors("night"),
   };
 }
 
@@ -59,14 +47,9 @@ function organization() {
   };
 }
 
-export default async function MarketingLayout({ children }: { children: ReactNode }) {
-  const preference = await themePreference();
+export default function MarketingLayout({ children }: { children: ReactNode }) {
   return (
-    <div
-      data-marketing-theme=""
-      data-theme={marketingTheme(preference)}
-      className="min-h-dvh bg-space text-text"
-    >
+    <div data-theme="night" className="marketing grain min-h-dvh bg-space text-text">
       <SkipLink />
       <SiteNav />
       {/* Pages without the landing hero start below the floating nav. */}
@@ -77,10 +60,9 @@ export default async function MarketingLayout({ children }: { children: ReactNod
       >
         <PageTransition>{children}</PageTransition>
       </main>
-      <SiteFooter theme={preference} />
+      <SiteFooter />
       <JsonLd data={organization()} />
       <ViewTransitionStyles />
-      <SmoothScrollHost />
       <TrackClicks />
     </div>
   );
