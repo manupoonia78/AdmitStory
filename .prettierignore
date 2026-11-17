@@ -6,3 +6,7 @@ fixtures/llm-replays
 AdmitStory_Build_Spec.md
 knowledge/canon
 packages/ai/src/prompts/**/*.md
+# Copied unchanged from github.com/emilkowalski/skills
+.claude/skills
+# Machine-written screenshot reports
+docs/design/redesign/shots

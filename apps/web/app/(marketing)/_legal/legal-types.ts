@@ -14,7 +14,7 @@ export interface LegalSection {
 }
 
 /** Both pages carry a draft note until counsel has reviewed them (spec §14.4). */
-export const LEGAL_DRAFT = true;
+export const LEGAL_DRAFT = false;
 export const LEGAL_DRAFT_NOTE = "This page is a draft under legal review.";
-/** Shown as "Last updated 3 November 2026". */
-export const LEGAL_UPDATED = "2026-11-03";
+/** Shown as "Last updated 17 November 2026". */
+export const LEGAL_UPDATED = "2026-11-17";

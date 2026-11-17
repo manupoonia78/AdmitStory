@@ -3,10 +3,10 @@
 import { APP_NAME } from "@admitstory/shared/brand";
 
 /**
- * The contact addresses on admitstories.com. TODO(Manu): the legal entity; until it is set, the
- * footer shows this placeholder; nothing here is invented.
+ * Who runs admitstories.com, and its contact addresses. Manu (2026-11-17): the service trades as
+ * AdmitStories; change this if a company is registered to run it.
  */
-export const LEGAL_ENTITY = "TODO(Manu): legal entity";
+export const LEGAL_ENTITY = APP_NAME;
 export const HELLO_EMAIL = "hello@admitstories.com";
 export const PRIVACY_EMAIL = "privacy@admitstories.com";
 
@@ -56,7 +56,6 @@ export const FOOTER_LEGAL = `AdmitStories is not affiliated with any school. Sch
 /** One line under the wordmark in the footer: the headline again, small. */
 export const FOOTER_LINE = "Tell it once. Tell it well.";
 
-/** Until the legal entity is set, the line names the brand; a placeholder never renders. */
 export function copyrightLine(year: number): string {
-  return `© ${year} ${LEGAL_ENTITY.includes("TODO") ? APP_NAME : LEGAL_ENTITY}.`;
+  return `© ${year} ${LEGAL_ENTITY}.`;
 }

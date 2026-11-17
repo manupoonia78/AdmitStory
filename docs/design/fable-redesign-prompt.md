@@ -26,6 +26,7 @@ These are true today. Never contradict them in copy or visuals. Where my older n
 **Name and voice.** The brand is **AdmitStories**: one word, capital A and S. The package scope stays `@admitstory/*`. Contact addresses are hello@ and privacy@admitstories.com (`apps/web/app/(marketing)/_copy/chrome.ts`).
 
 **Pricing** (source: `apps/web/lib/payments/plans.ts`, `(marketing)/_data/pricing.ts`; read the prices from there and never hard-code them):
+
 - Free: talking in Story Studio (the first 30 answers), the Profile Read, and a school strategy/preview per school.
 - 1 school: $100.
 - **5 schools: $349**, the hero offer: "usually $500" in strikethrough plus a "most chosen" badge.
@@ -34,11 +35,13 @@ These are true today. Never contradict them in copy or visuals. Where my older n
 - **All sales are final.** Never mention, promise or design for refunds anywhere.
 
 **Live vs. coming.** Payments run live on Dodo Payments. Don't touch checkout behaviour.
+
 - **Interview practice is NOT live.** It's deferred (`apps/web/lib/interview/coming-soon.ts`, full spec in `docs/phase-7-interview-studio.md`). The promise is that kit owners get it free when it opens. The marketing site may show it only as clearly labelled "coming soon". Never write "interview prep included" as if it exists today.
 - **Expert 1:1 mock interviews are deferred** (Phase 8, `docs/phase-8-experts-connect-tracker.md`). No add-on card.
 - The Tracker is deferred too. Keep its current state.
 
 **Claims.** Every claim about the model comes from `apps/web/lib/model-claims.ts` and only from there: "trained on 500+ admitted MBA essays", "built with an admissions consultant and admissions directors from different schools", the seal and the ledger. Keep the seal (`components/model-seal.tsx`) as a brand element and redesign how it looks if you like, but never rewrite the claims or add new ones.
+
 - Never invent testimonials, admit rates, user counts or school endorsements.
 - Where social proof will go, build a `SocialProofSlot` component that renders **nothing** in production until I give it real content, and comment where it sits. No visible empty boxes and no placeholder copy ship. (`components/placeholder-copy.ts` and its test enforce this.)
 
@@ -57,6 +60,7 @@ These are true today. Never contradict them in copy or visuals. Where my older n
 This is a presentation-layer job. Don't touch backend logic, APIs, auth, payments, the DB schema or the prompts in `packages/ai/src/prompts`. If a screen genuinely can't work without such a change, stop and tell me first.
 
 **Write the spec before any code**, at `docs/design/redesign/SPEC.md`. It should read like a senior designer's brief to a developer:
+
 - real values for every visible element: size per breakpoint, weight, line-height, tracking, and colour with opacity;
 - motion for every element: trigger, delay, duration, easing, and from → to;
 - no adjective standing alone: "premium" or "cinematic" must come with the values that produce them;
@@ -67,6 +71,7 @@ Phase 0 writes the system and the landing hero to full values, and every other s
 **Build the system first.** Put tokens, the type scale, the one surface material, buttons, inputs, cards and the motion utilities in one place (`packages/ui`). Then build screens from it. Reuse it everywhere instead of styling things one-off. Keep the existing utility names in `render.css` (`plane`, `eyebrow`, `meta`, `placeholder`, etc.) working, or migrate every caller in the same change.
 
 **Build one screen at a time, then look at it.**
+
 1. Take screenshots at 1440×900 and 390×844 (plus a 375px check for horizontal scroll).
 2. Look at them as images and score the screen against the rubric at the end.
 3. Fix the three weakest scores with concrete value changes and screenshot again.
@@ -92,12 +97,13 @@ Phase 0 writes the system and the landing hero to full values, and every other s
 ## Design direction (REDESIGN mode)
 
 **Concept: "the literary instrument."** A premium editorial publication crossed with a precision instrument: warm, human typography carrying the story inside a quiet, exact interface.
+
 - **Dark** for the marketing site, Story Studio and the interview room.
 - **Warm paper** for reading and writing: the essay editor, the school workspace documents, the recommender portal and legal pages.
 
 **Signature idea, the thing people remember: voice becomes story becomes essays.**
 
-In the hero, a fine-line waveform runs along the lower third. It's drawn in SVG or canvas and driven by procedural noise, not audio. As it "speaks", the words of a fictional applicant's sentence surface above it one at a time in italic serif. After a beat, the sentence lifts and splits into three essay cards ("Why Northfield", "Short-term goal", "A time you led") that settle into a fanned stack on the right. Each card has a thin margin note in mono showing the reasoning, for example: *"leads with the 3 a.m. call: ownership before title."* Then it loops with a different fictional sentence.
+In the hero, a fine-line waveform runs along the lower third. It's drawn in SVG or canvas and driven by procedural noise, not audio. As it "speaks", the words of a fictional applicant's sentence surface above it one at a time in italic serif. After a beat, the sentence lifts and splits into three essay cards ("Why Northfield", "Short-term goal", "A time you led") that settle into a fanned stack on the right. Each card has a thin margin note in mono showing the reasoning, for example: _"leads with the 3 a.m. call: ownership before title."_ Then it loops with a different fictional sentence.
 
 - It replaces the current "See it happen" hero sample and reuses its fictional lines where they're good (`_hero/hero-demo.ts`, `_copy/hero.ts`).
 - The animation pauses when offscreen and when the tab is hidden.
@@ -107,6 +113,7 @@ In the hero, a fine-line waveform runs along the lower third. It's drawn in SVG 
 - This is the only heavy effect on the landing page. Everything else stays quiet.
 
 **One moment per page.** Every other page and app screen gets one smaller choreographed moment that belongs to its job, defined in the spec table. Examples:
+
 - Story Studio: the waveform answering your voice.
 - Dossier: chapters drawing onto the timeline.
 - School workspace: positioning lines settling in.
@@ -118,16 +125,24 @@ Nothing beyond that one moment per page.
 **Colour tokens** (refine in the spec, keep the logic):
 
 ```css
-:root{
-  --bg:#0A0A0B;            /* marketing, Studio, interview room */
-  --fg:#F4F1EA;            /* warm paper white */
-  --fg-80:rgba(244,241,234,.80); --fg-60:rgba(244,241,234,.60); --fg-40:rgba(244,241,234,.40);
-  --line:rgba(244,241,234,.12);
-  --paper:#F7F5F0; --ink:#141414; --ink-60:rgba(20,20,20,.62);   /* reading + writing surfaces */
-  --accent:#E2B36B;        /* brass on dark: primary CTA fill, waveform, text caret */
-  --accent-ink:#9A6B1F;    /* brass on paper, AA contrast */
+:root {
+  --bg: #0a0a0b; /* marketing, Studio, interview room */
+  --fg: #f4f1ea; /* warm paper white */
+  --fg-80: rgba(244, 241, 234, 0.8);
+  --fg-60: rgba(244, 241, 234, 0.6);
+  --fg-40: rgba(244, 241, 234, 0.4);
+  --line: rgba(244, 241, 234, 0.12);
+  --paper: #f7f5f0;
+  --ink: #141414;
+  --ink-60: rgba(20, 20, 20, 0.62); /* reading + writing surfaces */
+  --accent: #e2b36b; /* brass on dark: primary CTA fill, waveform, text caret */
+  --accent-ink: #9a6b1f; /* brass on paper, AA contrast */
 }
-html,body{background:var(--bg);color:var(--fg)}   /* first rule: no white flash */
+html,
+body {
+  background: var(--bg);
+  color: var(--fg);
+} /* first rule: no white flash */
 ```
 
 - Hierarchy comes from opacity steps, not new colours. Use the accent on no more than three element types.
@@ -137,6 +152,7 @@ html,body{background:var(--bg);color:var(--fg)}   /* first rule: no white flash 
 - Add a faint SVG grain over dark surfaces (opacity 0.05–0.08, `pointer-events: none`, one static image, never animated).
 
 **Type** (load through `next/font` and replace the current three faces; `geist` is already installed):
+
 - **Instrument Serif** italic for display accents: 1–3 words in a headline, in `--fg-60`, not brighter. Also used for the live transcript and the waveform words.
 - **Geist** for headlines and UI. Headlines are weight 400–500, never bold, with tracking −0.03 to −0.045em and line-height about 0.95.
 - **Geist Mono** for labels and margin notes: 11–12px uppercase, +0.18em tracking, 40–60% opacity.
@@ -146,12 +162,14 @@ html,body{background:var(--bg);color:var(--fg)}   /* first rule: no white flash 
 - Subset the fonts and budget their weight in the spec. The current fonts were trimmed from 279 KB to 123 KB, so don't regress that.
 
 **Material and components:**
+
 - **One frosted material:** backdrop blur around 16px on a 6–8% fill with a hairline edge. Define it once and use it for the nav, chips, the floating toolbar and secondary buttons. It's frosted, not glossy: no highlights or gradients on it.
 - **Buttons are pills.** The primary is solid brass on dark, or ink on paper, with an arrow in a small circle that nudges 2px on hover.
 - **Radii:** pills for actions, 24px for cards, 32px for the large product frames.
 - The root `app/layout.tsx` and `app/error.tsx` must not import `Button` or anything from Radix. Use `buttonStyles()` on a plain element (see the bundle notes below).
 
 **Motion:**
+
 - **Library:** Motion (`motion/react`) is the house library, and the springs live in `packages/ui/src/springs.ts` and `motion.ts`. GSAP is used in exactly one place, `_follow/follow-sequence.ts`. If you rebuild that section, move it to Motion and drop GSAP. Don't add new GSAP.
 - **Lenis smooth scroll** is installed. Keep it only if it doesn't fight sticky sections or native scroll on phones, and justify that in the spec.
 - **Entrances** run nav → eyebrow → H1 (per-word blur-rise, 90ms stagger) → sub → CTA. Each step is opacity 0→1, y 24px→0 and blur 8px→0 over 0.8s with `cubic-bezier(0.22,1,0.36,1)`. Everything is done by 1.5s.
@@ -165,6 +183,7 @@ html,body{background:var(--bg);color:var(--fg)}   /* first rule: no white flash 
   - Deferred "never" islands whose HTML streams late are loaded on the client if still empty after `load` (`deferred.tsx`). Keep that guard.
 
 **Copy voice:** confident, warm and specific. Never salesy, no hype words, no lorem. Copy lives in `_copy/*.ts`. Rewrite freely within the facts above.
+
 - Headline candidates to improve on: "Tell it once. / Tell it well." · "Your story, admitted." · "One life story. / Every school, in its own words."
 - CTAs: "Start your story" (primary, repeated in the nav) and "See how it works" (secondary).
 
@@ -234,12 +253,14 @@ Also redesign `/how-it-works`, `/pricing`, `/privacy` and `/terms` (legal pages 
 ## Hard requirements
 
 **Accessibility.**
+
 - WCAG AA contrast, checked by `contrast.test.ts` and axe.
 - Visible focus states and full keyboard access.
 - Tap targets ≥ 44px.
 - `prefers-reduced-motion` respected everywhere.
 
 **Mobile is designed, not just stacked.**
+
 - Rescale the type and recompose the media.
 - The signature is still present on phones.
 - No horizontal scroll at 375px.
@@ -247,18 +268,20 @@ Also redesign `/how-it-works`, `/pricing`, `/privacy` and `/terms` (legal pages 
 - The Tailwind theme has **no `md:` breakpoint**, only `sm`, `lg` and `xl`. Design to those or add one deliberately in the spec.
 
 **Performance.** Speed is part of the look.
+
 - LCP under 2.5s on a mid-range phone.
 - Fonts preloaded with `display: swap` and metric-matched fallbacks: no layout shift from fonts or from the looping hero text.
 - **First-load JS budgets** (`apps/web/scripts/bundle-budget.ts`): **155 KB gz** on marketing routes and **160 KB gz** on app routes. The app shell alone is about 152 KB, so:
   - large client screens load behind `next/dynamic` "host" modules (the server still renders them);
   - a `"use client"` module ships all of its exports, so split files rather than importing one helper from a big module;
-  - importing a helper *from* a module you're dynamic-loading pulls it back into first load;
+  - importing a helper _from_ a module you're dynamic-loading pulls it back into first load;
   - Radix Tooltip/popper costs about 30 KB, so draw hover labels in CSS;
   - a top-level `z.enum()` drags Zod (about 31 KB) into the browser, so validators stay in `@admitstory/shared/schemas`;
   - anything in the root layout or root boundaries must avoid `Button` and Radix.
 - To see what fills a chunk, build once with `productionBrowserSourceMaps: true` and read the maps.
 
 **Dependencies.**
+
 - Don't add new dependencies without saying why. Prefer what's installed (Motion, `geist`, `@phosphor-icons/react` for icons, Tailwind 4).
 - Prettier must not touch `packages/ai/src/prompts/**/*.md`. It's already ignored, so keep it that way.
 
@@ -283,23 +306,24 @@ The bar is an average of 8+ with nothing under 7. Be a harsh judge: score as an 
 
 This work runs across many sessions, and any session can end without warning when usage runs out. So it's split into nine phases, each sized to fit one session. I start every session with a short message naming the phase. Do only the phase I name; never start the next one on your own.
 
-| Phase | What it covers | Ends with |
-|---|---|---|
-| **0. Read, capture, spec** | Read the repo and this prompt. Create the branch. Write `docs/design/redesign/shoot.mjs` (Playwright, channel "chrome": every route in this prompt at 1440×900 and 390×844, plus a 375px overflow check, signed-in routes through the local DB) and `docs/design/redesign/local-db.md` (the exact commands to start the local Postgres, migrate, seed, start the app and sign in). Capture **before** screenshots of every screen. Write SPEC.md: the system and the hero to full values, every other screen as a composition sketch, the signature-moment table, the font and JS budget. Create PROGRESS.md. | **Stop for my review** of the spec summary. |
-| **1. Design system** | Fonts, tokens for dark, paper and Night paper, the type scale, grain, the frosted material, buttons, inputs, cards, chips, tabs, focus rings and motion utilities, all in `packages/ui`. The wordmark and favicon. Migrate the `render.css` utilities so every existing screen still renders. Update the contrast and motion tests. A hidden `/prototype/system` page that shows every token and component on dark, paper and Night paper. | Screenshot of `/prototype/system`; all gates green. |
-| **2. Landing hero** | The marketing nav, the hero signature, the reduced-motion still frame, the phone composition, the bottom facts strip. Per-frame cost measured, LCP measured. | **Stop for my review** of hero screenshots and scores. |
-| **3. Landing, all scenes** | Landing sections 2–13 (schools strip through footer), the GSAP follow sequence moved to Motion, Lenis kept or removed. | Full-page screenshots, scores per section, bundle:check under 155 KB. |
-| **4. Other marketing + entry** | `/how-it-works`, `/pricing`, `/privacy`, `/terms`, OG image, page titles, `/sign-in`, `/welcome`, `/first-run`. | Screenshots and scores. |
-| **5. Shell, home, Studio** | App shell (sidebar, top bar, bottom tabs, command palette, account menu, toasts), `/home`, `/studio` with every capture state and the allowance gate. | Screenshots in Day and Night, scores. |
-| **6. Schools and the editor** | `/schools`, `/schools/[id]` with all tabs and chat panels, `preview`, `unlock` (checkout untouched), `/workspace/[deliverableId]`, `/kits/[id]`. | Screenshots and scores; a test-mode unlock still opens the Dodo overlay. |
-| **7. The rest of the app** | `/dossier` (plus the drag proposal, unbuilt), `/profile-read`, `/recommenders`, `/recommenders/[id]`, `/r/[token]`, `/resume`, `/resume/review`, `/connect`, `/settings` and its subpages, `/interview` (coming soon), `/tracker`, and every empty, loading, error and not-found state. | Screenshots and scores. |
-| **8. Final pass** | Whole-site consistency sweep against the spec, axe on every route, Lighthouse on `/` and `/home` at mobile settings, 375px overflow on every route, console and network clean, reduced motion on every route, admin still renders. Finish REPORT.md. | REPORT.md complete; a summary for me. |
+| Phase                          | What it covers                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                | Ends with                                                                |
+| ------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------ |
+| **0. Read, capture, spec**     | Read the repo and this prompt. Create the branch. Write `docs/design/redesign/shoot.mjs` (Playwright, channel "chrome": every route in this prompt at 1440×900 and 390×844, plus a 375px overflow check, signed-in routes through the local DB) and `docs/design/redesign/local-db.md` (the exact commands to start the local Postgres, migrate, seed, start the app and sign in). Capture **before** screenshots of every screen. Write SPEC.md: the system and the hero to full values, every other screen as a composition sketch, the signature-moment table, the font and JS budget. Create PROGRESS.md. | **Stop for my review** of the spec summary.                              |
+| **1. Design system**           | Fonts, tokens for dark, paper and Night paper, the type scale, grain, the frosted material, buttons, inputs, cards, chips, tabs, focus rings and motion utilities, all in `packages/ui`. The wordmark and favicon. Migrate the `render.css` utilities so every existing screen still renders. Update the contrast and motion tests. A hidden `/prototype/system` page that shows every token and component on dark, paper and Night paper.                                                                                                                                                                    | Screenshot of `/prototype/system`; all gates green.                      |
+| **2. Landing hero**            | The marketing nav, the hero signature, the reduced-motion still frame, the phone composition, the bottom facts strip. Per-frame cost measured, LCP measured.                                                                                                                                                                                                                                                                                                                                                                                                                                                  | **Stop for my review** of hero screenshots and scores.                   |
+| **3. Landing, all scenes**     | Landing sections 2–13 (schools strip through footer), the GSAP follow sequence moved to Motion, Lenis kept or removed.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        | Full-page screenshots, scores per section, bundle:check under 155 KB.    |
+| **4. Other marketing + entry** | `/how-it-works`, `/pricing`, `/privacy`, `/terms`, OG image, page titles, `/sign-in`, `/welcome`, `/first-run`.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               | Screenshots and scores.                                                  |
+| **5. Shell, home, Studio**     | App shell (sidebar, top bar, bottom tabs, command palette, account menu, toasts), `/home`, `/studio` with every capture state and the allowance gate.                                                                                                                                                                                                                                                                                                                                                                                                                                                         | Screenshots in Day and Night, scores.                                    |
+| **6. Schools and the editor**  | `/schools`, `/schools/[id]` with all tabs and chat panels, `preview`, `unlock` (checkout untouched), `/workspace/[deliverableId]`, `/kits/[id]`.                                                                                                                                                                                                                                                                                                                                                                                                                                                              | Screenshots and scores; a test-mode unlock still opens the Dodo overlay. |
+| **7. The rest of the app**     | `/dossier` (plus the drag proposal, unbuilt), `/profile-read`, `/recommenders`, `/recommenders/[id]`, `/r/[token]`, `/resume`, `/resume/review`, `/connect`, `/settings` and its subpages, `/interview` (coming soon), `/tracker`, and every empty, loading, error and not-found state.                                                                                                                                                                                                                                                                                                                       | Screenshots and scores.                                                  |
+| **8. Final pass**              | Whole-site consistency sweep against the spec, axe on every route, Lighthouse on `/` and `/home` at mobile settings, 375px overflow on every route, console and network clean, reduced motion on every route, admin still renders. Finish REPORT.md.                                                                                                                                                                                                                                                                                                                                                          | REPORT.md complete; a summary for me.                                    |
 
 If a phase can't finish in one session, the next session continues it. If a phase finishes early, stop anyway and tell me; don't start the next one.
 
 ## Session protocol
 
 `docs/design/redesign/PROGRESS.md` is the memory between sessions. Treat it as the most important file in this job. It holds:
+
 - the phase table with a status per phase (not started, in progress, awaiting review, done);
 - for the current phase, a checklist of every screen and step, each ticked when done;
 - a **Next step** line saying exactly what to do first when a session resumes;
@@ -308,6 +332,7 @@ If a phase can't finish in one session, the next session continues it. If a phas
 - open problems and things you need from me.
 
 **At the start of every session:**
+
 1. Read this prompt, then PROGRESS.md, then the parts of SPEC.md for the current phase.
 2. Run `git status` and `git log --oneline -15` on `redesign/literary-instrument`. If there are uncommitted changes, a previous session was cut off: inspect them, keep what's sound, and note it in PROGRESS.md.
 3. If my message contains feedback or approval, write it into PROGRESS.md before doing anything else.
@@ -315,6 +340,7 @@ If a phase can't finish in one session, the next session continues it. If a phas
 5. Continue from the **Next step** line.
 
 **While working**, assume the session could end at any moment:
+
 - After each screen or step is done and its gates pass, tick it in PROGRESS.md, update **Next step**, and commit on the branch with a message like `redesign(p3): pricing scene`.
 - Never leave more than about an hour of work uncommitted.
 - Don't spend usage re-reading the whole repo every session; PROGRESS.md and SPEC.md exist so you don't have to.

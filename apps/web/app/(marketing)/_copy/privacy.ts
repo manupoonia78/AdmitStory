@@ -1,6 +1,5 @@
-// /privacy (direction §7): a privacy policy people actually read. A structured draft for counsel
-// (spec §14.4), not legal advice. Facts come from spec §14.3–14.4 and from what the app does at
-// launch; anything we don't know yet is a TODO(Manu) constant, never invented.
+// /privacy (direction §7): a privacy policy people actually read. Facts come from spec §14.3–14.4
+// and from what the app does at launch. Not legal advice.
 //
 // Launch scope (Manu, 2 Nov 2026): no interview practice (so no LiveKit and no mock transcripts)
 // and no expert sessions (so no Cal.com). Add those processors back when Phases 7 and 8 ship.
@@ -8,11 +7,8 @@
 import type { LegalSection } from "../_legal/legal-types";
 import { LEGAL_ENTITY, PRIVACY_EMAIL } from "./chrome";
 
-/** TODO(Manu): where the database and the app run, once the Neon and Vercel regions are fixed. */
-export const DATA_REGION = "TODO(Manu): primary data region";
-/** TODO(Manu): the postal address, and an EU/UK representative if counsel says one is needed. */
-export const POSTAL_ADDRESS = "TODO(Manu): postal address";
-export const EU_UK_REPRESENTATIVE = "TODO(Manu): EU/UK representative, if required";
+/** Where the database and the app run: Neon ap-southeast-1 and Vercel sin1 (apps/web/vercel.json). */
+export const DATA_REGION = "Singapore";
 
 export const PRIVACY_COPY = {
   titleLines: ["Privacy,", "in plain words."],
@@ -38,7 +34,7 @@ export const PROCESSORS: readonly string[] = [
   "Neon: the database. " + DATA_REGION + ".",
   "Vercel: hosting the app. " + DATA_REGION + ".",
   "Inngest: background jobs, such as building a kit. United States.",
-  "Upstash: rate limiting. " + DATA_REGION + ".",
+  "Upstash: rate limiting. It holds request counts, never your content.",
   "Dodo Payments: payments, as merchant of record. United States.",
   "Resend: sign-in links and the emails you ask for. United States.",
   "PostHog: product analytics. United States.",
@@ -169,8 +165,8 @@ export const PRIVACY_SECTIONS: readonly LegalSection[] = [
     summary: "We'll tell you before anything here changes in a way that matters.",
     body: [
       "If we change this policy in a way that affects you, we'll email you before the change takes effect.",
-      `${LEGAL_ENTITY}. ${POSTAL_ADDRESS}. ${EU_UK_REPRESENTATIVE}.`,
-      `Privacy questions and requests: ${PRIVACY_EMAIL}.`,
+      `${LEGAL_ENTITY} is the controller of your personal data, and it's stored and processed in ${DATA_REGION} and the United States, as the list above shows. Where data leaves your country, we rely on our processors' standard contractual clauses or an equivalent safeguard.`,
+      `Privacy questions and requests, wherever you live (including the EU and the UK): ${PRIVACY_EMAIL}. We reply within 30 days, and sooner where the law asks us to.`,
     ],
   },
 ];

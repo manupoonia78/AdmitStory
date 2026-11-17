@@ -302,14 +302,11 @@ open.
    first paint did not move. Dropping the Source Serif preload on `/` (19.7 KB) would buy a
    little, at the cost of the sheets' text swapping faces in view on first load. Not done.
 
-8. **The legal pages print `TODO(Manu)` placeholders in their text** (seen 2026-11-17, unchanged
-   by the redesign): the data region in the processor list, the postal address and EU/UK
-   representative in "Changes and contact" (`_copy/privacy.ts`), and governing law and liability
-   in `/terms` (`_copy/terms.ts`). They render as written, under the "draft under legal review"
-   note. They need real values from counsel before launch.
-
-Also for you, not design: `LEGAL_ENTITY` in `_copy/chrome.ts` is still `TODO(Manu)` and shows in
-the footer's copyright line.
+8. ~~The legal pages print `TODO(Manu)` placeholders~~ **Resolved 2026-11-17** (Manu: use our
+   draft, write what's missing): entity is "AdmitStories", data region Singapore (Neon
+   ap-southeast-1, Vercel sin1), EU/UK requests go to the privacy email, liability is capped at 12
+   months' fees, Indian law governs. The draft note is off and `LEGAL_UPDATED` is 2026-11-17.
+   Change `LEGAL_ENTITY` if a company is registered.
 
 ## Open problems
 

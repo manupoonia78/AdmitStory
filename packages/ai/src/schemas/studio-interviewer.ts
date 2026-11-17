@@ -86,10 +86,10 @@ export const StudioInterviewerOutput = z
       .describe(
         "What you say out loud: an optional short reaction (or a brief answer when they asked something), then exactly one question.",
       ),
-  /** The slot this question serves — normally the target, or the story's slot on a DIG. */
-  slot: z.string().trim().min(1).max(80),
-  /** The story being dug into, as a code ("S03"), or null. */
-  story_ref: z.string().max(16).nullable(),
+    /** The slot this question serves — normally the target, or the story's slot on a DIG. */
+    slot: z.string().trim().min(1).max(80),
+    /** The story being dug into, as a code ("S03"), or null. */
+    story_ref: z.string().max(16).nullable(),
   })
   .superRefine((output, context) => {
     const limit = output.answered ? MAX_ANSWER_REPLY_SENTENCES : MAX_REPLY_SENTENCES;

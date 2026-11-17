@@ -1,10 +1,10 @@
-// /terms (direction §8): plain terms that encode the integrity rules (spec §14.7). A structured
-// draft for counsel, not legal advice. Prices and the final-sale rule come from _data/pricing.ts and
-// ./shared.ts verbatim, so the terms can't drift from what the pricing page says.
+// /terms (direction §8): plain terms that encode the integrity rules (spec §14.7). Not legal advice.
+// Prices and the final-sale rule come from _data/pricing.ts and ./shared.ts verbatim, so the terms
+// can't drift from what the pricing page says.
 //
 // Launch scope (Manu, 2 Nov 2026): expert sessions (Phase 8) aren't sold, so their section from the
 // direction (45 minutes, priced per expert, free to reschedule or cancel up to 24 h before, no-shows
-// charged) is left out until they are. Section 10 is placeholders for counsel.
+// charged) is left out until they are.
 
 import type { LegalSection } from "../_legal/legal-types";
 import { KIT_PRICE_DISPLAY, PLAN_CARDS } from "../_data/pricing";
@@ -14,10 +14,6 @@ import { SALES_FINAL_RULE } from "./shared";
 const PACKS = PLAN_CARDS.filter((plan) => plan.was !== null)
   .map((plan) => `${plan.name} for ${plan.price}`)
   .join(" or ");
-
-/** TODO(Manu): counsel fills these in before launch. */
-export const GOVERNING_LAW = "TODO(Manu): governing law and courts, from counsel";
-export const LIABILITY_TERMS = "TODO(Manu): limitation of liability, from counsel";
 
 export const TERMS_COPY = {
   titleLines: ["Terms,", "in plain words."],
@@ -113,12 +109,14 @@ export const TERMS_SECTIONS: readonly LegalSection[] = [
   {
     id: "availability",
     title: "Availability, liability, termination, governing law",
-    summary: "The legal small print, which counsel is finishing.",
+    summary:
+      "The service is provided as it is. Our liability is capped at what you paid us, and Indian law governs these terms.",
     body: [
-      "We work to keep AdmitStories available but can’t promise it will never be interrupted.",
+      "We work to keep AdmitStories available but can’t promise it will never be interrupted. The service is provided “as is”: drafts are suggestions for you to check, not professional advice.",
       "You can stop using AdmitStories and delete your account at any time from Settings.",
-      `${LIABILITY_TERMS}.`,
-      `${GOVERNING_LAW}.`,
+      "As far as the law allows, we aren’t liable for indirect or consequential loss, including any admission decision, and our total liability to you is limited to what you paid us in the 12 months before the claim. Nothing here limits liability that the law doesn’t let us limit, or the rights consumer law gives you where you live.",
+      "These terms are governed by the laws of India, and the courts of India have jurisdiction over any dispute. If you live elsewhere, you can also bring a claim in your own courts where your local law allows it.",
+      "If we change these terms in a way that affects you, we’ll email you before the change takes effect.",
       `Questions about these terms: ${HELLO_EMAIL}.`,
     ],
   },
