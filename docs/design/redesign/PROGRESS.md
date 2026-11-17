@@ -28,7 +28,9 @@ When Phase 5 is named, start here:
    casing (sidebar, top bar, dock, palette, account menu, toasts), `/home` and `/studio`. The
    entry room (`components/auth-shell.tsx`, `entry.css`) is the nearest finished thing to the
    casing: reuse its horizon and peak.
-4. Still open from before: "Needs Manu" 1 (dark casing in Day) decides Phase 5's Day look.
+4. Manu answered "Needs Manu" on 2026-11-17: the casing is dark in Day too, and Phase 5 also
+   moves the Studio to the Voiceline so `ogl` and `detect-gpu` can be deleted (see "Answered by
+   Manu").
 
 ## Phases
 
@@ -271,36 +273,31 @@ Made in Phase 4 by Claude while building, **not yet approved by Manu**:
 | 2026-11-17 | The `capture:screens` stub script and `_data/screens*.ts` are deleted                                                                       | the windows are live markup now; the stub never captured anything                         | §4.2  |
 
 Approved, changed or rejected by Manu: Phase 1 was named (so the Phase 0 spec was accepted as the
-working basis), but no answer to the five questions below was written down. Treat all five as
-open.
+working basis). All of "Needs Manu" was answered on 2026-11-17, below.
 
-## Needs Manu (answer at the Phase 0 review)
+## Answered by Manu (2026-11-17)
 
-1. **Dark casing in Day** (SPEC §10.1): yes, or a paper-toned sidebar in Day?
-2. **Headline**: "Tell it once. / Tell it _well._" (§3.3)?
-3. **WebGL prototypes** (§10.3): may `/prototype/voiceprint` be retired and the studio and duet
-   prototypes moved to the Voiceline, so `ogl`, `detect-gpu` and `public/detect-gpu` can be
-   deleted? Otherwise they stay for prototypes only.
-4. **`--needs` to slate blue and the three hue label renames** (§10.4): both are visible to
-   existing users.
-5. **"12 schools, read closely" in `model-claims.ts`** while 16 packs are published (§9.4): leave,
-   or will you update the claim? (Only you change claims.)
-
-6. **The hero's entrance and LCP** (SPEC §3.7; measured again on 2026-11-17). On Lighthouse's
-   slow phone the page first paints at about 2.4 s, and LCP is reported at **3.4 s**, over the
-   2.5 s target. The cause is the hero's own entrance, not the scenes below it: the largest text
-   above the fold is the subline, which fades in about a second after first paint, and that is
-   the moment Chrome reports (three runs, the same each time). Two ways to settle it:
-   - **A. Keep the entrance as built.** LCP stays about one second behind first paint.
-   - **B. Let the subline be there at first paint (my recommendation).** The headline still
-     rises word by word; the eyebrow, buttons and nav still enter. LCP should then equal first
-     paint (about 2.4 s on the slow phone); not yet tried. One class on one element in
-     `_hero/hero.tsx`.
-7. **First paint on the slow phone is 2.4 s, close to the target on its own.** It is bound by
-   the network (the document, 33 KB of CSS and 86 KB of preloaded fonts share a 1.6 Mbit line),
-   not by the page's size: the document fell from 354 KB to 246 KB (47 KB gz) in Phase 3 and
-   first paint did not move. Dropping the Source Serif preload on `/` (19.7 KB) would buy a
-   little, at the cost of the sheets' text swapping faces in view on first load. Not done.
+1. **Dark casing in Day** (SPEC §10.1): **yes, keep it dark.** Phase 5 builds the sidebar and top
+   bar Night in both themes.
+2. **Headline** "Tell it once. / Tell it _well._" (§3.3): **approved.**
+3. **WebGL prototypes** (§10.3): **yes.** Done now: `/prototype/voiceprint` (lab, its tests and
+   its e2e spec) is deleted. Still to do, in Phase 5: the live Studio (`voice-stage.tsx`) and the
+   studio and duet prototypes move to the Voiceline, then `ogl`, `detect-gpu`,
+   `public/detect-gpu` and the renderer in `packages/ui/src/voiceprint` go. They can't go before:
+   the Studio still draws the OGL Voiceprint.
+4. **`--needs` slate blue and the hue renames** (§10.4): **approved.** Both were already in the
+   tokens and `voice-hues.ts` from Phase 1; nothing to change.
+5. **The schools claim** (§9.4): **"16 schools"** (Manu). `MODEL_CORPUS` reads "16 · Schools, read
+   closely" and the seal's fallback centre reads 16.
+6. **The hero's entrance and LCP** (§3.7): **B.** The subline is still from the first frame; the
+   headline still rises word by word, the eyebrow, buttons and model line still enter.
+7. **First paint** (§3.7, §8.1): **drop the Source Serif preload, and get under 2.4 s.** Done: the
+   sheets use the root's lazy face (`_ui/sheet-serif.ts`), and `experimental.inlineCss` sends the
+   CSS inside the HTML. Lighthouse mobile, throttling applied, three runs, production build
+   (local, gzip): **FCP 2.41 → 1.14 s, LCP 3.81 → 1.65 s**, performance 0.83 → 0.97. The LCP
+   element is now a headline word as it rises. The document grew (the CSS is inlined once and
+   repeated in the RSC payload): 68 → 156 KB over gzip locally, **55–68 KB over Brotli**, which
+   is what Vercel sends; the five stylesheet requests are gone.
 
 8. ~~The legal pages print `TODO(Manu)` placeholders~~ **Resolved 2026-11-17** (Manu: use our
    draft, write what's missing): entity is "AdmitStories", data region Singapore (Neon

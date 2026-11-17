@@ -56,10 +56,9 @@ export function Hero() {
               {HERO_COPY.eyebrow}
             </p>
             <HeroHeading />
-            <p
-              className="enter mt-5 text-lg text-text-80 sm:max-w-[520px] lg:mt-7 lg:max-w-[460px]"
-              style={enterAt(520)}
-            >
+            {/* Still from the first frame: it is the largest text above the fold, so it is the
+                LCP element and must not wait on the entrance (Manu, 2026-11-17; SPEC §3.7). */}
+            <p className="mt-5 text-lg text-text-80 sm:max-w-[520px] lg:mt-7 lg:max-w-[460px]">
               {HERO_COPY.subline}
             </p>
             <div

@@ -1,4 +1,5 @@
 import {
+  DEFAULT_UTTERANCE_END_MS,
   FREE_VOICE_SECONDS,
   createDeepgramStt,
   createFakeStt,
@@ -67,7 +68,7 @@ describe("POST /api/stt/token", () => {
     expect(body.provider).toBe("fake");
     const url = new URL(body.url);
     expect(url.searchParams.get("language")).toBe("hi");
-    expect(url.searchParams.get("utterance_end_ms")).toBe("2500");
+    expect(url.searchParams.get("utterance_end_ms")).toBe(String(DEFAULT_UTTERANCE_END_MS));
     expect(url.searchParams.getAll("keyterm")).toEqual(
       expect.arrayContaining(["Meridian Health", "Asha Rao", "GMAT", "Harvard Business School"]),
     );

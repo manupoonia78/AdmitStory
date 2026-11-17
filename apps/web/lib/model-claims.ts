@@ -37,7 +37,7 @@ export const SEAL_RING = `\u00a0Trained on ${TRAINED_ON} · ${MODEL_NAME} ·`;
 /** The centre of the seal: a figure and the words under it (16 characters at most, to fit). */
 export const SEAL_CENTRE = ON
   ? { figure: `${ADMITTED_ESSAYS.count}+`, label: "admitted essays" }
-  : { figure: "12", label: "schools studied" };
+  : { figure: "16", label: "schools studied" };
 
 /** The seal's accessible name. */
 export const SEAL_LABEL = `${MODEL_NAME}, trained on ${TRAINED_ON}`;
@@ -80,7 +80,7 @@ export const MODEL_CORPUS: readonly CorpusRow[] = [
     line: "Story structure, why an MBA, goals, the résumé, recommenders and red flags, written by our team.",
   },
   {
-    figure: "12",
+    figure: "16",
     title: "Schools, read closely",
     line: "What each one values, how its essays differ and what its readers look for, distilled from years of admissions coaching.",
   },

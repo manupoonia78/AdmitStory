@@ -844,6 +844,13 @@ does cost LCP on a phone, by about a second. First paint did not move when the d
 from 354 KB to 246 KB: it is bound by the network, not by the page's size. The hero was left as
 built; PROGRESS "Needs Manu" 6 has the two ways to settle it.
 
+**Settled (Manu, 2026-11-17).** The subline is still from the first frame (option B), `/` no
+longer preloads Source Serif (the sheets use the root's lazy face, swapping without shift), and
+`experimental.inlineCss` puts the CSS in the HTML, so first paint no longer waits on a second round
+trip for five stylesheets. Lighthouse mobile, throttling applied, three runs: **FCP 1.14 s, LCP
+1.65 s** (was 2.41 and 3.81), performance 0.97. LCP is now a headline word as it rises, well under
+the 2.5 s target. Fonts preloaded on `/`: 66.5 KB. The document is 55–68 KB over Brotli.
+
 ---
 
 ## 4. Marketing: the landing scenes (full values; built in Phase 3, 2026-11-16)
@@ -1432,7 +1439,8 @@ on disk), which a browser fetches only if a page contains those characters. The 
 is the preload, and it holds.
 
 **Phase 2:** `/` also preloads Source Serif 4 roman (the hero's sheets are set in it and are on
-screen at first paint), so the landing page preloads 86 KB.
+screen at first paint), so the landing page preloads 86 KB. **Reversed 2026-11-17** (Manu): `/`
+preloads only the shared 66.5 KB; the sheets use the root's lazy Source Serif (§3.7).
 
 Hard caps for the gates: no route preloads more than 110 KB of fonts. Source Serif is declared once without preload in
 the root layout (so `--font-reading` exists everywhere and lazy uses just work) and declared again
@@ -1512,6 +1520,10 @@ The code wins; these are the places it does.
 ---
 
 ## 10. Proposals that need a yes
+
+**Answered 2026-11-17 (Manu):** 1 yes (dark casing in Day), 3 yes (the lab prototype is gone; the
+rest goes once Phase 5 moves the Studio to the Voiceline), 4 yes, 5 yes. 2 is still a still for
+Phase 7. See PROGRESS "Answered by Manu".
 
 1. **Dark casing in Day** (§1.2). Recommended. The alternative is a paper-toned sidebar and top
    bar in Day, which is the current arrangement in new clothes. Everything else in the spec works

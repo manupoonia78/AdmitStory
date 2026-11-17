@@ -418,7 +418,12 @@ describe("Phase 4 tables (§10 applications and kits)", () => {
     expect(
       table("webhook_events").uniqueConstraints.map((u) => u.columns.map((c) => c.name)),
     ).toContainEqual(["provider", "event_id"]);
-    expect(column("entitlements", "purchase_id").isUnique).toBe(true);
+    // A pack purchase backs one entitlement per school it unlocks (migration 0011), so the
+    // purchase is indexed, not unique.
+    expect(column("entitlements", "purchase_id").isUnique).toBe(false);
+    expect(table("entitlements").indexes.map((i) => i.config.name)).toContain(
+      "entitlements_purchase_id_idx",
+    );
   });
 
   it("keeps one stage row per kit and numbers draft versions per deliverable", () => {

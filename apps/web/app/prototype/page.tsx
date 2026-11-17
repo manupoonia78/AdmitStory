@@ -1,7 +1,7 @@
 import Link from "next/link";
 
-// The redesign's design system, the four signature moments (spec §6.13), the Voiceprint lab and
-// route transitions.
+// The redesign's design system, the four signature moments (spec §6.13) and route
+// transitions.
 const PROTOTYPES = [
   {
     href: "/prototype/system",
@@ -29,12 +29,6 @@ const PROTOTYPES = [
     href: "/prototype/duet",
     title: "Live mock",
     description: "Two Voiceprints face each other, each answering whoever is speaking.",
-  },
-  {
-    href: "/prototype/voiceprint",
-    title: "Voiceprint",
-    description:
-      "Live microphone input, a three-minute identity sample and every performance tier.",
   },
   {
     href: "/prototype/transitions",

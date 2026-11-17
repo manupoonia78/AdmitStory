@@ -73,6 +73,10 @@ const nextConfig: NextConfig = {
   experimental: {
     // @admitstory/ui's index only re-exports, so each page bundles just the components it uses.
     optimizePackageImports: ["@phosphor-icons/react", "@admitstory/ui"],
+    // CSS arrives inside the HTML, so first paint doesn't wait on a second round trip for five
+    // render-blocking stylesheets (SPEC §3.7; on a slow phone they finished ~1.3 s after the
+    // document's first byte). Tailwind keeps the CSS small enough to send with every page.
+    inlineCss: true,
   },
   async headers() {
     return [
