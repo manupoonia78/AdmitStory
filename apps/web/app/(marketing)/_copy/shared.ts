@@ -38,7 +38,7 @@ export const TAX_LINE = "Prices in US dollars. Tax is added at checkout where it
 
 /** The AI-policy fallback before Manu verifies any policy (direction §4.7, §6). */
 export const AI_POLICY_FALLBACK =
-  "Each school's policy is shown in the app with the date we checked it.";
+  "Each school’s policy is shown in the app with the date we checked it.";
 
 export const START_FREE = "Start free";
 /** The primary action in the nav and the hero (SPEC §3.3). Starting is free; see pricing. */

@@ -1471,3 +1471,339 @@ body:has(.marketing) {
 .win-paper .scene-sheet-plain > .scene-sheet-body > p:last-of-type {
   margin-bottom: 1.5em;
 }
+
+/* ---------- Other marketing pages (SPEC §4.2, Phase 4) ---------- */
+
+/* /how-it-works: the index of the four stages, one band between strong hairlines. */
+.how-index {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  border-block: 1px solid var(--line-strong);
+}
+.how-index > li + li {
+  border-left: 1px solid var(--line);
+}
+.how-index > li:nth-child(3) {
+  border-left: 0;
+}
+.how-index > li:nth-child(n + 3) {
+  border-top: 1px solid var(--line);
+}
+.how-index a {
+  display: flex;
+  min-height: 44px;
+  flex-direction: column;
+  gap: 6px;
+  padding: 20px 16px 20px 0;
+}
+.how-index > li + li a {
+  padding-left: 16px;
+}
+.how-index > li:nth-child(3) a {
+  padding-left: 0;
+}
+.how-index-verb {
+  transition: color var(--dur-hover) ease;
+}
+@media (hover: hover) and (pointer: fine) {
+  .how-index a:hover .how-index-verb {
+    color: var(--fg);
+  }
+}
+@media (min-width: 64rem) {
+  .how-index {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+  .how-index > li:nth-child(3) {
+    border-left: 1px solid var(--line);
+  }
+  .how-index > li:nth-child(n + 3) {
+    border-top: 0;
+  }
+  .how-index > li:nth-child(3) a {
+    padding-left: 24px;
+  }
+  .how-index > li + li a {
+    padding-left: 24px;
+  }
+}
+
+/* A stage: one band, the text beside its window. The window keeps the text company within its
+   own band (sticky, never pinned across the page). */
+.how-stage {
+  padding-block: 96px;
+}
+.how-stage + .how-stage {
+  border-top: 1px solid var(--line);
+}
+@media (min-width: 64rem) {
+  .how-stage {
+    padding-block: 144px;
+  }
+  .how-stage-window {
+    position: sticky;
+    top: 112px;
+    align-self: start;
+  }
+}
+
+/* The interview row: honest and small, between hairlines. */
+.how-interview {
+  display: grid;
+  gap: 12px;
+  justify-items: start;
+  padding-block: 32px;
+  border-block: 1px solid var(--line);
+}
+@media (min-width: 64rem) {
+  .how-interview {
+    grid-template-columns: auto 280px minmax(0, 1fr);
+    align-items: baseline;
+    gap: 24px;
+  }
+}
+
+/* The pack assembling: stories, threads, files. Each thread draws when the figure reveals,
+   80ms after the one before; each file comes up to full strength as its thread arrives. Drawn
+   and at full strength wherever the reveal script isn't running. */
+.pack {
+  padding-block: 40px 0;
+  border-top: 1px solid var(--line-strong);
+}
+.pack-board {
+  display: none;
+}
+.pack-name {
+  font-size: 1.125rem;
+  line-height: 1.3;
+  font-weight: 450;
+  letter-spacing: -0.015em;
+  color: var(--fg);
+}
+.pack-list {
+  margin-top: 32px;
+  border-bottom: 1px solid var(--line);
+}
+.pack-list > li {
+  position: relative;
+  display: grid;
+  gap: 6px;
+  padding-block: 16px;
+}
+/* The rule above each row draws from the left as the list reveals. */
+.pack-list > li::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto;
+  height: 1px;
+  background: var(--line);
+  transform-origin: left;
+}
+:root[data-reveal="on"] .pack .pack-list > li::before {
+  transition: scale 600ms var(--ease-line) calc(var(--i) * 80ms + 150ms);
+}
+:root[data-reveal="on"] .pack:not([data-in]) .pack-list > li::before {
+  scale: 0 1;
+}
+.pack-list-file {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 16px;
+}
+@media (min-width: 64rem) {
+  .pack-head {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+  }
+  .pack-board {
+    display: grid;
+    grid-template-columns: 4fr 4fr 4fr;
+    column-gap: 24px;
+    margin-top: 48px;
+  }
+  .pack-col-label {
+    height: 40px;
+  }
+  /* Phones' list stays in the page for assistive technology only. */
+  .pack-list {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+  .pack-stories > li,
+  .pack-files > li {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 4px;
+    border-top: 1px solid var(--line);
+  }
+  .pack-stories > li:last-child,
+  .pack-files > li:last-child {
+    border-bottom: 1px solid var(--line);
+  }
+  /* A ring where each thread leaves and lands. */
+  .pack-stories > li::after,
+  .pack-files > li::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    width: 7px;
+    height: 7px;
+    margin-top: -3.5px;
+    border: 1.25px solid var(--fg-48);
+    border-radius: 50%;
+    background: var(--bg);
+  }
+  .pack-stories > li::after {
+    right: -4px;
+  }
+  .pack-files > li::after {
+    left: -4px;
+  }
+  .pack-stories > li[data-held]::after {
+    border-color: var(--line-strong);
+  }
+  .pack-stories > li[data-held] .pack-name {
+    color: var(--fg-48);
+  }
+  .pack-files > li {
+    padding-left: 20px;
+  }
+  .pack-threads {
+    width: calc(100% + 48px);
+    margin: 40px -24px 0;
+    overflow: visible;
+  }
+  .pack-thread {
+    stroke: var(--accent);
+    stroke-width: 1.25px;
+    vector-effect: non-scaling-stroke;
+  }
+  /* Drawn by uncovering it left to right (clip-path), not with a dash: the drawing is stretched
+     (preserveAspectRatio="none") with a non-scaling stroke, and a dash on pathLength="1" breaks
+     into fragments there. */
+  :root[data-reveal="on"] .pack .pack-thread {
+    clip-path: inset(-4px);
+    transition: clip-path var(--dur-draw) var(--ease-line) calc(var(--i) * 80ms + 150ms);
+  }
+  :root[data-reveal="on"] .pack:not([data-in]) .pack-thread {
+    clip-path: inset(-4px 100% -4px -4px);
+  }
+  :root[data-reveal="on"] .pack .pack-file .pack-name {
+    transition: color 250ms ease calc(var(--i) * 80ms + 150ms + var(--dur-draw) - 200ms);
+  }
+  :root[data-reveal="on"] .pack:not([data-in]) .pack-file .pack-name {
+    color: var(--fg-48);
+    transition: none;
+  }
+}
+
+/* The AI-policy table, typeset on one sheet of paper. */
+.policy-sheet {
+  padding: 8px 20px;
+  border-radius: var(--radius-paper);
+  background-color: var(--paper);
+  box-shadow: var(--shadow-paper);
+  color: var(--ink);
+}
+.policy-fallback {
+  padding-block: 24px;
+  font-family: var(--font-reading);
+  font-size: var(--type-read);
+  line-height: var(--type-read-leading);
+}
+.policy-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+}
+.policy-table thead {
+  display: none;
+}
+.policy-table tr {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: baseline;
+  gap: 4px 16px;
+  padding-block: 16px 4px;
+  border-top: 1px solid var(--rule);
+}
+/* Phones: name, policy and mode each take the row; the date and the link share the last line. */
+.policy-table tr > :nth-child(-n + 3) {
+  grid-column: 1 / -1;
+}
+.policy-table tbody tr:first-child {
+  border-top: 0;
+}
+.policy-table th[scope="row"] {
+  font-size: 1rem;
+  font-weight: 500;
+}
+.policy-mode {
+  color: var(--ink-66);
+}
+.policy-date {
+  font-family: var(--font-mono);
+  font-size: 0.8125rem;
+  font-variant-numeric: tabular-nums;
+  color: var(--ink-66);
+}
+.policy-link a {
+  display: inline-flex;
+  min-height: 44px;
+  align-items: center;
+  text-decoration: underline;
+  text-decoration-color: var(--rule-strong);
+  text-underline-offset: 4px;
+  transition: text-decoration-color var(--dur-hover) ease;
+}
+@media (hover: hover) and (pointer: fine) {
+  .policy-link a:hover {
+    text-decoration-color: currentColor;
+  }
+}
+@media (min-width: 40rem) {
+  .policy-sheet {
+    padding: 16px 32px;
+  }
+  .policy-table thead {
+    display: table-header-group;
+  }
+  .policy-table tr {
+    display: table-row;
+  }
+  .policy-table th,
+  .policy-table td {
+    padding: 16px 16px 16px 0;
+    vertical-align: baseline;
+    border-top: 1px solid var(--rule);
+  }
+  .policy-table thead th {
+    padding-block: 12px;
+    border-top: 0;
+    font-family: var(--font-mono);
+    font-size: var(--type-label);
+    font-weight: 500;
+    letter-spacing: var(--type-label-tracking);
+    text-transform: uppercase;
+    color: var(--ink-66);
+  }
+  .policy-table td.policy-link {
+    padding-block: 4px;
+    padding-right: 0;
+    text-align: right;
+  }
+}
+@media (min-width: 64rem) {
+  .policy-sheet {
+    padding: 24px 40px;
+  }
+}

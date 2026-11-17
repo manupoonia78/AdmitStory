@@ -148,8 +148,9 @@ kept all of it, fixed five things found in the screenshots, measured and committ
 - [x] SPEC §4.2 (the four pages, OG images, titles) and §5 (entry) expanded to full values
 - [x] Emil Kowalski's skills installed (`.claude/skills/`), rules in SPEC §2.10, phone layer in
       `theme.css`
-- [ ] `/how-it-works`: head, index, four stages with their windows, the pack assembling,
-      interview row, what it won't do, AI policies on paper, final call
+- [x] `/how-it-works`: head, index, four stages with their windows, the pack assembling,
+      interview row, what it won't do, AI policies on paper, final call (8.4; threads draw
+      with `clip-path`, not a dash: a dash breaks on a stretched non-scaling stroke)
 - [ ] `/pricing`: the strike, plans, one kit opened, the ledger, elsewhere and here, payment,
       questions, final call; `SocialProofSlot` above the plans
 - [ ] `/privacy` and `/terms` on paper: contents, hanging numbers, the voice path, the reading

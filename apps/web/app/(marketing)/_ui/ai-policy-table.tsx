@@ -1,12 +1,12 @@
-// Each school's AI policy as we verified it (direction §4.7 and §6, plan §3.3). Server component.
-// It renders nothing without rows: until Manu verifies the policies, pages show
-// AI_POLICY_FALLBACK instead (the caller decides where). Stance and mode are in words, never colour.
+// Each school's AI policy as we verified it (direction §4.7 and §6; SPEC §4.2), typeset on a
+// sheet of paper on /how-it-works#ai-policies. Server component. It renders nothing without rows:
+// until Manu verifies the policies the page shows AI_POLICY_FALLBACK instead. Stance and mode are
+// in words, never colour.
 //
-// compact  school, stance, verified date (the landing page, limited to six rows)
-// full     adds what AdmitStories does for that stance and a link to the school's own page
-//          (/how-it-works#ai-policies)
+// From 640 px a real table; narrower, each school is a block (name, policy, mode, then the date
+// and the link on one line), from the same markup: the cells become blocks and the head hides.
 
-import { cx } from "@admitstory/ui";
+import { HOW_PAGE_COPY } from "../_copy/how-it-works";
 import type { PublicAiPolicy } from "@/lib/marketing/public-data";
 
 type Stance = PublicAiPolicy["stance"];
@@ -15,7 +15,7 @@ export const STANCE_WORDS: Record<Stance, string> = {
   permitted: "Allows AI help",
   permitted_with_disclosure: "Allows AI help if you disclose it",
   limited: "Limits AI help",
-  prohibited: "Doesn't allow AI-written answers",
+  prohibited: "Doesn’t allow AI-written answers",
   unknown: "No published policy",
 };
 
@@ -41,82 +41,45 @@ export function verifiedOn(date: Date): string {
   }).format(date);
 }
 
-export interface AiPolicyTableProps {
-  rows: readonly PublicAiPolicy[];
-  limit?: number;
-  variant: "compact" | "full";
-  className?: string;
-}
-
-export function AiPolicyTable({ rows, limit, variant, className }: AiPolicyTableProps) {
+export function AiPolicyTable({ rows }: { rows: readonly PublicAiPolicy[] }) {
   if (rows.length === 0) return null;
-  const shown = limit === undefined ? rows : rows.slice(0, limit);
-  const full = variant === "full";
-  const cell = "py-3 pr-4 align-top text-base";
+  const copy = HOW_PAGE_COPY.policies;
   return (
-    <div className={cx("overflow-x-auto", className)}>
-      <table className="w-full border-collapse text-left">
-        <caption className="sr-only">
-          Schools&rsquo; AI policies, as published on each school&rsquo;s website, with the date we
-          checked
-        </caption>
-        <thead>
-          <tr className="border-b border-edge text-sm text-text-soft">
-            <th scope="col" className="py-2 pr-4 font-normal">
-              School
-            </th>
-            <th scope="col" className="py-2 pr-4 font-normal">
-              Policy
-            </th>
-            {full ? (
-              <th scope="col" className="py-2 pr-4 font-normal">
-                What AdmitStories does
-              </th>
-            ) : null}
-            <th scope="col" className="py-2 pr-4 font-normal">
-              Checked
-            </th>
-            {full ? (
-              <th scope="col" className="py-2 font-normal">
-                <span className="sr-only">The school&rsquo;s own page</span>
-              </th>
-            ) : null}
+    <table className="policy-table">
+      <caption className="sr-only">{copy.caption}</caption>
+      <thead>
+        <tr>
+          <th scope="col">{copy.school}</th>
+          <th scope="col">{copy.policy}</th>
+          <th scope="col">{copy.mode}</th>
+          <th scope="col">{copy.checked}</th>
+          <th scope="col">
+            <span className="sr-only">The school&rsquo;s own page</span>
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        {rows.map((row) => (
+          <tr key={`${row.schoolSlug}-${row.cycle}`}>
+            <th scope="row">{row.schoolName}</th>
+            <td>{STANCE_WORDS[row.stance]}</td>
+            <td className="policy-mode">{STANCE_MODE[row.stance]}</td>
+            <td className="policy-date">
+              <time dateTime={row.verifiedAt.toISOString().slice(0, 10)}>
+                {verifiedOn(row.verifiedAt)}
+              </time>
+            </td>
+            <td className="policy-link">
+              {row.sourceUrl ? (
+                <a href={row.sourceUrl} rel="noopener noreferrer" target="_blank">
+                  {copy.source}
+                  <span className="sr-only"> for {row.schoolName} (opens in a new tab)</span>
+                </a>
+              ) : null}
+            </td>
           </tr>
-        </thead>
-        <tbody className="divide-y divide-edge">
-          {shown.map((row) => (
-            <tr key={`${row.schoolSlug}-${row.cycle}`}>
-              <th scope="row" className={cx(cell, "font-medium text-text")}>
-                {row.schoolName}
-              </th>
-              <td className={cx(cell, "text-text")}>{STANCE_WORDS[row.stance]}</td>
-              {full ? (
-                <td className={cx(cell, "text-text-soft")}>{STANCE_MODE[row.stance]}</td>
-              ) : null}
-              <td className={cx(cell, "whitespace-nowrap text-text-soft tabular-nums")}>
-                <time dateTime={row.verifiedAt.toISOString().slice(0, 10)}>
-                  {verifiedOn(row.verifiedAt)}
-                </time>
-              </td>
-              {full ? (
-                <td className="py-1 align-top">
-                  {row.sourceUrl ? (
-                    <a
-                      href={row.sourceUrl}
-                      rel="noopener noreferrer"
-                      target="_blank"
-                      className="inline-flex min-h-11 items-center text-text underline-offset-4 hover:underline"
-                    >
-                      Policy
-                      <span className="sr-only"> for {row.schoolName} (opens in a new tab)</span>
-                    </a>
-                  ) : null}
-                </td>
-              ) : null}
-            </tr>
-          ))}
-        </tbody>
-      </table>
-    </div>
+        ))}
+      </tbody>
+    </table>
   );
 }
