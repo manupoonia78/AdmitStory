@@ -424,3 +424,133 @@ open columns (a lot of empty height beside the filled card at 1440) and motion e
 - **Motion was verified from timed frames and measurements, not watched live.**
 - "12 schools, read closely" still stands in the model ledger beside a strip that names 16
   (PROGRESS "Needs Manu" 5). Only Manu changes claims.
+
+## Phase 4: other marketing pages and entry (2026-11-17) · done
+
+Built in one session. Phase 4 was named with no notes on Phases 0–3, and with one request: use
+Emil Kowalski's skills (github.com/emilkowalski/skills) throughout the project. Seven of them
+(the web ones) are now in `.claude/skills/`, their rules are SPEC §2.10's, and every screen below
+was built to them: non-uniform staggers, exits faster than entrances, UI motion under 300 ms,
+hover motion gated to real pointers, transitions (not keyframes) for anything that can be
+toggled, and the phone layer (no tap flash, instant taps, controls that don't select on a long
+press).
+
+### What changed
+
+- **`/how-it-works`** is the landing page's four steps told in full: a head, an index of the four
+  stages, then a band for each stage with its two detailed steps (all eight old steps are kept)
+  beside the same product window the landing page uses. Inside the Draft stage, the page's moment:
+  **the pack assembles**, a thread drawing from each of the sample applicant's stories to each
+  file it feeds, the file names coming up to full strength as their threads arrive, one story
+  "held back". Then interview practice (coming soon), what it won't do, each school's AI policy
+  typeset on a sheet of paper, and the final call. The old WebGL orb and the kit-assembly island
+  are gone.
+- **`/pricing`** opens on "5 schools. ~~$500~~ $349.": a line draws through the list price as the
+  page settles and the price rises beside it. Then the landing page's four plans,
+  `SocialProofSlot` (renders nothing), one kit opened as four sheets of paper with their margin
+  notes and the applicant's own sentences marked, what's free and what a kit adds as one list,
+  elsewhere and here, payment (with "All sales are final"), the pricing questions and the final
+  call. Every number comes from `plans.ts`.
+- **`/privacy` and `/terms`** are paper: one sheet from the top of the window to a rounded foot,
+  a sticky contents list on a rule, each section's number hanging in the margin, the plain summary
+  in the reading serif's italic and the full text at 68ch. `/privacy`'s moment is **where your
+  voice goes**, one line doing the Voiceline's three jobs: a waveform from the microphone to
+  speech-to-text, a flat rule on to your drafts, and a branch that dies away into a full stop,
+  "discarded · never stored". `/terms`' moment is a **reading line**: brass grows down the
+  contents rule as you read, on a scroll-driven timeline, with no script.
+- **OG images**: one template for five routes (the wordmark, the page's headline with its italic
+  line, the horizon with one brass peak). The home title is "AdmitStories: tell it once, tell it
+  well".
+- **The entry room** (`components/auth-shell.tsx`, `entry.css`) is the one shell for sign-in,
+  welcome, first-run, goodbye and not-found: always Night, the wordmark, one thing to do, the
+  horizon across the foot. On **`/sign-in`** the line brightens in brass while the email field
+  has focus and rises into a peak on "Check your email"; a sheet of paper from the landing page's
+  last sample stands on the horizon. **`/welcome`** is two columns; each box fills and draws its
+  tick, and the button wakes from frost to brass when both are ticked. **`/first-run`**'s
+  progress is the line with the mark's peak standing on the current step, travelling on Next and
+  Back; the Voiceprint orb is gone. All of it is CSS on `:has()`: no route gained a script.
+- **Deleted:** `_sections/school-packs`, `_ui/display-heading`, `_ui/notes`, `_ui/tick`,
+  `_ui/sample-hue`, `_data/screens*`, `pricing/_unlock*`, `how-it-works/_assembly*` and
+  `_data.ts`, `_legal/voice-path-play`, and the never-built `capture:screens` stub.
+
+### Screenshots (`shots/after/`; before: `shots/before/`)
+
+| File                                                                           | What it shows                                                        |
+| ------------------------------------------------------------------------------ | -------------------------------------------------------------------- |
+| `how-it-works-1440.jpg`, `-1440-full`, `-390`, `-390-full`                     | the page, laptop and phone                                           |
+| `how-it-works-pack-1440.jpg`, `…-pack-drawing-1440`, `…-pack-1440-rm`          | the pack drawn; mid-draw (threads arriving in turn); reduced motion  |
+| `how-it-works-pack-390.jpg`, `how-it-works-policies-1440.jpg`                  | the pack as rows on a phone; the AI-policy sheet (local sample rows) |
+| `pricing-1440.jpg`, `-full`, `-390`, `pricing-kit-1440`, `pricing-ledger-1440` | the head with the strike, the kit sheets, the ledger                 |
+| `privacy-1440.jpg`, `privacy-voice-path-1440`, `privacy-voice-path-390`        | the paper page and its voice path                                    |
+| `terms-1440.jpg`, `terms-reading-line-1440`, `terms-390`                       | `/terms`, with the reading line part way down                        |
+| `og-home.png`, `og-pricing.png`, `og-privacy.png`                              | three of the five OG images                                          |
+| `sign-in-1440.jpg`, `entry-signin-focus-*`, `entry-signin-sent-*`              | sign-in at rest, with the field focused, and "Check your email"      |
+| `entry-welcome-*`                                                              | welcome, with one and with both boxes ticked                         |
+| `entry-firstrun-*`                                                             | first-run steps 1 (a chip chosen), 2 and 5                           |
+| `not-found-1440.jpg`, `not-found-390.jpg`, `goodbye-*`                         | the line with a gap                                                  |
+
+`report-p4-public.json` is the capture script's report for the public Phase 4 routes.
+
+### Scores
+
+| Screen               | Glance | Signature | Type | Composition | Colour | Media | Motion | Mobile | Copy | Polish | Average |
+| -------------------- | ------ | --------- | ---- | ----------- | ------ | ----- | ------ | ------ | ---- | ------ | ------- |
+| `/how-it-works`      | 8      | 8         | 9    | 8           | 9      | 9     | 8      | 8      | 9    | 8      | **8.4** |
+| `/pricing`           | 9      | 8         | 9    | 8           | 9      | 8     | 8      | 8      | 9    | 8      | **8.4** |
+| `/privacy`, `/terms` | 9      | 8         | 9    | 9           | 9      | 8     | 8      | 8      | 8    | 9      | **8.5** |
+| OG images            | 9      | 8         | 9    | 8           | 9      | 8     | n/a    | n/a    | 9    | 9      | **8.6** |
+| `/sign-in`           | 9      | 8         | 9    | 8           | 9      | 8     | 8      | 8      | 8    | 8      | **8.3** |
+| `/welcome`           | 8      | 7         | 9    | 8           | 9      | 7     | 8      | 8      | 8    | 8      | **8.0** |
+| `/first-run`         | 8      | 8         | 9    | 8           | 9      | 7     | 8      | 8      | 8    | 8      | **8.1** |
+| not-found, goodbye   | 8      | 7         | 9    | 8           | 8      | 7     | 7      | 8      | 8    | 8      | **7.8** |
+
+Every page clears the bar except the two smallest screens, not-found and goodbye (7.8): one line
+of text and a line with a gap, quiet on purpose. The faults the first screenshots showed, all
+fixed and re-shot:
+
+1. the pack's threads broke into dashes while drawing (a dash on a stretched, non-scaling
+   stroke); they now draw with `clip-path`, checked mid-draw;
+2. the kit sheets' text column was too narrow on a phone (one step smaller there);
+3. the AI-policy rows on a phone put the date and the link on separate lines (one line now);
+4. the sign-in sheet's caption sat on the horizon line and its margin note wrapped a word to a
+   line (caption above, margin 96 → 116 px);
+5. welcome's heading broke into three lines (one more grid column);
+6. with no footnote, the horizon sat on the window's edge on not-found and goodbye (it keeps
+   72 px under it);
+7. straight apostrophes in new copy (typographic now).
+
+The three weakest now: welcome's signature (the tick and the waking button are small for a
+first impression), not-found and goodbye (plain by design), and motion everywhere, judged from
+timed frames and mid-animation captures rather than watched at speed by a person.
+
+### What was checked, and how
+
+| Check                                        | Result                                                                                                                                               |
+| -------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `pnpm typecheck`, `pnpm lint`                | passed                                                                                                                                               |
+| `next build` (local environment)             | passed; it stops once on a Next.js security notice and continues on the second run, as in Phase 3                                                    |
+| `bundle:check`                               | passed. `/how-it-works` 142.8 of 155 (was 149.2), `/pricing` 143.2, legal 142.8, `/sign-in` 157.6 of 160 (was 158.0), `/first-run` 148.4 (was 154.6) |
+| axe, WCAG 2.2 AA                             | 0 violations on every Phase 4 route at 1440 and 390; `/welcome` and `/first-run` at 1440                                                             |
+| Overflow at 375 px                           | none on any Phase 4 route                                                                                                                            |
+| Console, failed requests, hydration warnings | none (the 404 page logs its own 404, as before)                                                                                                      |
+| Reduced motion                               | the pack and the voice path render drawn and still; the strike is drawn; the reading line is absent                                                  |
+| Sign-in flow                                 | a fresh account signed in through the local magic link, reached welcome, ticked both boxes, went through first-run                                   |
+| Unit tests                                   | 2,515 of 2,517 pass; the two failures are the same as before and not the redesign's                                                                  |
+
+### What could not be done, and what to know
+
+- **The AI-policy table was checked with four sample rows written to the local database only**
+  (fictional fixture schools, removed afterwards). With no verified policies the page shows the
+  fallback sentence on the sheet, as before.
+- **After sign-up, new accounts go to `/home`, not `/welcome`, and welcome goes to `/home`, not
+  `/first-run`** (the funnel change of 16 November). Both screens were reached by opening them
+  directly. The routing was not touched.
+- **The legal pages print `TODO(Manu)` placeholders** (data region, postal address, EU/UK
+  representative, governing law, liability). They were there before and are content for counsel,
+  not design; PROGRESS "Needs Manu" 8.
+- **Next.js advises a security upgrade** on every build ("Your version of Next.js is affected by
+  a known security vulnerability"; it suggests `next upgrade --agent=security`). Dependencies
+  are outside this job, so nothing was upgraded. Worth doing on its own branch.
+- Sign-in copy in `lib/sign-in-copy.ts` keeps its straight apostrophes ("we'll", "can't"): that
+  module's voice is unit-tested, and the tests were left alone.
+- **Motion was verified from timed frames and mid-animation captures, not watched live.**

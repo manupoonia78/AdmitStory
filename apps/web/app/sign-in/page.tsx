@@ -1,7 +1,6 @@
 import { APP_NAME } from "@admitstory/shared";
-import { THEME_COOKIE, parseThemePreference } from "@admitstory/ui";
 import type { Metadata } from "next";
-import { cookies } from "next/headers";
+import type { CSSProperties } from "react";
 import { redirect } from "next/navigation";
 import { z } from "zod";
 import { AuthFrame } from "@/components/auth-frame";
@@ -9,6 +8,7 @@ import { PostHogIdentity } from "@/lib/analytics/posthog-client";
 import { googleConfigured, serverEnv } from "@/lib/env";
 import { getSession } from "@/lib/session";
 import { SIGN_IN_COPY, noticeForErrorCode } from "@/lib/sign-in-copy";
+import { EntrySheet } from "./entry-sheet";
 import { KeptLine } from "./kept-line";
 import { SignInForm } from "./sign-in-form";
 
@@ -41,27 +41,32 @@ export default async function SignInPage({
 
   const env = serverEnv();
   const { error, from } = SearchParams.parse(await searchParams);
-  const theme = parseThemePreference((await cookies()).get(THEME_COOKIE)?.value);
 
   return (
-    <AuthFrame>
+    // The room is always Night (SPEC §5), so Turnstile is asked for its dark theme.
+    <AuthFrame aside={<EntrySheet />}>
       {/* Signed out: forget any identity from before sign-out (no-op without POSTHOG_KEY). */}
       <PostHogIdentity userId={null} />
-      <div className="flex flex-col gap-2">
+      <div
+        className="signin-intro enter flex flex-col gap-3"
+        style={{ "--i": 0.8 } as CSSProperties}
+      >
         {from === "line" ? (
           <KeptLine fallbackHeadline={SIGN_IN_COPY.headline} />
         ) : (
-          <h1 className="text-display-sm text-text">{SIGN_IN_COPY.headline}</h1>
+          <h1 className="font-display text-display-2 text-text">{SIGN_IN_COPY.headline}</h1>
         )}
         <p className="text-text-soft">{SIGN_IN_COPY.intro}</p>
       </div>
-      <SignInForm
-        // The widget is shown exactly when the server enforces the check (lib/auth.ts).
-        turnstileSiteKey={env.TURNSTILE_SECRET_KEY ? (env.TURNSTILE_SITE_KEY ?? null) : null}
-        googleEnabled={googleConfigured(env)}
-        notice={noticeForErrorCode(error)}
-        theme={theme}
-      />
+      <div className="enter mt-8" style={{ "--i": 2 } as CSSProperties}>
+        <SignInForm
+          // The widget is shown exactly when the server enforces the check (lib/auth.ts).
+          turnstileSiteKey={env.TURNSTILE_SECRET_KEY ? (env.TURNSTILE_SITE_KEY ?? null) : null}
+          googleEnabled={googleConfigured(env)}
+          notice={noticeForErrorCode(error)}
+          theme="night"
+        />
+      </div>
     </AuthFrame>
   );
 }

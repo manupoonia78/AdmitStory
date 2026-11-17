@@ -1,8 +1,14 @@
 "use client";
 
-import { Button, FieldHint, ImmersiveScope, TextField, VoiceprintStill, cx } from "@admitstory/ui";
-import { DEFAULT_IDENTITY } from "@admitstory/shared";
-import { useEffect, useRef, useState, useSyncExternalStore, useTransition } from "react";
+import { Button, FieldHint, TextField, cx } from "@admitstory/ui";
+import {
+  useEffect,
+  useRef,
+  useState,
+  useSyncExternalStore,
+  useTransition,
+  type CSSProperties,
+} from "react";
 import { KEEP_LINE_COPY } from "@/app/(marketing)/_copy/keep-line";
 import { AlertMessage } from "@/components/live-message";
 import { clearFirstLine, readFirstLine, subscribeFirstLine } from "@/lib/marketing/first-line";
@@ -12,10 +18,18 @@ import { UploadStep } from "./upload-step";
 // First run (spec §5.1): five screens, one question each, about a minute. The second asks which
 // schools they are aiming for (16 Nov 2026), so the free steps after it can point at a real one.
 //
-// The hero moment is §6.7's: "the Voiceprint is born — a faint seed that grows brighter as you
-// answer the four first-run questions." It is the still SVG form rather than the live renderer,
-// because nobody has spoken yet and a WebGL context on the first screen after sign-up would cost
-// more than it shows.
+// It renders inside the entry room (components/auth-shell.tsx; SPEC §5). Its one moment is the
+// progress line: brass up to the current step, with the mark's peak standing on it and travelling
+// to the next stop on Next and Back (components/entry.css, .fr-progress). The Voiceprint orb is
+// gone: the line is the form.
+
+const STEP_NAMES: Record<string, string> = {
+  applying: "Applying",
+  schools: "Schools",
+  where: "Where",
+  bring: "Bring",
+  time: "Time",
+};
 
 const STEPS = ["applying", "schools", "where", "bring", "time"] as const;
 type Step = (typeof STEPS)[number];
@@ -106,7 +120,6 @@ export function FirstRunFlow({ defaults, schools }: FirstRunFlowProps) {
   }, [step]);
 
   const index = steps.indexOf(step);
-  const progress = (index + 1) / steps.length;
 
   const goNext = () => {
     const next = steps[index + 1];
@@ -135,229 +148,230 @@ export function FirstRunFlow({ defaults, schools }: FirstRunFlowProps) {
   };
 
   return (
-    <ImmersiveScope className="min-h-dvh bg-transparent bg-none">
-      <div className="auth-main mx-auto flex min-h-dvh w-full max-w-3xl flex-col gap-10 px-4 py-10 sm:px-8 sm:py-16 lg:mr-auto lg:ml-[12vw]">
-        <Seed progress={progress} />
+    <div className="mx-auto flex w-full max-w-[720px] flex-col gap-14 lg:mx-0">
+      <Progress steps={steps} index={index} />
 
-        <ol className="flex items-center gap-2" aria-label="Progress">
-          {steps.map((id, position) => (
-            <li
-              key={id}
-              aria-current={id === step ? "step" : undefined}
-              className={cx(
-                "h-0.5 flex-1 rounded-full transition-colors duration-(--spring-glide-duration) ease-glide",
-                position <= index ? "bg-signal" : "bg-edge",
-              )}
-            >
-              <span className="sr-only">
-                {`Step ${position + 1} of ${steps.length}`}
-                {id === step ? " (current)" : ""}
-              </span>
-            </li>
-          ))}
-        </ol>
+      <div className="flex flex-1 flex-col gap-8">
+        {step === "applying" ? (
+          <Screen
+            ref={headingRef}
+            title="What are you applying for?"
+            hint="You can change any of this later."
+          >
+            <Choices
+              legend="Intake year"
+              options={INTAKES.map((year) => ({ id: String(year), label: String(year) }))}
+              value={String(answers.targetIntake)}
+              onChange={(value) => setAnswers({ ...answers, targetIntake: Number(value) })}
+            />
+            <Choices
+              legend="Program"
+              options={[
+                { id: "full_time_mba", label: "Full-time MBA" },
+                { id: "other", label: "Something else" },
+              ]}
+              value={answers.programType === "full_time_mba" ? "full_time_mba" : "other"}
+              onChange={(value) => setAnswers({ ...answers, programType: value })}
+              hint={
+                answers.programType === "other"
+                  ? "Other programs come later; for now the advice is written for full-time MBA applications."
+                  : undefined
+              }
+            />
+            <Choices
+              legend="Rounds, if you know"
+              multiple
+              options={ROUNDS.map((round) => ({ id: round.id, label: round.label }))}
+              values={answers.targetRounds}
+              onToggle={(id) =>
+                setAnswers({
+                  ...answers,
+                  targetRounds: answers.targetRounds.includes(
+                    id as FirstRunInput["targetRounds"][number],
+                  )
+                    ? answers.targetRounds.filter((round) => round !== id)
+                    : [...answers.targetRounds, id as FirstRunInput["targetRounds"][number]],
+                })
+              }
+            />
+            <Actions onNext={goNext} nextLabel="Next" />
+          </Screen>
+        ) : null}
 
-        <div className="flex flex-1 flex-col gap-8">
-          {step === "applying" ? (
-            <Screen
-              ref={headingRef}
-              title="What are you applying for?"
-              hint="You can change any of this later."
-            >
-              <Choices
-                legend="Intake year"
-                options={INTAKES.map((year) => ({ id: String(year), label: String(year) }))}
-                value={String(answers.targetIntake)}
-                onChange={(value) => setAnswers({ ...answers, targetIntake: Number(value) })}
-              />
-              <Choices
-                legend="Program"
-                options={[
-                  { id: "full_time_mba", label: "Full-time MBA" },
-                  { id: "other", label: "Something else" },
-                ]}
-                value={answers.programType === "full_time_mba" ? "full_time_mba" : "other"}
-                onChange={(value) => setAnswers({ ...answers, programType: value })}
-                hint={
-                  answers.programType === "other"
-                    ? "Other programs come later; for now the advice is written for full-time MBA applications."
-                    : undefined
-                }
-              />
-              <Choices
-                legend="Rounds, if you know"
-                multiple
-                options={ROUNDS.map((round) => ({ id: round.id, label: round.label }))}
-                values={answers.targetRounds}
-                onToggle={(id) =>
-                  setAnswers({
-                    ...answers,
-                    targetRounds: answers.targetRounds.includes(
-                      id as FirstRunInput["targetRounds"][number],
-                    )
-                      ? answers.targetRounds.filter((round) => round !== id)
-                      : [...answers.targetRounds, id as FirstRunInput["targetRounds"][number]],
-                  })
-                }
-              />
-              <Actions onNext={goNext} nextLabel="Next" />
-            </Screen>
-          ) : null}
+        {step === "schools" ? (
+          <Screen
+            ref={headingRef}
+            title="Which schools are you aiming for?"
+            hint="Pick any you're considering. Each one gets a free preview built from your stories, and you can change the list at any time."
+          >
+            <Choices
+              legend="Schools we have a pack for"
+              multiple
+              options={schools.map((school) => ({ id: school.cycleId, label: school.name }))}
+              values={chosen}
+              onToggle={(id) =>
+                setAnswers({
+                  ...answers,
+                  schoolCycleIds: chosen.includes(id)
+                    ? chosen.filter((cycleId) => cycleId !== id)
+                    : [...chosen, id],
+                })
+              }
+              hint="Aiming somewhere else too? Add any school from Schools later; we build packs by demand."
+            />
+            <Actions
+              onBack={goBack}
+              onNext={goNext}
+              nextLabel={chosen.length > 0 ? "Next" : "Not sure yet"}
+            />
+          </Screen>
+        ) : null}
 
-          {step === "schools" ? (
-            <Screen
-              ref={headingRef}
-              title="Which schools are you aiming for?"
-              hint="Pick any you're considering. Each one gets a free preview built from your stories, and you can change the list at any time."
-            >
-              <Choices
-                legend="Schools we have a pack for"
-                multiple
-                options={schools.map((school) => ({ id: school.cycleId, label: school.name }))}
-                values={chosen}
-                onToggle={(id) =>
-                  setAnswers({
-                    ...answers,
-                    schoolCycleIds: chosen.includes(id)
-                      ? chosen.filter((cycleId) => cycleId !== id)
-                      : [...chosen, id],
-                  })
-                }
-                hint="Aiming somewhere else too? Add any school from Schools later; we build packs by demand."
-              />
-              <Actions
-                onBack={goBack}
-                onNext={goNext}
-                nextLabel={chosen.length > 0 ? "Next" : "Not sure yet"}
-              />
-            </Screen>
-          ) : null}
-
-          {step === "where" ? (
-            <Screen ref={headingRef} title="Where are you right now?">
-              <div className="grid gap-5 sm:grid-cols-2">
-                <TextField
-                  label="Country"
-                  hint="Two-letter code, like IN, NG, BR or US."
-                  value={answers.country ?? ""}
-                  maxLength={2}
-                  autoComplete="country"
-                  onChange={(event) =>
-                    setAnswers({
-                      ...answers,
-                      country: event.target.value.toUpperCase().slice(0, 2) || null,
-                    })
-                  }
-                />
-                <TextField
-                  label="Time zone"
-                  hint="Detected from your browser. Change it if it's wrong."
-                  value={answers.timezone || detectedTimezone}
-                  onChange={(event) => setAnswers({ ...answers, timezone: event.target.value })}
-                />
-              </div>
+        {step === "where" ? (
+          <Screen ref={headingRef} title="Where are you right now?">
+            <div className="grid gap-5 sm:grid-cols-2">
               <TextField
-                label="Your current role, in one line"
-                hint="Optional."
-                value={answers.currentRole}
-                maxLength={200}
-                placeholder="Senior product lead at a US health system"
-                onChange={(event) => setAnswers({ ...answers, currentRole: event.target.value })}
+                label="Country"
+                hint="Two-letter code, like IN, NG, BR or US."
+                value={answers.country ?? ""}
+                maxLength={2}
+                autoComplete="country"
+                onChange={(event) =>
+                  setAnswers({
+                    ...answers,
+                    country: event.target.value.toUpperCase().slice(0, 2) || null,
+                  })
+                }
               />
-              <Actions onBack={goBack} onNext={goNext} nextLabel="Next" />
-            </Screen>
-          ) : null}
-
-          {step === "bring" ? (
-            <Screen
-              ref={headingRef}
-              title="Bring what you have"
-              hint="A CV, a LinkedIn export, past essays, any notes. All optional — we read them so you're never asked for what they already say."
-            >
-              <UploadStep />
-              <Actions
-                onBack={goBack}
-                onNext={goNext}
-                nextLabel="Next"
-                skipLabel="Skip for now"
-                onSkip={goNext}
+              <TextField
+                label="Time zone"
+                hint="Detected from your browser. Change it if it's wrong."
+                value={answers.timezone || detectedTimezone}
+                onChange={(event) => setAnswers({ ...answers, timezone: event.target.value })}
               />
-            </Screen>
-          ) : null}
+            </div>
+            <TextField
+              label="Your current role, in one line"
+              hint="Optional."
+              value={answers.currentRole}
+              maxLength={200}
+              placeholder="Senior product lead at a US health system"
+              onChange={(event) => setAnswers({ ...answers, currentRole: event.target.value })}
+            />
+            <Actions onBack={goBack} onNext={goNext} nextLabel="Next" />
+          </Screen>
+        ) : null}
 
-          {step === "time" ? (
-            <Screen ref={headingRef} title="How much time do you have today?">
-              <div className="flex flex-col gap-3">
-                {MODES.map((mode) => {
-                  const selected = answers.studioMode === mode.id;
-                  return (
-                    <button
-                      key={mode.id}
-                      type="button"
-                      aria-pressed={selected}
-                      onClick={() => setAnswers({ ...answers, studioMode: mode.id })}
-                      className={cx(
-                        "flex min-h-11 flex-col gap-1 rounded-plane border p-4 text-left",
-                        selected
-                          ? "border-text bg-veil"
-                          : "border-edge hover:border-control-edge hover:bg-veil",
-                      )}
-                    >
-                      <span className="flex flex-wrap items-baseline gap-2">
-                        <span className="font-semibold text-text">{mode.label}</span>
-                        <span className="text-sm text-text-soft">{mode.minutes}</span>
-                      </span>
-                      <span className="text-sm text-text-soft">{mode.detail}</span>
-                    </button>
-                  );
-                })}
-              </div>
-              {homepageLine ? (
-                <label className="flex min-h-11 cursor-pointer items-start gap-3 rounded-plane border border-edge p-4 hover:bg-veil">
-                  <input
-                    type="checkbox"
-                    checked={keepLine}
-                    onChange={(event) => setKeepLine(event.target.checked)}
-                    className="mt-1 size-4 shrink-0 accent-text"
-                  />
-                  <span className="flex flex-col gap-2">
-                    <span className="text-text">{KEEP_LINE_COPY.firstRunCheckbox}</span>
-                    <span className="font-reading text-read text-text-soft">“{homepageLine}”</span>
+        {step === "bring" ? (
+          <Screen
+            ref={headingRef}
+            title="Bring what you have"
+            hint="A CV, a LinkedIn export, past essays, any notes. All optional — we read them so you're never asked for what they already say."
+          >
+            <UploadStep />
+            <Actions
+              onBack={goBack}
+              onNext={goNext}
+              nextLabel="Next"
+              skipLabel="Skip for now"
+              onSkip={goNext}
+            />
+          </Screen>
+        ) : null}
+
+        {step === "time" ? (
+          <Screen ref={headingRef} title="How much time do you have today?">
+            <div className="grid gap-3 sm:grid-cols-3">
+              {MODES.map((mode) => {
+                const selected = answers.studioMode === mode.id;
+                return (
+                  <button
+                    key={mode.id}
+                    type="button"
+                    aria-pressed={selected}
+                    onClick={() => setAnswers({ ...answers, studioMode: mode.id })}
+                    className={cx(
+                      "flex min-h-11 flex-col gap-2 rounded-card border p-6 text-left transition-colors duration-(--dur-hover)",
+                      selected ? "border-text bg-frost" : "border-edge bg-veil hover:bg-frost",
+                    )}
+                  >
+                    <span className="text-title text-text">{mode.label}</span>
+                    <span className="label">{mode.minutes}</span>
+                    <span className="mt-1 text-sm text-text-soft">{mode.detail}</span>
+                  </button>
+                );
+              })}
+            </div>
+            {homepageLine ? (
+              <label className="flex min-h-11 cursor-pointer items-start gap-3 rounded-card border border-edge p-5 hover:bg-veil">
+                <input
+                  type="checkbox"
+                  checked={keepLine}
+                  onChange={(event) => setKeepLine(event.target.checked)}
+                  className="mt-1 size-4 shrink-0 accent-text"
+                />
+                <span className="flex flex-col gap-2">
+                  <span className="text-text">{KEEP_LINE_COPY.firstRunCheckbox}</span>
+                  <span className="font-accent text-[1.375rem] leading-[1.25] text-text-80 italic">
+                    “{homepageLine}”
                   </span>
-                </label>
-              ) : null}
-              <AlertMessage message={error} />
-              <Actions
-                onBack={goBack}
-                onNext={submit}
-                nextLabel={pending ? "Starting…" : "Start talking"}
-                nextDisabled={pending}
-              />
-            </Screen>
-          ) : null}
-        </div>
+                </span>
+              </label>
+            ) : null}
+            <AlertMessage message={error} />
+            <Actions
+              onBack={goBack}
+              onNext={submit}
+              nextLabel={pending ? "Starting…" : "Start talking"}
+              nextDisabled={pending}
+            />
+          </Screen>
+        ) : null}
       </div>
-    </ImmersiveScope>
+    </div>
   );
 }
 
-/** The Voiceprint being born (spec §6.7): fainter at the start, brighter with every answer. */
-function Seed({ progress }: { progress: number }) {
+/** The progress line (SPEC §5): a tick at each stop, brass to the current one, the peak on it. */
+function Progress({ steps, index }: { steps: readonly Step[]; index: number }) {
+  const last = Math.max(steps.length - 1, 1);
+  const current = steps[index] ?? steps[0];
   return (
-    <div className="flex items-center gap-4">
-      <span
-        aria-hidden
-        className="transition-opacity duration-(--spring-drift-duration) ease-drift"
-        style={{ opacity: 0.25 + progress * 0.75 }}
-      >
-        <VoiceprintStill identity={DEFAULT_IDENTITY} size={56} mood="seed" label="" />
-      </span>
+    <div className="flex flex-col gap-4">
+      <p className="label" aria-hidden="true">
+        {String(index + 1).padStart(2, "0")} / {String(steps.length).padStart(2, "0")} ·{" "}
+        {current ? STEP_NAMES[current] : null}
+      </p>
+      <div className="fr-progress" style={{ "--p": index / last } as CSSProperties}>
+        <span className="fr-progress-line" />
+        <span className="fr-progress-brass" />
+        {steps.map((id, position) => (
+          <span
+            key={id}
+            className="fr-progress-tick"
+            style={{ left: `${(position / last) * 100}%` }}
+          />
+        ))}
+        <svg className="fr-progress-peak" viewBox="0 0 24 34" fill="none" aria-hidden="true">
+          <path d="M0 33.5 L12 1 L24 33.5" />
+        </svg>
+      </div>
+      <ol className="sr-only" aria-label="Progress">
+        {steps.map((id, position) => (
+          <li key={id} aria-current={id === step(index, steps) ? "step" : undefined}>
+            {`Step ${position + 1} of ${steps.length}`}
+            {position === index ? " (current)" : ""}
+          </li>
+        ))}
+      </ol>
       <p className="text-sm text-text-soft">
-        This becomes your Voiceprint — drawn from the way you actually talk.
+        This becomes your Voiceprint: drawn from the way you actually talk.
       </p>
     </div>
   );
 }
+
+const step = (index: number, steps: readonly Step[]) => steps[index];
 
 function Screen({
   ref,
@@ -373,10 +387,10 @@ function Screen({
   return (
     <section className="flex flex-col gap-6">
       <div className="flex flex-col gap-2">
-        <h1 ref={ref} tabIndex={-1} className="text-display text-text outline-none">
+        <h1 ref={ref} tabIndex={-1} className="font-display text-display-2 text-text outline-none">
           {title}
         </h1>
-        {hint ? <p className="max-w-prose text-text-soft">{hint}</p> : null}
+        {hint ? <p className="max-w-[60ch] text-text-soft">{hint}</p> : null}
       </div>
       {children}
     </section>
@@ -399,8 +413,8 @@ function Choices(
   ),
 ) {
   return (
-    <fieldset className="flex flex-col gap-2">
-      <legend className="mb-1 text-sm font-medium text-text">{props.legend}</legend>
+    <fieldset className="flex flex-col gap-3">
+      <legend className="label mb-3">{props.legend}</legend>
       <div className="flex flex-wrap gap-2">
         {props.options.map((option) => {
           const selected = props.multiple
@@ -415,10 +429,10 @@ function Choices(
                 props.multiple ? props.onToggle(option.id) : props.onChange(option.id)
               }
               className={cx(
-                "min-h-11 rounded-control border px-4 text-sm",
+                "inline-flex min-h-11 items-center rounded-full border px-5 text-ui transition-colors duration-(--dur-hover)",
                 selected
-                  ? "border-text bg-veil font-semibold text-text"
-                  : "border-control-edge text-text-soft hover:bg-veil hover:text-text",
+                  ? "border-text bg-text text-space"
+                  : "border-edge bg-frost text-text hover:bg-frost-hover",
               )}
             >
               {option.label}
@@ -448,7 +462,7 @@ function Actions({
 }) {
   return (
     <div className="mt-2 flex flex-wrap items-center gap-3">
-      <Button onClick={onNext} disabled={nextDisabled}>
+      <Button onClick={onNext} disabled={nextDisabled} arrow>
         {nextLabel}
       </Button>
       {skipLabel && onSkip ? (

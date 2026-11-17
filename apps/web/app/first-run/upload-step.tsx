@@ -70,8 +70,8 @@ export function UploadStep() {
           void upload(event.dataTransfer.files);
         }}
         className={cx(
-          "flex flex-col items-center gap-3 rounded-plane border border-dashed p-8 text-center",
-          dragging ? "border-text bg-veil" : "border-control-edge",
+          "flex flex-col items-center gap-4 rounded-card border border-dashed p-10 text-center",
+          dragging ? "border-text bg-veil" : "border-edge-strong",
         )}
       >
         <p className="text-text-soft">Drop a file here, or choose one.</p>

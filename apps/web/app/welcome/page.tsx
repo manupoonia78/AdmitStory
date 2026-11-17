@@ -1,5 +1,6 @@
 import { APP_NAME } from "@admitstory/shared";
 import type { Metadata } from "next";
+import type { CSSProperties } from "react";
 import { redirect } from "next/navigation";
 import { AuthFrame } from "@/components/auth-frame";
 import { hasCompletedWelcome, requireAppUser } from "@/lib/app-user";
@@ -20,24 +21,39 @@ export default async function WelcomePage() {
   if (hasCompletedWelcome(profile)) redirect("/home");
 
   return (
-    <AuthFrame>
-      <div className="flex flex-col gap-3">
-        <h1 className="text-display-sm text-text">
-          You&apos;re in. Here&apos;s what happens next.
-        </h1>
-        <ol className="flex flex-col gap-2 text-text">
-          {NEXT.map((step, index) => (
-            <li key={step} className="grid grid-cols-[1.75rem_minmax(0,1fr)] items-baseline">
-              <span className="meta text-accent">{String(index + 1).padStart(2, "0")}</span>
-              <span>{step}</span>
-            </li>
-          ))}
-        </ol>
-        <p className="text-text-soft">
-          All of that is free. Two things first, so you know how {APP_NAME} works.
-        </p>
+    <AuthFrame width="wide">
+      <div className="grid gap-12 lg:grid-cols-12 lg:gap-6">
+        <div className="lg:col-span-6">
+          <p className="label enter" style={{ "--i": 0.4 } as CSSProperties}>
+            Before you start
+          </p>
+          <h1 className="mt-5 font-display text-display-2 text-text">
+            <span className="enter block" style={{ "--i": 0.8 } as CSSProperties}>
+              You’re in.
+            </span>{" "}
+            <span className="enter block" style={{ "--i": 1.45 } as CSSProperties}>
+              <em>Here’s what happens next.</em>
+            </span>
+          </h1>
+          <ol className="enter mt-8 border-b border-edge" style={{ "--i": 2 } as CSSProperties}>
+            {NEXT.map((step, index) => (
+              <li
+                key={step}
+                className="grid grid-cols-[2.5rem_minmax(0,1fr)] items-baseline border-t border-edge py-5"
+              >
+                <span className="label">{String(index + 1).padStart(2, "0")}</span>
+                <span className="text-lg text-text-80">{step}</span>
+              </li>
+            ))}
+          </ol>
+          <p className="enter mt-6 text-text-soft" style={{ "--i": 2 } as CSSProperties}>
+            All of that is free. Two things first, so you know how {APP_NAME} works.
+          </p>
+        </div>
+        <div className="enter lg:col-span-5 lg:col-start-8" style={{ "--i": 2.5 } as CSSProperties}>
+          <WelcomeForm />
+        </div>
       </div>
-      <WelcomeForm />
     </AuthFrame>
   );
 }

@@ -2,12 +2,7 @@
 
 import type { ThemePreference } from "@admitstory/ui";
 import { Button, TextField, focusFirstInvalid } from "@admitstory/ui";
-import {
-  EnvelopeSimpleIcon,
-  FingerprintIcon,
-  GoogleLogoIcon,
-  InfoIcon,
-} from "@phosphor-icons/react";
+import { FingerprintIcon, GoogleLogoIcon, InfoIcon } from "@phosphor-icons/react";
 import { Turnstile, type TurnstileInstance } from "@marsidev/react-turnstile";
 import { useRouter } from "next/navigation";
 import { useEffect, useRef, useState, type FormEvent } from "react";
@@ -77,9 +72,9 @@ function Captcha({ siteKey, theme, widgetRef, onToken, onFailure }: CaptchaProps
 
 function Divider() {
   return (
-    <div className="flex items-center gap-3 text-sm text-text-soft" role="presentation">
+    <div className="flex items-center gap-4" role="presentation">
       <span className="h-px flex-1 bg-edge" />
-      <span>{SIGN_IN_COPY.divider}</span>
+      <span className="label">{SIGN_IN_COPY.divider}</span>
       <span className="h-px flex-1 bg-edge" />
     </div>
   );
@@ -225,17 +220,18 @@ export function SignInForm({ turnstileSiteKey, googleEnabled, notice, theme }: S
 
   if (sentTo) {
     return (
-      <section aria-labelledby="sent-heading" className="flex flex-col gap-4">
-        <div className="flex flex-col gap-2">
+      <section aria-labelledby="sent-heading" className="flex flex-col gap-8">
+        <div className="flex flex-col gap-3">
+          <p className="label">Link sent</p>
           <h2
             id="sent-heading"
             ref={sentHeadingRef}
             tabIndex={-1}
-            className="text-lg font-semibold text-text outline-none"
+            className="font-display text-display-2 text-text outline-none"
           >
             {SIGN_IN_COPY.sentTitle}
           </h2>
-          <p>
+          <p className="mt-2 text-text">
             We sent a sign-in link to <span className="font-medium break-all">{sentTo}</span>.
           </p>
           <p className="text-text-soft">{SIGN_IN_COPY.sentHint}</p>
@@ -269,9 +265,9 @@ export function SignInForm({ turnstileSiteKey, googleEnabled, notice, theme }: S
   }
 
   return (
-    <div className="flex flex-col gap-6">
+    <div className="flex flex-col gap-7">
       {notice ? (
-        <div className="flex gap-3 rounded-plane border border-control bg-space p-4">
+        <div className="frost-flat flex gap-3 rounded-card p-4">
           <InfoIcon size={20} aria-hidden className="mt-0.5 shrink-0 text-text" />
           <div className="flex flex-col gap-1">
             <p className="font-semibold text-text">{notice.title}</p>
@@ -297,7 +293,7 @@ export function SignInForm({ turnstileSiteKey, googleEnabled, notice, theme }: S
         />
         {captcha}
         <div className="flex flex-col">
-          <Button type="submit" icon={EnvelopeSimpleIcon} loading={sending} className="w-full">
+          <Button type="submit" arrow loading={sending} className="w-full justify-between pl-6">
             {sending ? SIGN_IN_COPY.sending : SIGN_IN_COPY.send}
           </Button>
           <AlertMessage message={formError} className="not-empty:mt-4" />

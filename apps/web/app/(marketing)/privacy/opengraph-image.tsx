@@ -1,4 +1,14 @@
-// The shared marketing Open Graph image (../opengraph-image.tsx). This page sets its own
-// openGraph metadata, which replaces what it would inherit, so it names the image itself.
+// This page's Open Graph image: the shared template (_lib/og/og-image.tsx) with its headline.
 
-export { alt, contentType, default, size } from "../opengraph-image";
+import { OG_CONTENT_TYPE, OG_SIZE, ogAlt, ogImage } from "../_lib/og/og-image";
+import { OG_HEADLINES } from "../_lib/og/headlines";
+
+const HEADLINE = OG_HEADLINES.privacy;
+
+export const alt = ogAlt(HEADLINE);
+export const size = OG_SIZE;
+export const contentType = OG_CONTENT_TYPE;
+
+export default function OpengraphImage() {
+  return ogImage(HEADLINE);
+}

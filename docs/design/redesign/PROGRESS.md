@@ -14,10 +14,21 @@ committed there); the session of 2026-11-17 moved the uncommitted work back to
 
 ## Next step
 
-**Phase 4 is in progress (named by Manu on 2026-11-17, with no notes on Phases 0–3).** SPEC §4.2
-and §5 are expanded to full values. Build in the order of the Phase 4 checklist below, one
-screen at a time (shoot at 1440 and 390, score, fix, tick, commit), from the first unticked
-line. The local environment is in `local-db.md`; work from the production build.
+**Phase 4 is done (2026-11-17). Do not start Phase 5 until Manu names it.** If his message has
+feedback on the Phase 4 pages, write it into "Decisions" (with the date), change SPEC §4.2 or §5
+to match, and fix that first.
+
+When Phase 5 is named, start here:
+
+1. Load the project skills that apply (`.claude/skills/`: `emil-design-eng`, `animate`,
+   `choreograph`, `mobile-native`; SPEC §2.10 "Rules from the project skills").
+2. Start the local environment from `local-db.md` (production build). A Postgres on 5455 may
+   still be running: run the guard, then reuse it.
+3. Expand SPEC §6.1 (shell) and the Home and Studio rows of §6.2 to full values, then build the
+   casing (sidebar, top bar, dock, palette, account menu, toasts), `/home` and `/studio`. The
+   entry room (`components/auth-shell.tsx`, `entry.css`) is the nearest finished thing to the
+   casing: reuse its horizon and peak.
+4. Still open from before: "Needs Manu" 1 (dark casing in Day) decides Phase 5's Day look.
 
 ## Phases
 
@@ -27,7 +38,7 @@ line. The local environment is in `local-db.md`; work from the production build.
 | 1. Design system           | tokens, type, grain, frost, components, motion utilities, wordmark, favicon, utility migration, tests, `/prototype/system` | **done** (2026-11-13)          |
 | 2. Landing hero            | nav, hero signature, reduced-motion still, phone composition, facts strip, frame cost, LCP                                 | built; Phase 3 named, no notes |
 | 3. Landing, all scenes     | sections 2–13, GSAP sequence to CSS, Lenis decision                                                                        | **done** (2026-11-17)          |
-| 4. Other marketing + entry | `/how-it-works`, `/pricing`, `/privacy`, `/terms`, OG, titles, `/sign-in`, `/welcome`, `/first-run`                        | **in progress** (2026-11-17)   |
+| 4. Other marketing + entry | `/how-it-works`, `/pricing`, `/privacy`, `/terms`, OG, titles, `/sign-in`, `/welcome`, `/first-run`                        | **done** (2026-11-17)          |
 | 5. Shell, home, Studio     | casing, sidebar, top bar, dock, palette, account menu, toasts, `/home`, `/studio`                                          | not started                    |
 | 6. Schools and the editor  | `/schools`, workspace and tabs, preview, unlock, `/workspace/[id]`, `/kits/[id]`                                           | not started                    |
 | 7. The rest of the app     | dossier, profile read, recommenders, portal, résumé, connect, settings, interview, tracker, all states                     | not started                    |
@@ -155,16 +166,18 @@ kept all of it, fixed five things found in the screenshots, measured and committ
       questions, final call; `SocialProofSlot` above the plans (8.4)
 - [x] `/privacy` and `/terms` on paper: contents, hanging numbers, the voice path, the reading
       line (8.5)
-- [ ] OG images (five routes, one template) and titles
-- [ ] The entry room (`auth-shell.tsx`, `entry.css`); `/sign-in` with the sheet, the line and
+- [x] OG images (five routes, one template) and titles (`HOME_TITLE` "AdmitStories: tell it
+      once, tell it well")
+- [x] The entry room (`auth-shell.tsx`, `entry.css`); `/sign-in` with the sheet, the line and
       "Check your email"; `/goodbye` and not-found
-- [ ] `/welcome`
-- [ ] `/first-run` (all five steps)
+- [x] `/welcome`
+- [x] `/first-run` (all five steps)
 - [x] Old helpers deleted (`school-packs`, `tick`, `display-heading`, `notes`, `screens*`,
       `sample-hue`, `_unlock*`, `_assembly*`, `voice-path-play`, the `capture:screens` stub)
-- [ ] Shot, scored, fixed, re-shot; measured (bundle, fonts, overflow, console, axe)
-- [ ] Gates: typecheck, lint, build, `bundle:check`; existing unit tests
-- [ ] SPEC updated where the build differs; REPORT.md; committed
+- [x] Shot, scored, fixed, re-shot; measured (bundle, overflow, console, axe)
+- [x] Gates: typecheck, lint, build, `bundle:check`; existing unit tests (2,515 of 2,517, the same
+      two failures as before)
+- [x] SPEC updated where the build differs; REPORT.md; committed
 
 ## Decisions
 
@@ -243,6 +256,20 @@ asked why only the landing page has changed: answered that each screen gets its 
 its own phase (Studio and Home in 5, Schools in 6, the rest in 7), and until then wears only
 Phase 1's colours and type.
 
+Made in Phase 4 by Claude while building, **not yet approved by Manu**:
+
+| Date       | Decision                                                                                                                                    | Why                                                                                       | Spec  |
+| ---------- | ------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------- | ----- |
+| 2026-11-17 | Emil Kowalski's seven web skills live in `.claude/skills/`; their rules are SPEC §2.10's; the phone layer is in `theme.css`                 | Manu asked for them throughout the project                                                | §2.10 |
+| 2026-11-17 | `/how-it-works` keeps all eight old steps, two to a stage, beside the landing page's four windows; the moment is the pack's threads drawing | nothing the old page promised is lost; the windows already exist                          | §4.2  |
+| 2026-11-17 | Lines on stretched drawings draw with `clip-path`, not a dash                                                                               | a dash on `pathLength="1"` breaks into fragments with a non-scaling stroke                | §4.2  |
+| 2026-11-17 | `/pricing` opens on "5 schools. ~~$500~~ $349." with the strike drawn on load; the "Show what unlocks" switch is replaced by four sheets    | the price is the page's subject; a still kit shows more than a toggle and costs no script | §4.2  |
+| 2026-11-17 | The legal pages are one sheet of paper from the top of the window; the reading line is on `/terms` only                                     | one moment per page: `/privacy` has the voice path                                        | §4.2  |
+| 2026-11-17 | One OG template for five routes; Instrument Serif italic as a TTF beside it (OFL)                                                           | Satori reads TTF, not next/font's woff2; build-time only                                  | §4.2  |
+| 2026-11-17 | The entry room is always Night and is the one shell for sign-in, welcome, first-run, goodbye and not-found                                  | "walking into a quiet room"; the room is part of the casing                               | §5    |
+| 2026-11-17 | Welcome's button wakes from flat frost to brass, not from 45 % opacity                                                                      | a faded brass button that can still be pressed fails AA                                   | §5    |
+| 2026-11-17 | The `capture:screens` stub script and `_data/screens*.ts` are deleted                                                                       | the windows are live markup now; the stub never captured anything                         | §4.2  |
+
 Approved, changed or rejected by Manu: Phase 1 was named (so the Phase 0 spec was accepted as the
 working basis), but no answer to the five questions below was written down. Treat all five as
 open.
@@ -274,6 +301,12 @@ open.
    not by the page's size: the document fell from 354 KB to 246 KB (47 KB gz) in Phase 3 and
    first paint did not move. Dropping the Source Serif preload on `/` (19.7 KB) would buy a
    little, at the cost of the sheets' text swapping faces in view on first load. Not done.
+
+8. **The legal pages print `TODO(Manu)` placeholders in their text** (seen 2026-11-17, unchanged
+   by the redesign): the data region in the processor list, the postal address and EU/UK
+   representative in "Changes and contact" (`_copy/privacy.ts`), and governing law and liability
+   in `/terms` (`_copy/terms.ts`). They render as written, under the "draft under legal review"
+   note. They need real values from counsel before launch.
 
 Also for you, not design: `LEGAL_ENTITY` in `_copy/chrome.ts` is still `TODO(Manu)` and shows in
 the footer's copyright line.
@@ -378,25 +411,46 @@ the footer's copyright line.
 - Overflow: none at 320, 375, 390, 768, 1024, 1280, 1440 or 1920. Console, failed requests,
   hydration warnings: none on any public page (the 404 page logs its own 404, as before).
 
+## Measured after Phase 4 (2026-11-17, production build, local)
+
+- First-load JS: `/how-it-works` **142.8 KB** of 155 (was 149.2), `/pricing` 143.2 (was 144.0),
+  `/privacy` and `/terms` 142.8, `/` 147.7 (unchanged), `/sign-in` **157.6** of 160 (was 158.0),
+  `/first-run` **148.4** (was 154.6; the Voiceprint still left it), `/welcome` 142.8, `/goodbye`
+  137.5.
+- Fonts: no route preloads more than before (`/sign-in`'s sheet uses the lazy reading serif).
+- axe (WCAG 2.2 AA): 0 violations on `/how-it-works`, `/pricing`, `/privacy`, `/terms`,
+  `/sign-in`, `/goodbye` and the 404 page at 1440 and 390, and on `/welcome` and two
+  `/first-run` steps at 1440.
+- Overflow at 375 px: none on any Phase 4 route. Console, failed requests, hydration warnings:
+  none (the 404 page logs its own 404, as before).
+
 ## Scores
 
-| Screen              | Glance | Signature | Type | Composition | Colour | Media | Motion | Mobile | Copy | Polish | Average |
-| ------------------- | ------ | --------- | ---- | ----------- | ------ | ----- | ------ | ------ | ---- | ------ | ------- |
-| `/prototype/system` | 8      | 8         | 9    | 8           | 8      | 8     | 8      | 7      | 8    | 8      | **8.0** |
-| `/` hero and nav    | 9      | 9         | 9    | 8           | 9      | 9     | 8      | 8      | 8    | 8      | **8.5** |
-| `/` whole page      | 9      | 9         | 9    | 8           | 9      | 8     | 8      | 8      | 9    | 8      | **8.5** |
-| 2 schools strip     | 8      | 7         | 9    | 8           | 8      | 8     | 7      | 8      | 8    | 9      | **8.0** |
-| 3 how it works      | 9      | 9         | 9    | 8           | 9      | 9     | 8      | 8      | 9    | 8      | **8.6** |
-| 4 school by school  | 9      | 8         | 9    | 8           | 9      | 8     | 7      | 8      | 9    | 8      | **8.3** |
-| 5 essays, on paper  | 9      | 9         | 9    | 8           | 9      | 9     | 8      | 8      | 9    | 8      | **8.6** |
-| 6 the model         | 8      | 8         | 9    | 8           | 8      | 8     | 8      | 8      | 8    | 8      | **8.1** |
-| 7 Connect           | 8      | 7         | 9    | 8           | 8      | 8     | 7      | 8      | 8    | 8      | **7.9** |
-| 8 what it won't do  | 8      | 7         | 9    | 8           | 8      | 7     | 7      | 8      | 9    | 8      | **7.9** |
-| 9 interview, soon   | 8      | 8         | 8    | 8           | 9      | 8     | 8      | 8      | 9    | 8      | **8.2** |
-| 10 pricing          | 8      | 8         | 8    | 8           | 9      | 7     | 7      | 8      | 9    | 8      | **8.0** |
-| 11 questions        | 8      | 7         | 9    | 8           | 8      | 7     | 7      | 8      | 8    | 8      | **7.8** |
-| 12 final call       | 8      | 7         | 9    | 8           | 8      | 7     | 8      | 8      | 8    | 8      | **7.9** |
-| 13 footer           | 8      | 7         | 8    | 8           | 8      | 7     | 7      | 8      | 8    | 8      | **7.7** |
+| Screen               | Glance | Signature | Type | Composition | Colour | Media | Motion | Mobile | Copy | Polish | Average |
+| -------------------- | ------ | --------- | ---- | ----------- | ------ | ----- | ------ | ------ | ---- | ------ | ------- |
+| `/prototype/system`  | 8      | 8         | 9    | 8           | 8      | 8     | 8      | 7      | 8    | 8      | **8.0** |
+| `/` hero and nav     | 9      | 9         | 9    | 8           | 9      | 9     | 8      | 8      | 8    | 8      | **8.5** |
+| `/` whole page       | 9      | 9         | 9    | 8           | 9      | 8     | 8      | 8      | 9    | 8      | **8.5** |
+| 2 schools strip      | 8      | 7         | 9    | 8           | 8      | 8     | 7      | 8      | 8    | 9      | **8.0** |
+| 3 how it works       | 9      | 9         | 9    | 8           | 9      | 9     | 8      | 8      | 9    | 8      | **8.6** |
+| 4 school by school   | 9      | 8         | 9    | 8           | 9      | 8     | 7      | 8      | 9    | 8      | **8.3** |
+| 5 essays, on paper   | 9      | 9         | 9    | 8           | 9      | 9     | 8      | 8      | 9    | 8      | **8.6** |
+| 6 the model          | 8      | 8         | 9    | 8           | 8      | 8     | 8      | 8      | 8    | 8      | **8.1** |
+| 7 Connect            | 8      | 7         | 9    | 8           | 8      | 8     | 7      | 8      | 8    | 8      | **7.9** |
+| 8 what it won't do   | 8      | 7         | 9    | 8           | 8      | 7     | 7      | 8      | 9    | 8      | **7.9** |
+| 9 interview, soon    | 8      | 8         | 8    | 8           | 9      | 8     | 8      | 8      | 9    | 8      | **8.2** |
+| 10 pricing           | 8      | 8         | 8    | 8           | 9      | 7     | 7      | 8      | 9    | 8      | **8.0** |
+| 11 questions         | 8      | 7         | 9    | 8           | 8      | 7     | 7      | 8      | 8    | 8      | **7.8** |
+| 12 final call        | 8      | 7         | 9    | 8           | 8      | 7     | 8      | 8      | 8    | 8      | **7.9** |
+| 13 footer            | 8      | 7         | 8    | 8           | 8      | 7     | 7      | 8      | 8    | 8      | **7.7** |
+| `/how-it-works`      | 8      | 8         | 9    | 8           | 9      | 9     | 8      | 8      | 9    | 8      | **8.4** |
+| `/pricing`           | 9      | 8         | 9    | 8           | 9      | 8     | 8      | 8      | 9    | 8      | **8.4** |
+| `/privacy`, `/terms` | 9      | 8         | 9    | 9           | 9      | 8     | 8      | 8      | 8    | 9      | **8.5** |
+| OG images            | 9      | 8         | 9    | 8           | 9      | 8     | n/a    | n/a    | 9    | 9      | **8.6** |
+| `/sign-in`           | 9      | 8         | 9    | 8           | 9      | 8     | 8      | 8      | 8    | 8      | **8.3** |
+| `/welcome`           | 8      | 7         | 9    | 8           | 9      | 7     | 8      | 8      | 8    | 8      | **8.0** |
+| `/first-run`         | 8      | 8         | 9    | 8           | 9      | 7     | 8      | 8      | 8    | 8      | **8.1** |
+| not-found, goodbye   | 8      | 7         | 9    | 8           | 8      | 7     | 7      | 8      | 8    | 8      | **7.8** |
 
 First pass scored 7.4 (polish 6, composition 7, mobile 6: transcript lines ran under the frost
 caption, a tab was clipped at the panel edge, the Night-paper colour column was two-thirds empty,

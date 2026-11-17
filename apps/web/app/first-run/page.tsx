@@ -1,6 +1,7 @@
 import { getDb, listSeedSchools } from "@admitstory/db";
 import type { Metadata } from "next";
 import { redirect } from "next/navigation";
+import { AuthShell } from "@/components/auth-shell";
 import { requireOnboardedUser } from "@/lib/app-user";
 import { FirstRunFlow } from "./first-run-flow";
 
@@ -26,14 +27,16 @@ export default async function FirstRunPage() {
     .sort((a, b) => a.name.localeCompare(b.name));
 
   return (
-    <FirstRunFlow
-      schools={schools}
-      defaults={{
-        programType: profile.programType,
-        targetIntake: profile.targetIntake,
-        country: profile.country,
-        timezone: profile.timezone,
-      }}
-    />
+    <AuthShell width="wide" footnote={null}>
+      <FirstRunFlow
+        schools={schools}
+        defaults={{
+          programType: profile.programType,
+          targetIntake: profile.targetIntake,
+          country: profile.country,
+          timezone: profile.timezone,
+        }}
+      />
+    </AuthShell>
   );
 }

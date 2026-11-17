@@ -31,7 +31,7 @@ export function KeptLine({ fallbackHeadline }: { fallbackHeadline: string }) {
   if (kept === null) {
     return (
       <div className={box}>
-        <h1 className="text-display-sm text-text">{fallbackHeadline}</h1>
+        <h1 className="font-display text-display-2 text-text">{fallbackHeadline}</h1>
       </div>
     );
   }
@@ -39,9 +39,9 @@ export function KeptLine({ fallbackHeadline }: { fallbackHeadline: string }) {
   const identity = kept === PENDING ? DEFAULT_IDENTITY : (kept.identity ?? DEFAULT_IDENTITY);
   return (
     <div className={box} style={voiceHueStyle(paramsFromIdentity(identity).hueIndex)}>
-      <h1 className="text-display-sm text-text">{KEEP_LINE_COPY.signInHeading}</h1>
+      <h1 className="font-display text-display-2 text-text">{KEEP_LINE_COPY.signInHeading}</h1>
       <SharedElement name={FIRST_LINE_TRANSITION}>
-        <p className="line-clamp-2 min-h-16 font-reading text-read text-voice [text-shadow:0_0_24px_var(--voice-glow)]">
+        <p className="line-clamp-2 min-h-16 font-accent text-[1.5rem] leading-[1.25] text-voice italic">
           {kept === PENDING ? null : kept.line}
         </p>
       </SharedElement>

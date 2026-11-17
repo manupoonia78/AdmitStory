@@ -1,0 +1,336 @@
+/*
+ * The entry room (SPEC §5): sign-in, welcome, first-run, goodbye, not-found. Tokens only. The
+ * moments are CSS on :has(), so the routes gain no script: the line under the sign-in form
+ * brightens while the email field has focus and rises into a peak once the link is sent; each
+ * welcome box draws its tick; the first-run peak travels along the progress line.
+ */
+
+.room {
+  --room-x: 20px;
+  /* The column's right edge, less 70px: where the brass line stops and the peak stands. */
+  --room-reach: min(calc(var(--room-x) + 330px), calc(100% - 56px));
+  display: grid;
+  min-height: 100dvh;
+  grid-template-rows: auto 1fr auto auto;
+  padding-inline: var(--room-x);
+  padding-top: max(28px, calc(env(safe-area-inset-top, 0px) + 16px));
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+  background-color: var(--bg);
+  background-image: var(--grain);
+  color: var(--fg);
+}
+@media (min-width: 40rem) {
+  .room {
+    --room-x: 48px;
+    padding-top: 36px;
+  }
+}
+@media (min-width: 64rem) {
+  .room {
+    --room-x: clamp(48px, 11vw, 168px);
+  }
+}
+
+.room-home {
+  display: inline-flex;
+  min-height: 44px;
+  align-items: center;
+  border-radius: var(--radius-round);
+}
+.room-main {
+  display: flex;
+  align-items: center;
+  gap: 48px;
+  padding-block: 48px 56px;
+  outline: none;
+}
+.room-col {
+  width: 100%;
+  max-width: 400px;
+}
+.room-col-wide {
+  max-width: none;
+}
+.room-aside {
+  display: none;
+}
+@media (min-width: 64rem) {
+  .room-main {
+    padding-block: 64px 72px;
+  }
+  .room-aside {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex: 1;
+    justify-content: center;
+    align-self: flex-end;
+    /* The sheet stands on the horizon: its foot crosses the line. */
+    margin-bottom: -128px;
+  }
+}
+
+/* The horizon: one full-bleed line, a brass run over it, and the peak (sign-in only). */
+.room-horizon {
+  position: relative;
+  height: 44px;
+  margin-inline: calc(-1 * var(--room-x));
+  overflow: clip;
+}
+.room-line,
+.room-line-brass {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 1.25px;
+}
+.room-line {
+  right: 0;
+  background: var(--line-strong);
+}
+.room-gap .room-line {
+  background: linear-gradient(
+    to right,
+    var(--line-strong) var(--room-x),
+    transparent var(--room-x),
+    transparent calc(var(--room-x) + 48px),
+    var(--line-strong) calc(var(--room-x) + 48px)
+  );
+}
+.room-line-brass {
+  width: var(--room-reach);
+  background: var(--brass);
+  transform-origin: left center;
+  scale: 0 1;
+  transition: scale 160ms var(--ease-exit);
+}
+.room:has(input[type="email"]:focus) .room-line-brass,
+.room:has(#sent-heading) .room-line-brass {
+  scale: 1 1;
+  transition: scale 280ms var(--ease-rise);
+}
+.room-peak {
+  position: absolute;
+  bottom: 0;
+  left: var(--room-reach);
+  width: 30px;
+  height: 44px;
+  overflow: visible;
+  visibility: hidden;
+}
+.room-peak path {
+  stroke: var(--brass);
+  stroke-width: 1.5px;
+  stroke-linejoin: miter;
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+}
+.room:has(#sent-heading) .room-peak {
+  visibility: visible;
+}
+.room:has(#sent-heading) .room-peak path {
+  stroke-dashoffset: 0;
+  transition: stroke-dashoffset 500ms var(--ease-line) 200ms;
+}
+/* Once the link is sent the page's own heading leaves the layout; screen readers keep it. */
+.room:has(#sent-heading) .signin-intro {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+@media (prefers-reduced-motion: reduce) {
+  .room-line-brass,
+  .room:has(input[type="email"]:focus) .room-line-brass,
+  .room:has(#sent-heading) .room-line-brass,
+  .room:has(#sent-heading) .room-peak path {
+    transition: none;
+  }
+}
+.room-foot {
+  padding-block: 20px 28px;
+}
+
+/* Sign-in's sheet: the hero's last sample, turned 2° and standing on the line. */
+.room-sheet-wrap {
+  display: flex;
+  flex-direction: column-reverse;
+  gap: 20px;
+  align-items: center;
+}
+.room-sheet {
+  display: grid;
+  width: 360px;
+  min-height: 404px;
+  grid-template-columns: 116px minmax(0, 1fr);
+  rotate: -2deg;
+  border-radius: var(--radius-paper);
+  background-color: var(--paper);
+  color: var(--ink);
+}
+.room-sheet-margin {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 20px 10px 16px 14px;
+  border-right: 1px solid var(--rule);
+  font-family: var(--font-mono);
+}
+.room-sheet-title,
+.room-sheet-count {
+  font-size: 10px;
+  font-weight: 500;
+  line-height: 1.45;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+.room-sheet-count {
+  margin-top: auto;
+  color: var(--ink-66);
+}
+.room-sheet-note {
+  font-size: 11px;
+  line-height: 1.45;
+  color: var(--brass-ink);
+}
+.room-sheet-body {
+  padding: 20px 20px 24px;
+  font-family: var(--font-reading);
+  font-size: 15px;
+  line-height: 1.6;
+}
+.room-sheet-body mark {
+  --mark-wash: color-mix(in srgb, var(--brass-ink) 15%, transparent);
+  padding-block: 0.14em;
+  background-color: transparent;
+  background-image:
+    linear-gradient(var(--mark-wash), var(--mark-wash)),
+    linear-gradient(var(--brass-ink), var(--brass-ink));
+  background-repeat: no-repeat;
+  background-position:
+    0 0,
+    0 100%;
+  background-size:
+    100% 100%,
+    100% 1.25px;
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
+  color: inherit;
+}
+
+/* Welcome's boxes: a 24px box in a 44px row; ticked, it fills, then its tick draws. */
+.room-check {
+  position: relative;
+  display: grid;
+  flex: none;
+  width: 24px;
+  height: 24px;
+  margin: 0;
+  place-items: center;
+  appearance: none;
+  border: 1px solid var(--control-edge);
+  border-radius: 7px;
+  background: transparent;
+  cursor: pointer;
+}
+.room-check::after {
+  content: "";
+  width: 14px;
+  height: 14px;
+  background: var(--bg);
+  -webkit-mask: var(--room-tick) center / contain no-repeat;
+  mask: var(--room-tick) center / contain no-repeat;
+  clip-path: inset(0 100% 0 0);
+}
+.room-check:checked {
+  border-color: var(--fg);
+  background: var(--fg);
+  transition: background-color 150ms var(--ease-rise);
+}
+.room-check:checked::after {
+  clip-path: inset(0);
+  transition: clip-path 200ms var(--ease-rise) 60ms;
+}
+.room {
+  --room-tick: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 14 14' fill='none' stroke='%23000' stroke-width='1.75' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M2.5 7.4 5.6 10.4 11.5 3.8'/%3E%3C/svg%3E");
+}
+/* The button wakes once both boxes are ticked: flat frost until then, brass after. */
+.welcome-submit {
+  transition:
+    background-color 200ms ease,
+    color 200ms ease;
+}
+.welcome-form:not(:has(input[name="age"]:checked):has(input[name="terms"]:checked))
+  .welcome-submit {
+  background-color: var(--frost);
+  color: var(--fg);
+  box-shadow: inset 0 0 0 1px var(--edge);
+  --btn-arrow-bg: var(--frost-hover);
+  --btn-arrow-fg: var(--fg);
+}
+
+/* First run: the progress line. Brass up to the current stop; the mark's peak stands on it and
+   travels on Next and Back (a transition, so a fast double press retargets). */
+.fr-progress {
+  container-type: inline-size;
+  position: relative;
+  height: 40px;
+}
+.fr-progress-line,
+.fr-progress-brass {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 1.25px;
+}
+.fr-progress-line {
+  right: 0;
+  background: var(--line-strong);
+}
+.fr-progress-brass {
+  width: 100%;
+  background: var(--brass);
+  transform-origin: left center;
+  scale: var(--p) 1;
+  transition: scale 350ms var(--ease-line);
+}
+.fr-progress-tick {
+  position: absolute;
+  bottom: 0;
+  width: 1.25px;
+  height: 5px;
+  margin-left: -0.6px;
+  background: var(--line-strong);
+}
+.fr-progress-peak {
+  position: absolute;
+  bottom: 0;
+  left: -12px;
+  width: 24px;
+  height: 34px;
+  overflow: visible;
+  translate: calc(var(--p) * 100cqw) 0;
+  transition: translate 350ms var(--ease-line);
+}
+.fr-progress-peak path {
+  stroke: var(--brass);
+  stroke-width: 1.5px;
+  stroke-linejoin: miter;
+}
+@media (prefers-reduced-motion: reduce) {
+  .fr-progress-brass,
+  .fr-progress-peak,
+  .room-check:checked,
+  .room-check:checked::after,
+  .welcome-submit {
+    transition: none;
+  }
+}
+
+/* With no footnote under it, the horizon keeps the footnote's space, so the line never sits on
+   the window's edge. */
+.room-horizon:last-child {
+  margin-bottom: 72px;
+}

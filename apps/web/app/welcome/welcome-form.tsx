@@ -21,7 +21,7 @@ function Checkbox({
   const errorId = `${name}-error`;
   return (
     <div className="flex flex-col">
-      <label className="flex min-h-11 cursor-pointer items-start gap-3">
+      <label className="flex min-h-11 cursor-pointer items-center gap-4 text-text">
         <input
           type="checkbox"
           name={name}
@@ -32,11 +32,11 @@ function Checkbox({
           defaultChecked={defaultChecked}
           aria-invalid={error ? true : undefined}
           aria-describedby={error ? errorId : undefined}
-          className="mt-0.5 size-5 shrink-0 cursor-pointer accent-text"
+          className="room-check"
         />
         <span>{children}</span>
       </label>
-      <FieldErrorRegion id={errorId} error={error} className="pl-8" />
+      <FieldErrorRegion id={errorId} error={error} className="pl-10" />
     </div>
   );
 }
@@ -53,22 +53,34 @@ export function WelcomeForm() {
   }, [state]);
 
   return (
-    <form ref={formRef} action={action} className="flex flex-col gap-6" noValidate>
-      <fieldset className="flex flex-col gap-3">
-        <legend className="mb-2 text-lg font-semibold">Your age</legend>
+    <form
+      ref={formRef}
+      action={action}
+      className="welcome-form card flex flex-col gap-7 p-6 sm:p-8"
+      noValidate
+    >
+      <p className="label">Two things first</p>
+      <fieldset className="flex flex-col gap-2">
+        <legend className="mb-2 text-title text-text">Your age</legend>
         <Checkbox name="age" error={errors.age} defaultChecked={values.age}>
-          I&apos;m 18 or older.
+          I’m 18 or older.
         </Checkbox>
       </fieldset>
 
-      <fieldset className="flex flex-col gap-3">
-        <legend className="mb-2 text-lg font-semibold">How we work together</legend>
-        <ul className="flex list-disc flex-col gap-2 pl-5 text-text">
-          <li>I&apos;ll describe my own experiences, truthfully.</li>
-          <li>
-            I&apos;m responsible for following each school&apos;s rules, including its rules on AI.
+      <fieldset className="flex flex-col gap-4 border-t border-edge pt-7">
+        <legend className="float-left mb-2 w-full text-title text-text">
+          How we work together
+        </legend>
+        <ul className="clear-left border-b border-edge text-text-80">
+          <li className="border-t border-edge py-3">
+            I’ll describe my own experiences, truthfully.
           </li>
-          <li>My recommenders will write their own letters.</li>
+          <li className="border-t border-edge py-3">
+            I’m responsible for following each school’s rules, including its rules on AI.
+          </li>
+          <li className="border-t border-edge py-3">
+            My recommenders will write their own letters.
+          </li>
         </ul>
         <Checkbox name="terms" error={errors.terms} defaultChecked={values.terms}>
           I agree to these commitments.
@@ -76,7 +88,7 @@ export function WelcomeForm() {
       </fieldset>
 
       <div className="flex flex-col">
-        <Button type="submit" loading={pending} className="self-start">
+        <Button type="submit" arrow loading={pending} className="welcome-submit self-start">
           {pending ? "Saving your answers" : "Agree and continue"}
         </Button>
         <AlertMessage message={errors.form} className="not-empty:mt-4" />
