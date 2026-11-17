@@ -9,7 +9,8 @@ built in Phase 2, 2026-11-14, and rewritten to the values as built):
 | Part                                                                  | Depth                                                                                                                                 |
 | --------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------- |
 | §1 Concept, §2 System, §3 Landing hero                                | Full values. Build from these.                                                                                                        |
-| §4 Marketing scenes, §5 Entry, §6 App                                 | Composition sketch: layout, signature moment, key type sizes. Each phase expands its own screens to full values here before building. |
+| §4 Marketing (scenes and pages), §5 Entry                             | Full values, as built in Phases 3 and 4.                                                                                              |
+| §6 App                                                                | Composition sketch: layout, signature moment, key type sizes. Each phase expands its own screens to full values here before building. |
 | §7 Signature-moment table, §8 Budgets                                 | Full.                                                                                                                                 |
 | §9 Where the brief and the code disagree, §10 Proposals needing a yes | For Manu's review.                                                                                                                    |
 
@@ -1085,28 +1086,211 @@ returns `null` when there are none. No wrapper, no heading, no spacing when empt
 after Connect on `/` and above the plans on `/pricing`, with a comment at each call site.
 `placeholder-copy.test.ts` keeps guarding it.
 
-### 4.2 Other marketing pages
+### 4.2 Other marketing pages (full values; built in Phase 4, 2026-11-17)
 
-| Page                 | Sketch                                                                                                                                                                                                                                                                                                                                                                                                                                                |
-| -------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `/how-it-works`      | Dark. A longer telling of scene 3: each of the four steps gets a full-width band with its product window (static here, no pin). Then the pack's file map "assembling" (the existing `_assembly` island restyled: each deliverable is a line that draws from a story to a file). Then the full AI-policy table (`#ai-policies`) on a paper band, typeset as a real table with dates in mono. Page title `display-1`                                    |
-| `/pricing`           | Dark. Title, then the same four-column plan row as scene 10 at full size, then "what's in a pack" as a two-column typeset list (free vs pack), the comparison table against other services on hairlines, the coming-soon line for interview practice, the final-sale line, the FAQ subset. `SocialProofSlot` above the plans                                                                                                                          |
-| `/privacy`, `/terms` | **Paper pages, built for reading.** The page body is `--paper` under the dark nav (which takes the paper frost variant once the title has scrolled past). One column of `read` 19 / 1.65 at 68ch in columns 4–10; a sticky contents list in columns 1–3 in `ui-sm`; section numbers in `label` hanging in the margin. `/privacy` keeps the voice-path diagram (audio → text → discarded) redrawn as a Voiceline that ends in a full stop. Footer dark |
-| OG images            | 1200 × 630, `#0B0A09`: the wordmark top left, the page's headline in Geist 88 px with its italic accent, the horizon line with one peak across the lower third. Per-page headline; same template for all five                                                                                                                                                                                                                                         |
-| Titles               | `HOME_TITLE`: "AdmitStories: tell it once, tell it well". Others: "How it works", "Pricing", "Privacy", "Terms" with the existing `%s                                                                                                                                                                                                                                                                                                                 | AdmitStories` template |
+Four pages, two materials. `/how-it-works` and `/pricing` are the instrument: dark, built from
+the landing page's own parts (`SceneHead`, the product windows, `scene-sheet`, `soon-pill`, the
+plan row). `/privacy` and `/terms` are paper: the whole page is a sheet, for reading.
+
+**Shared values**
+
+| Thing            | Value                                                                                                                                                                                                                                                                                                                              |
+| ---------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Page head        | `PageHead` (`_ui/page-head.tsx`): `eyebrow`; 24 px; `h1` in `display-1` (36 → 72 px, 450, 1.0, −0.04em), broken by hand, last line in the italic accent; paragraph in `body-lg`, `--fg-64`, at most 440 px, in columns 9–12 on the heading's last baseline from `lg`, 24 px under it below. Padding 56 px above (96 `lg`), below set by the page |
+| Head entrance    | the `enter` utility (§2.10): eyebrow `--i: 0`, each heading line `--i: 1, 2`, paragraph and action `--i: 3`. Opacity 0 → 1, 24 px → 0, blur 8 px → 0, 800 ms, `--ease-rise`, 90 ms apart; done by 1.1 s. Visible without JavaScript                                                                                                   |
+| Everything below | `reveal` (600 ms, 16 px, once at 15 %), as on the landing page. One moment per page (§7); nothing else moves                                                                                                                                                                                                                       |
+| Closing          | `/how-it-works` and `/pricing` end on the landing page's final call (`FinalCall`): the horizon and its one peak                                                                                                                                                                                                                    |
+| Titles           | `HOME_TITLE` is "AdmitStories: tell it once, tell it well". The rest keep the `%s \| AdmitStories` template: "How it works", "Pricing", "Privacy", "Terms"                                                                                                                                                                          |
+
+#### `/how-it-works` (`how-it-works/page.tsx`, `_stages.tsx`, `_assembly.tsx`)
+
+The landing page tells it in four steps; this page tells the same four in full. The old page's
+eight numbered steps are kept, two to a stage, so nothing it promised is lost.
+
+- **Head.** Eyebrow "How it works, in full"; `h1` "From one conversation / _to every school._";
+  paragraph: four stages, the first two free. Padding below 48 px (`lg` 72 px).
+- **The index** (directly under the head): one band between `--line-strong` hairlines, four
+  equal columns from `lg` (two below, hairlines between). Each is a link to its stage: the
+  number and verb in `label` ("01 · Tell"), then what it costs in `ui-sm`, `--fg-80` ("Free ·
+  20 to 90 minutes"; "Free"; the single-school price from `_data/pricing.ts` "or less in a
+  pack"; "In your kit"). 20 px padding, 44 px minimum. Hover: the verb goes to `--fg`.
+- **Four stages** (`#tell`, `#position`, `#draft`, `#refine`), each a band with 96 px above and
+  below (`lg` 144 px) and a `--line` hairline between bands.
+  - Columns 1–5: `label` "01 · Tell"; 20 px; `h2` in `display-2` (28 → 48 px, 500, 1.05): the
+    landing step's title; 16 px; the stage's cost as a `soon-pill`. 40 px. Then its two detailed
+    steps as rows on `--line` hairlines, 24 px padding: heading in `title` (18 → 20 px, 500),
+    what it takes right-aligned in `label` ("20–90 min", "Free", "A few minutes", "In your
+    kit"), 8 px, body in `body`, `--fg-64`, at most 440 px.
+  - Columns 7–12: the stage's product window from the landing page (`HOW_WINDOWS`), static, 4 : 3
+    from `lg`, its content's height below. Not pinned: `position: sticky; top: 112px` only within
+    its own band, so on a tall band the window keeps the text company and never leaves it.
+  - Below `lg`: the text, 32 px, then the window.
+- **The pack assembles** (inside stage 3, under its row; the page's moment). A figure across all
+  twelve columns, 72 px under the stage's row, between hairlines:
+  - Head: `label` "A sample kit · Northfield"; the line "Which story goes where" in `display-3`.
+  - From `lg`: three columns. Columns 1–4, the stories: six rows (five stories and the Fact
+    Sheet), each the story's name in `title` weight 450 and its context in `label`. Columns
+    9–12, the files: eight rows (three essays, the short answer, the goal statement, recommender
+    briefs, the form, the résumé), each the name in `title` and its limit in `label`. Rows are
+    56 px. Columns 5–8, the threads: one inline SVG, `preserveAspectRatio="none"`,
+    `vector-effect: non-scaling-stroke`; one cubic path from each story's row to the file it
+    feeds (eight paths), 1.25 px, brass. One story has no thread and carries the label "Held
+    back": not every story is used for every school.
+  - Motion: each thread is a `scene-draw` path (`stroke-dashoffset` 1 → 0, 900 ms, `--ease-line`),
+    80 ms apart by `--i`, when the figure reveals. A file's name is `--fg-48` until its thread
+    arrives, then `--fg` (250 ms, delayed to the thread's end). Without the reveal script:
+    drawn, and every name at `--fg`.
+  - Below `lg`: no threads. The files as rows on hairlines, each with "From · the story's name"
+    in `label` above it; the hairline above each row draws left to right (the ledger's rule,
+    600 ms, 80 ms apart).
+  - Under it: `label` "A sample applicant · fictional, as is Northfield".
+- **Interview practice** (after stage 4): one row between hairlines, 32 px padding: the
+  "Coming soon" pill, "Practise the interview." in `title`, and `INTERVIEW_COMING_SOON_LINE`
+  verbatim in `body`, `--fg-64`. No still here; the landing page has it.
+- **What it won't do**: the landing page's scene 8, reused whole. Its link lands on the table
+  directly below.
+- **Each school's AI policy** (`#ai-policies`): a paper band, the page's one Day island (32 px
+  corners, `--desk`), like scene 5. Head: eyebrow "On the record"; `h2` in `display-2`, "Each
+  school's / _AI policy._"; paragraph in columns 9–12. The table sits on one sheet (`--paper`,
+  3 px, `--shadow-paper`), 8 px padding around it (`lg` 24 px 40 px): column heads in `label`;
+  rows 56 px on `--rule` hairlines; the school in Geist 16 px, 500; the policy in `body`; what
+  AdmitStories does in `body`, `--ink-66`; the date checked in Geist Mono 13 px, tabular,
+  `--ink-66`; "Policy" as a text link to the school's own page. Below 640 px each school is a
+  block: name, policy, mode, then date and link on one line. With no verified rows: the fallback
+  sentence on the sheet, no table.
+- **Final call**: reused.
+
+#### `/pricing` (`pricing/page.tsx`, `_strike.tsx`, `_kit.tsx`)
+
+- **Head, and the page's moment.** Eyebrow "Pricing"; `h1` in `display-hero` scale capped for a
+  subpage, `clamp(44px, 8vw, 120px)`, 450, 0.95, −0.045em, two lines:
+  "5 schools." / "~~$500~~ $349." The struck price is `--fg-48`; the price is `--fg`. Columns
+  9–12 on the last baseline: the subline (`body-lg`, `--fg-64`) and "Start your story" (`lg`,
+  arrow).
+  - Motion, once, on load: the lines enter as every page head does; then a 0.045em line in
+    `--fg-80` draws through "$500" left to right (`scaleX` 0 → 1, 600 ms, `--ease-line`, 900 ms
+    after load) and "$349." rises beside it (`enter`, 1,300 ms after load). Done by 2.1 s.
+  - Still (reduced motion, no JavaScript): the line drawn, both prices present. Screen readers
+    hear "5 schools. $349, instead of $500."
+  - Every number comes from `lib/payments/plans.ts`.
+- `SocialProofSlot` sits between the head and the plans and renders nothing.
+- **The plans**: scene 10's four columns (`PlanRow`, exported from `_sections/pricing.tsx`), 72 px
+  under the head. Under the row, on a `--line` hairline: `PACK_PITCH.credits` (how a pack's
+  credits work) on the left, `TAX_AND_FINAL_LINE` on the right, both `ui-sm`, `--fg-64`.
+- **One kit, opened** (`_kit.tsx`). Head: eyebrow "What a school kit holds"; `h2` in
+  `display-2`, "Everything one school / _asks for._"; paragraph in columns 9–12. Then the kit as
+  paper on the dark: four `scene-sheet`s in a row from `lg` (two by two from `sm`, one column
+  below), 24 px gutters, each with a margin (the file's name, the story it comes from in
+  brass-ink `note`, the limit) and the draft's first two sentences in `read-sm`, the applicant's
+  own sentence marked. Under the sheets, on hairlines, the files that are not essays as four
+  columns of `label` + `ui-sm`: the application form, the résumé pass, recommender briefs,
+  Connect. Last: `label`, the fictional note. Static; the "Show what unlocks" switch is gone.
+- **Free, and with a kit** (the ledger). `h2` in `display-2`, "What's free, / _and what a kit
+  adds._" in columns 1–5, sticky at 112 px from `lg`. Columns 6–12: the three groups; each
+  group's name in `label` on a `--line-strong` hairline, then its rows on `--line` hairlines,
+  20 px padding: the feature in `title` (18 px), its description in `ui-sm`, `--fg-64`, and on
+  the right one word in `label`: "Free" at `--fg`, "Per school" at `--fg-60`, or the "Coming
+  soon" pill. One list at every width (the two-column table and its phone copy are gone).
+- **Elsewhere, and here.** `h2` in `display-2`: `PACK_PITCH.others` at `--fg-60`, then
+  `PACK_PITCH.ours` at `--fg`, as on the landing page. Then two columns on hairlines, heads in
+  `label` ("Elsewhere", "AdmitStories"): each row 24 px padding, theirs in `body-lg`, `--fg-60`,
+  ours in `body-lg`, `--fg`. No ticks, no brass.
+- **Payment.** Two columns on one `--line-strong` hairline: "Payment and tax" (processor, no
+  subscription, the final-sale rule at `--fg`, the tax line) and "What we won't charge for".
+  Heads in `title`, text in `body`, `--fg-64`.
+- **Pricing questions**: the landing page's FAQ pattern (columns 1–4 the heading in
+  `display-2`, columns 6–12 the rows), four questions.
+- **Final call**: reused. Product JSON-LD unchanged.
+
+#### `/privacy`, `/terms` (`_legal/legal-layout.tsx`, `voice-path.tsx`; paper)
+
+The page is paper from the top of the window to a 32 px rounded foot where the dark footer
+begins: `data-theme="day"`, `--paper`, ink. The nav stays the dark pill (§3.3).
+
+- **Head.** 160 px from the top (`lg`; 128 px below). Columns 5–12 from `lg`: `label`, "Legal ·
+  last updated 3 November 2026" (`<time>`); 24 px; `h1` in `display-1`, ink: "Privacy," /
+  "_in plain words._" (and "Terms," / "_in plain words._"), the accent at `--ink-66`; 20 px;
+  the draft note in `ui-sm`, `--ink-66`, while `LEGAL_DRAFT` is true.
+- **Body**, 72 px under the head (`lg` 96 px), from `lg` a 12-column grid:
+  - Columns 1–3: the contents, sticky at 128 px. `label` "On this page"; 16 px; the section
+    titles as links, `ui-sm`, `--ink-66`, 36 px rows, ink on hover, each behind its number in
+    Geist Mono 11 px. A 1 px `--rule` line runs down the list's left edge.
+  - Column 4: each section's number, `label`, on the heading's baseline.
+  - Columns 5–11: the sections, at most 68ch. Each: `h2` in Geist 24 → 28 px, 500, 1.2,
+    −0.02em; 16 px; the plain summary in Source Serif 4 italic, `read-lg` (20 → 21 px / 1.5),
+    ink; 24 px; the full text in `read` (17 → 19 px / 1.65), `--ink-80`, paragraphs 16 px apart;
+    lists as rows on `--rule` hairlines, 12 px padding, each behind an 8 px rule. 64 px between
+    sections, a `--rule` hairline between them.
+  - Below `lg`: the contents are a `<details>` between hairlines above the first section; each
+    number sits above its heading; text at 17 px; 16 px gutters.
+- **`/terms`, the moment: a reading line.** Over the contents list's rule, a 1.25 px
+  `--accent` line grows down as the document is read: `scaleY` 0 → 1 on a view timeline of the
+  sections (`animation-timeline`, range `contain`), so it is full exactly when the last
+  section's end reaches the bottom of the window. No script. Absent where scroll-driven
+  animation is unsupported, and under reduced motion.
+- **`/privacy`, the moment: where your voice goes.** A figure between the head and the body,
+  columns 1–12, between `--rule-strong` hairlines, 48 px padding. Head: `h2` "Where your voice
+  goes" in `display-3`, and the description (until now read by screen readers only) in `body`,
+  `--ink-66`, at most 560 px, beside it from `lg`.
+  - The drawing is one Voiceline doing its three jobs. From `lg`, five stops in five equal
+    columns: Microphone, Speech-to-text, Text, Your Dossier, Your drafts; each stop's name in
+    Geist 15 px, 500, and a `label` under it ("your voice", "Deepgram", "kept", "encrypted",
+    "where it is used"). Under the names, the line: between the first two stops it is a
+    **waveform**, 1.25 px, brass-ink (a voice); at "Speech-to-text" it goes **flat** and runs
+    on through the last three stops as an ink rule at 50 % (text). Each stop is a 9 px ring on
+    the line. From "Speech-to-text" a second line drops 56 px and runs right, a waveform that
+    dies away into a **full stop**: a 9 px ink dot, with "Audio" and `label` "discarded · never
+    stored" beside it.
+  - Below `lg` the same drawing runs down the left edge: the stops are rows 72 px apart, the
+    waveform is the first segment, and the audio branch is a short row that ends in the dot.
+  - Motion, once, as the figure reveals: the voice draws to "Speech-to-text" (600 ms,
+    `--ease-line`), the rule runs on to "Your drafts" (800 ms), the audio branch draws (700 ms,
+    from 500 ms) and the full stop lands (opacity and scale 0.4 → 1, 200 ms). 1.6 s in all.
+    CSS on the reveal's `data-in`; the old play island (`voice-path-play.tsx`) is deleted.
+    Still under reduced motion and without JavaScript.
+
+#### Open Graph images (`_lib/og.tsx`; five routes)
+
+1200 × 630, `#0B0A09`, one template. Top left, 72 px in: the mark (brass, 40 px) and the
+wordmark, "Admit" in Geist 500 and "Stories" in Instrument Serif italic, 34 px, `#F4F1EA`. The
+page's headline, bottom-aligned 196 px above the foot, 72 px in: Geist 500, 92 px, 0.98,
+−0.045em, `#F4F1EA`, with its accent line in Instrument Serif italic 98 px at 60 %. The horizon:
+a 2 px line at 20 % across the width, 132 px above the foot, with one brass peak (the mark's
+rise, 60 px tall) at 72 % of the width. Under the line, right: the page's path in Geist Mono
+22 px at 60 %. Headlines: "Tell it once. / _Tell it well._"; "From one conversation / _to every
+school._"; "5 schools. / _$349._" (from `plans.ts`); "Privacy, / _in plain words._"; "Terms, /
+_in plain words._". Fonts: Geist Medium and Geist Mono from the installed `geist` package;
+Instrument Serif italic as one TTF beside the template (`_lib/InstrumentSerif-Italic.ttf`, SIL
+Open Font Licence, with its licence text), because Satori cannot read the woff2 that
+`next/font` fetches. Read at build only; nothing ships to the browser.
 
 ---
 
-## 5. Entry: composition sketches
+## 5. Entry (full values; built in Phase 4, 2026-11-17)
 
-"Walking into a quiet room": dark, one thing to do, nothing else on screen.
+"Walking into a quiet room": the instrument with almost nothing in it. `/sign-in`, `/welcome`,
+`/first-run`, `/goodbye` and the not-found page share one shell, `EntryRoom`
+(`components/auth-shell.tsx`, styles in `components/entry.css`). Always Night, whatever the
+theme cookie says: the room is part of the casing (§1.2).
 
-| Screen                            | Sketch                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  |
-| --------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `/sign-in`                        | Full dark screen, wordmark top left. Left half (columns 2–6): heading "Sign in or create your account" in `display-2`, one line of `body`, the email field, the primary button ("Email me a sign-in link"), a hairline "or", then Google and passkey as two secondary buttons. Right half: a single sheet of paper at a slight angle (−2°) carrying a sample essay opening with its margin note, and under the form a flat Voiceline that brightens left to right when the field takes focus. The current split panel with its radial glow goes. "Check your email": the form is replaced in place by the heading and the address, the line draws to a peak. Phone: form only; the sheet is dropped, the line stays. All three sign-in methods, Turnstile and the kept-line note keep working untouched |
-| `/welcome`                        | Same room. "Before you start" in `display-2`; the two commitments as plain checkboxes with `body` text at 60ch; the three "how we work together" lines on hairlines. The button is disabled until both are ticked; each tick draws a short stroke                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       |
-| `/first-run`                      | Same room, four steps. Top: the progress is a Voiceline with four stops; the peak sits on the current one and travels on "Next" (500 ms). One question per screen in `display-2`; choices as chips; the "How much time do you have?" options as three cards. "This becomes your Voiceprint" shows the applicant's own line (flat until they have spoken) instead of the orb. The résumé upload step keeps its behaviour                                                                                                                                                                                                                                                                                                                                                                                 |
-| `/goodbye`, not-found, root error | Dark, centred: a flat line with a gap in it, one sentence in `display-2`, one button. `app/error.tsx` uses `buttonStyles()` on a plain element, as now                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  |
+**The room**
+
+| Thing         | Value                                                                                                                                                                                                                                                                         |
+| ------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Field         | `data-theme="night"`, `--bg` with the grain tile, `min-height: 100dvh`, safe-area padded                                                                                                                                                                                      |
+| Inset         | `--room-x`: 20 px, 48 px from `sm`, `clamp(48px, 11vw, 168px)` from `lg` (158 px at 1440)                                                                                                                                                                                      |
+| Top           | the wordmark (24 px mark, a plain anchor to `/`), 28 px from the top (`sm` 36 px), at `--room-x`                                                                                                                                                                              |
+| Column        | the content, 400 px wide (`/sign-in`, `/goodbye`, not-found) or the room's width (`/welcome`, `/first-run`), centred vertically in the space above the horizon                                                                                                                 |
+| Horizon       | one full-bleed line, 1.25 px `--line-strong`, 96 px above the foot (`sm`; 76 px below). Under it at `--room-x`: one `label` line, "Free to start · no card needed"                                                                                                            |
+| Type          | `h1` in `display-2` (28 → 48 px, 500, 1.05, −0.035em); intro in `body`, `--fg-64`; fields and buttons from §2.9                                                                                                                                                                |
+| Entrance      | `enter`: wordmark `--i: 0`, heading 1, intro 2, form 3, the aside 4. Done by 1.2 s                                                                                                                                                                                            |
+
+| Screen                  | Full values                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              |
+| ----------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `/sign-in`              | Column: `h1` "Sign in or create / your account"; 12 px; intro; 32 px; the email field (48 px, label above in `ui`); 16 px; the primary button, full width, `md`, brass, "Email me a sign-in link" with the arrow; 28 px; a hairline "or" (`label` between two `--line` rules); 20 px; Google and passkey as secondary buttons, full width, 12 px apart, each with its icon. Notice (an expired link): a `frost-flat` card, 16 px padding, above the field. **Aside** (`lg`+, right of the column, centred in the remaining width): one sheet of paper, 336 × 404 px, turned −2°, standing on the horizon so its foot crosses the line: the hero's sheet (`hero.ts`, sample 3: the title, the brass-ink margin note, the count, the opening with the applicant's own sentence marked); `label` under it, "A sample applicant · fictional, as is Northfield". Hidden from assistive technology. Phones: no sheet; the horizon stays. **The moment:** over the horizon, from the screen's left edge to 70 px short of the column's right edge, a brass line `scaleX` 0 → 1 from the left (300 ms, `--ease-line`) while the email field has focus, and back (200 ms) when it leaves. **"Check your email"** takes the form's place: the page's heading and intro leave the layout (kept for screen readers), `label` "Link sent"; `h2` in `display-2`, "Check your email"; the address in `body`, `--fg`; the hint in `body`, `--fg-64`; "Send another link" (secondary) and "Use a different email" (quiet). The brass line stays drawn and rises into the mark's peak (30 × 42 px, `stroke-dashoffset` 1 → 0, 500 ms, `--ease-line`) at its right end. All CSS (`:has()`); `/sign-in` gains no script. Turnstile, Google, passkeys, autofill and the kept line (`?from=line`, in the applicant's hue, in Instrument Serif italic 24 px) work as before; Turnstile is asked for its dark theme |
+| `/welcome`              | The room's width, two columns from `lg` (columns 1–5 and 7–12 of the room). Left: `label` "Before you start"; `h1` "You're in." / "_Here's what happens next._"; 32 px; the three next steps as rows on `--line` hairlines, 20 px padding, the number in `label`, the line in `body-lg`, `--fg-80`; 24 px; "All of that is free." in `body`, `--fg-64`. Right, the form on a `--surface-1` card (24 px radius, 32 px padding): `label` "Two things first"; the age box; a hairline; "How we work together" in `title`, its three lines on hairlines in `body`, `--fg-80`; the agreement box; 28 px; "Agree and continue" (primary, arrow). **Checkboxes**: a 24 px box, 7 px radius, 1 px `--control-edge`, in a 44 px row; ticked: fill `--fg`, and the tick, a 1.75 px `--bg` stroke, draws (`stroke-dashoffset`, 300 ms, `--ease-line`). **The moment:** the button rests at 45 % until both boxes are ticked, then wakes to full strength (250 ms). It can still be pressed early: the server's errors and focus handling are unchanged. Below `lg`: one column, the form under the steps |
+| `/first-run`            | The room's width, at most 720 px of content. Under the wordmark, 40 px: **the progress line**. `label` "02 / 05 · Schools" above it; then a 1.25 px `--line-strong` hairline the content's width with a 5 px tick at each stop; brass from the start to the current stop (`scaleX`, 500 ms, `--ease-line`); and the mark's peak (24 × 34 px, brass) standing on the current stop. **The moment:** on "Next" and "Back" the peak travels to its new stop (`translate` in container units, 500 ms, `--ease-line`). Under the line, `ui-sm`, `--fg-64`: "This becomes your Voiceprint: drawn from the way you actually talk." (The orb is gone; the line is the form.) 56 px. One question a screen: `h1` in `display-2`; hint in `body`, `--fg-64`, at most 60ch; 32 px. Choices: 44 px pills, `frost-flat`, `ui`; chosen: fill `--fg`, text `--bg` (inverted, never brass); groups 28 px apart under a `label` legend. "How much time do you have today?": three cards in a row from `sm` (stacked below), 24 px radius, `--surface-1`, 24 px padding: the name in `title`, the minutes in `label`, the line in `ui-sm`, `--fg-64`; chosen: `--surface-2` and a `--fg` edge. The upload step: a dashed `--line-strong` card, 24 px radius, 40 px padding, its behaviour untouched. Actions: "Next" (primary, arrow) left, "Skip for now" quiet beside it, "Back" quiet at the right. Reduced motion: the peak and the brass jump                                                              |
+| `/goodbye`, not-found   | The room, the 400 px column: `h1` in `display-2`, one or two lines of `body`, one text link. The horizon has a 48 px gap in it at the column's left edge (the line with a gap, §6.2 "Error"). `app/error.tsx` is unchanged: `buttonStyles()` on a plain element                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             |
 
 ---
 

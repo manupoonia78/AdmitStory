@@ -14,31 +14,10 @@ committed there); the session of 2026-11-17 moved the uncommitted work back to
 
 ## Next step
 
-**Phase 3 is done (2026-11-17). Do not start Phase 4 until Manu names it.** If his message has
-feedback on the landing page, write it into "Decisions" (with the date), change SPEC §3 or §4 to
-match, and fix that first.
-
-The one thing that wants his answer before Phase 8 measures again is "Needs Manu" 6: the hero's
-entrance now costs about a second of LCP on a slow phone, and the fix is his choice.
-
-When Phase 4 is named, start here:
-
-1. Start the local environment from `local-db.md` (production build, not `next dev`). A Postgres
-   on 5455 may still be running: run the guard, then reuse it. `next build` may stop once with a
-   notice about a Next.js security advisory; running it again continues (see "Open problems").
-2. Expand SPEC §4.2 and §5 to full values, then build `/how-it-works`, `/pricing`, `/privacy`,
-   `/terms`, the OG images and titles, `/sign-in`, `/welcome`, `/first-run`. What Phase 3 leaves
-   for it:
-   - the four product windows (`_sections/how-windows.tsx`), `SceneHead`, `scene-sheet`,
-     `soon-pill`, `price-figure` and the pricing columns are built to be reused on
-     `/how-it-works` and `/pricing`;
-   - `/how-it-works` and `/pricing` still have their old layouts, now dark like the rest (they
-     render cleanly; the old `_assembly` Voiceprint orb is on `/how-it-works`);
-   - `/privacy` and `/terms` are dark until Phase 4 turns them to paper;
-   - `SocialProofSlot` still has to be placed above the plans on `/pricing` (SPEC §4.1);
-   - `_sections/school-packs.tsx`, `_ui/tick.tsx`, `_ui/display-heading.tsx`, `_ui/notes.tsx`
-     and `_data/screens*.ts` are used only by those two old pages: delete them as the pages are
-     rebuilt.
+**Phase 4 is in progress (named by Manu on 2026-11-17, with no notes on Phases 0–3).** SPEC §4.2
+and §5 are expanded to full values. Build in the order of the Phase 4 checklist below, one
+screen at a time (shoot at 1440 and 390, score, fix, tick, commit), from the first unticked
+line. The local environment is in `local-db.md`; work from the production build.
 
 ## Phases
 
@@ -48,7 +27,7 @@ When Phase 4 is named, start here:
 | 1. Design system           | tokens, type, grain, frost, components, motion utilities, wordmark, favicon, utility migration, tests, `/prototype/system` | **done** (2026-11-13)          |
 | 2. Landing hero            | nav, hero signature, reduced-motion still, phone composition, facts strip, frame cost, LCP                                 | built; Phase 3 named, no notes |
 | 3. Landing, all scenes     | sections 2–13, GSAP sequence to CSS, Lenis decision                                                                        | **done** (2026-11-17)          |
-| 4. Other marketing + entry | `/how-it-works`, `/pricing`, `/privacy`, `/terms`, OG, titles, `/sign-in`, `/welcome`, `/first-run`                        | not started                    |
+| 4. Other marketing + entry | `/how-it-works`, `/pricing`, `/privacy`, `/terms`, OG, titles, `/sign-in`, `/welcome`, `/first-run`                        | **in progress** (2026-11-17)   |
 | 5. Shell, home, Studio     | casing, sidebar, top bar, dock, palette, account menu, toasts, `/home`, `/studio`                                          | not started                    |
 | 6. Schools and the editor  | `/schools`, workspace and tabs, preview, unlock, `/workspace/[id]`, `/kits/[id]`                                           | not started                    |
 | 7. The rest of the app     | dossier, profile read, recommenders, portal, résumé, connect, settings, interview, tracker, all states                     | not started                    |
@@ -163,6 +142,26 @@ kept all of it, fixed five things found in the screenshots, measured and committ
       LCP candidates on a throttled phone
 - [x] Gates: typecheck, lint, build, `bundle:check`; existing unit tests
 - [x] SPEC §4 and §3.3 updated where the build differs; REPORT.md; committed
+
+## Phase 4 checklist
+
+- [x] SPEC §4.2 (the four pages, OG images, titles) and §5 (entry) expanded to full values
+- [ ] `/how-it-works`: head, index, four stages with their windows, the pack assembling,
+      interview row, what it won't do, AI policies on paper, final call
+- [ ] `/pricing`: the strike, plans, one kit opened, the ledger, elsewhere and here, payment,
+      questions, final call; `SocialProofSlot` above the plans
+- [ ] `/privacy` and `/terms` on paper: contents, hanging numbers, the voice path, the reading
+      line
+- [ ] OG images (five routes, one template) and titles
+- [ ] The entry room (`auth-shell.tsx`, `entry.css`); `/sign-in` with the sheet, the line and
+      "Check your email"; `/goodbye` and not-found
+- [ ] `/welcome`
+- [ ] `/first-run` (all five steps)
+- [ ] Old helpers deleted (`school-packs`, `tick`, `display-heading`, `notes`, `screens*`,
+      `_unlock*`, `_assembly-island`, `voice-path-play`)
+- [ ] Shot, scored, fixed, re-shot; measured (bundle, fonts, overflow, console, axe)
+- [ ] Gates: typecheck, lint, build, `bundle:check`; existing unit tests
+- [ ] SPEC updated where the build differs; REPORT.md; committed
 
 ## Decisions
 
