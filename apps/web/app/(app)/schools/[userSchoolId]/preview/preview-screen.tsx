@@ -2,13 +2,14 @@
 
 import {
   Button,
+  buttonStyles,
   FileMapList,
   KitPreviewError,
   PositioningBlock,
   UnlockCta,
   formatVerifiedOn,
 } from "@admitstory/ui";
-import { LockSimpleIcon } from "@phosphor-icons/react/ssr";
+import { CaretLeftIcon, LockSimpleIcon } from "@phosphor-icons/react";
 import Link from "next/link";
 import { useCallback, useEffect, useRef, useState, type ReactNode } from "react";
 import { AlertMessage, StatusMessage } from "@/components/live-message";
@@ -127,12 +128,9 @@ export function PreviewScreen({
   const mine = hasStories || state.state === "ready" || state.state === "running";
   const yours = (
     <section aria-labelledby="yours-heading" className="flex flex-col gap-6">
-      <div className="flex flex-col gap-2">
-        <p className="eyebrow">Your version</p>
-        <h2
-          id="yours-heading"
-          className="font-display text-[1.75rem] leading-tight tracking-[-0.015em] text-text sm:text-[2rem]"
-        >
+      <div className="flex flex-col gap-3">
+        <p className="label">Your version</p>
+        <h2 id="yours-heading" className="text-display-3 text-text">
           {`How you'd position for ${schoolName}`}
         </h2>
       </div>
@@ -148,26 +146,27 @@ export function PreviewScreen({
   );
 
   return (
-    <div className="mx-auto flex w-full max-w-5xl flex-col gap-16 px-5 py-10 sm:px-10 sm:py-14">
-      <header className="flex flex-col gap-4 border-b border-edge pb-10">
+    <div className="mx-auto flex w-full max-w-[60rem] flex-col gap-[4.5rem] px-5 pt-6 pb-24 sm:px-10 sm:pt-10 lg:px-14 lg:pt-14">
+      <header className="flex flex-col">
         <Link
           href="/schools"
-          className="self-start text-sm text-text-soft underline-offset-4 hover:underline"
+          className="label -ml-1 inline-flex min-h-11 items-center gap-1 self-start rounded-full pr-2 pl-1 transition-colors duration-(--dur-hover) hover:text-text"
         >
-          Your schools
+          <CaretLeftIcon size={12} weight="bold" aria-hidden />
+          Schools
         </Link>
-        <p className="eyebrow">Free preview</p>
-        <h1 className="text-display text-text">
-          Your <em>{schoolName}</em> pack
+        <p className="eyebrow mt-4">Free preview</p>
+        <h1 className="mt-3 text-display-2 text-text">
+          Your <span className="serif-accent text-text-soft">{schoolName}</span> pack
         </h1>
-        <p className="max-w-essay text-lg text-text-soft">
+        <p className="mt-4 max-w-[60ch] text-lg text-text-soft">
           {mine
             ? `How your stories fit ${schoolName}, the opening of your first essay, and everything the pack drafts. The full drafts unlock when you buy the pack.`
             : `What ${schoolName} looks for, how we reshape a story for it, and everything the pack drafts. The drafts unlock when you buy the pack.`}
         </p>
+        <StatusMessage message={landed} className="not-empty:mt-4" />
+        <AlertMessage message={error} className="not-empty:mt-4" />
       </header>
-      <StatusMessage message={landed} />
-      <AlertMessage message={error} />
 
       {state.state === "coming_soon" ? (
         <UnlockCta
@@ -184,8 +183,8 @@ export function PreviewScreen({
           {mine ? null : yours}
           {details}
           {state.state === "ready" || state.state === "idle" || state.state === "running" ? (
-            <div className="flex flex-col gap-4 rounded-plane border border-edge bg-depth p-6 sm:p-8">
-              <p className="font-display text-[1.5rem] leading-tight text-text">
+            <div className="card flex flex-col gap-5 p-7 sm:p-9">
+              <p className="text-display-3 text-text">
                 {`Ready for the whole ${schoolName} file?`}
               </p>
               <UnlockCta
@@ -229,13 +228,14 @@ function YourVersion({
         </Button>
       </div>
     ) : (
-      <div className="flex flex-col items-start gap-4 rounded-plane border border-dashed border-edge p-6">
+      <div className="flex flex-col items-start gap-4 rounded-card border border-dashed border-edge p-6">
         <p className="max-w-essay text-text">
           {`Tell us one story and we'll do for you what the example above shows: the narrative ${schoolName} should read, and which story goes where.`}
         </p>
-        <Button asChild>
-          <Link href="/studio">Tell your first story</Link>
-        </Button>
+        <Link href="/studio" className={buttonStyles({ arrow: true })}>
+          Tell your first story
+          <span aria-hidden className="btn-arrow" />
+        </Link>
       </div>
     );
 
@@ -282,7 +282,7 @@ function YourVersion({
         </p>
       ) : null}
       <div className="flex flex-col gap-3">
-        <h3 className="text-lg font-semibold text-text">Which of your stories goes where</h3>
+        <h3 className="text-title text-text">Which of your stories goes where</h3>
         <FileMapList entries={state.preview.fileMap} />
       </div>
     </div>
@@ -305,8 +305,8 @@ function PreviewShape({ schoolName }: { schoolName: string }) {
         ["Which of your stories goes where", "11rem"],
       ].map(([title, height]) => (
         <section key={title} className="flex flex-col gap-3" aria-hidden="true">
-          <p className="text-lg font-semibold text-text-soft">{title}</p>
-          <div className="rounded-plane border border-edge bg-depth" style={{ height }} />
+          <p className="text-title text-text-soft">{title}</p>
+          <div className="card" style={{ height }} />
         </section>
       ))}
     </div>
@@ -332,10 +332,10 @@ function OpeningSheet({
   return (
     <figure className="flex flex-col gap-4">
       <figcaption className="flex flex-col gap-1.5">
-        <h3 className="text-lg font-semibold text-text">
+        <h3 className="text-title text-text">
           {`The opening of your ${schoolName} ${opening.essay}`}
         </h3>
-        <p className="max-w-essay text-sm text-text-soft">{opening.prompt}</p>
+        <p className="max-w-[60ch] text-sm text-text-soft">{opening.prompt}</p>
       </figcaption>
       <div className="sheet flex max-w-[46rem] flex-col gap-5">
         <p className="meta flex flex-wrap gap-x-3 gap-y-1 text-current opacity-70">

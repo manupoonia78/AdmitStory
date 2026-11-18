@@ -1,17 +1,12 @@
 "use client";
 
-import { animate, motion, useReducedMotion } from "motion/react";
-import { useEffect, useId, useLayoutEffect, useRef, useState, type ReactNode } from "react";
+import { motion, useReducedMotion } from "motion/react";
+import { useId, useLayoutEffect, useRef, useState, type ReactNode } from "react";
 import { Button } from "../components/button";
 import { StatusLabel, type StatusTone } from "../components/status-label";
 import { cx } from "../lib/cx";
 import { REDUCED_FADE, spring } from "../motion";
-import {
-  Voiceprint,
-  type LiveVoiceSignal,
-  type PerformanceTier,
-  type VoiceprintIdentity,
-} from "../voiceprint";
+import type { PerformanceTier, VoiceprintIdentity } from "../voiceprint";
 import { StreamingText } from "../workspace/streaming-text";
 import { KitStageList } from "./kit-stage-list";
 import { threadsFor, usedStories, type Thread, type ThreadAnchors } from "./threads";
@@ -145,20 +140,6 @@ export function KitAssembly({
   const used = usedStories(deliverables);
   const storyTitle = new Map(stories.map((story) => [story.id, story.title]));
 
-  // Each new thread leaves the Voiceprint with a small swell of light (settle spring).
-  const signal = useRef<LiveVoiceSignal>({ amplitude: 0, centroid: 0.4, pitchDelta: 0 });
-  const decided = deliverables.filter((d) => d.status !== "waiting" && d.storyId).length;
-  useEffect(() => {
-    if (still || decided === 0) return;
-    const controls = animate(0.6, 0, {
-      ...spring("settle"),
-      onUpdate: (value) => {
-        signal.current.amplitude = Math.max(0, value);
-      },
-    });
-    return () => controls.stop();
-  }, [decided, still]);
-
   const active = stages.find((stage) => stage.status === "active");
   const allDone = stages.length > 0 && stages.every((stage) => stage.status === "done");
   const progress = active
@@ -171,7 +152,7 @@ export function KitAssembly({
     <div
       ref={containerRef}
       className={cx(
-        "relative grid gap-12 lg:grid-cols-[minmax(0,1fr)_clamp(3rem,7vw,8rem)_minmax(0,1fr)] lg:gap-y-0",
+        "relative grid gap-12 lg:grid-cols-[minmax(0,1fr)_clamp(3rem,7vw,7rem)_minmax(0,1.25fr)] lg:gap-y-0",
         className,
       )}
       data-motion={still ? "still" : "full"}
@@ -191,25 +172,22 @@ export function KitAssembly({
       </svg>
 
       <div className="relative flex flex-col gap-10 lg:col-start-1">
-        {/* Below 1024px the stages lead (design F, mobile); the Voiceprint holds nothing to focus. */}
-        <div className="flex flex-col items-center gap-8 max-lg:order-2 sm:flex-row sm:items-center">
-          <div data-thread-origin className="size-[clamp(10rem,15vw,14rem)] shrink-0">
-            <Voiceprint
-              identity={identity}
-              signal={signal}
-              size="fill"
-              tier={forcedTier}
-              label="Your Voiceprint"
+        {/* Below 1024px the stages lead (design F, mobile). */}
+        <section aria-labelledby={storiesHeadingId} className="min-w-0 max-lg:order-2">
+          <h2 id={storiesHeadingId} className="label mb-4">
+            Your stories
+          </h2>
+          {/* The spine (SPEC §6.6): the applicant's Voiceprint as a short line, and the stories
+              as stops down a hairline beneath it. Threads leave from the line. */}
+          <div className="relative">
+            <span
+              aria-hidden
+              className="absolute top-[14px] bottom-[26px] left-[4.5px] w-[1.25px] bg-edge-strong"
             />
-          </div>
-          <section
-            aria-labelledby={storiesHeadingId}
-            className="w-full min-w-0 sm:w-auto sm:flex-1"
-          >
-            <h2 id={storiesHeadingId} className="mb-2 text-sm text-text-soft">
-              Your stories
-            </h2>
-            <ul className="flex flex-col gap-1">
+            <div data-thread-origin className="relative h-[14px] w-14">
+              <VoiceGlyph identity={identity} />
+            </div>
+            <ul className="mt-3 flex flex-col">
               {stories.map((story) => {
                 const lit = used.has(story.id);
                 return (
@@ -217,32 +195,30 @@ export function KitAssembly({
                     key={story.id}
                     data-story-node={story.id}
                     data-lit={lit ? "" : undefined}
-                    className="flex min-h-11 items-center gap-3"
+                    className="relative flex min-h-13 items-center gap-4"
                   >
                     <span
                       data-story-dot
                       aria-hidden
                       className={cx(
-                        "size-2.5 shrink-0 rounded-full border transition-[background-color,box-shadow,border-color] duration-(--spring-drift-duration) ease-drift motion-reduce:transition-none",
-                        lit
-                          ? "border-voice bg-voice shadow-[0_0_12px_var(--voice)]"
-                          : "border-control bg-transparent shadow-[0_0_12px_transparent]",
+                        "relative size-[10px] shrink-0 rounded-full border-[1.25px] transition-[background-color,border-color] duration-(--dur-swap) ease-rise motion-reduce:transition-none",
+                        lit ? "border-voice bg-voice" : "border-edge-strong bg-space",
                       )}
                     />
                     <span data-story-label className="flex min-w-0 flex-col">
-                      <span className={cx("truncate", lit ? "text-text" : "text-text-soft")}>
+                      <span
+                        className={cx("truncate text-ui", lit ? "text-text" : "text-text-soft")}
+                      >
                         {story.title}
                       </span>
-                      {story.context ? (
-                        <span className="text-sm text-text-soft">{story.context}</span>
-                      ) : null}
+                      {story.context ? <span className="label">{story.context}</span> : null}
                     </span>
                   </li>
                 );
               })}
             </ul>
-          </section>
-        </div>
+          </div>
+        </section>
 
         <KitStageList stages={stages} onAction={onStageAction} className="max-lg:order-1" />
         <p className="sr-only" aria-live="polite">
@@ -252,10 +228,10 @@ export function KitAssembly({
       </div>
 
       <section aria-labelledby={deliverablesHeadingId} className="relative lg:col-start-3">
-        <h2 id={deliverablesHeadingId} className="mb-3 text-sm text-text-soft">
+        <h2 id={deliverablesHeadingId} className="label mb-4">
           {deliverablesHeading}
         </h2>
-        <ol className="plane flex flex-col">
+        <ol className="card flex flex-col">
           {deliverables.map((deliverable) => {
             const status = STATUS[deliverable.status];
             const story = deliverable.storyId ? storyTitle.get(deliverable.storyId) : undefined;
@@ -265,18 +241,18 @@ export function KitAssembly({
                 key={deliverable.key}
                 data-deliverable-row
                 data-status={deliverable.status}
-                className="relative flex flex-col gap-2 border-b border-edge px-5 py-4 last:border-b-0"
+                className="relative flex flex-col gap-2 border-b border-edge px-5 py-5 last:border-b-0"
               >
                 <span
                   data-deliverable-port={deliverable.key}
                   aria-hidden
                   className={cx(
-                    "absolute -left-[5px] top-[1.65rem] hidden size-2.5 rounded-full border transition-[background-color,border-color] duration-(--spring-drift-duration) ease-drift motion-reduce:transition-none lg:block",
-                    decided ? "border-voice bg-voice" : "border-control bg-depth",
+                    "absolute -left-[5px] top-[1.9rem] hidden size-[10px] rounded-full border-[1.25px] transition-[background-color,border-color] duration-(--dur-swap) ease-rise motion-reduce:transition-none lg:block",
+                    decided ? "border-voice bg-voice" : "border-edge-strong bg-depth",
                   )}
                 />
                 <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
-                  <h3 className="text-lg font-medium text-text">{deliverable.title}</h3>
+                  <h3 className="text-ui text-text">{deliverable.title}</h3>
                   <StatusLabel tone={status.tone}>{status.word}</StatusLabel>
                 </div>
                 <p className="text-sm text-text-soft">
@@ -315,7 +291,7 @@ export function KitAssembly({
                     done={deliverable.status === "ready"}
                     reserve={deliverable.reserve ?? 3}
                     live={false}
-                    className="font-reading text-read text-text"
+                    className="font-reading text-read-sm text-text"
                   />
                 )}
               </li>
@@ -365,33 +341,61 @@ function ThreadOfLight({
 }
 
 function Pulse({ d, loop }: { d: string; loop: boolean }) {
+  // One short bright segment (pathLength) sliding along the thread (pathOffset), no halo: once
+  // when the story is chosen, then a steady 1.6 s trip while the essay drafts (SPEC §6.6).
   const transition = loop
-    ? { ...spring("settle"), repeat: Infinity, repeatDelay: 0.9 }
+    ? { duration: 1.6, ease: "linear" as const, repeat: Infinity }
     : spring("drift");
-  // A short visible segment (pathLength) sliding along the path (pathOffset): a halo and a core.
   return (
-    <>
-      <motion.path
-        d={d}
-        fill="none"
+    <motion.path
+      d={d}
+      fill="none"
+      stroke="var(--voice)"
+      strokeWidth={1.25}
+      strokeLinecap="round"
+      initial={{ pathLength: 0.06, pathOffset: 0 }}
+      animate={{ pathOffset: 1 }}
+      transition={transition}
+    />
+  );
+}
+
+/**
+ * The applicant's Voiceprint as a line (SPEC §6.6): a short still wave whose shape comes from
+ * their numbers (pitch sets the wavelength, range the height, pace a second ripple), the same
+ * mapping the Studio's line uses. It replaces the WebGL orb's still.
+ */
+function VoiceGlyph({ identity }: { identity: VoiceprintIdentity }) {
+  const clamp = (v: number, lo: number, hi: number) => Math.min(hi, Math.max(lo, v));
+  const wavelength = 14 + clamp((identity.avgPitchHz - 110) / 60, 0, 1) * 10;
+  const amp = 3 + clamp((identity.pitchRangeSemitones - 4) / 10, 0, 1) * 3.5;
+  const ripple = 0.25 + clamp((identity.paceWpm - 110) / 70, 0, 1) * 0.35;
+  const points: string[] = [];
+  for (let x = 0; x <= 56; x += 1) {
+    const fade = Math.sin((Math.PI * x) / 56);
+    const y =
+      7 -
+      fade *
+        amp *
+        (Math.sin((2 * Math.PI * x) / wavelength) +
+          ripple * Math.sin((2 * Math.PI * x * 2.3) / wavelength + 1));
+    points.push(`${x === 0 ? "M" : "L"}${x + 4.5} ${Math.round(y * 10) / 10}`);
+  }
+  return (
+    <svg
+      role="img"
+      aria-label="Your Voiceprint"
+      viewBox="0 0 64 14"
+      className="absolute inset-0 h-[14px] w-16 overflow-visible"
+      fill="none"
+    >
+      <path
+        d={points.join(" ")}
         stroke="var(--voice)"
-        strokeWidth={8}
-        strokeLinecap="round"
-        opacity={0.22}
-        initial={{ pathLength: 0.08, pathOffset: 0 }}
-        animate={{ pathOffset: 1 }}
-        transition={transition}
+        strokeWidth={1.25}
+        strokeLinejoin="round"
+        vectorEffect="non-scaling-stroke"
       />
-      <motion.path
-        d={d}
-        fill="none"
-        stroke="var(--voice)"
-        strokeWidth={2.25}
-        strokeLinecap="round"
-        initial={{ pathLength: 0.05, pathOffset: 0 }}
-        animate={{ pathOffset: 1 }}
-        transition={transition}
-      />
-    </>
+    </svg>
   );
 }

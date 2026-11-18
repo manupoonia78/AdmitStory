@@ -418,3 +418,84 @@
     translate: 0 8px;
   }
 }
+
+/*
+ * Whose words are whose (SPEC §2.3, §6.9). The your-words view lights the applicant's own
+ * sentences in their hue; the kind is drawn as well as filled, so it never depends on hue alone:
+ * said word for word has a solid underline, lightly adapted a dotted one over a lighter fill.
+ * Both the editor (`[data-own]`) and its stand-in (`[data-own-words]`) carry `data-kind`.
+ */
+[data-your-words="on"] :is([data-own], [data-own-words])[data-kind="verbatim"] {
+  text-decoration-line: underline;
+  text-decoration-style: solid;
+  text-decoration-color: var(--voice);
+  text-decoration-thickness: 1.25px;
+  text-underline-offset: 0.22em;
+}
+[data-your-words="on"] :is([data-own], [data-own-words])[data-kind="adapted"] {
+  background-color: color-mix(in srgb, var(--voice-glow) 60%, transparent);
+  text-decoration-line: underline;
+  text-decoration-style: dotted;
+  text-decoration-color: var(--voice);
+  text-decoration-thickness: 1.25px;
+  text-underline-offset: 0.22em;
+}
+/* The moment: turned on by pointer, the marks sweep in paragraph by paragraph, each highlight
+   growing from the left. Turned on with Y (a keyboard action) they are simply there. */
+[data-sweep] [data-your-words="on"] :is([data-own], [data-own-words]) {
+  --yw-fill: var(--voice-glow);
+  background-color: transparent;
+  background-image: linear-gradient(var(--yw-fill), var(--yw-fill));
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  box-shadow: none;
+  transition: none;
+  animation: yw-sweep 400ms var(--ease-rise) var(--yw-delay, 0ms) both;
+}
+[data-sweep] [data-your-words="on"] :is([data-own], [data-own-words])[data-kind="adapted"] {
+  --yw-fill: color-mix(in srgb, var(--voice-glow) 60%, transparent);
+}
+[data-sweep] [data-your-words="on"] :nth-child(2 of p) {
+  --yw-delay: 60ms;
+}
+[data-sweep] [data-your-words="on"] :nth-child(3 of p) {
+  --yw-delay: 110ms;
+}
+[data-sweep] [data-your-words="on"] :nth-child(4 of p) {
+  --yw-delay: 150ms;
+}
+[data-sweep] [data-your-words="on"] :nth-child(n + 5 of p) {
+  --yw-delay: 180ms;
+}
+@keyframes yw-sweep {
+  from {
+    background-size: 0% 100%;
+    text-decoration-color: transparent;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  [data-sweep] [data-your-words="on"] :is([data-own], [data-own-words]) {
+    animation: none;
+  }
+}
+
+/* The preview's file map (SPEC §6.7): each connector draws from the deliverable to its story,
+   once, as the map arrives; 80 ms apart for the first seven. */
+[data-motion="on"] .file-map-link > :first-child {
+  transform-origin: left;
+  animation: file-map-draw 900ms var(--ease-line) calc(var(--i, 0) * 80ms + 150ms) both;
+}
+[data-motion="on"] .file-map-link > :last-child {
+  animation: file-map-stop 250ms var(--ease-rise) calc(var(--i, 0) * 80ms + 900ms) both;
+}
+@keyframes file-map-draw {
+  from {
+    transform: scaleX(0);
+  }
+}
+@keyframes file-map-stop {
+  from {
+    opacity: 0;
+    transform: scale(0.6);
+  }
+}

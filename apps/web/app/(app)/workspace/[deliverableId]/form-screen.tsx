@@ -3,7 +3,7 @@
 import {
   ChatPanel,
   ConsistencyList,
-  FilesPane,
+  FileStrip,
   FormAdvisor,
   WorkspaceLayout,
   copiedEntryMessage,
@@ -161,9 +161,9 @@ export function FormScreen({ initial }: { initial: FormView }) {
   return (
     <WorkspaceLayout
       header={<SchoolHeader view={tabs} active="application" />}
-      files={
-        <FilesPane
-          heading="Application form"
+      strip={
+        <FileStrip
+          label="Application form"
           files={filesForTab(view.files, "application")}
           selectedKey={section.deliverableId ?? ""}
           onSelect={(key) => router.push(fileHref(key))}
@@ -171,7 +171,7 @@ export function FormScreen({ initial }: { initial: FormView }) {
         />
       }
       document={
-        <div className="flex flex-col gap-4">
+        <div className="mx-auto flex w-full max-w-[52rem] flex-col gap-4 rounded-paper bg-sheet py-4 text-sheet-text shadow-(--shadow-paper) sm:py-6">
           <FormAdvisor
             key={revision}
             section={section}

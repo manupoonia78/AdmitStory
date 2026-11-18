@@ -1,7 +1,7 @@
 "use client";
 
 import { briefSections, type Cite } from "@admitstory/shared/kit";
-import { BriefSheet, Button, ChatPanel, FilesPane, WorkspaceLayout } from "@admitstory/ui";
+import { BriefSheet, Button, ChatPanel, FileStrip, WorkspaceLayout } from "@admitstory/ui";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useCallback, useState } from "react";
@@ -55,8 +55,9 @@ export function RecommendersTab({
   const ready = Boolean(brief?.brief && brief.meta);
 
   const document = !selected ? (
-    <div className="mx-auto flex max-w-essay flex-col gap-4 px-6 py-12">
-      <h2 className="font-display text-[1.75rem] leading-tight text-text">
+    <div className="card mx-auto flex w-full max-w-[44rem] flex-col gap-4 px-6 py-10 sm:px-10">
+      <span aria-hidden className="h-[1.25px] w-40 bg-edge-strong" />
+      <h2 className="text-title text-text">
         No one is writing for {view.tabs.school} yet
       </h2>
       <p className="text-text-soft">
@@ -90,13 +91,14 @@ export function RecommendersTab({
       />
     </div>
   ) : (
-    <div className="mx-auto flex max-w-essay flex-col gap-4 px-6 py-12">
-      <h2 className="font-display text-[1.75rem] leading-tight text-text">
+    <div className="card mx-auto flex w-full max-w-[44rem] flex-col gap-4 px-6 py-10 sm:px-10">
+      <span aria-hidden className="h-[1.25px] w-40 bg-edge-strong" />
+      <h2 className="text-title text-text">
         {brief?.status === "building"
           ? `Building ${selected.name}'s brief`
           : `${selected.name}'s brief isn't built yet`}
       </h2>
-      <p className="text-text-soft">
+      <p className="max-w-[60ch] text-text-soft">
         {brief?.status === "building"
           ? "About a minute. It appears here as soon as it's done."
           : `Tell us a few stories ${selected.name} saw, then build the brief. You can shape it here afterwards.`}
@@ -112,9 +114,9 @@ export function RecommendersTab({
   return (
     <WorkspaceLayout
       header={<SchoolHeader view={view.tabs} active="recommenders" />}
-      files={
-        <FilesPane
-          heading="Recommenders"
+      strip={
+        <FileStrip
+          label="Recommenders"
           files={view.files}
           selectedKey={selected?.recommenderId ?? null}
           onSelect={(key) => router.push(href(key))}

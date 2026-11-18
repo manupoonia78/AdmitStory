@@ -49,6 +49,7 @@ export { Tooltip, type TooltipProps } from "./components/tooltip";
 export { Tabs, TabsList, TabsTrigger, TabsContent } from "./components/tabs";
 export { ToastProvider, useToast, type ToastOptions } from "./components/toast";
 export { StatusLabel, type StatusLabelProps, type StatusTone } from "./components/status-label";
+export { Peak } from "./components/peak";
 export { SkipLink, type SkipLinkProps } from "./components/skip-link";
 export { VisuallyHidden } from "./components/visually-hidden";
 export { EmptyState, type EmptyStateAlign, type EmptyStateProps } from "./components/empty-state";

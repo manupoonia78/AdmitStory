@@ -47,16 +47,14 @@ export interface YourWordsTextProps {
 // light around the words rather than a flat highlighter (spec §6.2). Both properties interpolate,
 // so toggling mid-transition reverses smoothly; reduced motion drops the transition entirely. In
 // forced colours or high contrast the glow becomes a 1px dotted underline.
-const GLOW_BASE =
-  "box-decoration-clone transition-[background-color,box-shadow] duration-(--spring-glide-duration) ease-glide motion-reduce:transition-none";
+// The view changes at once when toggled (Y is a keyboard action, SPEC §2.10); the one sweep is
+// render.css's, on a pointer toggle.
+const GLOW_BASE = "box-decoration-clone motion-reduce:transition-none";
 const GLOW_OFF = "bg-transparent shadow-[0_0_0.7em_transparent]";
 const GLOW_ON =
   "cursor-default bg-voice-glow text-text shadow-[0_0_0.7em_var(--voice-glow)] " +
   "forced-colors:underline forced-colors:decoration-dotted forced-colors:decoration-1 forced-colors:underline-offset-4 " +
   "contrast-more:underline contrast-more:decoration-dotted contrast-more:decoration-1 contrast-more:underline-offset-4";
-// A light sweep: lit sentences come on one after another, never more than ~300 ms in total.
-const STAGGER_MS = 24;
-const STAGGER_MAX = 12;
 // Leaving a sentence for its popover must not close it (WCAG 1.4.13: hoverable).
 const CLOSE_DELAY_MS = 160;
 
@@ -173,7 +171,6 @@ export function YourWordsText({
 
   // Turning the view off takes the popover with it.
   const shown = on ? open : null;
-  let litIndex = 0;
 
   return (
     <div
@@ -192,7 +189,6 @@ export function YourWordsText({
                 : paragraph.sentences.map((sentence, index) => {
                     const key = `${paragraph.id}:${index}`;
                     const own = on && isOwnWords(sentence);
-                    const delay = own ? Math.min(litIndex++, STAGGER_MAX) * STAGGER_MS : 0;
                     const descriptionId = `${id}-${key}`;
                     const chips = paragraphNeeds.filter((need) => need.after_sentence === index);
                     return (
@@ -202,7 +198,6 @@ export function YourWordsText({
                           data-kind={sentence.kind}
                           data-own-words={own ? "" : undefined}
                           className={cx(GLOW_BASE, own ? GLOW_ON : GLOW_OFF)}
-                          style={{ transitionDelay: `${delay}ms` }}
                           {...(own
                             ? {
                                 role: "button",

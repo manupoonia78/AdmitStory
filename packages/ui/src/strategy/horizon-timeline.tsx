@@ -396,7 +396,7 @@ function LaneBody({
               {slot === "hidden" ? null : (
                 <span
                   className={cx(
-                    "absolute whitespace-nowrap text-xs tabular-nums",
+                    "absolute whitespace-nowrap text-[12px] tabular-nums",
                     slot === "below" ? "top-3.5" : "bottom-3.5",
                     mark.planned ? "font-medium text-text" : "text-text-soft",
                   )}

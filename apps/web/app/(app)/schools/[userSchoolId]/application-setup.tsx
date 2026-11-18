@@ -33,11 +33,8 @@ function Choice({
       aria-pressed={pressed}
       onClick={onClick}
       className={cx(
-        "inline-flex min-h-10 items-center rounded-full border px-4 text-sm tabular-nums transition-colors duration-150",
-        "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-text",
-        pressed
-          ? "border-text bg-signal text-on-signal"
-          : "border-edge text-text hover:border-text-soft",
+        "chip h-9 tabular-nums transition-[background-color,color,border-color] duration-150 ease-rise",
+        pressed ? "border-text bg-text text-space shadow-none" : "text-text hover:bg-frost-hover",
       )}
     >
       {children}
@@ -48,7 +45,7 @@ function Choice({
 function Row({ label, children }: { label: string; children: ReactNode }) {
   return (
     <div role="group" aria-label={label} className="flex flex-col gap-2.5 sm:flex-row sm:gap-6">
-      <p className="meta pt-2.5 text-text-soft sm:w-36 sm:shrink-0">{label}</p>
+      <p className="label pt-2.5 sm:w-32 sm:shrink-0">{label}</p>
       <div className="flex flex-wrap gap-2">{children}</div>
     </div>
   );
@@ -134,14 +131,11 @@ export function ApplicationSetup({ setup }: { setup: SchoolSetup }) {
   return (
     <section
       aria-labelledby="setup-heading"
-      className="flex flex-col gap-6 rounded-plane border border-edge bg-depth p-6 sm:p-8"
+      className="card flex flex-col gap-6 p-6 sm:p-8"
     >
-      <div className="flex flex-col gap-1">
-        <p className="eyebrow">Your application</p>
-        <h2
-          id="setup-heading"
-          className="font-display text-[1.5rem] leading-tight tracking-[-0.01em] text-text"
-        >
+      <div className="flex flex-col gap-2">
+        <p className="label">Your application</p>
+        <h2 id="setup-heading" className="text-title text-text">
           {`Two things that shape your ${schoolName} pack`}
         </h2>
       </div>

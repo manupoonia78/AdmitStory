@@ -11,7 +11,7 @@ import {
   DialogContent,
   ExportMenu,
   FeedbackControl,
-  FilesPane,
+  FileStrip,
   LimitCounter,
   NeedComposer,
   OptionSplit,
@@ -29,7 +29,9 @@ import {
   type ExportFormat,
   type OptionSummary,
   type RefineRequest,
+  type WorkspaceView as LayoutView,
 } from "@admitstory/ui";
+import { ChatCircleTextIcon, SlidersHorizontalIcon } from "@phosphor-icons/react";
 import type { DocEdit } from "@admitstory/ui/editor";
 import dynamic from "next/dynamic";
 import { useRouter } from "next/navigation";
@@ -38,6 +40,7 @@ import {
   useCallback,
   useContext,
   useEffect,
+  useMemo,
   useRef,
   useState,
   type ReactNode,
@@ -46,6 +49,7 @@ import { AlertMessage, StatusMessage } from "@/components/live-message";
 import { ModelCredit } from "@/components/model-seal";
 import { SchoolHeader } from "@/components/school-header";
 import { useChat } from "@/lib/chat/use-chat";
+import { MarginNotes, notesFromWhy } from "./margin-notes";
 import { filesForTab, schoolHref, schoolTabs, tabOfGroup } from "@/lib/school/tabs";
 import type { WorkspaceView } from "@/lib/workspace/view";
 
@@ -98,6 +102,11 @@ export function WorkspaceScreen({ initial }: { initial: WorkspaceView }) {
   const [view, setView] = useState(initial);
   const [tab, setTab] = useState<CoachTab>("chat");
   const [yourWords, setYourWords] = useState(false);
+  /** The sweep plays only when the view is turned on by pointer (SPEC §6.9). */
+  const [sweep, setSweep] = useState(false);
+  const [layoutView, setLayoutView] = useState<LayoutView>("document");
+  const [coachOpen, setCoachOpen] = useState(false);
+  const textRef = useRef<HTMLDivElement>(null);
   const [need, setNeed] = useState<WorkspaceView["needs"][number] | null>(null);
   const [needStatus, setNeedStatus] = useState<"idle" | "saving">("idle");
   const [, setRefineStatus] = useState<"idle" | "working" | "failed">("idle");
@@ -303,13 +312,23 @@ export function WorkspaceScreen({ initial }: { initial: WorkspaceView }) {
   const openVerify = view.verify.filter((v) => v.status === "open").length;
   const current = view.options.find((o) => o.inUse);
 
+  const toggleYourWords = (on: boolean, via: "pointer" | "key") => {
+    setSweep(on && via === "pointer");
+    setYourWords(on);
+  };
+  const openPanel = (next: CoachTab) => {
+    setTab(next);
+    setLayoutView("coach");
+    setCoachOpen(true);
+  };
+  const notes = useMemo(() => notesFromWhy(view.why), [view.why]);
+  const prose = Boolean(draft && draft.paragraphs.length > 0 && !draft.coach && !draft.video);
+
   const documentPane = (
-    <article className="mx-auto flex w-full max-w-[44rem] flex-col gap-6 px-4 py-8 sm:px-8">
-      <header className="flex flex-col gap-3">
-        <h1 className="text-display text-text">{deliverable.title}</h1>
-        <p className="font-reading text-lg text-text-soft">{deliverable.prompt}</p>
-        {draft && draft.paragraphs.length > 0 ? <ModelCredit /> : null}
-        <div className="flex flex-wrap items-center gap-4">
+    <article className="ws-sheet mx-auto flex w-full max-w-[44rem] flex-col gap-6 rounded-paper bg-sheet px-6 py-8 text-sheet-text shadow-(--shadow-paper) sm:px-12 sm:py-12 lg:px-14 min-[90rem]:max-w-[57.5rem]">
+      <header className="flex flex-col">
+        <div className="flex items-start justify-between gap-4">
+          <h1 className="label pt-0.5">{deliverable.title}</h1>
           {deliverable.rule && draft ? (
             <LimitCounter
               count={counted}
@@ -317,12 +336,21 @@ export function WorkspaceScreen({ initial }: { initial: WorkspaceView }) {
               unit={deliverable.rule.unit}
             />
           ) : null}
-          {draft && draft.paragraphs.length > 0 ? (
-            <YourWordsToggle on={yourWords} onChange={setYourWords} />
-          ) : null}
         </div>
-        {yourWords ? <YourWordsLegend /> : null}
-        <AuthorshipBanner
+        <p className="mt-4 max-w-[38rem] font-reading text-lg leading-normal text-text-soft italic">
+          {deliverable.prompt}
+        </p>
+        {view.why.story && prose ? (
+          <p className="note mt-3 text-accent">{`From your story: ${view.why.story.title}`}</p>
+        ) : null}
+        {draft && draft.paragraphs.length > 0 ? (
+          <div className="mt-5">
+            <ModelCredit />
+          </div>
+        ) : null}
+        {yourWords ? <YourWordsLegend className="mt-5 max-w-[38rem]" /> : null}
+        <div className="mt-5 max-w-[38rem] empty:hidden">
+          <AuthorshipBanner
           mode={deliverable.mode}
           stance={(view.policy?.stance ?? "unknown") as AiPolicyStance}
           school={view.school}
@@ -341,7 +369,9 @@ export function WorkspaceScreen({ initial }: { initial: WorkspaceView }) {
               authorshipMode: mode,
             }).then(reload)
           }
-        />
+          />
+        </div>
+        <span aria-hidden className="mt-8 h-px w-full bg-edge" />
       </header>
 
       {draft?.stale ? (
@@ -420,33 +450,45 @@ export function WorkspaceScreen({ initial }: { initial: WorkspaceView }) {
           ))}
         </section>
       ) : (
-        <CanvasStandIn
-          value={
-            <YourWordsText
-              paragraphs={draft.paragraphs}
-              on={yourWords}
-              sources={view.sources}
-              needs={canvasNeeds}
-            />
-          }
-        >
-          <DocCanvas
-            paragraphs={draft.paragraphs}
-            needs={canvasNeeds}
-            sources={view.sources}
-            yourWords={yourWords}
-            label={`${deliverable.title} draft`}
-            editable={!draft.isFinal}
-            onChange={onEdit}
-            onNeedSelect={(n) =>
-              setNeed(
-                view.needs.find(
-                  (x) => x.paragraphId === n.paragraph_id && x.question === n.question,
-                ) ?? null,
-              )
-            }
-          />
-        </CanvasStandIn>
+        <div className="grid min-[90rem]:grid-cols-[minmax(0,38rem)_168px] min-[90rem]:gap-8">
+          <div
+            ref={textRef}
+            data-sweep={sweep ? "" : undefined}
+            className="min-w-0 max-w-[38rem] font-reading text-read"
+          >
+            <CanvasStandIn
+              value={
+                <YourWordsText
+                  paragraphs={draft.paragraphs}
+                  on={yourWords}
+                  sources={view.sources}
+                  needs={canvasNeeds}
+                />
+              }
+            >
+              <DocCanvas
+                paragraphs={draft.paragraphs}
+                needs={canvasNeeds}
+                sources={view.sources}
+                yourWords={yourWords}
+                label={`${deliverable.title} draft`}
+                editable={!draft.isFinal}
+                onChange={onEdit}
+                onNeedSelect={(n) =>
+                  setNeed(
+                    view.needs.find(
+                      (x) => x.paragraphId === n.paragraph_id && x.question === n.question,
+                    ) ?? null,
+                  )
+                }
+              />
+            </CanvasStandIn>
+          </div>
+          {/* The reasoning, level with the paragraphs (from 1440px; below, it's in "Why this"). */}
+          <div className="hidden border-l border-edge pl-5 min-[90rem]:block">
+            <MarginNotes notes={notes} textRef={textRef} />
+          </div>
+        </div>
       )}
 
       {need ? (
@@ -471,19 +513,16 @@ export function WorkspaceScreen({ initial }: { initial: WorkspaceView }) {
         </div>
       ) : null}
 
-      {draft && draft.paragraphs.length > 0 && deliverable.rule ? (
-        <ExportMenu
-          text={draft.text}
-          rule={deliverable.rule}
-          onExport={(format) => void exportAs(format)}
-          onMarkFinal={() => void markFinal()}
-          final={draft.isFinal}
-          onCopied={({ count }) =>
-            setStatus(`Copied: ${count} counted the way ${view.school} counts.`)
-          }
-        />
-      ) : null}
+      <StatusMessage
+        message={optionLanded ? `Option ${drafting} is drafted. Compare it side by side.` : status}
+      />
+      <AlertMessage message={error} />
+    </article>
+  );
 
+  /** Under the sheet: the version timeline and the feedback, then the floating toolbar. */
+  const underSheet = (
+    <div className="mx-auto flex w-full max-w-[44rem] flex-col gap-8 min-[90rem]:max-w-[57.5rem]">
       {draft && view.versions.length > 1 ? (
         <VersionScrubber
           versions={view.versions}
@@ -496,16 +535,49 @@ export function WorkspaceScreen({ initial }: { initial: WorkspaceView }) {
           }
         />
       ) : null}
-
       {draft && draft.paragraphs.length > 0 ? (
         <FeedbackControl key={draft.id} targetType="draft" targetId={draft.id} />
       ) : null}
-      <StatusMessage
-        message={optionLanded ? `Option ${drafting} is drafted. Compare it side by side.` : status}
-      />
-      <AlertMessage message={error} />
-    </article>
+    </div>
   );
+
+  /** The floating toolbar (SPEC §6.9): your words, the chat, the options, export and final. */
+  const toolbar = draft && draft.paragraphs.length > 0 ? (
+    <div className="pointer-events-none sticky bottom-[calc(80px+env(safe-area-inset-bottom,0px))] z-20 mt-10 flex justify-center lg:bottom-[calc(24px+env(safe-area-inset-bottom,0px))]">
+      <div
+        role="toolbar"
+        aria-label="Draft tools"
+        className="ws-toolbar frost pointer-events-auto flex items-center gap-0.5 rounded-full p-1.5 shadow-overlay"
+      >
+        {prose ? <YourWordsToggle on={yourWords} onChange={toggleYourWords} /> : null}
+        {prose ? <span aria-hidden className="mx-1 h-5 w-px bg-edge" /> : null}
+        <button type="button" className="ws-tool" onClick={() => openPanel("chat")}>
+          <ChatCircleTextIcon size={18} aria-hidden />
+          <span className="max-sm:sr-only">Chat</span>
+        </button>
+        {view.options.length > 0 ? (
+          <button type="button" className="ws-tool" onClick={() => openPanel("options")}>
+            <SlidersHorizontalIcon size={18} aria-hidden />
+            <span className="max-sm:sr-only">Options</span>
+          </button>
+        ) : null}
+        {deliverable.rule ? (
+          <ExportMenu
+            compact
+            text={draft.text}
+            rule={deliverable.rule}
+            onExport={(format) => void exportAs(format)}
+            onMarkFinal={() => void markFinal()}
+            final={draft.isFinal}
+            onCopied={({ count }) =>
+              setStatus(`Copied: ${count} counted the way ${view.school} counts.`)
+            }
+            onError={setError}
+          />
+        ) : null}
+      </div>
+    </div>
+  ) : null;
 
   const coach = (
     <CoachSheet
@@ -615,17 +687,27 @@ export function WorkspaceScreen({ initial }: { initial: WorkspaceView }) {
     <>
       <WorkspaceLayout
         header={<SchoolHeader view={tabs} active={activeTab} />}
-        files={
-          <FilesPane
-            heading={tabs.tabs.find((t) => t.id === activeTab)?.label ?? view.heading}
+        strip={
+          <FileStrip
+            label={tabs.tabs.find((t) => t.id === activeTab)?.label ?? view.heading}
             files={filesForTab(view.files, activeTab)}
             selectedKey={deliverable.id}
             onSelect={(key) => router.push(fileHref(key))}
             hrefFor={fileHref}
           />
         }
-        document={documentPane}
+        document={
+          <>
+            {documentPane}
+            <div className="mt-8">{underSheet}</div>
+            {toolbar}
+          </>
+        }
         coach={coach}
+        view={layoutView}
+        onViewChange={setLayoutView}
+        coachOpen={coachOpen}
+        onCoachOpenChange={setCoachOpen}
       />
       <Dialog open={compare !== null} onOpenChange={(open) => !open && setCompare(null)}>
         <DialogContent

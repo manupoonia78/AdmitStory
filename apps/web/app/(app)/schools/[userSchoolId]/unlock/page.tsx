@@ -15,6 +15,7 @@ import { latestPack } from "@/lib/strategy/server";
 import { loadSchoolPageFacts } from "@/lib/strategy/setup";
 import { ApplicationSetup } from "../application-setup";
 import { UnlockScreen } from "./unlock-screen";
+import "./unlock.css";
 
 export const metadata: Metadata = { title: "Unlock School Kit" };
 

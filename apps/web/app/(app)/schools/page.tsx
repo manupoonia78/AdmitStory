@@ -6,6 +6,7 @@ import { loadStrategy } from "@/lib/strategy/page-data";
 import { SchoolCards } from "./school-cards";
 import { StrategyDetails } from "./strategy-details";
 import { StrategyHost } from "./strategy-host";
+import "./schools.css";
 
 export const metadata: Metadata = { title: "Your schools" };
 

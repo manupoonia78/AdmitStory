@@ -1,0 +1,88 @@
+/*
+ * Unlock (SPEC §6.8). The pack in the total row: one small sheet per school. Choosing a plan with
+ * the pointer deals the sheets in (each from a little below and turned, starts 0–140 ms with the
+ * gaps shrinking); first paint and a keyboard change show them at rest. Under
+ * [data-motion="on"] only, so reduced motion and no JavaScript never deal.
+ */
+.pack-sheets {
+  display: flex;
+  align-items: flex-end;
+}
+/* A page: paper, a contact shadow, three drawn lines of text. */
+.pack-sheet {
+  width: 26px;
+  height: 34px;
+  flex: none;
+  border-radius: 2px;
+  background-color: var(--sheet);
+  background-image:
+    linear-gradient(var(--edge-strong), var(--edge-strong)),
+    linear-gradient(var(--edge-strong), var(--edge-strong)),
+    linear-gradient(var(--edge-strong), var(--edge-strong));
+  background-repeat: no-repeat;
+  background-size:
+    60% 1px,
+    60% 1px,
+    38% 1px;
+  background-position:
+    5px 9px,
+    5px 14px,
+    5px 19px;
+  border: 1px solid var(--edge);
+  box-shadow:
+    0 1px 0 rgb(0 0 0 / 0.04),
+    0 6px 14px -8px rgb(0 0 0 / 0.35);
+}
+.pack-sheet + .pack-sheet {
+  margin-left: -10px;
+}
+.pack-sheets[data-count="10"] .pack-sheet {
+  width: 20px;
+  height: 26px;
+  background-position:
+    4px 7px,
+    4px 11px,
+    4px 15px;
+}
+.pack-sheets[data-count="10"] .pack-sheet + .pack-sheet {
+  margin-left: -8px;
+}
+/* The school you start from sits on top, with an ink rule along its head. */
+.pack-sheet:first-child {
+  position: relative;
+  z-index: 1;
+  border-top: 1.5px solid var(--text);
+}
+[data-motion="on"] .pack-sheets[data-deal] .pack-sheet {
+  animation: pack-deal 260ms var(--ease-rise) var(--d, 0ms) both;
+}
+@keyframes pack-deal {
+  from {
+    opacity: 0;
+    transform: translateY(8px) rotate(-4deg);
+  }
+}
+
+/* While the server creates the kit: one hairline whose run moves across. */
+.unlock-wait {
+  position: relative;
+  height: 1.25px;
+  overflow: hidden;
+  background-color: var(--edge-strong);
+}
+.unlock-wait::after {
+  content: "";
+  position: absolute;
+  inset-block: 0;
+  left: 0;
+  width: 30%;
+  background-color: var(--text);
+}
+[data-motion="on"] .unlock-wait::after {
+  animation: unlock-wait 1.4s var(--ease-line) infinite alternate;
+}
+@keyframes unlock-wait {
+  to {
+    transform: translateX(233%);
+  }
+}

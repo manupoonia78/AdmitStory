@@ -1,0 +1,44 @@
+/*
+ * The essay editor (SPEC §6.9). The floating toolbar: one frosted pill under the sheet, sticky
+ * to the bottom of the window while the sheet scrolls past. Its buttons are quiet pills; hover is
+ * a fill step (gated to fine pointers by Tailwind's hover variant elsewhere, by the query here).
+ */
+.ws-tool {
+  display: inline-flex;
+  min-height: 40px;
+  align-items: center;
+  gap: 8px;
+  padding: 0 12px;
+  border-radius: var(--radius-round);
+  font-size: var(--type-ui);
+  line-height: var(--type-ui-leading);
+  font-weight: 500;
+  color: var(--text);
+  transition:
+    background-color var(--dur-hover) var(--ease-rise),
+    scale var(--dur-press) var(--ease-rise);
+}
+.ws-tool:active {
+  scale: 0.97;
+}
+@media (hover: hover) and (pointer: fine) {
+  .ws-tool:hover {
+    background-color: var(--frost-hover);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .ws-tool:active {
+    scale: none;
+  }
+}
+
+/* Enters once with the page. */
+[data-motion="on"] .ws-toolbar {
+  animation: ws-toolbar-in 250ms var(--ease-rise) 300ms both;
+}
+@keyframes ws-toolbar-in {
+  from {
+    opacity: 0;
+    translate: 0 12px;
+  }
+}

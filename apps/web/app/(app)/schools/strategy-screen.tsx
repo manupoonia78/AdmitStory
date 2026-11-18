@@ -8,7 +8,15 @@ import {
   type MatrixGroup,
 } from "@admitstory/ui";
 import dynamic from "next/dynamic";
-import { createContext, useContext, useMemo, useRef, useState, type ReactNode } from "react";
+import {
+  createContext,
+  useContext,
+  useMemo,
+  useRef,
+  useState,
+  type CSSProperties,
+  type ReactNode,
+} from "react";
 import type { StrategyRow } from "@/lib/strategy/types";
 import { AddSchools } from "./add-schools";
 
@@ -78,41 +86,55 @@ export function StrategyScreen({
   }, [comparison, selected]);
 
   return (
-    <div className="mx-auto flex w-full max-w-6xl flex-col gap-12 px-5 py-10 sm:px-10 sm:py-14">
-      <header className="flex flex-col gap-4 border-b border-edge pb-8">
-        <p className="eyebrow">Where you will apply</p>
-        <h1 className="text-display text-text">
-          Your <em>schools</em>
+    <div className="schools-frame">
+      <header className="flex flex-col">
+        <p className="eyebrow enter mb-3" style={{ "--i": 0 } as CSSProperties}>
+          Where you will apply
+        </p>
+        <h1 className="enter text-display-2 text-text" style={{ "--i": 0.8 } as CSSProperties}>
+          Your <span className="serif-accent text-text-soft">schools.</span>
         </h1>
-        <p className="max-w-essay text-lg text-text-soft">{headline(rows)}</p>
+        <p
+          className="enter mt-4 max-w-[60ch] text-lg text-text-soft"
+          style={{ "--i": 1.45 } as CSSProperties}
+        >
+          {headline(rows)}
+        </p>
       </header>
 
-      {cards}
+      <div className="mt-12 flex flex-col gap-16">
+        {rows.length === 0 ? (
+          <div className="flex flex-col gap-3">
+            <span aria-hidden className="h-[1.25px] w-60 bg-edge-strong" />
+            <p className="text-title text-text">No schools on your list yet.</p>
+          </div>
+        ) : (
+          cards
+        )}
 
-      <AddSchools inputRef={searchRef} autoFocus={rows.length === 0} />
+        <AddSchools inputRef={searchRef} autoFocus={rows.length === 0} />
+      </div>
 
-      <div className="flex flex-col gap-2 border-t border-edge pt-10">
-        <p className="eyebrow">Plan your rounds</p>
-        <p className="max-w-essay text-text-soft">
+      <div className="mt-20 flex flex-col gap-12 border-t border-edge pt-12">
+      <section aria-labelledby="horizon-heading" className="flex flex-col">
+        <p className="label mb-3">Plan your rounds</p>
+        <h2 id="horizon-heading" className="text-display-3 text-text">
+          Your deadlines
+        </h2>
+        <p className="mt-3 mb-6 max-w-[60ch] text-sm text-text-soft">
           {selected.length < 2 && rows.length > 1
             ? "Pick two schools on the timeline to compare them side by side."
             : "Deadlines in your time zone and honest flags. Choose a school's round on its preview page."}
         </p>
-      </div>
-
-      <section aria-labelledby="horizon-heading" className="flex flex-col gap-4">
-        <h2
-          id="horizon-heading"
-          className="font-display text-[1.625rem] leading-tight tracking-[-0.01em] text-text"
-        >
-          Your deadlines
-        </h2>
         {rows.length === 0 ? (
-          <p className="placeholder">
-            No schools yet. Search for one to see its rounds and what it asks for.
-          </p>
+          <div className="flex flex-col gap-3">
+            <span aria-hidden className="h-[1.25px] w-60 bg-edge-strong" />
+            <p className="text-sm text-text-soft">
+              No schools yet. Search for one to see its rounds and what it asks for.
+            </p>
+          </div>
         ) : (
-          <div className="rounded-plane border border-edge bg-depth p-4 sm:p-6">
+          <div className="card p-5 sm:p-7">
             <HorizonLanes value={horizon.length}>
               <HorizonTimeline
                 schools={horizon}
@@ -135,6 +157,7 @@ export function StrategyScreen({
 
       {/* Rendered on the server and passed in, so their code never ships (spec §6.11). */}
       {details}
+      </div>
     </div>
   );
 }

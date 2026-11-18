@@ -5,7 +5,8 @@ import type { CheckoutClientConfig } from "@admitstory/payments/client";
 import dynamic from "next/dynamic";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useCallback, useEffect, useState, type ReactNode } from "react";
+import { CaretLeftIcon } from "@phosphor-icons/react";
+import { useCallback, useEffect, useState, type CSSProperties, type ReactNode } from "react";
 import { AlertMessage, StatusMessage } from "@/components/live-message";
 import { ModelCredit } from "@/components/model-seal";
 import { INTERVIEW_COMING_SOON } from "@/lib/interview/coming-soon";
@@ -22,6 +23,9 @@ import { PlanPicker } from "./plan-picker";
 // as it exists.
 
 const POLL_MS = 1_500;
+
+/** When each sheet of the pack starts dealing in: the gaps shrink (SPEC §6.8). */
+const DEAL_MS = [0, 30, 55, 75, 90, 100, 110, 120, 130, 140];
 
 /** Local development only: loaded when the test checkout opens, never with the page. */
 const FakeCheckout = dynamic(() => import("./fake-checkout").then((mod) => mod.FakeCheckout), {
@@ -67,6 +71,8 @@ export function UnlockScreen({
       : "",
   );
   const [planId, setPlanId] = useState<PlanId>(FEATURED_PLAN);
+  /** Bumped when a pointer picks a plan, so the pack deals in again (SPEC §6.8). */
+  const [deal, setDeal] = useState(0);
   const plan = SCHOOL_PLANS[planId];
   const price = dollars(plan.priceCents);
   const payLabel =
@@ -152,16 +158,27 @@ export function UnlockScreen({
     setWaiting(true);
   }
 
+  const credit = credits > 0;
   return (
-    <div className="mx-auto flex w-full max-w-3xl flex-col gap-8 px-4 py-8 sm:px-8 sm:py-12">
-      <Link href="/schools" className="text-sm text-text-soft underline-offset-2 hover:underline">
-        Your schools
+    <div className="mx-auto flex w-full max-w-[55rem] flex-col px-5 pt-6 pb-24 sm:px-10 sm:pt-10 lg:px-14 lg:pt-14">
+      <Link
+        href="/schools"
+        className="label -ml-1 inline-flex min-h-11 items-center gap-1 self-start rounded-full pr-2 pl-1 transition-colors duration-(--dur-hover) hover:text-text"
+      >
+        <CaretLeftIcon size={12} weight="bold" aria-hidden />
+        Schools
       </Link>
-      <header className="flex flex-col gap-3">
-        <h1 className="text-display text-text">
-          {waiting ? "Payment confirmed, starting your kit" : `Unlock ${school}`}
+      <header className="mt-2 flex flex-col">
+        <h1 className="text-display-2 text-text">
+          {waiting ? (
+            "Payment confirmed, starting your kit"
+          ) : (
+            <>
+              Unlock <span className="serif-accent text-text-soft">{school}</span>
+            </>
+          )}
         </h1>
-        <p className="text-lg text-text-soft">
+        <p className="mt-4 max-w-[60ch] text-lg text-text-soft">
           {waiting
             ? "Your kit opens here the moment it starts. You can leave; it keeps building."
             : `Everything for ${school}${cycle ? ` ${cycle}` : ""}: every essay and short answer drafted from your stories, checked, with a Verify list. One payment, no subscription.`}
@@ -169,27 +186,29 @@ export function UnlockScreen({
       </header>
 
       {!waiting && opening ? (
-        <figure className="flex flex-col gap-3 border-l-2 border-accent pl-5">
-          <figcaption className="meta">{`Your ${school} ${opening.essay} begins`}</figcaption>
-          <blockquote className="max-w-essay whitespace-pre-line font-reading text-read text-text">
-            {opening.text}
-          </blockquote>
+        <figure className="mt-12 flex flex-col gap-4">
+          <div className="rounded-paper bg-sheet px-7 py-8 text-sheet-text shadow-(--shadow-paper) sm:px-10">
+            <figcaption className="note text-accent">{`Your ${school} ${opening.essay} begins`}</figcaption>
+            <blockquote className="mt-4 max-w-[38rem] whitespace-pre-line font-reading text-read">
+              {opening.text}
+            </blockquote>
+          </div>
           <p className="text-sm text-text-soft">
             The rest of it, and everything else {school} asks for, is drafted when you unlock.
           </p>
         </figure>
       ) : null}
 
-      {!waiting ? setup : null}
+      {!waiting && setup ? <div className="mt-12">{setup}</div> : null}
 
       {!waiting ? (
-        <section className="flex flex-col gap-6 border-t border-edge pt-6">
-          {credits > 0 ? (
-            <div className="flex flex-col items-start gap-2">
-              <p className="text-lg text-text">
+        <section className="mt-14 flex flex-col" aria-label="Choose how many schools">
+          {credit ? (
+            <div className="card flex flex-col items-start gap-4 p-7">
+              <p className="text-title text-text">
                 {`You have ${credits} school ${credits === 1 ? "credit" : "credits"} from your pack.`}
               </p>
-              <Button onClick={() => void redeem()} disabled={busy || !available}>
+              <Button onClick={() => void redeem()} disabled={busy || !available} arrow>
                 Use 1 credit and unlock {school}
               </Button>
               <p className="text-sm text-text-soft">
@@ -200,47 +219,107 @@ export function UnlockScreen({
             </div>
           ) : (
             <>
-              <div className="flex flex-col gap-2">
+              <div className="flex flex-col">
                 <p className="eyebrow">{PACK_PITCH.eyebrow}</p>
-                <p className="font-reading text-read-lg text-text-soft">{PACK_PITCH.others}</p>
-                <p className="font-display text-display-sm text-text">{PACK_PITCH.ours}</p>
-                <p className="max-w-[40rem] text-base text-text-soft">{PACK_PITCH.detail}</p>
+                <p className="serif-accent mt-3 text-[1.5rem] leading-tight text-text-soft sm:text-[1.75rem]">
+                  {PACK_PITCH.others}
+                </p>
+                <p className="mt-1 text-display-3 text-text">{PACK_PITCH.ours}</p>
+                <p className="mt-3 max-w-[60ch] text-sm text-text-soft">{PACK_PITCH.detail}</p>
               </div>
-              <PlanPicker value={planId} onChange={setPlanId} school={school} disabled={busy} />
+              <div className="mt-8">
+                <PlanPicker
+                  value={planId}
+                  onChange={(next, via) => {
+                    setDeal(via === "pointer" ? (d) => d + 1 : 0);
+                    setPlanId(next);
+                  }}
+                  school={school}
+                  disabled={busy}
+                />
+              </div>
               {plan.schools > 1 ? (
-                <p className="text-sm text-text-soft">{PACK_PITCH.credits}</p>
+                <p className="mt-3 text-sm text-text-soft">{PACK_PITCH.credits}</p>
               ) : null}
-            </>
-          )}
-          <ModelCredit />
-          <ul className="flex flex-col gap-2 text-text">
-            <li className="text-sm text-text-soft">For each school:</li>
-            <li>Positioning and a file map for that school</li>
-            <li>
-              Every essay, short answer and goals field, drafted in your words where you said them
-            </li>
-            <li>Checks against the portal&apos;s limits and the school&apos;s rules</li>
-            <li>The form advisor, a résumé pass and a brief for each of your recommenders</li>
-            <li>150 refinements and a version history</li>
-            <li className="text-text-soft">{INTERVIEW_COMING_SOON.promise}</li>
-          </ul>
-          {credits > 0 ? null : (
-            <div className="flex flex-col items-start gap-2">
-              <Button onClick={() => void checkout()} disabled={busy || !available}>
-                {payLabel}
-              </Button>
+
+              {/* The total: today's price, the pack as sheets, and the one brass action. */}
+              <div className="mt-8 grid grid-cols-[auto_1fr] items-center gap-x-6 gap-y-5 border-y border-edge py-6 sm:grid-cols-[auto_1fr_auto]">
+                <div className="flex flex-col gap-1">
+                  <span className="label">Today</span>
+                  <span className="text-[1.75rem] leading-none font-[450] tracking-[-0.02em] text-text tabular-nums">
+                    {price}
+                  </span>
+                </div>
+                <div
+                  key={deal}
+                  aria-hidden
+                  className="pack-sheets justify-self-start sm:justify-self-center"
+                  data-count={plan.schools}
+                  data-deal={deal > 0 ? "" : undefined}
+                >
+                  {Array.from({ length: plan.schools }, (_, i) => (
+                    <span
+                      key={i}
+                      className="pack-sheet"
+                      style={{ "--d": `${DEAL_MS[i] ?? 140}ms` } as CSSProperties}
+                    />
+                  ))}
+                </div>
+                <div className="col-span-2 flex flex-col items-stretch gap-2 sm:col-span-1 sm:items-end">
+                  <Button
+                    onClick={() => void checkout()}
+                    disabled={busy || !available}
+                    arrow
+                    className="max-sm:w-full"
+                  >
+                    {payLabel}
+                  </Button>
+                </div>
+              </div>
               {available ? null : (
-                <p className="text-sm text-text-soft">
+                <p className="mt-3 text-sm text-text-soft">
                   {`${school}'s pack is coming soon. It can't be bought yet.`}
                 </p>
               )}
-            </div>
+            </>
           )}
+
+          <div className="mt-10">
+            <ModelCredit />
+          </div>
+          <div className="mt-8 flex flex-col">
+            <p className="label mb-2">For each school</p>
+            <ul className="flex flex-col text-ui font-normal text-text">
+              <li className="border-t border-edge py-3">Positioning and a file map for that school</li>
+              <li className="border-t border-edge py-3">
+                Every essay, short answer and goals field, drafted in your words where you said them
+              </li>
+              <li className="border-t border-edge py-3">
+                Checks against the portal&apos;s limits and the school&apos;s rules
+              </li>
+              <li className="border-t border-edge py-3">
+                The form advisor, a résumé pass and a brief for each of your recommenders
+              </li>
+              <li className="border-t border-edge py-3">150 refinements and a version history</li>
+              <li className="border-y border-edge py-3 text-text-soft">
+                {INTERVIEW_COMING_SOON.promise}
+              </li>
+            </ul>
+          </div>
+          <p className="mt-6 text-sm text-text-soft">
+            Receipt to your email.{" "}
+            <Link href="/terms" className="underline decoration-edge-strong underline-offset-4 hover:decoration-text">
+              All sales are final.
+            </Link>
+          </p>
         </section>
       ) : (
-        <StatusMessage message="Payment confirmed. Starting your kit." />
+        <div className="card mt-12 flex flex-col gap-5 p-7">
+          <div className="unlock-wait" aria-hidden />
+          <StatusMessage message="Payment confirmed. Starting your kit." />
+        </div>
       )}
-      <AlertMessage message={error} />
+      <AlertMessage message={error} className="not-empty:mt-6" />
 
       {fake ? (
         <FakeCheckout

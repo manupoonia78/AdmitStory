@@ -101,10 +101,8 @@ export function ChatPanel({
       >
         {turns.length === 0 ? (
           <div className="flex flex-col gap-4 pt-2">
-            <p className="font-display text-[1.375rem] leading-snug tracking-[-0.01em] text-text">
-              Tell me what to change in {subject}.
-            </p>
-            <p className="text-text-soft">
+            <p className="text-title text-text">Tell me what to change in {subject}.</p>
+            <p className="text-sm text-text-soft">
               Plain words work best: &ldquo;make the opening about the night shift&rdquo;,
               &ldquo;shorter&rdquo;, &ldquo;I don&rsquo;t like this line&rdquo;. Every change comes
               with Undo.
@@ -117,7 +115,7 @@ export function ChatPanel({
                       type="button"
                       disabled={busy}
                       onClick={() => send(s)}
-                      className="min-h-9 rounded-full border border-edge px-3.5 text-sm text-text transition-colors hover:border-text-soft hover:bg-veil focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-text disabled:opacity-50"
+                      className="chip h-9 text-text transition-colors duration-(--dur-hover) hover:bg-frost-hover disabled:opacity-50"
                     >
                       {s}
                     </button>
@@ -130,14 +128,14 @@ export function ChatPanel({
           turns.map((turn) =>
             turn.role === "you" ? (
               <div key={turn.id} className="flex justify-end">
-                <p className="max-w-[85%] whitespace-pre-wrap rounded-[1.125rem] rounded-br-md bg-veil px-4 py-2.5 text-text">
+                <p className="max-w-[85%] whitespace-pre-wrap rounded-[1.125rem] rounded-br-md bg-veil px-4 py-2.5 text-ui font-normal text-text">
                   {turn.text}
                 </p>
               </div>
             ) : (
               <div key={turn.id} className="flex flex-col items-start gap-2">
-                <p className="meta text-accent">Coach</p>
-                <p className="whitespace-pre-wrap font-reading text-[1.0625rem] leading-relaxed text-text">
+                <p className="label">Coach</p>
+                <p className="whitespace-pre-wrap font-reading text-base leading-[1.6] text-text">
                   {turn.text}
                 </p>
                 {/* Only the latest change: undoing an older one would also drop the ones after. */}
@@ -158,7 +156,7 @@ export function ChatPanel({
         )}
         {busy ? (
           <div className="flex items-center gap-2 text-text-soft" aria-label="Working on it">
-            <span className="meta text-accent">Coach</span>
+            <span className="label">Coach</span>
             <span className="flex gap-1" aria-hidden>
               {[0, 1, 2].map((i) => (
                 <span
@@ -183,7 +181,7 @@ export function ChatPanel({
                   type="button"
                   disabled={busy}
                   onClick={() => send(s)}
-                  className="min-h-8 rounded-full border border-edge px-3 text-[0.8125rem] text-text-soft transition-colors hover:border-text-soft hover:text-text focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-text disabled:opacity-50"
+                  className="chip h-8 font-normal text-text-soft transition-colors duration-(--dur-hover) hover:bg-frost-hover hover:text-text disabled:opacity-50"
                 >
                   {s}
                 </button>
@@ -193,7 +191,7 @@ export function ChatPanel({
         ) : null}
         <form
           onSubmit={submit}
-          className="flex items-end gap-2 rounded-[1.25rem] border border-control bg-depth py-1.5 pl-4 pr-1.5 focus-within:border-text-soft"
+          className="flex items-end gap-2 rounded-control border border-control bg-field py-1.5 pl-4 pr-1.5 transition-colors duration-(--dur-hover) focus-within:border-text"
         >
           <label htmlFor={inputId} className="sr-only">
             What to change
@@ -207,7 +205,7 @@ export function ChatPanel({
             onKeyDown={onKeyDown}
             maxLength={2_000}
             placeholder={placeholder ?? "Say what to change…"}
-            className="max-h-[200px] min-h-9 flex-1 resize-none bg-transparent py-1.5 text-text outline-none placeholder:text-text-soft"
+            className="max-h-[200px] min-h-9 flex-1 resize-none bg-transparent py-1.5 text-base text-text caret-accent outline-none placeholder:text-text-soft"
           />
           <button
             type="submit"

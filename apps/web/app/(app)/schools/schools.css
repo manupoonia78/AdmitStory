@@ -1,0 +1,152 @@
+/*
+ * Schools (SPEC §6.5). Each card carries the Voiceline as a deadline line: today at the left,
+ * the cycle's last round at the right, a tick at each round still ahead, the peak at the next
+ * deadline. The moment draws each line and raises its peak once per visit, under
+ * [data-motion="on"] only, so with reduced motion or no JavaScript the lines are simply drawn.
+ */
+
+.school-card {
+  display: flex;
+  width: 100%;
+  min-height: 272px;
+  flex-direction: column;
+  padding: 24px;
+  color: var(--text);
+}
+@media (min-width: 64rem) {
+  .school-card {
+    padding: 28px;
+  }
+}
+a.school-card {
+  transition:
+    background-color var(--dur-hover) var(--ease-rise),
+    scale var(--dur-press) var(--ease-rise);
+}
+a.school-card:active {
+  scale: 0.99;
+}
+@media (prefers-reduced-motion: reduce) {
+  a.school-card:active {
+    scale: none;
+  }
+}
+/* Not for sale yet: no fill, a dashed edge, nothing raised. */
+.school-card[data-state="coming_soon"] {
+  background-color: transparent;
+  border-style: dashed;
+  box-shadow: none;
+}
+
+.school-line {
+  --peak: 0;
+  --done: 0;
+  --start: 0ms;
+}
+.school-line-rule {
+  position: relative;
+  height: 28px;
+}
+.school-line-track,
+.school-line-run {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 1.25px;
+  transform-origin: left;
+}
+.school-line-track {
+  right: 0;
+  background-color: var(--edge-strong);
+}
+.school-line[data-soon] .school-line-track {
+  height: 1px;
+  background: repeating-linear-gradient(
+    to right,
+    var(--edge-strong) 0 3px,
+    transparent 3px 7px
+  );
+}
+.school-line-run {
+  width: calc(var(--done) * 100%);
+  background-color: var(--text);
+}
+.school-line-tick {
+  position: absolute;
+  bottom: -2px;
+  width: 1.25px;
+  height: 5px;
+  margin-left: -0.625px;
+  background-color: var(--text-faint);
+}
+.school-line-peak {
+  position: absolute;
+  bottom: 0;
+  left: clamp(0px, calc(var(--peak) * 100% - 6px), calc(100% - 12px));
+  width: 12px;
+  height: 17px;
+  color: var(--accent);
+}
+.school-line-facts {
+  display: flex;
+  margin-top: 10px;
+  justify-content: space-between;
+  gap: 12px;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  line-height: 18px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  font-variant-numeric: tabular-nums;
+  color: var(--text-80);
+}
+
+/* The moment. */
+[data-motion="on"] .school-line-track,
+[data-motion="on"] .school-line-run {
+  animation: school-line-draw 600ms var(--ease-line) calc(250ms + var(--start)) both;
+}
+[data-motion="on"] .school-line-tick {
+  animation: school-line-fade 300ms var(--ease-rise) calc(550ms + var(--start)) both;
+}
+[data-motion="on"] .school-line-peak {
+  animation: school-line-peak 400ms var(--ease-rise) calc(750ms + var(--start)) both;
+}
+@keyframes school-line-draw {
+  from {
+    transform: scaleX(0);
+  }
+}
+@keyframes school-line-fade {
+  from {
+    opacity: 0;
+  }
+}
+@keyframes school-line-peak {
+  from {
+    clip-path: inset(100% 0 0 0);
+  }
+  to {
+    clip-path: inset(0);
+  }
+}
+
+/* The page frame: wider than Home's because of the grid. */
+.schools-frame {
+  margin-inline: auto;
+  display: flex;
+  width: 100%;
+  max-width: 70rem;
+  flex-direction: column;
+  padding: 24px 20px 96px;
+}
+@media (min-width: 40rem) {
+  .schools-frame {
+    padding: 40px 40px 112px;
+  }
+}
+@media (min-width: 64rem) {
+  .schools-frame {
+    padding: 56px 56px 128px;
+  }
+}

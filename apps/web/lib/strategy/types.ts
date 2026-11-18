@@ -100,4 +100,9 @@ export interface StrategyRow {
   nextDeadline?: string | null;
   /** How many essays and short answers the school asks for, from its pack. */
   essays?: number;
+  /**
+   * The card's deadline line (SPEC §6.5), presentation only: today at 0, the last round at 1.
+   * `ticks` are the rounds still ahead; `peak` is the next deadline's place; `daysLeft` to it.
+   */
+  deadlineLine?: { ticks: number[]; peak: number | null; daysLeft: number | null } | null;
 }

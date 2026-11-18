@@ -24,14 +24,19 @@ export function overLimit(count: number, limit: number): number {
 export function LimitCounter({ count, limit, unit = "words", className }: LimitCounterProps) {
   const over = overLimit(count, limit);
   return (
-    <div className={cx("flex flex-col items-end gap-0.5 text-sm tabular-nums", className)}>
+    <div
+      className={cx(
+        "flex flex-col items-end gap-0.5 font-mono text-[12px] leading-[18px] tabular-nums",
+        className,
+      )}
+    >
       <p className={over ? "font-medium text-risk" : "text-text-soft"}>
         <span className={over ? undefined : "text-text"}>{count}</span> / {limit} {unit}
       </p>
       <p aria-live="polite" className="min-h-[1lh]">
         {over ? (
           <span className="inline-flex items-center gap-1 font-medium text-risk">
-            <WarningIcon size={16} aria-hidden className="shrink-0" />
+            <WarningIcon size={14} aria-hidden className="shrink-0" />
             {over} {over === 1 ? unit.replace(/s$/, "") : unit} over
           </span>
         ) : null}

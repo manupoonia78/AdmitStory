@@ -57,6 +57,29 @@ export function safeComparison(model: ComparisonModel): ComparisonModel {
 
 type RowKit = NonNullable<StrategyRow["kit"]>;
 
+const DAY_MS = 86_400_000;
+const dayOf = (iso: string) => Date.UTC(+iso.slice(0, 4), +iso.slice(5, 7) - 1, +iso.slice(8, 10));
+
+/** Where the rounds ahead sit between today (0) and the last round (1), for the card's line. */
+function deadlineLine(
+  rounds: readonly { date: string }[],
+  next: { date: string } | null,
+  today: string,
+): StrategyRow["deadlineLine"] {
+  const ahead = rounds.filter((r) => r.date >= today);
+  const last = ahead.at(-1);
+  if (!last) return null;
+  const start = dayOf(today);
+  const span = Math.max(DAY_MS, dayOf(last.date) - start);
+  const at = (date: string) => Math.min(1, Math.max(0, (dayOf(date) - start) / span));
+  const upcoming = next && next.date >= today ? next : null;
+  return {
+    ticks: ahead.map((r) => Math.round(at(r.date) * 1000) / 1000),
+    peak: upcoming ? Math.round(at(upcoming.date) * 1000) / 1000 : null,
+    daysLeft: upcoming ? Math.round((dayOf(upcoming.date) - start) / DAY_MS) : null,
+  };
+}
+
 export function strategyModel(
   schools: readonly StrategySchool[],
   applicant: StrategyApplicant,
@@ -72,6 +95,7 @@ export function strategyModel(
     return {
       kit: kits.get(s.row.id) ?? null,
       nextDeadline: next ? `${next.short} · ${shortDate(next.date)}` : null,
+      deadlineLine: deadlineLine(rounds, next, today),
       essays: s.pack?.application.essays?.length ?? 0,
       userSchoolId: s.row.id,
       schoolId: s.row.school.id,

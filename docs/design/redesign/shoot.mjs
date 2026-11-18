@@ -126,6 +126,10 @@ const REFERENCE_ROUTES = [
   { name: "ref-prototype-workspace", path: "/prototype/workspace", load: true, optional: true },
   { name: "ref-prototype-kit", path: "/prototype/kit", load: true, optional: true },
   { name: "ref-prototype-duet", path: "/prototype/duet", load: true, optional: true },
+  // Phase 6: the real editor on sample data (SPEC §12), inside the casing.
+  { name: "workspace-sample", path: "/workspace/sample", load: true, optional: true },
+  { name: "school-preview-sample", path: "/schools/sample/preview", load: true, optional: true },
+  { name: "kit-sample", path: "/schools/sample", load: true, optional: true },
 ];
 
 // ---------------------------------------------------------------------------------------------

@@ -5,14 +5,15 @@ import { usePlainKey } from "./shortcuts";
 
 export interface YourWordsToggleProps {
   on: boolean;
-  onChange: (on: boolean) => void;
+  /** `via` says how: a pointer toggle may play the sweep, a key never does (SPEC §2.10). */
+  onChange: (on: boolean, via: "pointer" | "key") => void;
   /** Also toggle with Y when focus is not in a text field (spec §6.12). Default true. */
   shortcut?: boolean;
   className?: string;
 }
 
 /**
- * The your-words switch (spec §5.8). Its own on state uses --signal like any control: --voice
+ * The your-words switch (spec §5.8). Its own on state is --text like any control: --voice
  * belongs to the applicant's words, never to chrome. Y toggles it from anywhere outside a field.
  */
 export function YourWordsToggle({
@@ -21,30 +22,31 @@ export function YourWordsToggle({
   shortcut = true,
   className,
 }: YourWordsToggleProps) {
-  usePlainKey("y", () => onChange(!on), shortcut);
+  usePlainKey("y", () => onChange(!on, "key"), shortcut);
   return (
     <button
       type="button"
       role="switch"
       aria-checked={on}
       aria-keyshortcuts={shortcut ? "Y" : undefined}
-      onClick={() => onChange(!on)}
+      // Enter or Space on the focused switch fires a click with detail 0: a keyboard action.
+      onClick={(event) => onChange(!on, event.detail === 0 ? "key" : "pointer")}
       className={cx(
-        "group inline-flex min-h-11 items-center gap-3 rounded-control px-2 font-medium text-text hover:bg-veil",
+        "group inline-flex min-h-10 items-center gap-2.5 rounded-full px-3 text-ui text-text transition-colors duration-(--dur-hover) hover:bg-frost-hover [&[role=switch]]:shadow-none",
         className,
       )}
     >
       <span
         aria-hidden
         className={cx(
-          "relative h-6 w-10 shrink-0 rounded-full border transition-colors duration-(--spring-snap-duration) ease-snap motion-reduce:transition-none",
-          on ? "border-text bg-signal" : "border-control bg-depth",
+          "relative h-5 w-8 shrink-0 rounded-full border transition-colors duration-150 ease-rise motion-reduce:transition-none",
+          on ? "border-text bg-text" : "border-control bg-transparent",
         )}
       >
         <span
           className={cx(
-            "absolute left-0.5 top-1/2 size-4 -translate-y-1/2 rounded-full transition-[translate,background-color] duration-(--spring-snap-duration) ease-snap motion-reduce:transition-none",
-            on ? "translate-x-4 bg-on-signal" : "translate-x-0 bg-control",
+            "absolute left-0.5 top-1/2 size-3.5 -translate-y-1/2 rounded-full transition-[translate,background-color] duration-150 ease-rise motion-reduce:transition-none",
+            on ? "translate-x-3 bg-space" : "translate-x-0 bg-control",
           )}
         />
       </span>
@@ -55,7 +57,7 @@ export function YourWordsToggle({
         <kbd
           aria-hidden
           data-shortcut="Y"
-          className="rounded-control border border-edge px-1.5 font-ui text-sm text-text-soft before:content-[attr(data-shortcut)]"
+          className="grid h-5 min-w-5 place-items-center rounded-[6px] border border-edge px-1 font-mono text-[11px] text-text-soft before:content-[attr(data-shortcut)]"
         />
       ) : null}
     </button>

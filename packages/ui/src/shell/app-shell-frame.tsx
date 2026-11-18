@@ -8,7 +8,7 @@ import type { AccountUser } from "./account-menu";
 import { CommandPaletteHost } from "./command-palette-host";
 import { Dock, type DockIcons } from "./dock";
 import { useCommandK } from "./keyboard-shortcut";
-import { RAIL_PATHS, isActivePath } from "./nav-items";
+import { NIGHT_RAIL_PATHS, RAIL_PATHS, isActivePath } from "./nav-items";
 import { RouteTransition } from "./route-transition";
 import type { CommandAction } from "./types";
 import { ViewTransitionStyles } from "./view-transition-styles";
@@ -45,11 +45,15 @@ export function AppShellFrame({
   }
 
   useCommandK(() => changePalette(!paletteOpen));
-  const rail = RAIL_PATHS.some((href) => isActivePath(pathname, href));
+  const rail = RAIL_PATHS.some((href) => isActivePath(pathname, href))
+    ? NIGHT_RAIL_PATHS.some((href) => isActivePath(pathname, href))
+      ? "studio"
+      : "desk"
+    : undefined;
 
   // The casing (SPEC §6.1, casing.css): dark in both themes; the bay holds the page.
   return (
-    <div data-slot="casing" data-rail={rail ? "" : undefined} className="casing">
+    <div data-slot="casing" data-rail={rail} className="casing">
       <ViewTransitionStyles />
       <SkipLink targetId="main" />
 

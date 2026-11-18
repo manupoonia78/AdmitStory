@@ -40,7 +40,10 @@ export const SETTINGS_PATHS = ["/settings", "/dossier"] as const;
  * Immersive screens: the sidebar folds to a 64px rail and the bay runs edge to edge (SPEC §6.1).
  * Phase 6 adds the essay editor.
  */
-export const RAIL_PATHS = ["/studio"] as const;
+export const RAIL_PATHS = ["/studio", "/workspace"] as const;
+
+/** Rail screens whose bay is the Night instrument in both themes; the rest keep the desk (SPEC §6.9). */
+export const NIGHT_RAIL_PATHS = ["/studio"] as const;
 
 /** Names the top bar shows for pages that are not one of the seven destinations. */
 const OTHER_TITLES: readonly (readonly [string, string])[] = [

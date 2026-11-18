@@ -4,6 +4,7 @@ import { ArrowCounterClockwiseIcon } from "@phosphor-icons/react";
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import { useId, useMemo, useRef, useState, type KeyboardEvent } from "react";
 import { Button } from "../components/button";
+import { Peak } from "../components/peak";
 import { cx } from "../lib/cx";
 import { REDUCED_FADE } from "../motion";
 import { verifiedDate } from "./coach/source-line";
@@ -55,6 +56,8 @@ export function VersionScrubber({
   const [selectedId, setSelectedId] = useState(currentId);
   const [compare, setCompare] = useState(false);
   const dots = useRef<(HTMLButtonElement | null)[]>([]);
+  /** Arrow keys move the peak at once; a click glides it (keyboard actions don't animate). */
+  const [instant, setInstant] = useState(false);
   const ordered = useMemo(() => [...versions].sort((a, b) => a.number - b.number), [versions]);
   const current = ordered.find((v) => v.id === currentId);
   const selected = ordered.find((v) => v.id === selectedId) ?? current;
@@ -89,56 +92,16 @@ export function VersionScrubber({
   );
 
   if (!current || !selected) return null;
+  const at = ordered.length > 1 ? ordered.indexOf(selected) / (ordered.length - 1) : 0;
   return (
-    <section
-      aria-labelledby={labelId}
-      className={cx("flex flex-col gap-4 border-t border-edge pt-4", className)}
-    >
-      <div className="flex flex-wrap items-center gap-x-4 gap-y-2">
-        <h2 id={labelId} className="font-medium tabular-nums text-text">
-          v{selected.number}
-          <span className="sr-only"> of {ordered.length} versions</span>
+    <section aria-labelledby={labelId} className={cx("flex flex-col gap-3", className)}>
+      <div className="flex flex-wrap items-center justify-between gap-x-4 gap-y-2">
+        <h2 id={labelId} className="label">
+          Versions
+          <span className="sr-only">
+            , v{selected.number} of {ordered.length}
+          </span>
         </h2>
-        <div
-          role="radiogroup"
-          aria-label="Versions"
-          onKeyDown={onKeyDown}
-          className="flex min-w-0 flex-1 items-center"
-        >
-          {ordered.map((version, index) => {
-            const active = version.id === selected.id;
-            return (
-              <div key={version.id} className="flex flex-1 items-center last:flex-none">
-                <button
-                  ref={(node) => {
-                    dots.current[index] = node;
-                  }}
-                  type="button"
-                  role="radio"
-                  aria-checked={active}
-                  aria-label={`${versionName(version)}${version.id === currentId ? ", current" : ""}`}
-                  tabIndex={active ? 0 : -1}
-                  onClick={() => setSelectedId(version.id)}
-                  className="group relative flex size-6 shrink-0 items-center justify-center rounded-full before:absolute before:left-1/2 before:top-1/2 before:size-11 before:-translate-1/2"
-                >
-                  <span
-                    aria-hidden
-                    className={cx(
-                      "rounded-full border transition-[width,height,background-color] duration-(--spring-snap-duration) ease-snap motion-reduce:transition-none",
-                      active
-                        ? "size-3 border-text bg-signal"
-                        : "size-2 border-control bg-depth group-hover:bg-control",
-                      version.id === currentId && !active ? "border-text bg-text" : null,
-                    )}
-                  />
-                </button>
-                {index < ordered.length - 1 ? (
-                  <span aria-hidden className="h-px flex-1 bg-edge" />
-                ) : null}
-              </div>
-            );
-          })}
-        </div>
         <div className="flex gap-2">
           <Button
             size="sm"
@@ -159,6 +122,74 @@ export function VersionScrubber({
             Restore v{selected.number}
           </Button>
         </div>
+      </div>
+
+      {/* The timeline (SPEC §6.9): a hairline, a tick per version, the peak on the one chosen. */}
+      <div
+        role="radiogroup"
+        aria-label="Versions"
+        onKeyDown={(event) => {
+          setInstant(true);
+          onKeyDown(event);
+        }}
+        className="relative mx-3 h-12"
+      >
+        <span aria-hidden className="absolute inset-x-0 top-[22px] h-[1.25px] bg-edge-strong" />
+        {/* The peak rides a full-width box moved by its own width; the outer box clips it. */}
+        <span
+          aria-hidden
+          className="pointer-events-none absolute -inset-x-2 top-[6px] h-[17px] overflow-hidden"
+        >
+          <span
+            className="absolute inset-y-0 right-2 left-2 motion-reduce:transition-none"
+            style={{
+              transform: `translateX(${at * 100}%)`,
+              transition: instant ? "none" : "transform 200ms var(--ease-rise)",
+            }}
+          >
+            <Peak className="absolute -left-1.5 h-[17px] w-3 text-text" strokeWidth={1.25} />
+          </span>
+        </span>
+        {ordered.map((version, index) => {
+          const active = version.id === selected.id;
+          const left = ordered.length > 1 ? (index / (ordered.length - 1)) * 100 : 0;
+          return (
+            <button
+              key={version.id}
+              ref={(node) => {
+                dots.current[index] = node;
+              }}
+              type="button"
+              role="radio"
+              aria-checked={active}
+              aria-label={`${versionName(version)}${version.id === currentId ? ", current" : ""}`}
+              tabIndex={active ? 0 : -1}
+              onClick={() => {
+                setInstant(false);
+                setSelectedId(version.id);
+              }}
+              style={{ left: `${left}%` }}
+              className="group absolute top-0 flex h-12 w-11 -translate-x-1/2 flex-col items-center rounded-full shadow-none [&[aria-checked=true]]:shadow-none"
+            >
+              <span
+                aria-hidden
+                className={cx(
+                  "mt-[20px] h-[7px] w-[1.25px] transition-colors duration-(--dur-hover)",
+                  version.id === currentId ? "bg-text" : "bg-text-faint group-hover:bg-text-soft",
+                )}
+              />
+              <span
+                aria-hidden
+                className={cx(
+                  "mt-1.5 font-mono text-[11px] leading-none tabular-nums transition-colors duration-(--dur-hover)",
+                  active ? "text-text" : "text-text-label",
+                )}
+              >
+                v{version.number}
+              </span>
+            </button>
+          );
+        })}
       </div>
 
       <p className="text-sm text-text-soft" aria-live="polite">

@@ -52,13 +52,17 @@ export function CoachSheet({
       onValueChange={(next) => onValueChange(next as CoachTab)}
       className={cx("flex min-h-0 flex-col", className)}
     >
-      <TabsList aria-label="Coach" className="px-3">
+      <TabsList aria-label="Chat and notes" className="shrink-0 gap-4 px-5 pt-1">
         {COACH_TABS.map((tab) => {
           const count = counts[tab.id];
           return (
-            <TabsTrigger key={tab.id} value={tab.id}>
+            <TabsTrigger key={tab.id} value={tab.id} className="text-sm font-medium">
               {tab.label}
-              {count ? <span className="ml-1 tabular-nums text-text-soft">({count})</span> : null}
+              {count ? (
+                <span className="ml-1 font-mono text-[11px] tabular-nums text-text-soft">
+                  ({count})
+                </span>
+              ) : null}
             </TabsTrigger>
           );
         })}
@@ -70,7 +74,7 @@ export function CoachSheet({
           className={cx(
             "min-h-0 flex-1",
             // The chat scrolls its own thread and keeps the composer pinned.
-            tab.id === "chat" ? "flex flex-col overflow-hidden" : "overflow-y-auto p-5",
+            tab.id === "chat" ? "flex flex-col overflow-hidden pt-0" : "overflow-y-auto p-5",
           )}
         >
           {content[tab.id]}

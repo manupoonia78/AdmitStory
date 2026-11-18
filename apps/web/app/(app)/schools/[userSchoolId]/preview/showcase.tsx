@@ -8,12 +8,9 @@ import type { ShowcaseView } from "@/lib/strategy/showcase";
 
 function SectionHead({ id, eyebrow, title }: { id: string; eyebrow: string; title: string }) {
   return (
-    <div className="flex flex-col gap-2">
-      <p className="eyebrow">{eyebrow}</p>
-      <h2
-        id={id}
-        className="font-display text-[1.75rem] leading-tight tracking-[-0.015em] text-text sm:text-[2rem]"
-      >
+    <div className="flex flex-col gap-3">
+      <p className="label">{eyebrow}</p>
+      <h2 id={id} className="text-display-3 text-text">
         {title}
       </h2>
     </div>
@@ -37,29 +34,22 @@ export function ShowcaseIntro({ view }: { view: ShowcaseView }) {
                 key={item.text}
                 className="grid grid-cols-[2.5rem_minmax(0,1fr)] gap-x-4 border-b border-edge py-5"
               >
-                <span className="meta pt-1 text-accent">{String(index + 1).padStart(2, "0")}</span>
-                <div className="flex flex-col gap-1.5">
-                  <p className="max-w-essay font-reading text-lg leading-relaxed text-text">
-                    {item.text}
-                  </p>
-                  {item.source ? (
-                    <p className="meta text-text-soft">{`${schoolName} · ${item.source}`}</p>
-                  ) : null}
+                <span className="pt-1.5 font-mono text-[12px] text-text-label tabular-nums">
+                  {String(index + 1).padStart(2, "0")}
+                </span>
+                <div className="flex flex-col gap-2">
+                  <p className="max-w-[38rem] font-reading text-read-lg text-text">{item.text}</p>
+                  {item.source ? <p className="label">{`${schoolName} · ${item.source}`}</p> : null}
                 </div>
               </li>
             ))}
           </ol>
           {view.values.length > 0 ? (
             <div className="flex flex-col gap-3">
-              <p className="text-sm text-text-soft">
-                {`What we make sure your ${schoolName} file shows:`}
-              </p>
+              <p className="label">{`What we make sure your ${schoolName} file shows`}</p>
               <ul className="flex flex-wrap gap-2">
                 {view.values.map((value) => (
-                  <li
-                    key={value}
-                    className="rounded-full border border-edge px-3.5 py-1.5 text-sm text-text"
-                  >
+                  <li key={value} className="chip text-text">
                     {value}
                   </li>
                 ))}
@@ -77,58 +67,50 @@ export function ShowcaseIntro({ view }: { view: ShowcaseView }) {
               eyebrow="A worked example"
               title={`How we reshape a story for ${schoolName}`}
             />
-            <p className="max-w-essay text-text-soft">
+            <p className="max-w-[60ch] text-text-soft">
               {story.who}{" "}
-              <span className="text-sm">
-                An illustrative applicant we wrote to show the method, not a real client.
-              </span>
+              <span className="label whitespace-nowrap">Illustrative, not a real client</span>
             </p>
           </div>
 
           <div className="grid gap-4 lg:grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)] lg:items-stretch">
-            <figure className="flex flex-col gap-3 rounded-plane border border-dashed border-edge p-6">
-              <figcaption className="meta text-text-soft">The story they came with</figcaption>
-              <p className="font-reading text-lg leading-relaxed text-text-soft">
-                “{story.before}”
-              </p>
+            <figure className="flex flex-col gap-3 rounded-card border border-dashed border-edge p-6">
+              <figcaption className="label">The story they came with</figcaption>
+              <p className="font-reading text-read text-text-soft">“{story.before}”</p>
             </figure>
-            <span
-              aria-hidden="true"
-              className="hidden items-center justify-center font-display text-2xl text-accent lg:flex"
-            >
-              →
+            <span aria-hidden="true" className="hidden w-12 items-center lg:flex">
+              <span className="h-[1.25px] flex-1 bg-edge-strong" />
+              <span className="size-0 border-y-[4px] border-l-[6px] border-y-transparent border-l-edge-strong" />
             </span>
-            <figure className="flex flex-col gap-3 rounded-plane border border-edge border-l-2 border-l-accent bg-depth p-6">
-              <figcaption className="meta text-accent">{`The story we built for ${schoolName}`}</figcaption>
-              <p className="font-reading text-lg leading-relaxed text-text">“{story.after}”</p>
+            <figure className="flex flex-col gap-3 rounded-paper bg-sheet p-6 text-sheet-text shadow-(--shadow-paper) sm:p-7">
+              <figcaption className="note text-accent">{`The story we built for ${schoolName}`}</figcaption>
+              <p className="font-reading text-read">“{story.after}”</p>
             </figure>
           </div>
 
           <div className="grid gap-8 lg:grid-cols-[minmax(0,5fr)_minmax(0,6fr)]">
             <div className="flex flex-col gap-4">
-              <h3 className="text-lg font-semibold text-text">What we changed</h3>
+              <h3 className="text-title text-text">What we changed</h3>
               <ol className="flex flex-col border-t border-edge">
                 {story.moves.map((move, index) => (
                   <li
                     key={move}
                     className="grid grid-cols-[2.5rem_minmax(0,1fr)] gap-x-3 border-b border-edge py-3"
                   >
-                    <span className="meta pt-0.5 text-text-soft">
+                    <span className="pt-0.5 font-mono text-[12px] text-text-label tabular-nums">
                       {String(index + 1).padStart(2, "0")}
                     </span>
-                    <span className="text-text">{move}</span>
+                    <span className="text-ui font-normal text-text">{move}</span>
                   </li>
                 ))}
               </ol>
             </div>
-            <figure className="relative flex flex-col gap-4 overflow-hidden rounded-plane border border-edge bg-depth p-6 sm:p-8">
-              <figcaption className="meta text-text-soft">{`From the example file · ${story.excerpt.essay}`}</figcaption>
-              <blockquote className="whitespace-pre-line font-reading text-[1.0625rem] leading-[1.7] text-text">
+            <figure className="relative flex flex-col gap-4 overflow-hidden rounded-paper bg-sheet p-7 text-sheet-text shadow-(--shadow-paper) sm:p-9">
+              <figcaption className="label">{`From the example file · ${story.excerpt.essay}`}</figcaption>
+              <blockquote className="whitespace-pre-line font-reading text-read-sm">
                 {story.excerpt.text}
               </blockquote>
-              <p className="meta text-text-soft">
-                The opening only. Your pack drafts the whole essay.
-              </p>
+              <p className="note text-accent">The opening only. Your pack drafts the whole essay.</p>
             </figure>
           </div>
         </section>
@@ -150,35 +132,31 @@ export function ShowcaseDetails({ view }: { view: ShowcaseView }) {
           />
           <ul className="flex flex-col border-t border-edge">
             {view.drafts.map((draft) => (
-              <li key={draft.key} className="flex flex-col gap-2 border-b border-edge py-4">
+              <li key={draft.key} className="flex flex-col gap-1.5 border-b border-edge py-5">
                 <span className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
-                  <span className="font-medium text-text">
+                  <span className="flex flex-wrap items-baseline gap-x-3 text-ui text-text">
                     {draft.title}
-                    {draft.limit ? (
-                      <span className="text-sm font-normal tabular-nums text-text-soft">
-                        {` · ${draft.limit}`}
-                      </span>
-                    ) : null}
+                    {draft.limit ? <span className="label">{draft.limit}</span> : null}
                   </span>
-                  <span className="inline-flex items-center gap-1 text-sm text-text-soft">
-                    <LockSimpleIcon size={14} aria-hidden />
+                  <span className="label inline-flex items-center gap-1.5">
+                    <LockSimpleIcon size={12} aria-hidden />
                     Drafted when you unlock
                   </span>
                 </span>
-                <span className="max-w-essay text-sm text-text-soft">{draft.prompt}</span>
+                <span className="max-w-[60ch] text-sm text-text-soft">{draft.prompt}</span>
               </li>
             ))}
           </ul>
           {view.alsoIn.length > 0 ? (
             <div className="flex flex-col gap-3">
-              <h3 className="text-lg font-semibold text-text">Also in the pack</h3>
+              <h3 className="label">Also in the pack</h3>
               <ul className="flex flex-col gap-2">
                 {view.alsoIn.map((line) => (
-                  <li key={line} className="flex gap-3 text-text">
-                    <span aria-hidden="true" className="text-accent">
+                  <li key={line} className="flex gap-3 text-sm text-text-80">
+                    <span aria-hidden="true" className="text-text-faint">
                       ·
                     </span>
-                    <span className="max-w-essay">{line}</span>
+                    <span className="max-w-[60ch]">{line}</span>
                   </li>
                 ))}
               </ul>
@@ -197,10 +175,10 @@ export function ShowcaseDetails({ view }: { view: ShowcaseView }) {
           <div className="grid gap-8 lg:grid-cols-2">
             {view.angles.length > 0 ? (
               <div className="flex flex-col gap-3">
-                <h3 className="meta text-verified">What works</h3>
+                <h3 className="label text-verified">What works</h3>
                 <ul className="flex flex-col border-t border-edge">
                   {view.angles.map((line) => (
-                    <li key={line} className="border-b border-edge py-3 text-text">
+                    <li key={line} className="border-b border-edge py-3 text-ui font-normal text-text">
                       {line}
                     </li>
                   ))}
@@ -209,10 +187,10 @@ export function ShowcaseDetails({ view }: { view: ShowcaseView }) {
             ) : null}
             {view.avoid.length > 0 ? (
               <div className="flex flex-col gap-3">
-                <h3 className="meta text-needs">What to avoid</h3>
+                <h3 className="label text-needs">What to avoid</h3>
                 <ul className="flex flex-col border-t border-edge">
                   {view.avoid.map((line) => (
-                    <li key={line} className="border-b border-edge py-3 text-text">
+                    <li key={line} className="border-b border-edge py-3 text-ui font-normal text-text">
                       {line}
                     </li>
                   ))}

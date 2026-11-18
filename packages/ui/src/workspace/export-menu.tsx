@@ -28,6 +28,12 @@ export interface ExportMenuProps {
   final?: boolean;
   /** Called with what was copied, after "Copy for portal". */
   onCopied?: (copied: { text: string; count: number; over: number }) => void;
+  /**
+   * The floating toolbar's form (SPEC §6.9): a quiet pill trigger and no status line of its own;
+   * the screen shows the copy result (`onCopied`) and a failure (`onError`).
+   */
+  compact?: boolean;
+  onError?: (message: string) => void;
   className?: string;
 }
 
@@ -42,7 +48,7 @@ export function copiedMessage(count: number, rule: CountRule): string {
 }
 
 const ITEM =
-  "flex min-h-11 cursor-default select-none items-center gap-2 rounded-control px-3 text-base text-text outline-none " +
+  "flex min-h-11 cursor-default select-none items-center gap-2.5 rounded-full px-3 text-ui text-text outline-none " +
   "data-[highlighted]:bg-veil data-[disabled]:opacity-60";
 
 /**
@@ -56,6 +62,8 @@ export function ExportMenu({
   onMarkFinal,
   final = false,
   onCopied,
+  compact = false,
+  onError,
   className,
 }: ExportMenuProps) {
   const [status, setStatus] = useState("");
@@ -68,23 +76,32 @@ export function ExportMenu({
       setStatus(copiedMessage(count, rule));
       onCopied?.({ text: plain, count, over: Math.max(0, count - rule.limit) });
     } catch {
-      setStatus("Your browser blocked copying. Select the draft and copy it instead.");
+      const message = "Your browser blocked copying. Select the draft and copy it instead.";
+      setStatus(message);
+      onError?.(message);
     }
   };
 
   return (
     <div className={cx("flex flex-col items-end gap-1", className)}>
       <DropdownMenu.Root>
-        <DropdownMenu.Trigger className={buttonStyles({ variant: "secondary" })}>
-          <ExportIcon size={20} aria-hidden />
-          Export
-          <CaretDownIcon size={16} aria-hidden />
+        <DropdownMenu.Trigger
+          className={
+            compact
+              ? "inline-flex min-h-10 items-center gap-2 rounded-full px-3 text-ui text-text transition-colors duration-(--dur-hover) hover:bg-frost-hover data-[state=open]:bg-frost-hover"
+              : buttonStyles({ variant: "secondary" })
+          }
+        >
+          <ExportIcon size={compact ? 18 : 20} aria-hidden />
+          <span className={compact ? "max-sm:sr-only" : undefined}>Export</span>
+          <CaretDownIcon size={compact ? 14 : 16} aria-hidden />
         </DropdownMenu.Trigger>
         <DropdownMenu.Portal>
           <DropdownMenu.Content
             align="end"
             sideOffset={6}
-            className="plane z-50 flex min-w-56 flex-col p-1 font-ui shadow-overlay"
+            side={compact ? "top" : "bottom"}
+            className="z-50 flex min-w-56 flex-col rounded-card border border-edge bg-depth p-1.5 font-ui shadow-overlay"
           >
             <DropdownMenu.Item className={ITEM} onSelect={() => void copy()}>
               <ClipboardTextIcon size={20} aria-hidden />
@@ -114,9 +131,11 @@ export function ExportMenu({
           </DropdownMenu.Content>
         </DropdownMenu.Portal>
       </DropdownMenu.Root>
-      <p aria-live="polite" className="min-h-[1lh] max-w-[40ch] text-right text-sm text-text-soft">
-        {status}
-      </p>
+      {compact ? null : (
+        <p aria-live="polite" className="min-h-[1lh] max-w-[40ch] text-right text-sm text-text-soft">
+          {status}
+        </p>
+      )}
     </div>
   );
 }

@@ -82,8 +82,7 @@ function sentenceFromDom(element: HTMLElement): DraftSentence {
 const CANVAS =
   "relative font-reading text-read text-text [&_.ProseMirror]:flex [&_.ProseMirror]:flex-col [&_.ProseMirror]:gap-[1lh] " +
   "[&_.ProseMirror]:outline-none [&_.ProseMirror]:max-w-[68ch] [&_.ProseMirror]:whitespace-pre-wrap " +
-  "[&_[data-sentence]]:box-decoration-clone [&_[data-sentence]]:transition-[background-color,box-shadow] " +
-  "[&_[data-sentence]]:duration-(--spring-glide-duration) [&_[data-sentence]]:ease-glide motion-reduce:[&_[data-sentence]]:transition-none " +
+  "[&_[data-sentence]]:box-decoration-clone " +
   "data-[your-words=on]:[&_[data-own]]:bg-voice-glow data-[your-words=on]:[&_[data-own]]:shadow-[0_0_0.7em_var(--voice-glow)] " +
   "forced-colors:data-[your-words=on]:[&_[data-own]]:underline forced-colors:data-[your-words=on]:[&_[data-own]]:decoration-dotted " +
   "contrast-more:data-[your-words=on]:[&_[data-own]]:underline contrast-more:data-[your-words=on]:[&_[data-own]]:decoration-dotted " +

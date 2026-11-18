@@ -29,8 +29,9 @@ html:has(.casing) {
   color: var(--text);
   outline: none;
 }
-/* Immersive (rail) screens are Night in both themes, so their bay is the instrument too. */
-.casing[data-rail] .bay {
+/* Immersive rail screens (the Studio) are Night in both themes, so their bay is the instrument
+   too. The editor's rail keeps the desk, which follows Day / Night (SPEC §6.9). */
+.casing[data-rail="studio"] .bay {
   background-color: var(--bg);
   background-image: var(--grain-image);
   color: var(--fg);
@@ -44,11 +45,14 @@ html:has(.casing) {
     border-radius: var(--radius-card);
     overflow: clip;
   }
-  .casing[data-rail] .bay {
+  .casing[data-rail="studio"] .bay {
     min-height: 100dvh;
     margin: 0 0 0 64px;
     border: 0;
     border-radius: 0;
+  }
+  .casing[data-rail="desk"] .bay {
+    margin-left: 64px;
   }
 }
 

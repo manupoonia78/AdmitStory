@@ -9,8 +9,8 @@ export interface Point {
 }
 
 export interface ThreadAnchors {
-  /** Where threads leave the Voiceprint. */
-  origin: Point;
+  /** Where threads leave the Voiceprint; null draws only the story-to-deliverable leg. */
+  origin: Point | null;
   /** Per story id: where the thread enters the story node (its dot) and leaves it (past the
    *  label, so light never crosses the words). */
   stories: Record<string, { enter: Point; exit: Point }>;
@@ -38,10 +38,14 @@ export function curveTo(from: Point, to: Point): string {
  * the story's label) out to the deliverable. The gap is a second "M", so a pulse travelling the
  * path disappears into the story and comes out the other side.
  */
-export function threadPath(origin: Point, enter: Point, exit: Point, port: Point): string {
+export function threadPath(
+  origin: Point | null,
+  enter: Point,
+  exit: Point,
+  port: Point,
+): string {
   return [
-    `M ${round(origin.x)} ${round(origin.y)}`,
-    curveTo(origin, enter),
+    ...(origin ? [`M ${round(origin.x)} ${round(origin.y)}`, curveTo(origin, enter)] : []),
     `M ${round(exit.x)} ${round(exit.y)}`,
     curveTo(exit, port),
   ].join(" ");

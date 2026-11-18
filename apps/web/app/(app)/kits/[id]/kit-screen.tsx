@@ -6,9 +6,11 @@ import {
   GapQuestionsPlane,
   KitAssembly,
   TextField,
+  cx,
   type KitDeliverable,
   type KitStage,
 } from "@admitstory/ui";
+import { CaretLeftIcon, CheckIcon } from "@phosphor-icons/react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useMemo, useState, type FormEvent } from "react";
@@ -66,22 +68,34 @@ function Step({
   n,
   title,
   done,
+  wide = false,
   children,
 }: {
   n: number;
   title: string;
   done: boolean;
+  /** The body takes the whole row under the title (the assembly needs the width). */
+  wide?: boolean;
   children: React.ReactNode;
 }) {
   return (
-    <li className="grid gap-4 border-t border-edge py-8 md:grid-cols-[12rem_minmax(0,1fr)] md:gap-10">
-      <div className="flex items-baseline gap-3 md:flex-col md:gap-2">
-        <span className="meta text-accent">{done ? "Done" : `Step ${n}`}</span>
-        <h2 className="font-display text-[1.5rem] leading-tight tracking-[-0.01em] text-text">
-          {title}
-        </h2>
+    <li className="grid gap-5 border-t border-edge py-10 lg:grid-cols-[14rem_minmax(0,1fr)] lg:gap-10">
+      <div className="flex items-baseline gap-3 lg:flex-col lg:gap-2">
+        <span className="inline-flex items-center gap-1.5 font-mono text-[12px] tracking-[0.06em] text-text-label uppercase tabular-nums">
+          {done ? (
+            <>
+              <CheckIcon size={14} weight="bold" aria-hidden className="text-verified" />
+              Done
+            </>
+          ) : (
+            String(n).padStart(2, "0")
+          )}
+        </span>
+        <h2 className="text-title text-text">{title}</h2>
       </div>
-      <div className="flex min-w-0 flex-col gap-4">{children}</div>
+      <div className={cx("flex min-w-0 flex-col gap-4 text-text-80", wide && "lg:col-span-2")}>
+        {children}
+      </div>
     </li>
   );
 }
@@ -213,36 +227,45 @@ export function KitScreen({
   );
 
   return (
-    <div className="mx-auto flex w-full max-w-6xl flex-col gap-6 px-5 py-10 sm:px-10 sm:py-14">
-      <header className="flex flex-col gap-4">
+    <div className="mx-auto flex w-full max-w-[70rem] flex-col gap-6 px-5 pt-6 pb-24 sm:px-10 sm:pt-10 lg:px-14 lg:pt-14">
+      <header className="flex flex-col">
         <Link
           href="/schools"
-          className="meta text-text-soft underline-offset-4 hover:text-text hover:underline"
+          className="label -ml-1 inline-flex min-h-11 items-center gap-1 self-start rounded-full pr-2 pl-1 transition-colors duration-(--dur-hover) hover:text-text"
         >
+          <CaretLeftIcon size={12} weight="bold" aria-hidden />
           Schools / {view.school} {prep.cycle}
         </Link>
-        <h1 className="text-display text-text">
+        <h1 className="mt-2 text-display-2 text-text">
           {starting ? (
             <>
-              Payment confirmed. <em>Let&apos;s get {view.school} ready.</em>
+              Payment confirmed.{" "}
+              <span className="serif-accent text-text-soft">
+                Let&apos;s get {view.school} ready.
+              </span>
             </>
           ) : view.status === "ready" ? (
             <>
-              Your {view.school} application is <em>ready</em>
+              Your {view.school} application is{" "}
+              <span className="serif-accent text-text-soft">ready</span>
             </>
           ) : (
             <>
-              Getting <em>{view.school}</em> ready
+              Getting <span className="serif-accent text-text-soft">{view.school}</span> ready
             </>
           )}
         </h1>
-        <p className="max-w-essay text-lg text-text-soft">
+        <p className="mt-4 max-w-[60ch] text-lg text-text-soft">
           We draft every essay, form entry, video plan and recommender brief from your stories and
           what we know about {view.school}. Then you shape each one by chatting beside it.
         </p>
-        {view.error ? <p className="text-text">{view.error} Your other essays are ready.</p> : null}
+        {view.error ? (
+          <p className="mt-5 max-w-[60ch] border-l-2 border-needs pl-4 text-text">
+            {view.error} Your other essays are ready.
+          </p>
+        ) : null}
         {view.status === "ready" && firstDeliverable ? (
-          <div>
+          <div className="mt-6">
             <Button asChild>
               <Link href={`/workspace/${firstDeliverable.id}`}>Open {view.school}</Link>
             </Button>
@@ -252,7 +275,7 @@ export function KitScreen({
       <StatusMessage message={status} />
       <AlertMessage message={error} />
 
-      <ol className="flex flex-col">
+      <ol className="mt-6 flex flex-col">
         <Step n={1} title="Your stories" done={storiesReady && prep.storiesSinceKit === 0}>
           <p className="text-text">
             {prep.stories === 0
@@ -289,13 +312,13 @@ export function KitScreen({
 
         <Step n={2} title={`Questions for ${view.school}`} done={answered}>
           {prep.offers.length > 0 || prep.outcome ? (
-            <div className="flex flex-col gap-3 rounded-plane border border-edge bg-depth p-5">
-              <p className="eyebrow">What {view.school} offers for your goal</p>
-              <ul className="flex flex-col gap-3">
+            <div className="card flex flex-col gap-3 p-6">
+              <p className="label">What {view.school} offers for your goal</p>
+              <ul className="flex flex-col">
                 {prep.offers.map((o) => (
-                  <li key={o.value} className="flex flex-col gap-0.5">
-                    <span className="font-medium text-text">{o.value}</span>
-                    <span className="text-text-soft">{o.note}</span>
+                  <li key={o.value} className="flex flex-col gap-0.5 border-t border-edge py-3 first:border-t-0">
+                    <span className="text-ui text-text">{o.value}</span>
+                    <span className="text-sm text-text-soft">{o.note}</span>
                   </li>
                 ))}
               </ul>
@@ -309,7 +332,7 @@ export function KitScreen({
           {aside}
         </Step>
 
-        <Step n={3} title="Your drafts" done={view.status === "ready"}>
+        <Step n={3} title="Your drafts" done={view.status === "ready"} wide>
           <ModelCredit />
           <KitAssembly
             identity={identity}

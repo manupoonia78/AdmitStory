@@ -7,7 +7,9 @@
 // client leaf. Pages usually show it in a Sheet opened from the school's "Preview kit".
 
 import { LockSimpleIcon } from "@phosphor-icons/react/ssr";
+import type { CSSProperties } from "react";
 import { Button } from "../components/button";
+import { buttonStyles } from "../components/button-styles";
 import { cx } from "../lib/cx";
 import type { FileMapEntry, LockedDeliverable, PackStatus } from "./types";
 
@@ -40,12 +42,14 @@ export interface PositioningBlockProps {
 /** The positioning headline, set as a sentence (Newsreader 21, 66 characters), not a banner. */
 export function PositioningBlock({ headline, support = [], className }: PositioningBlockProps) {
   return (
-    <div className={cx("flex max-w-essay flex-col gap-3", className)}>
-      <p className="font-reading text-read-lg text-text">{headline}</p>
+    <div className={cx("flex max-w-[40rem] flex-col gap-5", className)}>
+      <p className="font-reading text-read-lg text-text italic">{headline}</p>
       {support.length > 0 ? (
-        <ul className="flex flex-col gap-1 text-text-soft">
+        <ul className="flex flex-col border-t border-edge">
           {support.map((line) => (
-            <li key={line}>{line}</li>
+            <li key={line} className="border-b border-edge py-3 text-ui font-normal text-text-80">
+              {line}
+            </li>
           ))}
         </ul>
       ) : null}
@@ -60,23 +64,36 @@ export interface FileMapListProps {
   className?: string;
 }
 
-/** Deliverable, then the story it uses. Titles only: no draft text before the kit is bought. */
+/**
+ * Deliverable, then the story it uses, joined by a connector (SPEC §6.7). Titles only: no draft
+ * text before the kit is bought. The connectors draw once when the map arrives (the page's
+ * moment), under [data-motion="on"] only.
+ */
 export function FileMapList({ entries, className }: FileMapListProps) {
   return (
-    <dl
-      className={cx(
-        "grid grid-cols-1 border-t border-edge sm:grid-cols-[minmax(8rem,12rem)_minmax(0,1fr)]",
-        className,
-      )}
-    >
-      {entries.map((entry) => (
+    <dl className={cx("flex flex-col border-t border-edge", className)}>
+      {entries.map((entry, index) => (
         <div
           key={entry.key}
           data-entry={entry.key}
-          className="grid grid-cols-subgrid border-b border-edge py-2 sm:col-span-2"
+          className="grid grid-cols-1 gap-x-4 gap-y-1 border-b border-edge py-4 sm:grid-cols-[minmax(0,1fr)_minmax(3rem,8rem)_minmax(0,1.2fr)] sm:items-center"
         >
-          <dt className="font-medium text-text">{entry.deliverable}</dt>
-          <dd className={entry.story ? "text-text" : "text-text-soft"}>
+          <dt className="text-ui text-text">{entry.deliverable}</dt>
+          <span
+            aria-hidden
+            className="file-map-link relative hidden h-[9px] w-full self-center sm:block"
+            style={{ "--i": Math.min(index, 6) } as CSSProperties}
+          >
+            <span className="absolute top-1 right-0 left-0 h-[1.25px] bg-edge-strong" />
+            <span className="absolute top-0 left-0 size-[9px] rounded-full border-[1.25px] border-edge-strong bg-space" />
+            <span
+              className={cx(
+                "absolute top-0 right-0 size-[9px] rounded-full border-[1.25px]",
+                entry.story ? "border-voice bg-voice" : "border-edge-strong bg-space",
+              )}
+            />
+          </span>
+          <dd className={entry.story ? "text-ui font-normal text-text" : "text-sm text-text-soft"}>
             {entry.story ?? "No single story leads this one"}
           </dd>
         </div>
@@ -186,9 +203,10 @@ export function UnlockCta(props: UnlockCtaProps) {
   return (
     <div data-pack="published" className={cx("flex flex-col items-start gap-2", className)}>
       {props.href && !props.loading ? (
-        <Button asChild>
-          <a href={props.href}>{label}</a>
-        </Button>
+        <a href={props.href} className={buttonStyles({ arrow: true })}>
+          {label}
+          <span aria-hidden className="btn-arrow" />
+        </a>
       ) : (
         <Button onClick={props.onUnlock} loading={props.loading}>
           {props.loading ? "Opening checkout" : label}

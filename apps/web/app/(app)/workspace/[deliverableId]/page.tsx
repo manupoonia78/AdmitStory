@@ -8,6 +8,7 @@ import { loadFormView } from "@/lib/forms/view";
 import { loadWorkspaceView } from "@/lib/workspace/view";
 import { FormHost } from "./form-host";
 import { WorkspaceHost } from "./workspace-host";
+import "./workspace.css";
 
 export const metadata: Metadata = { title: "Workspace" };
 
@@ -48,20 +49,26 @@ export default async function WorkspacePage({
   return <WorkspaceHost key={id.data} initial={view} />;
 }
 
-function Closed({ message }: { message: string }) {
+/** SPEC §6.9: a flat line, the sentence, the message. No header: there's no document to head. */
+function Notice({ title, message }: { title: string; message: string }) {
   return (
-    <div className="mx-auto flex max-w-3xl flex-col gap-3 px-4 py-12 sm:px-8">
-      <h1 className="text-display text-text">This kit is closed</h1>
-      <p className="text-text-soft">{message} Your dossier and stories are still yours.</p>
+    <div className="mx-auto flex w-full max-w-[44rem] flex-col gap-4 px-5 py-16 sm:px-10 lg:py-24">
+      <span aria-hidden className="h-[1.25px] w-60 bg-edge-strong" />
+      <h1 className="text-display-3 text-text">{title}</h1>
+      <p className="max-w-[60ch] text-text-soft">{message}</p>
     </div>
   );
 }
 
-function Waiting({ message }: { message: string }) {
+function Closed({ message }: { message: string }) {
   return (
-    <div className="mx-auto flex max-w-3xl flex-col gap-3 px-4 py-12 sm:px-8">
-      <h1 className="text-display text-text">Not ready yet</h1>
-      <p className="text-text-soft">{message}</p>
-    </div>
+    <Notice
+      title="This kit is closed"
+      message={`${message} Your dossier and stories are still yours.`}
+    />
   );
+}
+
+function Waiting({ message }: { message: string }) {
+  return <Notice title="Not ready yet" message={message} />;
 }

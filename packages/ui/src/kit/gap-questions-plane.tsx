@@ -39,12 +39,12 @@ export function GapQuestionsPlane({
   return (
     <section
       aria-labelledby={headingId}
-      className={cx("plane flex min-h-40 flex-col gap-4 p-5", className)}
+      className={cx("card flex flex-col gap-4 p-6", count === 0 ? null : "min-h-40", className)}
     >
       <h2
         id={headingId}
         aria-live="polite"
-        className={cx("text-lg font-medium", count === null ? "text-text-soft" : "text-text")}
+        className={cx("text-title", count === null ? "text-text-soft" : "text-text")}
       >
         {heading}
       </h2>

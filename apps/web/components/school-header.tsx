@@ -1,31 +1,33 @@
+import { CaretLeftIcon } from "@phosphor-icons/react/ssr";
 import Link from "next/link";
 import type { SchoolTabId, SchoolTabsView } from "@/lib/school/tabs";
 
-// The band across the top of everything inside a school (school workspace redesign): back to
-// the list, the school's name, and one tab per kind of thing the school asks for. Plain markup,
-// so it renders the same on the server and inside client screens.
+// The band across the top of everything inside a school (SPEC §6.6): back to the list, the
+// school's name and cycle, then one text tab per kind of thing the school asks for, on a hairline.
+// The tabs are links (each is its own route), so the rule under the current one doesn't slide: a
+// route change is instant. Plain markup, so it renders the same on the server and inside client
+// screens.
 
 export function SchoolHeader({ view, active }: { view: SchoolTabsView; active: SchoolTabId }) {
   return (
-    <header className="flex flex-col gap-3 px-1 pt-1 sm:flex-row sm:items-end sm:justify-between sm:gap-6">
-      <div className="flex min-w-0 items-baseline gap-3">
+    <header className="flex min-w-0 flex-col">
+      <div className="flex min-w-0 flex-wrap items-baseline gap-x-3 gap-y-1">
         <Link
           href="/schools"
-          className="meta shrink-0 text-text-soft underline-offset-4 hover:text-text hover:underline"
+          className="label -ml-1 inline-flex min-h-11 items-center gap-1 self-center rounded-full pr-2 pl-1 text-text-label transition-colors duration-(--dur-hover) hover:text-text"
         >
-          Schools /
+          <CaretLeftIcon size={12} weight="bold" aria-hidden />
+          Schools
         </Link>
-        <h1 className="truncate font-display text-[1.75rem] leading-none tracking-[-0.015em] text-text">
-          {view.school}
-        </h1>
-        <span className="meta shrink-0 text-text-soft">{view.cycle}</span>
+        <h1 className="min-w-0 truncate text-display-3 text-text">{view.school}</h1>
+        <span className="label">{view.cycle}</span>
       </div>
       <nav
         aria-label={`${view.school} application`}
-        className="-mx-1 overflow-x-auto"
+        className="school-tabs mt-3 -mx-1 overflow-x-auto px-1 [scrollbar-width:none]"
         data-no-swipe
       >
-        <ul className="flex min-w-max items-center gap-1 rounded-full border border-edge bg-depth p-1">
+        <ul className="flex min-w-max items-end gap-7 border-b border-edge">
           {view.tabs.map((tab) => {
             const current = tab.id === active;
             return (
@@ -35,17 +37,15 @@ export function SchoolHeader({ view, active }: { view: SchoolTabsView; active: S
                   aria-current={current ? "page" : undefined}
                   className={
                     current
-                      ? "flex min-h-9 items-center gap-1.5 rounded-full bg-signal px-4 text-sm font-medium text-on-signal"
-                      : "flex min-h-9 items-center gap-1.5 rounded-full px-4 text-sm text-text-soft transition-colors hover:bg-veil hover:text-text"
+                      ? "-mb-px flex min-h-11 items-center gap-2 border-b-[1.25px] border-text text-ui text-text"
+                      : "-mb-px flex min-h-11 items-center gap-2 border-b-[1.25px] border-transparent text-ui text-text-soft transition-colors duration-(--dur-hover) hover:text-text"
                   }
                 >
                   {tab.label}
                   {tab.needs ? (
-                    <span
-                      className={current ? "tabular-nums opacity-80" : "tabular-nums text-needs"}
-                      aria-label={`${tab.needs} need you`}
-                    >
-                      {tab.needs}
+                    <span className="grid h-[18px] min-w-[18px] place-items-center rounded-full bg-needs px-1 font-mono text-[11px] leading-none font-medium text-on-signal tabular-nums">
+                      <span aria-hidden>{tab.needs}</span>
+                      <span className="sr-only">{`, ${tab.needs} need you`}</span>
                     </span>
                   ) : null}
                 </Link>

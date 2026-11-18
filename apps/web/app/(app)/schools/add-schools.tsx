@@ -103,12 +103,9 @@ export function AddSchools({ inputRef, autoFocus = false }: AddSchoolsProps) {
   }
 
   return (
-    <section aria-labelledby="add-heading" className="plane flex flex-col gap-4 p-6 sm:p-8">
-      <h2
-        id="add-heading"
-        className="font-display text-[1.625rem] leading-tight tracking-[-0.01em] text-text"
-      >
-        Add schools
+    <section aria-labelledby="add-heading" className="flex flex-col gap-3">
+      <h2 id="add-heading" className="label">
+        Add a school
       </h2>
       <TextField
         ref={inputRef}
@@ -126,9 +123,9 @@ export function AddSchools({ inputRef, autoFocus = false }: AddSchoolsProps) {
       <AlertMessage message={error} />
       <div id={resultsId}>
         {results === null ? null : results.length === 0 ? (
-          <p className="text-text-soft">{`No school matches "${query.trim()}". Try its short name.`}</p>
+          <p className="pt-2 text-sm text-text-soft">{`No school matches "${query.trim()}". Try its short name.`}</p>
         ) : (
-          <ul className="flex flex-col">
+          <ul className="mt-2 flex flex-col border-t border-edge">
             {results.map((card) => (
               <SchoolResult
                 key={card.schoolId}
@@ -169,13 +166,11 @@ function SchoolResult({
     if (c) citations.set(citationKey(c), c);
 
   return (
-    <li className="flex flex-col gap-3 border-b border-edge py-4 sm:flex-row sm:items-start sm:justify-between sm:gap-8">
-      <div className="flex min-w-0 flex-col gap-1">
-        <p className="font-semibold text-text">
+    <li className="flex flex-col gap-3 border-b border-edge py-5 sm:flex-row sm:items-start sm:justify-between sm:gap-8">
+      <div className="flex min-w-0 flex-col gap-1.5">
+        <p className="flex flex-wrap items-baseline gap-x-3 text-ui text-text">
           {card.name}
-          {card.cycle ? (
-            <span className="font-normal text-text-soft">{` ${card.cycle}`}</span>
-          ) : null}
+          {card.cycle ? <span className="label">{card.cycle}</span> : null}
         </p>
         {card.pack === "published" ? (
           <>
@@ -183,7 +178,7 @@ function SchoolResult({
               {card.verifiedOn ? `Verified ${formatVerifiedOn(card.verifiedOn)}` : null}
             </p>
             {card.rounds.length > 0 ? (
-              <p className="text-sm text-text tabular-nums">
+              <p className="font-mono text-[12px] uppercase tracking-[0.06em] text-text-80 tabular-nums">
                 {card.rounds
                   .map((r) => `${r.short} ${formatDay(r.deadline, timeZone)}`)
                   .join(" · ")}
@@ -199,11 +194,11 @@ function SchoolResult({
             ) : null}
             {card.aiPolicy ? <p className="text-sm text-text">{card.aiPolicy.text}</p> : null}
             {citations.size > 0 ? (
-              <p className="text-xs text-text-soft">
+              <p className="text-[12px] text-text-soft">
                 {`Sources: ${[...citations.values()].map((c) => citationText(c)).join(" ")}`}
               </p>
             ) : null}
-            <p className="text-xs text-text-soft">{`Deadlines shown in your time zone (${timeZone}).`}</p>
+            <p className="text-[12px] text-text-soft">{`Deadlines shown in your time zone (${timeZone}).`}</p>
           </>
         ) : (
           <p className="text-sm text-text-soft">
@@ -211,11 +206,11 @@ function SchoolResult({
           </p>
         )}
       </div>
-      <div className="flex shrink-0 flex-wrap gap-2">
+      <div className="flex shrink-0 flex-wrap items-center gap-2">
         {card.userSchoolId ? (
           <p className="text-sm text-text-soft">On your list</p>
         ) : card.cycleId ? (
-          <Button size="sm" onClick={onAdd} loading={busy}>
+          <Button size="sm" variant="secondary" onClick={onAdd} loading={busy}>
             {busy ? "Adding" : `Add ${card.shortName}`}
           </Button>
         ) : null}
