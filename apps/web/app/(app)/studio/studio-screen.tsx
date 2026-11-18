@@ -223,6 +223,43 @@ function Interview({
     };
   }, [apply]);
 
+  const end = async () => {
+    if (!sessionId) return;
+    setBusy(true);
+    try {
+      const response = await fetch(`/api/studio/sessions/${sessionId}/end`, { method: "POST" });
+      const result = (await response.json()) as { summary?: SummaryDto; error?: string };
+      if (result.summary) setSummary(result.summary);
+      else setError(result.error ?? "The session didn't close cleanly, but everything is saved.");
+    } finally {
+      setBusy(false);
+    }
+  };
+
+  // The applicant said they were done and the consultant said goodbye: the session closes by
+  // itself, with no "shall we finish?" (Manu, 18 Nov 2026). In Talk with read-aloud on it closes
+  // once the goodbye has been said (VoiceStage onGoodbyeSaid), with a long fallback in case the
+  // player never reports; otherwise after a beat, so the goodbye can be read.
+  const closing = useRef(false);
+  const closeTimer = useRef<number | null>(null);
+  const closeNow = () => {
+    if (closeTimer.current !== null) window.clearTimeout(closeTimer.current);
+    closeTimer.current = null;
+    if (closing.current) return;
+    closing.current = true;
+    void end();
+  };
+  const closeAfterGoodbye = (spoken: boolean) => {
+    if (closeTimer.current !== null) window.clearTimeout(closeTimer.current);
+    closeTimer.current = window.setTimeout(closeNow, spoken ? 30_000 : 3_500);
+  };
+  useEffect(
+    () => () => {
+      if (closeTimer.current !== null) window.clearTimeout(closeTimer.current);
+    },
+    [],
+  );
+
   const send = async (payload: { text?: string; skip?: boolean; fields?: VoiceTurnFields }) => {
     if (!sessionId || busy) return;
     setBusy(true);
@@ -301,6 +338,10 @@ function Interview({
       }
       const next = result.question ?? null;
       setQuestion(next ? { ...next, streamed: true } : null);
+      if (next?.wrapUp) {
+        closeAfterGoodbye(flow.mode === "talk" && readAloud);
+        return;
+      }
       setLive(next ? { id: clientTurnId, text: next.question, final: true } : null);
       setDigs(next?.move === "DIG" ? digs + 1 : 0);
       if (next) setChapter(next.chapter);
@@ -380,19 +421,6 @@ function Interview({
     wasWrite.current = write;
     if (write) composerRef.current?.focus();
   }, [flow.mode]);
-
-  const end = async () => {
-    if (!sessionId) return;
-    setBusy(true);
-    try {
-      const response = await fetch(`/api/studio/sessions/${sessionId}/end`, { method: "POST" });
-      const result = (await response.json()) as { summary?: SummaryDto; error?: string };
-      if (result.summary) setSummary(result.summary);
-      else setError(result.error ?? "The session didn't close cleanly, but everything is saved.");
-    } finally {
-      setBusy(false);
-    }
-  };
 
   const waiting = busy ? "Thinking about what to ask next…" : "Nothing more to ask right now.";
   const chapterLabel = TABS.find((tab) => tab.id === chapter)?.label ?? "";
@@ -547,6 +575,7 @@ function Interview({
                   chapter={chapterLabel}
                   writeInsteadRef={writeInsteadRef}
                   composer={composer}
+                  onGoodbyeSaid={closeNow}
                 />
               </Suspense>
             ) : (

@@ -23,6 +23,11 @@ export const StudioInterviewerInput = z.object({
   targetSlot: z.string().trim().min(1).max(80),
   /** Appendix B's seed question for that slot, to rephrase and personalise. */
   seedQuestion: z.string().trim().min(1).max(500),
+  /**
+   * What the answer feeds, in plain words ("leadership essays and the recommender brief"), so the
+   * consultant can say why it is asking when that isn't obvious. Empty when unknown.
+   */
+  purpose: z.string().trim().max(300).default(""),
   /** The applicant's last answer, verbatim. Empty on the first turn of a session. */
   lastAnswer: z.string().max(40_000).default(""),
   /** The last few turns, oldest first. */
@@ -51,8 +56,6 @@ export const StudioInterviewerInput = z.object({
     )
     .max(5)
     .default([]),
-  /** Whether a pause point is due (spec §5.2: one every ~10 minutes). */
-  offerPause: z.boolean().default(false),
 });
 
 export type StudioInterviewerInput = z.input<typeof StudioInterviewerInput>;
@@ -78,13 +81,18 @@ export const StudioInterviewerOutput = z
      * the reply answers it before going back to the interview.
      */
     answered: z.boolean(),
+    /**
+     * The applicant said they are done for now: the reply is a short goodbye with no question, and
+     * the Studio ends the session by itself once it has been said (no "shall we close?").
+     */
+    wrap_up: z.boolean().default(false),
     question: z
       .string()
       .trim()
       .min(1)
       .max(900)
       .describe(
-        "What you say out loud: an optional short reaction (or a brief answer when they asked something), then exactly one question.",
+        "What you say out loud: an optional short reaction (or a brief answer when they asked something), then exactly one question; or, when wrap_up is true, a short goodbye with no question.",
       ),
     /** The slot this question serves — normally the target, or the story's slot on a DIG. */
     slot: z.string().trim().min(1).max(80),

@@ -21,7 +21,7 @@ const EXPECTED: Record<string, { file: string; count: number }> = {
   LOR: { file: "lor", count: 10 },
   PLAT: { file: "platform-guide", count: 16 },
   RES: { file: "resume", count: 8 },
-  STU: { file: "studio-interviewing", count: 7 },
+  STU: { file: "studio-interviewing", count: 9 },
   TELL: { file: "anti-ai-tells", count: 3 },
   TRUTH: { file: "truth-discipline", count: 8 },
   WHY: { file: "why-mba", count: 6 },
@@ -52,7 +52,7 @@ describe("canon v1 (spec Appendix A)", () => {
       "why-mba",
     ]);
     for (const doc of canon.docs)
-      expect(doc.version).toBe(doc.slug === "studio-interviewing" ? 2 : 1);
+      expect(doc.version).toBe(doc.slug === "studio-interviewing" ? 3 : 1);
     expect(canon.getDoc("admissions-lens").title).toBe("How admissions readers think");
   });
 
@@ -66,7 +66,7 @@ describe("canon v1 (spec Appendix A)", () => {
     expect(counts).toEqual(
       Object.fromEntries(Object.entries(EXPECTED).map(([p, e]) => [p, e.count])),
     );
-    expect(allRules).toHaveLength(166);
+    expect(allRules).toHaveLength(168);
   });
 
   it("has unique IDs and contiguous numbering", () => {

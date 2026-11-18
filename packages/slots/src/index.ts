@@ -12,8 +12,10 @@ export {
 export {
   EXPRESS_OPENERS,
   SEED_QUESTIONS,
+  STANDARD_OPENER,
   questionsForSlot,
   seedQuestion,
+  slotPurpose,
   type SeedQuestion,
 } from "./questions";
 export {

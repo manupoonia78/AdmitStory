@@ -2,7 +2,6 @@ import "server-only";
 
 import {
   appendStudioTurn,
-  countUserTurns,
   getDb,
   getLatestSnapshot,
   listFacts,
@@ -16,10 +15,12 @@ import {
 import { chapter as chapterOf, type ChapterId } from "@admitstory/shared";
 import {
   EXPRESS_OPENERS,
+  STANDARD_OPENER,
   gapOnlySlots,
   questionsForSlot,
   selectSlot,
   slot as slotOf,
+  slotPurpose,
   type SlotKey,
 } from "@admitstory/slots";
 import { ai } from "@/lib/ai";
@@ -31,8 +32,6 @@ import { loadKnowledge, type StudioKnowledge } from "./state";
 // phrases it. The question comes back as soon as the Interviewer answers; extraction runs after the
 // response is sent (see extract.ts), so the applicant waits only for the question.
 
-/** Spec §5.2: a pause point every ~10 minutes of conversation. */
-const TURNS_BETWEEN_PAUSES = 10;
 /** Spec §7.3: the Consolidator runs every ~8 turns and at chapter end. */
 export const TURNS_BETWEEN_CONSOLIDATIONS = 8;
 
@@ -41,6 +40,8 @@ export interface NextQuestion {
   move: "DIG" | "NEXT" | "CONFIRM" | "CARE";
   /** The reply answered a question the applicant asked before going on with the interview. */
   answered: boolean;
+  /** The applicant said they're done: the reply is a goodbye, and the Studio closes by itself. */
+  wrapUp: boolean;
   slot: string;
   storyRef: string | null;
   turnId: string;
@@ -86,29 +87,39 @@ export async function askNextQuestion(
   const db = getDb();
   const { session } = options;
   // Everything the turn reads, at once: the Interviewer is waiting on all of it.
-  const [knowledge, schools, history, snapshot, turnsSoFar] = await Promise.all([
+  const [knowledge, schools, history, snapshot] = await Promise.all([
     options.knowledge ?? loadKnowledge(userId),
     studioSchools(userId),
     recentTurns(db, userId, session.id),
     getLatestSnapshot(db, userId),
-    countUserTurns(db, userId, session.id),
   ]);
   const now = new Date();
 
   const opener = expressOpener(session);
   const hurried = session.mode === "express";
+  // A new applicant's first question, outside Express: where they are and where they're going
+  // (STANDARD_OPENER), rather than whatever the roots chapter scores highest.
+  const firstEver =
+    !opener &&
+    history.length === 0 &&
+    knowledge.stories.length === 0 &&
+    knowledge.factCount === 0 &&
+    !knowledge.states.get("work.arc")?.lastAskedAt;
 
   let targetSlot: SlotKey;
   let seedQuestion: string;
   let chapterId: ChapterId = session.currentChapter;
 
-  if (opener) {
-    targetSlot = opener.targets[0] as SlotKey;
-    seedQuestion = opener.text;
-    chapterId = opener.chapter;
+  if (opener || firstEver) {
+    const seed = opener ?? STANDARD_OPENER;
+    targetSlot = seed.targets[0] as SlotKey;
+    seedQuestion = seed.text;
+    chapterId = seed.chapter;
   } else {
     const picked = selectSlot({
-      chapter: session.currentChapter,
+      // A session opens on whatever the application needs most, wherever it sits; after that the
+      // chapter it lands in is preferred, so the conversation stays on one subject for a while.
+      chapter: history.length === 0 ? null : session.currentChapter,
       states: knowledge.states,
       now,
       need: schools.need,
@@ -150,6 +161,7 @@ export async function askNextQuestion(
         seedQuestion === ""
           ? `Ask about ${targetSlot.replace(/[._]/g, " ")}, as a moment rather than a quality.`
           : seedQuestion,
+      purpose: slotPurpose(targetSlot),
       lastAnswer: options.lastAnswer ?? "",
       recentTurns: history.map((turn) => ({
         role: turn.role,
@@ -158,7 +170,6 @@ export async function askNextQuestion(
       digsUsedOnStory: options.digsUsedOnStory ?? 0,
       hurried,
       possibleConflicts: options.possibleConflicts ?? [],
-      offerPause: turnsSoFar > 0 && turnsSoFar % TURNS_BETWEEN_PAUSES === 0,
     },
     {
       userId,
@@ -188,7 +199,8 @@ export async function askNextQuestion(
     ...(opener && !homepageSeed ? { openersAsked: session.openersAsked + 1 } : {}),
   };
   await Promise.all([
-    upsertSlotState(db, userId, { slotKey: answeredSlot, asked: true }),
+    // A goodbye asked nothing, so the slot stays fresh for next time.
+    result.wrap_up ? null : upsertSlotState(db, userId, { slotKey: answeredSlot, asked: true }),
     Object.keys(sessionPatch).length > 0
       ? updateStudioSession(db, userId, session.id, sessionPatch)
       : null,
@@ -201,6 +213,7 @@ export async function askNextQuestion(
     question: result.question,
     move: result.move,
     answered: result.answered,
+    wrapUp: result.wrap_up,
     slot: answeredSlot,
     storyRef: result.story_ref,
     turnId: turn.id,

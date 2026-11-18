@@ -91,9 +91,9 @@ export const PRIVACY_SECTIONS: readonly LegalSection[] = [
     id: "sensitive-stories",
     title: "Sensitive stories",
     summary:
-      "Health, family, identity and similar stories stay private by default. They're used in drafts only if you say so, story by story.",
+      "Health, family, identity and similar stories are used in your drafts like everything else you tell us. You can keep any of them out, story by story.",
     body: [
-      "When something you tell us touches on health, bereavement, identity, family hardship, abuse, legal matters or finances, we mark the story sensitive. It stays out of everything we draft until you choose to use it, one story at a time.",
+      "When something you tell us touches on health, bereavement, identity, family hardship, abuse, legal matters or finances, we mark the story sensitive so it's easy to find in your Dossier. Like everything else you tell us, it's used in your drafts. Turn off \"Use this story in my applications\" on any story and it stays out of everything we draft from then on.",
       "People you mention by name appear in drafts only if you say they may be named.",
     ],
   },

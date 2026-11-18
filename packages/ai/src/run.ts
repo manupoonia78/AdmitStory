@@ -398,7 +398,7 @@ export function createAI(config: AIConfig): AI {
         agentPrompt: renderPrompt(template),
         canon: canon ? canonSubset(canon.library, template) : "",
       },
-      outputSchema: outputJsonSchema(def.output),
+      outputSchema: outputJsonSchema(def.output, def.schemaRefs),
     };
     prepared.set(key, task);
     return task;

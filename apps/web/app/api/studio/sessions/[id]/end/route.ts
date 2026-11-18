@@ -2,6 +2,7 @@ import { countUserTurns, endStudioSession, getDb, getStudioSession } from "@admi
 import { dossierConsolidate, inngest } from "@/inngest";
 import { captureServerEvent } from "@/lib/analytics/server";
 import { handle, notFound, requireUser } from "@/lib/api";
+import { settleLastAnswer } from "@/lib/studio/settle";
 import { sessionSummary } from "@/lib/studio/summary";
 
 // POST /api/studio/sessions/:id/end (spec §11). Ends the session and returns the summary card
@@ -21,6 +22,8 @@ export async function POST(
     if (!session) notFound("That session");
 
     if (session.status !== "ended") await endStudioSession(db, userId, id);
+    // The last answer may still be being extracted; the summary should count it.
+    await settleLastAnswer(userId, id);
     const turns = await countUserTurns(db, userId, id);
     const summary = await sessionSummary(userId);
 

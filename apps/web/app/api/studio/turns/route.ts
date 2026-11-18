@@ -4,6 +4,7 @@ import {
   createSource,
   getDb,
   getStudioSession,
+  updateSourceMeta,
   updateStudioSession,
   upsertSlotState,
 } from "@admitstory/db";
@@ -243,6 +244,11 @@ export async function POST(request: Request): Promise<Response> {
         // A failed extraction must never cost the applicant their answer: the source and the turn
         // are already stored, and the next consolidation picks the material up.
         console.error("[studio] extraction failed", error);
+      } finally {
+        // "Finish for now" waits for this mark before it builds the summary (settle.ts).
+        await updateSourceMeta(db, userId, source.id, {
+          extractedAt: new Date().toISOString(),
+        }).catch(() => {});
       }
     })();
 

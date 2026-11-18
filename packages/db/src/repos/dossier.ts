@@ -194,8 +194,9 @@ export async function upsertFacts(
             note: entry.note ?? null,
             status: entry.status ?? "needs_confirmation",
             sensitivity: entry.sensitivity ?? "none",
-            // Spec §14.3: sensitive material is private until the applicant opts in.
-            consentToUse: (entry.sensitivity ?? "none") !== "sensitive",
+            // Everything the applicant tells us is used by default, sensitive material included
+            // (Manu, 2026-11-18; /privacy says so). They can turn any fact off in the Dossier.
+            consentToUse: true,
             evidence: (entry.evidence as FactEvidence[] | undefined) ?? null,
           })
           .returning();
@@ -434,8 +435,9 @@ export async function createStories(
           status: entry.status ?? "unconfirmed",
           missing: (entry.missing as StoryMissing[] | undefined) ?? null,
           sensitivity,
-          // Spec §14.3: sensitive stories are private by default, story by story.
-          consentToUse: sensitivity !== "sensitive",
+          // Used by default, sensitive stories included (Manu, 2026-11-18; /privacy says so). The
+          // label stays so the Dossier can point them out; the applicant can turn any story off.
+          consentToUse: true,
           evidence: (entry.evidence as FactEvidence[] | undefined) ?? null,
           confidence: entry.confidence ?? null,
         })

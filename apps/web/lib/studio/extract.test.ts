@@ -29,11 +29,10 @@ const output = {
       text: "मैंने पूरी रात काम किया।",
       span: { start: 0, end: 24 },
       english: "I worked all night.",
-      story_index: null,
+      story_index: -1,
     },
   ],
   sensitive: [],
-  conflicts: [],
 } as unknown as ExtractionOutput;
 
 const userId = "00000000-0000-4000-8000-000000000001";

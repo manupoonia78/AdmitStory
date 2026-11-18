@@ -25,8 +25,9 @@ import { ai } from "@/lib/ai";
 // delays the next question, and writes what it finds into the Fact Sheet and Story Bank.
 //
 // Three rules are applied here rather than trusted to the model:
-//  - a story that discloses something sensitive is stored as sensitive, which makes it private by
-//    default (§14.3) — the model only says which span is sensitive, never whether to use it;
+//  - a story that discloses something sensitive is labelled sensitive so the Dossier can point it
+//    out (it is still used by default; the applicant can turn it off) — the model only says which
+//    span is sensitive, never whether to use it;
 //  - a trait the model invents is dropped rather than stored, so the taxonomy stays closed;
 //  - lenses are derived from traits (Appendix D), not from the model's own `lenses` answer, so the
 //    coverage meter cannot disagree with the story cards.
@@ -59,6 +60,11 @@ export interface ExtractOptions {
 /** English, or a language we were not told: the Extractor's `english` rendering is not wanted. */
 export const isEnglish = (language: string | null | undefined): boolean =>
   !language || /^en(-|$)/i.test(language);
+
+/** The Extractor writes "nothing here" as "" (see ExtractionOutput); the Dossier stores null. */
+const orNull = (value: string): string | null => (value.trim() === "" ? null : value);
+/** A story index of -1 means the line or span sits in no story. */
+const indexOrNull = (index: number): number | null => (index < 0 ? null : index);
 
 /** Only traits in Appendix D survive. */
 function knownTraits(traits: readonly string[]): TraitId[] {
@@ -116,7 +122,7 @@ export async function persistExtraction(
       .map((fact) => ({
         key: fact.key,
         value: fact.value,
-        note: fact.note,
+        note: orNull(fact.note),
         status: "needs_confirmation" as const,
         evidence: [{ sourceId: options.sourceId, spans: [fact.evidence_span] }],
       })),
@@ -125,10 +131,10 @@ export async function persistExtraction(
   // Which story candidates disclose something sensitive, by the spans the model flagged.
   const sensitiveByIndex = new Set(
     output.sensitive
-      .map((entry) => entry.story_index)
+      .map((entry) => indexOrNull(entry.story_index))
       .filter((index): index is number => index !== null),
   );
-  const looseSensitive = output.sensitive.some((entry) => entry.story_index === null);
+  const looseSensitive = output.sensitive.some((entry) => indexOrNull(entry.story_index) === null);
 
   const people = await upsertPeople(
     db,
@@ -153,10 +159,10 @@ export async function persistExtraction(
       context: candidate.context,
       chapter: isChapterId(options.chapter) ? options.chapter : null,
       situation: candidate.situation,
-      stakes: candidate.stakes,
+      stakes: orNull(candidate.stakes),
       actions: candidate.actions,
-      result: candidate.result,
-      reflection: candidate.reflection,
+      result: orNull(candidate.result),
+      reflection: orNull(candidate.reflection),
       numbers: candidate.numbers.map((number) => ({ label: number.label, value: number.value })),
       traits,
       // Appendix D is the authority on which lens a trait evidences.
@@ -201,11 +207,12 @@ export async function persistExtraction(
     db,
     userId,
     output.golden_lines.map((line) => ({
-      storyId: storyIdAt(line.story_index),
+      storyId: storyIdAt(indexOrNull(line.story_index)),
       text: line.text,
       // §7.5: an English rendering only for a line said in another language, never a rewrite of
       // an English one. The upload importer does not know its language, so it is left as given.
-      english: options.language !== undefined && isEnglish(options.language) ? null : line.english,
+      english:
+        options.language !== undefined && isEnglish(options.language) ? null : orNull(line.english),
       sourceId: options.sourceId,
       span: line.span,
     })),

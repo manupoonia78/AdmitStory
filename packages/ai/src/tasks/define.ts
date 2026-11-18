@@ -32,6 +32,13 @@ export interface TaskDefinition<I extends z.ZodType, O extends z.ZodType> {
    * is primary once). Issues get the same single repair attempt as a schema failure.
    */
   check?(output: z.output<O>, input: z.output<I>, layers: TaskLayers): ValidationIssue[];
+  /**
+   * How shared sub-schemas are sent in output_config.format: as `$defs` references (the default)
+   * or written out in place. The API compiles the schema into a decoding grammar with a size cap
+   * ("The compiled grammar is too large"); a schema near the cap can fit when inlined. Changing it
+   * changes the request, so the task's replay fixtures are re-keyed with it.
+   */
+  schemaRefs?: "ref" | "inline";
   /** For a route with web search: the domains it may search (§8.3, the school's official sites). */
   allowedDomains?(input: z.output<I>): readonly string[];
 }

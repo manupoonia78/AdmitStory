@@ -32,9 +32,9 @@ describe("studio.extract and the answer's language", () => {
     );
   });
 
-  it("serves prompt v2, which keeps golden lines in the original with an English rendering", async () => {
+  it("serves prompt v3, which keeps golden lines in the original with an English rendering", async () => {
     const prompt = await loadPrompt(createFilePromptSource(), "studio.extract");
-    expect(prompt.version).toBe(2);
+    expect(prompt.version).toBe(3);
     expect(prompt.body).toMatch(/Golden lines are the exception: copy each one verbatim/);
     expect(prompt.body).toMatch(/English rendering of it in `english`/);
   });

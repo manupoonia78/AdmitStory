@@ -53,6 +53,9 @@ function openingIssues(
 export const kitPositioningFilemap = defineTask({
   name: "kit.positioning_filemap",
   agent: "kit.positioning_filemap",
+  // With $defs the schema is over the API's grammar cap since the preview opening (v2) was added,
+  // and every call was refused with a 400; written out in place it fits (checked 2026-11-18).
+  schemaRefs: "inline",
   input: KitPositioningInput,
   output: KitPositioningOutput,
   outputName: "KitPositioningOutput",

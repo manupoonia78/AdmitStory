@@ -2,12 +2,15 @@
 // rephrases naturally and personalises with what it already knows (§5.2). Every question is about
 // a moment, never a quality.
 //
+// v1.3 (2026-11-18): reworded after Manu's testing round, so each one asks for a story the
+// application needs, ApplicantLab-style ("Tell me about a time…"), and none reads as small talk.
+//
 // Each entry names the slots it targets. The first is the primary target — the one the selector
 // asked for; the rest are slots a good answer tends to fill as a side effect, which is why one
 // answer can close several slots at once.
 
-import type { ChapterId } from "@admitstory/shared";
-import type { SlotKey } from "./slots";
+import { archetype, type ChapterId } from "@admitstory/shared";
+import { slot as slotOf, type SlotConsumer, type SlotKey } from "./slots";
 
 export interface SeedQuestion {
   /** Stable id, so `slots_state.last_asked_at` and fatigue survive a reworded question. */
@@ -45,41 +48,79 @@ export const EXPRESS_OPENERS: readonly SeedQuestion[] = [
   },
 ] as const;
 
+/**
+ * The first question a new applicant hears in Standard or Deep mode (2026-11-18): where they are now
+ * and where they want to go. ApplicantLab builds every essay on the career vision, and a consultant's
+ * first call starts here, not with childhood. Asked once, when the Dossier is still empty.
+ */
+export const STANDARD_OPENER: SeedQuestion = {
+  id: "standard.now",
+  text: "Let's start with where you are today. Walk me through what you do now, and what you'd like to be doing after the MBA.",
+  chapter: "work",
+  targets: ["work.arc", "goals.short_term", "work.scope"],
+};
+
+const CONSUMER_WORDS: Record<SlotConsumer, string> = {
+  forms: "the application forms",
+  resume: "the résumé",
+  recommenders: "the recommender briefs",
+  interview: "interview prep",
+  all_deliverables: "the numbers every essay leans on",
+};
+
+/**
+ * What a slot's answer feeds, in plain words, so the consultant can say why it is asking:
+ * "the 'Leading and influencing' and 'Career goals and why an MBA' essays; also the résumé".
+ */
+export function slotPurpose(key: SlotKey): string {
+  const entry = slotOf(key);
+  const essays = entry.archetypes
+    .filter((id) => id !== "REAPPLICANT")
+    .slice(0, 3)
+    .map((id) => `'${archetype(id).label}'`);
+  const others = (entry.consumers ?? []).map((consumer) => CONSUMER_WORDS[consumer]);
+  const parts = [
+    essays.length === 0 ? null : `the ${essays.join(" and ")} essay${essays.length > 1 ? "s" : ""}`,
+    others.length === 0 ? null : `${essays.length === 0 ? "" : "also "}${others.join(", ")}`,
+  ].filter((part): part is string => part !== null);
+  return parts.join("; ");
+}
+
 export const SEED_QUESTIONS: readonly SeedQuestion[] = [
   // 1. Roots — CandEval's early life and family; one root an identity essay can grow from
   {
     id: "roots.grew_up",
-    text: "Let's start before your first job. Where did you grow up, and what was a normal day at home like?",
+    text: "Where did you grow up, and what about it still shows up in how you work today?",
     chapter: "roots",
     targets: ["identity.root"],
   },
   {
     id: "roots.adults",
-    text: "Who were the adults at home, and what did each of them do all day? Pick the one you watched most closely.",
+    text: "Who in your family shaped you most? Tell me about one moment with them that shows how.",
     chapter: "roots",
     targets: ["identity.family_influence", "values.role_model"],
   },
   {
     id: "roots.responsibility",
-    text: "What were you trusted with as a kid that most kids your age weren't?",
+    text: "Tell me about a time you were trusted with something big as a kid or a teenager. What did you do with it?",
     chapter: "roots",
     targets: ["identity.early_responsibility"],
   },
   {
     id: "roots.moves",
-    text: "Did you ever have to start over somewhere — a new city, school or culture? Take me to the first week.",
+    text: "Tell me about a time you had to start over somewhere new: a city, a school, a culture. What was hardest, and how did you adjust?",
     chapter: "roots",
     targets: ["perspective.cross_cultural", "perspective.difference"],
   },
   {
     id: "roots.moment",
-    text: "What's a moment from growing up that you still think about? Start with where you were.",
+    text: "Tell me about a moment growing up that changed how you see things. What happened?",
     chapter: "roots",
     targets: ["identity.defining_moment"],
   },
   {
     id: "roots.field_early",
-    text: "When did you first come close to the problem you want to work on after the MBA, even as a kid or a family member watching it?",
+    text: "When did you first run into the problem you want to work on after the MBA? Tell me what happened.",
     chapter: "roots",
     targets: ["goals.origin", "identity.defining_moment"],
   },
@@ -92,19 +133,19 @@ export const SEED_QUESTIONS: readonly SeedQuestion[] = [
   },
   {
     id: "education.intellectual",
-    text: "Which class, project or teacher changed how you think? What did you do differently afterwards?",
+    text: "Tell me about a class, project or teacher that changed how you think. What did you do differently afterwards?",
     chapter: "education",
     targets: ["academics.intellectual_moment"],
   },
   {
     id: "education.led",
-    text: "What did you start, run or hold together in college, with a title or without one?",
+    text: "Tell me about something you started or ran in college, with a title or without one. What did you personally do?",
     chapter: "education",
     targets: ["leadership.college"],
   },
   {
     id: "education.quant",
-    text: "What's the most quantitative work you've done, in school or at work? Walk me through the hardest part of it.",
+    text: "Walk me through the most quantitative work you've done, in school or at work. What was the hardest part, and how did you crack it?",
     chapter: "education",
     targets: ["academics.quant_evidence"],
   },
@@ -116,7 +157,7 @@ export const SEED_QUESTIONS: readonly SeedQuestion[] = [
   },
   {
     id: "education.anomaly",
-    text: "Is there a grade, a gap or a test score you'd rather explain yourself than leave to the reader?",
+    text: "Is there anything in your record, like a grade, a gap or a test score, that a reader might question? Tell me what happened.",
     chapter: "education",
     targets: ["academics.anomaly"],
   },
@@ -130,21 +171,21 @@ export const SEED_QUESTIONS: readonly SeedQuestion[] = [
   },
   {
     id: "work.scope",
-    text: "What's your title, what are you on the hook for, and who do you work with most?",
+    text: "What's your title, what are you responsible for, and how big is it: team, budget, clients?",
     chapter: "work",
     targets: ["work.scope"],
     perRole: true,
   },
   {
     id: "work.proudest",
-    text: "What are you proudest of in this role? Start with the moment it nearly went wrong.",
+    text: "Tell me about the achievement you're proudest of in this role. What was at stake, and what did you do?",
     chapter: "work",
     targets: ["impact.biggest"],
     perRole: true,
   },
   {
     id: "work.numbers",
-    text: "What changed because of you that wouldn't have happened otherwise? Roughly how much: money, time, people, users?",
+    text: "What changed because of you that wouldn't have happened otherwise? Give me the number if you have it: money, time, users or people.",
     chapter: "work",
     targets: ["numbers.impact"],
     perRole: true,
@@ -158,61 +199,61 @@ export const SEED_QUESTIONS: readonly SeedQuestion[] = [
   },
   {
     id: "work.persuaded_up",
-    text: "Tell me about a time you got someone more senior to change their mind. What did you actually say?",
+    text: "Tell me about a time you changed a senior person's mind. What did you say that worked?",
     chapter: "work",
     targets: ["leadership.persuaded_up"],
   },
   {
     id: "work.persuaded_peers",
-    text: "Who pushed back hardest on an idea of yours, and how did you bring them round?",
+    text: "Tell me about a time someone pushed back hard on your idea. How did you bring them round?",
     chapter: "work",
     targets: ["leadership.persuaded_peers"],
   },
   {
     id: "work.without_authority",
-    text: "When did you have to get people to do something when you weren't their boss?",
+    text: "Tell me about a time you had to get people to act when you weren't their boss.",
     chapter: "work",
     targets: ["leadership.persuaded_peers", "employ.cross_functional"],
   },
   {
     id: "work.risky",
-    text: "What's something you picked up that nobody else wanted — risky, messy or unglamorous?",
+    text: "Tell me about a time you took on something risky or messy that nobody else wanted. Why did you take it?",
     chapter: "work",
     targets: ["leadership.initiative_risky"],
   },
   {
     id: "work.originated",
-    text: "What's an idea that was yours from the start, that you pushed through? Who had to say yes?",
+    text: "Tell me about an idea that was yours from the start and that you pushed through. Who had to say yes?",
     chapter: "work",
     targets: ["leadership.originated_idea"],
   },
   {
     id: "work.unasked",
-    text: "When did you fix something nobody had asked you to fix?",
+    text: "Tell me about a time you fixed something nobody had asked you to fix.",
     chapter: "work",
     targets: ["leadership.originated_idea", "leadership.initiative_risky"],
   },
   {
     id: "work.developed_others",
-    text: "Who have you helped get better at their job, and what did you do for them, exactly?",
+    text: "Tell me about someone you helped get better at their job. What did you do for them, and how did they change?",
     chapter: "work",
     targets: ["leadership.developed_others"],
   },
   {
     id: "work.feedback",
-    text: "What's the feedback that stung most, and what did you change because of it?",
+    text: "Tell me about the hardest feedback you've had. What did you change because of it?",
     chapter: "work",
     targets: ["self.feedback", "self.leadership_gap"],
   },
   {
     id: "work.trajectory",
-    text: "When were you given more than your title said you should have? What do you think they saw?",
+    text: "Tell me about a time you were given more than your title said. Why do you think they trusted you with it?",
     chapter: "work",
     targets: ["employ.trajectory"],
   },
   {
     id: "work.cross_functional",
-    text: "Tell me about working with a client, another team or another country when it got hard.",
+    text: "Tell me about a time working with another team, a client or another country got hard. What did you do?",
     chapter: "work",
     targets: ["employ.cross_functional"],
   },
@@ -231,19 +272,19 @@ export const SEED_QUESTIONS: readonly SeedQuestion[] = [
   // 4. Beyond work — CandEval's extracurriculars
   {
     id: "beyond.interests",
-    text: "Outside work, what do you actually spend your evenings and weekends on?",
+    text: "Outside work, what do you actually spend your time on?",
     chapter: "beyond_work",
     targets: ["community.interests"],
   },
   {
     id: "beyond.built",
-    text: "What have you started or organised outside work — a group, a team, an event?",
+    text: "Tell me about something you started or organised outside work. What did it take to get it going?",
     chapter: "beyond_work",
     targets: ["community.built"],
   },
   {
     id: "beyond.practice",
-    text: "What's a sport, art or practice you've taken seriously? What did it teach you that work didn't?",
+    text: "What's a sport, art or practice you've taken seriously? Tell me about a moment in it that taught you something work didn't.",
     chapter: "beyond_work",
     targets: ["identity.practice"],
   },
@@ -274,62 +315,62 @@ export const SEED_QUESTIONS: readonly SeedQuestion[] = [
   },
   {
     id: "turning.resilience",
-    text: "What's the longest stretch you've had to keep going when things were hard?",
+    text: "Tell me about the longest stretch you've had to keep going when things were hard. What kept you going?",
     chapter: "turning_points",
     targets: ["self.resilience"],
   },
   {
     id: "turning.support",
-    text: "When did you help someone through something when it wasn't easy, for you or for them? What made it hard?",
+    text: "Tell me about a time you helped someone through something difficult. What made it hard?",
     chapter: "turning_points",
     targets: ["support.someone_hard"],
   },
   {
     id: "turning.dilemma",
-    text: "When did doing the right thing cost you something?",
+    text: "Tell me about a time doing the right thing cost you something. What did you choose, and why?",
     chapter: "turning_points",
     targets: ["values.dilemma"],
   },
   {
     id: "turning.never_same",
-    text: "Was there a moment after which you never saw something the same way again?",
+    text: "Tell me about a moment after which you never saw something the same way again.",
     chapter: "turning_points",
     targets: ["identity.turning_point"],
   },
   {
     id: "turning.difference",
-    text: "Who's the person most different from you that you've worked closely with? What did you learn from them?",
+    text: "Tell me about working closely with someone very different from you. What did you learn from them?",
     chapter: "turning_points",
     targets: ["perspective.difference"],
   },
   {
     id: "turning.inclusion",
-    text: "When did you notice someone being left out or treated unfairly, and what did you do about it?",
+    text: "Tell me about a time you noticed someone being left out or treated unfairly. What did you do?",
     chapter: "turning_points",
     targets: ["perspective.inclusion"],
   },
   {
     id: "turning.changed_course",
-    text: "When were you on a team heading the wrong way? What did you do?",
+    text: "Tell me about a time your team was heading the wrong way. What did you do about it?",
     chapter: "turning_points",
     targets: ["leadership.changed_course"],
   },
   // 6. People and values — CandEval's role models, three leadership strengths and the shortcomings
   {
     id: "people.role_model",
-    text: "Who do you most want to be like? What exactly did you watch them do?",
+    text: "Who do you most want to be like, and what have you seen them do that you try to copy?",
     chapter: "people_and_values",
     targets: ["values.role_model"],
   },
   {
     id: "people.mentor",
-    text: "Who taught you something at work that you still use? What exactly did they do?",
+    text: "Tell me about someone at work who taught you something you still use. What did they do?",
     chapter: "people_and_values",
     targets: ["values.mentor"],
   },
   {
     id: "people.line",
-    text: "What would you be willing to lose a job over?",
+    text: "What would you be willing to lose a job over? Has it ever come close?",
     chapter: "people_and_values",
     targets: ["values.line"],
   },
@@ -341,13 +382,13 @@ export const SEED_QUESTIONS: readonly SeedQuestion[] = [
   },
   {
     id: "people.strengths",
-    text: "What are your three biggest strengths as a leader? Give me one moment that proves the first.",
+    text: "What are your three biggest strengths as a leader? Tell me about one moment that proves the first.",
     chapter: "people_and_values",
     targets: ["self.others_view", "leadership.originated_idea"],
   },
   {
     id: "people.leadership_gap",
-    text: "Where do you still fall short as a leader, and what are you doing about it?",
+    text: "Where do you still fall short as a leader? Tell me about a time it showed.",
     chapter: "people_and_values",
     targets: ["self.leadership_gap"],
   },
@@ -360,7 +401,7 @@ export const SEED_QUESTIONS: readonly SeedQuestion[] = [
   // 7. Goals — career vision (realistic, specific, inspiring) and the three why-MBA questions, separately
   {
     id: "goals.short_term",
-    text: "Picture your first job after the MBA. What's the title, and what kind of company is it at?",
+    text: "What do you want to do right after the MBA: the role, the industry, the kind of company?",
     chapter: "goals",
     targets: ["goals.short_term"],
   },
@@ -378,7 +419,7 @@ export const SEED_QUESTIONS: readonly SeedQuestion[] = [
   },
   {
     id: "goals.origin",
-    text: "Where did that goal come from? Is there a moment or a person behind it?",
+    text: "Where did that goal come from? Tell me about the moment or the person behind it.",
     chapter: "goals",
     targets: ["goals.origin"],
   },
@@ -390,7 +431,7 @@ export const SEED_QUESTIONS: readonly SeedQuestion[] = [
   },
   {
     id: "goals.research",
-    text: "What have you done to test it — people in that role you've talked to, things you've tried?",
+    text: "What have you done to test that goal? Who in that role have you talked to, and what did they tell you?",
     chapter: "goals",
     targets: ["goals.research"],
   },
@@ -421,7 +462,7 @@ export const SEED_QUESTIONS: readonly SeedQuestion[] = [
   // 8. Schools — why this programme, and what you give back
   {
     id: "schools.reasons",
-    text: "Which schools are you looking at, and what's one specific thing pulling you to each?",
+    text: "Which schools are you applying to, and what's one specific thing pulling you to each?",
     chapter: "schools",
     targets: ["fit.reasons"],
   },

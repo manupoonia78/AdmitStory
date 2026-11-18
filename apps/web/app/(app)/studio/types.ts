@@ -10,6 +10,8 @@ export interface QuestionDto {
   move: "DIG" | "NEXT" | "CONFIRM" | "CARE";
   /** The reply answered something the applicant asked first. */
   answered?: boolean;
+  /** The applicant said they're done: this is the goodbye, and the Studio closes after it. */
+  wrapUp?: boolean;
   /** It arrived as a stream and was read aloud as it came (the stage doesn't read it again). */
   streamed?: boolean;
   slot: string;

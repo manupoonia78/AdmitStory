@@ -36,11 +36,9 @@ export const studioInterviewer = defineTask({
       `Chapter: ${input.chapter} — ${input.chapterGathers}`,
       `Target slot: ${input.targetSlot}`,
       `Seed question to rephrase and personalise: ${input.seedQuestion}`,
+      input.purpose ? `What the answer feeds: ${input.purpose}` : null,
       `DIG turns already used on the current story: ${input.digsUsedOnStory}`,
       input.hurried ? "The applicant is short on time: prefer NEXT and keep it short." : null,
-      input.offerPause
-        ? "A pause point is due: you may note that this is a good place to stop."
-        : null,
       lines(
         "Facts the last answer may contradict",
         input.possibleConflicts.map(
@@ -54,7 +52,7 @@ export const studioInterviewer = defineTask({
 
     const answer =
       input.lastAnswer.trim() === ""
-        ? "This is the first question of the session: there is no last answer."
+        ? "This is the first thing you say on this call: there is no last answer. Open with a one-line hello (welcome them back if the dossier already holds material), then ask."
         : untrustedBlock("last_answer", input.lastAnswer);
 
     return [

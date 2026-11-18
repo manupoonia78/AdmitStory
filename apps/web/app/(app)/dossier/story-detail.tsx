@@ -281,8 +281,8 @@ export function StoryDetail({
             Use this story in my applications.
             {story.sensitivity === "sensitive" ? (
               <span className="block text-text-soft">
-                You told us something personal here, so it stays out of every draft until you turn
-                this on.
+                You told us something personal here. It’s used in your drafts unless you turn this
+                off.
               </span>
             ) : null}
           </span>

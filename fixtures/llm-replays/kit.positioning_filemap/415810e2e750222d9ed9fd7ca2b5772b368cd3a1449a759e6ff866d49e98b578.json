@@ -53,212 +53,6 @@
       "format": {
         "type": "json_schema",
         "schema": {
-          "$defs": {
-            "__schema0": {
-              "type": "object",
-              "properties": {
-                "text": {
-                  "type": "string",
-                  "description": "{minLength: 1, maxLength: 600}"
-                },
-                "cites": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/$defs/__schema1"
-                  },
-                  "minItems": 1,
-                  "description": "{maxItems: 12}"
-                }
-              },
-              "additionalProperties": false,
-              "required": [
-                "text",
-                "cites"
-              ]
-            },
-            "__schema1": {
-              "type": "string"
-            },
-            "__schema2": {
-              "type": "object",
-              "properties": {
-                "trait": {
-                  "$ref": "#/$defs/__schema3"
-                },
-                "why": {
-                  "type": "string",
-                  "description": "{minLength: 1, maxLength: 600}"
-                },
-                "cites": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/$defs/__schema1"
-                  },
-                  "minItems": 1,
-                  "description": "{maxItems: 12}"
-                }
-              },
-              "additionalProperties": false,
-              "required": [
-                "trait",
-                "why",
-                "cites"
-              ]
-            },
-            "__schema3": {
-              "type": "string",
-              "description": "{enum: [\"originates_ideas\",\"acts_unasked\",\"brings_people_along\",\"develops_people\",\"principled_stands\",\"steady_in_ambiguity\",\"self_aware\",\"acts_on_feedback\",\"resilient\",\"empathetic\",\"honest_about_limits\",\"measurable_impact\",\"analytical\",\"commercial_judgment\",\"cross_functional_influence\",\"delivers_under_pressure\",\"global_outlook\",\"unusual_path\",\"community_builder\",\"curious_learner\",\"creative\"]}"
-            },
-            "__schema4": {
-              "type": "object",
-              "properties": {
-                "flag": {
-                  "type": "string",
-                  "description": "{minLength: 1, maxLength: 300}"
-                },
-                "address_in": {
-                  "type": "string",
-                  "description": "{enum: [\"essay\",\"short_answer\",\"form\",\"recommender\",\"optional\",\"not_addressed\"]}"
-                },
-                "how": {
-                  "type": "string",
-                  "description": "{minLength: 1, maxLength: 600}"
-                }
-              },
-              "additionalProperties": false,
-              "required": [
-                "flag",
-                "address_in",
-                "how"
-              ]
-            },
-            "__schema5": {
-              "type": "string",
-              "description": "{minLength: 1, maxLength: 400}"
-            },
-            "__schema6": {
-              "type": "object",
-              "properties": {
-                "deliverable_key": {
-                  "type": "string",
-                  "description": "{minLength: 1, maxLength: 80}"
-                },
-                "primary_story": {
-                  "anyOf": [
-                    {
-                      "$ref": "#/$defs/__schema7"
-                    },
-                    {
-                      "type": "null"
-                    }
-                  ],
-                  "description": "\"S03\", or null when no story should lead"
-                },
-                "primary_reason_if_none": {
-                  "anyOf": [
-                    {
-                      "type": "string",
-                      "description": "{minLength: 1, maxLength: 400}"
-                    },
-                    {
-                      "type": "null"
-                    }
-                  ]
-                },
-                "supporting": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/$defs/__schema7"
-                  },
-                  "description": "{maxItems: 6}"
-                },
-                "traits_shown": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/$defs/__schema3"
-                  },
-                  "description": "{maxItems: 6}"
-                },
-                "lenses": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/$defs/__schema8"
-                  },
-                  "description": "{maxItems: 4}"
-                },
-                "why": {
-                  "type": "string",
-                  "description": "{minLength: 1, maxLength: 400}"
-                }
-              },
-              "additionalProperties": false,
-              "required": [
-                "deliverable_key",
-                "primary_story",
-                "primary_reason_if_none",
-                "supporting",
-                "traits_shown",
-                "lenses",
-                "why"
-              ]
-            },
-            "__schema7": {
-              "type": "string"
-            },
-            "__schema8": {
-              "type": "string",
-              "description": "{enum: [\"academics\",\"self_awareness\",\"employability\",\"leadership\"]}"
-            },
-            "__schema9": {
-              "type": "object",
-              "properties": {
-                "recommender_id": {
-                  "type": "string",
-                  "description": "{minLength: 1, maxLength: 40}"
-                },
-                "strengths": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/$defs/__schema3"
-                  },
-                  "description": "{maxItems: 6}"
-                },
-                "stories": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/$defs/__schema7"
-                  },
-                  "description": "{maxItems: 6}"
-                },
-                "facets": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/$defs/__schema10"
-                  },
-                  "description": "{maxItems: 8}"
-                }
-              },
-              "additionalProperties": false,
-              "required": [
-                "recommender_id",
-                "strengths",
-                "stories",
-                "facets"
-              ]
-            },
-            "__schema10": {
-              "type": "string",
-              "description": "{minLength: 1, maxLength: 300}"
-            },
-            "__schema11": {
-              "type": "string",
-              "description": "{minLength: 1, maxLength: 400}"
-            },
-            "__schema12": {
-              "type": "string",
-              "description": "{minLength: 1, maxLength: 400}"
-            }
-          },
           "type": "object",
           "properties": {
             "positioning": {
@@ -267,7 +61,26 @@
                 "must_see": {
                   "type": "array",
                   "items": {
-                    "$ref": "#/$defs/__schema0"
+                    "type": "object",
+                    "properties": {
+                      "text": {
+                        "type": "string",
+                        "description": "{minLength: 1, maxLength: 600}"
+                      },
+                      "cites": {
+                        "type": "array",
+                        "items": {
+                          "type": "string"
+                        },
+                        "minItems": 1,
+                        "description": "{maxItems: 12}"
+                      }
+                    },
+                    "additionalProperties": false,
+                    "required": [
+                      "text",
+                      "cites"
+                    ]
                   },
                   "description": "{maxItems: 8}"
                 },
@@ -275,13 +88,57 @@
                   "type": "array",
                   "description": "2 or 3 traits\n\n{maxItems: 3, minItems: 2}",
                   "items": {
-                    "$ref": "#/$defs/__schema2"
+                    "type": "object",
+                    "properties": {
+                      "trait": {
+                        "type": "string",
+                        "description": "{enum: [\"originates_ideas\",\"acts_unasked\",\"brings_people_along\",\"develops_people\",\"principled_stands\",\"steady_in_ambiguity\",\"self_aware\",\"acts_on_feedback\",\"resilient\",\"empathetic\",\"honest_about_limits\",\"measurable_impact\",\"analytical\",\"commercial_judgment\",\"cross_functional_influence\",\"delivers_under_pressure\",\"global_outlook\",\"unusual_path\",\"community_builder\",\"curious_learner\",\"creative\"]}"
+                      },
+                      "why": {
+                        "type": "string",
+                        "description": "{minLength: 1, maxLength: 600}"
+                      },
+                      "cites": {
+                        "type": "array",
+                        "items": {
+                          "type": "string"
+                        },
+                        "minItems": 1,
+                        "description": "{maxItems: 12}"
+                      }
+                    },
+                    "additionalProperties": false,
+                    "required": [
+                      "trait",
+                      "why",
+                      "cites"
+                    ]
                   }
                 },
                 "red_flags": {
                   "type": "array",
                   "items": {
-                    "$ref": "#/$defs/__schema4"
+                    "type": "object",
+                    "properties": {
+                      "flag": {
+                        "type": "string",
+                        "description": "{minLength: 1, maxLength: 300}"
+                      },
+                      "address_in": {
+                        "type": "string",
+                        "description": "{enum: [\"essay\",\"short_answer\",\"form\",\"recommender\",\"optional\",\"not_addressed\"]}"
+                      },
+                      "how": {
+                        "type": "string",
+                        "description": "{minLength: 1, maxLength: 600}"
+                      }
+                    },
+                    "additionalProperties": false,
+                    "required": [
+                      "flag",
+                      "address_in",
+                      "how"
+                    ]
                   },
                   "description": "{maxItems: 12}"
                 },
@@ -303,14 +160,15 @@
                     "risks": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/$defs/__schema5"
+                        "type": "string",
+                        "description": "{minLength: 1, maxLength: 400}"
                       },
                       "description": "{maxItems: 8}"
                     },
                     "cites": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/$defs/__schema1"
+                        "type": "string"
                       },
                       "description": "{maxItems: 12}"
                     }
@@ -351,28 +209,127 @@
                 "items": {
                   "type": "array",
                   "items": {
-                    "$ref": "#/$defs/__schema6"
+                    "type": "object",
+                    "properties": {
+                      "deliverable_key": {
+                        "type": "string",
+                        "description": "{minLength: 1, maxLength: 80}"
+                      },
+                      "primary_story": {
+                        "type": [
+                          "string",
+                          "null"
+                        ],
+                        "description": "\"S03\", or null when no story should lead"
+                      },
+                      "primary_reason_if_none": {
+                        "anyOf": [
+                          {
+                            "type": "string",
+                            "description": "{minLength: 1, maxLength: 400}"
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ]
+                      },
+                      "supporting": {
+                        "type": "array",
+                        "items": {
+                          "type": "string"
+                        },
+                        "description": "{maxItems: 6}"
+                      },
+                      "traits_shown": {
+                        "type": "array",
+                        "items": {
+                          "type": "string",
+                          "description": "{enum: [\"originates_ideas\",\"acts_unasked\",\"brings_people_along\",\"develops_people\",\"principled_stands\",\"steady_in_ambiguity\",\"self_aware\",\"acts_on_feedback\",\"resilient\",\"empathetic\",\"honest_about_limits\",\"measurable_impact\",\"analytical\",\"commercial_judgment\",\"cross_functional_influence\",\"delivers_under_pressure\",\"global_outlook\",\"unusual_path\",\"community_builder\",\"curious_learner\",\"creative\"]}"
+                        },
+                        "description": "{maxItems: 6}"
+                      },
+                      "lenses": {
+                        "type": "array",
+                        "items": {
+                          "type": "string",
+                          "description": "{enum: [\"academics\",\"self_awareness\",\"employability\",\"leadership\"]}"
+                        },
+                        "description": "{maxItems: 4}"
+                      },
+                      "why": {
+                        "type": "string",
+                        "description": "{minLength: 1, maxLength: 400}"
+                      }
+                    },
+                    "additionalProperties": false,
+                    "required": [
+                      "deliverable_key",
+                      "primary_story",
+                      "primary_reason_if_none",
+                      "supporting",
+                      "traits_shown",
+                      "lenses",
+                      "why"
+                    ]
                   },
                   "description": "{maxItems: 40}"
                 },
                 "recommender_plan": {
                   "type": "array",
                   "items": {
-                    "$ref": "#/$defs/__schema9"
+                    "type": "object",
+                    "properties": {
+                      "recommender_id": {
+                        "type": "string",
+                        "description": "{minLength: 1, maxLength: 40}"
+                      },
+                      "strengths": {
+                        "type": "array",
+                        "items": {
+                          "type": "string",
+                          "description": "{enum: [\"originates_ideas\",\"acts_unasked\",\"brings_people_along\",\"develops_people\",\"principled_stands\",\"steady_in_ambiguity\",\"self_aware\",\"acts_on_feedback\",\"resilient\",\"empathetic\",\"honest_about_limits\",\"measurable_impact\",\"analytical\",\"commercial_judgment\",\"cross_functional_influence\",\"delivers_under_pressure\",\"global_outlook\",\"unusual_path\",\"community_builder\",\"curious_learner\",\"creative\"]}"
+                        },
+                        "description": "{maxItems: 6}"
+                      },
+                      "stories": {
+                        "type": "array",
+                        "items": {
+                          "type": "string"
+                        },
+                        "description": "{maxItems: 6}"
+                      },
+                      "facets": {
+                        "type": "array",
+                        "items": {
+                          "type": "string",
+                          "description": "{minLength: 1, maxLength: 300}"
+                        },
+                        "description": "{maxItems: 8}"
+                      }
+                    },
+                    "additionalProperties": false,
+                    "required": [
+                      "recommender_id",
+                      "strengths",
+                      "stories",
+                      "facets"
+                    ]
                   },
                   "description": "{maxItems: 4}"
                 },
                 "coverage_gaps": {
                   "type": "array",
                   "items": {
-                    "$ref": "#/$defs/__schema11"
+                    "type": "string",
+                    "description": "{minLength: 1, maxLength: 400}"
                   },
                   "description": "{maxItems: 12}"
                 },
                 "warnings": {
                   "type": "array",
                   "items": {
-                    "$ref": "#/$defs/__schema12"
+                    "type": "string",
+                    "description": "{minLength: 1, maxLength: 400}"
                   },
                   "description": "{maxItems: 12}"
                 }

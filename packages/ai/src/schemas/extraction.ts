@@ -1,11 +1,28 @@
-import { ArchetypeId, LensId, TraitId } from "@admitstory/shared/schemas";
+import { ArchetypeId, TraitId } from "@admitstory/shared/schemas";
 import { z } from "zod";
 
 /**
  * studio.extract and import.parse share one output shape (spec §8.5.2): the Extractor reads the
  * applicant's latest answer or an uploaded document and returns structured material, literally and
  * conservatively. It never infers a fact that was not stated.
+ *
+ * No field here is nullable, on purpose (2026-11-18). The API compiles this schema into a decoding
+ * grammar, and every `anyOf [X, null]` is expensive: with nullables, plus `conflicts` and story
+ * `lenses`, the grammar was over the API's size limit and every extraction was refused (HTTP 400,
+ * "The compiled grammar is too large"), so no Studio answer or upload ever reached the Dossier.
+ * "Nothing here" is an empty string, or -1 for a story index; persistExtraction (apps/web) turns
+ * those back into nulls. Conflicts are detected in code when facts are upserted, and lenses are
+ * derived from traits, so neither is asked of the model. Check any field added here against the
+ * live API (packages/ai/scripts/check-grammar.ts) before shipping.
  */
+
+/** Position in `story_candidates`, or -1 when the line or span sits in no story. */
+const StoryIndex = z
+  .number()
+  .int()
+  .min(-1)
+  .max(49)
+  .describe("Index into story_candidates, or -1 for none");
 
 export const SENSITIVE_CATEGORIES = [
   "health",
@@ -38,7 +55,7 @@ const ExtractedFact = z.object({
     .min(1)
     .max(1000)
     .describe("Exactly as stated. Dates and numbers verbatim."),
-  note: z.string().max(400).nullable().describe("Short parenthetical context, or null"),
+  note: z.string().max(400).describe('Short parenthetical context, or ""'),
   evidence_span: Span,
   confidence: z.number().min(0).max(1),
 });
@@ -63,17 +80,16 @@ const StoryCandidate = z.object({
   era: z.string().trim().max(60).describe('When it happened: "2024", "college", "2019–2021"'),
   context: z.enum(["professional", "academic", "community", "personal"]),
   situation: z.string().trim().max(2000),
-  stakes: z.string().max(2000).nullable().describe("Why it mattered; what was uncertain"),
+  stakes: z.string().max(2000).describe('Why it mattered; what was uncertain. "" if not said'),
   actions: z
     .array(z.string().trim().max(600))
     .max(12)
     .describe("What the applicant personally did, in order"),
-  result: z.string().max(2000).nullable(),
-  reflection: z.string().max(2000).nullable().describe("What changed in them, in their words"),
+  result: z.string().max(2000).describe('"" if not said'),
+  reflection: z.string().max(2000).describe('What changed in them, in their words. "" if not said'),
   people: z.array(ExtractedPerson).max(10),
   numbers: z.array(ExtractedNumber).max(10),
   traits: z.array(TraitId).max(8),
-  lenses: z.array(LensId).max(4),
   archetypes: z.array(ArchetypeId).max(8),
   missing: z
     .array(
@@ -100,10 +116,10 @@ const GoldenLine = z.object({
     .max(1000)
     .describe("Copied exactly, grammar included. Never corrected or tidied."),
   span: Span,
-  /** Set when the applicant was not speaking English (spec §7.5). */
-  english: z.string().max(1000).nullable(),
-  /** Which story candidate it belongs to, by position in story_candidates, or null. */
-  story_index: z.number().int().min(0).max(49).nullable(),
+  /** Set when the applicant was not speaking English (spec §7.5); "" when they were. */
+  english: z.string().max(1000).describe('English rendering, or "" when the line is in English'),
+  /** Which story candidate it belongs to, by position in story_candidates, or -1. */
+  story_index: StoryIndex,
 });
 
 export const ExtractionOutput = z.object({
@@ -118,21 +134,12 @@ export const ExtractionOutput = z.object({
       z.object({
         category: z.enum(SENSITIVE_CATEGORIES),
         span: Span,
-        /** Which story candidate the disclosure sits in, or null if it is loose in the answer. */
-        story_index: z.number().int().min(0).max(49).nullable(),
+        /** Which story candidate the disclosure sits in, or -1 if it is loose in the answer. */
+        story_index: StoryIndex,
       }),
     )
     .max(12)
     .describe("Category and location only. Never restate the disclosure."),
-  conflicts: z
-    .array(
-      z.object({
-        fact_code: z.string().max(16).describe("The known fact's code, e.g. F03"),
-        known_value: z.string().max(500),
-        stated_value: z.string().max(500),
-      }),
-    )
-    .max(10),
 });
 
 export type ExtractionOutput = z.output<typeof ExtractionOutput>;

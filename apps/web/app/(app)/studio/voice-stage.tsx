@@ -71,6 +71,8 @@ export interface VoiceStageProps {
   composer?: ReactNode;
   /** The top row's Write switch calls this: it carries the words said so far into the composer. */
   writeInsteadRef: RefObject<(() => void) | null>;
+  /** A goodbye (`question.wrapUp`) has been read aloud in full: the screen closes the session. */
+  onGoodbyeSaid?: () => void;
 }
 
 /** The end of the last complete sentence in `text`, or 0: where a spoken chunk can stop. */
@@ -126,6 +128,7 @@ export function VoiceStage({
   chapter,
   writeInsteadRef,
   composer,
+  onGoodbyeSaid,
 }: VoiceStageProps) {
   const talk = flow.mode === "talk";
   const recordRef = useRef<HTMLDivElement>(null);
@@ -334,6 +337,12 @@ export function VoiceStage({
   const answeredOnce = attempt > 0;
 
   const listenAgain = useEffectEvent(() => {
+    // After a goodbye there is nothing to answer: once it has been said, the call ends. With
+    // read-aloud off the screen closes on its own timer instead.
+    if (question?.wrapUp) {
+      if (talk && readAloud) onGoodbyeSaid?.();
+      return;
+    }
     if (!handsFree || !talk || !answeredOnce || busy || !question) return;
     if (isRecording(snapshot.state) || snapshot.state === "finishing") return;
     void startAnswer(true);

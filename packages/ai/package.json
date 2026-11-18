@@ -14,6 +14,7 @@
     "fixtures:resumes": "tsx scripts/fixture-resumes.ts",
     "check:tasks": "tsx scripts/check-tasks.ts",
     "check:fixtures": "tsx scripts/check-fixtures.ts",
+    "check:grammar": "tsx scripts/check-grammar.ts",
     "record:phase4": "tsx scripts/record-phase4.ts",
     "kit:golden": "tsx scripts/kit-golden.ts",
     "record:phase5": "tsx scripts/record-phase5.ts",

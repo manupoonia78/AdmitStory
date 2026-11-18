@@ -154,9 +154,15 @@ export function thinkingParam(model: RoutableModelKey, thinking: Thinking): Thin
  * JSON Schema for output_config.format. The SDK transform moves constraints the API does not
  * support (lengths, numeric bounds) into descriptions; Zod still enforces them after parsing.
  * Must be static per prompt version: the schema is part of the cached prefix.
+ *
+ * `refs` is the task's choice (TaskDefinition.schemaRefs): shared sub-schemas become `$defs` by
+ * default, or are written out in place, which the API's grammar compiler handles in less room.
  */
-export function outputJsonSchema(schema: z.ZodType): Record<string, unknown> {
-  const { $schema: _ignored, ...json } = z.toJSONSchema(schema, { reused: "ref" });
+export function outputJsonSchema(
+  schema: z.ZodType,
+  refs: "ref" | "inline" = "ref",
+): Record<string, unknown> {
+  const { $schema: _ignored, ...json } = z.toJSONSchema(schema, { reused: refs });
   return transformJSONSchema(json);
 }
 

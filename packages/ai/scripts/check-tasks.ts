@@ -50,8 +50,8 @@ const SAMPLES: Record<string, unknown> = {
     recentTurns: [{ role: "ai", text: "Where did you grow up?" }],
     digsUsedOnStory: 1,
     hurried: false,
+    purpose: "leadership essays (Leading and influencing) and the résumé",
     possibleConflicts: [{ code: "F03", key: "team_size", knownValue: "13", justSaid: "11" }],
-    offerPause: true,
   },
   "studio.extract": {
     text: "I rebuilt the retry logic overnight. My manager Ravi was on a flight.",
