@@ -54,7 +54,7 @@ export function PlanPicker({
           <label
             key={id}
             className={cx(
-              "relative flex min-w-0 cursor-pointer flex-col rounded-card border px-5 py-6 sm:min-h-[12.25rem]",
+              "relative flex min-w-0 cursor-pointer flex-col rounded-card border px-5 py-5 sm:min-h-[12.25rem] sm:py-6",
               "transition-[background-color,border-color,box-shadow] duration-150 ease-rise motion-reduce:transition-none",
               "has-focus-visible:outline-2 has-focus-visible:outline-offset-3 has-focus-visible:outline-text",
               checked
@@ -88,9 +88,9 @@ export function PlanPicker({
                 {PACK_PITCH.badge}
               </span>
             ) : (
-              <span aria-hidden className="mt-3 h-6" />
+              <span aria-hidden className="mt-3 hidden h-6 sm:block" />
             )}
-            <span className="mt-auto flex flex-wrap items-baseline gap-x-2.5 pt-5">
+            <span className="mt-auto flex flex-wrap items-baseline gap-x-2.5 pt-4 sm:pt-5">
               <span className="text-[2.5rem] leading-none font-[450] tracking-[-0.03em] text-text tabular-nums">
                 {dollars(plan.priceCents)}
               </span>
@@ -101,10 +101,18 @@ export function PlanPicker({
                 </s>
               ) : null}
             </span>
-            <span className="mt-3 font-mono text-[12px] tracking-[0.06em] text-text-soft uppercase tabular-nums">
-              {pack
-                ? `${dollars(perSchoolCents(plan))} a school · save ${dollars(savingCents(plan))}`
-                : `Just ${school}`}
+            <span className="mt-3 flex flex-col font-mono text-[12px] leading-[18px] tracking-[0.04em] text-text-soft uppercase tabular-nums">
+              {pack ? (
+                <>
+                  <span>{`${dollars(perSchoolCents(plan))} a school`}</span>
+                  <span>{`Save ${dollars(savingCents(plan))}`}</span>
+                </>
+              ) : (
+                <>
+                  <span>{`Just ${school}`}</span>
+                  <span aria-hidden>&nbsp;</span>
+                </>
+              )}
             </span>
           </label>
         );

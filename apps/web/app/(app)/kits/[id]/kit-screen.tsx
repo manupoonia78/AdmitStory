@@ -316,7 +316,10 @@ export function KitScreen({
               <p className="label">What {view.school} offers for your goal</p>
               <ul className="flex flex-col">
                 {prep.offers.map((o) => (
-                  <li key={o.value} className="flex flex-col gap-0.5 border-t border-edge py-3 first:border-t-0">
+                  <li
+                    key={o.value}
+                    className="flex flex-col gap-0.5 border-t border-edge py-3 first:border-t-0"
+                  >
                     <span className="text-ui text-text">{o.value}</span>
                     <span className="text-sm text-text-soft">{o.note}</span>
                   </li>

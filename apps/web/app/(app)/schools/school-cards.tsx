@@ -43,7 +43,15 @@ const STATE: Record<CardState, { word: string; icon: typeof CircleIcon; tone: st
 /** Card entrances start closer together as the list goes on (SPEC §6.5); the sixth and later together. */
 const STARTS_MS = [0, 70, 120, 160, 190, 210];
 
-function DeadlineLine({ row, state, index }: { row: StrategyRow; state: CardState; index: number }) {
+function DeadlineLine({
+  row,
+  state,
+  index,
+}: {
+  row: StrategyRow;
+  state: CardState;
+  index: number;
+}) {
   const line = row.deadlineLine;
   const progress =
     state === "building" && row.kit
@@ -129,7 +137,7 @@ function Card({
           </p>
         ) : null}
       </div>
-      <div className="mt-auto pt-8">
+      <div className="mt-auto pt-6 sm:pt-8">
         <DeadlineLine row={row} state={state} index={index} />
       </div>
     </>
@@ -143,7 +151,7 @@ function Card({
         data-state={state}
       >
         {body}
-        <span className="mt-6 flex min-h-[4.75rem] items-end justify-between gap-3 text-ui text-text">
+        <span className="mt-6 flex items-end justify-between sm:min-h-[4.75rem] gap-3 text-ui text-text">
           {state === "ready" ? `Open ${name}` : "See where it's at"}
           <span
             aria-hidden
@@ -157,7 +165,7 @@ function Card({
     <div className="school-card card" data-state={state}>
       {body}
       {state === "locked" ? (
-        <div className="mt-6 flex min-h-[4.75rem] flex-col items-start justify-end gap-3">
+        <div className="mt-6 flex flex-col items-start justify-end gap-3 sm:min-h-[4.75rem]">
           <Link
             href={`/schools/${row.userSchoolId}/unlock`}
             className={buttonStyles({ size: "sm" })}
@@ -175,7 +183,7 @@ function Card({
           </p>
         </div>
       ) : (
-        <p className="mt-6 flex min-h-[4.75rem] items-end text-sm text-text-soft">
+        <p className="mt-6 flex items-end text-sm sm:min-h-[4.75rem] text-text-soft">
           We&apos;re still verifying {name}&apos;s pack. It can&apos;t be bought yet.
         </p>
       )}

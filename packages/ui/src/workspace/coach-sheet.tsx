@@ -52,7 +52,7 @@ export function CoachSheet({
       onValueChange={(next) => onValueChange(next as CoachTab)}
       className={cx("flex min-h-0 flex-col", className)}
     >
-      <TabsList aria-label="Chat and notes" className="shrink-0 gap-4 px-5 pt-1">
+      <TabsList aria-label="Chat and notes" className="shrink-0 gap-4! px-5 pt-1">
         {COACH_TABS.map((tab) => {
           const count = counts[tab.id];
           return (

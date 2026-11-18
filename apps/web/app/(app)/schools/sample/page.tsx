@@ -2,6 +2,7 @@ import { DEFAULT_IDENTITY } from "@admitstory/shared";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { prototypesEnabled } from "@/app/prototype/_shared/enabled";
+import { requireOnboardedUser } from "@/lib/app-user";
 import { STAGE_LABELS, type KitView } from "@/lib/kit/view";
 import { KitHost } from "../../kits/[id]/kit-host";
 
@@ -80,8 +81,9 @@ const VIEW: KitView = {
   failed: [],
 };
 
-export default function SampleKitPage() {
+export default async function SampleKitPage() {
   if (!prototypesEnabled()) notFound();
+  await requireOnboardedUser();
   return (
     <KitHost
       initial={VIEW}

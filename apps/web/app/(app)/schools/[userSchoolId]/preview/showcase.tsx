@@ -110,7 +110,9 @@ export function ShowcaseIntro({ view }: { view: ShowcaseView }) {
               <blockquote className="whitespace-pre-line font-reading text-read-sm">
                 {story.excerpt.text}
               </blockquote>
-              <p className="note text-accent">The opening only. Your pack drafts the whole essay.</p>
+              <p className="note text-accent">
+                The opening only. Your pack drafts the whole essay.
+              </p>
             </figure>
           </div>
         </section>
@@ -178,7 +180,10 @@ export function ShowcaseDetails({ view }: { view: ShowcaseView }) {
                 <h3 className="label text-verified">What works</h3>
                 <ul className="flex flex-col border-t border-edge">
                   {view.angles.map((line) => (
-                    <li key={line} className="border-b border-edge py-3 text-ui font-normal text-text">
+                    <li
+                      key={line}
+                      className="border-b border-edge py-3 text-ui font-normal text-text"
+                    >
                       {line}
                     </li>
                   ))}
@@ -190,7 +195,10 @@ export function ShowcaseDetails({ view }: { view: ShowcaseView }) {
                 <h3 className="label text-needs">What to avoid</h3>
                 <ul className="flex flex-col border-t border-edge">
                   {view.avoid.map((line) => (
-                    <li key={line} className="border-b border-edge py-3 text-ui font-normal text-text">
+                    <li
+                      key={line}
+                      className="border-b border-edge py-3 text-ui font-normal text-text"
+                    >
                       {line}
                     </li>
                   ))}

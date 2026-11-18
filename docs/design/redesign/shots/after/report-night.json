@@ -3,40 +3,8 @@
   "out": "after",
   "theme": "night",
   "reduced": false,
-  "takenAt": "2026-11-17T18:10:25.191Z",
+  "takenAt": "2026-11-18T06:06:42.943Z",
   "routes": [
-    {
-      "name": "home",
-      "path": "/home",
-      "consoleErrors": [],
-      "failedRequests": [],
-      "hydration": [],
-      "status": 200,
-      "finalPath": "/home",
-      "overflow375": {
-        "px": 0,
-        "offenders": []
-      }
-    },
-    {
-      "name": "studio",
-      "path": "/studio",
-      "consoleErrors": [
-        "Failed to load resource: the server responded with a status of 500 (Internal Server Error)",
-        "Failed to load resource: the server responded with a status of 500 (Internal Server Error)"
-      ],
-      "failedRequests": [
-        "500 /api/studio/sessions",
-        "500 /api/studio/sessions"
-      ],
-      "hydration": [],
-      "status": 200,
-      "finalPath": "/studio",
-      "overflow375": {
-        "px": 0,
-        "offenders": []
-      }
-    },
     {
       "name": "schools",
       "path": "/schools",
@@ -51,61 +19,184 @@
       }
     },
     {
-      "name": "settings",
-      "path": "/settings",
+      "name": "school",
+      "path": "/schools/a5e8f815-a79b-418d-b81c-c2dac801b2ea",
       "consoleErrors": [],
       "failedRequests": [],
       "hydration": [],
       "status": 200,
-      "finalPath": "/settings",
+      "finalPath": "/schools/a5e8f815-a79b-418d-b81c-c2dac801b2ea/unlock",
       "overflow375": {
         "px": 0,
         "offenders": []
       }
     },
     {
-      "name": "settings-privacy",
-      "path": "/settings/privacy",
+      "name": "school-unlocked",
+      "path": "/schools/0b168856-2e13-4b34-ba24-e5c837ac146f",
       "consoleErrors": [],
       "failedRequests": [],
       "hydration": [],
       "status": 200,
-      "finalPath": "/settings/privacy",
+      "finalPath": "/schools/0b168856-2e13-4b34-ba24-e5c837ac146f",
       "overflow375": {
         "px": 0,
         "offenders": []
       }
     },
     {
-      "name": "settings-security",
-      "path": "/settings/security",
+      "name": "school-preview",
+      "path": "/schools/a5e8f815-a79b-418d-b81c-c2dac801b2ea/preview",
       "consoleErrors": [],
       "failedRequests": [],
       "hydration": [],
       "status": 200,
-      "finalPath": "/settings/security",
+      "finalPath": "/schools/a5e8f815-a79b-418d-b81c-c2dac801b2ea/preview",
       "overflow375": {
         "px": 0,
         "offenders": []
       }
     },
     {
-      "name": "ref-prototype-studio",
-      "path": "/prototype/studio",
+      "name": "school-unlock",
+      "path": "/schools/a5e8f815-a79b-418d-b81c-c2dac801b2ea/unlock",
       "consoleErrors": [],
       "failedRequests": [],
       "hydration": [],
       "status": 200,
-      "finalPath": "/prototype/studio",
+      "finalPath": "/schools/a5e8f815-a79b-418d-b81c-c2dac801b2ea/unlock",
       "overflow375": {
-        "px": 4,
-        "offenders": [
-          "div.-mx-5 overflow-x-auto px-5 [scrollbar-width:none] sm:mx-0 sm",
-          "div.flex w-max gap-6",
-          "button.label relative min-h-11 shrink-0 px-0.5 whitespace-nowrap tr",
-          "button.label relative min-h-11 shrink-0 px-0.5 whitespace-nowrap tr",
-          "button.label relative min-h-11 shrink-0 px-0.5 whitespace-nowrap tr"
-        ]
+        "px": 0,
+        "offenders": []
+      }
+    },
+    {
+      "name": "school-recommenders",
+      "path": "/schools/0b168856-2e13-4b34-ba24-e5c837ac146f/recommenders",
+      "consoleErrors": [],
+      "failedRequests": [],
+      "hydration": [],
+      "status": 200,
+      "finalPath": "/schools/0b168856-2e13-4b34-ba24-e5c837ac146f",
+      "overflow375": {
+        "px": 0,
+        "offenders": []
+      }
+    },
+    {
+      "name": "school-resume",
+      "path": "/schools/0b168856-2e13-4b34-ba24-e5c837ac146f/resume",
+      "consoleErrors": [],
+      "failedRequests": [],
+      "hydration": [],
+      "status": 200,
+      "finalPath": "/schools/0b168856-2e13-4b34-ba24-e5c837ac146f",
+      "overflow375": {
+        "px": 0,
+        "offenders": []
+      }
+    },
+    {
+      "name": "kit",
+      "path": "/kits/26d38c41-5b16-4b44-8f66-df9b7dbe82ad",
+      "consoleErrors": [],
+      "failedRequests": [],
+      "hydration": [],
+      "status": 200,
+      "finalPath": "/schools/0b168856-2e13-4b34-ba24-e5c837ac146f",
+      "overflow375": {
+        "px": 0,
+        "offenders": []
+      }
+    },
+    {
+      "name": "workspace",
+      "path": "/workspace/61feecb5-4c8a-460e-b71c-5cfc2f34febe",
+      "consoleErrors": [],
+      "failedRequests": [],
+      "hydration": [],
+      "status": 200,
+      "finalPath": "/workspace/61feecb5-4c8a-460e-b71c-5cfc2f34febe",
+      "overflow375": {
+        "px": 0,
+        "offenders": []
+      }
+    },
+    {
+      "name": "ref-prototype-workspace",
+      "path": "/prototype/workspace",
+      "consoleErrors": [],
+      "failedRequests": [],
+      "hydration": [],
+      "status": 200,
+      "finalPath": "/prototype/workspace",
+      "overflow375": {
+        "px": 0,
+        "offenders": []
+      }
+    },
+    {
+      "name": "ref-prototype-kit",
+      "path": "/prototype/kit",
+      "consoleErrors": [],
+      "failedRequests": [],
+      "hydration": [],
+      "status": 200,
+      "finalPath": "/prototype/kit",
+      "overflow375": {
+        "px": 0,
+        "offenders": []
+      }
+    },
+    {
+      "name": "workspace-sample",
+      "path": "/workspace/sample",
+      "consoleErrors": [
+        "Failed to load resource: the server responded with a status of 400 (Bad Request)",
+        "Failed to load resource: the server responded with a status of 400 (Bad Request)"
+      ],
+      "failedRequests": [
+        "400 /api/chat?thread=deliverable%3Asample",
+        "400 /api/chat?thread=deliverable%3Asample"
+      ],
+      "hydration": [],
+      "status": 200,
+      "finalPath": "/workspace/sample",
+      "overflow375": {
+        "px": 0,
+        "offenders": []
+      }
+    },
+    {
+      "name": "school-preview-sample",
+      "path": "/schools/sample/preview",
+      "consoleErrors": [],
+      "failedRequests": [],
+      "hydration": [],
+      "status": 200,
+      "finalPath": "/schools/sample/preview",
+      "overflow375": {
+        "px": 0,
+        "offenders": []
+      }
+    },
+    {
+      "name": "kit-sample",
+      "path": "/schools/sample",
+      "consoleErrors": [
+        "Failed to load resource: the server responded with a status of 404 (Not Found)",
+        "Failed to load resource: the server responded with a status of 404 (Not Found)"
+      ],
+      "failedRequests": [
+        "404 /api/kits/sample-kit/events",
+        "404 /api/kits/sample-kit/events"
+      ],
+      "hydration": [],
+      "status": 200,
+      "finalPath": "/schools/sample",
+      "overflow375": {
+        "px": 0,
+        "offenders": []
       }
     }
   ],

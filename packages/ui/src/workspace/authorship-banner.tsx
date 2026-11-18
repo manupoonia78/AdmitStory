@@ -99,10 +99,10 @@ export function AuthorshipBanner({
   return (
     <section
       aria-labelledby={`${id}-mode`}
-      className={cx("flex flex-col gap-2 text-base", className)}
+      className={cx("flex flex-col gap-1.5 border-l-2 border-edge pl-4 text-sm", className)}
     >
       <p className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
-        <span id={`${id}-mode`} className="font-medium text-text">
+        <span id={`${id}-mode`} className="text-ui text-text">
           {MODE_LABELS[mode]}
         </span>
         <span className="text-text-soft">{modeExplanation(mode, stance, school)}</span>

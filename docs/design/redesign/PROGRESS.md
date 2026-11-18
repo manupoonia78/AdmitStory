@@ -14,20 +14,22 @@ committed there); the session of 2026-11-17 moved the uncommitted work back to
 
 ## Next step
 
-**Phase 5 is done (2026-11-17). Do not start Phase 6 until Manu names it.** If his message has
-feedback on the casing, Home or the Studio, write it into "Decisions" (with the date), change
-SPEC §6.1, §6.3 or §6.4 to match, and fix that first.
+**Phase 6 is done (2026-11-18). Do not start Phase 7 until Manu names it.** If his message has
+feedback on Schools, the school's tabs, the kit, preview, unlock or the editor, write it into
+"Decisions" (with the date), change SPEC §6.5–§6.9 to match, and fix that first.
 
-When Phase 6 is named, start here:
+When Phase 7 is named, start here:
 
 1. Load the project skills that apply (`.claude/skills/`: `emil-design-eng`, `animate`,
-   `choreograph`, `mobile-native`; SPEC §2.10). Manu asked again on 2026-11-17 that they be used.
-2. Start the local environment from `local-db.md` (production build). Signed-in probes and
-   populated screens: the Phase 5 scripts stub a request in the browser (see REPORT, Phase 5);
-   nothing reaches the database.
-3. Expand SPEC §6.2's Schools, workspace, preview, unlock and editor rows to full values, then
-   build them. Add `/workspace` to `RAIL_PATHS` (`packages/ui/src/shell/nav-items.ts`) so the
-   editor gets the 64 px rail. Redraw the kit's assembly without the Voiceprint still.
+   `choreograph`, `mobile-native`; SPEC §2.10).
+2. Start the local environment from `local-db.md` (production build). Populated screens: add a
+   gated sample route inside the casing, as Phase 6 did (`/workspace/sample`, SPEC §6.9 notes),
+   and pass it through `requireOnboardedUser()` (`lib/welcome-gate.test.ts` checks every page).
+3. Expand SPEC §6.2's Dossier, Profile Read, Recommenders, portal, Résumé, Connect, Settings,
+   Interview and Tracker rows to full values, then build them. The school's Recommenders and
+   Résumé tabs already sit in Phase 6's frame (header, strip, panel); their documents are
+   Phase 7's. Give `/r` its own paper `themeColor`. Use `text-[12px]`, never `text-xs` (not in
+   this theme's scale).
 
 ## Phases
 
@@ -39,7 +41,7 @@ When Phase 6 is named, start here:
 | 3. Landing, all scenes     | sections 2–13, GSAP sequence to CSS, Lenis decision                                                                        | **done** (2026-11-17)          |
 | 4. Other marketing + entry | `/how-it-works`, `/pricing`, `/privacy`, `/terms`, OG, titles, `/sign-in`, `/welcome`, `/first-run`                        | **done** (2026-11-17)          |
 | 5. Shell, home, Studio     | casing, sidebar, top bar, dock, palette, account menu, toasts, `/home`, `/studio`                                          | **done** (2026-11-17)          |
-| 6. Schools and the editor  | `/schools`, workspace and tabs, preview, unlock, `/workspace/[id]`, `/kits/[id]`                                           | not started                    |
+| 6. Schools and the editor  | `/schools`, workspace and tabs, preview, unlock, `/workspace/[id]`, `/kits/[id]`                                           | **done** (2026-11-18)          |
 | 7. The rest of the app     | dossier, profile read, recommenders, portal, résumé, connect, settings, interview, tracker, all states                     | not started                    |
 | 8. Final pass              | consistency sweep, axe, Lighthouse, overflow, console, reduced motion, admin, REPORT.md                                    | not started                    |
 
@@ -194,6 +196,37 @@ kept all of it, fixed five things found in the screenshots, measured and committ
       lower count)
 - [x] SPEC updated where the build differs; REPORT.md; committed
 
+## Phase 6 checklist
+
+- [x] SPEC §6.5 (Schools), §6.6 (school header, tabs, file strip, the kit being prepared), §6.7
+      (preview), §6.8 (unlock), §6.9 (the editor) at full values; §6.2 and §7 point at them
+- [x] `/schools`: cards with the deadline line (today → last round, ticks, the peak at the next
+      deadline, days left), locked / coming-soon / drafting feet, add a school, planning
+      section; the line moment (CSS, staggered with shrinking gaps)
+- [x] School header (name row and text tabs, needs count) and the file strip (chips with status
+      dot and limit; J / K kept), on the editor, the form and the Recommenders tab
+- [x] Editor: `/workspace` in rail mode with the desk following Day / Night
+      (`data-rail="desk"`); `WorkspaceLayout` rebuilt (desk and a sticky 340 px panel from
+      1280, side sheet 1024–1279, Draft · Chat switch below); the sheet (prompt in serif italic,
+      mono count, margin notes from 1440, quiet authorship banner); the floating toolbar; the
+      version timeline with the peak; the chat restyled; provenance marks (solid / dotted) and
+      the pointer-only sweep; "not ready" and "closed" states
+- [x] The kit being prepared: numbered steps, the assembly without the Voiceprint (spine,
+      Voiceprint line from the applicant's numbers, threads in `--voice`, no glow, 1.6 s linear
+      pulse while drafting)
+- [x] Preview: head, setup card with chips, the school's words, the worked example on paper, the
+      file map with connectors that draw, the pack rows, final call; brass removed from numbers
+      and borders
+- [x] Unlock: head, opening on a sheet, the pitch, three plan boxes (only the chosen one filled),
+      the total row with the pack dealing in on a pointer choice, the list, "All sales are
+      final" linking `/terms`; the 375 px overflow fixed; checkout logic untouched
+- [x] Sample routes for populated screens (`/workspace/sample`, `/schools/sample`,
+      `/schools/sample/preview`), gated, in `shoot.mjs`
+- [x] Shot in Day and Night at 1440 / 390 / 375, reduced motion; scored; fixed; re-shot
+- [x] Measured: bundle, axe, overflow, console; the test checkout opens from the pay button
+- [x] Gates: typecheck, lint, build, `bundle:check`, format check; unit tests 2,445 of 2,445
+- [x] SPEC updated where the build differs; REPORT.md; committed
+
 ## Decisions
 
 Made in Phase 0 by Claude, in the spec, **not yet approved by Manu**:
@@ -297,20 +330,38 @@ as built. "The new claude skill" read as before: Emil Kowalski's project skills
 
 Made in Phase 5 by Claude while building, **not yet approved by Manu**:
 
-| Date       | Decision                                                                                                                                       | Why                                                                                                   | Spec       |
-| ---------- | ---------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------- | ---------- |
-| 2026-11-17 | The working area is a **bay** inset 8 px in the dark casing from 1024 px; the sidebar has no fill of its own                                   | "a dark instrument holding a lit page"; the bay's edge is the only line needed                        | §6.1       |
-| 2026-11-17 | Below 1024 px: a dark top bar and a **floating dock pill**, both on the marketing nav's 88 % wash (not plain frost)                            | plain frost over the Day desk is a pale pill with white text                                          | §6.1       |
-| 2026-11-17 | The palette, account menu and toasts use `.casing-overlay` (the wash at 92 %), not `frost`                                                     | first shots: frost over the Day desk made them light and unreadable                                   | §6.1       |
-| 2026-11-17 | The command palette has **no animation** and sits at 14 % of the height                                                                        | a keyboard action used many times a day (SPEC §2.10); the list grows downwards without jumping        | §6.1       |
-| 2026-11-17 | `THEME_COLORS` is `#0B0A09` in both themes; Day `--rail` likewise; `contrast.test.ts` asserts it                                               | the top of every app screen is casing                                                                 | §6.1       |
-| 2026-11-17 | `viewport-fit=cover` and `interactive-widget=resizes-content` in the root viewport; the marketing nav pads for the safe area                   | the mobile-native skill: without it every `env(safe-area-inset-*)` was 0                              | §6.4 notes |
-| 2026-11-17 | Home's path is one line with four stops; the line draws, then brass to the current stop, then the peak rises; vertical on phones               | the brief's "path line draws to where you are", visible even on stage 1                               | §6.3       |
-| 2026-11-17 | Home shows each school's next deadline from the pack's verified rounds (a read-only addition to `lib/home/server.ts`)                          | "schools, deadlines and next actions"; the same rule the school cards use                             | §6.3       |
-| 2026-11-17 | The Studio is a conversation: the question in Geist `display-2`, the transcript in Instrument Serif italic, a horizon line with the button on it | "talking to someone attentive, not filling in a form"                                                 | §6.4       |
-| 2026-11-17 | The line is silver while the question is read aloud, the applicant's hue while they speak                                                       | §1.1: the line takes the colour of whoever is speaking                                                | §6.4       |
-| 2026-11-17 | Speak / Write moved to a segmented control in the top row; "Write instead" / "Talk instead" buttons removed (the notice action stays)          | one switch, always in the same place                                                                  | §6.4       |
-| 2026-11-17 | The `Voiceprint` component is the still SVG; OGL, detect-gpu and their tests are deleted; the kit and duet keep the still until their phases   | Manu's yes (§10.3); deleting needed every caller off the renderer                                     | §6.4 notes |
+| Date       | Decision                                                                                                                                         | Why                                                                                            | Spec       |
+| ---------- | ------------------------------------------------------------------------------------------------------------------------------------------------ | ---------------------------------------------------------------------------------------------- | ---------- |
+| 2026-11-17 | The working area is a **bay** inset 8 px in the dark casing from 1024 px; the sidebar has no fill of its own                                     | "a dark instrument holding a lit page"; the bay's edge is the only line needed                 | §6.1       |
+| 2026-11-17 | Below 1024 px: a dark top bar and a **floating dock pill**, both on the marketing nav's 88 % wash (not plain frost)                              | plain frost over the Day desk is a pale pill with white text                                   | §6.1       |
+| 2026-11-17 | The palette, account menu and toasts use `.casing-overlay` (the wash at 92 %), not `frost`                                                       | first shots: frost over the Day desk made them light and unreadable                            | §6.1       |
+| 2026-11-17 | The command palette has **no animation** and sits at 14 % of the height                                                                          | a keyboard action used many times a day (SPEC §2.10); the list grows downwards without jumping | §6.1       |
+| 2026-11-17 | `THEME_COLORS` is `#0B0A09` in both themes; Day `--rail` likewise; `contrast.test.ts` asserts it                                                 | the top of every app screen is casing                                                          | §6.1       |
+| 2026-11-17 | `viewport-fit=cover` and `interactive-widget=resizes-content` in the root viewport; the marketing nav pads for the safe area                     | the mobile-native skill: without it every `env(safe-area-inset-*)` was 0                       | §6.4 notes |
+| 2026-11-17 | Home's path is one line with four stops; the line draws, then brass to the current stop, then the peak rises; vertical on phones                 | the brief's "path line draws to where you are", visible even on stage 1                        | §6.3       |
+| 2026-11-17 | Home shows each school's next deadline from the pack's verified rounds (a read-only addition to `lib/home/server.ts`)                            | "schools, deadlines and next actions"; the same rule the school cards use                      | §6.3       |
+| 2026-11-17 | The Studio is a conversation: the question in Geist `display-2`, the transcript in Instrument Serif italic, a horizon line with the button on it | "talking to someone attentive, not filling in a form"                                          | §6.4       |
+| 2026-11-17 | The line is silver while the question is read aloud, the applicant's hue while they speak                                                        | §1.1: the line takes the colour of whoever is speaking                                         | §6.4       |
+| 2026-11-17 | Speak / Write moved to a segmented control in the top row; "Write instead" / "Talk instead" buttons removed (the notice action stays)            | one switch, always in the same place                                                           | §6.4       |
+| 2026-11-17 | The `Voiceprint` component is the still SVG; OGL, detect-gpu and their tests are deleted; the kit and duet keep the still until their phases     | Manu's yes (§10.3); deleting needed every caller off the renderer                              | §6.4 notes |
+
+Made in Phase 6 by Claude while building, **not yet approved by Manu**:
+
+| Date       | Decision                                                                                                                                   | Why                                                                                                  | Spec       |
+| ---------- | ------------------------------------------------------------------------------------------------------------------------------------------ | ---------------------------------------------------------------------------------------------------- | ---------- |
+| 2026-11-18 | Inside a school, the left Files pane becomes a **file strip** of chips under the tabs                                                      | the tabs choose the kind, the strip the document; the sheet gets the width a 64-character line needs | §6.6       |
+| 2026-11-18 | The editor's rail keeps the desk (Day paper); only the Studio's rail is Night                                                              | the editor is a reading and writing surface (the brief's paper)                                      | §6.9       |
+| 2026-11-18 | The editor page scrolls like paper; the panel is sticky beside it (no inner scrolling box for the draft)                                   | a sheet read in a box inside a box felt like a form                                                  | §6.9       |
+| 2026-11-18 | Margin notes come from "Why this draft" (which paragraphs answer which part of the prompt); from 1440 px only                              | honest reasoning from data that exists; at 1280 the text column would shrink to 476 px               | §6.9 notes |
+| 2026-11-18 | The your-words sweep plays on a pointer toggle only, paragraph by paragraph; `Y` and turning it off are instant                            | SPEC §2.10: keyboard actions don't animate; ProseMirror owns sentence DOM                            | §6.9 notes |
+| 2026-11-18 | Verbatim words get a solid underline and adapted words a dotted one, on top of the glow                                                    | §2.3's rule that provenance never depends on hue, now drawn in the editor                            | §2.3       |
+| 2026-11-18 | Each school card carries a deadline line (today → last round, the peak at the next deadline, days left)                                    | the Voiceline as a timeline; "deadlines, quietly"                                                    | §6.5       |
+| 2026-11-18 | `deadlineLine` added to the schools rows (read-only, presentation positions)                                                               | the line needs positions; same pack rounds the cards already read                                    | §6.5       |
+| 2026-11-18 | The kit's Voiceprint is a short still line drawn from the applicant's numbers, heading a spine of stories; threads start at the story      | Phase 5 removed WebGL; the brief bans orbs; the test's "Your Voiceprint" image stays true            | §6.6       |
+| 2026-11-18 | Unlock: one filled plan box (the chosen one), the pay button in a total row with the pack drawn as sheets that deal in on a pointer choice | "the 5-school pack the obvious, calm choice"; the brief's "pack assembling"                          | §6.8       |
+| 2026-11-18 | "Receipt to your email. All sales are final." under the list, linking `/terms`                                                             | the brief: say it where terms are mentioned, without drama                                           | §6.8       |
+| 2026-11-18 | Brass removed from the preview's numbers, arrows and borders                                                                               | accent discipline (§2.1): brass is the primary fill, a live or "here" line, the caret                | §6.7       |
+| 2026-11-18 | Populated screens are checked through gated sample routes inside the casing, not a `/prototype/redesign` gallery                           | they render in the real shell, rail and fonts                                                        | §12        |
 
 Approved, changed or rejected by Manu: Phase 1 was named (so the Phase 0 spec was accepted as the
 working basis). All of "Needs Manu" was answered on 2026-11-17, below.
@@ -390,8 +441,16 @@ working basis). All of "Needs Manu" was answered on 2026-11-17, below.
   needs a sent invitation. Before shots show their empty or idle states; the Phase 0.5 prototypes
   stand in as `ref-prototype-*`. Plan for Phases 5–7: a hidden `/prototype/redesign/*` gallery
   rendering the real components with sample props (SPEC §12).
-- **Before state has two 375 px overflows**: `/schools/[id]/unlock` scrolls sideways by 13 px
-  (the plan cards). Fix in Phase 6. (`ref-prototype-studio` overflows by 4 px; out of scope.)
+- ~~**Before state has two 375 px overflows**: `/schools/[id]/unlock`~~ fixed in Phase 6.
+  (`ref-prototype-studio` overflows by 4 px; out of scope.)
+- **Unlock's plans sit below the first screen at 1440 × 900**, under the opening and the
+  "Your application" card. The order is the spec's (choices that shape the pack, then the price);
+  moving the setup under the total row would put the price on the first screen. Manu's call.
+- **The horizon timeline and round planner on `/schools` keep their Phase 1 interiors** (only
+  their frame, headings and empty states changed); they score Polish 7 on that page.
+- **The school's Recommenders and Résumé tabs** sit in Phase 6's frame but their documents are
+  Phase 7's; locally they redirect to the kit page (the local kit stops partway).
+- **The real Dodo overlay was not seen** (no live keys locally); the test checkout was.
 - **`pnpm format:check` flags `docs/design/fable-redesign-prompt.md`** (blank lines and `*` versus
   `_` only). It is Manu's file, committed byte for byte; run Prettier on it if you want that gate
   green.
@@ -479,38 +538,64 @@ working basis). All of "Needs Manu" was answered on 2026-11-17, below.
   Day, Night and reduced motion. Hydration warnings: none. Console: `/studio` logs the known 500
   from `/api/studio/sessions` (no AI locally); nothing else.
 
+## Measured after Phase 6 (2026-11-18, production build, local)
+
+- First-load JS: `/schools/[id]/unlock` **156.7 KB** of 160 (was 154.9 after Phase 1: the plan
+  picker's state and two client icons), `/schools/[id]/preview` 155.3, `/workspace/[id]`
+  **148.1**, `/schools` 147.9, `/schools/[id]` and `/kits/[id]` 146.1–147.9, `/studio` 158.0.
+- axe (WCAG 2.2 AA): **0 violations** on `/schools`, the kit being prepared, the built preview,
+  the real preview, unlock and the editor, Day and Night, 1440 and 390 (one finding, the
+  editor's paragraph lock under 24 px on phones, fixed: 44 px).
+- Overflow at 375 px: none on any Phase 6 route, Day, Night and reduced motion (the before
+  state's unlock overflow is gone).
+- Console and failed requests: none on the real routes. The sample routes log their expected
+  API refusals (a 400 from the chat for the sample deliverable, a 404 from the sample kit's
+  event stream).
+- The test checkout (the local stand-in for Dodo's overlay) opens from "Pay $349 for 5 schools,
+  starting with Kestrel Lake" with the right item and price. The real Dodo overlay needs live
+  keys and was not seen.
+- The unlock deal: on a pointer choice of 10 schools, at 60 ms the first sheets are at 66 % and
+  32 % opacity and the rest not yet started; all at rest by 400 ms. A keyboard change: no
+  animation.
+
 ## Scores
 
-| Screen               | Glance | Signature | Type | Composition | Colour | Media | Motion | Mobile | Copy | Polish | Average |
-| -------------------- | ------ | --------- | ---- | ----------- | ------ | ----- | ------ | ------ | ---- | ------ | ------- |
-| `/prototype/system`  | 8      | 8         | 9    | 8           | 8      | 8     | 8      | 7      | 8    | 8      | **8.0** |
-| `/` hero and nav     | 9      | 9         | 9    | 8           | 9      | 9     | 8      | 8      | 8    | 8      | **8.5** |
-| `/` whole page       | 9      | 9         | 9    | 8           | 9      | 8     | 8      | 8      | 9    | 8      | **8.5** |
-| 2 schools strip      | 8      | 7         | 9    | 8           | 8      | 8     | 7      | 8      | 8    | 9      | **8.0** |
-| 3 how it works       | 9      | 9         | 9    | 8           | 9      | 9     | 8      | 8      | 9    | 8      | **8.6** |
-| 4 school by school   | 9      | 8         | 9    | 8           | 9      | 8     | 7      | 8      | 9    | 8      | **8.3** |
-| 5 essays, on paper   | 9      | 9         | 9    | 8           | 9      | 9     | 8      | 8      | 9    | 8      | **8.6** |
-| 6 the model          | 8      | 8         | 9    | 8           | 8      | 8     | 8      | 8      | 8    | 8      | **8.1** |
-| 7 Connect            | 8      | 7         | 9    | 8           | 8      | 8     | 7      | 8      | 8    | 8      | **7.9** |
-| 8 what it won't do   | 8      | 7         | 9    | 8           | 8      | 7     | 7      | 8      | 9    | 8      | **7.9** |
-| 9 interview, soon    | 8      | 8         | 8    | 8           | 9      | 8     | 8      | 8      | 9    | 8      | **8.2** |
-| 10 pricing           | 8      | 8         | 8    | 8           | 9      | 7     | 7      | 8      | 9    | 8      | **8.0** |
-| 11 questions         | 8      | 7         | 9    | 8           | 8      | 7     | 7      | 8      | 8    | 8      | **7.8** |
-| 12 final call        | 8      | 7         | 9    | 8           | 8      | 7     | 8      | 8      | 8    | 8      | **7.9** |
-| 13 footer            | 8      | 7         | 8    | 8           | 8      | 7     | 7      | 8      | 8    | 8      | **7.7** |
-| `/how-it-works`      | 8      | 8         | 9    | 8           | 9      | 9     | 8      | 8      | 9    | 8      | **8.4** |
-| `/pricing`           | 9      | 8         | 9    | 8           | 9      | 8     | 8      | 8      | 9    | 8      | **8.4** |
-| `/privacy`, `/terms` | 9      | 8         | 9    | 9           | 9      | 8     | 8      | 8      | 8    | 9      | **8.5** |
-| OG images            | 9      | 8         | 9    | 8           | 9      | 8     | n/a    | n/a    | 9    | 9      | **8.6** |
-| `/sign-in`           | 9      | 8         | 9    | 8           | 9      | 8     | 8      | 8      | 8    | 8      | **8.3** |
-| `/welcome`           | 8      | 7         | 9    | 8           | 9      | 7     | 8      | 8      | 8    | 8      | **8.0** |
-| `/first-run`         | 8      | 8         | 9    | 8           | 9      | 7     | 8      | 8      | 8    | 8      | **8.1** |
-| not-found, goodbye   | 8      | 7         | 9    | 8           | 8      | 7     | 7      | 8      | 8    | 8      | **7.8** |
-| The casing           | 9      | 7         | 9    | 9           | 9      | 8     | 8      | 8      | 8    | 8      | **8.3** |
-| Palette, menu, toast | 8      | 7         | 9    | 8           | 9      | 7     | 9      | 8      | 8    | 8      | **8.1** |
-| `/home`              | 8      | 8         | 9    | 8           | 9      | 8     | 8      | 8      | 8    | 8      | **8.2** |
-| `/studio`            | 9      | 9         | 9    | 8           | 9      | 9     | 8      | 8      | 8    | 8      | **8.5** |
-| Studio free-half gate | 9     | 8         | 9    | 8           | 9      | 8     | 8      | 8      | 9    | 8      | **8.4** |
+| Screen                | Glance | Signature | Type | Composition | Colour | Media | Motion | Mobile | Copy | Polish | Average |
+| --------------------- | ------ | --------- | ---- | ----------- | ------ | ----- | ------ | ------ | ---- | ------ | ------- |
+| `/prototype/system`   | 8      | 8         | 9    | 8           | 8      | 8     | 8      | 7      | 8    | 8      | **8.0** |
+| `/` hero and nav      | 9      | 9         | 9    | 8           | 9      | 9     | 8      | 8      | 8    | 8      | **8.5** |
+| `/` whole page        | 9      | 9         | 9    | 8           | 9      | 8     | 8      | 8      | 9    | 8      | **8.5** |
+| 2 schools strip       | 8      | 7         | 9    | 8           | 8      | 8     | 7      | 8      | 8    | 9      | **8.0** |
+| 3 how it works        | 9      | 9         | 9    | 8           | 9      | 9     | 8      | 8      | 9    | 8      | **8.6** |
+| 4 school by school    | 9      | 8         | 9    | 8           | 9      | 8     | 7      | 8      | 9    | 8      | **8.3** |
+| 5 essays, on paper    | 9      | 9         | 9    | 8           | 9      | 9     | 8      | 8      | 9    | 8      | **8.6** |
+| 6 the model           | 8      | 8         | 9    | 8           | 8      | 8     | 8      | 8      | 8    | 8      | **8.1** |
+| 7 Connect             | 8      | 7         | 9    | 8           | 8      | 8     | 7      | 8      | 8    | 8      | **7.9** |
+| 8 what it won't do    | 8      | 7         | 9    | 8           | 8      | 7     | 7      | 8      | 9    | 8      | **7.9** |
+| 9 interview, soon     | 8      | 8         | 8    | 8           | 9      | 8     | 8      | 8      | 9    | 8      | **8.2** |
+| 10 pricing            | 8      | 8         | 8    | 8           | 9      | 7     | 7      | 8      | 9    | 8      | **8.0** |
+| 11 questions          | 8      | 7         | 9    | 8           | 8      | 7     | 7      | 8      | 8    | 8      | **7.8** |
+| 12 final call         | 8      | 7         | 9    | 8           | 8      | 7     | 8      | 8      | 8    | 8      | **7.9** |
+| 13 footer             | 8      | 7         | 8    | 8           | 8      | 7     | 7      | 8      | 8    | 8      | **7.7** |
+| `/how-it-works`       | 8      | 8         | 9    | 8           | 9      | 9     | 8      | 8      | 9    | 8      | **8.4** |
+| `/pricing`            | 9      | 8         | 9    | 8           | 9      | 8     | 8      | 8      | 9    | 8      | **8.4** |
+| `/privacy`, `/terms`  | 9      | 8         | 9    | 9           | 9      | 8     | 8      | 8      | 8    | 9      | **8.5** |
+| OG images             | 9      | 8         | 9    | 8           | 9      | 8     | n/a    | n/a    | 9    | 9      | **8.6** |
+| `/sign-in`            | 9      | 8         | 9    | 8           | 9      | 8     | 8      | 8      | 8    | 8      | **8.3** |
+| `/welcome`            | 8      | 7         | 9    | 8           | 9      | 7     | 8      | 8      | 8    | 8      | **8.0** |
+| `/first-run`          | 8      | 8         | 9    | 8           | 9      | 7     | 8      | 8      | 8    | 8      | **8.1** |
+| not-found, goodbye    | 8      | 7         | 9    | 8           | 8      | 7     | 7      | 8      | 8    | 8      | **7.8** |
+| The casing            | 9      | 7         | 9    | 9           | 9      | 8     | 8      | 8      | 8    | 8      | **8.3** |
+| Palette, menu, toast  | 8      | 7         | 9    | 8           | 9      | 7     | 9      | 8      | 8    | 8      | **8.1** |
+| `/home`               | 8      | 8         | 9    | 8           | 9      | 8     | 8      | 8      | 8    | 8      | **8.2** |
+| `/studio`             | 9      | 9         | 9    | 8           | 9      | 9     | 8      | 8      | 8    | 8      | **8.5** |
+| Studio free-half gate | 9      | 8         | 9    | 8           | 9      | 8     | 8      | 8      | 9    | 8      | **8.4** |
+| `/schools`            | 8      | 8         | 9    | 8           | 9      | 8     | 8      | 8      | 8    | 7      | **8.1** |
+| School header, strip  | 9      | 7         | 9    | 9           | 9      | 8     | 8      | 8      | 8    | 8      | **8.3** |
+| Kit being prepared    | 8      | 8         | 9    | 8           | 8      | 8     | 8      | 7      | 8    | 8      | **8.0** |
+| Preview               | 8      | 7         | 9    | 8           | 9      | 8     | 8      | 8      | 9    | 8      | **8.2** |
+| Unlock                | 8      | 8         | 9    | 7           | 9      | 8     | 8      | 8      | 9    | 8      | **8.2** |
+| The editor            | 9      | 9         | 9    | 8           | 9      | 9     | 8      | 7      | 8    | 8      | **8.4** |
 
 First pass scored 7.4 (polish 6, composition 7, mobile 6: transcript lines ran under the frost
 caption, a tab was clipped at the panel edge, the Night-paper colour column was two-thirds empty,

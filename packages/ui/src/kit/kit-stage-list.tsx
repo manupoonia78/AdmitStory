@@ -35,10 +35,7 @@ export function KitStageList({ stages, onAction, className }: KitStageListProps)
           >
             <StatusIcon size={20} aria-hidden className={cx("self-center", tone)} />
             <span
-              className={cx(
-                "text-ui",
-                stage.status === "waiting" ? "text-text-soft" : "text-text",
-              )}
+              className={cx("text-ui", stage.status === "waiting" ? "text-text-soft" : "text-text")}
             >
               <span className="sr-only">{word}:</span> {stage.label}
             </span>

@@ -116,47 +116,47 @@ export function StrategyScreen({
       </div>
 
       <div className="mt-20 flex flex-col gap-12 border-t border-edge pt-12">
-      <section aria-labelledby="horizon-heading" className="flex flex-col">
-        <p className="label mb-3">Plan your rounds</p>
-        <h2 id="horizon-heading" className="text-display-3 text-text">
-          Your deadlines
-        </h2>
-        <p className="mt-3 mb-6 max-w-[60ch] text-sm text-text-soft">
-          {selected.length < 2 && rows.length > 1
-            ? "Pick two schools on the timeline to compare them side by side."
-            : "Deadlines in your time zone and honest flags. Choose a school's round on its preview page."}
-        </p>
-        {rows.length === 0 ? (
-          <div className="flex flex-col gap-3">
-            <span aria-hidden className="h-[1.25px] w-60 bg-edge-strong" />
-            <p className="text-sm text-text-soft">
-              No schools yet. Search for one to see its rounds and what it asks for.
-            </p>
-          </div>
-        ) : (
-          <div className="card p-5 sm:p-7">
-            <HorizonLanes value={horizon.length}>
-              <HorizonTimeline
-                schools={horizon}
-                now={now}
-                timeZone={timeZone}
-                selectedIds={selected}
-                onSelectionChange={setSelected}
-                comparison={
-                  <ComparisonTable
-                    caption="Your schools side by side"
-                    columns={visible.columns}
-                    groups={visible.groups}
-                  />
-                }
-              />
-            </HorizonLanes>
-          </div>
-        )}
-      </section>
+        <section aria-labelledby="horizon-heading" className="flex flex-col">
+          <p className="label mb-3">Plan your rounds</p>
+          <h2 id="horizon-heading" className="text-display-3 text-text">
+            Your deadlines
+          </h2>
+          <p className="mt-3 mb-6 max-w-[60ch] text-sm text-text-soft">
+            {selected.length < 2 && rows.length > 1
+              ? "Pick two schools on the timeline to compare them side by side."
+              : "Deadlines in your time zone and honest flags. Choose a school's round on its preview page."}
+          </p>
+          {rows.length === 0 ? (
+            <div className="flex flex-col gap-3">
+              <span aria-hidden className="h-[1.25px] w-60 bg-edge-strong" />
+              <p className="text-sm text-text-soft">
+                No schools yet. Search for one to see its rounds and what it asks for.
+              </p>
+            </div>
+          ) : (
+            <div className="card p-5 sm:p-7">
+              <HorizonLanes value={horizon.length}>
+                <HorizonTimeline
+                  schools={horizon}
+                  now={now}
+                  timeZone={timeZone}
+                  selectedIds={selected}
+                  onSelectionChange={setSelected}
+                  comparison={
+                    <ComparisonTable
+                      caption="Your schools side by side"
+                      columns={visible.columns}
+                      groups={visible.groups}
+                    />
+                  }
+                />
+              </HorizonLanes>
+            </div>
+          )}
+        </section>
 
-      {/* Rendered on the server and passed in, so their code never ships (spec §6.11). */}
-      {details}
+        {/* Rendered on the server and passed in, so their code never ships (spec §6.11). */}
+        {details}
       </div>
     </div>
   );

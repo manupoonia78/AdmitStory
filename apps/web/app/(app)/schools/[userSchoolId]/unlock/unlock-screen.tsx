@@ -270,7 +270,7 @@ export function UnlockScreen({
                     onClick={() => void checkout()}
                     disabled={busy || !available}
                     arrow
-                    className="max-sm:w-full"
+                    className="max-sm:w-full max-sm:justify-between max-sm:py-1.5 max-sm:text-left max-sm:whitespace-normal"
                   >
                     {payLabel}
                   </Button>
@@ -290,7 +290,9 @@ export function UnlockScreen({
           <div className="mt-8 flex flex-col">
             <p className="label mb-2">For each school</p>
             <ul className="flex flex-col text-ui font-normal text-text">
-              <li className="border-t border-edge py-3">Positioning and a file map for that school</li>
+              <li className="border-t border-edge py-3">
+                Positioning and a file map for that school
+              </li>
               <li className="border-t border-edge py-3">
                 Every essay, short answer and goals field, drafted in your words where you said them
               </li>
@@ -308,7 +310,10 @@ export function UnlockScreen({
           </div>
           <p className="mt-6 text-sm text-text-soft">
             Receipt to your email.{" "}
-            <Link href="/terms" className="underline decoration-edge-strong underline-offset-4 hover:decoration-text">
+            <Link
+              href="/terms"
+              className="underline decoration-edge-strong underline-offset-4 hover:decoration-text"
+            >
               All sales are final.
             </Link>
           </p>

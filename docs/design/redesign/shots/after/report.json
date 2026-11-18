@@ -3,7 +3,7 @@
   "out": "after",
   "theme": "day",
   "reduced": false,
-  "takenAt": "2026-11-18T05:43:38.295Z",
+  "takenAt": "2026-11-18T06:10:10.728Z",
   "routes": [
     {
       "name": "schools",
@@ -27,12 +27,8 @@
       "status": 200,
       "finalPath": "/schools/a5e8f815-a79b-418d-b81c-c2dac801b2ea/unlock",
       "overflow375": {
-        "px": 2,
-        "offenders": [
-          "span.truncate text-[13px] leading-[18px] font-medium text-text",
-          "span.truncate font-mono text-[11px] leading-4 text-text-soft",
-          "span.btn-arrow"
-        ]
+        "px": 0,
+        "offenders": []
       }
     },
     {
@@ -70,12 +66,8 @@
       "status": 200,
       "finalPath": "/schools/a5e8f815-a79b-418d-b81c-c2dac801b2ea/unlock",
       "overflow375": {
-        "px": 2,
-        "offenders": [
-          "span.truncate text-[13px] leading-[18px] font-medium text-text",
-          "span.truncate font-mono text-[11px] leading-4 text-text-soft",
-          "span.btn-arrow"
-        ]
+        "px": 0,
+        "offenders": []
       }
     },
     {

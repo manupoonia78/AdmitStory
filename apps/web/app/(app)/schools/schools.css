@@ -8,10 +8,14 @@
 .school-card {
   display: flex;
   width: 100%;
-  min-height: 272px;
   flex-direction: column;
   padding: 24px;
   color: var(--text);
+}
+@media (min-width: 40rem) {
+  .school-card {
+    min-height: 272px;
+  }
 }
 @media (min-width: 64rem) {
   .school-card {
@@ -61,11 +65,7 @@ a.school-card:active {
 }
 .school-line[data-soon] .school-line-track {
   height: 1px;
-  background: repeating-linear-gradient(
-    to right,
-    var(--edge-strong) 0 3px,
-    transparent 3px 7px
-  );
+  background: repeating-linear-gradient(to right, var(--edge-strong) 0 3px, transparent 3px 7px);
 }
 .school-line-run {
   width: calc(var(--done) * 100%);

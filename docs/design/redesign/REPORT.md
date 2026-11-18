@@ -619,18 +619,18 @@ Studio 8.5, the gate 8.4. Nothing under 7.
 
 **First pass and fixes** (each re-shot):
 
-| Found                                                                                            | Fixed                                                                                  |
-| ------------------------------------------------------------------------------------------------ | -------------------------------------------------------------------------------------- |
-| The sidebar list's corners were clipped on a diagonal ("ʀKSPACE", a cut pill)                    | the dock's pill radius was carried into the scrolling list; reset to 0 from 1024 px    |
-| The palette and account menu were light and unreadable over the Day desk                        | `.casing-overlay`: the dark wash at 92 % with the blur, for all three overlays         |
-| The palette's input row had a hard square white outline                                          | a hairline that brightens on focus                                                      |
-| The Studio's chapter tabs ran under Speak / Write on phones; the open chapter was out of view   | a fade at the row's end and the open tab scrolled into view                             |
-| "Tap to talk, or hold Space" wrapped inside a 195 px box                                         | the button's well takes its content's width                                             |
-| A white ring doubled every pressed toggle in the Studio                                          | the base layer's pressed ring is turned off where the pill or the dot shows the state  |
-| The gate in Day showed the desk under the Night room                                             | the rail bay paints Night itself                                                        |
-| Home showed "No date yet" for schools with a deadline                                            | the deadline comes from the pack's rounds, like the school cards                        |
-| Home's moment was invisible on stage 1; the next step broke over three lines                     | the line draws before the brass; the title measure is 30ch                              |
-| The bigger peak ran into the first stage's title on phones                                       | 16 × 22 px on phones, 20 × 28 px from 640 px                                            |
+| Found                                                                                         | Fixed                                                                                 |
+| --------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------- |
+| The sidebar list's corners were clipped on a diagonal ("ʀKSPACE", a cut pill)                 | the dock's pill radius was carried into the scrolling list; reset to 0 from 1024 px   |
+| The palette and account menu were light and unreadable over the Day desk                      | `.casing-overlay`: the dark wash at 92 % with the blur, for all three overlays        |
+| The palette's input row had a hard square white outline                                       | a hairline that brightens on focus                                                    |
+| The Studio's chapter tabs ran under Speak / Write on phones; the open chapter was out of view | a fade at the row's end and the open tab scrolled into view                           |
+| "Tap to talk, or hold Space" wrapped inside a 195 px box                                      | the button's well takes its content's width                                           |
+| A white ring doubled every pressed toggle in the Studio                                       | the base layer's pressed ring is turned off where the pill or the dot shows the state |
+| The gate in Day showed the desk under the Night room                                          | the rail bay paints Night itself                                                      |
+| Home showed "No date yet" for schools with a deadline                                         | the deadline comes from the pack's rounds, like the school cards                      |
+| Home's moment was invisible on stage 1; the next step broke over three lines                  | the line draws before the brass; the title measure is 30ch                            |
+| The bigger peak ran into the first stage's title on phones                                    | 16 × 22 px on phones, 20 × 28 px from 640 px                                          |
 
 **Measured** (production build, local): `/studio` 157.9 KB of 160, `/home` 146.1; the line 0.18 ms
 of script a frame (0.59 at 4× CPU), nothing at rest; axe 0 violations on `/home`, `/studio` and
@@ -644,3 +644,103 @@ typecheck, lint, build, `bundle:check`, format check; unit tests 2,442 of 2,442.
 - Toasts: restyled (dark, bottom centre, rising 12 px), but nothing raises one on these screens
   locally, so no shot.
 - The session summary was restyled but not shot (it needs a finished session).
+
+## Phase 6: Schools and the editor (2026-11-18) · done
+
+Spec first (SPEC §6.5–§6.9 at full values), then built, shot in Day and Night at 1440, 390 and
+375, scored, fixed and re-shot. Emil Kowalski's skills (`emil-design-eng`, `animate`,
+`choreograph`, `mobile-native`) were loaded and followed: the sweep and the deal play only on a
+pointer, never on a key; the card lines stagger with shrinking gaps; hover is gated; presses
+scale; phone targets are 44 px.
+
+**Schools.** Each school is a card that carries the Voiceline as a **deadline line**: today at the
+left, the cycle's last round at the right, a tick for each round still ahead and the brass peak
+at the next deadline, with "R2 · 6 Jan 2027" and "in 49 days" under it in mono. Paid schools open
+whole; locked ones have one Unlock button with "Free preview · $100 alone, less in a pack" under
+it; schools whose pack isn't verified are flat and dashed. The moment draws each line and raises
+its peak once per visit. Add a school and the planning section sit below without boxes.
+
+- `shots/after/schools-1440.jpg`, `schools-1440-night.jpg`, `schools-390-full.jpg`
+
+**Inside a school.** One header everywhere inside a school (back to Schools, the name in
+`display-3`, the cycle) and the text tabs on a hairline with a count of what needs you. Under
+them the **file strip**: the tab's documents as chips with a status dot and the word count
+(J / K still move between them). It replaces the left Files pane, so the sheet gets its width.
+
+**The editor.** `/workspace` now takes the 64 px rail, and its desk follows Day / Night. The draft
+is a sheet of paper that the page scrolls like paper: the deliverable in a mono label, the count
+against the limit top right, the prompt in Source Serif italic, the story it's built on as a brass
+margin note, a quiet authorship note, then the text at 19 px. From 1440 px a **margin** carries
+the reasoning level with the paragraphs ("¶1–3 answers "A time you took responsibility…""). A
+frosted **toolbar** floats at the foot of the window (Your words, Chat, Options, Export with
+Mark final). Under the sheet the **version timeline**: a hairline, a tick per version, the peak on
+the one chosen. The panel (Chat · Why this · Options · Checks · Verify) is a card that stays
+beside the sheet. Your own words are drawn two ways now (solid underline: said word for word;
+dotted: lightly adapted) and **sweep in paragraph by paragraph** when the switch is turned on by
+pointer.
+
+- `shots/after/workspace-sample-1440.jpg`, `workspace-sample-1440-night.jpg`,
+  `workspace-sample-390-full.jpg` (the real editor on sample data)
+- `shots/after/workspace-1440.jpg` (the real route locally: "not drafted yet", the kit stops
+  partway without AI)
+
+**The kit being prepared.** Three numbered steps on hairlines. The assembly has **no Voiceprint
+orb**: the applicant's Voiceprint is a short still line (drawn from their pitch, range and pace)
+heading a spine of stories; threads in their hue run from each chosen story to its essay, and a
+short bright segment travels the thread only while that essay is drafting.
+
+- `shots/after/kit-sample-1440-full.jpg`, `kit-sample-390-full.jpg`, `school-unlocked-1440.jpg`
+  (the real kit, stopped partway)
+
+**Preview.** The free showcase keeps every part, set in the system: the setup card with chips, the
+school's own words in the reading serif, the worked example (the story they came with, dashed;
+the story we built, on paper; labelled illustrative), what's in the pack as locked rows, pointers,
+and one final call. With a preview built, **connectors draw** from each deliverable to the story
+it uses. Brass was removed from numbers, arrows and borders.
+
+- `shots/after/school-preview-1440-full.jpg`, `school-preview-sample-1440-full.jpg`
+
+**Unlock.** Quiet: the head, the opening of their essay on a sheet (when the preview drafted one),
+the setup card, the pitch ("Other services charge about $349 for guidelines." in the serif
+accent, then ours), and **three plan boxes on one baseline** where only the chosen box is filled
+(5 schools, "Most chosen", preselected). Then the **total row**: today's price, the pack as small
+sheets of paper, and the one primary button. Choosing a plan with the pointer **deals that many
+sheets in**. "Receipt to your email. All sales are final." closes the page. The checkout flow,
+polling, `?paid=1` and credits are untouched; the test checkout opens from the button.
+
+- `shots/after/school-unlock-1440-full.jpg`, `school-unlock-1440-night.jpg`,
+  `school-unlock-390-full.jpg`
+
+**Scores** (harsh, from the shots): Schools 8.1, school header and strip 8.3, the kit 8.0,
+preview 8.2, unlock 8.2, the editor 8.4. Nothing under 7.
+
+**First pass and fixes** (each re-shot):
+
+| Found                                                                                            | Fixed                                                                                   |
+| ------------------------------------------------------------------------------------------------ | --------------------------------------------------------------------------------------- |
+| Mono labels (the editor's count, plan lines, step numbers, horizon rounds) rendered at body size | `text-xs` isn't in this theme's scale; every use is now `text-[12px]`                   |
+| The card's date, essay count and days left wrapped onto two lines                                | the essay count moved under the name; the line keeps the date and the days              |
+| The locked card's two links broke over two rows; lines sat at different heights across a row     | one button, the preview link in the price line; feet with a 76 px minimum from 640 px   |
+| The panel's last tab ("Verify") was clipped                                                      | the base `gap-7` won over `gap-4`; forced to 16 px                                      |
+| The first margin note was a dense paragraph                                                      | the story moved to the sheet head; the margin carries the prompt parts only             |
+| The editor scrolled 291 px sideways on a phone                                                   | the version peak's moving box was unclipped at the last version; it rides a clipped box |
+| Threads from the top of the spine crossed into a tangle                                          | threads start at the story; the spine joins the line to the stories                     |
+| The kit's stage list squeezed "Read it now" into three lines                                     | step 3 takes the full width                                                             |
+| The preview's empty status regions left a 120 px gap under the head                              | they live in the head now                                                               |
+| Unlock's pay button pushed 2 px off a 375 px phone                                               | its label wraps on phones                                                               |
+| The paragraph lock was under 24 px on phones (axe)                                               | 44 px                                                                                   |
+| Pack sheets read as empty checkboxes                                                             | paper with three drawn lines and a contact shadow                                       |
+
+**Measured** (production build, local): unlock 156.7 KB of 160, preview 155.3, the editor 148.1,
+schools 147.9; axe 0 violations on every Phase 6 route in Day and Night at both sizes; no
+overflow at 375; no console errors on the real routes. Gates: typecheck, lint, build,
+`bundle:check`, format check; unit tests 2,445 of 2,445.
+
+**Not done or not seen:**
+
+- The real Dodo overlay (needs live keys); the local test checkout was opened instead.
+- A populated editor, kit and preview on the real routes: locally the kit stops partway without
+  AI, so they were seen on the gated sample routes, which render the real screens.
+- The Recommenders and Résumé tabs inside a school: in the new frame, but their documents are
+  Phase 7's, and locally they redirect to the kit page.
+- The motion was judged from timed frames and computed styles, not watched at speed by a person.

@@ -66,10 +66,7 @@ export function FileStrip({
   if (files.length === 0) return null;
   return (
     <nav aria-label={label} className={cx("min-w-0", className)} data-no-swipe>
-      <ul
-        ref={row}
-        className="-mx-1 flex gap-2 overflow-x-auto px-1 py-1 [scrollbar-width:none]"
-      >
+      <ul ref={row} className="-mx-1 flex gap-2 overflow-x-auto px-1 py-1 [scrollbar-width:none]">
         {files.map((file) => {
           const current = file.key === selectedKey;
           const over = file.progress ? overLimit(file.progress.count, file.progress.limit) : 0;
@@ -88,9 +85,7 @@ export function FileStrip({
                 }}
                 className={cx(
                   "chip h-9 gap-2 pr-3.5 pl-4 transition-[background-color,color] duration-(--dur-hover) ease-rise",
-                  current
-                    ? "border-text bg-text text-space"
-                    : "text-text hover:bg-frost-hover",
+                  current ? "border-text bg-text text-space" : "text-text hover:bg-frost-hover",
                 )}
               >
                 <span className="max-w-[16rem] truncate">{file.title}</span>

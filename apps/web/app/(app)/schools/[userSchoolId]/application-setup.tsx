@@ -129,10 +129,7 @@ export function ApplicationSetup({ setup }: { setup: SchoolSetup }) {
   if (outcome && !outcomes.includes(outcome)) outcomes.unshift(outcome);
 
   return (
-    <section
-      aria-labelledby="setup-heading"
-      className="card flex flex-col gap-6 p-6 sm:p-8"
-    >
+    <section aria-labelledby="setup-heading" className="card flex flex-col gap-6 p-6 sm:p-8">
       <div className="flex flex-col gap-2">
         <p className="label">Your application</p>
         <h2 id="setup-heading" className="text-title text-text">

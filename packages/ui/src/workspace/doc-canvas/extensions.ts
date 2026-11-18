@@ -224,7 +224,7 @@ export const ParagraphNode = Node.create<{ handlers: () => CanvasHandlers | null
       lock.className =
         "absolute -left-12 top-0 hidden size-11 items-center justify-center rounded-control font-ui text-text-soft " +
         "hover:bg-veil hover:text-text focus-visible:flex group-hover/paragraph:flex group-focus-within/paragraph:flex " +
-        "data-[locked=true]:flex data-[locked=true]:text-text max-sm:static max-sm:mt-1 max-sm:flex max-sm:h-auto max-sm:w-auto max-sm:justify-start max-sm:gap-1 max-sm:px-0";
+        "data-[locked=true]:flex data-[locked=true]:text-text max-sm:static max-sm:-mb-2 max-sm:flex max-sm:h-11 max-sm:w-auto max-sm:justify-start max-sm:gap-1 max-sm:px-0";
       const word = document.createElement("span");
       word.className = "text-sm max-sm:not-sr-only sr-only";
 

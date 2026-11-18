@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { NEEDS, PARAGRAPHS, PROMPT, SOURCES } from "@/app/prototype/workspace/essay";
 import { prototypesEnabled } from "@/app/prototype/_shared/enabled";
+import { requireOnboardedUser } from "@/lib/app-user";
 import type { WorkspaceView } from "@/lib/workspace/view";
 import { WorkspaceHost } from "../[deliverableId]/workspace-host";
 import "../[deliverableId]/workspace.css";
@@ -136,7 +137,10 @@ const VIEW: WorkspaceView = {
     whatItProves: "You act before you're asked, and you write down what you learn.",
     shows: ["Ownership", "Calm under pressure"],
     promptParts: [
-      { part: "A time you took responsibility for something not yours to fix", paragraphs: [1, 2, 3] },
+      {
+        part: "A time you took responsibility for something not yours to fix",
+        paragraphs: [1, 2, 3],
+      },
       { part: "What changed because of you", paragraphs: [4] },
     ],
     schoolFit: [],
@@ -145,7 +149,8 @@ const VIEW: WorkspaceView = {
   policy: { stance: "unknown", url: null, verifiedAt: null, disclosure: null },
 };
 
-export default function SampleWorkspacePage() {
+export default async function SampleWorkspacePage() {
   if (!prototypesEnabled()) notFound();
+  await requireOnboardedUser();
   return <WorkspaceHost initial={VIEW} />;
 }

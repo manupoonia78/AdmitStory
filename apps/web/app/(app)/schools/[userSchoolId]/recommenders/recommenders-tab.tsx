@@ -57,9 +57,7 @@ export function RecommendersTab({
   const document = !selected ? (
     <div className="card mx-auto flex w-full max-w-[44rem] flex-col gap-4 px-6 py-10 sm:px-10">
       <span aria-hidden className="h-[1.25px] w-40 bg-edge-strong" />
-      <h2 className="text-title text-text">
-        No one is writing for {view.tabs.school} yet
-      </h2>
+      <h2 className="text-title text-text">No one is writing for {view.tabs.school} yet</h2>
       <p className="text-text-soft">
         Add the people who will recommend you and tell us what they saw you do. We turn that into a
         brief for each of them: what to cover for {view.tabs.school}, with the stories to tell.

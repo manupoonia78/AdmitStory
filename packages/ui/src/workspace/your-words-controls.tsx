@@ -71,13 +71,17 @@ export interface YourWordsLegendProps {
 /** The small legend beside the switch: what lit and plain mean, and how to see a source. */
 export function YourWordsLegend({ className }: YourWordsLegendProps) {
   return (
-    <div className={cx("flex flex-col gap-1 text-sm text-text-soft", className)}>
+    <div className={cx("flex flex-col gap-1.5 text-sm text-text-soft", className)}>
       <p>
-        <span className="bg-voice-glow px-1 text-text shadow-[0_0_0.6em_var(--voice-glow)] box-decoration-clone forced-colors:underline forced-colors:decoration-dotted">
-          Lit sentences
+        Lit sentences are your own words:{" "}
+        <span className="box-decoration-clone bg-voice-glow px-0.5 text-text underline decoration-voice decoration-[1.25px] underline-offset-[0.22em]">
+          said word for word
         </span>{" "}
-        are your own words, as you said them or lightly adapted. Plain sentences were written for
-        you from your facts.
+        or{" "}
+        <span className="box-decoration-clone bg-[color-mix(in_srgb,var(--voice-glow)_60%,transparent)] px-0.5 text-text underline decoration-voice decoration-dotted decoration-[1.25px] underline-offset-[0.22em]">
+          lightly adapted
+        </span>
+        . Plain sentences were written for you from your facts.
       </p>
       <p>Point at, tap or tab to a lit sentence to see the moment you said it.</p>
     </div>

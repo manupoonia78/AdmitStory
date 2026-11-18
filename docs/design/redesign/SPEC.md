@@ -1506,7 +1506,7 @@ padding as §6.1's page header (24 / 40 / 56 px top; 20 / 40 / 56 px sides). Sec
 | Add a school       | 64 px under the grid, no card. `label` "Add a school"; 12 px; the search field (§2.9 text field, 48 px, max 560 px) with a 18 px magnifier inset 16 px; results as rows on `--edge` hairlines, 56 px, the name in `ui` 500 and the cycle in `label`, "Add" as a secondary `sm` pill at the right                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                |
 | Plan your rounds   | 80 px under, above a `--edge` hairline with 48 px over it: `label` "Plan your rounds"; 12 px; `h2` `display-3` "Your deadlines"; 12 px; the existing line in `ui-sm` `--text-soft`; 24 px; the horizon in a `card` (padding 20 / 28 px). Then "Honest flags" and "Round planner", each `h2` `title` (18 / 20 px, 500) with 16 px under, 48 px apart. Their contents keep their components; their placeholders become §6.2's empty state (a flat line and one sentence)                                                                                                                                                                                                                                                                                                                                                                                                                                          |
 | Empty (no schools) | Head, then the flat line (1.25 px `--edge-strong`, 240 px) and "No schools on your list yet." in `title`, and the search field focused, as today                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                |
-| **The moment**     | Once per visit, after the head: each card's line draws (`scaleX` 0 → 1 from the left, 600 ms, `--ease-line`), then its peak rises out of the line (`clip-path: inset(100% 0 0 0)` → `inset(0)`, 400 ms `--ease-rise`, 500 ms after its line). Cards start at 0, 70, 120, 160, 190 and 210 ms (the gaps shrink), the seventh and later with the sixth. The page head enters first (the line moment begins 250 ms after load). CSS keyframes under `[data-motion="on"]`, so reduced motion and no JS show the lines drawn. 0 KB JS                                                                                                                                                                                                                                                                                                                                                                                                                                                                  |
+| **The moment**     | Once per visit, after the head: each card's line draws (`scaleX` 0 → 1 from the left, 600 ms, `--ease-line`), then its peak rises out of the line (`clip-path: inset(100% 0 0 0)` → `inset(0)`, 400 ms `--ease-rise`, 500 ms after its line). Cards start at 0, 70, 120, 160, 190 and 210 ms (the gaps shrink), the seventh and later with the sixth. The page head enters first (the line moment begins 250 ms after load). CSS keyframes under `[data-motion="on"]`, so reduced motion and no JS show the lines drawn. 0 KB JS                                                                                                                                                                                                                                                                                                                                                                                |
 
 Mobile (under `sm`): one column of cards at 20 px gutters, the name 22 px, the foot's buttons
 side by side (both 44 px). The horizon keeps its own phone layout.
@@ -1654,6 +1654,38 @@ panel on the right.
 the sentence in `title` and the message in `body` `--text-soft`.
 
 Shortcuts kept: `Y`, `J`, `K`, ⌘K, the scrubber's arrows, the split's arrows, Enter to send.
+
+**As built in Phase 6 (2026-11-18), where it differs from §6.5–§6.9 above:**
+
+- **The margin** (§6.9) appears from **1440 px**, not 1280: at 1280 the desk is 788 px wide and a
+  168 px margin would squeeze the text to 476 px. Its notes are the prompt parts only ("¶1–3
+  answers "…""); the story the draft is built on moved to the sheet's head, under the prompt, as
+  a `note` in `--accent` ("From your story: The night-shift fix").
+- **The toolbar** holds Your words, Chat, Options (only when the draft has options) and Export.
+  Mark final stays where it was, inside the Export menu (`ExportMenu compact`), so the pill keeps
+  four controls. The menu opens upwards from the toolbar.
+- **The sweep** (§6.9's moment) goes **paragraph by paragraph** (starts 0, 60, 110, 150, 180 ms,
+  the gaps shrinking), each highlight growing from the left; sentence-level delays would mean
+  writing styles into the editor's own DOM, which ProseMirror owns. Turning the view off is
+  instant, like a `Y` toggle. The legend now shows both marks ("said word for word" solid,
+  "lightly adapted" dotted). The switch's on state is `--text`, never `--voice`.
+- **The pack in the total row** (§6.8): sheets are 26 × 34 px (20 × 26 px for 10) with three
+  drawn lines of text, overlapping 10 px (8 px); sheets that leave go at once.
+- **The plans' per-school line** is two lines ("$69.80 a school" / "Save $151"), so the three
+  prices stay on one baseline. On phones the boxes lose their min-height and badge spacer.
+- **Threads** (§6.6) start at the story, not at the top of the spine: from the spine they crossed
+  near the Voiceprint line and read as a tangle. The spine itself joins the line to every story.
+  Step 3 ("Your drafts") takes the full width under its title, so the stage list has room.
+- **The school cards' feet** keep a 76 px minimum from `sm`, so the deadline lines of a row sit
+  on one height; on phones the cards drop the 272 px minimum.
+- **`text-xs` is not in this theme's scale** (the scale is reset to the tokens), so it rendered at
+  body size. Every Phase 6 use is now `text-[12px]`, and the horizon's round labels and the
+  citation label, which had the same fault, were fixed with it.
+- **Populated screens are seen through hidden sample routes inside the casing**, not a
+  `/prototype/redesign` gallery (§12): `/workspace/sample` (the real editor), `/schools/sample`
+  (the kit being prepared) and `/schools/sample/preview` (a built preview), on a fictional
+  applicant at Northfield. They 404 unless prototypes are on, pass the same welcome gate as every
+  app page, and their API calls fail quietly (a 400 from the chat, a 404 from the kit's stream).
 
 ---
 

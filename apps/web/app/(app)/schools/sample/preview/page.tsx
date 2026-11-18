@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { prototypesEnabled } from "@/app/prototype/_shared/enabled";
+import { requireOnboardedUser } from "@/lib/app-user";
 import { PreviewScreen } from "../../[userSchoolId]/preview/preview-screen";
 
 export const metadata: Metadata = { title: "Free preview (sample)" };
@@ -9,8 +10,9 @@ export const metadata: Metadata = { title: "Free preview (sample)" };
 // (a hospital systems analyst) at the fictional Northfield, so the populated preview can be seen
 // without an AI key. Off unless prototypes are on; nothing here reaches the database.
 
-export default function SamplePreviewPage() {
+export default async function SamplePreviewPage() {
   if (!prototypesEnabled()) notFound();
+  await requireOnboardedUser();
   return (
     <PreviewScreen
       userSchoolId="sample"

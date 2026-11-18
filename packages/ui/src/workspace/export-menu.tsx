@@ -132,7 +132,10 @@ export function ExportMenu({
         </DropdownMenu.Portal>
       </DropdownMenu.Root>
       {compact ? null : (
-        <p aria-live="polite" className="min-h-[1lh] max-w-[40ch] text-right text-sm text-text-soft">
+        <p
+          aria-live="polite"
+          className="min-h-[1lh] max-w-[40ch] text-right text-sm text-text-soft"
+        >
           {status}
         </p>
       )}

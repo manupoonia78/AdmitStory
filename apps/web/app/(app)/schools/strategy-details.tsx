@@ -34,10 +34,7 @@ export function StrategyDetails({
   return (
     <>
       <section aria-labelledby="flags-heading" className="flex flex-col gap-4">
-        <h2
-          id="flags-heading"
-          className="text-title text-text"
-        >
+        <h2 id="flags-heading" className="text-title text-text">
           Honest flags
         </h2>
         {flags.length > 0 ? (
@@ -52,16 +49,15 @@ export function StrategyDetails({
       </section>
 
       <section aria-labelledby="planner-heading" className="flex flex-col gap-4">
-        <h2
-          id="planner-heading"
-          className="text-title text-text"
-        >
+        <h2 id="planner-heading" className="text-title text-text">
           Round planner
         </h2>
         {planner.length > 0 ? (
           <RoundPlanner items={planner} now={now} timeZone={timeZone} />
         ) : (
-          <EmptyLine>The planner fills in once a school on your list has published rounds.</EmptyLine>
+          <EmptyLine>
+            The planner fills in once a school on your list has published rounds.
+          </EmptyLine>
         )}
       </section>
     </>

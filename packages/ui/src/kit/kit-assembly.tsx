@@ -64,15 +64,10 @@ function anchor(element: Element, box: DOMRect, at: "center" | "left" | "right")
 
 function measure(container: HTMLElement): ThreadAnchors | null {
   const box = container.getBoundingClientRect();
-  const origin = container.querySelector("[data-thread-origin]");
-  if (!origin) return null;
-  const rect = origin.getBoundingClientRect();
+  if (!container.querySelector("[data-thread-origin]")) return null;
   const anchors: ThreadAnchors = {
-    // Just inside the Voiceprint's right edge, where its light is still bright.
-    origin: {
-      x: rect.right - rect.width * 0.18 - box.left,
-      y: rect.top + rect.height / 2 - box.top,
-    },
+    // The spine already joins the Voiceprint line to every story, so threads start at the story.
+    origin: null,
     stories: {},
     ports: {},
   };

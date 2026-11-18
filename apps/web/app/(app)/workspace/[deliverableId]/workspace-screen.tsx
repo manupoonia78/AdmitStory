@@ -351,24 +351,24 @@ export function WorkspaceScreen({ initial }: { initial: WorkspaceView }) {
         {yourWords ? <YourWordsLegend className="mt-5 max-w-[38rem]" /> : null}
         <div className="mt-5 max-w-[38rem] empty:hidden">
           <AuthorshipBanner
-          mode={deliverable.mode}
-          stance={(view.policy?.stance ?? "unknown") as AiPolicyStance}
-          school={view.school}
-          policy={
-            view.policy?.url && view.policy.verifiedAt
-              ? { url: view.policy.url, verifiedAt: view.policy.verifiedAt }
-              : null
-          }
-          disclosure={
-            view.policy?.stance === "permitted_with_disclosure"
-              ? { text: view.policy.disclosure ?? "", onChange: () => {} }
-              : null
-          }
-          onChooseMode={(mode) =>
-            void send(`/api/deliverables/${deliverable.id}`, "PATCH", {
-              authorshipMode: mode,
-            }).then(reload)
-          }
+            mode={deliverable.mode}
+            stance={(view.policy?.stance ?? "unknown") as AiPolicyStance}
+            school={view.school}
+            policy={
+              view.policy?.url && view.policy.verifiedAt
+                ? { url: view.policy.url, verifiedAt: view.policy.verifiedAt }
+                : null
+            }
+            disclosure={
+              view.policy?.stance === "permitted_with_disclosure"
+                ? { text: view.policy.disclosure ?? "", onChange: () => {} }
+                : null
+            }
+            onChooseMode={(mode) =>
+              void send(`/api/deliverables/${deliverable.id}`, "PATCH", {
+                authorshipMode: mode,
+              }).then(reload)
+            }
           />
         </div>
         <span aria-hidden className="mt-8 h-px w-full bg-edge" />
@@ -542,42 +542,43 @@ export function WorkspaceScreen({ initial }: { initial: WorkspaceView }) {
   );
 
   /** The floating toolbar (SPEC §6.9): your words, the chat, the options, export and final. */
-  const toolbar = draft && draft.paragraphs.length > 0 ? (
-    <div className="pointer-events-none sticky bottom-[calc(80px+env(safe-area-inset-bottom,0px))] z-20 mt-10 flex justify-center lg:bottom-[calc(24px+env(safe-area-inset-bottom,0px))]">
-      <div
-        role="toolbar"
-        aria-label="Draft tools"
-        className="ws-toolbar frost pointer-events-auto flex items-center gap-0.5 rounded-full p-1.5 shadow-overlay"
-      >
-        {prose ? <YourWordsToggle on={yourWords} onChange={toggleYourWords} /> : null}
-        {prose ? <span aria-hidden className="mx-1 h-5 w-px bg-edge" /> : null}
-        <button type="button" className="ws-tool" onClick={() => openPanel("chat")}>
-          <ChatCircleTextIcon size={18} aria-hidden />
-          <span className="max-sm:sr-only">Chat</span>
-        </button>
-        {view.options.length > 0 ? (
-          <button type="button" className="ws-tool" onClick={() => openPanel("options")}>
-            <SlidersHorizontalIcon size={18} aria-hidden />
-            <span className="max-sm:sr-only">Options</span>
+  const toolbar =
+    draft && draft.paragraphs.length > 0 ? (
+      <div className="pointer-events-none sticky bottom-[calc(80px+env(safe-area-inset-bottom,0px))] z-20 mt-10 flex justify-center lg:bottom-[calc(24px+env(safe-area-inset-bottom,0px))]">
+        <div
+          role="toolbar"
+          aria-label="Draft tools"
+          className="ws-toolbar frost pointer-events-auto flex items-center gap-0.5 rounded-full p-1.5 shadow-overlay"
+        >
+          {prose ? <YourWordsToggle on={yourWords} onChange={toggleYourWords} /> : null}
+          {prose ? <span aria-hidden className="mx-1 h-5 w-px bg-edge" /> : null}
+          <button type="button" className="ws-tool" onClick={() => openPanel("chat")}>
+            <ChatCircleTextIcon size={18} aria-hidden />
+            <span className="max-sm:sr-only">Chat</span>
           </button>
-        ) : null}
-        {deliverable.rule ? (
-          <ExportMenu
-            compact
-            text={draft.text}
-            rule={deliverable.rule}
-            onExport={(format) => void exportAs(format)}
-            onMarkFinal={() => void markFinal()}
-            final={draft.isFinal}
-            onCopied={({ count }) =>
-              setStatus(`Copied: ${count} counted the way ${view.school} counts.`)
-            }
-            onError={setError}
-          />
-        ) : null}
+          {view.options.length > 0 ? (
+            <button type="button" className="ws-tool" onClick={() => openPanel("options")}>
+              <SlidersHorizontalIcon size={18} aria-hidden />
+              <span className="max-sm:sr-only">Options</span>
+            </button>
+          ) : null}
+          {deliverable.rule ? (
+            <ExportMenu
+              compact
+              text={draft.text}
+              rule={deliverable.rule}
+              onExport={(format) => void exportAs(format)}
+              onMarkFinal={() => void markFinal()}
+              final={draft.isFinal}
+              onCopied={({ count }) =>
+                setStatus(`Copied: ${count} counted the way ${view.school} counts.`)
+              }
+              onError={setError}
+            />
+          ) : null}
+        </div>
       </div>
-    </div>
-  ) : null;
+    ) : null;
 
   const coach = (
     <CoachSheet
