@@ -290,6 +290,11 @@ Emil Kowalski's project skills: `emil-design-eng`, `mobile-native` and `animate`
 applied (the palette has no animation; hover is gated; presses scale; the line is a canvas that
 runs only while someone speaks; `viewport-fit=cover` so safe areas apply).
 
+**From Manu, 2026-11-18 (naming Phase 6):** "Read the brief and PROGRESS, then do Phase 6. Use
+the new claude skill." No feedback on Phase 5's screens, so the casing, Home and the Studio stand
+as built. "The new claude skill" read as before: Emil Kowalski's project skills
+(`emil-design-eng`, `animate`, `choreograph`, `mobile-native`) loaded at the start and followed.
+
 Made in Phase 5 by Claude while building, **not yet approved by Manu**:
 
 | Date       | Decision                                                                                                                                       | Why                                                                                                   | Spec       |
