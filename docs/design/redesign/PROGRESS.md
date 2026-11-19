@@ -14,7 +14,7 @@ committed there); the session of 2026-11-17 moved the uncommitted work back to
 
 ## Next step
 
-**Phase 6 is done (2026-11-18). Do not start Phase 7 until Manu names it.** If his message has
+**Phase 7 is in progress (named 2026-11-19).** Continue the checklist below in order; the spec is written.
 feedback on Schools, the school's tabs, the kit, preview, unlock or the editor, write it into
 "Decisions" (with the date), change SPEC §6.5–§6.9 to match, and fix that first.
 
@@ -42,7 +42,7 @@ When Phase 7 is named, start here:
 | 4. Other marketing + entry | `/how-it-works`, `/pricing`, `/privacy`, `/terms`, OG, titles, `/sign-in`, `/welcome`, `/first-run`                        | **done** (2026-11-17)          |
 | 5. Shell, home, Studio     | casing, sidebar, top bar, dock, palette, account menu, toasts, `/home`, `/studio`                                          | **done** (2026-11-17)          |
 | 6. Schools and the editor  | `/schools`, workspace and tabs, preview, unlock, `/workspace/[id]`, `/kits/[id]`                                           | **done** (2026-11-18)          |
-| 7. The rest of the app     | dossier, profile read, recommenders, portal, résumé, connect, settings, interview, tracker, all states                     | not started                    |
+| 7. The rest of the app     | dossier, profile read, recommenders, portal, résumé, connect, settings, interview, tracker, all states                     | **in progress** (2026-11-19)   |
 | 8. Final pass              | consistency sweep, axe, Lighthouse, overflow, console, reduced motion, admin, REPORT.md                                    | not started                    |
 
 ## Phase 0 checklist
@@ -227,6 +227,28 @@ kept all of it, fixed five things found in the screenshots, measured and committ
 - [x] Gates: typecheck, lint, build, `bundle:check`, format check; unit tests 2,445 of 2,445
 - [x] SPEC updated where the build differs; REPORT.md; committed
 
+## Phase 7 checklist
+
+Started 2026-11-19.
+
+- [x] SPEC §6.10 (shared states), §6.11 Dossier, §6.12 Profile Read, §6.13 Recommenders, §6.14
+      portal, §6.15 Résumé, §6.16 Connect, §6.17 Settings, §6.18 Interview and Tracker at full
+      values; §6.2's rows point at them
+- [ ] Shared states: `EmptyState` (the line), `(app)/loading.tsx`, `(app)/error.tsx`, root error
+- [ ] Settings, privacy, security
+- [ ] Interview still, Tracker / `ComingSoonPage`
+- [ ] Recommender portal (paper always, `/r` theme colour), `/r`, closed, submitted
+- [ ] Recommenders list and detail
+- [ ] Profile Read on paper (lens table, lead, citation marks)
+- [ ] Dossier timeline (and facts, brand, voice without the orb)
+- [ ] Résumé and review
+- [ ] Connect coming-soon onto the system
+- [ ] Sample routes for populated screens (Dossier, Profile Read, portal), gated, in `shoot.mjs`
+- [ ] Shot in Day and Night at 1440 / 390 / 375, reduced motion; scored; fixed; re-shot
+- [ ] Measured: bundle, axe, overflow, console
+- [ ] Gates: typecheck, lint, build, `bundle:check`, format check; unit tests
+- [ ] SPEC updated where the build differs; REPORT.md; committed
+
 ## Decisions
 
 Made in Phase 0 by Claude, in the spec, **not yet approved by Manu**:
@@ -327,6 +349,11 @@ runs only while someone speaks; `viewport-fit=cover` so safe areas apply).
 the new claude skill." No feedback on Phase 5's screens, so the casing, Home and the Studio stand
 as built. "The new claude skill" read as before: Emil Kowalski's project skills
 (`emil-design-eng`, `animate`, `choreograph`, `mobile-native`) loaded at the start and followed.
+
+**From Manu, 2026-11-19 (naming Phase 7):** "Read the brief and PROGRESS, then do Phase 7. Use
+the new claude skill." No feedback on Phase 6's screens, so Schools, the school's tabs, the kit,
+preview, unlock and the editor stand as built. The project skills (`emil-design-eng`, `animate`,
+`choreograph`, `mobile-native`) were loaded at the start and followed.
 
 Made in Phase 5 by Claude while building, **not yet approved by Manu**:
 
