@@ -16,12 +16,12 @@
     "@admitstory/linters": "workspace:*",
     "@admitstory/shared": "workspace:*",
     "@phosphor-icons/react": "2.1.10",
-    "@tiptap/core": "3.32.2",
-    "@tiptap/pm": "3.32.2",
-    "@tiptap/react": "3.32.2",
-    "@tiptap/starter-kit": "3.32.2",
+    "@tiptap/core": "3.34.0",
+    "@tiptap/pm": "3.34.0",
+    "@tiptap/react": "3.34.0",
+    "@tiptap/starter-kit": "3.34.0",
     "cmdk": "1.1.1",
-    "motion": "14.7.1",
+    "motion": "14.14.0",
     "radix-ui": "1.8.1"
   },
   "devDependencies": {
