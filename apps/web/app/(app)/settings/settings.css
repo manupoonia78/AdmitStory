@@ -1,0 +1,33 @@
+/*
+ * Settings (SPEC §6.17). The theme swatch: a small sheet in the working area's own tokens, so it
+ * turns when the theme does. Colour only, 250 ms, a transition (a quick second click retargets);
+ * reduced motion changes it at once.
+ */
+.theme-swatch {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  width: 44px;
+  height: 56px;
+  padding: 14px 9px 0;
+  border-radius: var(--radius-paper);
+  background-color: var(--sheet);
+  box-shadow: var(--shadow-paper);
+  outline: 1px solid var(--edge);
+  transition: background-color 250ms ease;
+}
+.theme-swatch > span {
+  height: 1px;
+  background-color: var(--sheet-text);
+  opacity: 0.3;
+  transition: background-color 250ms ease;
+}
+.theme-swatch > span:last-child {
+  width: 60%;
+}
+@media (prefers-reduced-motion: reduce) {
+  .theme-swatch,
+  .theme-swatch > span {
+    transition: none;
+  }
+}

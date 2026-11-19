@@ -21,20 +21,25 @@ import {
   RecommenderList,
   Sheet,
   SheetContent,
+  StatusLine,
   StatusPanel,
   StoriesPanel,
   StoryFieldsForm,
   buildingLine,
+  cx,
   failedLine,
   firstNameOf,
   groupLabel,
   rebuildLabel,
   recommenderPrivacyLine,
+  roleLine,
   staleLine,
   useToast,
   type IntakeAnswerInput,
   type RecommenderTabId,
 } from "@admitstory/ui";
+import { CaretLeftIcon } from "@phosphor-icons/react";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { IntakeRecordHost } from "../intake-record-host";
@@ -75,6 +80,7 @@ export function DetailScreen({
   const [writing, setWriting] = useState(false);
 
   const id = detail.recommender.id;
+  const current = list.recommenders.find((item) => item.id === id) ?? null;
   const first = firstNameOf(detail.recommender.name);
   const base = `/recommenders/${id}`;
 
@@ -261,8 +267,8 @@ export function DetailScreen({
   const sourceLabel = (cite: Cite) => brief?.sources[cite]?.label ?? null;
 
   return (
-    <div className="mx-auto flex w-full max-w-6xl flex-col gap-6 px-4 py-8 sm:px-8 sm:py-12 lg:flex-row lg:gap-10">
-      <aside className="flex flex-col gap-3 lg:w-62 lg:shrink-0">
+    <div className="mx-auto flex w-full max-w-[70rem] flex-col gap-8 px-5 pt-6 pb-16 sm:px-10 sm:pt-10 lg:flex-row lg:gap-12 lg:px-14 lg:pt-14">
+      <aside className="flex flex-col gap-3 lg:w-62 lg:shrink-0 lg:pt-[68px]">
         <RecommenderList
           items={list.recommenders}
           selectedId={id}
@@ -271,22 +277,43 @@ export function DetailScreen({
         />
       </aside>
 
-      <div className="flex min-w-0 flex-1 flex-col gap-6">
-        <header className="flex flex-col gap-2">
-          <h1 className="text-display text-text">{detail.recommender.name}</h1>
-          <nav aria-label="Recommender sections">
-            <ul className="flex flex-wrap gap-x-4 gap-y-2">
+      <div className="flex min-w-0 flex-1 flex-col gap-8">
+        <header className="flex flex-col">
+          <Link
+            href="/recommenders"
+            className="label -ml-1 inline-flex min-h-11 items-center gap-1.5 self-start px-1 hover:text-text"
+          >
+            <CaretLeftIcon size={12} weight="bold" aria-hidden />
+            Recommenders
+          </Link>
+          <div className="mt-2 flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
+            <div className="flex min-w-0 flex-col gap-1">
+              <h1 className="truncate text-display-3 text-text">{detail.recommender.name}</h1>
+              <p className="text-ui font-normal text-text-soft">{roleLine(detail.recommender)}</p>
+            </div>
+            {current ? (
+              <StatusLine
+                status={current.status}
+                line={current.statusLine}
+                className="w-full max-w-80 lg:w-80"
+              />
+            ) : null}
+          </div>
+          <nav aria-label="Recommender sections" className="mt-6 border-b border-edge">
+            <ul className="-mb-px flex gap-7 overflow-x-auto [scrollbar-width:none]">
               {RECOMMENDER_TABS.map((item) => (
-                <li key={item.id}>
+                <li key={item.id} className="shrink-0">
                   <button
                     type="button"
                     aria-current={item.id === tab ? "page" : undefined}
                     onClick={() => go(item.id)}
-                    className={
+                    className={cx(
+                      "relative h-11 text-ui transition-colors duration-200",
+                      "after:absolute after:inset-x-0 after:bottom-0 after:h-[1.25px]",
                       item.id === tab
-                        ? "min-h-11 border-b-2 border-text text-text"
-                        : "min-h-11 border-b-2 border-transparent text-text-soft hover:text-text"
-                    }
+                        ? "text-text after:bg-text"
+                        : "text-text-soft hover:text-text after:bg-transparent",
+                    )}
                   >
                     {item.label}
                   </button>
@@ -294,7 +321,7 @@ export function DetailScreen({
               ))}
             </ul>
           </nav>
-          <p aria-live="polite" className="min-h-[1lh] text-sm text-needs">
+          <p aria-live="polite" className="min-h-[1lh] pt-2 text-sm text-needs">
             {problem}
           </p>
         </header>

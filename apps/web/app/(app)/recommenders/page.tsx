@@ -1,7 +1,8 @@
 import { getDb } from "@admitstory/db";
-import { EmptyState, RECOMMENDERS_COPY } from "@admitstory/ui";
+import { EmptyState, RECOMMENDERS_COPY, buttonStyles } from "@admitstory/ui";
 import type { Metadata } from "next";
 import Link from "next/link";
+import "./recommenders.css";
 import { Page as PageFrame } from "@/components/page-header";
 import { requireOnboardedUser } from "@/lib/app-user";
 import { applicantIdentity } from "@/lib/recommenders/schools";
@@ -9,6 +10,13 @@ import { loadRecommendersPage } from "@/lib/recommenders/view";
 import { RecommendersHost } from "./recommenders-host";
 
 export const metadata: Metadata = { title: "Recommenders" };
+
+/** "Your recommenders." with the italic accent (SPEC §6.13). */
+const TITLE = (
+  <>
+    Your <span className="serif-accent">recommenders.</span>
+  </>
+);
 
 /**
  * Screen H (spec §5.11, §6.10 H): the people who write for the applicant, each with a brief of
@@ -28,12 +36,12 @@ export default async function Page() {
 
   if (view.state === "locked")
     return (
-      <PageFrame eyebrow="The people who vouch for you" title={RECOMMENDERS_COPY.title}>
+      <PageFrame eyebrow="The people who vouch for you" title={TITLE} width="wide">
         <EmptyState
           title={RECOMMENDERS_COPY.lockedTitle}
           description={RECOMMENDERS_COPY.lockedBody}
           action={
-            <Link href="/schools" className="text-text underline">
+            <Link href="/schools" className={buttonStyles({ variant: "secondary" })}>
               {RECOMMENDERS_COPY.lockedAction}
             </Link>
           }
@@ -42,8 +50,8 @@ export default async function Page() {
     );
 
   return (
-    <PageFrame eyebrow="The people who vouch for you" title={RECOMMENDERS_COPY.title}>
-      <p className="max-w-[48ch] font-reading text-reading-lg text-balance text-text">
+    <PageFrame eyebrow="The people who vouch for you" title={TITLE} width="wide">
+      <p className="-mt-4 max-w-[48ch] font-reading text-read-lg text-balance text-text">
         {RECOMMENDERS_COPY.lead}
       </p>
       <RecommendersHost view={view} timeZone={identity.timeZone ?? "UTC"} />

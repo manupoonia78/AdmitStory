@@ -12,6 +12,7 @@ import {
 } from "@admitstory/voice/contract";
 import type { ReadAloudPlayer } from "@admitstory/voice/client";
 import { useEffect, useId, useRef, useState } from "react";
+import { SettingsSection } from "./settings-parts";
 import { AlertMessage, StatusMessage } from "@/components/live-message";
 
 // Settings → Voice (spec §5.1): read questions aloud, the interviewer's voice and speed, and the
@@ -110,20 +111,11 @@ export function VoiceSettingsForm({
   };
 
   return (
-    <section aria-labelledby={`${id}-voice`} className="flex flex-col gap-6 plane p-6">
-      <div className="flex flex-col gap-1">
-        <h2
-          id={`${id}-voice`}
-          className="font-display text-[1.625rem] leading-tight tracking-[-0.01em] text-text"
-        >
-          Voice
-        </h2>
-        <p className="text-text-soft">
-          How the Story Studio interviewer sounds, and the language you answer in. Your audio is
-          turned into text and not kept.
-        </p>
-      </div>
-
+    <SettingsSection
+      id={`${id}-voice`}
+      title="Voice"
+      lede="How the Story Studio interviewer sounds, and the language you answer in. Your audio is turned into text and not kept."
+    >
       <label className="flex min-h-11 items-start gap-3">
         <input
           type="checkbox"
@@ -136,10 +128,10 @@ export function VoiceSettingsForm({
                 : "Questions won't be read aloud.",
             )
           }
-          className="mt-0.5 size-5 accent-text"
+          className="mt-0.5 size-5 shrink-0 accent-text"
         />
         <span className="flex flex-col gap-0.5">
-          <span className="font-medium text-text">Read questions aloud</span>
+          <span className="text-ui text-text">Read questions aloud</span>
           <span className="text-sm text-text-soft">
             When you&apos;re talking in the Studio. The question is always on screen as well.
           </span>
@@ -147,10 +139,10 @@ export function VoiceSettingsForm({
       </label>
 
       <fieldset className="flex flex-col gap-3">
-        <legend className="mb-2 font-medium text-text">Interviewer voice</legend>
-        <div className="flex flex-wrap gap-x-6 gap-y-2">
+        <legend className="mb-3 text-ui text-text">Interviewer voice</legend>
+        <div className="flex flex-wrap gap-2">
           {TTS_VOICES.map((voice) => (
-            <label key={voice.id} className="flex min-h-11 items-center gap-2">
+            <label key={voice.id} className="chip h-9 cursor-pointer select-none">
               <input
                 type="radio"
                 name={`${id}-tts-voice`}
@@ -159,13 +151,13 @@ export function VoiceSettingsForm({
                 onChange={() =>
                   void save({ ttsVoice: voice.id as TtsVoice }, `Voice set to ${voice.label}.`)
                 }
-                className="size-5 accent-text"
+                className="sr-only"
               />
               {voice.label}
             </label>
           ))}
         </div>
-        <div className="flex flex-col items-start gap-1">
+        <div className="mt-2 flex flex-col items-start gap-1">
           <button
             type="button"
             onClick={() => void playSample()}
@@ -184,10 +176,10 @@ export function VoiceSettingsForm({
       </fieldset>
 
       <fieldset className="flex flex-col gap-2">
-        <legend className="mb-2 font-medium text-text">Speaking speed</legend>
-        <div className="flex flex-wrap gap-x-6 gap-y-2">
+        <legend className="mb-3 text-ui text-text">Speaking speed</legend>
+        <div className="flex flex-wrap gap-2">
           {TTS_SPEEDS.map((speed) => (
-            <label key={speed} className="flex min-h-11 items-center gap-2">
+            <label key={speed} className="chip h-9 cursor-pointer select-none">
               <input
                 type="radio"
                 name={`${id}-tts-speed`}
@@ -196,7 +188,7 @@ export function VoiceSettingsForm({
                 onChange={() =>
                   void save({ ttsSpeed: speed }, `Speed set to ${SPEED_LABELS[speed]}.`)
                 }
-                className="size-5 accent-text"
+                className="sr-only"
               />
               {SPEED_LABELS[speed]}
             </label>
@@ -205,7 +197,7 @@ export function VoiceSettingsForm({
       </fieldset>
 
       <div className="flex flex-col gap-2">
-        <label htmlFor={`${id}-language`} className="font-medium text-text">
+        <label htmlFor={`${id}-language`} className="text-ui text-text">
           Language you speak in
         </label>
         <select
@@ -220,7 +212,7 @@ export function VoiceSettingsForm({
               );
           }}
           aria-describedby={`${id}-language-hint`}
-          className="min-h-11 w-full max-w-sm rounded-control border border-control bg-depth px-3 text-text focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-text"
+          className="h-12 w-full max-w-sm rounded-control border border-control bg-field px-4 text-base text-text focus-visible:outline-2 focus-visible:outline-offset-3 focus-visible:outline-text"
         >
           {SPEECH_LANGUAGES.map((language) => (
             <option key={language.id} value={language.id}>
@@ -237,6 +229,6 @@ export function VoiceSettingsForm({
 
       <StatusMessage message={status} />
       <AlertMessage message={error} />
-    </section>
+    </SettingsSection>
   );
 }

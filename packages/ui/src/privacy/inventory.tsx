@@ -56,15 +56,15 @@ export function PrivacyInventoryList({ inventory }: { inventory: PrivacyInventor
         // dt before dd in the source (a valid group); the row is reversed so the number reads first.
         <div
           key={key}
-          className="flex flex-row-reverse items-baseline justify-end gap-3 border-b border-edge pb-2"
+          className="flex flex-row-reverse items-baseline justify-end gap-3 border-b border-edge pb-3"
         >
           <dt className="text-text-soft">
             {inventory[key] === 1 ? one : many}
             {key === "audioRecordings" ? (
-              <span className="block text-xs">We don&apos;t keep audio.</span>
+              <span className="block text-[12px]">We don&apos;t keep audio.</span>
             ) : null}
           </dt>
-          <dd className="min-w-[4ch] text-right text-2xl font-semibold tabular-nums text-text">
+          <dd className="min-w-[4ch] text-right text-[24px] leading-none font-[450] tracking-[-0.02em] tabular-nums text-text">
             {shown[key]}
           </dd>
         </div>

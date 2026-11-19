@@ -35,11 +35,12 @@ export default async function PrivacyPage() {
   const view = await loadPrivacyView(user);
 
   return (
-    <Page eyebrow="Settings" title="Privacy and data">
-      <section aria-labelledby="keep" className="flex flex-col gap-4 plane p-6">
+    <Page eyebrow="Settings" title="Privacy and data" width="narrow">
+      <div className="flex flex-col">
+      <section aria-labelledby="keep" className="flex flex-col gap-4 border-t border-edge py-10">
         <h2
           id="keep"
-          className="font-display text-[1.625rem] leading-tight tracking-[-0.01em] text-text"
+          className="label mb-2"
         >
           What we keep
         </h2>
@@ -52,10 +53,10 @@ export default async function PrivacyPage() {
 
       <PrivacyActions improveOptIn={view.improveOptIn} sessionFresh={view.sessionFresh} />
 
-      <section aria-labelledby="staff" className="flex flex-col gap-3 plane p-6">
+      <section aria-labelledby="staff" className="flex flex-col gap-4 border-t border-edge py-10">
         <h2
           id="staff"
-          className="font-display text-[1.625rem] leading-tight tracking-[-0.01em] text-text"
+          className="label mb-2"
         >
           Staff access
         </h2>
@@ -81,6 +82,7 @@ export default async function PrivacyPage() {
           </>
         )}
       </section>
+      </div>
     </Page>
   );
 }

@@ -25,7 +25,7 @@ export function splitBriefSections(sections: readonly BriefSection[]): {
   };
 }
 
-const headingClass = "text-lg font-semibold text-text";
+const headingClass = "text-title text-text";
 
 function Section({
   heading,
@@ -49,9 +49,9 @@ function SchoolSection({ section }: { section: Extract<BriefSection, { kind: "sc
   return (
     <section className="flex flex-col gap-4">
       <div className="flex flex-col gap-1">
-        <h3 className="text-display-sm text-text">{section.heading}</h3>
+        <h3 className="text-display-3 text-text">{section.heading}</h3>
         {day ? (
-          <p className="text-sm tabular-nums text-text-soft">Due {day}</p>
+          <p className="font-mono text-[13px] tabular-nums text-text-80">Due {day}</p>
         ) : (
           <p className="text-sm text-text-soft">The school hasn&rsquo;t published a date yet.</p>
         )}
@@ -68,7 +68,7 @@ function SchoolSection({ section }: { section: Extract<BriefSection, { kind: "sc
         {section.questions.map((question, index) => (
           <li key={question.id} className="flex flex-col gap-3">
             <div className="flex flex-col gap-1">
-              <p className="text-sm text-text-soft">Question {index + 1}</p>
+              <p className="label">Question {index + 1}</p>
               <p className="font-reading text-read text-text">{question.text}</p>
               {question.limit ? (
                 <p className="text-sm tabular-nums text-text-soft">{question.limit}</p>
@@ -110,7 +110,7 @@ function OneSection({ section }: { section: BriefSection }) {
     case "reminder":
       return (
         <section className="flex flex-col gap-1 border-l-2 border-edge pl-4">
-          <h3 className="text-base font-semibold text-text">{section.heading}</h3>
+          <h3 className="text-ui text-text">{section.heading}</h3>
           <p className="text-base text-text-soft">{section.text}</p>
         </section>
       );

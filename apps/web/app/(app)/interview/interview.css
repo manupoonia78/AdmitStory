@@ -1,0 +1,113 @@
+/*
+ * The interview room, still (SPEC §6.18). A frame that is always Night, set into the working area.
+ * The one moment: the timer's arc draws to 0:42 as the page enters (stroke-dashoffset, 900 ms,
+ * --ease-line, 300 ms delay), only under <html data-motion="on">: reduced motion and no JS show it
+ * drawn.
+ */
+.room-still {
+  position: relative;
+  margin-top: 3rem;
+  border-radius: var(--radius-card);
+  border: 1px solid var(--edge);
+  background-color: var(--bg);
+  background-image: var(--grain-image);
+  color: var(--text);
+}
+.room-still-tag {
+  position: absolute;
+  top: 0;
+  left: 1.5rem;
+  translate: 0 -50%;
+  display: inline-flex;
+  align-items: center;
+  height: 1.75rem;
+  padding: 0 0.75rem;
+  border-radius: var(--radius-round);
+  background-color: var(--frost-solid);
+  border: 1px solid var(--line);
+  color: var(--text-label);
+}
+.room-still-body {
+  display: grid;
+  gap: 2rem;
+  padding: 2.5rem 1.5rem 1.5rem;
+  min-height: 25rem;
+  grid-template-columns: minmax(0, 1fr);
+}
+@media (min-width: 40rem) {
+  .room-still-body {
+    padding: 3rem 2rem 2rem;
+  }
+}
+@media (min-width: 64rem) {
+  .room-still-body {
+    grid-template-columns: minmax(0, 1fr) 11rem;
+    column-gap: 3rem;
+    padding: 3.5rem 3rem 2.5rem;
+  }
+}
+.room-still-transcript {
+  font-family: var(--font-accent);
+  font-style: italic;
+  font-size: 22px;
+  line-height: 1.3;
+  letter-spacing: -0.005em;
+  color: var(--text);
+}
+@media (min-width: 40rem) {
+  .room-still-transcript {
+    font-size: 26px;
+  }
+}
+.room-still-transcript p:last-child {
+  color: rgb(244 241 234 / 0.4);
+}
+.room-still-timer {
+  position: relative;
+  width: 120px;
+  height: 120px;
+}
+@media (min-width: 64rem) {
+  .room-still-timer {
+    width: 160px;
+    height: 160px;
+    justify-self: end;
+  }
+}
+.room-still-timer svg {
+  width: 100%;
+  height: 100%;
+}
+.room-still-time {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.room-still-horizon {
+  position: relative;
+  grid-column: 1 / -1;
+  display: flex;
+  align-items: center;
+  height: 24px;
+}
+.room-still-horizon svg {
+  width: 33%;
+  height: 24px;
+  flex: none;
+}
+.room-still-rule {
+  flex: 1;
+  height: 1.25px;
+  background-color: var(--line-strong);
+}
+:root[data-motion="on"] .room-still-arc {
+  animation: room-arc 900ms var(--ease-line) 300ms both;
+}
+@keyframes room-arc {
+  from {
+    stroke-dashoffset: var(--arc);
+  }
+}

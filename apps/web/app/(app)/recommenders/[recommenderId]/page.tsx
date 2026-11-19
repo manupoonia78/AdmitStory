@@ -2,6 +2,7 @@ import { getDb } from "@admitstory/db";
 import { COMMON_GROUP_KEY } from "@admitstory/shared/kit";
 import { tabFromParam } from "@admitstory/ui";
 import type { Metadata } from "next";
+import "../recommenders.css";
 import { notFound } from "next/navigation";
 import { z } from "zod";
 import { requireOnboardedUser } from "@/lib/app-user";

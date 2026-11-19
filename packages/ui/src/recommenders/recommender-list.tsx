@@ -72,7 +72,7 @@ export function RecommenderList({
           id={selectId}
           value={selectedId ?? ""}
           onChange={(event) => onSelect(event.target.value)}
-          className="min-h-11 w-full rounded-control border border-control bg-depth px-3 text-lg text-text sm:text-base"
+          className="h-12 w-full rounded-control border border-control bg-field px-4 text-base text-text"
         >
           {selectedId === null ? <option value="">Pick a recommender</option> : null}
           {items.map((item) => (
@@ -84,7 +84,7 @@ export function RecommenderList({
       </div>
 
       <nav aria-labelledby={headingId} className="hidden lg:flex lg:flex-col lg:gap-2">
-        <h2 id={headingId} className="text-sm font-medium text-text-soft">
+        <h2 id={headingId} className="label">
           Your recommenders
         </h2>
         <ul className="flex flex-col border-t border-edge">
@@ -106,13 +106,13 @@ export function RecommenderList({
                   }}
                   className={cx(
                     "flex min-h-11 flex-col gap-1 py-3 pl-3 pr-2",
-                    "border-l-2 transition-colors duration-(--spring-snap-duration) ease-snap motion-reduce:transition-none",
+                    "border-l-2 transition-colors duration-200 motion-reduce:transition-none",
                     selected
-                      ? "border-l-signal bg-veil text-text"
+                      ? "border-l-text bg-veil text-text"
                       : "border-l-transparent text-text hover:bg-veil",
                   )}
                 >
-                  <span className="font-medium">{item.name}</span>
+                  <span className="text-ui text-text">{item.name}</span>
                   <span className="text-sm text-text-soft">{roleLine(item)}</span>
                   <StatusLabel tone={STATUS_TONES[item.status]}>{item.statusLine}</StatusLabel>
                   <span className="text-sm tabular-nums text-text-soft">

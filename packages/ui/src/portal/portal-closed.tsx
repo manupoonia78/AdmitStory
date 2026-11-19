@@ -17,7 +17,7 @@ export function PortalClosed({ view, resend }: PortalClosedProps) {
   const copy = closedCopy(view);
   return (
     <div className="flex flex-col gap-4">
-      <h1 className="text-display-sm text-text">{copy.title}</h1>
+      <h1 className="portal-greeting text-text">{copy.title}</h1>
       <p className="text-base text-text-soft">{copy.body}</p>
       {copy.resend && resend ? resend : null}
     </div>

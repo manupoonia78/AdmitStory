@@ -22,6 +22,7 @@ export {
 export { usePrefersReducedMotion } from "./reduced-motion";
 export { LensInstrument, type LensInstrumentProps } from "./lens-instrument";
 export { LensList, type LensListProps } from "./lens-list";
+export { LensTable, type LensTableProps } from "./lens-table";
 export { EvidenceDrawer, type EvidenceDrawerProps } from "./evidence";
 export { EvidenceLink, evidenceLabel, type EvidenceLinkProps } from "./evidence-link";
 export {

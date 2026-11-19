@@ -6,7 +6,7 @@ import {
   EmptyState,
   RECOMMENDERS_COPY,
   RecommenderForm,
-  RecommenderList,
+  RecommenderRows,
   Sheet,
   SheetContent,
   type RecommenderFormValues,
@@ -77,14 +77,11 @@ export function RecommendersScreen({
         />
       ) : (
         <div className="flex flex-col gap-4">
-          <RecommenderList
-            items={view.recommenders}
-            selectedId={null}
-            hrefFor={(id) => `/recommenders/${id}`}
-            onSelect={(id) => router.push(`/recommenders/${id}`)}
-            action={addButton}
-          />
-          <p className="text-sm text-text-soft">{RECOMMENDERS_COPY.pickOne}</p>
+          <div className="flex flex-wrap items-center justify-between gap-4">
+            <h2 className="label">Who writes for you</h2>
+            {addButton}
+          </div>
+          <RecommenderRows items={view.recommenders} hrefFor={(id) => `/recommenders/${id}`} />
         </div>
       )}
 

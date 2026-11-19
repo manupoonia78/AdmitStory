@@ -10,6 +10,7 @@ import { evidenceIndex, profileReadView, readingsFromStories } from "@/lib/profi
 import { dispatch } from "@/lib/strategy/dispatch";
 import { ProfileReadOnward } from "./onward";
 import { ProfileReadHost } from "./profile-read-host";
+import "./profile-read.css";
 
 export const metadata: Metadata = { title: "Profile Read" };
 

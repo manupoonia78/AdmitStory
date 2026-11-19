@@ -1,0 +1,42 @@
+/*
+ * Recommenders (SPEC §6.13). The moment: each person's status line draws to their stop (scaleX,
+ * 600 ms, --ease-line), then the peak rises out of the line (clip-path, 300 ms, --ease-rise,
+ * 450 ms after). Rows start at shrinking gaps (--d), 250 ms after the page head. CSS keyframes
+ * under data-motion="on" only: reduced motion and no JS show the lines drawn.
+ */
+:root[data-motion="on"] .rec-line-run {
+  animation: rec-run 600ms var(--ease-line) calc(250ms + var(--d, 0ms)) both;
+}
+:root[data-motion="on"] .rec-line-peak > svg {
+  animation: rec-peak 300ms var(--ease-rise) calc(700ms + var(--d, 0ms)) both;
+}
+@keyframes rec-run {
+  from {
+    transform: scaleX(0);
+  }
+}
+@keyframes rec-peak {
+  from {
+    clip-path: inset(100% 0 0 0);
+  }
+  to {
+    clip-path: inset(0);
+  }
+}
+
+/*
+ * The brief sets (SPEC §6.13, detail): each group's heading first, its body 60 ms after, groups
+ * 60 ms apart for the first five. Plays when the Brief tab mounts. Opacity and a 6 px rise only.
+ */
+:root[data-motion="on"] .brief-group > .brief-heading {
+  animation: brief-in 300ms var(--ease-rise) calc(var(--g, 0) * 60ms) both;
+}
+:root[data-motion="on"] .brief-group > :not(.brief-heading) {
+  animation: brief-in 300ms var(--ease-rise) calc(var(--g, 0) * 60ms + 60ms) both;
+}
+@keyframes brief-in {
+  from {
+    opacity: 0;
+    translate: 0 6px;
+  }
+}

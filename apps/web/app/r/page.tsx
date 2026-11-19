@@ -15,7 +15,7 @@ export default function Page() {
   return (
     <PortalFrame>
       <div className="flex flex-col gap-3">
-        <h1 className="text-display-sm text-text">{RESEND_COPY.heading}</h1>
+        <h1 className="portal-greeting text-text">{RESEND_COPY.heading}</h1>
         <ResendFormHost />
       </div>
     </PortalFrame>

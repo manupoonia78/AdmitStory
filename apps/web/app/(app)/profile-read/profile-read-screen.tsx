@@ -2,10 +2,11 @@
 
 import {
   Button,
+  EmptyState,
   EvidenceLink,
   FeedbackControl,
   LensFindings,
-  LensInstrument,
+  LensTable,
   StrengtheningPlan,
   type EvidenceItem,
   type EvidenceRef,
@@ -17,7 +18,7 @@ import {
 import dynamic from "next/dynamic";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useEffect, useState, type CSSProperties } from "react";
 import { AlertMessage, StatusMessage } from "@/components/live-message";
 
 // Screen D (spec §5.4, §6.10 D; docs/design/phase-3-4-direction.md D). The hero is the four-lens
@@ -111,97 +112,161 @@ export function ProfileReadScreen({
   for (const item of Object.values(evidence))
     if (item.kind === "story") storyIndex.set(item.id, item);
 
+  // The lead: the first thing the read says about the applicant, or the page's line while there
+  // is no read yet. It sets word by word once per new read (profile-read.css, `.read-lead`).
+  const lead = brand[0] ?? null;
+  const leadWords = (lead?.text ?? "").split(/\s+/).filter(Boolean);
+  const [fresh, setFresh] = useState(false);
+  useEffect(() => {
+    if (!lead || version === null) return;
+    const key = "admitstories.read-seen";
+    try {
+      if (window.sessionStorage.getItem(key) === String(version)) return;
+      window.sessionStorage.setItem(key, String(version));
+    } catch {
+      // Storage blocked: the lead simply stays set, which is the safe default.
+      return;
+    }
+    setFresh(true);
+  }, [lead, version]);
+
   return (
-    <div className="mx-auto flex w-full max-w-6xl flex-col gap-12 px-4 py-8 sm:px-8 sm:py-12">
-      <header className="flex flex-col gap-3">
-        <h1 className="text-display text-text">Profile Read</h1>
-        <p className="font-reading text-xl text-text-soft">
+    <div className="mx-auto flex w-full max-w-[70rem] flex-col px-5 pt-6 pb-10 sm:px-10 sm:pt-10 lg:px-14 lg:pt-14">
+      <header className="mx-auto flex w-full max-w-[48rem] flex-col">
+        <p className="enter label">How a reader may see you</p>
+        <h1 className="enter mt-3 text-display-2 text-text" style={{ "--i": 0.8 } as CSSProperties}>
+          Profile <span className="serif-accent">Read.</span>
+        </h1>
+        <p
+          className="enter mt-4 max-w-[60ch] text-lg text-text-soft"
+          style={{ "--i": 1.45 } as CSSProperties}
+        >
           How an admissions reader is likely to see you in the first few minutes.
         </p>
         {builtAt ? (
-          <p className="text-sm text-text-soft">Built {dayMonth(builtAt)} from your dossier.</p>
+          <p className="enter label mt-4" style={{ "--i": 2 } as CSSProperties}>
+            Built {dayMonth(builtAt)} from your dossier
+          </p>
         ) : null}
+        {behind && !waiting ? (
+          <div className="mt-6 flex flex-col items-start gap-3 border-l-2 border-needs pl-4">
+            <p className="text-ui font-normal text-text">
+              Your dossier has changed since {builtAt ? dayMonth(builtAt) : "this read"}. The read
+              updates on its own once a day.
+            </p>
+            <Button
+              size="sm"
+              variant="secondary"
+              onClick={() => void rebuild()}
+              disabled={asking}
+            >
+              Build my Profile Read again
+            </Button>
+          </div>
+        ) : null}
+        <StatusMessage message={landed ? "Your Profile Read is up to date." : status} />
+        <AlertMessage message={error} />
       </header>
 
-      {behind && !waiting ? (
-        <div className="flex flex-col items-start gap-3 border-l-2 border-edge pl-4">
-          <p className="text-text">
-            Your dossier has changed since {builtAt ? dayMonth(builtAt) : "this read"}. The read
-            updates on its own once a day.
+      <article
+        className="read-sheet mx-auto mt-10 flex w-full max-w-[48rem] flex-col gap-12"
+        data-fresh={fresh ? "" : undefined}
+      >
+        <section aria-labelledby="read-lead-label" className="flex flex-col gap-3">
+          <p id="read-lead-label" className="label">
+            {lead ? "In a sentence" : "Profile Read"}
           </p>
-          <Button variant="secondary" onClick={() => void rebuild()} disabled={asking}>
-            Build my Profile Read again
-          </Button>
-        </div>
-      ) : null}
-      <StatusMessage message={landed ? "Your Profile Read is up to date." : status} />
-      <AlertMessage message={error} />
-
-      <section aria-label="Your four lenses">
-        <LensInstrument
-          readings={readings}
-          label="Your four lenses, by the stories behind each"
-          onOpenStory={(id) => {
-            const ref = storyIndex.get(id);
-            if (ref) open([ref]);
-          }}
-        />
-      </section>
-
-      {state === "thin" ? (
-        <div className="flex flex-col items-start gap-4">
-          <p className="max-w-prose text-lg text-text">
-            No stories behind your lenses yet. Talk for five minutes in Story Studio and
-            they&apos;ll fill in.
-          </p>
-          <Button asChild>
-            <Link href="/studio">Start talking</Link>
-          </Button>
-        </div>
-      ) : null}
-
-      {state === "building" && lenses.length === 0 ? (
-        <p className="text-text-soft" aria-live="polite">
-          Reading your stories against the four lenses. This takes under a minute.
-        </p>
-      ) : null}
-
-      {lenses.map((lens) => (
-        <LensFindings key={lens.lens} data={lens} onOpenEvidence={(refs) => open(refs)} />
-      ))}
-
-      {plan.length > 0 ? (
-        <section className="flex flex-col gap-6 border-t border-edge pt-6" aria-labelledby="plan">
-          <h2 id="plan" className="text-display-sm text-text">
-            What could still change before your deadlines
-          </h2>
-          <StrengtheningPlan items={plan} onOpenEvidence={(refs) => open(refs)} />
+          {lead ? (
+            <p className="read-lead">
+              {leadWords.map((word, index) => (
+                <span key={`${index}-${word}`} style={{ "--w": Math.min(index, 11) } as CSSProperties}>
+                  {word}{" "}
+                </span>
+              ))}
+              <EvidenceLink refs={lead.evidence} onOpen={(refs) => open(refs, lead.text)} />
+            </p>
+          ) : state === "building" ? (
+            <div className="flex flex-col gap-5" aria-live="polite">
+              <p className="read-lead text-text-soft">
+                Reading your stories against the four lenses. This takes under a minute.
+              </p>
+              <span aria-hidden className="read-waiting" />
+            </div>
+          ) : (
+            <p className="read-lead text-text-soft">
+              How an admissions reader is likely to see you in the first few minutes.
+            </p>
+          )}
         </section>
-      ) : null}
 
-      {brand.length > 0 ? (
-        <section className="flex flex-col gap-4 border-t border-edge pt-6" aria-labelledby="brand">
-          <h2 id="brand" className="text-display-sm text-text">
-            What your stories say about you
+        <section aria-labelledby="read-lenses" className="flex flex-col gap-4">
+          <h2 id="read-lenses" className="label">
+            The four lenses
           </h2>
-          <ul className="flex flex-col gap-3">
-            {brand.map((item) => (
-              <li key={item.id} className="text-text">
-                {item.text}{" "}
-                <EvidenceLink refs={item.evidence} onOpen={(refs) => open(refs, item.text)} />
-              </li>
-            ))}
-          </ul>
+          <LensTable
+            readings={readings}
+            onOpenStory={(id) => {
+              const ref = storyIndex.get(id);
+              if (ref) open([ref]);
+            }}
+          />
         </section>
-      ) : null}
 
-      {readId && state === "ready" ? (
-        <FeedbackControl
-          targetType="profile_read"
-          targetId={readId}
-          className="border-t border-edge pt-6"
-        />
-      ) : null}
+        {state === "thin" ? (
+          <EmptyState
+            title="No stories behind your lenses yet"
+            description="Talk for five minutes in Story Studio and they'll fill in."
+            action={
+              <Button asChild>
+                <Link href="/studio">Start talking</Link>
+              </Button>
+            }
+          />
+        ) : null}
+
+        {lenses.map((lens) => (
+          <LensFindings key={lens.lens} data={lens} onOpenEvidence={(refs) => open(refs)} />
+        ))}
+
+        {plan.length > 0 ? (
+          <section
+            className="flex flex-col gap-6 border-t border-edge pt-10"
+            aria-labelledby="plan"
+          >
+            <h2 id="plan" className="font-ui text-display-3 text-text">
+              What could still change before your deadlines
+            </h2>
+            <StrengtheningPlan items={plan} onOpenEvidence={(refs) => open(refs)} />
+          </section>
+        ) : null}
+
+        {brand.length > 1 ? (
+          <section
+            className="flex flex-col gap-4 border-t border-edge pt-10"
+            aria-labelledby="brand"
+          >
+            <h2 id="brand" className="label">
+              What your stories say about you
+            </h2>
+            <ul className="flex flex-col gap-3 font-reading text-read">
+              {brand.slice(1).map((item) => (
+                <li key={item.id} className="text-text">
+                  {item.text}{" "}
+                  <EvidenceLink refs={item.evidence} onOpen={(refs) => open(refs, item.text)} />
+                </li>
+              ))}
+            </ul>
+          </section>
+        ) : null}
+
+        {readId && state === "ready" ? (
+          <FeedbackControl
+            targetType="profile_read"
+            targetId={readId}
+            className="border-t border-edge pt-8 font-ui"
+          />
+        ) : null}
+      </article>
 
       {drawerUsed ? (
         <EvidenceDrawer

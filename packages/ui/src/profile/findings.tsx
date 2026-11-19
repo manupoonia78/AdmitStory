@@ -48,11 +48,11 @@ function Column({
 }) {
   return (
     <div className="flex min-w-0 flex-col gap-3">
-      <Heading className="text-base font-semibold text-text">{title}</Heading>
+      <Heading className="label">{title}</Heading>
       {count === 0 ? (
-        <p className="text-text-soft">{empty}</p>
+        <p className="font-reading text-read-sm text-text-soft">{empty}</p>
       ) : (
-        <ul className="flex flex-col gap-4 text-text">{children}</ul>
+        <ul className="flex flex-col gap-4 font-reading text-read-sm text-text">{children}</ul>
       )}
     </div>
   );
@@ -78,13 +78,13 @@ export function LensFindings({
     <section
       data-lens={data.lens}
       aria-label={LENS_LABELS[data.lens]}
-      className={cx("flex flex-col gap-6 border-t border-edge pt-6", className)}
+      className={cx("flex flex-col gap-6 border-t border-edge pt-10", className)}
     >
-      <Heading className="flex flex-wrap items-baseline gap-x-3">
-        <span className="text-display-sm text-text">{LENS_LABELS[data.lens]}</span>{" "}
-        <span className="text-lg text-text-soft">{LENS_LEVEL_WORDS[data.level]}</span>
+      <Heading className="flex flex-col gap-2">
+        <span className="label">{LENS_LEVEL_WORDS[data.level]}</span>
+        <span className="font-ui text-display-3 text-text">{LENS_LABELS[data.lens]}</span>
       </Heading>
-      <div className="grid grid-cols-1 gap-8 lg:grid-cols-3">
+      <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 sm:gap-6">
         <Column
           Heading={Sub}
           title="What helps"
@@ -109,21 +109,28 @@ export function LensFindings({
             </li>
           ))}
         </Column>
-        <Column
-          Heading={Sub}
-          title="What to do"
-          empty="Nothing to do here for now."
-          count={data.actions.length}
-        >
-          {data.actions.map((action) => (
-            <li key={action.id} className="flex flex-col gap-1">
-              <span>
-                <FindingText finding={action} onOpenEvidence={onOpenEvidence} />
-              </span>
-              <span className="text-sm tabular-nums text-text-soft">{action.time}</span>
-            </li>
-          ))}
-        </Column>
+      </div>
+      <div className="flex flex-col gap-3">
+        <Sub className="label">What to do</Sub>
+        {data.actions.length === 0 ? (
+          <p className="font-reading text-read-sm text-text-soft">Nothing to do here for now.</p>
+        ) : (
+          <ul className="flex flex-col border-t border-edge">
+            {data.actions.map((action) => (
+              <li
+                key={action.id}
+                className="grid gap-x-6 gap-y-1 border-b border-edge py-3 sm:grid-cols-[minmax(0,1fr)_auto]"
+              >
+                <span className="font-ui text-ui text-text">
+                  <FindingText finding={action} onOpenEvidence={onOpenEvidence} />
+                </span>
+                <span className="font-mono text-[12px] whitespace-nowrap tabular-nums text-text-soft sm:pt-0.5 sm:text-right">
+                  {action.time}
+                </span>
+              </li>
+            ))}
+          </ul>
+        )}
       </div>
     </section>
   );
@@ -150,16 +157,18 @@ export function StrengtheningPlan({ items, onOpenEvidence, className }: Strength
         <li
           key={item.id}
           data-action={item.id}
-          className="grid grid-cols-[2rem_minmax(0,1fr)] gap-x-2 gap-y-1 border-b border-edge py-3 sm:grid-cols-[2rem_minmax(0,1fr)_auto] sm:gap-x-4"
+          className="grid grid-cols-[2rem_minmax(0,1fr)] gap-x-2 gap-y-1 border-b border-edge py-4 sm:grid-cols-[2rem_minmax(0,1fr)_auto] sm:gap-x-4"
         >
-          <span className="font-semibold tabular-nums text-text">{index + 1}</span>
+          <span className="pt-0.5 font-mono text-[12px] tabular-nums text-text-label">
+            {String(index + 1).padStart(2, "0")}
+          </span>
           <span className="flex min-w-0 flex-col gap-1">
-            <span className="text-text">
+            <span className="font-ui text-ui text-text">
               <FindingText finding={item} onOpenEvidence={onOpenEvidence} />
             </span>
             {item.why ? <span className="text-sm text-text-soft">{item.why}</span> : null}
           </span>
-          <span className="col-start-2 whitespace-nowrap text-sm tabular-nums text-text-soft sm:col-start-3 sm:text-right">
+          <span className="col-start-2 font-mono text-[12px] whitespace-nowrap tabular-nums text-text-soft sm:col-start-3 sm:pt-0.5 sm:text-right">
             {item.time}
           </span>
         </li>

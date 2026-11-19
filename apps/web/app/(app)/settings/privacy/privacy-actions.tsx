@@ -82,10 +82,10 @@ export function PrivacyActions({
 
   return (
     <>
-      <section aria-labelledby="download" className="flex flex-col gap-3 plane p-6">
+      <section aria-labelledby="download" className="flex flex-col gap-4 border-t border-edge py-10">
         <h2
           id="download"
-          className="font-display text-[1.625rem] leading-tight tracking-[-0.01em] text-text"
+          className="label mb-2"
         >
           Download
         </h2>
@@ -108,10 +108,10 @@ export function PrivacyActions({
         </div>
       </section>
 
-      <section aria-labelledby="improve" className="flex flex-col gap-3 plane p-6">
+      <section aria-labelledby="improve" className="flex flex-col gap-4 border-t border-edge py-10">
         <h2
           id="improve"
-          className="font-display text-[1.625rem] leading-tight tracking-[-0.01em] text-text"
+          className="label mb-2"
         >
           Help improve AdmitStories
         </h2>
@@ -129,9 +129,9 @@ export function PrivacyActions({
         </label>
       </section>
 
-      <section aria-labelledby="delete" className="flex flex-col gap-3 plane p-6">
-        <h2 id="delete" className="flex items-center gap-2 text-lg font-semibold text-needs">
-          <WarningIcon size={20} aria-hidden />
+      <section aria-labelledby="delete" className="flex flex-col gap-4 border-t border-edge py-10">
+        <h2 id="delete" className="label mb-2 flex items-center gap-2 text-risk">
+          <WarningIcon size={14} aria-hidden />
           Delete your account
         </h2>
         <p className="text-text-soft">

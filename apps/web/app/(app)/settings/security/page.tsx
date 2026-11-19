@@ -38,11 +38,12 @@ export default async function SecurityPage() {
     .map(({ createdAt, ...row }) => ({ ...row, addedOn: ADDED_ON.format(createdAt) }));
 
   return (
-    <Page eyebrow="Settings" title="Passkeys">
-      <p className="max-w-prose text-text-soft">
-        A passkey lets you sign in with your fingerprint, face or device PIN instead of an email
-        link. It stays on your device or in your password manager.
-      </p>
+    <Page
+      eyebrow="Settings"
+      title="Passkeys"
+      width="narrow"
+      lede="A passkey lets you sign in with your fingerprint, face or device PIN instead of an email link. It stays on your device or in your password manager."
+    >
       <PasskeyManager passkeys={rows} icons={ICONS} />
     </Page>
   );

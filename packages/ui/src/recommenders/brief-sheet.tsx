@@ -10,7 +10,7 @@
 // The product never writes a letter. These are talking points; nothing here is prose to copy.
 
 import type { BriefSection, Cite } from "@admitstory/shared/kit";
-import type { ReactNode } from "react";
+import type { CSSProperties, ReactNode } from "react";
 import { cx } from "../lib/cx";
 import { daysLeftText, daysUntil, formatDay, type Instant } from "../strategy/time-scale";
 
@@ -28,10 +28,11 @@ export interface BriefSheetProps {
 }
 
 /** The sheet is paper in either theme (§6.3): --depth, a 1px edge, a 720px text column. */
-const SHEET = "plane flex w-full max-w-[45rem] flex-col gap-8 px-5 py-8 sm:px-8 sm:py-10";
+const SHEET =
+  "flex w-full max-w-[45rem] flex-col gap-10 rounded-paper bg-sheet px-6 py-8 font-reading text-sheet-text shadow-paper sm:px-12 sm:py-12";
 
 function Heading({ children }: { children: ReactNode }) {
-  return <h3 className="text-lg font-semibold text-text">{children}</h3>;
+  return <h3 className="brief-heading font-ui text-title text-text">{children}</h3>;
 }
 
 /** The applicant's own material carries their hue, and nothing else does (§6.3). */
@@ -133,7 +134,7 @@ function SectionBody({
         <ul className="flex flex-col gap-3">
           {section.items.map((item) => (
             <li key={item.trait} className="flex flex-col gap-1">
-              <span className="font-medium text-text">{item.trait}</span>
+              <span className="font-ui text-ui text-text">{item.trait}</span>
               <span className="text-text-soft">{item.why}</span>
             </li>
           ))}
@@ -206,7 +207,11 @@ export function BriefSheet({
       {toolbar}
       <article className={SHEET}>
         {sections.map((section, index) => (
-          <section key={`${section.kind}-${index}`} className="flex flex-col gap-3">
+          <section
+            key={`${section.kind}-${index}`}
+            className="brief-group flex flex-col gap-3"
+            style={{ "--g": Math.min(index, 4) } as CSSProperties}
+          >
             <Heading>{section.heading}</Heading>
             <SectionBody
               section={section}

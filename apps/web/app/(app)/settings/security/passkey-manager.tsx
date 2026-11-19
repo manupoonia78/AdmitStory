@@ -112,9 +112,9 @@ export function PasskeyManager({
   }
 
   return (
-    <section aria-labelledby="your-passkeys" className="flex flex-col gap-4 plane p-6">
+    <section aria-labelledby="your-passkeys" className="flex flex-col gap-4 border-t border-edge py-10">
       <div className="flex flex-wrap items-center justify-between gap-3">
-        <h2 id="your-passkeys" tabIndex={-1} className="text-lg font-semibold outline-none">
+        <h2 id="your-passkeys" tabIndex={-1} className="label outline-none">
           Your passkeys
         </h2>
         <Button icon={icons.add} onClick={add} loading={adding} disabled={!supported}>
@@ -146,8 +146,8 @@ export function PasskeyManager({
                     {icons.passkey}
                   </span>
                   <div>
-                    <p className="font-medium">{passkey.name}</p>
-                    <p className="text-sm text-text-soft">Added {passkey.addedOn}</p>
+                    <p className="text-ui text-text">{passkey.name}</p>
+                    <p className="font-mono text-[12px] text-text-soft">Added {passkey.addedOn}</p>
                   </div>
                 </div>
                 <div className="flex gap-1">

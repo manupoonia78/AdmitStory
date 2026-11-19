@@ -69,3 +69,21 @@
     transform: translateX(-10px);
   }
 }
+
+/*
+ * Loading inside the casing ((app)/loading.tsx, SPEC §6.10): appears only after 300 ms, so a
+ * quick navigation never flashes it. Opacity only; under reduced motion it is simply there.
+ */
+.app-loading {
+  animation: app-loading-in 200ms ease 300ms both;
+}
+@keyframes app-loading-in {
+  from {
+    opacity: 0;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .app-loading {
+    animation: none;
+  }
+}

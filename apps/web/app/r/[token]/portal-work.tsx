@@ -162,6 +162,7 @@ function PortalWorkBody({ view }: { view: PortalView }) {
       </p>
 
       <PortalNotes
+        className="portal-section"
         notes={state.notes}
         maxChars={PORTAL_LIMITS.noteChars}
         canAdd={state.notes.length < PORTAL_LIMITS.notesMax}
@@ -173,9 +174,9 @@ function PortalWorkBody({ view }: { view: PortalView }) {
         record={(onDictated) => <PortalRecordHost endpoint={api("/stt")} onDictated={onDictated} />}
       />
 
-      <section id="your-letter" className="flex flex-col gap-6">
+      <section id="your-letter" className="portal-section flex flex-col gap-6">
         <div className="flex flex-col gap-1">
-          <h2 className="text-display-sm text-text">{PORTAL_COPY.letterHeading}</h2>
+          <h2 className="text-display-3 text-text">{PORTAL_COPY.letterHeading}</h2>
           <p className="text-base text-text-soft">{PORTAL_COPY.letterLead}</p>
         </div>
 
@@ -183,7 +184,7 @@ function PortalWorkBody({ view }: { view: PortalView }) {
           <input
             type="checkbox"
             checked={state.preferCoach}
-            className="mt-1 size-5"
+            className="mt-1 size-5 shrink-0 accent-[var(--text)]"
             onChange={(event) => {
               const preferCoach = event.target.checked;
               setState((current) => ({ ...current, preferCoach }));
@@ -220,6 +221,7 @@ function PortalWorkBody({ view }: { view: PortalView }) {
       </section>
 
       <PortalSubmitted
+        className="portal-section"
         schools={state.groups.flatMap((group) => group.schools)}
         busy={busy === "submitted"}
         onChange={(schoolCycleId, submitted) => void mark(schoolCycleId, submitted)}

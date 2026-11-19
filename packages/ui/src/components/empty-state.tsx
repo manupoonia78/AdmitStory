@@ -1,5 +1,6 @@
 import type { ReactNode } from "react";
 import { cx } from "../lib/cx";
+import { Peak } from "./peak";
 
 /**
  * "start" (the default) left-aligns the empty state like all other text. "center" is only for a
@@ -26,17 +27,22 @@ const ALIGN: Record<EmptyStateAlign, string> = {
   center: "items-center text-center",
 };
 
-/** A blank sheet above an empty state: the page that is waiting to be written. */
-function Sheet() {
+/**
+ * The Voiceline lying flat with one small rise at its end (SPEC §6.10): "here is where it
+ * starts". It replaces the old blank-sheet drawing; no illustration, the line does the job.
+ */
+function StartLine({ align }: { align: EmptyStateAlign }) {
   return (
     <span
       aria-hidden
-      className="mb-5 flex h-14 w-11 flex-col gap-1.5 rounded-[4px] border border-edge bg-depth px-2 pt-3 shadow-paper"
+      className={cx(
+        "mb-6 flex w-60 max-w-full items-end text-text-faint",
+        align === "center" ? "self-center" : "self-start",
+      )}
     >
-      <span className="h-px w-full bg-edge" />
-      <span className="h-px w-full bg-edge" />
-      <span className="h-px w-2/3 bg-edge" />
-      <span className="mt-auto mb-2 h-px w-3 self-end bg-accent" />
+      <span className="mb-px h-[1.25px] flex-1 bg-edge-strong" />
+      <Peak className="h-[17px] w-3" strokeWidth={1.25} />
+      <span className="mb-px h-[1.25px] w-4 bg-edge-strong" />
     </span>
   );
 }
@@ -54,15 +60,15 @@ export function EmptyState({
     <div
       data-align={align}
       className={cx(
-        "flex flex-col gap-2 rounded-plane border border-dashed border-edge px-8 py-12",
+        "flex flex-col py-2",
         ALIGN[align],
         className,
       )}
     >
-      <Sheet />
-      <Heading className="font-display text-[1.5rem] leading-tight text-text">{title}</Heading>
-      <p className="max-w-[52ch] text-text-soft">{description}</p>
-      {action ? <div className="mt-5">{action}</div> : null}
+      <StartLine align={align} />
+      <Heading className="text-title text-text">{title}</Heading>
+      <p className="mt-2 max-w-[52ch] text-base text-text-soft">{description}</p>
+      {action ? <div className="mt-6">{action}</div> : null}
     </div>
   );
 }

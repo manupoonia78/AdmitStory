@@ -32,6 +32,8 @@ export {
   type StateWord,
 } from "./recommender-text";
 export { RecommenderList, stepRecommender, type RecommenderListProps } from "./recommender-list";
+export { RecommenderRows, type RecommenderRowsProps } from "./recommender-rows";
+export { StatusLine, statusShare, type StatusLineProps } from "./status-line";
 export {
   BriefPlaceholder,
   BriefSheet,

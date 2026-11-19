@@ -66,7 +66,7 @@ function NoteRow({
             rows={5}
             autoFocus
             onChange={(event) => setText(event.target.value)}
-            className="w-full resize-y rounded-plane border border-control bg-space p-3 text-base text-text"
+            className="portal-field min-h-[200px] p-5 text-[18px] leading-[1.6]"
           />
         </label>
         <div className="flex flex-wrap gap-2">
@@ -152,12 +152,12 @@ export function PortalNotes({
   return (
     <section id="your-notes" className={cx("flex flex-col gap-4", className)}>
       <div className="flex flex-col gap-1">
-        <h2 className="text-display-sm text-text">{PORTAL_COPY.notesHeading}</h2>
+        <h2 className="text-display-3 text-text">{PORTAL_COPY.notesHeading}</h2>
         <p className="text-base text-text-soft">{PORTAL_COPY.notesLead}</p>
       </div>
 
       {canAdd ? (
-        <div className="flex flex-col gap-3 plane p-4">
+        <div className="flex flex-col gap-3">
           {record && voiceSecondsLeft > 0 ? record(dictated) : null}
           <label className="flex flex-col gap-1">
             <span className="text-sm text-text-soft">{PORTAL_COPY.typeNote}</span>
@@ -167,7 +167,7 @@ export function PortalNotes({
               rows={4}
               placeholder="One moment you saw for yourself: what happened, what they did, how it turned out."
               onChange={(event) => setDraft(event.target.value)}
-              className="w-full resize-y rounded-plane border border-control bg-space p-3 text-base text-text"
+              className="portal-field min-h-[200px] p-5 text-[18px] leading-[1.6]"
             />
           </label>
           <div className="flex items-center justify-between gap-3">

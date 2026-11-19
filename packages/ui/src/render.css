@@ -240,11 +240,17 @@
     [aria-selected="true"],
     [aria-current],
     [data-state="on"]
-  ) {
+  ),
+  &:where(label):has(input:checked) {
     background-color: var(--text);
     border-color: var(--text);
     color: var(--space);
     box-shadow: none;
+  }
+  /* A chip that wraps a native radio or checkbox (the input visually hidden) shows its focus. */
+  &:where(label):has(input:focus-visible) {
+    outline: 2px solid var(--text);
+    outline-offset: 3px;
   }
 }
 

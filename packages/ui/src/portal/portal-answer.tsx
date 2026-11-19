@@ -140,7 +140,7 @@ function Outline({
   if (assisted.outline.length === 0) return null;
   return (
     <div className="flex flex-col gap-3">
-      <h4 className="text-base font-semibold text-text">{PORTAL_COPY.outlineHeading}</h4>
+      <h4 className="text-ui text-text">{PORTAL_COPY.outlineHeading}</h4>
       <ol className="flex flex-col gap-4">
         {assisted.outline.map((beat, index) => (
           <li key={`${index}-${beat.beat}`} className="flex flex-col gap-1.5">
@@ -237,7 +237,7 @@ export function PortalAnswer({
       {assisted ? <Outline assisted={assisted} notes={notes} /> : null}
       {assisted && assisted.missing.length > 0 ? (
         <div className="flex flex-col gap-2">
-          <h4 className="text-base font-semibold text-text">{PORTAL_COPY.missingHeading}</h4>
+          <h4 className="text-ui text-text">{PORTAL_COPY.missingHeading}</h4>
           <ul className="flex flex-wrap gap-2">
             {assisted.missing.map((item) => (
               <MissingTag key={item} text={item} />
@@ -259,7 +259,7 @@ export function PortalAnswer({
               setText(event.target.value);
               onChange(event.target.value);
             }}
-            className="w-full resize-y rounded-plane border border-control bg-space p-4 font-reading text-read text-text"
+            className="portal-field min-h-[360px] p-5 text-[18px] leading-[1.6]"
           />
         </label>
         <div className="flex flex-wrap items-end justify-between gap-3">

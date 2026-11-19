@@ -26,7 +26,7 @@ export function PortalSubmitted({
   if (schools.length === 0) return null;
   return (
     <section id="submitted" className={cx("flex flex-col gap-3", className)}>
-      <h2 className="text-display-sm text-text">{PORTAL_COPY.submittedHeading}</h2>
+      <h2 className="text-display-3 text-text">{PORTAL_COPY.submittedHeading}</h2>
       <ul className="flex flex-col gap-2">
         {schools.map((school) => {
           const day = portalDay(school.submittedAt);

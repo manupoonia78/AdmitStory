@@ -1,0 +1,88 @@
+/*
+ * Profile Read (SPEC §6.12). The read is one sheet of paper (night paper in Night). The moment:
+ * once per new read (`data-fresh`, set by the screen when the read's version is new this
+ * session), the lead sets word by word (opacity and a 0.2em rise, 500 ms, 40 ms apart for the
+ * first twelve words), then the lens runs draw (scaleX, 600 ms, 70 ms apart). Only under
+ * data-motion="on"; a revisit, reduced motion or no JS shows it set.
+ */
+.read-sheet {
+  background-color: var(--sheet);
+  color: var(--sheet-text);
+  border-radius: var(--radius-paper);
+  box-shadow: var(--shadow-paper);
+  padding: 2.5rem 1.5rem;
+}
+@media (min-width: 40rem) {
+  .read-sheet {
+    padding: 3rem;
+  }
+}
+@media (min-width: 64rem) {
+  .read-sheet {
+    padding: 3.5rem;
+  }
+}
+.read-lead {
+  max-width: 30ch;
+  font-family: var(--font-reading);
+  font-style: italic;
+  font-size: 26px;
+  line-height: 1.3;
+  color: var(--text);
+  text-wrap: pretty;
+}
+@media (min-width: 40rem) {
+  .read-lead {
+    font-size: 30px;
+  }
+}
+.read-lead > span {
+  display: inline-block;
+  white-space: pre;
+}
+:root[data-motion="on"] .read-sheet[data-fresh] .read-lead > span {
+  animation: read-word 500ms var(--ease-rise) calc(var(--w, 0) * 40ms) both;
+}
+:root[data-motion="on"] .read-sheet[data-fresh] .lens-run {
+  animation: read-run 600ms var(--ease-line) calc(600ms + var(--d, 0ms)) both;
+}
+@keyframes read-word {
+  from {
+    opacity: 0;
+    translate: 0 0.2em;
+  }
+}
+@keyframes read-run {
+  from {
+    transform: scaleX(0);
+  }
+}
+
+/* While the first read is being built: unlock's waiting line, the only loop on the page. */
+.read-waiting {
+  position: relative;
+  display: block;
+  height: 1.25px;
+  max-width: 20rem;
+  overflow: hidden;
+  background-color: var(--edge-strong);
+}
+.read-waiting::after {
+  content: "";
+  position: absolute;
+  inset-block: 0;
+  left: 0;
+  width: 30%;
+  background-color: var(--text);
+  animation: read-wait 1.4s var(--ease-line) infinite alternate;
+}
+@keyframes read-wait {
+  to {
+    translate: 233% 0;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .read-waiting::after {
+    animation: none;
+  }
+}
