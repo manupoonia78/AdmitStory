@@ -60,15 +60,12 @@ export function FactsTab({ facts }: { facts: DossierFactView[] }) {
     <div className="flex flex-col gap-6">
       {conflicts.length > 0 ? (
         <section className="flex flex-col gap-3">
-          <h2 className="font-display text-[1.625rem] leading-tight tracking-[-0.01em] text-text">
+          <h2 className="label">
             {conflicts.length === 1 ? "One fact needs you" : `${conflicts.length} facts need you`}
           </h2>
           <ul className="flex flex-col gap-3">
             {conflicts.map((fact) => (
-              <li
-                key={fact.id}
-                className="flex flex-col gap-3 rounded-plane border border-needs/40 bg-needs/5 p-4"
-              >
+              <li key={fact.id} className="flex flex-col gap-3 border-l-2 border-needs py-1 pl-4">
                 <p className="text-text">
                   You said {quoted(fact.otherValue)} earlier and {quoted(fact.value)} today. Which
                   is current?
@@ -107,38 +104,38 @@ export function FactsTab({ facts }: { facts: DossierFactView[] }) {
       <StatusMessage message={message} />
       <AlertMessage message={error} />
 
-      <div className="overflow-x-auto rounded-plane border border-edge">
+      <div className="overflow-x-auto border-t border-edge">
         <table className="w-full border-collapse text-left">
           <caption className="sr-only">
             Your Fact Sheet: what we know, how it will be phrased, and whether it is confirmed.
           </caption>
           <thead>
-            <tr className="border-b border-edge text-sm text-text-soft">
-              <th scope="col" className="px-4 py-2 font-medium">
+            <tr className="border-b border-edge">
+              <th scope="col" className="label px-4 py-3 font-medium first:ps-0">
                 Fact
               </th>
-              <th scope="col" className="px-4 py-2 font-medium">
+              <th scope="col" className="label px-4 py-3 font-medium first:ps-0">
                 What we&apos;ll write
               </th>
-              <th scope="col" className="px-4 py-2 font-medium">
+              <th scope="col" className="label px-4 py-3 font-medium first:ps-0">
                 Status
               </th>
-              <th scope="col" className="px-4 py-2 font-medium">
+              <th scope="col" className="label px-4 py-3 font-medium first:ps-0">
                 <span className="sr-only">Actions</span>
               </th>
             </tr>
           </thead>
           <tbody>
             {rest.map((fact) => (
-              <tr key={fact.id} className="border-b border-edge last:border-0 align-top">
-                <th scope="row" className="px-4 py-3 font-normal">
-                  <span className="block text-text">{humanKey(fact.key)}</span>
+              <tr key={fact.id} className="border-b border-edge align-top">
+                <th scope="row" className="py-4 pe-4 font-normal">
+                  <span className="block text-ui text-text">{humanKey(fact.key)}</span>
                   <span className="block text-sm text-text-soft">
                     {fact.code}
                     {fact.note ? ` · ${fact.note}` : ""}
                   </span>
                 </th>
-                <td className="px-4 py-3">
+                <td className="px-4 py-4">
                   {editing === fact.id ? (
                     <FactEditor
                       fact={fact}
@@ -163,7 +160,7 @@ export function FactsTab({ facts }: { facts: DossierFactView[] }) {
                     </>
                   )}
                 </td>
-                <td className="px-4 py-3">
+                <td className="px-4 py-4">
                   <StatusLabel tone={TONES[fact.status]}>
                     {FACT_STATUS_LABELS[fact.status]}
                   </StatusLabel>
@@ -171,7 +168,7 @@ export function FactsTab({ facts }: { facts: DossierFactView[] }) {
                     <span className="mt-1 block text-sm text-text-soft">Kept private</span>
                   ) : null}
                 </td>
-                <td className={cx("px-4 py-3 text-end")}>
+                <td className={cx("py-4 ps-4 text-end")}>
                   {editing === fact.id ? null : (
                     <div className="flex flex-wrap justify-end gap-2">
                       <Button variant="quiet" onClick={() => setEditing(fact.id)}>

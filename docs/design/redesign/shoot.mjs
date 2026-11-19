@@ -130,6 +130,10 @@ const REFERENCE_ROUTES = [
   { name: "workspace-sample", path: "/workspace/sample", load: true, optional: true },
   { name: "school-preview-sample", path: "/schools/sample/preview", load: true, optional: true },
   { name: "kit-sample", path: "/schools/sample", load: true, optional: true },
+  // Phase 7: the Dossier, the Profile Read and the recommender portal on sample data.
+  { name: "dossier-sample", path: "/dossier/sample", load: true, optional: true },
+  { name: "profile-read-sample", path: "/profile-read/sample", load: true, optional: true },
+  { name: "portal-sample", path: "/r/sample", load: true, optional: true },
 ];
 
 // ---------------------------------------------------------------------------------------------

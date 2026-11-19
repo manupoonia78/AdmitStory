@@ -37,51 +37,45 @@ export default async function PrivacyPage() {
   return (
     <Page eyebrow="Settings" title="Privacy and data" width="narrow">
       <div className="flex flex-col">
-      <section aria-labelledby="keep" className="flex flex-col gap-4 border-t border-edge py-10">
-        <h2
-          id="keep"
-          className="label mb-2"
-        >
-          What we keep
-        </h2>
-        <PrivacyInventoryList inventory={view.inventory} />
-        <p className="text-sm text-text-soft">
-          Your stories and drafts are encrypted at rest and never used to train AI models. Read the{" "}
-          <TextLink href="/privacy">privacy policy</TextLink>.
-        </p>
-      </section>
+        <section aria-labelledby="keep" className="flex flex-col gap-4 border-t border-edge py-10">
+          <h2 id="keep" className="label mb-2">
+            What we keep
+          </h2>
+          <PrivacyInventoryList inventory={view.inventory} />
+          <p className="text-sm text-text-soft">
+            Your stories and drafts are encrypted at rest and never used to train AI models. Read
+            the <TextLink href="/privacy">privacy policy</TextLink>.
+          </p>
+        </section>
 
-      <PrivacyActions improveOptIn={view.improveOptIn} sessionFresh={view.sessionFresh} />
+        <PrivacyActions improveOptIn={view.improveOptIn} sessionFresh={view.sessionFresh} />
 
-      <section aria-labelledby="staff" className="flex flex-col gap-4 border-t border-edge py-10">
-        <h2
-          id="staff"
-          className="label mb-2"
-        >
-          Staff access
-        </h2>
-        {view.staffAccess.length === 0 ? (
-          <p className="text-text-soft">No one at AdmitStories has opened your account.</p>
-        ) : (
-          <>
-            <p className="text-text-soft">
-              Our team only opens an account for a reason, for 30 minutes at most, and every look is
-              listed here.
-            </p>
-            <ul className="flex flex-col gap-2">
-              {view.staffAccess.map((entry, i) => (
-                <li key={`${entry.at}-${i}`} className="text-text">
-                  <span className="tabular-nums">{WHEN.format(new Date(entry.at))} UTC</span>: our
-                  team {ACTION_WORDS[entry.action]}.
-                  {entry.reason ? (
-                    <span className="text-text-soft"> Reason: “{entry.reason}”</span>
-                  ) : null}
-                </li>
-              ))}
-            </ul>
-          </>
-        )}
-      </section>
+        <section aria-labelledby="staff" className="flex flex-col gap-4 border-t border-edge py-10">
+          <h2 id="staff" className="label mb-2">
+            Staff access
+          </h2>
+          {view.staffAccess.length === 0 ? (
+            <p className="text-text-soft">No one at AdmitStories has opened your account.</p>
+          ) : (
+            <>
+              <p className="text-text-soft">
+                Our team only opens an account for a reason, for 30 minutes at most, and every look
+                is listed here.
+              </p>
+              <ul className="flex flex-col gap-2">
+                {view.staffAccess.map((entry, i) => (
+                  <li key={`${entry.at}-${i}`} className="text-text">
+                    <span className="tabular-nums">{WHEN.format(new Date(entry.at))} UTC</span>: our
+                    team {ACTION_WORDS[entry.action]}.
+                    {entry.reason ? (
+                      <span className="text-text-soft"> Reason: “{entry.reason}”</span>
+                    ) : null}
+                  </li>
+                ))}
+              </ul>
+            </>
+          )}
+        </section>
       </div>
     </Page>
   );

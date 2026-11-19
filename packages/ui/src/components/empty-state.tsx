@@ -57,14 +57,7 @@ export function EmptyState({
 }: EmptyStateProps) {
   const Heading = headingLevel === 2 ? "h2" : "h3";
   return (
-    <div
-      data-align={align}
-      className={cx(
-        "flex flex-col py-2",
-        ALIGN[align],
-        className,
-      )}
-    >
+    <div data-align={align} className={cx("flex flex-col py-2", ALIGN[align], className)}>
       <StartLine align={align} />
       <Heading className="text-title text-text">{title}</Heading>
       <p className="mt-2 max-w-[52ch] text-base text-text-soft">{description}</p>

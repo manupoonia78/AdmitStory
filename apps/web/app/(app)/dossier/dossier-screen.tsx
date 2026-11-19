@@ -2,9 +2,10 @@
 
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@admitstory/ui";
 import dynamic from "next/dynamic";
+import { CaretLeftIcon } from "@phosphor-icons/react";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
-import { useCallback } from "react";
+import { useCallback, type CSSProperties } from "react";
 import { StoriesTab } from "./stories-tab";
 import type {
   DossierBrandView,
@@ -65,23 +66,26 @@ export function DossierScreen({ stories, facts, people, brand, voice, goals }: D
   const conflicts = facts.filter((fact) => fact.status === "conflict").length;
 
   return (
-    <div className="mx-auto flex w-full max-w-6xl flex-col gap-8 px-5 py-10 sm:px-10 sm:py-14">
-      <div className="flex flex-col gap-4">
-        <nav aria-label="Breadcrumb" className="meta flex items-center gap-2">
-          <Link href="/settings" className="hover:text-text">
-            Settings
-          </Link>
-          <span aria-hidden>/</span>
-          <span aria-current="page" className="text-text">
-            Dossier
-          </span>
-        </nav>
-        <h1 className="text-display text-text">Your Dossier</h1>
-        <p className="max-w-prose text-text-soft">
+    <div className="mx-auto flex w-full max-w-[70rem] flex-col gap-10 px-5 pt-6 pb-16 sm:px-10 sm:pt-10 lg:px-14 lg:pt-14">
+      <header className="flex flex-col">
+        <Link
+          href="/settings"
+          className="label -ml-1 inline-flex min-h-11 items-center gap-1.5 self-start px-1 hover:text-text"
+        >
+          <CaretLeftIcon size={12} weight="bold" aria-hidden />
+          Settings
+        </Link>
+        <h1 className="enter mt-2 text-display-2 text-text">
+          Your <span className="serif-accent">dossier.</span>
+        </h1>
+        <p
+          className="enter mt-4 max-w-[60ch] text-lg text-text-soft"
+          style={{ "--i": 0.8 } as CSSProperties}
+        >
           Everything we know about you, and the only thing your drafts are built from. Correct
           anything that isn&apos;t right.
         </p>
-      </div>
+      </header>
 
       <Tabs value={tab} onValueChange={setTab}>
         <TabsList>
@@ -89,24 +93,25 @@ export function DossierScreen({ stories, facts, people, brand, voice, goals }: D
             <TabsTrigger key={entry.id} value={entry.id}>
               {entry.label}
               {entry.id === "facts" && conflicts > 0 ? (
-                <span className="ms-2 rounded-full bg-needs/15 px-2 text-xs font-semibold text-needs">
+                <span className="ms-2 inline-grid size-[18px] place-items-center rounded-full bg-needs font-mono text-[11px] text-on-signal">
                   {conflicts}
+                  <span className="sr-only"> need you</span>
                 </span>
               ) : null}
             </TabsTrigger>
           ))}
         </TabsList>
 
-        <TabsContent value="stories">
+        <TabsContent value="stories" className="pt-8">
           <StoriesTab stories={stories} people={people} />
         </TabsContent>
-        <TabsContent value="facts">
+        <TabsContent value="facts" className="pt-8">
           <FactsTab facts={facts} />
         </TabsContent>
-        <TabsContent value="brand">
+        <TabsContent value="brand" className="pt-8">
           <BrandTab brand={brand} stories={stories} />
         </TabsContent>
-        <TabsContent value="voice">
+        <TabsContent value="voice" className="pt-8">
           <VoiceTab voice={voice} goals={goals} />
         </TabsContent>
       </Tabs>

@@ -41,16 +41,18 @@ export function StatusLine({ status, line, index = 0, className }: StatusLinePro
           className="rec-line-run absolute bottom-0 left-0 h-[1.25px] origin-left bg-text"
           style={{ width: `${share * 100}%` }}
         />
-        {RECOMMENDER_STATUSES.map((stop, i) => (
-          <span
-            key={stop}
-            className={cx(
-              "absolute bottom-[-2px] h-[5px] w-px -translate-x-1/2",
-              i <= at ? "bg-text" : "bg-text-faint",
-            )}
-            style={{ left: `${(i / (RECOMMENDER_STATUSES.length - 1)) * 100}%` }}
-          />
-        ))}
+        {RECOMMENDER_STATUSES.map((stop, i) =>
+          i === at ? null : (
+            <span
+              key={stop}
+              className={cx(
+                "absolute bottom-[-2px] h-[5px] w-px -translate-x-1/2",
+                i <= at ? "bg-text" : "bg-text-faint",
+              )}
+              style={{ left: `${(i / (RECOMMENDER_STATUSES.length - 1)) * 100}%` }}
+            />
+          ),
+        )}
         <span
           className="rec-line-peak absolute bottom-0 -translate-x-1/2 text-text"
           style={{ left: `${share * 100}%` }}

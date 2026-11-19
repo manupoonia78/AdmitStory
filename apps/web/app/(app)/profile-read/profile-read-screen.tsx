@@ -18,7 +18,7 @@ import {
 import dynamic from "next/dynamic";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useEffect, useState, type CSSProperties } from "react";
+import { useEffect, useLayoutEffect, useRef, useState, type CSSProperties } from "react";
 import { AlertMessage, StatusMessage } from "@/components/live-message";
 
 // Screen D (spec §5.4, §6.10 D; docs/design/phase-3-4-direction.md D). The hero is the four-lens
@@ -116,18 +116,20 @@ export function ProfileReadScreen({
   // is no read yet. It sets word by word once per new read (profile-read.css, `.read-lead`).
   const lead = brand[0] ?? null;
   const leadWords = (lead?.text ?? "").split(/\s+/).filter(Boolean);
-  const [fresh, setFresh] = useState(false);
-  useEffect(() => {
+  // Marks the sheet as a new read before the browser paints, so the lead sets word by word only
+  // the first time this version is seen in the session. An attribute on the element, not state,
+  // so nothing re-renders; storage blocked means no animation, which is the safe default.
+  const sheet = useRef<HTMLElement>(null);
+  useLayoutEffect(() => {
     if (!lead || version === null) return;
     const key = "admitstories.read-seen";
     try {
       if (window.sessionStorage.getItem(key) === String(version)) return;
       window.sessionStorage.setItem(key, String(version));
     } catch {
-      // Storage blocked: the lead simply stays set, which is the safe default.
       return;
     }
-    setFresh(true);
+    sheet.current?.setAttribute("data-fresh", "");
   }, [lead, version]);
 
   return (
@@ -154,12 +156,7 @@ export function ProfileReadScreen({
               Your dossier has changed since {builtAt ? dayMonth(builtAt) : "this read"}. The read
               updates on its own once a day.
             </p>
-            <Button
-              size="sm"
-              variant="secondary"
-              onClick={() => void rebuild()}
-              disabled={asking}
-            >
+            <Button size="sm" variant="secondary" onClick={() => void rebuild()} disabled={asking}>
               Build my Profile Read again
             </Button>
           </div>
@@ -169,35 +166,36 @@ export function ProfileReadScreen({
       </header>
 
       <article
+        ref={sheet}
         className="read-sheet mx-auto mt-10 flex w-full max-w-[48rem] flex-col gap-12"
-        data-fresh={fresh ? "" : undefined}
       >
-        <section aria-labelledby="read-lead-label" className="flex flex-col gap-3">
-          <p id="read-lead-label" className="label">
-            {lead ? "In a sentence" : "Profile Read"}
-          </p>
-          {lead ? (
-            <p className="read-lead">
-              {leadWords.map((word, index) => (
-                <span key={`${index}-${word}`} style={{ "--w": Math.min(index, 11) } as CSSProperties}>
-                  {word}{" "}
-                </span>
-              ))}
-              <EvidenceLink refs={lead.evidence} onOpen={(refs) => open(refs, lead.text)} />
+        {state === "thin" && !lead ? null : (
+          <section aria-labelledby="read-lead-label" className="flex flex-col gap-3">
+            <p id="read-lead-label" className="label">
+              {lead ? "In a sentence" : "Profile Read"}
             </p>
-          ) : state === "building" ? (
-            <div className="flex flex-col gap-5" aria-live="polite">
-              <p className="read-lead text-text-soft">
-                Reading your stories against the four lenses. This takes under a minute.
+            {lead ? (
+              <p className="read-lead">
+                {leadWords.map((word, index) => (
+                  <span
+                    key={`${index}-${word}`}
+                    style={{ "--w": Math.min(index, 11) } as CSSProperties}
+                  >
+                    {word}{" "}
+                  </span>
+                ))}
+                <EvidenceLink refs={lead.evidence} onOpen={(refs) => open(refs, lead.text)} />
               </p>
-              <span aria-hidden className="read-waiting" />
-            </div>
-          ) : (
-            <p className="read-lead text-text-soft">
-              How an admissions reader is likely to see you in the first few minutes.
-            </p>
-          )}
-        </section>
+            ) : state === "building" ? (
+              <div className="flex flex-col gap-5" aria-live="polite">
+                <p className="read-lead text-text-soft">
+                  Reading your stories against the four lenses. This takes under a minute.
+                </p>
+                <span aria-hidden className="read-waiting" />
+              </div>
+            ) : null}
+          </section>
+        )}
 
         <section aria-labelledby="read-lenses" className="flex flex-col gap-4">
           <h2 id="read-lenses" className="label">

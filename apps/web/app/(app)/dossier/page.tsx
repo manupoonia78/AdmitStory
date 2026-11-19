@@ -12,6 +12,7 @@ import {
 import type { Metadata } from "next";
 import { requireOnboardedUser } from "@/lib/app-user";
 import { DossierHost } from "./dossier-host";
+import "./dossier.css";
 
 export const metadata: Metadata = { title: "Your Dossier" };
 

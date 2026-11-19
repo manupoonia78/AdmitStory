@@ -80,9 +80,11 @@ export function LensFindings({
       aria-label={LENS_LABELS[data.lens]}
       className={cx("flex flex-col gap-6 border-t border-edge pt-10", className)}
     >
-      <Heading className="flex flex-col gap-2">
+      {/* The name first in the source (the heading reads "Leadership developing"); the level
+          shows above it as a label. */}
+      <Heading className="flex flex-col-reverse gap-2">
+        <span className="font-ui text-display-3 text-text">{LENS_LABELS[data.lens]}</span>{" "}
         <span className="label">{LENS_LEVEL_WORDS[data.level]}</span>
-        <span className="font-ui text-display-3 text-text">{LENS_LABELS[data.lens]}</span>
       </Heading>
       <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 sm:gap-6">
         <Column
@@ -160,7 +162,7 @@ export function StrengtheningPlan({ items, onOpenEvidence, className }: Strength
           className="grid grid-cols-[2rem_minmax(0,1fr)] gap-x-2 gap-y-1 border-b border-edge py-4 sm:grid-cols-[2rem_minmax(0,1fr)_auto] sm:gap-x-4"
         >
           <span className="pt-0.5 font-mono text-[12px] tabular-nums text-text-label">
-            {String(index + 1).padStart(2, "0")}
+            {index + 1}
           </span>
           <span className="flex min-w-0 flex-col gap-1">
             <span className="font-ui text-ui text-text">

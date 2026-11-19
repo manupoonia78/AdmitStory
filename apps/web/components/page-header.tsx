@@ -1,6 +1,10 @@
 import type { ReactNode } from "react";
 
-const WIDTHS = { default: "max-w-[55rem]", narrow: "max-w-[45rem]", wide: "max-w-[60rem]" } as const;
+const WIDTHS = {
+  default: "max-w-[55rem]",
+  narrow: "max-w-[45rem]",
+  wide: "max-w-[60rem]",
+} as const;
 
 /**
  * Page frame inside the casing's bay (SPEC §6.1): a label eyebrow, the title in display-2, one
@@ -21,7 +25,9 @@ export function Page({
   children: ReactNode;
 }) {
   return (
-    <div className={`mx-auto flex w-full ${WIDTHS[width]} flex-col gap-10 px-5 pt-6 pb-14 sm:px-10 sm:pt-10 lg:px-14 lg:pt-14`}>
+    <div
+      className={`mx-auto flex w-full ${WIDTHS[width]} flex-col gap-10 px-5 pt-6 pb-14 sm:px-10 sm:pt-10 lg:px-14 lg:pt-14`}
+    >
       <header className="mb-2 flex flex-col">
         {eyebrow ? <p className="eyebrow mb-3">{eyebrow}</p> : null}
         <h1 className="text-display-2 text-text">{title}</h1>

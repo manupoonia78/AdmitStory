@@ -1,36 +1,23 @@
 "use client";
 
-import { Button, EmptyState, StatusLabel, cx, type ConstellationStory } from "@admitstory/ui";
+import { Button, EmptyState, StatusLabel, cx } from "@admitstory/ui";
 import dynamic from "next/dynamic";
 import { TRAITS, type LensId, type TraitId } from "@admitstory/shared";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useMemo, useState, useTransition } from "react";
 import { AlertMessage, StatusMessage } from "@/components/live-message";
+import { StoryTimeline } from "./story-timeline";
 import { STORY_STATUS_LABELS, type DossierPersonView, type DossierStoryView } from "./types";
 
-// The Story Bank (spec §5.3b). The hero is the constellation (§6.7): stories as nodes by era,
-// grouped by what they prove, with lines between stories that share a trait. A list view is one
-// keystroke away, and the list is the same data — not a lesser copy.
+// The Story Bank (spec §5.3b; SPEC §6.11). The hero is the timeline: the applicant's life as
+// eras on one line, each chapter a card under its era. A list view is one click away, and it is
+// the same data, not a lesser copy.
 
-// The constellation is a canvas view with its own drag, zoom and layout code, and it is only one of
-// the two ways to read the Story Bank. It loads after mount so the list — which is the same data,
-// server-rendered — is what the first paint pays for (spec §6.11's per-route JS budget).
 /** The open story's full card: long, and only one story is open at a time. */
 const StoryDetail = dynamic(() => import("./story-detail").then((mod) => mod.StoryDetail), {
-  loading: () => <div className="h-96 rounded-plane border border-edge bg-depth" />,
+  loading: () => <div className="h-96 rounded-card border border-edge bg-depth" />,
 });
-
-const Constellation = dynamic(
-  () => import("./constellation-view").then((mod) => mod.Constellation),
-  {
-    ssr: false,
-    // The placeholder holds the exact height of what is coming, so nothing jumps (spec §6.1).
-    loading: () => (
-      <div className="h-[clamp(20rem,52vh,34rem)] rounded-plane border border-edge bg-depth" />
-    ),
-  },
-);
 
 const STATUS_TONES = {
   confirmed: "verified",
@@ -54,7 +41,7 @@ export function StoriesTab({
   people: DossierPersonView[];
 }) {
   const router = useRouter();
-  const [view, setView] = useState<"constellation" | "list">("constellation");
+  const [view, setView] = useState<"timeline" | "list">("timeline");
   const [selectedId, setSelectedId] = useState<string | null>(stories[0]?.id ?? null);
   const [lens, setLens] = useState<LensId | "">("");
   const [trait, setTrait] = useState<TraitId | "">("");
@@ -78,17 +65,6 @@ export function StoriesTab({
   );
 
   const selected = stories.find((story) => story.id === selectedId) ?? filtered[0] ?? null;
-
-  const nodes: ConstellationStory[] = filtered.map((story) => ({
-    id: story.id,
-    code: story.code,
-    nickname: story.nickname,
-    era: story.era,
-    lenses: story.lenses as LensId[],
-    traits: story.traits,
-    status: story.status,
-    sensitivity: story.sensitivity,
-  }));
 
   const patch = (storyId: string, body: Record<string, unknown>, note: string) => {
     setError("");
@@ -141,85 +117,108 @@ export function StoriesTab({
     );
 
   return (
-    <div className="flex flex-col gap-5">
-      <div className="flex flex-wrap items-end gap-3">
-        <Filter label="Lens" value={lens} onChange={(value) => setLens(value as LensId | "")}>
-          <option value="">Any lens</option>
-          {LENSES.map((entry) => (
-            <option key={entry.id} value={entry.id}>
-              {entry.label}
-            </option>
-          ))}
-        </Filter>
-        <Filter label="Trait" value={trait} onChange={(value) => setTrait(value as TraitId | "")}>
-          <option value="">Any trait</option>
-          {TRAITS.map((entry) => (
-            <option key={entry.id} value={entry.id}>
-              {entry.label}
-            </option>
-          ))}
-        </Filter>
-        <Filter
-          label="Status"
-          value={status}
-          onChange={(value) => setStatus(value as DossierStoryView["status"] | "")}
+    <div className="flex flex-col gap-8">
+      <div className="flex flex-col gap-4 lg:flex-row lg:items-center">
+        <div
+          role="group"
+          aria-label="View"
+          data-view={view}
+          className="seg relative inline-flex h-9 shrink-0 self-start rounded-full border border-edge bg-frost p-0.5"
         >
-          <option value="">Any status</option>
-          {Object.entries(STORY_STATUS_LABELS).map(([id, label]) => (
-            <option key={id} value={id}>
-              {label}
-            </option>
+          {(["timeline", "list"] as const).map((option) => (
+            <button
+              key={option}
+              type="button"
+              aria-pressed={view === option}
+              onClick={() => setView(option)}
+              className="relative z-10 h-full rounded-full px-4 text-sm font-medium text-text-soft transition-colors duration-200 select-none aria-pressed:text-text"
+            >
+              {option === "timeline" ? "Timeline" : "List"}
+            </button>
           ))}
-        </Filter>
-        <Filter
-          label="Context"
-          value={context}
-          onChange={(value) => setContext(value as DossierStoryView["context"] | "")}
+        </div>
+        <div className="-mx-5 flex gap-2 overflow-x-auto px-5 [scrollbar-width:none] sm:mx-0 sm:flex-wrap sm:px-0">
+          <Filter label="Lens" value={lens} onChange={(value) => setLens(value as LensId | "")}>
+            <option value="">Any lens</option>
+            {LENSES.map((entry) => (
+              <option key={entry.id} value={entry.id}>
+                {entry.label}
+              </option>
+            ))}
+          </Filter>
+          <Filter label="Trait" value={trait} onChange={(value) => setTrait(value as TraitId | "")}>
+            <option value="">Any trait</option>
+            {TRAITS.map((entry) => (
+              <option key={entry.id} value={entry.id}>
+                {entry.label}
+              </option>
+            ))}
+          </Filter>
+          <Filter
+            label="Status"
+            value={status}
+            onChange={(value) => setStatus(value as DossierStoryView["status"] | "")}
+          >
+            <option value="">Any status</option>
+            {Object.entries(STORY_STATUS_LABELS).map(([id, label]) => (
+              <option key={id} value={id}>
+                {label}
+              </option>
+            ))}
+          </Filter>
+          <Filter
+            label="Context"
+            value={context}
+            onChange={(value) => setContext(value as DossierStoryView["context"] | "")}
+          >
+            <option value="">Anywhere</option>
+            {CONTEXTS.map((entry) => (
+              <option key={entry} value={entry}>
+                {entry[0]?.toUpperCase()}
+                {entry.slice(1)}
+              </option>
+            ))}
+          </Filter>
+        </div>
+        <Button
+          asChild
+          variant="secondary"
+          size="sm"
+          className="self-start lg:ms-auto lg:self-auto"
         >
-          <option value="">Anywhere</option>
-          {CONTEXTS.map((entry) => (
-            <option key={entry} value={entry}>
-              {entry[0]?.toUpperCase()}
-              {entry.slice(1)}
-            </option>
-          ))}
-        </Filter>
-        <Button asChild variant="secondary" className="ms-auto">
           <Link href="/studio">Record a story</Link>
         </Button>
       </div>
 
-      {view === "constellation" ? (
-        <Constellation
-          stories={nodes}
+      {filtered.length === 0 ? (
+        <p className="text-sm text-text-soft">No stories match these filters.</p>
+      ) : view === "timeline" ? (
+        <StoryTimeline
+          stories={filtered}
           selectedId={selected?.id ?? null}
           onSelect={setSelectedId}
-          onShowList={() => setView("list")}
         />
       ) : (
         <div className="flex flex-col gap-3">
-          <div className="flex items-center justify-between gap-3">
-            <p className="text-sm text-text-soft">
-              {filtered.length} {filtered.length === 1 ? "story" : "stories"}
-            </p>
-            <Button variant="quiet" onClick={() => setView("constellation")}>
-              Constellation view
-            </Button>
-          </div>
-          <ul className="flex flex-col divide-y divide-edge rounded-plane border border-edge">
+          <p className="label">
+            {filtered.length} {filtered.length === 1 ? "story" : "stories"}
+          </p>
+          <ul className="flex flex-col border-t border-edge">
             {filtered.map((story) => (
-              <li key={story.id}>
+              <li key={story.id} className="border-b border-edge">
                 <button
                   type="button"
                   onClick={() => setSelectedId(story.id)}
                   aria-pressed={story.id === selected?.id}
                   className={cx(
-                    "flex min-h-11 w-full flex-wrap items-center gap-3 px-4 py-3 text-left",
-                    story.id === selected?.id ? "bg-veil" : "hover:bg-veil",
+                    "flex min-h-14 w-full flex-wrap items-center gap-x-4 gap-y-1 border-l-2 px-4 py-3 text-left transition-colors duration-200",
+                    story.id === selected?.id
+                      ? "border-l-text bg-veil"
+                      : "border-l-transparent hover:bg-veil",
                   )}
                 >
-                  <span className="font-medium text-text">{story.nickname}</span>
-                  <span className="text-sm text-text-soft">
+                  <span className="text-ui text-text">{story.nickname}</span>
+                  <span className="label">
                     {story.context} {story.era}
                   </span>
                   <StatusLabel tone={STATUS_TONES[story.status]} className="ms-auto">
@@ -265,16 +264,25 @@ function Filter({
   onChange: (value: string) => void;
   children: React.ReactNode;
 }) {
+  // A native select dressed as a 36 px pill (SPEC §6.11): the first option names the filter
+  // ("Any lens"), and the label is its accessible name.
   return (
-    <label className="flex flex-col gap-1 text-sm">
-      <span className="font-medium text-text">{label}</span>
+    <label className="relative inline-flex shrink-0">
+      <span className="sr-only">{label}</span>
       <select
         value={value}
         onChange={(event) => onChange(event.target.value)}
-        className="min-h-11 rounded-control border border-control-edge bg-depth px-3 text-text"
+        className={cx(
+          "dossier-filter h-9 appearance-none rounded-full border border-edge bg-frost ps-4 pe-9 text-sm font-medium transition-colors duration-200",
+          value === "" ? "text-text-soft" : "border-text text-text",
+        )}
       >
         {children}
       </select>
+      <span
+        aria-hidden
+        className="pointer-events-none absolute end-3.5 top-1/2 size-2 -translate-y-[70%] rotate-45 border-e-[1.25px] border-b-[1.25px] border-current text-text-soft"
+      />
     </label>
   );
 }

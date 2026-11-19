@@ -14,22 +14,21 @@ committed there); the session of 2026-11-17 moved the uncommitted work back to
 
 ## Next step
 
-**Phase 7 is in progress (named 2026-11-19).** Continue the checklist below in order; the spec is written.
-feedback on Schools, the school's tabs, the kit, preview, unlock or the editor, write it into
-"Decisions" (with the date), change SPEC §6.5–§6.9 to match, and fix that first.
+**Phase 7 is done (2026-11-19). Do not start Phase 8 until Manu names it.** If his message has
+feedback on the Dossier, Profile Read, Recommenders, the portal, Résumé, Connect, Settings,
+Interview, Tracker or the shared states, write it into "Decisions" (with the date), change SPEC
+§6.10–§6.18 to match, and fix that first.
 
-When Phase 7 is named, start here:
+When Phase 8 is named, start here:
 
-1. Load the project skills that apply (`.claude/skills/`: `emil-design-eng`, `animate`,
-   `choreograph`, `mobile-native`; SPEC §2.10).
-2. Start the local environment from `local-db.md` (production build). Populated screens: add a
-   gated sample route inside the casing, as Phase 6 did (`/workspace/sample`, SPEC §6.9 notes),
-   and pass it through `requireOnboardedUser()` (`lib/welcome-gate.test.ts` checks every page).
-3. Expand SPEC §6.2's Dossier, Profile Read, Recommenders, portal, Résumé, Connect, Settings,
-   Interview and Tracker rows to full values, then build them. The school's Recommenders and
-   Résumé tabs already sit in Phase 6's frame (header, strip, panel); their documents are
-   Phase 7's. Give `/r` its own paper `themeColor`. Use `text-[12px]`, never `text-xs` (not in
-   this theme's scale).
+1. Load the project skills (`.claude/skills/`: `emil-design-eng`, `animate`, `choreograph`,
+   `mobile-native`; SPEC §2.10), plus `review-animations` and `break-ui` for the sweep.
+2. Start the local environment from `local-db.md` (production build). The axe runner used in
+   Phase 7 signs in through `.outbox` by itself; copy the pattern (it is ~40 lines, see REPORT
+   Phase 7).
+3. Work the brief's Phase 8 list: consistency sweep against the spec, axe on every route,
+   Lighthouse on `/` and `/home` (mobile), 375 px overflow everywhere, console and network,
+   reduced motion everywhere, admin still renders, finish REPORT.md.
 
 ## Phases
 
@@ -42,7 +41,7 @@ When Phase 7 is named, start here:
 | 4. Other marketing + entry | `/how-it-works`, `/pricing`, `/privacy`, `/terms`, OG, titles, `/sign-in`, `/welcome`, `/first-run`                        | **done** (2026-11-17)          |
 | 5. Shell, home, Studio     | casing, sidebar, top bar, dock, palette, account menu, toasts, `/home`, `/studio`                                          | **done** (2026-11-17)          |
 | 6. Schools and the editor  | `/schools`, workspace and tabs, preview, unlock, `/workspace/[id]`, `/kits/[id]`                                           | **done** (2026-11-18)          |
-| 7. The rest of the app     | dossier, profile read, recommenders, portal, résumé, connect, settings, interview, tracker, all states                     | **in progress** (2026-11-19)   |
+| 7. The rest of the app     | dossier, profile read, recommenders, portal, résumé, connect, settings, interview, tracker, all states                     | **done** (2026-11-19)          |
 | 8. Final pass              | consistency sweep, axe, Lighthouse, overflow, console, reduced motion, admin, REPORT.md                                    | not started                    |
 
 ## Phase 0 checklist
@@ -234,20 +233,20 @@ Started 2026-11-19.
 - [x] SPEC §6.10 (shared states), §6.11 Dossier, §6.12 Profile Read, §6.13 Recommenders, §6.14
       portal, §6.15 Résumé, §6.16 Connect, §6.17 Settings, §6.18 Interview and Tracker at full
       values; §6.2's rows point at them
-- [ ] Shared states: `EmptyState` (the line), `(app)/loading.tsx`, `(app)/error.tsx`, root error
-- [ ] Settings, privacy, security
-- [ ] Interview still, Tracker / `ComingSoonPage`
-- [ ] Recommender portal (paper always, `/r` theme colour), `/r`, closed, submitted
-- [ ] Recommenders list and detail
-- [ ] Profile Read on paper (lens table, lead, citation marks)
-- [ ] Dossier timeline (and facts, brand, voice without the orb)
-- [ ] Résumé and review
-- [ ] Connect coming-soon onto the system
-- [ ] Sample routes for populated screens (Dossier, Profile Read, portal), gated, in `shoot.mjs`
-- [ ] Shot in Day and Night at 1440 / 390 / 375, reduced motion; scored; fixed; re-shot
-- [ ] Measured: bundle, axe, overflow, console
-- [ ] Gates: typecheck, lint, build, `bundle:check`, format check; unit tests
-- [ ] SPEC updated where the build differs; REPORT.md; committed
+- [x] Shared states: `EmptyState` (the line), `(app)/loading.tsx`, `(app)/error.tsx`, root error
+- [x] Settings, privacy, security
+- [x] Interview still, Tracker / `ComingSoonPage`
+- [x] Recommender portal (paper always, `/r` theme colour), `/r`, closed, submitted
+- [x] Recommenders list and detail
+- [x] Profile Read on paper (lens table, lead, citation marks)
+- [x] Dossier timeline (and facts, brand, voice without the orb)
+- [x] Résumé and review
+- [x] Connect coming-soon onto the system
+- [x] Sample routes for populated screens (Dossier, Profile Read, portal), gated, in `shoot.mjs`
+- [x] Shot in Day and Night at 1440 / 390 / 375, reduced motion; scored; fixed; re-shot
+- [x] Measured: bundle, axe, overflow, console
+- [x] Gates: typecheck, lint, build, `bundle:check`, format check; unit tests
+- [x] SPEC updated where the build differs; REPORT.md; committed
 
 ## Decisions
 
@@ -389,6 +388,23 @@ Made in Phase 6 by Claude while building, **not yet approved by Manu**:
 | 2026-11-18 | "Receipt to your email. All sales are final." under the list, linking `/terms`                                                             | the brief: say it where terms are mentioned, without drama                                           | §6.8       |
 | 2026-11-18 | Brass removed from the preview's numbers, arrows and borders                                                                               | accent discipline (§2.1): brass is the primary fill, a live or "here" line, the caret                | §6.7       |
 | 2026-11-18 | Populated screens are checked through gated sample routes inside the casing, not a `/prototype/redesign` gallery                           | they render in the real shell, rail and fonts                                                        | §12        |
+
+Made in Phase 7 by Claude while building, **not yet approved by Manu**:
+
+| Date       | Decision                                                                                                                               | Why                                                                                   | Spec  |
+| ---------- | -------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------- | ----- |
+| 2026-11-19 | Empty, loading and error share one vocabulary: a flat line with a small rise (empty), hairline skeletons after 300 ms, a broken line   | the Voiceline does all three jobs; no illustrations                                   | §6.10 |
+| 2026-11-19 | `(app)/loading.tsx` and `(app)/error.tsx` added inside the casing                                                                      | there were none: a slow route showed nothing, a failed one lost the navigation        | §6.10 |
+| 2026-11-19 | The Dossier's Stories tab is a timeline of eras; the canvas constellation and its layout code are deleted                              | the brief's "chapters on a horizontal timeline"; the constellation was nodes and glow | §6.11 |
+| 2026-11-19 | The Voice tab draws the applicant's still line instead of the orb                                                                      | the brief bans orbs; the same numbers shape the line                                  | §6.11 |
+| 2026-11-19 | The Profile Read is one sheet; the four lenses are a table on hairlines; the dial leaves the page (kept in the package with its tests) | "a typeset read", "not a ring chart"                                                  | §6.12 |
+| 2026-11-19 | The read's lead is its first "what your stories say about you" finding, set word by word once per new read                             | the data has no headline field; that finding is the read in a sentence                | §6.12 |
+| 2026-11-19 | Citations stay named ("The night-shift fix") in mono with a dotted underline, not superscript codes                                    | a code hides what the claim rests on                                                  | §6.12 |
+| 2026-11-19 | Recommenders' status is a five-stop line with the peak on the current stop                                                             | the code has five statuses; the Voiceline as a progress line                          | §6.13 |
+| 2026-11-19 | The portal is always paper, with its own `themeColor` (`#ECE9E2`)                                                                      | its readers aren't customers; a letter is written on paper                            | §6.14 |
+| 2026-11-19 | Connect's people marquee is a still, focusable strip                                                                                   | nothing in the background moves (the landing's marquee went the same way in Phase 3)  | §6.16 |
+| 2026-11-19 | Settings sections sit on hairlines with label heads; radios became chips; the theme switch has a sheet swatch that turns with it       | one column, calm; the swatch shows what the switch changes                            | §6.17 |
+| 2026-11-19 | Interview is a still of the room on an always-Night frame, a new fictional applicant (hospital operations, Pune) at Halvorsen          | the brief's "beautiful still of the room" with the honest promise                     | §6.18 |
 
 Approved, changed or rejected by Manu: Phase 1 was named (so the Phase 0 spec was accepted as the
 working basis). All of "Needs Manu" was answered on 2026-11-17, below.
@@ -585,44 +601,81 @@ working basis). All of "Needs Manu" was answered on 2026-11-17, below.
   32 % opacity and the rest not yet started; all at rest by 400 ms. A keyboard change: no
   animation.
 
+## Measured after Phase 7 (2026-11-19, production build, local)
+
+- First-load JS: `/settings` **153.5 KB** of 160 (the heaviest Phase 7 route: the theme toggle and
+  the voice form), `/settings/privacy` 152.3, `/settings/security` 151.8, `/dossier`,
+  `/profile-read`, `/recommenders`, `/resume`, `/connect` 148.5–148.6, `/interview` and
+  `/tracker` 146.7 (server-only pages), `/r/[token]` **139.2**, `/r` 139.1. `bundle:check` passes.
+- axe (WCAG 2.2 AA): **0 violations** on `/dossier`, `/dossier/sample`, `/profile-read`,
+  `/profile-read/sample`, `/recommenders`, `/resume`, `/resume/review`, `/connect`, `/settings`,
+  `/settings/privacy`, `/settings/security`, `/interview`, `/tracker`, `/r`, `/r/sample`, Day and
+  Night, 1440 and 390 (two findings on the first pass, both fixed: the résumé's hidden file input
+  had no name; the still people strip wasn't keyboard-scrollable).
+- Overflow at 375 px: none on any Phase 7 route, Day, Night and reduced motion.
+- Console, failed requests, hydration warnings: none.
+- Unit tests 2,447 of 2,447 (two Profile Read tests pinned the old heading order and plain plan
+  numbers; the build was changed to keep them true, the tests were not).
+
 ## Scores
 
-| Screen                | Glance | Signature | Type | Composition | Colour | Media | Motion | Mobile | Copy | Polish | Average |
-| --------------------- | ------ | --------- | ---- | ----------- | ------ | ----- | ------ | ------ | ---- | ------ | ------- |
-| `/prototype/system`   | 8      | 8         | 9    | 8           | 8      | 8     | 8      | 7      | 8    | 8      | **8.0** |
-| `/` hero and nav      | 9      | 9         | 9    | 8           | 9      | 9     | 8      | 8      | 8    | 8      | **8.5** |
-| `/` whole page        | 9      | 9         | 9    | 8           | 9      | 8     | 8      | 8      | 9    | 8      | **8.5** |
-| 2 schools strip       | 8      | 7         | 9    | 8           | 8      | 8     | 7      | 8      | 8    | 9      | **8.0** |
-| 3 how it works        | 9      | 9         | 9    | 8           | 9      | 9     | 8      | 8      | 9    | 8      | **8.6** |
-| 4 school by school    | 9      | 8         | 9    | 8           | 9      | 8     | 7      | 8      | 9    | 8      | **8.3** |
-| 5 essays, on paper    | 9      | 9         | 9    | 8           | 9      | 9     | 8      | 8      | 9    | 8      | **8.6** |
-| 6 the model           | 8      | 8         | 9    | 8           | 8      | 8     | 8      | 8      | 8    | 8      | **8.1** |
-| 7 Connect             | 8      | 7         | 9    | 8           | 8      | 8     | 7      | 8      | 8    | 8      | **7.9** |
-| 8 what it won't do    | 8      | 7         | 9    | 8           | 8      | 7     | 7      | 8      | 9    | 8      | **7.9** |
-| 9 interview, soon     | 8      | 8         | 8    | 8           | 9      | 8     | 8      | 8      | 9    | 8      | **8.2** |
-| 10 pricing            | 8      | 8         | 8    | 8           | 9      | 7     | 7      | 8      | 9    | 8      | **8.0** |
-| 11 questions          | 8      | 7         | 9    | 8           | 8      | 7     | 7      | 8      | 8    | 8      | **7.8** |
-| 12 final call         | 8      | 7         | 9    | 8           | 8      | 7     | 8      | 8      | 8    | 8      | **7.9** |
-| 13 footer             | 8      | 7         | 8    | 8           | 8      | 7     | 7      | 8      | 8    | 8      | **7.7** |
-| `/how-it-works`       | 8      | 8         | 9    | 8           | 9      | 9     | 8      | 8      | 9    | 8      | **8.4** |
-| `/pricing`            | 9      | 8         | 9    | 8           | 9      | 8     | 8      | 8      | 9    | 8      | **8.4** |
-| `/privacy`, `/terms`  | 9      | 8         | 9    | 9           | 9      | 8     | 8      | 8      | 8    | 9      | **8.5** |
-| OG images             | 9      | 8         | 9    | 8           | 9      | 8     | n/a    | n/a    | 9    | 9      | **8.6** |
-| `/sign-in`            | 9      | 8         | 9    | 8           | 9      | 8     | 8      | 8      | 8    | 8      | **8.3** |
-| `/welcome`            | 8      | 7         | 9    | 8           | 9      | 7     | 8      | 8      | 8    | 8      | **8.0** |
-| `/first-run`          | 8      | 8         | 9    | 8           | 9      | 7     | 8      | 8      | 8    | 8      | **8.1** |
-| not-found, goodbye    | 8      | 7         | 9    | 8           | 8      | 7     | 7      | 8      | 8    | 8      | **7.8** |
-| The casing            | 9      | 7         | 9    | 9           | 9      | 8     | 8      | 8      | 8    | 8      | **8.3** |
-| Palette, menu, toast  | 8      | 7         | 9    | 8           | 9      | 7     | 9      | 8      | 8    | 8      | **8.1** |
-| `/home`               | 8      | 8         | 9    | 8           | 9      | 8     | 8      | 8      | 8    | 8      | **8.2** |
-| `/studio`             | 9      | 9         | 9    | 8           | 9      | 9     | 8      | 8      | 8    | 8      | **8.5** |
-| Studio free-half gate | 9      | 8         | 9    | 8           | 9      | 8     | 8      | 8      | 9    | 8      | **8.4** |
-| `/schools`            | 8      | 8         | 9    | 8           | 9      | 8     | 8      | 8      | 8    | 7      | **8.1** |
-| School header, strip  | 9      | 7         | 9    | 9           | 9      | 8     | 8      | 8      | 8    | 8      | **8.3** |
-| Kit being prepared    | 8      | 8         | 9    | 8           | 8      | 8     | 8      | 7      | 8    | 8      | **8.0** |
-| Preview               | 8      | 7         | 9    | 8           | 9      | 8     | 8      | 8      | 9    | 8      | **8.2** |
-| Unlock                | 8      | 8         | 9    | 7           | 9      | 8     | 8      | 8      | 9    | 8      | **8.2** |
-| The editor            | 9      | 9         | 9    | 8           | 9      | 9     | 8      | 7      | 8    | 8      | **8.4** |
+| Screen                   | Glance | Signature | Type | Composition | Colour | Media | Motion | Mobile | Copy | Polish | Average |
+| ------------------------ | ------ | --------- | ---- | ----------- | ------ | ----- | ------ | ------ | ---- | ------ | ------- |
+| `/prototype/system`      | 8      | 8         | 9    | 8           | 8      | 8     | 8      | 7      | 8    | 8      | **8.0** |
+| `/` hero and nav         | 9      | 9         | 9    | 8           | 9      | 9     | 8      | 8      | 8    | 8      | **8.5** |
+| `/` whole page           | 9      | 9         | 9    | 8           | 9      | 8     | 8      | 8      | 9    | 8      | **8.5** |
+| 2 schools strip          | 8      | 7         | 9    | 8           | 8      | 8     | 7      | 8      | 8    | 9      | **8.0** |
+| 3 how it works           | 9      | 9         | 9    | 8           | 9      | 9     | 8      | 8      | 9    | 8      | **8.6** |
+| 4 school by school       | 9      | 8         | 9    | 8           | 9      | 8     | 7      | 8      | 9    | 8      | **8.3** |
+| 5 essays, on paper       | 9      | 9         | 9    | 8           | 9      | 9     | 8      | 8      | 9    | 8      | **8.6** |
+| 6 the model              | 8      | 8         | 9    | 8           | 8      | 8     | 8      | 8      | 8    | 8      | **8.1** |
+| 7 Connect                | 8      | 7         | 9    | 8           | 8      | 8     | 7      | 8      | 8    | 8      | **7.9** |
+| 8 what it won't do       | 8      | 7         | 9    | 8           | 8      | 7     | 7      | 8      | 9    | 8      | **7.9** |
+| 9 interview, soon        | 8      | 8         | 8    | 8           | 9      | 8     | 8      | 8      | 9    | 8      | **8.2** |
+| 10 pricing               | 8      | 8         | 8    | 8           | 9      | 7     | 7      | 8      | 9    | 8      | **8.0** |
+| 11 questions             | 8      | 7         | 9    | 8           | 8      | 7     | 7      | 8      | 8    | 8      | **7.8** |
+| 12 final call            | 8      | 7         | 9    | 8           | 8      | 7     | 8      | 8      | 8    | 8      | **7.9** |
+| 13 footer                | 8      | 7         | 8    | 8           | 8      | 7     | 7      | 8      | 8    | 8      | **7.7** |
+| `/how-it-works`          | 8      | 8         | 9    | 8           | 9      | 9     | 8      | 8      | 9    | 8      | **8.4** |
+| `/pricing`               | 9      | 8         | 9    | 8           | 9      | 8     | 8      | 8      | 9    | 8      | **8.4** |
+| `/privacy`, `/terms`     | 9      | 8         | 9    | 9           | 9      | 8     | 8      | 8      | 8    | 9      | **8.5** |
+| OG images                | 9      | 8         | 9    | 8           | 9      | 8     | n/a    | n/a    | 9    | 9      | **8.6** |
+| `/sign-in`               | 9      | 8         | 9    | 8           | 9      | 8     | 8      | 8      | 8    | 8      | **8.3** |
+| `/welcome`               | 8      | 7         | 9    | 8           | 9      | 7     | 8      | 8      | 8    | 8      | **8.0** |
+| `/first-run`             | 8      | 8         | 9    | 8           | 9      | 7     | 8      | 8      | 8    | 8      | **8.1** |
+| not-found, goodbye       | 8      | 7         | 9    | 8           | 8      | 7     | 7      | 8      | 8    | 8      | **7.8** |
+| The casing               | 9      | 7         | 9    | 9           | 9      | 8     | 8      | 8      | 8    | 8      | **8.3** |
+| Palette, menu, toast     | 8      | 7         | 9    | 8           | 9      | 7     | 9      | 8      | 8    | 8      | **8.1** |
+| `/home`                  | 8      | 8         | 9    | 8           | 9      | 8     | 8      | 8      | 8    | 8      | **8.2** |
+| `/studio`                | 9      | 9         | 9    | 8           | 9      | 9     | 8      | 8      | 8    | 8      | **8.5** |
+| Studio free-half gate    | 9      | 8         | 9    | 8           | 9      | 8     | 8      | 8      | 9    | 8      | **8.4** |
+| `/schools`               | 8      | 8         | 9    | 8           | 9      | 8     | 8      | 8      | 8    | 7      | **8.1** |
+| School header, strip     | 9      | 7         | 9    | 9           | 9      | 8     | 8      | 8      | 8    | 8      | **8.3** |
+| Kit being prepared       | 8      | 8         | 9    | 8           | 8      | 8     | 8      | 7      | 8    | 8      | **8.0** |
+| Preview                  | 8      | 7         | 9    | 8           | 9      | 8     | 8      | 8      | 9    | 8      | **8.2** |
+| Unlock                   | 8      | 8         | 9    | 7           | 9      | 8     | 8      | 8      | 9    | 8      | **8.2** |
+| The editor               | 9      | 9         | 9    | 8           | 9      | 9     | 8      | 7      | 8    | 8      | **8.4** |
+| Shared states            | 8      | 7         | 9    | 8           | 9      | 7     | 8      | 8      | 8    | 8      | **8.0** |
+| `/dossier`               | 8      | 8         | 9    | 8           | 9      | 8     | 8      | 8      | 8    | 8      | **8.2** |
+| `/profile-read`          | 9      | 8         | 9    | 8           | 9      | 8     | 8      | 8      | 9    | 8      | **8.4** |
+| `/recommenders`, `[id]`  | 8      | 8         | 9    | 8           | 9      | 7     | 8      | 8      | 8    | 8      | **8.1** |
+| `/r/[token]`, `/r`       | 9      | 8         | 9    | 9           | 9      | 8     | 8      | 9      | 9    | 8      | **8.6** |
+| `/resume`, review        | 8      | 7         | 9    | 8           | 9      | 7     | 8      | 8      | 8    | 8      | **8.0** |
+| `/connect` (soon)        | 8      | 8         | 9    | 8           | 9      | 8     | 8      | 8      | 8    | 8      | **8.2** |
+| `/settings` and subpages | 8      | 7         | 9    | 8           | 9      | 7     | 8      | 8      | 8    | 8      | **8.0** |
+| `/interview`             | 9      | 9         | 9    | 8           | 9      | 9     | 8      | 8      | 9    | 8      | **8.6** |
+| `/tracker`               | 8      | 7         | 9    | 8           | 8      | 7     | 7      | 8      | 8    | 8      | **7.8** |
+
+**Phase 7.** First pass found six faults, all fixed and re-shot: the Dossier's peak sat on its
+era label and the filters were as wide as their longest option; the recommender line drew its
+tick through the peak; Settings' Voice section left 90 px of empty live regions at its foot; the
+résumé's narrative card stretched to the right column and left dead space; the thin Profile Read
+repeated the page's line as its lead and its full-width tracks read as extra hairlines on phones;
+the Interview transcript stranded words on a phone. **The Tracker scores 7.8**, under the bar: the
+brief says to keep its coming-soon state, so it is the shared `ComingSoonPage` on the new type and
+hairlines with no visual of its own. Giving it one (a still of a deadline line, say) would be new
+design for a deferred area; Manu's call. The quiet pages (Settings, Résumé, the states) score 7 on
+signature and media for the same reason as the landing's quiet scenes.
 
 First pass scored 7.4 (polish 6, composition 7, mobile 6: transcript lines ran under the frost
 caption, a tab was clipped at the panel edge, the Night-paper colour column was two-thirds empty,

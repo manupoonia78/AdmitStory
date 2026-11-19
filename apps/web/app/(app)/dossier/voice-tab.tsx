@@ -1,11 +1,12 @@
 "use client";
 
-import { Button, VoiceprintStill, cx } from "@admitstory/ui";
+import { Button, cx } from "@admitstory/ui";
 import { DEFAULT_IDENTITY } from "@admitstory/shared";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { AlertMessage, StatusMessage } from "@/components/live-message";
 import type { DossierGoalsView, DossierVoiceView } from "./types";
+import { VoiceLine } from "./voice-line";
 
 // Voice (spec §5.3d): what we learned about how this person writes and talks, plus their own tone
 // control. The card is shown as it is — it is what the Writer will receive, and nothing about the
@@ -47,31 +48,23 @@ export function VoiceTab({
   };
 
   return (
-    <div className="flex flex-col gap-8">
-      <section className="flex flex-wrap items-center gap-6">
-        <span aria-hidden>
-          <VoiceprintStill identity={voice.identity ?? DEFAULT_IDENTITY} size={96} label="" />
-        </span>
-        <div className="flex flex-col gap-1">
-          <h2 className="font-display text-[1.625rem] leading-tight tracking-[-0.01em] text-text">
-            Your Voiceprint
-          </h2>
-          <p className="max-w-prose text-text-soft">
-            {voice.identity === null
-              ? "Drawn from a default for now. Once you've answered a few questions it becomes yours."
-              : voice.identity.source === "text"
-                ? "Drawn from the rhythm of your writing. It will be drawn from your voice once you speak."
-                : "Drawn from the way you speak."}
-          </p>
-        </div>
+    <div className="flex flex-col gap-12">
+      <section className="flex flex-col gap-4">
+        <h2 className="label">Your line</h2>
+        <VoiceLine identity={voice.identity ?? DEFAULT_IDENTITY} />
+        <p className="max-w-[60ch] text-sm text-text-soft">
+          {voice.identity === null
+            ? "Drawn from a default for now. Once you've answered a few questions it becomes yours."
+            : voice.identity.source === "text"
+              ? "Drawn from the rhythm of your writing. It will be drawn from your voice once you speak."
+              : "Drawn from the way you speak."}
+        </p>
       </section>
 
       <section className="flex flex-col gap-3">
-        <h2 className="font-display text-[1.625rem] leading-tight tracking-[-0.01em] text-text">
-          How you sound
-        </h2>
+        <h2 className="label">How you sound</h2>
         {voice.card ? (
-          <p className="rounded-plane border border-edge bg-depth p-4 font-ui text-sm text-text">
+          <p className="max-w-[64ch] border-l-2 border-edge pl-4 font-reading text-read text-text">
             {voice.card}
           </p>
         ) : (
@@ -80,7 +73,7 @@ export function VoiceTab({
           </p>
         )}
         {voice.stats ? (
-          <dl className="flex flex-wrap gap-x-8 gap-y-2 text-sm">
+          <dl className="flex flex-wrap gap-x-10 gap-y-3 border-t border-edge pt-4">
             <Stat label="Sentences" value={String(voice.stats.sentenceCount)} />
             <Stat label="Average length" value={`${voice.stats.sentenceLengthMean} words`} />
             <Stat
@@ -98,9 +91,7 @@ export function VoiceTab({
       </section>
 
       <section className="flex flex-col gap-3">
-        <h2 className="font-display text-[1.625rem] leading-tight tracking-[-0.01em] text-text">
-          Tone
-        </h2>
+        <h2 className="label">Tone</h2>
         <p className="max-w-prose text-text-soft">
           By default your drafts match how you actually talk. You can lean one way instead.
         </p>
@@ -114,11 +105,13 @@ export function VoiceTab({
                 aria-pressed={selected}
                 onClick={() => void choose(option.id)}
                 className={cx(
-                  "flex flex-1 flex-col gap-1 rounded-plane border p-4 text-left",
-                  selected ? "border-text bg-veil" : "border-edge hover:bg-veil",
+                  "flex flex-1 flex-col gap-1 rounded-card border p-5 text-left transition-colors duration-200 active:scale-[0.99]",
+                  selected
+                    ? "border-text bg-depth shadow-[inset_0_0_0_0.5px_var(--text)]"
+                    : "border-edge hover:bg-veil",
                 )}
               >
-                <span className="font-semibold text-text">{option.label}</span>
+                <span className="text-ui text-text">{option.label}</span>
                 <span className="text-sm text-text-soft">{option.detail}</span>
               </button>
             );
@@ -135,9 +128,7 @@ export function VoiceTab({
 
       {goals && (goals.shortTerm || goals.longTerm || goals.planB) ? (
         <section className="flex flex-col gap-3">
-          <h2 className="font-display text-[1.625rem] leading-tight tracking-[-0.01em] text-text">
-            Your goals, as we have them
-          </h2>
+          <h2 className="label">Your goals, as we have them</h2>
           <dl className="flex flex-col gap-3">
             {goals.shortTerm ? <Stat label="Short term" value={goals.shortTerm} stacked /> : null}
             {goals.longTerm ? <Stat label="Long term" value={goals.longTerm} stacked /> : null}
@@ -155,8 +146,14 @@ export function VoiceTab({
 function Stat({ label, value, stacked }: { label: string; value: string; stacked?: boolean }) {
   return (
     <div className={stacked ? "flex flex-col gap-0.5" : "flex flex-col"}>
-      <dt className="text-sm font-medium text-text-soft">{label}</dt>
-      <dd className={stacked ? "text-text" : "font-medium text-text"}>{value}</dd>
+      <dt className="label">{label}</dt>
+      <dd
+        className={
+          stacked ? "text-base text-text-80" : "font-mono text-[15px] tabular-nums text-text"
+        }
+      >
+        {value}
+      </dd>
     </div>
   );
 }

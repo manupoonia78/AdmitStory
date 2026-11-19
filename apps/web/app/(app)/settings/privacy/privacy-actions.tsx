@@ -82,11 +82,11 @@ export function PrivacyActions({
 
   return (
     <>
-      <section aria-labelledby="download" className="flex flex-col gap-4 border-t border-edge py-10">
-        <h2
-          id="download"
-          className="label mb-2"
-        >
+      <section
+        aria-labelledby="download"
+        className="flex flex-col gap-4 border-t border-edge py-10"
+      >
+        <h2 id="download" className="label mb-2">
           Download
         </h2>
         <p className="text-text-soft">
@@ -109,10 +109,7 @@ export function PrivacyActions({
       </section>
 
       <section aria-labelledby="improve" className="flex flex-col gap-4 border-t border-edge py-10">
-        <h2
-          id="improve"
-          className="label mb-2"
-        >
+        <h2 id="improve" className="label mb-2">
           Help improve AdmitStories
         </h2>
         <label className="flex min-h-11 items-start gap-3">

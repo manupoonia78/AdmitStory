@@ -59,6 +59,15 @@
     font-size: 26px;
   }
 }
+/* On a phone the four lines run on as one paragraph, so short lines don't strand a word. */
+@media (max-width: 39.99rem) {
+  .room-still-transcript p {
+    display: inline;
+  }
+  .room-still-transcript p::after {
+    content: " ";
+  }
+}
 .room-still-transcript p:last-child {
   color: rgb(244 241 234 / 0.4);
 }

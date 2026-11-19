@@ -72,15 +72,12 @@ export function BrandTab({
         to be read; a trait without evidence behind it is worse than one fewer.
       </p>
 
-      <ul className="flex flex-col gap-4">
+      <ul className="flex flex-col border-t border-edge">
         {traits.map((trait, index) => (
-          <li
-            key={trait.traitId}
-            className="flex flex-col gap-2 rounded-plane border border-edge p-4"
-          >
+          <li key={trait.traitId} className="flex flex-col gap-3 border-b border-edge py-6">
             <div className="flex flex-wrap items-center justify-between gap-3">
               <label className="flex flex-col gap-1 text-sm">
-                <span className="font-medium text-text">Trait</span>
+                <span className="label">Trait</span>
                 <select
                   value={trait.traitId}
                   onChange={(event) =>
@@ -90,7 +87,7 @@ export function BrandTab({
                       ),
                     )
                   }
-                  className="min-h-11 rounded-control border border-control-edge bg-depth px-3 text-text"
+                  className="h-12 rounded-control border border-control bg-field px-4 text-base text-text"
                 >
                   {TRAITS.map((entry) => (
                     <option key={entry.id} value={entry.id}>
@@ -108,15 +105,12 @@ export function BrandTab({
             </div>
             {trait.why ? <p className="text-text-soft">{trait.why}</p> : null}
             <div className="flex flex-col gap-1">
-              <h3 className="text-sm font-semibold text-text">Proved by</h3>
+              <h3 className="label">Proved by</h3>
               <ul className="flex flex-wrap gap-2">
                 {trait.storyCodes.map((code) => {
                   const story = byCode.get(code);
                   return (
-                    <li
-                      key={code}
-                      className="rounded-control border border-edge px-2 py-0.5 text-sm text-text"
-                    >
+                    <li key={code} className="chip h-7 px-2.5">
                       {story?.nickname ?? code}
                     </li>
                   );
@@ -130,7 +124,13 @@ export function BrandTab({
         ))}
       </ul>
 
-      <div className="flex flex-col gap-2">
+      <div className="flex flex-col gap-4">
+        {line.trim() ? (
+          <figure className="rounded-paper bg-sheet px-6 py-7 text-sheet-text shadow-paper sm:px-10 sm:py-9">
+            <figcaption className="label">Positioning</figcaption>
+            <p className="mt-3 max-w-[40ch] font-reading text-read-lg italic text-text">{line}</p>
+          </figure>
+        ) : null}
         <TextField
           label="Positioning line"
           hint="Internal only — this is never submitted anywhere. It is how we keep your file consistent."

@@ -28,15 +28,15 @@ async function errorOf(response: Response | null, fallback: string): Promise<str
 
 function Frame({ children }: { children: React.ReactNode }) {
   return (
-    <div className="mx-auto flex w-full max-w-6xl flex-col gap-8 px-4 py-10 sm:px-8 sm:py-16">
+    <div className="mx-auto flex w-full max-w-[70rem] flex-col gap-8 px-5 pt-6 pb-16 sm:px-10 sm:pt-10 lg:px-14 lg:pt-14">
       <div className="flex flex-col gap-4">
         <Link
           href="/resume"
-          className="meta text-text-soft underline-offset-4 hover:text-text hover:underline"
+          className="label inline-flex min-h-11 items-center self-start hover:text-text"
         >
           Résumé / Line by line
         </Link>
-        <h1 className="text-display text-text">Your uploaded résumé, line by line</h1>
+        <h1 className="text-display-2 text-text">Your uploaded résumé, line by line</h1>
       </div>
       {children}
     </div>

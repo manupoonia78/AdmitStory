@@ -55,9 +55,7 @@ export function PortalPage({ view }: { view: PortalView }) {
         {view.groups.map((group) => (
           <div key={group.key} className="flex flex-col gap-6">
             {view.groups.length > 1 ? (
-              <h3 className="label">
-                {group.schools.map((school) => school.name).join(" · ")}
-              </h3>
+              <h3 className="label">{group.schools.map((school) => school.name).join(" · ")}</h3>
             ) : null}
             {group.sections.length > 0 ? (
               <BriefReading sections={group.sections} />

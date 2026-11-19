@@ -108,7 +108,7 @@ export function StoryDetail({
   };
 
   return (
-    <article className="flex flex-col gap-6 rounded-plane border border-edge bg-depth p-5">
+    <article className="card flex flex-col gap-8 p-6 lg:p-8">
       <header className="flex flex-wrap items-start justify-between gap-3">
         <div className="flex min-w-60 flex-1 flex-col gap-2">
           <TextField
@@ -120,7 +120,7 @@ export function StoryDetail({
                 onPatch(story.id, { nickname: nickname.trim() }, "Nickname saved.");
             }}
           />
-          <p className="text-sm text-text-soft">
+          <p className="label">
             {story.code} · {story.context} {story.era}
           </p>
         </div>
@@ -149,10 +149,7 @@ export function StoryDetail({
           {story.numbers.length > 0 ? (
             <ul className="mt-1 flex flex-wrap gap-2">
               {story.numbers.map((number) => (
-                <li
-                  key={`${number.label}-${number.value}`}
-                  className="rounded-control border border-edge px-2 py-0.5 text-sm"
-                >
+                <li key={`${number.label}-${number.value}`} className="chip h-7 px-2.5">
                   {number.label}: <span className="font-medium">{number.value}</span>
                 </li>
               ))}
@@ -164,7 +161,7 @@ export function StoryDetail({
 
       {story.lines.length > 0 ? (
         <section className="flex flex-col gap-2">
-          <h3 className="text-sm font-semibold text-text">Golden lines</h3>
+          <h3 className="label">Golden lines</h3>
           <p className="text-sm text-text-soft">
             Your own words, kept exactly. Star the ones you want in your drafts.
           </p>
@@ -179,7 +176,9 @@ export function StoryDetail({
                 >
                   {line.starred ? "★ Starred" : "☆ Star"}
                 </button>
-                <q className="font-reading text-reading text-text">{line.text}</q>
+                <q className="border-l-2 border-edge pl-4 font-reading text-read italic text-text">
+                  {line.text}
+                </q>
               </li>
             ))}
           </ul>
@@ -188,7 +187,7 @@ export function StoryDetail({
 
       {cast.length > 0 ? (
         <section className="flex flex-col gap-2">
-          <h3 className="text-sm font-semibold text-text">People</h3>
+          <h3 className="label">People</h3>
           <ul className="flex flex-col gap-2">
             {cast.map((person) => (
               <li key={person.id} className="flex flex-wrap items-center gap-3">
@@ -211,8 +210,8 @@ export function StoryDetail({
       ) : null}
 
       {story.missing.length > 0 ? (
-        <section className="flex flex-col gap-2 rounded-control border border-needs/40 bg-needs/5 p-4">
-          <h3 className="text-sm font-semibold text-text">Missing</h3>
+        <section className="flex flex-col gap-2 border-l-2 border-needs pl-4">
+          <h3 className="label">Missing</h3>
           {story.missing.map((item, index) => (
             <p key={index} className="text-text">
               {item.question}
@@ -228,7 +227,7 @@ export function StoryDetail({
                 value={detail}
                 onChange={(event) => setDetail(event.target.value)}
                 rows={3}
-                className="w-full rounded-control border border-control-edge bg-depth p-3 font-reading text-reading text-text"
+                className="w-full rounded-control border border-control bg-field p-4 font-reading text-read text-text"
               />
             </label>
             <DetailDictation
@@ -253,9 +252,9 @@ export function StoryDetail({
 
       {story.traits.length > 0 ? (
         <section className="flex flex-wrap items-center gap-2">
-          <h3 className="text-sm font-semibold text-text">Shows</h3>
+          <h3 className="label">Shows</h3>
           {story.traits.map((trait) => (
-            <span key={trait} className="rounded-control border border-edge px-2 py-0.5 text-sm">
+            <span key={trait} className="chip h-7 px-2.5">
               {TRAITS.some((entry) => entry.id === trait) ? traitLabel(trait as TraitId) : trait}
             </span>
           ))}
@@ -263,7 +262,7 @@ export function StoryDetail({
       ) : null}
 
       <section className="flex flex-col gap-3 border-t border-edge pt-4">
-        <h3 className="text-sm font-semibold text-text">This story</h3>
+        <h3 className="label">This story</h3>
         <label className="flex min-h-11 items-start gap-3 text-sm">
           <input
             type="checkbox"
@@ -299,14 +298,14 @@ export function StoryDetail({
             </Button>
           ) : null}
           {mergeFrom === story.id ? (
-            <label className="flex flex-col gap-1 text-sm">
-              <span className="font-medium text-text">Merge which story into this one?</span>
+            <label className="flex flex-col gap-2 text-sm">
+              <span className="text-ui text-text">Merge which story into this one?</span>
               <select
                 defaultValue=""
                 onChange={(event) => {
                   if (event.target.value) onMerge(story.id, event.target.value);
                 }}
-                className="min-h-11 rounded-control border border-control-edge bg-depth px-3"
+                className="h-12 rounded-control border border-control bg-field px-4 text-base text-text"
               >
                 <option value="">Choose a story</option>
                 {others.map((other) => (
@@ -334,8 +333,8 @@ export function StoryDetail({
 function Part({ label, children }: { label: string; children: React.ReactNode }) {
   return (
     <div className="flex flex-col gap-1">
-      <dt className="text-sm font-semibold text-text">{label}</dt>
-      <dd className="font-reading text-reading text-text-soft">{children}</dd>
+      <dt className="label">{label}</dt>
+      <dd className="max-w-[68ch] text-base text-text-80">{children}</dd>
     </div>
   );
 }

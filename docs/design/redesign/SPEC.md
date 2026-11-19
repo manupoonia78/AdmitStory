@@ -1830,6 +1830,46 @@ in Pune), written for this still and labelled a preview.
 **Tracker** `/tracker` keeps its coming-soon state through `ComingSoonPage`, which moves onto the
 same head (chip, `display-2`, `display-3` headline, line) and the parts as rows on hairlines.
 
+**As built in Phase 7 (2026-11-19), where it differs from §6.10–§6.18 above:**
+
+- **Recommenders' status line has five stops**, not four: the code has five statuses (not
+  invited, invited, opened, writing, submitted). The words under the line are the existing
+  status line with its date ("Invited 12 Oct"); the tick under the current stop is hidden so the
+  peak stands alone.
+- **The recommender detail keeps its 248 px side list from `lg`** (not a 280 px column from `xl`),
+  with a 2 px `--text` rule on the current person; the name is `display-3` with the status line at
+  320 px beside it.
+- **The portal has no sticky submit**: letters save as they are typed and "submitted" is a
+  per-school checkbox, so there is nothing to pin to the foot of a phone. The answer and note
+  fields are `.portal-field` (Source Serif 18 px / 1.6, 360 px for a letter, 200 px for a note).
+- **Profile Read citations are named, not coded**: `EvidenceLink` keeps its titles ("The
+  night-shift fix", "2 stories") in Geist Mono 12 px `--text-80` with a dotted underline. A
+  superscript code would hide what a claim rests on; brass stays off links. In the thin state
+  the lead is left out (it would repeat the page's line), and on phones the lens track is 160 px
+  so it reads as a gauge, not another hairline. The "new read" mark is set on the sheet in a
+  layout effect, from `sessionStorage`, keyed on the read's version.
+- **The lens heading keeps its source order** ("Leadership developing", which the existing test
+  pins); the level shows above the name through `flex-col-reverse`.
+- **The Dossier's canvas constellation is deleted** (`dossier/constellation.tsx`,
+  `constellation-view.tsx`, `layoutConstellation`, `nodeInDirection`); `dossier/layout.ts` keeps
+  only `orderEras()`. Undated eras (childhood, college, "Undated") come before dated ones, as the
+  old ordering did. Filters are native selects sized to their choice (`field-sizing: content`,
+  max 240 px). Timeline · List carries the chosen half's fill without a slide (two words of
+  different widths). The Voice tab's line is `dossier/voice-line.tsx` (560 × 64, phrased by pause
+  rhythm as well as pitch, range and pace).
+- **Settings' Voice section has no hue picker**: the hue lives in the Dossier, and the voice form
+  holds read-aloud, the interviewer's voice and speed (now chips over native radios) and the
+  language. Empty live regions take no room.
+- **Connect's people strip is still**: the 90 s marquee is gone (nothing in the background
+  moves); it is one row that scrolls sideways, focusable for the keyboard. The match lines'
+  brass text moved to `--text-soft`.
+- **Résumé**: the built résumé rises once per visit as the page enters (not only after a build;
+  telling the two apart needs state the page doesn't keep). The page is US Letter-wide (816 px)
+  but not fixed to the page's aspect ratio, so a long résumé is never cut.
+- **The Interview still's transcript** runs on as one paragraph under 640 px.
+- **Sample routes**: `/dossier/sample`, `/profile-read/sample` (gated like Phase 6's, inside the
+  casing) and `/r/sample` (gated, outside it), in `shoot.mjs`.
+
 ---
 
 ## 7. Signature moments
@@ -1856,7 +1896,7 @@ One per page. Everything else on the page reveals quietly (§2.10) or doesn't mo
 | `/schools/[id]/preview`     | Connectors draw from each story to the deliverable it feeds                                            | 0 beyond the shared reveal observer                             | CSS, 900 ms, 80 ms apart                                      |
 | `/schools/[id]/unlock`      | **The pack assembles**: 1, 5 or 10 small sheets deal into the total row as the plan is chosen          | ≤ 0.5 KB (in the existing plan picker)                          | CSS, 260 ms each, 30–140 ms apart, on a pointer choice only   |
 | `/workspace/[id]`           | **Your own words light up as yours**: the marks sweep in sentence by sentence (pointer only)           | 0 new (existing your-words view)                                | CSS `background-size`, 400 ms, 40 ms apart, first eight       |
-| `/recommenders`             | Each person's status line draws to its stop                                                            | 0                                                               | CSS, 600 ms                                                   |
+| `/recommenders`             | Each person's status line draws to its stop and the peak rises                                         | 0                                                               | CSS, 600 + 300 ms, rows 70–210 ms apart                       |
 | `/recommenders/[id]`        | The brief sheet sets: headings first, then lines                                                       | 0                                                               | CSS, 60 ms apart                                              |
 | `/r/[token]`                | The greeting sets in italic, once                                                                      | 0                                                               | CSS, 800 ms                                                   |
 | `/resume`                   | The built résumé sheet rises into place                                                                | 0                                                               | CSS, `drift`                                                  |

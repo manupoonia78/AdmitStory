@@ -19,7 +19,10 @@ export function SettingsSection({
   className?: string;
 }) {
   return (
-    <section aria-labelledby={id} className={cx("flex flex-col border-t border-edge py-10", className)}>
+    <section
+      aria-labelledby={id}
+      className={cx("flex flex-col border-t border-edge py-10", className)}
+    >
       <h2 id={id} className="label">
         {title}
       </h2>

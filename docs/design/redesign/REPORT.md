@@ -744,3 +744,78 @@ overflow at 375; no console errors on the real routes. Gates: typecheck, lint, b
 - The Recommenders and Résumé tabs inside a school: in the new frame, but their documents are
   Phase 7's, and locally they redirect to the kit page.
 - The motion was judged from timed frames and computed styles, not watched at speed by a person.
+
+## Phase 7: the rest of the app (2026-11-19) · done
+
+Spec first (SPEC §6.10–§6.18 at full values), then built, shot in Day and Night at 1440, 390 and
+375 and with reduced motion, scored, fixed and re-shot. Emil Kowalski's skills (`emil-design-eng`,
+`animate`, `choreograph`, `mobile-native`) were loaded and followed: every moment is a one-shot
+CSS keyframe under `data-motion="on"`, staggers shrink, exits are instant, hover is gated, presses
+scale, and nothing in the background moves (Connect's marquee went).
+
+**Shared states.** Empty is the Voiceline lying flat with one small rise at its end, a title and
+one action; no boxes, no illustrations. A new `(app)/loading.tsx` shows hairlines where the real
+lines will sit, only after 300 ms; a new `(app)/error.tsx` keeps the casing and shows a line
+broken in the middle with "Try again".
+
+**Dossier.** The Stories tab is the applicant's life as a **timeline**: one hairline, an era per
+column ("Before college", "College", "2023"…), and each chapter a card under its era with its
+context, status and the themes found. The chosen card's era gets the brass peak; the line draws
+and the eras arrive as it passes them. On phones the line runs down the left. The canvas
+constellation and its layout code are deleted. Facts sit on hairlines, the positioning line is
+shown on a small sheet, and the Voice tab draws the applicant's still line instead of the orb.
+
+- `shots/after/dossier-sample-1440.jpg`, `dossier-sample-1440-night.jpg`, `dossier-sample-390.jpg`
+- `shots/after/dossier-1440.jpg` (the real route locally: the empty state)
+
+**Profile Read.** One sheet of paper. It opens with the read in a sentence in Source Serif italic
+(set word by word once per new read), then the four lenses as a table on hairlines with a gauge
+each and the stories as links into the evidence drawer, then each lens: what helps and what may
+raise doubts side by side, what to do as rows with their time in mono. The onward card sits under
+the sheet. The ring dial leaves the page.
+
+- `shots/after/profile-read-sample-1440-full.jpg`, `profile-read-sample-390-full.jpg`,
+  `profile-read-390-full.jpg` (thin)
+
+**Recommenders.** Rows on hairlines, each with its status as a five-stop line and the peak on the
+current stop (drawn once per visit). The detail page has the same line beside the name, text tabs
+with a rule, and the brief on a paper sheet whose groups set heading first.
+
+- `shots/after/recommenders-1440.jpg`, `recommender-1440.jpg`
+
+**The portal.** Always paper, whatever the recommender's theme, with its own browser colour: one
+sheet on the desk from 640 px, the paper is the screen on a phone. The greeting in Source Serif
+italic sets once; the schools and dates in mono; sections on hairlines; large reading-face fields
+for notes and the letter.
+
+- `shots/after/portal-sample-1440.jpg`, `portal-sample-390.jpg`, `portal-sample-390-night.jpg`
+  (paper in Night too), `portal-resend-390.jpg`, `portal-closed-390.jpg`
+
+**Résumé, Connect, Settings.** Résumé: the narrative card and "Build it from" as option cards; the
+built résumé is a sheet that rises once. Connect (closed) keeps its match illustration, now on the
+system, with a still people strip. Settings, Privacy and Passkeys: one column of sections on
+hairlines with label heads; the theme switch sits beside a small sheet that turns with it; radios
+became chips.
+
+**Interview and Tracker.** Interview is a still of the room on an always-Night frame labelled
+"Preview · not available yet": a fictional question, four lines of transcript, the timer ring
+drawn to 0:42 of 2:00, the silver line where the interviewer spoke, then the honest promise and
+the four parts. The Tracker keeps its coming-soon state on the shared page's new type.
+
+- `shots/after/interview-1440.jpg`, `interview-390-full-night.jpg`, `tracker-1440.jpg`
+
+**Scores** (PROGRESS "Scores"): states 8.0, Dossier 8.2, Profile Read 8.4, Recommenders 8.1,
+portal 8.6, Résumé 8.0, Connect 8.2, Settings 8.0, Interview 8.6, **Tracker 7.8** (under the bar:
+a coming-soon page with no visual of its own; giving it one is Manu's call).
+
+**Measured:** first-load JS 139.1–153.5 KB of 160 (`/settings` heaviest); axe 0 violations on
+every Phase 7 route, Day and Night, 1440 and 390; no 375 px overflow, console errors, failed
+requests or hydration warnings; unit tests 2,447 of 2,447; typecheck, lint, build, `bundle:check`
+and format check green.
+
+**Could not do / not seen:** the Dossier's drag-to-slot idea is a still in SPEC §6.11 only (new
+behaviour, needs a yes and a backend change). The populated Dossier, Profile Read and portal were
+seen on gated sample routes (`/dossier/sample`, `/profile-read/sample`, `/r/sample`), not with
+real data: locally there are no stories and no sent invitation. The open Connect screens
+(locked, unlocked) are unreachable while Connect is closed and were not redesigned. The Profile
+Read's word-by-word lead was checked in code and frames, not watched at speed by a person.

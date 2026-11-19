@@ -1,34 +1,15 @@
 @import "tailwindcss";
 @import "@admitstory/ui/theme.css";
 
-/* The Connect carousel (components/people-carousel.tsx): one row drawn twice, slid by half. */
+/* The Connect strip (components/people-carousel.tsx): one still row that scrolls sideways. */
 .people-strip {
-  overflow: hidden;
-  mask-image: linear-gradient(to right, transparent, #000 6%, #000 94%, transparent);
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  scrollbar-width: none;
+  mask-image: linear-gradient(to right, transparent, #000 4%, #000 96%, transparent);
 }
-.people-track {
-  animation: people-slide 90s linear infinite;
-}
-.people-strip:hover .people-track,
-.people-strip:focus-within .people-track {
-  animation-play-state: paused;
-}
-@keyframes people-slide {
-  to {
-    transform: translate3d(-50%, 0, 0);
-  }
-}
-@media (prefers-reduced-motion: reduce) {
-  .people-strip {
-    mask-image: none;
-    overflow-x: auto;
-  }
-  .people-track {
-    animation: none;
-  }
-  .people-row[aria-hidden] {
-    display: none;
-  }
+.people-strip::-webkit-scrollbar {
+  display: none;
 }
 
 /*

@@ -1,0 +1,13 @@
+/*
+ * Résumé (SPEC §6.15). The moment: the built résumé rises into place once as the page enters
+ * (opacity and a 16 px rise, 600 ms, --ease-rise), only under data-motion="on".
+ */
+:root[data-motion="on"] .resume-sheet {
+  animation: resume-rise 600ms var(--ease-rise) 150ms both;
+}
+@keyframes resume-rise {
+  from {
+    opacity: 0;
+    translate: 0 16px;
+  }
+}

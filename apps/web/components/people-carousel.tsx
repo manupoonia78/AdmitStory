@@ -1,19 +1,14 @@
-// The Connect carousel: illustrative portraits of the kinds of people Connect will match you
-// with (lib/connect/illustrative.ts). Server-safe and CSS only (globals.css .people-strip): one
-// row drawn twice and slid by half its width, paused on hover or focus, a still wrapped row under
-// reduced motion. The second copy is hidden from assistive technology. Images load lazily, so
-// the strip costs nothing until it is near the screen.
+// The Connect strip: illustrative portraits of the kinds of people Connect will match you with
+// (lib/connect/illustrative.ts). Server-safe and still (SPEC §6.16: nothing in the background
+// moves): one row that scrolls sideways under a finger or trackpad, with a fade at the edges
+// (globals.css .people-strip). Images load lazily, so the strip costs nothing until it is near.
 
 import { cx } from "@admitstory/ui";
 import { ILLUSTRATIVE_NOTE, ILLUSTRATIVE_PEOPLE } from "@/lib/connect/illustrative";
 
-function Row({ hidden = false }: { hidden?: boolean }) {
+function Row() {
   return (
-    <ul
-      aria-hidden={hidden || undefined}
-      role={hidden ? undefined : "list"}
-      className="people-row flex shrink-0 gap-4 pe-4 sm:gap-5 sm:pe-5"
-    >
+    <ul role="list" className="people-row flex shrink-0 gap-4 px-5 sm:gap-5 sm:px-10 lg:px-14">
       {ILLUSTRATIVE_PEOPLE.map((person) => (
         <li key={person.src} className="w-44 shrink-0 sm:w-52">
           <figure className="flex flex-col gap-3">
@@ -26,10 +21,10 @@ function Row({ hidden = false }: { hidden?: boolean }) {
               height={500}
               loading="lazy"
               decoding="async"
-              className="aspect-[4/5] w-full rounded-plane bg-depth object-cover grayscale-[15%]"
+              className="aspect-[4/5] w-full rounded-card bg-depth object-cover grayscale-[15%]"
             />
             <figcaption className="flex flex-col gap-1">
-              <span className="meta">{person.role}</span>
+              <span className="label">{person.role}</span>
               <span className="text-sm leading-snug text-text">{person.line}</span>
             </figcaption>
           </figure>
@@ -42,13 +37,11 @@ function Row({ hidden = false }: { hidden?: boolean }) {
 export function PeopleCarousel({ className, note = true }: { className?: string; note?: boolean }) {
   return (
     <div className={cx("flex flex-col gap-5", className)}>
-      <div className="people-strip">
-        <div className="people-track flex w-max">
-          <Row />
-          <Row hidden />
-        </div>
+      {/* Focusable, so a keyboard can scroll it (WCAG 2.1.1). */}
+      <div className="people-strip" tabIndex={0} role="region" aria-label="Illustrative people">
+        <Row />
       </div>
-      {note ? <p className="meta px-4 sm:px-8 lg:px-12">{ILLUSTRATIVE_NOTE}</p> : null}
+      {note ? <p className="label px-5 sm:px-10 lg:px-14">{ILLUSTRATIVE_NOTE}</p> : null}
     </div>
   );
 }

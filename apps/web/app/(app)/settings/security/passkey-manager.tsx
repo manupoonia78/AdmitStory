@@ -112,7 +112,10 @@ export function PasskeyManager({
   }
 
   return (
-    <section aria-labelledby="your-passkeys" className="flex flex-col gap-4 border-t border-edge py-10">
+    <section
+      aria-labelledby="your-passkeys"
+      className="flex flex-col gap-4 border-t border-edge py-10"
+    >
       <div className="flex flex-wrap items-center justify-between gap-3">
         <h2 id="your-passkeys" tabIndex={-1} className="label outline-none">
           Your passkeys

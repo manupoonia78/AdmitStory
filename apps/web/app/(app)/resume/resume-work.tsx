@@ -29,7 +29,7 @@ async function errorOf(response: Response | null, fallback: string): Promise<str
 }
 
 const field =
-  "w-full rounded-control border border-control bg-depth px-3 py-2 text-text placeholder:text-text-soft focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-text";
+  "w-full rounded-control border border-control bg-field px-4 py-3 text-base text-text placeholder:text-text-faint focus-visible:border-text focus-visible:outline-2 focus-visible:outline-offset-3 focus-visible:outline-text";
 
 /* The narrative ---------------------------------------------------------------------------------- */
 
@@ -43,7 +43,7 @@ function NarrativeFields({
   compact?: boolean;
 }) {
   const id = useId();
-  const label = compact ? "text-sm font-medium text-text" : "font-medium text-text";
+  const label = compact ? "text-sm font-medium text-text" : "label";
   return (
     <div className="flex flex-col gap-4">
       <div className="flex flex-col gap-1.5">
@@ -95,13 +95,11 @@ function ResumePaper({ doc }: { doc: ResumeDoc }) {
   return (
     <article
       aria-label="Your résumé"
-      className="mx-auto flex w-full max-w-[46rem] flex-col gap-6 rounded-plane border border-edge bg-depth px-6 py-10 shadow-[0_1px_0_var(--color-edge)] sm:px-12 sm:py-12"
+      className="resume-sheet mx-auto flex w-full max-w-[51rem] flex-col gap-6 rounded-paper bg-sheet px-6 py-10 font-reading text-sheet-text shadow-paper sm:px-14 sm:py-14"
     >
       <header className="flex flex-col items-center gap-1.5 text-center">
         {doc.header.name ? (
-          <h2 className="font-display text-[2rem] leading-none tracking-[-0.015em] text-text">
-            {doc.header.name}
-          </h2>
+          <h2 className="font-reading text-[2rem] leading-none text-text">{doc.header.name}</h2>
         ) : null}
         {doc.header.lines.length > 0 ? (
           <p className="text-sm text-text-soft">{doc.header.lines.join("  ·  ")}</p>
@@ -109,18 +107,18 @@ function ResumePaper({ doc }: { doc: ResumeDoc }) {
       </header>
       {doc.sections.map((section) => (
         <section key={section.id} className="flex flex-col gap-3">
-          <h3 className="meta border-b border-edge pb-1.5 text-text">{section.heading}</h3>
+          <h3 className="label border-b border-edge pb-1.5 text-text">{section.heading}</h3>
           {section.roles.map((role) => (
             <div key={role.id} className="flex flex-col gap-1">
               <div className="flex flex-wrap items-baseline justify-between gap-x-4">
-                <p className="font-semibold text-text">
+                <p className="font-ui text-ui text-text">
                   {role.organisation}
                   {role.location ? (
                     <span className="font-normal text-text-soft">, {role.location}</span>
                   ) : null}
                 </p>
                 {role.dates ? (
-                  <p className="text-sm tabular-nums text-text-soft">{role.dates}</p>
+                  <p className="font-mono text-[12px] tabular-nums text-text-soft">{role.dates}</p>
                 ) : null}
               </div>
               {role.title ? <p className="italic text-text">{role.title}</p> : null}
@@ -238,7 +236,7 @@ export function ResumeWork({
     return (
       <div className="mx-auto flex w-full max-w-3xl flex-col gap-4 px-5 py-14 sm:px-10">
         <p className="eyebrow">Résumé</p>
-        <h1 className="text-display text-text">
+        <h1 className="text-display-2 text-text">
           A résumé that tells <em>your</em> story
         </h1>
         <p className="text-lg text-text-soft">
@@ -255,7 +253,7 @@ export function ResumeWork({
 
   const sources = (
     <fieldset className="flex flex-col gap-2">
-      <legend className="mb-2 font-medium text-text">Build it from</legend>
+      <legend className="label mb-3">Build it from</legend>
       {(
         [
           ["dossier", "My stories", "Everything you've told Story Studio and your dossier."],
@@ -271,8 +269,10 @@ export function ResumeWork({
       ).map(([value, title, hint]) => (
         <label
           key={value}
-          className={`flex cursor-pointer gap-3 rounded-control border px-3.5 py-3 transition-colors ${
-            from === value ? "border-text bg-veil" : "border-edge hover:border-text-soft"
+          className={`flex cursor-pointer gap-3 rounded-card border p-5 transition-colors duration-200 active:scale-[0.99] ${
+            from === value
+              ? "border-text bg-depth shadow-[inset_0_0_0_0.5px_var(--text)]"
+              : "border-edge hover:border-control"
           } ${value === "upload" && !view.upload ? "opacity-60" : ""}`}
         >
           <input
@@ -285,7 +285,7 @@ export function ResumeWork({
             className="mt-1 size-4 accent-text"
           />
           <span className="flex flex-col">
-            <span className="text-text">{title}</span>
+            <span className="text-ui text-text">{title}</span>
             <span className="text-sm text-text-soft">{hint}</span>
           </span>
         </label>
@@ -305,6 +305,7 @@ export function ResumeWork({
           ref={fileRef}
           type="file"
           accept=".pdf,.docx,.doc,.txt"
+          aria-label="Upload a résumé"
           className="sr-only"
           tabIndex={-1}
           onChange={(e) => {
@@ -349,7 +350,7 @@ export function ResumeWork({
         <div className="mx-auto flex w-full max-w-5xl flex-col gap-10 px-2 py-8 sm:px-6 sm:py-10">
           <header className="flex flex-col gap-4">
             <p className="eyebrow">Résumé</p>
-            <h1 className="text-display text-text">
+            <h1 className="text-display-2 text-text">
               What story should your résumé <em>tell</em>?
             </h1>
             <p className="max-w-essay text-lg text-text-soft">
@@ -359,7 +360,10 @@ export function ResumeWork({
             </p>
           </header>
           <div className="grid gap-8 lg:grid-cols-[minmax(0,1fr)_minmax(0,22rem)] lg:gap-12">
-            <section aria-label="Your narrative" className="plane flex flex-col gap-5 p-6 sm:p-8">
+            <section
+              aria-label="Your narrative"
+              className="card flex flex-col gap-5 self-start p-6 sm:p-8"
+            >
               <NarrativeFields narrative={narrative} onChange={setNarrative} />
               {view.narrativeSet ? null : (
                 <p className="text-sm text-text-soft">
@@ -396,9 +400,7 @@ export function ResumeWork({
       header={
         header ?? (
           <header className="flex flex-wrap items-baseline justify-between gap-3 px-1 pt-1">
-            <h1 className="font-display text-[1.75rem] leading-none tracking-[-0.015em] text-text">
-              Your résumé
-            </h1>
+            <h1 className="text-display-3 text-text">Your résumé</h1>
             {limitLine ? <p className="meta text-text-soft">{limitLine}</p> : null}
           </header>
         )
@@ -434,7 +436,7 @@ export function ResumeWork({
               >
                 {working === "build" ? "Rebuilding…" : "Rebuild with this story"}
               </Button>
-              <p className="text-xs text-text-soft">The chat keeps Undo for the old version.</p>
+              <p className="text-[12px] text-text-soft">The chat keeps Undo for the old version.</p>
             </div>
           </details>
         </div>
@@ -462,7 +464,7 @@ export function ResumeWork({
           <ResumePaper doc={view.doc} />
           {view.asks.length > 0 ? (
             <section className="mx-auto flex w-full max-w-[46rem] flex-col gap-3 border-l-2 border-needs pl-4">
-              <h2 className="font-medium text-text">Details that would make it stronger</h2>
+              <h2 className="text-ui text-text">Details that would make it stronger</h2>
               <ul className="flex flex-col gap-1.5 text-text-soft">
                 {view.asks.map((ask) => (
                   <li key={ask}>{ask}</li>

@@ -34,7 +34,10 @@ export function ComingSoonPage({ title, headline, status, line, parts }: ComingS
         >
           {headline}
         </p>
-        <p className="enter mt-4 max-w-[56ch] text-lg text-text-80" style={{ "--i": 2 } as CSSProperties}>
+        <p
+          className="enter mt-4 max-w-[56ch] text-lg text-text-80"
+          style={{ "--i": 2 } as CSSProperties}
+        >
           {line}
         </p>
       </header>

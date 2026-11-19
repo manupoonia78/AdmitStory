@@ -22,7 +22,6 @@ export const metadata: Metadata = {
 // A link that no longer opens says which kind of closed it is and nothing else, and offers a
 // fresh one where a fresh one can exist.
 
-
 export default async function Page(context: { params: Promise<{ token: string }> }) {
   let view;
   try {

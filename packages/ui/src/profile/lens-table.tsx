@@ -31,7 +31,7 @@ export function LensTable({ readings, onOpenStory, className }: LensTableProps) 
           </span>
           <span className="flex flex-col gap-2 sm:pt-1">
             <span className="label hidden sm:block">{LENS_LEVEL_WORDS[arc.level]}</span>
-            <span aria-hidden className="relative block h-[1.25px] w-full bg-edge-strong">
+            <span aria-hidden className="relative block h-[1.25px] w-40 bg-edge-strong sm:w-full">
               <span
                 className="lens-run absolute inset-y-0 left-0 origin-left bg-text"
                 style={

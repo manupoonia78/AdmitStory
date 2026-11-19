@@ -227,8 +227,11 @@ export function VoiceSettingsForm({
         </p>
       </div>
 
-      <StatusMessage message={status} />
-      <AlertMessage message={error} />
+      {/* The live regions stay mounted (so they announce) but take no room while empty. */}
+      <div className="-mt-6 flex flex-col [&>*:not(:empty)]:mt-6">
+        <StatusMessage message={status} />
+        <AlertMessage message={error} />
+      </div>
     </SettingsSection>
   );
 }

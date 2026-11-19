@@ -55,12 +55,18 @@ export default async function Page() {
         </p>
       </header>
 
-      <figure className="room-still" data-theme="night" aria-label="A preview of the interview room">
+      <figure
+        className="room-still"
+        data-theme="night"
+        aria-label="A preview of the interview room"
+      >
         <figcaption className="room-still-tag label">{ROOM.label}</figcaption>
         <div className="room-still-body" aria-hidden="true" inert>
           <div className="min-w-0">
             <p className="label">{ROOM.from}</p>
-            <p className="mt-4 max-w-[22ch] text-display-3 text-balance text-text">{ROOM.question}</p>
+            <p className="mt-4 max-w-[22ch] text-display-3 text-balance text-text">
+              {ROOM.question}
+            </p>
             <div className="room-still-transcript mt-8">
               {ROOM.transcript.map((line) => (
                 <p key={line}>{line}</p>

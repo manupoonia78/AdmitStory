@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { requireOnboardedUser } from "@/lib/app-user";
 import { loadResumeWork } from "@/lib/resume/view";
 import { ResumeWorkHost } from "./resume-work-host";
+import "./resume.css";
 
 export const metadata: Metadata = { title: "Your résumé" };
 

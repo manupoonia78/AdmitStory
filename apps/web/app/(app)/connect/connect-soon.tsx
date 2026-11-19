@@ -33,7 +33,7 @@ export function ConnectSoon() {
       >
         <div className="flex flex-col gap-6 lg:col-span-12">
           <p className="cs-fade label inline-flex h-7 items-center gap-2 self-start rounded-full border border-edge px-3">
-            <span aria-hidden className="size-1.5 rounded-full bg-accent" />
+            <span aria-hidden className="size-1.5 rounded-full bg-text-soft" />
             {COPY.title} · {COPY.status}
           </p>
           {/* Two lines from sm up: the plain line, then the italic one. */}
@@ -63,7 +63,7 @@ export function ConnectSoon() {
           </div>
         </div>
 
-        <figure className="plane m-0 p-5 sm:p-7 lg:col-span-7">
+        <figure className="card m-0 p-5 sm:p-7 lg:col-span-7">
           <figcaption className="label">{match.label}</figcaption>
           <div className="mt-6 grid gap-6 sm:mt-8 sm:grid-cols-[minmax(0,9.5rem)_2.75rem_minmax(0,1fr)] sm:gap-0">
             <div
@@ -136,7 +136,7 @@ export function ConnectSoon() {
                   <span className="flex min-w-0 flex-col gap-1">
                     <span className="label">{person.role}</span>
                     <span className="text-sm leading-snug text-text">{person.line}</span>
-                    <span className="font-mono text-[0.75rem] leading-[1.125rem] text-accent">
+                    <span className="font-mono text-[0.75rem] leading-[1.125rem] text-text-soft">
                       {person.shared}
                     </span>
                   </span>
@@ -148,37 +148,32 @@ export function ConnectSoon() {
       </section>
 
       <section aria-labelledby="connect-soon-people" className="flex flex-col gap-6">
-        <h2
-          id="connect-soon-people"
-          className="mx-auto w-full max-w-6xl px-5 font-display text-[1.75rem] leading-tight text-text sm:px-10"
-        >
+        <h2 id="connect-soon-people" className="label mx-auto w-full max-w-6xl px-5 sm:px-10">
           {COPY.peopleHeading}
         </h2>
         <PeopleCarousel note={false} />
-        <p className="meta mx-auto w-full max-w-6xl px-5 sm:px-10">{ILLUSTRATIVE_NOTE}</p>
+        <p className="label mx-auto w-full max-w-6xl px-5 sm:px-10">{ILLUSTRATIVE_NOTE}</p>
       </section>
 
       <section
         aria-labelledby="connect-soon-how"
         className="mx-auto flex w-full max-w-6xl flex-col gap-6 px-5 sm:px-10"
       >
-        <h2 id="connect-soon-how" className="font-display text-[1.75rem] leading-tight text-text">
+        <h2 id="connect-soon-how" className="label">
           How it will work
         </h2>
-        <ol className="grid gap-px overflow-hidden rounded-plane border border-edge bg-edge lg:grid-cols-3">
+        <ol className="grid border-t border-edge lg:grid-cols-3 lg:gap-x-10">
           {COPY.parts.map((part, index) => (
             <li
               key={part.name}
-              className="flex min-h-40 flex-col justify-between gap-8 bg-depth p-7"
+              className="grid grid-cols-[2.5rem_minmax(0,1fr)] gap-x-2 border-b border-edge py-6"
             >
-              <span aria-hidden className="meta">
+              <span aria-hidden className="pt-1 font-mono text-[12px] text-text-label">
                 {String(index + 1).padStart(2, "0")}
               </span>
-              <span className="flex flex-col gap-2">
-                <span className="font-display text-[1.5rem] leading-tight text-text">
-                  {part.name}
-                </span>
-                <span className="text-text-soft">{part.line}</span>
+              <span className="flex flex-col gap-1">
+                <span className="text-title text-text">{part.name}</span>
+                <span className="text-sm text-text-soft">{part.line}</span>
               </span>
             </li>
           ))}

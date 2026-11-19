@@ -3,68 +3,55 @@
   "out": "after",
   "theme": "day",
   "reduced": false,
-  "takenAt": "2026-11-18T06:10:10.728Z",
+  "takenAt": "2026-11-19T12:08:10.928Z",
   "routes": [
     {
-      "name": "schools",
-      "path": "/schools",
+      "name": "portal-resend",
+      "path": "/r",
       "consoleErrors": [],
       "failedRequests": [],
       "hydration": [],
       "status": 200,
-      "finalPath": "/schools",
+      "finalPath": "/r",
       "overflow375": {
         "px": 0,
         "offenders": []
       }
     },
     {
-      "name": "school",
-      "path": "/schools/a5e8f815-a79b-418d-b81c-c2dac801b2ea",
+      "name": "portal-closed",
+      "path": "/r/not-a-real-link",
       "consoleErrors": [],
       "failedRequests": [],
       "hydration": [],
       "status": 200,
-      "finalPath": "/schools/a5e8f815-a79b-418d-b81c-c2dac801b2ea/unlock",
+      "finalPath": "/r/not-a-real-link",
       "overflow375": {
         "px": 0,
         "offenders": []
       }
     },
     {
-      "name": "school-unlocked",
-      "path": "/schools/0b168856-2e13-4b34-ba24-e5c837ac146f",
+      "name": "dossier",
+      "path": "/dossier",
       "consoleErrors": [],
       "failedRequests": [],
       "hydration": [],
       "status": 200,
-      "finalPath": "/schools/0b168856-2e13-4b34-ba24-e5c837ac146f",
+      "finalPath": "/dossier",
       "overflow375": {
         "px": 0,
         "offenders": []
       }
     },
     {
-      "name": "school-preview",
-      "path": "/schools/a5e8f815-a79b-418d-b81c-c2dac801b2ea/preview",
+      "name": "profile-read",
+      "path": "/profile-read",
       "consoleErrors": [],
       "failedRequests": [],
       "hydration": [],
       "status": 200,
-      "finalPath": "/schools/a5e8f815-a79b-418d-b81c-c2dac801b2ea/preview",
-      "overflow375": {
-        "px": 0,
-        "offenders": []
-      }
-    },
-    {
-      "name": "school-unlock",
-      "path": "/schools/a5e8f815-a79b-418d-b81c-c2dac801b2ea/unlock",
-      "consoleErrors": [],
-      "failedRequests": [],
-      "hydration": [],
-      "status": 200,
-      "finalPath": "/schools/a5e8f815-a79b-418d-b81c-c2dac801b2ea/unlock",
+      "finalPath": "/profile-read",
       "overflow375": {
         "px": 0,
         "offenders": []
@@ -97,103 +84,169 @@
       }
     },
     {
-      "name": "kit",
-      "path": "/kits/26d38c41-5b16-4b44-8f66-df9b7dbe82ad",
+      "name": "recommenders",
+      "path": "/recommenders",
       "consoleErrors": [],
       "failedRequests": [],
       "hydration": [],
       "status": 200,
-      "finalPath": "/schools/0b168856-2e13-4b34-ba24-e5c837ac146f",
+      "finalPath": "/recommenders",
       "overflow375": {
         "px": 0,
         "offenders": []
       }
     },
     {
-      "name": "workspace",
-      "path": "/workspace/61feecb5-4c8a-460e-b71c-5cfc2f34febe",
+      "name": "recommender",
+      "path": "/recommenders/f3e449cb-92f0-4712-96c9-55798a416661",
       "consoleErrors": [],
       "failedRequests": [],
       "hydration": [],
       "status": 200,
-      "finalPath": "/workspace/61feecb5-4c8a-460e-b71c-5cfc2f34febe",
+      "finalPath": "/recommenders/f3e449cb-92f0-4712-96c9-55798a416661",
       "overflow375": {
         "px": 0,
         "offenders": []
       }
     },
     {
-      "name": "ref-prototype-workspace",
-      "path": "/prototype/workspace",
+      "name": "resume",
+      "path": "/resume",
       "consoleErrors": [],
       "failedRequests": [],
       "hydration": [],
       "status": 200,
-      "finalPath": "/prototype/workspace",
+      "finalPath": "/resume",
       "overflow375": {
         "px": 0,
         "offenders": []
       }
     },
     {
-      "name": "ref-prototype-kit",
-      "path": "/prototype/kit",
+      "name": "resume-review",
+      "path": "/resume/review",
       "consoleErrors": [],
       "failedRequests": [],
       "hydration": [],
       "status": 200,
-      "finalPath": "/prototype/kit",
+      "finalPath": "/resume/review",
       "overflow375": {
         "px": 0,
         "offenders": []
       }
     },
     {
-      "name": "workspace-sample",
-      "path": "/workspace/sample",
-      "consoleErrors": [
-        "Failed to load resource: the server responded with a status of 400 (Bad Request)",
-        "Failed to load resource: the server responded with a status of 400 (Bad Request)"
-      ],
-      "failedRequests": [
-        "400 /api/chat?thread=deliverable%3Asample",
-        "400 /api/chat?thread=deliverable%3Asample"
-      ],
-      "hydration": [],
-      "status": 200,
-      "finalPath": "/workspace/sample",
-      "overflow375": {
-        "px": 0,
-        "offenders": []
-      }
-    },
-    {
-      "name": "school-preview-sample",
-      "path": "/schools/sample/preview",
+      "name": "connect",
+      "path": "/connect",
       "consoleErrors": [],
       "failedRequests": [],
       "hydration": [],
       "status": 200,
-      "finalPath": "/schools/sample/preview",
+      "finalPath": "/connect",
       "overflow375": {
         "px": 0,
         "offenders": []
       }
     },
     {
-      "name": "kit-sample",
-      "path": "/schools/sample",
-      "consoleErrors": [
-        "Failed to load resource: the server responded with a status of 404 (Not Found)",
-        "Failed to load resource: the server responded with a status of 404 (Not Found)"
-      ],
-      "failedRequests": [
-        "404 /api/kits/sample-kit/events",
-        "404 /api/kits/sample-kit/events"
-      ],
+      "name": "settings",
+      "path": "/settings",
+      "consoleErrors": [],
+      "failedRequests": [],
       "hydration": [],
       "status": 200,
-      "finalPath": "/schools/sample",
+      "finalPath": "/settings",
+      "overflow375": {
+        "px": 0,
+        "offenders": []
+      }
+    },
+    {
+      "name": "settings-privacy",
+      "path": "/settings/privacy",
+      "consoleErrors": [],
+      "failedRequests": [],
+      "hydration": [],
+      "status": 200,
+      "finalPath": "/settings/privacy",
+      "overflow375": {
+        "px": 0,
+        "offenders": []
+      }
+    },
+    {
+      "name": "settings-security",
+      "path": "/settings/security",
+      "consoleErrors": [],
+      "failedRequests": [],
+      "hydration": [],
+      "status": 200,
+      "finalPath": "/settings/security",
+      "overflow375": {
+        "px": 0,
+        "offenders": []
+      }
+    },
+    {
+      "name": "interview",
+      "path": "/interview",
+      "consoleErrors": [],
+      "failedRequests": [],
+      "hydration": [],
+      "status": 200,
+      "finalPath": "/interview",
+      "overflow375": {
+        "px": 0,
+        "offenders": []
+      }
+    },
+    {
+      "name": "tracker",
+      "path": "/tracker",
+      "consoleErrors": [],
+      "failedRequests": [],
+      "hydration": [],
+      "status": 200,
+      "finalPath": "/tracker",
+      "overflow375": {
+        "px": 0,
+        "offenders": []
+      }
+    },
+    {
+      "name": "dossier-sample",
+      "path": "/dossier/sample",
+      "consoleErrors": [],
+      "failedRequests": [],
+      "hydration": [],
+      "status": 200,
+      "finalPath": "/dossier/sample",
+      "overflow375": {
+        "px": 0,
+        "offenders": []
+      }
+    },
+    {
+      "name": "profile-read-sample",
+      "path": "/profile-read/sample",
+      "consoleErrors": [],
+      "failedRequests": [],
+      "hydration": [],
+      "status": 200,
+      "finalPath": "/profile-read/sample",
+      "overflow375": {
+        "px": 0,
+        "offenders": []
+      }
+    },
+    {
+      "name": "portal-sample",
+      "path": "/r/sample",
+      "consoleErrors": [],
+      "failedRequests": [],
+      "hydration": [],
+      "status": 200,
+      "finalPath": "/r/sample",
       "overflow375": {
         "px": 0,
         "offenders": []
