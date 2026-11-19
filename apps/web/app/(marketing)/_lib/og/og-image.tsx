@@ -52,7 +52,7 @@ async function fonts() {
   ];
 }
 
-/** The mark: the Voiceline making its peak (components/brand-mark.tsx), in a 24 box. */
+/** The mark: the Voiceline making its peak (BrandMark in @admitstory/ui), in a 24 box. */
 function Mark({ size }: { size: number }) {
   return (
     <svg width={size} height={size} viewBox="0 0 24 24" fill="none">

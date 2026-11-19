@@ -389,7 +389,9 @@ Made in Phase 6 by Claude while building, **not yet approved by Manu**:
 | 2026-11-18 | Brass removed from the preview's numbers, arrows and borders                                                                               | accent discipline (§2.1): brass is the primary fill, a live or "here" line, the caret                | §6.7       |
 | 2026-11-18 | Populated screens are checked through gated sample routes inside the casing, not a `/prototype/redesign` gallery                           | they render in the real shell, rail and fonts                                                        | §12        |
 
-Made in Phase 7 by Claude while building, **not yet approved by Manu**:
+Made in Phase 7 by Claude while building, **approved by Manu on 2026-11-19** (he left the calls to
+Claude on user-experience grounds; every row was kept as built, see "Answered by Manu
+(2026-11-19)" below):
 
 | Date       | Decision                                                                                                                               | Why                                                                                   | Spec  |
 | ---------- | -------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------- | ----- |
@@ -408,6 +410,22 @@ Made in Phase 7 by Claude while building, **not yet approved by Manu**:
 
 Approved, changed or rejected by Manu: Phase 1 was named (so the Phase 0 spec was accepted as the
 working basis). All of "Needs Manu" was answered on 2026-11-17, below.
+
+## Answered by Manu (2026-11-19)
+
+1. **Phase 7's decisions** (the table above): Manu: "do whatever you feel is better for the user
+   experience". Claude kept all twelve as built: the timeline replaces the constellation (eras
+   read in time order and scan sideways; the constellation was pretty but said nothing about
+   when), the Profile Read leads with its first "what your stories say about you" finding (the
+   read in one sentence before the detail), and the portal is always paper (recommenders are
+   outsiders writing a letter; a dark product shell would be strange to them). The two places
+   where the spec text had drifted from the build were corrected: §6.12's citations are named
+   in mono with a dotted underline (not "[S3]" codes), and §6.13's status line has five stops
+   (Not invited, Invited, Opened, In progress, Submitted), not four.
+2. **Dragging stories into school slots** (§6.11's proposal): **no** (Manu, 2026-11-19): "let AI
+   make the call; we don't want applicants choosing weaker stories for a particular school". The
+   planning step (`kit.positioning_filemap`) keeps choosing each essay's lead story. Not built,
+   and not to be proposed again; applicants steer after drafting, by choosing an angle.
 
 ## Answered by Manu (2026-11-17)
 
