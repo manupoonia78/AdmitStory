@@ -18,8 +18,10 @@ export const kitGenerateFn = inngest.createFunction(
     id: "kit-generate",
     name: "kit/generate",
     triggers: [kitGenerate],
-    // One kit at a time per applicant, and a global ceiling on concurrent kits (§12.4).
-    concurrency: [{ key: "event.data.userId", limit: 1 }, { limit: 20 }],
+    // One kit at a time per applicant, and a global ceiling on concurrent kits (§12.4). The
+    // ceiling must stay within the Inngest plan's concurrency limit (5 on the current plan):
+    // above it, Inngest refuses to sync the whole app and no function runs at all.
+    concurrency: [{ key: "event.data.userId", limit: 1 }, { limit: 5 }],
     // Enough retries to ride out a short kill-switch pause (15 minutes a retry).
     retries: 6,
     onFailure: async ({ event }) => {
